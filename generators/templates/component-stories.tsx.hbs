@@ -1,0 +1,21 @@
+import type { Meta, StoryObj } from '@storybook/svelte';
+
+import {{pascalCase name}} from './index.svelte';
+
+const meta = {
+  component: {{pascalCase name}},
+	tags: ['autodocs'],
+  parameters: {
+    layout: 'centered',
+  },
+  argTypes: {
+  },
+} satisfies Meta<{{pascalCase name}}>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Primary: Story = {
+  args: {
+  },
+};
