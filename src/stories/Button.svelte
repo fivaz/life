@@ -26,7 +26,7 @@
 
 <button
 	type="button"
-	class={['storybook-button', `storybook-button--${size}`, mode, 'w-full'].join(' ')}
+	class={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
 	{style}
 	on:click
 >
