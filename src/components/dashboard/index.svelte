@@ -92,8 +92,8 @@
 										<ul role="list" class="-mx-2 space-y-1">
 											{#each navigation as item (item.name)}
 												<li>
-													<a
-														href={item.href}
+													<button
+														on:click={() => console.log('implement going to ', item.href)}
 														class={classnames(
 															item.current
 																? 'bg-gray-50 text-indigo-600'
@@ -112,7 +112,7 @@
 															aria-hidden="true"
 														/>
 														{item.name}
-													</a>
+													</button>
 												</li>
 											{/each}
 										</ul>
@@ -122,8 +122,8 @@
 										<ul role="list" class="-mx-2 mt-2 space-y-1">
 											{#each teams as team (team.name)}
 												<li>
-													<a
-														href={team.href}
+													<button
+														on:click={() => console.log('implement going to ', team.href)}
 														class={classnames(
 															team.current
 																? 'bg-gray-50 text-indigo-600'
@@ -140,7 +140,7 @@
 															)}>{team.initial}</span
 														>
 														<span class="truncate">{team.name}</span>
-													</a>
+													</button>
 												</li>
 											{/each}
 										</ul>
@@ -171,8 +171,8 @@
 						<ul role="list" class="-mx-2 space-y-1">
 							{#each navigation as item (item.name)}
 								<li>
-									<a
-										href={item.href}
+									<button
+										on:click={() => console.log('implement going to ', item.href)}
 										class={classnames(
 											item.current
 												? 'bg-gray-50 text-indigo-600'
@@ -191,7 +191,7 @@
 											aria-hidden="true"
 										/>
 										{item.name}
-									</a>
+									</button>
 								</li>
 							{/each}
 						</ul>
@@ -201,8 +201,8 @@
 						<ul role="list" class="-mx-2 mt-2 space-y-1">
 							{#each teams as team (team.name)}
 								<li>
-									<a
-										href={team.href}
+									<button
+										on:click={() => console.log('implement going to ', team.href)}
 										class={team.current
 											? 'bg-gray-50 text-indigo-600'
 											: 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'}
@@ -216,14 +216,13 @@
 											)}>{team.initial}</span
 										>
 										<span class="truncate">{team.name}</span>
-									</a>
+									</button>
 								</li>
 							{/each}
 						</ul>
 					</li>
 					<li class="-mx-6 mt-auto">
-						<a
-							href="#"
+						<button
 							class="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50"
 						>
 							<img
@@ -233,7 +232,7 @@
 							/>
 							<span class="sr-only">Your profile</span>
 							<span aria-hidden="true">Tom Cook</span>
-						</a>
+						</button>
 					</li>
 				</ul>
 			</nav>
@@ -252,14 +251,14 @@
 			<Icon src={Bars3} theme="solid" class="h-6 w-6" aria-hidden="true" />
 		</button>
 		<div class="flex-1 text-sm font-semibold leading-6 text-gray-900">Dashboard</div>
-		<a href="#">
+		<button>
 			<span class="sr-only">Your profile</span>
 			<img
 				class="h-8 w-8 rounded-full bg-gray-50"
 				src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
 				alt=""
 			/>
-		</a>
+		</button>
 	</div>
 
 	<main class="py-10 lg:pl-72">
