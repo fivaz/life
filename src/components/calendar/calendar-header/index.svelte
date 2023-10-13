@@ -1,10 +1,7 @@
 <script lang="ts">
-	import { Icon } from '@steeze-ui/svelte-icon';
+	import { Transition, Menu, MenuButton, MenuItems, MenuItem } from '@rgossiaux/svelte-headlessui';
 	import { ChevronLeft, ChevronRight, ChevronDown, EllipsisHorizontal } from '@steeze-ui/heroicons';
-
-	import { Menu, MenuButton, MenuItems, MenuItem, Transition } from '@rgossiaux/svelte-headlessui';
-
-	import { addDays, format } from 'date-fns';
+	import { Icon } from '@steeze-ui/svelte-icon';
 	import classnames from 'classnames';
 
 	export let currentDate: Date;
@@ -21,6 +18,8 @@
 		weekStart = addDays(weekStart, -7);
 		console.log(weekStart);
 	}
+
+	import { addDays, format } from 'date-fns';
 </script>
 
 <header class="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">

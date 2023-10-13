@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { differenceInMinutes, format, getDate, parse } from 'date-fns';
 	import Calendar from '../components/calendar/index.svelte';
 
 	// Randomize colors for each event

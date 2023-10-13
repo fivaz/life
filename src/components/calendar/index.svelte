@@ -1,7 +1,8 @@
 <script lang="ts">
-	import CalendarHeader from './calendar-header/index.svelte';
+	import { startOfWeek } from 'date-fns';
+
 	import CalendarGrid from './calendar-grid/index.svelte';
-	import { addDays, format, startOfWeek } from 'date-fns';
+	import CalendarHeader from './calendar-header/index.svelte';
 
 	let currentDate = new Date();
 

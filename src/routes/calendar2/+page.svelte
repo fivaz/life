@@ -1,14 +1,6 @@
 <script lang="ts">
+	import { addDays, addMonths, endOfMonth, format, isSameDay, startOfMonth } from 'date-fns';
 	import { onMount } from 'svelte';
-	import {
-		addDays,
-		addMonths,
-		endOfMonth,
-		format,
-		isSameDay,
-		isSameMonth,
-		startOfMonth
-	} from 'date-fns';
 
 	// Define your events data here
 	const events: { date: Date; title: string }[] = [

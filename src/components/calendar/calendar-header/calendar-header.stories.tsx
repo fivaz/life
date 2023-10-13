@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
+import { startOfWeek } from 'date-fns';
 
 import CalendarHeader from './index.svelte';
-import { startOfWeek } from 'date-fns';
 
 const meta = {
 	component: CalendarHeader,

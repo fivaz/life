@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { addDays, format, getDate, startOfWeek } from 'date-fns';
-	import CalendarRows from './calendar-rows/index.svelte';
 	import classnames from 'classnames';
+	import { addDays, format, getDate } from 'date-fns';
+
+	import CalendarRows from './calendar-rows/index.svelte';
 
 	export let weekStart: Date;
 	export let currentDate: Date;

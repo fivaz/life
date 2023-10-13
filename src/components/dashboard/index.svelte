@@ -5,18 +5,17 @@
 		TransitionChild,
 		TransitionRoot
 	} from '@rgossiaux/svelte-headlessui';
-	import { Icon } from '@steeze-ui/svelte-icon';
 	import {
 		Bars3,
 		Calendar,
 		ChartPie,
-		ChevronLeft,
 		DocumentDuplicate,
 		Folder,
 		Home,
 		Users,
 		XMark
 	} from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
 	import classnames from 'classnames';
 
 	const navigation = [
