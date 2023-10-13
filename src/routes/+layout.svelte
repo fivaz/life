@@ -3,7 +3,7 @@
 	import Dashboard from '../components/dashboard/index.svelte';
 </script>
 
-<html lang="en" class="h-full bg-gray-100">
+<html lang="en" class="h-full bg-gray-50">
 	<body class="h-full">
 		<Dashboard>
 			<slot />

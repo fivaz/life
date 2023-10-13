@@ -8,6 +8,9 @@ devDependencies:
   '@playwright/test':
     specifier: ^1.28.1
     version: 1.39.0
+  '@rgossiaux/svelte-headlessui':
+    specifier: ^2.0.0
+    version: 2.0.0(svelte@4.2.1)
   '@steeze-ui/heroicons':
     specifier: ^2.2.3
     version: 2.2.3
@@ -3104,6 +3107,17 @@ packages:
       }
     dependencies:
       '@babel/runtime': 7.23.2
+    dev: true
+
+  /@rgossiaux/svelte-headlessui@2.0.0(svelte@4.2.1):
+    resolution:
+      {
+        integrity: sha512-ksh245HqMM8yqkzd/OyAK2FCHZYOSA3ldLIHab7C9S60FmifqT24JFVgi8tZpsDEMk3plbfQvfah93n5IEi8sg==
+      }
+    peerDependencies:
+      svelte: ^3.47.0
+    dependencies:
+      svelte: 4.2.1
     dev: true
 
   /@sinclair/typebox@0.27.8:

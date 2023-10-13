@@ -6,8 +6,6 @@
 	export let weekStart: Date;
 	export let currentDate: Date;
 
-	// Array.from({ length: 7 }, (_, i) => format(addDays(weekStart, i), 'EEEE'));
-
 	$: dates = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
 
 	let events = [
