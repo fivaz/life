@@ -2,7 +2,6 @@
 	import { getDate } from 'date-fns';
 	import CalendarRows from './calendar-rows/index.svelte';
 	import classnames from 'classnames';
-	let containerNav: HTMLDivElement;
 
 	let daysAndDates = [
 		{ day: 'Mon', dayShort: 'M', date: 10 },
@@ -17,10 +16,7 @@
 	const currentDate = new Date();
 </script>
 
-<div
-	bind:this={containerNav}
-	class="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5"
->
+<div class="flex-auto bg-white shadow ring-1 ring-black ring-opacity-5">
 	<div class="grid grid-cols-7 text-sm leading-6 text-gray-500 sm:hidden">
 		{#each daysAndDates as { dayShort, day, date } (day)}
 			<button type="button" class="flex flex-col items-center pt-2 pb-3">

@@ -1,9 +1,6 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { differenceInMinutes, format, getDate, parse } from 'date-fns';
 	import Calendar from '../components/calendar/index.svelte';
-	import CalendarGrid from '../components/calendar-grid/index.svelte';
-	import classnames from 'classnames';
 
 	let events = [
 		{
