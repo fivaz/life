@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { getDate } from 'date-fns';
+	import CalendarRows from './calendar-rows/index.svelte';
+	import classnames from 'classnames';
 	let containerNav: HTMLDivElement;
 
 	let daysAndDates = [
@@ -17,7 +19,7 @@
 
 <div
 	bind:this={containerNav}
-	class="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 sm:pr-8"
+	class="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5"
 >
 	<div class="grid grid-cols-7 text-sm leading-6 text-gray-500 sm:hidden">
 		{#each daysAndDates as { dayShort, day, date } (day)}
@@ -35,24 +37,27 @@
 					</span>
 				{/if}
 			</button>
+			<CalendarRows />
 		{/each}
 	</div>
 
 	<div
 		class="-mr-px hidden grid-cols-7 divide-x divide-gray-100 border-r border-gray-100 text-sm leading-6 text-gray-500 sm:grid"
 	>
-		<div class="col-end-1 w-14" />
 		{#each daysAndDates as { day, date } (day)}
-			<div class="flex items-center justify-center py-3 gap-1">
-				{day}
-				{#if getDate(currentDate) === date}
+			<div class="flex flex-col">
+				<div class="flex items-center justify-center py-3 gap-1">
+					{day}
 					<span
-						class="items-center justify-center rounded-full bg-indigo-600 font-semibold text-white flex h-8 w-8"
-						>{date}
+						class={classnames(
+							{ 'rounded-full bg-indigo-600 text-white': getDate(currentDate) === date },
+							'flex items-center justify-center font-semibold h-8 w-8'
+						)}
+					>
+						{date}
 					</span>
-				{:else}
-					<span class="items-center justify-center font-semibold text-gray-900">{date}</span>
-				{/if}
+				</div>
+				<CalendarRows />
 			</div>
 		{/each}
 	</div>

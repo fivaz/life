@@ -30,39 +30,33 @@
 </script>
 
 <div class="flex flex-auto">
-	<div class="sticky left-0 z-10 w-14 flex-none bg-white ring-1 ring-gray-100" />
-	<div class="grid flex-auto grid-cols-1 grid-rows-1">
+	<!--	<div class="sticky left-0 z-10 w-14 flex-none bg-white ring-1 ring-gray-100" />-->
+	<div class="flex flex-col flex-auto">
 		<!-- Horizontal lines -->
-		<div
-			class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100"
-			style="grid-template-rows: repeat(48, minmax(3.5rem, 1fr))"
-		>
-			<div bind:this={containerOffset} class="row-end-1 h-7" />
+		<div class="divide-y divide-gray-100">
+			<div bind:this={containerOffset} class="row-end-1 h-[56px]" />
 			{#each timeLabels as timeLabel (timeLabel)}
-				<div>
-					<div
-						class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400"
-					>
+				<div class="h-[3.5rem]">
+					<div class="w-14 pr-2 text-right text-xs leading-5 text-gray-400">
 						{timeLabel}
 					</div>
 				</div>
-				<div />
 			{/each}
 		</div>
 
 		<!-- Vertical lines -->
-		<div
-			class="col-start-1 col-end-2 row-start-1 hidden grid-cols-7 grid-rows-1 divide-x divide-gray-100 sm:grid sm:grid-cols-7"
-		>
-			<div class="col-start-1 row-span-full" />
-			<div class="col-start-2 row-span-full" />
-			<div class="col-start-3 row-span-full" />
-			<div class="col-start-4 row-span-full" />
-			<div class="col-start-5 row-span-full" />
-			<div class="col-start-6 row-span-full" />
-			<div class="col-start-7 row-span-full" />
-			<div class="col-start-8 row-span-full w-8" />
-		</div>
+		<!--		<div-->
+		<!--			class="col-start-1 col-end-2 row-start-1 hidden grid-cols-7 grid-rows-1 divide-x divide-gray-100 sm:grid sm:grid-cols-7"-->
+		<!--		>-->
+		<!--			<div class="col-start-1 row-span-full" />-->
+		<!--			<div class="col-start-2 row-span-full" />-->
+		<!--			<div class="col-start-3 row-span-full" />-->
+		<!--			<div class="col-start-4 row-span-full" />-->
+		<!--			<div class="col-start-5 row-span-full" />-->
+		<!--			<div class="col-start-6 row-span-full" />-->
+		<!--			<div class="col-start-7 row-span-full" />-->
+		<!--			<div class="col-start-8 row-span-full w-8" />-->
+		<!--		</div>-->
 
 		<!--					Events-->
 		<!--					<ol-->
