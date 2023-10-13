@@ -1,3 +1,6 @@
+<script>
+</script>
+
 <div>
 	<!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
 	<div class="relative z-40 md:hidden" role="dialog" aria-modal="true">

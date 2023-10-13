@@ -1,22 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
 
-import CalendarHeader from './index.svelte';
-import { startOfWeek } from 'date-fns';
+import ChevronLeftIcon from './index.svelte';
 
 const meta = {
-	component: CalendarHeader,
+	component: ChevronLeftIcon,
 	tags: ['autodocs'],
 	parameters: {
 		layout: 'centered'
 	},
 	argTypes: {}
-} satisfies Meta<CalendarHeader>;
+} satisfies Meta<ChevronLeftIcon>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-	args: {
-		weekStart: startOfWeek(new Date())
-	}
+	args: {}
 };

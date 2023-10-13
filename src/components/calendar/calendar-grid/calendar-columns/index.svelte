@@ -1,60 +1,70 @@
 <script lang="ts">
-	import { getDate } from 'date-fns';
+	import { addDays, format, getDate, startOfWeek } from 'date-fns';
 	import CalendarRows from './calendar-rows/index.svelte';
 	import classnames from 'classnames';
 
-	let daysAndDates = [
-		{ day: 'Mon', dayShort: 'M', date: 10 },
-		{ day: 'Tue', dayShort: 'T', date: 11 },
-		{ day: 'Wed', dayShort: 'W', date: 12 },
-		{ day: 'Thu', dayShort: 'T', date: 13 },
-		{ day: 'Fri', dayShort: 'F', date: 14 },
-		{ day: 'Sat', dayShort: 'S', date: 15 },
-		{ day: 'Sun', dayShort: 'S', date: 16 }
-	];
+	export let weekStart: Date;
+	export let currentDate: Date;
 
-	const currentDate = new Date();
+	// Array.from({ length: 7 }, (_, i) => format(addDays(weekStart, i), 'EEEE'));
+
+	$: dates = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
+
+	let events = [
+		{
+			label: 'Breakfast',
+			startTime: '2023-10-12T06:00',
+			endTime: '2023-10-12T07:00'
+		},
+		{
+			label: 'Flight to Paris',
+			startTime: '2023-10-12T07:30',
+			endTime: '2023-10-12T10:00'
+		},
+		{
+			label: 'Meeting with design team at Disney',
+			startTime: '2023-10-15T10:00',
+			endTime: '2023-10-15T12:00'
+		}
+	];
 </script>
 
 <div class="flex-auto bg-white shadow ring-1 ring-black ring-opacity-5">
-	<div class="grid grid-cols-7 text-sm leading-6 text-gray-500 sm:hidden">
-		{#each daysAndDates as { dayShort, day, date } (day)}
-			<button type="button" class="flex flex-col items-center pt-2 pb-3">
-				{dayShort}
-				{#if getDate(currentDate) === date}
-					<span
-						class="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white"
-					>
-						{date}
-					</span>
-				{:else}
-					<span class="mt-1 flex h-8 w-8 items-center justify-center font-semibold text-gray-900">
-						{date}
-					</span>
-				{/if}
-			</button>
-			<CalendarRows />
-		{/each}
-	</div>
-
 	<div
 		class="-mr-px hidden grid-cols-7 divide-x divide-gray-100 border-r border-gray-100 text-sm leading-6 text-gray-500 sm:grid"
 	>
-		{#each daysAndDates as { day, date } (day)}
+		{#each dates as date (date)}
 			<div class="flex flex-col">
 				<div class="flex items-center justify-center py-3 gap-1">
-					{day}
+					{format(date, 'EEE')}
 					<span
 						class={classnames(
-							{ 'rounded-full bg-indigo-600 text-white': getDate(currentDate) === date },
+							{ 'rounded-full bg-indigo-600 text-white': getDate(currentDate) === getDate(date) },
 							'flex items-center justify-center font-semibold h-8 w-8'
 						)}
 					>
-						{date}
+						{format(date, 'dd')}
 					</span>
 				</div>
 				<CalendarRows />
 			</div>
+		{/each}
+	</div>
+
+	<div class="grid grid-cols-7 text-sm leading-6 text-gray-500 sm:hidden">
+		{#each dates as date (date)}
+			<button type="button" class="flex flex-col items-center pt-2 pb-3">
+				{format(date, 'E')}
+				<span
+					class={classnames(
+						{ 'rounded-full bg-indigo-600 text-white': getDate(currentDate) === getDate(date) },
+						'mt-1 flex items-center justify-center font-semibold h-8 w-8'
+					)}
+				>
+					{format(date, 'dd')}
+				</span>
+			</button>
+			<CalendarRows />
 		{/each}
 	</div>
 </div>
