@@ -20,6 +20,8 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
+		"@steeze-ui/heroicons": "^2.2.3",
+		"@steeze-ui/svelte-icon": "^1.5.0",
 		"@storybook/addon-essentials": "7.4.6",
 		"@storybook/addon-interactions": "7.4.6",
 		"@storybook/addon-links": "7.4.6",
@@ -32,6 +34,8 @@
 		"@typescript-eslint/eslint-plugin": "^6.0.0",
 		"@typescript-eslint/parser": "^6.0.0",
 		"autoprefixer": "^10.4.16",
+		"classnames": "^2.3.2",
+		"date-fns": "^2.30.0",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-storybook": "^0.6.15",
@@ -53,9 +57,5 @@
 		"vite": "^4.4.2",
 		"vitest": "^0.32.2"
 	},
-	"type": "module",
-	"dependencies": {
-		"classnames": "^2.3.2",
-		"date-fns": "^2.30.0"
-	}
+	"type": "module"
 }
