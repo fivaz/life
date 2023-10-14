@@ -10,7 +10,7 @@
 </script>
 
 <div class="isolate flex h-full flex-col overflow-auto bg-white">
-	<div class="flex h-full max-w-full flex-none sm:max-w-none md:max-w-full">
+	<div class="flex h-full max-w-full flex-none sm:max-w-none md:max-w-full divide-x">
 		<CalendarTimeLabs />
 		<CalendarColumns {weekStart} {currentDate} {events} />
 	</div>

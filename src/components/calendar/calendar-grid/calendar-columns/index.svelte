@@ -32,10 +32,10 @@
 	}
 </script>
 
-<div class="h-full w-full bg-white shadow ring-1 ring-black ring-opacity-5">
-	<div class="h-full hidden sm:grid grid-cols-7 -mr-px text-sm leading-6 text-gray-500">
+<div class="h-full w-full bg-white text-sm leading-6 text-gray-500">
+	<div class="h-full hidden sm:grid grid-cols-7 divide-x">
 		{#each dates as date (date)}
-			<div class="h-full flex flex-col">
+			<div class="h-full flex flex-col divide-y">
 				<div class="flex items-center justify-center gap-1 flex-row py-3">
 					{format(date, 'E')}
 					<span
@@ -52,8 +52,8 @@
 		{/each}
 	</div>
 
-	<div class="h-full block sm:hidden">
-		<div class="grid grid-cols-7 -mr-px text-sm leading-6 text-gray-500">
+	<div class="h-full block sm:hidden divide-y">
+		<div class="grid grid-cols-7">
 			{#each dates as date (date)}
 				<button
 					on:click={() => (selectedDate = date)}
@@ -62,6 +62,10 @@
 					{format(date, 'EEEEE')}
 					<span
 						class={classnames(
+							{
+								'rounded-full bg-indigo-300 text-white':
+									getDate(selectedDate) === getDate(date) && getDate(currentDate) !== getDate(date)
+							},
 							{ 'rounded-full bg-indigo-600 text-white': getDate(currentDate) === getDate(date) },
 							'flex items-center justify-center font-semibold h-8 w-8'
 						)}

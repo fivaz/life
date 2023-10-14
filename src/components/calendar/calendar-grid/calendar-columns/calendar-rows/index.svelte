@@ -46,7 +46,10 @@
 
 <div class="relative h-full">
 	<!--	grid division of hours-->
-	<div class="h-full grid" style="grid-template-rows: repeat({hourInterval}, minmax(3.5rem, 1fr))">
+	<div
+		class="h-full grid divide-y"
+		style="grid-template-rows: repeat({hourInterval}, minmax(3.5rem, 1fr))"
+	>
 		{#each Array.from({ length: hourInterval }, (_, i) => i) as hour (hour)}
 			<div />
 		{/each}

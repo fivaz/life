@@ -29,9 +29,12 @@
 	const hourInterval = 24;
 </script>
 
-<div>
+<div class="divide-y">
 	<div class="h-[80px] sm:h-[56px]" />
-	<div class="grid" style="grid-template-rows: repeat({hourInterval}, minmax(3.5rem, 1fr))">
+	<div
+		class="grid divide-y"
+		style="grid-template-rows: repeat({hourInterval}, minmax(3.5rem, 1fr))"
+	>
 		{#each timeLabels as timeLabel (timeLabel)}
 			<div class="w-14 pr-2 text-right text-xs leading-5 text-gray-400">
 				{timeLabel}
