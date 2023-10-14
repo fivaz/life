@@ -1,6 +1,7 @@
 // place files you want to import through the `$lib` alias in this folder.
 export type TEvent = {
 	label: string;
+	description?: string;
 	startTime: string;
 	endTime: string;
 };

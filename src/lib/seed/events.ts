@@ -23,6 +23,7 @@ export const events: TEvent[] = [
 	},
 	{
 		label: 'Flight to Paris',
+		description: 'John F. Kennedy International Airport',
 		startTime: '2023-10-12T07:30',
 		endTime: '2023-10-12T10:00'
 	},

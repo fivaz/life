@@ -12,7 +12,7 @@
 	let weekStart = startOfWeek(currentDate);
 </script>
 
-<div class="flex h-full flex-col">
+<div class="flex h-full flex-col divide-gray-200">
 	<CalendarHeader bind:weekStart {currentDate} />
 	<CalendarGrid {weekStart} {currentDate} {events} />
 </div>
