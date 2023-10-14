@@ -25,17 +25,19 @@
 		'10PM',
 		'11PM'
 	];
+
+	const hourInterval = 24;
 </script>
 
-<div class="flex flex-col divide-y divide-gray-100">
-	<div class="h-[56px]" />
-	{#each timeLabels as timeLabel (timeLabel)}
-		<div class="h-[3.5rem]">
+<div>
+	<div class="h-[80px] sm:h-[56px]" />
+	<div class="grid" style="grid-template-rows: repeat({hourInterval}, minmax(3.5rem, 1fr))">
+		{#each timeLabels as timeLabel (timeLabel)}
 			<div class="w-14 pr-2 text-right text-xs leading-5 text-gray-400">
 				{timeLabel}
 			</div>
-		</div>
-	{/each}
+		{/each}
+	</div>
 </div>
 
 <!--					Events-->

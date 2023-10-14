@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
 
-import WrapperDecorator from '$lib/seed/WrapperDecorator.svelte';
-import { events } from '../../../../../lib/seed/events';
+import SmallWrapperDecorator from '$lib/decorators/SmallWrapperDecorator.svelte';
+import { events } from '$lib/seed/events';
 import CalendarRows from './index.svelte';
 
 const meta = {
@@ -10,7 +10,7 @@ const meta = {
 	parameters: {
 		layout: 'centered'
 	},
-	decorators: [() => WrapperDecorator as never]
+	decorators: [() => SmallWrapperDecorator as never]
 } satisfies Meta<CalendarRows>;
 
 export default meta;

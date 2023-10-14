@@ -1,7 +1,15 @@
 <script lang="ts">
 	import type { TEvent } from '$lib';
 	import classnames from 'classnames';
-	import { addDays, format, getDate, isWithinInterval, parseISO } from 'date-fns';
+	import {
+		addDays,
+		format,
+		getDate,
+		isWithinInterval,
+		parseISO,
+		startOfDay,
+		endOfDay
+	} from 'date-fns';
 
 	import CalendarRows from './calendar-rows/index.svelte';
 
@@ -9,29 +17,27 @@
 	export let weekStart: Date;
 	export let currentDate: Date;
 
+	let selectedDate: Date = currentDate;
+
 	$: dates = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
 
 	function isEventOnDay(event: TEvent, targetDay: Date): boolean {
-		const start = parseISO(event.startTime);
-		const end = parseISO(event.endTime);
+		const eventStart = parseISO(event.startTime);
+		const eventEnd = parseISO(event.endTime);
 
-		// Create an interval from start to end time
-		const eventInterval = { start, end };
-
-		// Check if the target day falls within the interval
-		return isWithinInterval(targetDay, eventInterval);
+		return (
+			isWithinInterval(eventStart, { start: startOfDay(targetDay), end: endOfDay(targetDay) }) ||
+			isWithinInterval(eventEnd, { start: startOfDay(targetDay), end: endOfDay(targetDay) })
+		);
 	}
 </script>
 
-<div class="flex-auto bg-white shadow ring-1 ring-black ring-opacity-5">
-	<div
-		class="grid grid-cols-7 -mr-px sm:divide-x sm:divide-gray-100 border-r border-gray-100 text-sm leading-6 text-gray-500"
-	>
+<div class="h-full w-full bg-white shadow ring-1 ring-black ring-opacity-5">
+	<div class="h-full hidden sm:grid grid-cols-7 -mr-px text-sm leading-6 text-gray-500">
 		{#each dates as date (date)}
-			<div class="flex flex-col">
-				<div class="flex items-center justify-center gap-1 flex-col sm:flex-row pt-2 pb-3 sm:py-3">
-					<span class="hidden sm:block">{format(date, 'E')}</span>
-					<span class="block sm:hidden">{format(date, 'EEEEE')}</span>
+			<div class="h-full flex flex-col">
+				<div class="flex items-center justify-center gap-1 flex-row py-3">
+					{format(date, 'E')}
 					<span
 						class={classnames(
 							{ 'rounded-full bg-indigo-600 text-white': getDate(currentDate) === getDate(date) },
@@ -44,5 +50,27 @@
 				<CalendarRows events={events.filter((event) => isEventOnDay(event, date))} />
 			</div>
 		{/each}
+	</div>
+
+	<div class="h-full block sm:hidden">
+		<div class="grid grid-cols-7 -mr-px text-sm leading-6 text-gray-500">
+			{#each dates as date (date)}
+				<button
+					on:click={() => (selectedDate = date)}
+					class="flex items-center justify-center gap-1 flex-col pt-2 pb-3"
+				>
+					{format(date, 'EEEEE')}
+					<span
+						class={classnames(
+							{ 'rounded-full bg-indigo-600 text-white': getDate(currentDate) === getDate(date) },
+							'flex items-center justify-center font-semibold h-8 w-8'
+						)}
+					>
+						{format(date, 'dd')}
+					</span>
+				</button>
+			{/each}
+		</div>
+		<CalendarRows events={events.filter((event) => isEventOnDay(event, selectedDate))} />
 	</div>
 </div>

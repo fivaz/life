@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
 
+import BigWrapperDecorator from '$lib/decorators/BigWrapperDecorator.svelte';
+import { events } from '$lib/seed/events';
 import { startOfWeek } from 'date-fns';
-import { events } from '../../../../lib/seed/events';
 import CalendarNav from './index.svelte';
 
 const meta = {
@@ -10,7 +11,8 @@ const meta = {
 	parameters: {
 		layout: 'centered'
 	},
-	argTypes: {}
+	argTypes: {},
+	decorators: [() => BigWrapperDecorator as never]
 } satisfies Meta<CalendarNav>;
 
 export default meta;
