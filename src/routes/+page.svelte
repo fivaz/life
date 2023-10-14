@@ -1,7 +1,7 @@
 <script lang="ts">
+	import { events } from '$lib/seed/events';
 	import Calendar from '../components/calendar/index.svelte';
 
-	// Randomize colors for each event
 	function getRandomColorClass() {
 		const colors = [
 			'bg-blue-50',
@@ -16,4 +16,4 @@
 	}
 </script>
 
-<Calendar />
+<Calendar {events} />

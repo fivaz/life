@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
 
+import { startOfWeek } from 'date-fns';
+import { events } from '../../../../lib/seed/events';
 import CalendarNav from './index.svelte';
 
 const meta = {
@@ -15,5 +17,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-	args: {}
+	args: {
+		currentDate: new Date(),
+		weekStart: startOfWeek(new Date()),
+		events
+	}
 };

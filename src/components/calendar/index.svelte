@@ -1,8 +1,11 @@
 <script lang="ts">
+	import type { TEvent } from '$lib';
 	import { startOfWeek } from 'date-fns';
 
 	import CalendarGrid from './calendar-grid/index.svelte';
 	import CalendarHeader from './calendar-header/index.svelte';
+
+	export let events: TEvent[];
 
 	let currentDate = new Date();
 
@@ -11,5 +14,5 @@
 
 <div class="flex h-full flex-col">
 	<CalendarHeader bind:weekStart {currentDate} />
-	<CalendarGrid {weekStart} {currentDate} />
+	<CalendarGrid {weekStart} {currentDate} {events} />
 </div>

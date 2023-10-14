@@ -50,7 +50,6 @@ module.exports = {
 		'@typescript-eslint/no-unused-vars': 'off',
 		'import/no-unresolved': 'error',
 		'import/imports-first': 'error',
-		'import/order': 'error',
 		'import/export': 'error',
 		'import/no-deprecated': 'error',
 		'import/no-empty-named-blocks': 'error',
