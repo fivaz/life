@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { TEvent } from '$lib';
-	import { format, parseISO } from 'date-fns';
+	import { format } from 'date-fns';
 
 	export let events: TEvent[];
 
@@ -12,13 +12,10 @@
 	}));
 
 	function getGridRows(event: TEvent): { start: number; end: number } {
-		// Parse the start and end dates
-		const start = new Date(event.startTime);
-		const end = new Date(event.endTime);
-
 		// Calculate the number of 15-minute intervals from midnight for the start and end times
-		const startRow = start.getHours() * 4 + Math.floor(start.getMinutes() / 15) + 1;
-		const endRow = end.getHours() * 4 + Math.ceil(end.getMinutes() / 15) + 1;
+		const startRow =
+			event.startDate.getHours() * 4 + Math.floor(event.startDate.getMinutes() / 15) + 1;
+		const endRow = event.endDate.getHours() * 4 + Math.ceil(event.endDate.getMinutes() / 15) + 1;
 
 		// Return the grid-row-start and grid-row-end values
 		return {
@@ -32,6 +29,7 @@
 </script>
 
 <!--TODO make top and side sticky-->
+<!--TODO handle event that takes more than 1 day-->
 
 <div class="relative h-full">
 	<!--	grid division of hours-->
@@ -52,14 +50,14 @@
 				<div
 					class="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100"
 				>
-					<p class="order-1 font-semibold text-blue-700">{event.label}</p>
+					<p class="order-1 font-semibold text-blue-700">{event.name}</p>
 					{#if event.description}
 						<p class="order-1 text-pink-500 group-hover:text-pink-700">
 							{event.description}
 						</p>
 					{/if}
 					<p class="text-blue-500 group-hover:text-blue-700">
-						<time dateTime="2022-01-22T06:00">{format(parseISO(event.startTime), 'p')}</time>
+						<time dateTime="2022-01-22T06:00">{format(event.startDate, 'p')}</time>
 					</p>
 				</div>
 			</li>

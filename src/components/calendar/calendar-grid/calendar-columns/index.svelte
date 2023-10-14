@@ -6,7 +6,6 @@
 		format,
 		getDate,
 		isWithinInterval,
-		parseISO,
 		startOfDay,
 		endOfDay
 	} from 'date-fns';
@@ -22,12 +21,12 @@
 	$: dates = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
 
 	function isEventOnDay(event: TEvent, targetDay: Date): boolean {
-		const eventStart = parseISO(event.startTime);
-		const eventEnd = parseISO(event.endTime);
-
 		return (
-			isWithinInterval(eventStart, { start: startOfDay(targetDay), end: endOfDay(targetDay) }) ||
-			isWithinInterval(eventEnd, { start: startOfDay(targetDay), end: endOfDay(targetDay) })
+			isWithinInterval(event.startDate, {
+				start: startOfDay(targetDay),
+				end: endOfDay(targetDay)
+			}) ||
+			isWithinInterval(event.endDate, { start: startOfDay(targetDay), end: endOfDay(targetDay) })
 		);
 	}
 </script>

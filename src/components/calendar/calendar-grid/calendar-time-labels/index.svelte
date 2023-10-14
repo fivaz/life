@@ -34,10 +34,9 @@
 		style="grid-template-rows: repeat({timeLabels.length * 2}, minmax(3.5rem, 1fr))"
 	>
 		{#each timeLabels as timeLabel (timeLabel)}
-			<div class="w-14 pr-2">
+			<div class="w-14 pr-2 row-span-2">
 				{timeLabel}
 			</div>
-			<div class="" />
 		{/each}
 	</div>
 </div>

@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { events } from '$lib/seed/events';
 	import Calendar from '../components/calendar/index.svelte';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
 </script>
 
-<Calendar {events} />
+<Calendar events={data.events} />

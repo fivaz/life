@@ -1,15 +1,17 @@
 import type { TEvent } from '$lib';
-import { formatISO } from 'date-fns';
+import { addDays } from 'date-fns';
 
-function getTodayAtTime(time: string): string {
+function getTodayAtTime(time: string): Date {
 	// Parse the hour and minute from the input time
 	const [hour, minute] = time.split(':').map(Number);
 
 	// Get today's date at the given hour and minute
-	const date = new Date().setHours(hour, minute, 0, 0);
-
 	// Format the date as an ISO 8601 string
-	return formatISO(date);
+	const date = new Date();
+
+	date.setHours(hour, minute, 0, 0);
+
+	return date;
 }
 
 // Usage:
@@ -17,19 +19,24 @@ console.log(getTodayAtTime('06:30')); // Outputs today's date at 06:30 in ISO fo
 
 export const events: TEvent[] = [
 	{
-		label: 'Breakfast',
-		startTime: getTodayAtTime('07:00'),
-		endTime: getTodayAtTime('07:45')
+		name: 'Breakfast',
+		description: null,
+		startDate: getTodayAtTime('07:00'),
+		endDate: getTodayAtTime('07:45'),
+		isDone: false
 	},
 	{
-		label: 'Flight to Paris',
+		name: 'Flight to Paris',
 		description: 'John F. Kennedy International Airport',
-		startTime: '2023-10-12T07:30',
-		endTime: '2023-10-12T10:00'
+		startDate: addDays(getTodayAtTime('00:00'), 2),
+		endDate: addDays(getTodayAtTime('23:59'), 2),
+		isDone: false
 	},
 	{
-		label: 'Meeting with design team at Disney',
-		startTime: getTodayAtTime('10:15'),
-		endTime: getTodayAtTime('12:20')
+		name: 'Meeting with design team at Disney',
+		description: null,
+		startDate: getTodayAtTime('10:15'),
+		endDate: addDays(getTodayAtTime('12:30'), 1),
+		isDone: true
 	}
 ];
