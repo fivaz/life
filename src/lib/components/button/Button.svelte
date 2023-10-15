@@ -3,7 +3,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import classnames from 'classnames';
 
-	export let isLoading: boolean;
+	export let isLoading: boolean = false;
 	export let type: 'button' | 'submit' = 'button';
 	export let className: string;
 </script>
