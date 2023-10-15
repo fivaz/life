@@ -2,7 +2,7 @@
 	import classnames from 'classnames';
 	import { addDays, format, getDate } from 'date-fns';
 
-	import CalendarRows from './calendar-rows/index.svelte';
+	import CalendarRows from './calendar-rows/CalendarRows.svelte';
 
 	export let weekStart: Date;
 	export let currentDate: Date;

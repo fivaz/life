@@ -11,7 +11,7 @@ export default function (plop) {
 		actions: [
 			{
 				type: 'add',
-				path: '../src/components/{{dashCase name}}/index.svelte',
+				path: '../src/components/{{dashCase name}}/{{pascalCase name}}.svelte',
 				templateFile: 'templates/component.tsx.hbs'
 			},
 			{

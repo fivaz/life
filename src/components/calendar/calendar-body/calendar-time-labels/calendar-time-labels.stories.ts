@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
 
-import CalendarTimeLabels from './index.svelte';
+import CalendarTimeLabels from './CalendarTimeLabels.svelte';
 
 const meta = {
 	component: CalendarTimeLabels,

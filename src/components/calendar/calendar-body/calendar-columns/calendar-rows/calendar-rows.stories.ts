@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
 
 import SmallWrapperDecorator from '$lib/decorators/SmallWrapperDecorator.svelte';
-import CalendarRows from './index.svelte';
+import CalendarRows from './CalendarRows.svelte';
 
 const meta = {
 	component: CalendarRows,

@@ -2,17 +2,17 @@ import type { Meta, StoryObj } from '@storybook/svelte';
 
 import BigWrapperDecorator from '$lib/decorators/BigWrapperDecorator.svelte';
 import { startOfWeek } from 'date-fns';
-import CalendarNav from './index.svelte';
+import CalendarColumns from './CalendarColumns.svelte';
 
 const meta = {
-	component: CalendarNav,
+	component: CalendarColumns,
 	tags: ['autodocs'],
 	parameters: {
 		layout: 'centered'
 	},
 	argTypes: {},
 	decorators: [() => BigWrapperDecorator as never]
-} satisfies Meta<CalendarNav>;
+} satisfies Meta<CalendarColumns>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

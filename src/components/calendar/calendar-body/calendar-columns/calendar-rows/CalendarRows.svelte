@@ -4,13 +4,15 @@
 	import type { TEvent } from '$lib';
 	import { events } from '$lib/store/events';
 	import classnames from 'classnames';
-	import { format, differenceInMinutes, isWithinInterval, startOfDay, endOfDay } from 'date-fns';
-	
-export let date: Date;
+	import { format } from 'date-fns';
+	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
+	import { halfHourInterval, isEventOnDay, isShort, getGridRows, toggleDone } from './service';
+
+	export let date: Date;
 
 	let form: HTMLFormElement;
 
-	let eventsData: (TEvent & { start: number; end: number })[] = [];
+	let eventsData: (TEvent & { gridRowStart: number; gridRowEnd: number })[] = [];
 
 	$: eventsData = $events
 		.filter((event) => isEventOnDay(event, date))
@@ -19,44 +21,6 @@ export let date: Date;
 			...getGridRows(event)
 		}));
 
-	function isEventOnDay(event: TEvent, targetDay: Date): boolean {
-		return (
-			isWithinInterval(event.startDate, {
-				start: startOfDay(targetDay),
-				end: endOfDay(targetDay)
-			}) ||
-			isWithinInterval(event.endDate, { start: startOfDay(targetDay), end: endOfDay(targetDay) })
-		);
-	}
-
-	function getGridRows(event: TEvent): { start: number; end: number } {
-		// Calculate the number of 15-minute intervals from midnight for the start and end times
-		const startRow =
-			event.startDate.getHours() * 4 + Math.floor(event.startDate.getMinutes() / 15) + 1;
-		const endRow = event.endDate.getHours() * 4 + Math.ceil(event.endDate.getMinutes() / 15) + 1;
-
-		// Return the grid-row-start and grid-row-end values
-		return {
-			start: startRow,
-			end: endRow
-		};
-	}
-
-	function isShort(event: TEvent) {
-		const diff = differenceInMinutes(event.startDate, event.endDate);
-		return Math.abs(diff) <= 15;
-	}
-
-	function toggleDone(id: number, form: HTMLFormElement) {
-		events.update((events) => {
-			const index = events.findIndex((event) => event.id === id);
-			events[index].isDone = !events[index].isDone;
-			return events;
-		});
-		form.requestSubmit();
-	}
-
-	const halfHourInterval = 24 * 2;
 	const quarterHourInterval = halfHourInterval * 2;
 </script>
 
@@ -64,15 +28,7 @@ export let date: Date;
 <!--TODO handle event that takes more than 1 day-->
 
 <div class="relative h-full">
-	<!--	grid division of hours-->
-	<div
-		class="h-full grid divide-y"
-		style="grid-template-rows: repeat({halfHourInterval}, minmax(3.5rem, 1fr))"
-	>
-		{#each Array.from({ length: halfHourInterval }, (_, i) => i) as halfHour (halfHour)}
-			<div />
-		{/each}
-	</div>
+	<CalendarGrid />
 	<ol
 		class="h-full absolute top-0 w-full grid"
 		style="grid-template-rows: repeat({quarterHourInterval}, minmax(1.75rem, 1fr)) auto"
@@ -80,7 +36,7 @@ export let date: Date;
 		{#each eventsData as event (event)}
 			<li
 				class="relative w-full h-full rounded-lg z-10"
-				style="grid-row: {event.start} / {event.end};"
+				style="grid-row: {event.gridRowStart} / {event.gridRowEnd};"
 			>
 				<div
 					class={classnames(

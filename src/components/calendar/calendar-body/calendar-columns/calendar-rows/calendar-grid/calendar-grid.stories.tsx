@@ -1,17 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
 
-import BigWrapperDecorator from '$lib/decorators/BigWrapperDecorator.svelte';
-import Calendar from './Calendar.svelte';
+import CalendarGrid from './CalendarGrid.svelte';
 
 const meta = {
-	component: Calendar,
+	component: CalendarGrid,
 	tags: ['autodocs'],
 	parameters: {
 		layout: 'centered'
 	},
-	argTypes: {},
-	decorators: [() => BigWrapperDecorator as never]
-} satisfies Meta<Calendar>;
+	argTypes: {}
+} satisfies Meta<CalendarGrid>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

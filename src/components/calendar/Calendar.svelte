@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { startOfWeek } from 'date-fns';
 
-	import CalendarGrid from './calendar-grid/index.svelte';
-	import CalendarHeader from './calendar-header/index.svelte';
+	import CalendarBody from './calendar-body/CalendarBody.svelte';
+	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
 
 	let currentDate = new Date();
 
@@ -11,5 +11,5 @@
 
 <div class="flex h-full flex-col divide-gray-200">
 	<CalendarHeader bind:weekStart {currentDate} />
-	<CalendarGrid {weekStart} {currentDate} />
+	<CalendarBody {weekStart} {currentDate} />
 </div>
