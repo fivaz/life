@@ -1,14 +1,7 @@
 <script lang="ts">
 	import type { TEvent } from '$lib';
 	import classnames from 'classnames';
-	import {
-		addDays,
-		format,
-		getDate,
-		isWithinInterval,
-		startOfDay,
-		endOfDay
-	} from 'date-fns';
+	import { addDays, format, getDate, isWithinInterval, startOfDay, endOfDay } from 'date-fns';
 
 	import CalendarRows from './calendar-rows/index.svelte';
 

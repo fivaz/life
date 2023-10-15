@@ -26,6 +26,13 @@ export const events: TEvent[] = [
 		isDone: false
 	},
 	{
+		name: 'Breakfast2 ',
+		description: null,
+		startDate: getTodayAtTime('07:45'),
+		endDate: getTodayAtTime('08:00'),
+		isDone: false
+	},
+	{
 		name: 'Flight to Paris',
 		description: 'John F. Kennedy International Airport',
 		startDate: addDays(getTodayAtTime('00:00'), 2),
