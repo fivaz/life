@@ -4,7 +4,7 @@
 	import { add } from '$lib/store/events';
 	import { addMinutes, format, formatISO } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
-	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/$types';
+	import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/$types';
 	import Button from '../../../button/Button.svelte';
 
 	let creating = false;

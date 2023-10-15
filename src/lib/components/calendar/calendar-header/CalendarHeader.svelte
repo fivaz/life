@@ -4,7 +4,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import classnames from 'classnames';
 	import { addDays, format } from 'date-fns';
-	import type { ActionData } from '../../../../.svelte-kit/types/src/routes/$types';
+	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/$types';
 	import Modal from '../../modal/Modal.svelte';
 	import EventForm from './event-form/EventForm.svelte';
 

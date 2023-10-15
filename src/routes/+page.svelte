@@ -1,6 +1,6 @@
 <script lang="ts">
+	import Calendar from '$lib/components/calendar/Calendar.svelte';
 	import { events } from '$lib/store/events';
-	import Calendar from '../components/calendar/Calendar.svelte';
 	import type { ActionData, PageData } from './$types';
 
 	export let form: ActionData | null = null;

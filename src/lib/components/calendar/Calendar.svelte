@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { startOfWeek } from 'date-fns';
 
-	import type { ActionData } from '../../../.svelte-kit/types/src/routes/$types';
+	import type { ActionData } from '../../../../.svelte-kit/types/src/routes/$types';
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
 
