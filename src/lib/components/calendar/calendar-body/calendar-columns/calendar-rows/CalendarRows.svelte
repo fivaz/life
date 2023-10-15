@@ -33,7 +33,7 @@
 				class="relative w-full h-full rounded-lg z-10"
 				style="grid-row: {event.gridRowStart} / {event.gridRowEnd};"
 			>
-				<Event {event} />
+				<Event {event} on:edit />
 			</li>
 		{/each}
 	</ol>

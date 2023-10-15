@@ -27,7 +27,7 @@
 						{format(date, 'dd')}
 					</span>
 				</div>
-				<CalendarRows {date} />
+				<CalendarRows {date} on:edit />
 			</div>
 		{/each}
 	</div>

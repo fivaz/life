@@ -9,12 +9,15 @@ export const load = (async () => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	add: async ({ request }) => {
+	submit: async ({ request }) => {
 		const data = await request.formData();
+		const id = data.get('id');
 		const name = data.get('name');
 		const description = data.get('description');
 		const startDate = data.get('startDate');
 		const endDate = data.get('endDate');
+		const isDone = !!data.get('isDone');
+
 		try {
 			if (!name || typeof name !== 'string') {
 				throw Error('name is required');
@@ -32,22 +35,39 @@ export const actions = {
 				throw Error('endDate is required');
 			}
 
-			return await prisma.event.create({
-				data: {
-					name,
-					description,
-					startDate: new Date(startDate),
-					endDate: new Date(endDate),
-					isDone: false
-				}
-			});
+			if (id) {
+				return await prisma.event.update({
+					where: {
+						id: Number(id)
+					},
+					data: {
+						name,
+						description,
+						startDate: new Date(startDate),
+						endDate: new Date(endDate),
+						isDone
+					}
+				});
+			} else {
+				console.log('jere');
+				return await prisma.event.create({
+					data: {
+						name,
+						description,
+						startDate: new Date(startDate),
+						endDate: new Date(endDate),
+						isDone
+					}
+				});
+			}
 		} catch (error) {
 			return fail(422, {
-				name,
+				id: Number(id),
+				name: name,
 				description,
-				date: data.get('date'),
-				startTime: data.get('startTime'),
-				endTime: data.get('endTime'),
+				isDone,
+				startDate,
+				endDate,
 				error: error instanceof Error ? error.message : "error isn't an instance of error"
 			});
 		}

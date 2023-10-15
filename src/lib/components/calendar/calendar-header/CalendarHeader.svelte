@@ -4,25 +4,19 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import classnames from 'classnames';
 	import { addDays, format } from 'date-fns';
-	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/$types';
-	import Modal from '../../modal/Modal.svelte';
-	import EventForm from './event-form/EventForm.svelte';
-
-	export let currentDate: Date;
+	import { createEventDispatcher } from 'svelte';
+	
+export let currentDate: Date;
 	export let weekStart: Date;
 
-	let showForm: boolean = false;
-
-	export let form: ActionData | null = null;
+	const dispatch = createEventDispatcher();
 
 	function nextWeek() {
-		console.log('nextWeek');
 		weekStart = addDays(weekStart, 7);
 		console.log(weekStart);
 	}
 
 	function previousWeek() {
-		console.log('previousWeek');
 		weekStart = addDays(weekStart, -7);
 		console.log(weekStart);
 	}
@@ -126,7 +120,7 @@
 			<div class="ml-6 h-6 w-px bg-gray-300" />
 			<button
 				type="button"
-				on:click={() => (showForm = true)}
+				on:click={() => dispatch('create')}
 				class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
 			>
 				Add event
@@ -218,6 +212,3 @@
 		</Menu>
 	</div>
 </header>
-<Modal show={showForm} on:close={() => (showForm = false)}>
-	<EventForm on:submit={() => (showForm = false)} {form} />
-</Modal>

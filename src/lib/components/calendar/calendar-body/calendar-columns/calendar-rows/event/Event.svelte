@@ -7,10 +7,13 @@
 	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/service';
 	import classnames from 'classnames';
 	import { format } from 'date-fns';
+	import { createEventDispatcher } from 'svelte';
 
 	export let event: TEvent;
 
 	let form: HTMLFormElement;
+
+	const dispatch = createEventDispatcher();
 </script>
 
 <div
@@ -33,16 +36,28 @@
 			</label>
 		</form>
 	</div>
-	<p class={classnames({ hidden: isShort(event) }, 'text-blue-500 group-hover:text-blue-700')}>
-		<time dateTime="2022-01-22T06:00">{format(event.startDate, 'p')}</time>
-	</p>
-	<p class="font-semibold text-blue-700">{event.name}</p>
-	<p
-		class={classnames(
-			{ hidden: isShort(event) || !event.description },
-			'text-pink-500 group-hover:text-pink-700'
-		)}
+	<div
+		on:click={() => dispatch('edit', event)}
+		on:keydown={(e) => {
+			if (e.key === 'Enter') {
+				dispatch('edit', event);
+			}
+		}}
+		tabindex="0"
+		role="button"
+		class="w-full h-full"
 	>
-		{event.description}
-	</p>
+		<p class={classnames({ hidden: isShort(event) }, 'text-blue-500 group-hover:text-blue-700')}>
+			<time dateTime="2022-01-22T06:00">{format(event.startDate, 'p')}</time>
+		</p>
+		<p class="font-semibold text-blue-700">{event.name}</p>
+		<p
+			class={classnames(
+				{ hidden: isShort(event) || !event.description },
+				'text-pink-500 group-hover:text-pink-700'
+			)}
+		>
+			{event.description}
+		</p>
+	</div>
 </div>
