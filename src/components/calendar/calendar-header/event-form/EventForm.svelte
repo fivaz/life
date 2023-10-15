@@ -10,6 +10,8 @@
 	let creating = false;
 	export let form: ActionData | null = null;
 
+	let error = '';
+
 	const dispatch = createEventDispatcher();
 </script>
 
@@ -17,31 +19,38 @@
 	method="POST"
 	action="?/add"
 	use:enhance={({ formData }) => {
-		const startTime = formData.get('startTime');
-		const endTime = formData.get('endTime');
-		const date = formData.get('date');
-		formData.append('startDate', formatISO(new Date(`${date}T${startTime}:00`)));
-		formData.append('endDate', formatISO(new Date(`${date}T${endTime}:00`)));
+		try {
+			creating = true;
+			const startTime = formData.get('startTime');
+			const endTime = formData.get('endTime');
+			const date = formData.get('date');
+			formData.append('startDate', formatISO(new Date(`${date}T${startTime}:00`)));
+			formData.append('endDate', formatISO(new Date(`${date}T${endTime}:00`)));
 
-		creating = true;
-		return async ({ update, result }) => {
-			creating = false;
-			await applyAction(result);
-			if (result.type === 'success') {
-				if (form !== null && form.error === undefined) {
-					add(form);
-					dispatch('submit');
+			return async ({ result }) => {
+				creating = false;
+				await applyAction(result);
+				if (result.type === 'success') {
+					if (form !== null && form.error === undefined) {
+						add(form);
+						dispatch('submit');
+						form = null;
+					}
+				} else {
+					error = form?.error || '';
 				}
-			}
-		};
+			};
+		} catch (e) {
+			error = 'Invalid date';
+		}
 	}}
 	class="w-[336px] shadow rounded-md overflow-hidden"
 >
 	<div class="flex flex-col gap-3 px-4 py-5 bg-white sm:p-6">
 		<h2 class="text-lg font-medium text-gray-900">Add Event</h2>
 
-		{#if form?.error}
-			<p class="text-red-500">{form.error}</p>
+		{#if error}
+			<p class="text-red-500">{error}</p>
 		{/if}
 
 		<div>
@@ -50,7 +59,6 @@
 				<input
 					autocomplete="off"
 					name="name"
-					value={form?.name || ''}
 					class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 				/>
 			</label>
