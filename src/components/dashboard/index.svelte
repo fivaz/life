@@ -38,7 +38,7 @@
 <div>
 	<!--    use svelte animations instead of transition-->
 	<TransitionRoot show={sidebarOpen}>
-		<Dialog class="relative z-50 lg:hidden" on:close={() => (sidebarOpen = false)}>
+		<Dialog class="relative z-20 lg:hidden" on:close={() => (sidebarOpen = false)}>
 			<TransitionChild
 				enter="transition-opacity ease-linear duration-300"
 				enterFrom="opacity-0"
@@ -154,7 +154,7 @@
 	</TransitionRoot>
 
 	<!-- Static sidebar for desktop -->
-	<div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+	<div class="hidden lg:fixed lg:inset-y-0 lg:z-20 lg:flex lg:w-72 lg:flex-col">
 		<!-- Sidebar component, swap this element with another sidebar if you like -->
 		<div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
 			<div class="flex h-16 shrink-0 items-center">
@@ -239,7 +239,7 @@
 	</div>
 
 	<div
-		class="sticky top-0 z-40 flex items-center gap-x-6 bg-white px-4 py-4 shadow-sm sm:px-6 lg:hidden"
+		class="sticky top-0 z-10 flex items-center gap-x-6 bg-white px-4 py-4 shadow-sm sm:px-6 lg:hidden"
 	>
 		<button
 			type="button"

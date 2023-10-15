@@ -1,11 +1,22 @@
 <script lang="ts">
-	import { Transition, Menu, MenuButton, MenuItems, MenuItem } from '@rgossiaux/svelte-headlessui';
+	import {
+		Transition,
+		Menu,
+		MenuButton,
+		MenuItems,
+		MenuItem
+	} from '@rgossiaux/svelte-headlessui';
 	import { ChevronLeft, ChevronRight, ChevronDown, EllipsisHorizontal } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import classnames from 'classnames';
+	import { addDays, format } from 'date-fns';
+	import Modal from '../../modal/Modal.svelte';
+	import EventForm from './event-form/EventForm.svelte';
 
 	export let currentDate: Date;
 	export let weekStart: Date;
+
+	let showForm: boolean = false;
 
 	function nextWeek() {
 		console.log('nextWeek');
@@ -18,8 +29,6 @@
 		weekStart = addDays(weekStart, -7);
 		console.log(weekStart);
 	}
-
-	import { addDays, format } from 'date-fns';
 </script>
 
 <header class="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">
@@ -120,6 +129,7 @@
 			<div class="ml-6 h-6 w-px bg-gray-300" />
 			<button
 				type="button"
+				on:click={() => (showForm = true)}
 				class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
 			>
 				Add event
@@ -211,3 +221,6 @@
 		</Menu>
 	</div>
 </header>
+<Modal show={showForm} on:close={() => (showForm = false)}>
+	<EventForm />
+</Modal>
