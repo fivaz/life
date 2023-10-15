@@ -4,6 +4,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import classnames from 'classnames';
 	import { addDays, format } from 'date-fns';
+	import type { ActionData } from '../../../../.svelte-kit/types/src/routes/$types';
 	import Modal from '../../modal/Modal.svelte';
 	import EventForm from './event-form/EventForm.svelte';
 
@@ -11,6 +12,8 @@
 	export let weekStart: Date;
 
 	let showForm: boolean = false;
+
+	export let form: ActionData | null = null;
 
 	function nextWeek() {
 		console.log('nextWeek');
@@ -216,5 +219,5 @@
 	</div>
 </header>
 <Modal show={showForm} on:close={() => (showForm = false)}>
-	<EventForm />
+	<EventForm on:submit={() => (showForm = false)} {form} />
 </Modal>
