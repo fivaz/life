@@ -17,8 +17,8 @@
 		"create": "plop --plopfile generators/plopfile.mjs",
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
-		"client": "prisma generate",
-		"svelte-check": "svelte-check --watch"
+		"svelte-check": "svelte-check --watch",
+		"postinstall": "prisma generate"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
