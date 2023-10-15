@@ -11,13 +11,13 @@ export default function (plop) {
 		actions: [
 			{
 				type: 'add',
-				path: '../src/components/{{dashCase name}}/{{pascalCase name}}.svelte',
+				path: '../src/lib/components/{{dashCase name}}/{{pascalCase name}}.svelte',
 				templateFile: 'templates/component.tsx.hbs'
 			},
 			{
 				type: 'add',
-				path: '../src/components/{{dashCase name}}/{{dashCase name}}.stories.tsx',
-				templateFile: 'templates/component-stories.tsx.hbs'
+				path: '../src/lib/components/{{dashCase name}}/{{dashCase name}}.stories.svelte',
+				templateFile: 'templates/component-stories.svelte.hbs'
 			}
 		]
 	});

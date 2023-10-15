@@ -1,0 +1,19 @@
+<script lang="ts" context="module">
+  import { Story, Template } from '@storybook/addon-svelte-csf';
+  import type { Meta } from '@storybook/svelte';
+  import {{pascalCase name}} from './{{pascalCase name}}.svelte';
+
+  export const meta = {
+    component: {{pascalCase name}},
+    tags: ['autodocs'],
+    parameters: {
+      layout: 'centered'
+    }
+  } satisfies Meta<{{pascalCase name}}>;
+</script>
+
+<Template let:args>
+  <{{pascalCase name}} {...args}></{{pascalCase name}}>
+</Template>
+
+<Story name="Primary" args={} />

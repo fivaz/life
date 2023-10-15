@@ -1,6 +1,7 @@
 <script lang="ts" context="module">
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import type { Meta } from '@storybook/svelte';
+	import Button from './Button.svelte';
 
 	export const meta = {
 		component: Button,
@@ -12,14 +13,10 @@
 	} satisfies Meta<Button>;
 </script>
 
-<script lang="ts">
-	import Button from './Button.svelte';
-</script>
-
 <Template let:args>
 	<Button {...args}>Text</Button>
 </Template>
 
-<Story name="Primary" source args={{ className: 'bg-indigo-500' }} />
+<Story name="Primary" args={{ className: 'bg-indigo-500' }} />
 
 <Story name="IsLoading" args={{ isLoading: true, className: 'bg-red-500' }} />
