@@ -1,5 +1,4 @@
 <script lang="ts">
-	// eslint-disable-next-line import/no-unresolved
 	import { enhance, applyAction } from '$app/forms';
 	import { add } from '$lib/store/events';
 	import { addMinutes, format, formatISO } from 'date-fns';

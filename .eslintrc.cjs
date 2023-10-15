@@ -48,7 +48,7 @@ module.exports = {
 	rules: {
 		'no-unused-vars': 'off',
 		'@typescript-eslint/no-unused-vars': 'off',
-		'import/no-unresolved': 'error',
+		'import/no-unresolved': [2, { ignore: ['^\\$app/forms'] }],
 		'import/imports-first': 'error',
 		'import/export': 'error',
 		'import/no-deprecated': 'error',
