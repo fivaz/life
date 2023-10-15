@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
 
 import FullScreenDecorator from '$lib/decorators/FullScreenDecorator.svelte';
-import { events } from '$lib/seed/events';
 import { startOfWeek } from 'date-fns';
 import CalendarGrid from './index.svelte';
 
@@ -20,7 +19,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
 	args: {
-		events,
 		currentDate: new Date(),
 		weekStart: startOfWeek(new Date())
 	}

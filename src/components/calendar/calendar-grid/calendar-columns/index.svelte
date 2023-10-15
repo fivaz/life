@@ -1,27 +1,15 @@
 <script lang="ts">
-	import type { TEvent } from '$lib';
 	import classnames from 'classnames';
-	import { addDays, format, getDate, isWithinInterval, startOfDay, endOfDay } from 'date-fns';
+	import { addDays, format, getDate } from 'date-fns';
 
 	import CalendarRows from './calendar-rows/index.svelte';
 
-	export let events: TEvent[];
 	export let weekStart: Date;
 	export let currentDate: Date;
 
 	let selectedDate: Date = currentDate;
 
 	$: dates = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
-
-	function isEventOnDay(event: TEvent, targetDay: Date): boolean {
-		return (
-			isWithinInterval(event.startDate, {
-				start: startOfDay(targetDay),
-				end: endOfDay(targetDay)
-			}) ||
-			isWithinInterval(event.endDate, { start: startOfDay(targetDay), end: endOfDay(targetDay) })
-		);
-	}
 </script>
 
 <div class="h-full w-full bg-white text-sm leading-6 text-gray-500">
@@ -39,7 +27,7 @@
 						{format(date, 'dd')}
 					</span>
 				</div>
-				<CalendarRows events={events.filter((event) => isEventOnDay(event, date))} />
+				<CalendarRows {date} />
 			</div>
 		{/each}
 	</div>
@@ -67,6 +55,6 @@
 				</button>
 			{/each}
 		</div>
-		<CalendarRows events={events.filter((event) => isEventOnDay(event, selectedDate))} />
+		<CalendarRows date={selectedDate} />
 	</div>
 </div>

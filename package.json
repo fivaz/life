@@ -22,6 +22,7 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
+		"@prisma/client": "5.4.2",
 		"@rgossiaux/svelte-headlessui": "^2.0.0",
 		"@steeze-ui/heroicons": "^2.2.3",
 		"@steeze-ui/svelte-icon": "^1.5.0",
@@ -34,6 +35,7 @@
 		"@storybook/testing-library": "^0.2.2",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.20.4",
+		"@tailwindcss/forms": "^0.5.6",
 		"@typescript-eslint/eslint-plugin": "^6.0.0",
 		"@typescript-eslint/parser": "^6.0.0",
 		"autoprefixer": "^10.4.16",
@@ -65,8 +67,5 @@
 		"vite": "^4.4.2",
 		"vitest": "^0.32.2"
 	},
-	"type": "module",
-	"dependencies": {
-		"@prisma/client": "5.4.2"
-	}
+	"type": "module"
 }

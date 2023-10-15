@@ -19,6 +19,7 @@ console.log(getTodayAtTime('06:30')); // Outputs today's date at 06:30 in ISO fo
 
 export const events: TEvent[] = [
 	{
+		id: 1,
 		name: 'Breakfast',
 		description: null,
 		startDate: getTodayAtTime('07:00'),
@@ -26,6 +27,7 @@ export const events: TEvent[] = [
 		isDone: false
 	},
 	{
+		id: 2,
 		name: 'Breakfast2 ',
 		description: null,
 		startDate: getTodayAtTime('07:45'),
@@ -33,6 +35,7 @@ export const events: TEvent[] = [
 		isDone: false
 	},
 	{
+		id: 3,
 		name: 'Flight to Paris',
 		description: 'John F. Kennedy International Airport',
 		startDate: addDays(getTodayAtTime('00:00'), 2),
@@ -40,6 +43,7 @@ export const events: TEvent[] = [
 		isDone: false
 	},
 	{
+		id: 4,
 		name: 'Meeting with design team at Disney',
 		description: null,
 		startDate: getTodayAtTime('10:15'),

@@ -1,16 +1,33 @@
 <script lang="ts">
+	// eslint-disable-next-line import/no-unresolved
+	import { enhance } from '$app/forms';
 	import type { TEvent } from '$lib';
+	import { events } from '$lib/store/events';
 	import classnames from 'classnames';
-	import { format, differenceInMinutes } from 'date-fns';
+	import { format, differenceInMinutes, isWithinInterval, startOfDay, endOfDay } from 'date-fns';
+	
+export let date: Date;
 
-	export let events: TEvent[];
+	let form: HTMLFormElement;
 
 	let eventsData: (TEvent & { start: number; end: number })[] = [];
 
-	$: eventsData = events.map((event) => ({
-		...event,
-		...getGridRows(event)
-	}));
+	$: eventsData = $events
+		.filter((event) => isEventOnDay(event, date))
+		.map((event) => ({
+			...event,
+			...getGridRows(event)
+		}));
+
+	function isEventOnDay(event: TEvent, targetDay: Date): boolean {
+		return (
+			isWithinInterval(event.startDate, {
+				start: startOfDay(targetDay),
+				end: endOfDay(targetDay)
+			}) ||
+			isWithinInterval(event.endDate, { start: startOfDay(targetDay), end: endOfDay(targetDay) })
+		);
+	}
 
 	function getGridRows(event: TEvent): { start: number; end: number } {
 		// Calculate the number of 15-minute intervals from midnight for the start and end times
@@ -28,6 +45,15 @@
 	function isShort(event: TEvent) {
 		const diff = differenceInMinutes(event.startDate, event.endDate);
 		return Math.abs(diff) <= 15;
+	}
+
+	function toggleDone(id: number, form: HTMLFormElement) {
+		events.update((events) => {
+			const index = events.findIndex((event) => event.id === id);
+			events[index].isDone = !events[index].isDone;
+			return events;
+		});
+		form.requestSubmit();
 	}
 
 	const halfHourInterval = 24 * 2;
@@ -62,6 +88,20 @@
 						'group absolute w-full h-full flex flex-col overflow-y-auto rounded-lg bg-blue-50 py-1 px-2 text-xs leading-5 hover:bg-blue-100'
 					)}
 				>
+					<div class="absolute right-0 pr-2">
+						<form method="POST" action="?/update" use:enhance bind:this={form}>
+							<input type="hidden" name="id" value={event.id} />
+							<label>
+								<input
+									type="checkbox"
+									checked={event.isDone}
+									on:change={() => toggleDone(event.id, form)}
+									name="isDone"
+									class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+								/>
+							</label>
+						</form>
+					</div>
 					<p
 						class={classnames(
 							{ hidden: isShort(event) },

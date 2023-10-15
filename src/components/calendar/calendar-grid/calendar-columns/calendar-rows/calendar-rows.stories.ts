@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
 
 import SmallWrapperDecorator from '$lib/decorators/SmallWrapperDecorator.svelte';
-import { events } from '$lib/seed/events';
 import CalendarRows from './index.svelte';
 
 const meta = {
@@ -18,6 +17,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
 	args: {
-		events
+		date: new Date()
 	}
 };

@@ -4,15 +4,13 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
-  '@prisma/client':
-    specifier: 5.4.2
-    version: 5.4.2(prisma@5.4.2)
-
 devDependencies:
   '@playwright/test':
     specifier: ^1.28.1
     version: 1.39.0
+  '@prisma/client':
+    specifier: 5.4.2
+    version: 5.4.2(prisma@5.4.2)
   '@rgossiaux/svelte-headlessui':
     specifier: ^2.0.0
     version: 2.0.0(svelte@4.2.1)
@@ -49,6 +47,9 @@ devDependencies:
   '@sveltejs/kit':
     specifier: ^1.20.4
     version: 1.25.2(svelte@4.2.1)(vite@4.4.11)
+  '@tailwindcss/forms':
+    specifier: ^0.5.6
+    version: 0.5.6(tailwindcss@3.3.3)
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.0.0
     version: 6.7.5(@typescript-eslint/parser@6.7.5)(eslint@8.51.0)(typescript@5.2.2)
@@ -2535,14 +2536,14 @@ packages:
     dependencies:
       '@prisma/engines-version': 5.4.1-2.ac9d7041ed77bcc8a8dbd2ab6616b39013829574
       prisma: 5.4.2
-    dev: false
+    dev: true
 
   /@prisma/engines-version@5.4.1-2.ac9d7041ed77bcc8a8dbd2ab6616b39013829574:
     resolution:
       {
         integrity: sha512-wvupDL4AA1vf4TQNANg7kR7y98ITqPsk6aacfBxZKtrJKRIsWjURHkZCGcQliHdqCiW/hGreO6d6ZuSv9MhdAA==
       }
-    dev: false
+    dev: true
 
   /@prisma/engines@5.4.2:
     resolution:
@@ -2550,6 +2551,7 @@ packages:
         integrity: sha512-fqeucJ3LH0e1eyFdT0zRx+oETLancu5+n4lhiYECyEz6H2RDskPJHJYHkVc0LhkU4Uv7fuEnppKU3nVKNzMh8g==
       }
     requiresBuild: true
+    dev: true
 
   /@radix-ui/number@1.0.1:
     resolution:
@@ -4327,6 +4329,18 @@ packages:
       vitefu: 0.2.4(vite@4.4.11)
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /@tailwindcss/forms@0.5.6(tailwindcss@3.3.3):
+    resolution:
+      {
+        integrity: sha512-Fw+2BJ0tmAwK/w01tEFL5TiaJBX1NLT1/YbWgvm7ws3Qcn11kiXxzNTEQDMs5V3mQemhB56l3u0i9dwdzSQldA==
+      }
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
+    dependencies:
+      mini-svg-data-uri: 1.4.4
+      tailwindcss: 3.3.3
     dev: true
 
   /@testing-library/dom@9.3.3:
@@ -10156,6 +10170,14 @@ packages:
     engines: { node: '>=4' }
     dev: true
 
+  /mini-svg-data-uri@1.4.4:
+    resolution:
+      {
+        integrity: sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==
+      }
+    hasBin: true
+    dev: true
+
   /minimatch@3.1.2:
     resolution:
       {
@@ -11388,6 +11410,7 @@ packages:
     requiresBuild: true
     dependencies:
       '@prisma/engines': 5.4.2
+    dev: true
 
   /process-nextick-args@2.0.1:
     resolution:
