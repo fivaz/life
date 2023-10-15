@@ -51,7 +51,7 @@
 								<input
 									type="checkbox"
 									checked={event.isDone}
-									on:change={() => toggleDone(event.id, form)}
+									on:change={(e) => toggleDone(event, e.currentTarget.checked, form)}
 									name="isDone"
 									class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
 								/>

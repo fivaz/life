@@ -1,5 +1,5 @@
 import type { TEvent } from '$lib';
-import { events } from '$lib/store/events';
+import { toggle } from '$lib/store/events';
 import { differenceInMinutes, endOfDay, isWithinInterval, startOfDay } from 'date-fns';
 
 export const halfHourInterval = 24 * 2;
@@ -31,11 +31,7 @@ export function getGridRows(event: TEvent): { gridRowStart: number; gridRowEnd: 
 	};
 }
 
-export function toggleDone(id: number, form: HTMLFormElement) {
-	events.update((events) => {
-		const index = events.findIndex((event) => event.id === id);
-		events[index].isDone = !events[index].isDone;
-		return events;
-	});
+export function toggleDone(event: TEvent, isDone: boolean, form: HTMLFormElement) {
+	toggle(event, isDone);
 	form.requestSubmit();
 }
