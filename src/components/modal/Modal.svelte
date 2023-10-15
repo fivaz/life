@@ -13,7 +13,7 @@
 </script>
 
 <TransitionRoot {show}>
-	<Dialog as="div" class="fixed z-10 inset-0 overflow-y-auto" on:close={() => dispatch('close')}>
+	<Dialog class="fixed z-20 inset-0 overflow-y-auto" on:close={() => dispatch('close')}>
 		<div
 			class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
 		>
@@ -28,9 +28,6 @@
 				<DialogOverlay class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
 			</TransitionChild>
 
-			<span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
-				&#8203;
-			</span>
 			<TransitionChild
 				enter="ease-out duration-300"
 				enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
@@ -38,6 +35,7 @@
 				leave="ease-in duration-200"
 				leaveFrom="opacity-100 translate-y-0 sm:scale-100"
 				leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+				class="h-screen flex justify-center items-end sm:items-center pb-14"
 			>
 				<div
 					class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:align-middle"

@@ -1,11 +1,5 @@
 <script lang="ts">
-	import {
-		Transition,
-		Menu,
-		MenuButton,
-		MenuItems,
-		MenuItem
-	} from '@rgossiaux/svelte-headlessui';
+	import { Transition, Menu, MenuButton, MenuItems, MenuItem } from '@rgossiaux/svelte-headlessui';
 	import { ChevronLeft, ChevronRight, ChevronDown, EllipsisHorizontal } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import classnames from 'classnames';

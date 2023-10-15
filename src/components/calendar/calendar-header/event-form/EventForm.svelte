@@ -20,12 +20,7 @@
 	};
 </script>
 
-<form
-	method="POST"
-	action="?/add"
-	use:enhance
-	class="w-[336px] shadow sm:rounded-md sm:overflow-hidden"
->
+<form method="POST" action="?/add" use:enhance class="w-[336px] shadow rounded-md overflow-hidden">
 	<div class="flex flex-col gap-3 px-4 py-5 bg-white sm:p-6">
 		<h2 class="text-lg font-medium text-gray-900">Add Event</h2>
 
