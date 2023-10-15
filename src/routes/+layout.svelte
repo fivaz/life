@@ -1,6 +1,6 @@
 <script>
 	import '../app.css';
-	import Dashboard from '$lib/components/dashboard/index.svelte';
+	import Dashboard from '$lib/components/dashboard/Dashboard.svelte';
 </script>
 
 <html lang="en" class="h-full bg-gray-50">

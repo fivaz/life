@@ -20,3 +20,7 @@
 <Story name="Primary" args={{ className: 'bg-indigo-500' }} />
 
 <Story name="IsLoading" args={{ isLoading: true, className: 'bg-red-500' }} />
+
+<Story name="Label" args={{ isLoading: true, className: 'bg-red-500' }} let:args>
+	<Button {...args}>Label</Button>
+</Story>

@@ -17,37 +17,55 @@ function getTodayAtTime(time: string): Date {
 // Usage:
 console.log(getTodayAtTime('06:30')); // Outputs today's date at 06:30 in ISO format
 
+export const normalWithoutDescription: TEvent = {
+	id: 1,
+	name: 'Breakfast',
+	description: null,
+	startDate: getTodayAtTime('07:00'),
+	endDate: getTodayAtTime('07:45'),
+	isDone: false
+};
+
+export const shortWithoutDescription: TEvent = {
+	id: 2,
+	name: 'Breakfast2 ',
+	description: null,
+	startDate: getTodayAtTime('07:45'),
+	endDate: getTodayAtTime('08:00'),
+	isDone: false
+};
+
+export const normalDescription: TEvent = {
+	id: 3,
+	name: 'Flight to Paris',
+	description: 'John F. Kennedy International Airport',
+	startDate: addDays(getTodayAtTime('00:00'), 2),
+	endDate: addDays(getTodayAtTime('23:59'), 2),
+	isDone: false
+};
+
+export const long: TEvent = {
+	id: 4,
+	name: 'Meeting with design team at Disney',
+	description: null,
+	startDate: getTodayAtTime('10:15'),
+	endDate: addDays(getTodayAtTime('12:30'), 1),
+	isDone: true
+};
+
+export const done: TEvent = {
+	id: 4,
+	name: 'Meeting with design team at Disney',
+	description: null,
+	startDate: getTodayAtTime('10:15'),
+	endDate: getTodayAtTime('12:30'),
+	isDone: true
+};
+
 export const events: TEvent[] = [
-	{
-		id: 1,
-		name: 'Breakfast',
-		description: null,
-		startDate: getTodayAtTime('07:00'),
-		endDate: getTodayAtTime('07:45'),
-		isDone: false
-	},
-	{
-		id: 2,
-		name: 'Breakfast2 ',
-		description: null,
-		startDate: getTodayAtTime('07:45'),
-		endDate: getTodayAtTime('08:00'),
-		isDone: false
-	},
-	{
-		id: 3,
-		name: 'Flight to Paris',
-		description: 'John F. Kennedy International Airport',
-		startDate: addDays(getTodayAtTime('00:00'), 2),
-		endDate: addDays(getTodayAtTime('23:59'), 2),
-		isDone: false
-	},
-	{
-		id: 4,
-		name: 'Meeting with design team at Disney',
-		description: null,
-		startDate: getTodayAtTime('10:15'),
-		endDate: addDays(getTodayAtTime('12:30'), 1),
-		isDone: true
-	}
+	normalWithoutDescription,
+	shortWithoutDescription,
+	normalDescription,
+	long,
+	done
 ];
