@@ -11,13 +11,11 @@ export const load = (async () => {
 export const actions = {
 	add: async ({ request }) => {
 		const data = await request.formData();
+		const name = data.get('name');
+		const description = data.get('description');
+		const startDate = data.get('startDate');
+		const endDate = data.get('endDate');
 		try {
-			const name = data.get('name');
-			const date = data.get('date');
-			const startTime = data.get('startTime');
-			const endTime = data.get('endTime');
-			const description = data.get('description');
-
 			if (!name || typeof name !== 'string') {
 				throw Error('name is required');
 			}
@@ -26,38 +24,30 @@ export const actions = {
 				throw Error('description must be a string');
 			}
 
-			if (!date) {
-				throw Error('date is required');
+			if (typeof startDate !== 'string') {
+				throw Error('startDate is required');
 			}
 
-			if (!startTime) {
-				throw Error('startTime is required');
+			if (typeof endDate !== 'string') {
+				throw Error('endDate is required');
 			}
-
-			if (!endTime) {
-				throw Error('endTime is required');
-			}
-
-			const startDate = new Date(`${date}T${startTime}:00`);
-			const endDate = new Date(`${date}T${endTime}:00`);
 
 			return await prisma.event.create({
 				data: {
 					name,
 					description,
-					startDate,
-					endDate,
+					startDate: new Date(startDate),
+					endDate: new Date(endDate),
 					isDone: false
 				}
 			});
 		} catch (error) {
 			return fail(422, {
-				name: data.get('name'),
-				description: data.get('description'),
+				name,
+				description,
 				date: data.get('date'),
 				startTime: data.get('startTime'),
 				endTime: data.get('endTime'),
-				isDone: data.get('isDone'),
 				error: error instanceof Error ? error.message : "error isn't an instance of error"
 			});
 		}

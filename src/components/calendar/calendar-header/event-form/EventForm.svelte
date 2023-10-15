@@ -2,7 +2,7 @@
 	// eslint-disable-next-line import/no-unresolved
 	import { enhance, applyAction } from '$app/forms';
 	import { add } from '$lib/store/events';
-	import { addMinutes, format } from 'date-fns';
+	import { addMinutes, format, formatISO } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/$types';
 	import Button from '../../../button/Button.svelte';
@@ -16,7 +16,13 @@
 <form
 	method="POST"
 	action="?/add"
-	use:enhance={() => {
+	use:enhance={({ formData }) => {
+		const startTime = formData.get('startTime');
+		const endTime = formData.get('endTime');
+		const date = formData.get('date');
+		formData.append('startDate', formatISO(new Date(`${date}T${startTime}:00`)));
+		formData.append('endDate', formatISO(new Date(`${date}T${endTime}:00`)));
+
 		creating = true;
 		return async ({ update, result }) => {
 			creating = false;
