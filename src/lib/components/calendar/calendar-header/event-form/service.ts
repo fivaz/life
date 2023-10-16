@@ -1,5 +1,5 @@
-import type { TEvent } from '$lib';
-import { format, formatISO } from 'date-fns';
+import { addMinutes, format, formatISO } from 'date-fns';
+import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/$types';
 
 export type EventIn = {
 	id: number;
@@ -23,13 +23,28 @@ export function updateDate(formData: FormData) {
 	formData.append('endDate', getISODate(date, endTime));
 }
 
-export function addEventIn(event: TEvent): TEvent & EventIn {
-	return {
-		...event,
-		date: format(event.startDate, 'yyyy-MM-dd'),
-		startTime: format(event.startDate, 'HH:mm'),
-		endTime: format(event.endDate, 'HH:mm')
-	};
+export function getFields(form: ActionData): EventIn {
+	if (form?.save) {
+		return {
+			id: form.data.id,
+			name: form.data.name,
+			description: form.data.description,
+			isDone: form.data.isDone,
+			date: format(form.data.startDate, 'yyyy-MM-dd'),
+			startTime: format(form.data.startDate, 'HH:mm'),
+			endTime: format(form.data.endDate, 'HH:mm')
+		};
+	} else {
+		return {
+			id: 0,
+			name: '',
+			description: null,
+			isDone: false,
+			date: format(new Date(), 'yyyy-MM-dd'),
+			startTime: format(new Date(), 'HH:mm'),
+			endTime: format(addMinutes(new Date(), 15), 'HH:mm')
+		};
+	}
 }
 
 export function getDateFromForm(date: Date | FormDataEntryValue | null | undefined): string {

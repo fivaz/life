@@ -23,7 +23,10 @@
 		{currentDate}
 		on:edit={(event) => {
 			showForm = true;
-			form = event.detail;
+			form = {
+				save: true,
+				data: event.detail
+			};
 		}}
 	/>
 	<Modal show={showForm} on:close={() => (showForm = false)}>

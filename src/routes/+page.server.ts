@@ -9,9 +9,9 @@ export const load = (async () => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	submit: async ({ request }) => {
+	save: async ({ request }) => {
 		const data = await request.formData();
-		const id = data.get('id');
+		const id = Number(data.get('id'));
 		const name = data.get('name');
 		const description = data.get('description');
 		const startDate = data.get('startDate');
@@ -36,9 +36,9 @@ export const actions = {
 			}
 
 			if (id) {
-				return await prisma.event.update({
+				const event = await prisma.event.update({
 					where: {
-						id: Number(id)
+						id
 					},
 					data: {
 						name,
@@ -48,9 +48,9 @@ export const actions = {
 						isDone
 					}
 				});
+				return { save: true, data: event };
 			} else {
-				console.log('jere');
-				return await prisma.event.create({
+				const event = await prisma.event.create({
 					data: {
 						name,
 						description,
@@ -59,28 +59,20 @@ export const actions = {
 						isDone
 					}
 				});
+				return { save: true, data: event };
 			}
 		} catch (error) {
 			return fail(422, {
-				id: Number(id),
-				name: name,
-				description,
-				isDone,
-				startDate,
-				endDate,
 				error: error instanceof Error ? error.message : "error isn't an instance of error"
 			});
 		}
 	},
-
-	update: async ({ request }) => {
-		// TODO check why the isDone arriving here is either null or "on"
+	remove: async ({ request }) => {
 		const data = await request.formData();
-		await prisma.event.update({
-			where: { id: Number(data.get('id')) },
-			data: {
-				isDone: !!data.get('isDone')
-			}
+		const id = Number(data.get('id'));
+		await prisma.event.delete({
+			where: { id }
 		});
+		return { remove: true, data: { id } };
 	}
 } satisfies Actions;
