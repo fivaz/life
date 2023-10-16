@@ -36,7 +36,7 @@
 		{#each eventsData as event (event)}
 			<!--then we set each element of the list with pointer-events-auto so they can catch events to edit the TEvent-->
 			<li
-				class="w-full h-full rounded-lg pointer-events-auto"
+				class="relative w-full h-full rounded-lg pointer-events-auto"
 				style="grid-row: {event.gridRowStart} / {event.gridRowEnd};"
 			>
 				<Event {event} on:edit />
