@@ -1,11 +1,9 @@
 <script lang="ts">
 	import { enhance, applyAction } from '$app/forms';
-	import { TIME } from '$lib';
 	import { add15Minutes, getFields, updateDate } from '$lib/components/calendar/event-form/service';
 	import { removeEvent, updateEvent } from '$lib/store/events';
 	import classnames from 'classnames';
-	import { format } from 'date-fns';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/$types';
 	import Button from '../../button/Button.svelte';
 
@@ -14,7 +12,11 @@
 
 	$: fields = getFields(form);
 
-	let endTime = add15Minutes(format(new Date(), TIME));
+	let endTime: string = '';
+
+	//I need to do this inside an onMount because startTime is derived and so is
+	// only executed after the rest of the script and before the template
+	onMount(() => (endTime = add15Minutes(fields.startTime)));
 
 	let error = '';
 
@@ -128,11 +130,11 @@
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
 		{#if fields.id}
 			<button
+				formaction="?/remove"
 				class={classnames(
 					'focus-visible:outline-red-600 bg-red-600 hover:bg-red-500',
 					'inline-flex justify-center rounded-md  px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
 				)}
-				formaction="?/remove"
 			>
 				Delete
 			</button>
@@ -142,8 +144,8 @@
 
 		<Button
 			isLoading={loading}
-			className="focus-visible:outline-indigo-600 bg-indigo-600 hover:bg-indigo-500"
 			type="submit"
+			className="focus-visible:outline-indigo-600 bg-indigo-600 hover:bg-indigo-500"
 		>
 			Add
 		</Button>
