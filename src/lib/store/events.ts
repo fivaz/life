@@ -19,6 +19,9 @@ export function updateEvent(newEvent: TEvent) {
 export function removeEvent(eventId: TEvent['id']) {
 	events.update(($events) => $events.filter((event) => event.id !== eventId));
 }
-export function toggleEvent(event: TEvent, isDone: boolean) {
-	events.update(($todos) => [...$todos.filter((e) => e.id !== event.id), { ...event, isDone }]);
+export function toggleEvent(event: TEvent) {
+	events.update(($todos) => [
+		...$todos.filter((e) => e.id !== event.id),
+		{ ...event, isDone: !event.isDone }
+	]);
 }

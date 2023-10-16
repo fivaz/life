@@ -1,17 +1,19 @@
 <script lang="ts">
+	import { Loader2 } from '@steeze-ui/lucide-icons';
+	import { Icon } from '@steeze-ui/svelte-icon';
 	import { enhance } from '$app/forms';
 	import type { TEvent } from '$lib';
-	import {
-		isShort,
-		toggleDone
-	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/service';
+	import { toggleEvent } from '$lib/store/events';
 	import classnames from 'classnames';
 	import { format } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
+	import { isShort } from './service';
 
 	export let event: TEvent;
 
 	let form: HTMLFormElement;
+
+	let loading: boolean = false;
 
 	const dispatch = createEventDispatcher();
 </script>
@@ -31,14 +33,27 @@
 	)}
 >
 	<div class="absolute right-0 pr-2">
-		<form method="POST" action="?/toggle" use:enhance bind:this={form}>
+		<form
+			method="POST"
+			action="?/toggle"
+			bind:this={form}
+			use:enhance={() => {
+				loading = true;
+				return async ({ result }) => {
+					if (result.type === 'success') {
+						toggleEvent(event);
+					}
+					loading = false;
+				};
+			}}
+		>
 			<input type="hidden" name="id" value={event.id} />
 			<label>
 				<input
 					type="checkbox"
 					checked={event.isDone}
-					on:change={(e) => toggleDone(event, e.currentTarget.checked, form)}
-					on:click={(e) => e.stopPropagation()}
+					on:change={() => form.requestSubmit()}
+					on:click|stopPropagation
 					name="isDone"
 					class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
 				/>
@@ -58,3 +73,11 @@
 		{event.description}
 	</p>
 </div>
+
+{#if loading}
+	<div
+		class="absolute w-full h-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
+	>
+		<Icon src={Loader2} class="animate-spin" />
+	</div>
+{/if}

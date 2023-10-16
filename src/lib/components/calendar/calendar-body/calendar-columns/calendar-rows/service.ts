@@ -1,6 +1,5 @@
 import type { TEvent } from '$lib';
-import { toggleEvent } from '$lib/store/events';
-import { differenceInMinutes, endOfDay, isWithinInterval, startOfDay } from 'date-fns';
+import { endOfDay, isWithinInterval, startOfDay } from 'date-fns';
 
 export const halfHourInterval = 24 * 2;
 export function isEventOnDay(event: TEvent, targetDay: Date): boolean {
@@ -11,11 +10,6 @@ export function isEventOnDay(event: TEvent, targetDay: Date): boolean {
 		}) ||
 		isWithinInterval(event.endDate, { start: startOfDay(targetDay), end: endOfDay(targetDay) })
 	);
-}
-
-export function isShort(event: TEvent) {
-	const diff = differenceInMinutes(event.startDate, event.endDate);
-	return Math.abs(diff) <= 15;
 }
 
 export function getGridRows(event: TEvent): { gridRowStart: number; gridRowEnd: number } {
@@ -29,9 +23,4 @@ export function getGridRows(event: TEvent): { gridRowStart: number; gridRowEnd: 
 		gridRowStart: startRow,
 		gridRowEnd: endRow
 	};
-}
-
-export function toggleDone(event: TEvent, isDone: boolean, form: HTMLFormElement) {
-	toggleEvent(event, isDone);
-	form.requestSubmit();
 }

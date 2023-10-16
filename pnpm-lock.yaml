@@ -17,6 +17,9 @@ devDependencies:
   '@steeze-ui/heroicons':
     specifier: ^2.2.3
     version: 2.2.3
+  '@steeze-ui/lucide-icons':
+    specifier: ^1.2.0
+    version: 1.2.0
   '@steeze-ui/svelte-icon':
     specifier: ^1.5.0
     version: 1.5.0(svelte@4.2.1)
@@ -3187,6 +3190,13 @@ packages:
     resolution:
       {
         integrity: sha512-bv4YK375U9TDS50SmJ5VdFy2UmMhgKbJCCbo6IUU3qs2luEj2VX6sQoDy96j8AIKttxMd62ih1j0lZj7CTjIfA==
+      }
+    dev: true
+
+  /@steeze-ui/lucide-icons@1.2.0:
+    resolution:
+      {
+        integrity: sha512-EHanG7TVXRh9hc0c7OGXgfcTGN3A8jnswH8vtS4ex27XDZxm2TT9u7ns5oNrDafvto6eYlDhNSlppgGQ56qlOA==
       }
     dev: true
 

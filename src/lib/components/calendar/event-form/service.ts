@@ -47,8 +47,6 @@ export function getFields(form: ActionData): Omit<EventIn, 'endTime'> {
 	}
 }
 
-// TODO try to use stopPropragtion like this: on:change|stopPropragation
-
 export function add15Minutes(time: string) {
 	const date = parse(time, TIME, new Date());
 
