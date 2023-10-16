@@ -1,5 +1,6 @@
+import type { TEvent } from '$lib';
 import { DATE, TIME } from '$lib';
-import { addMinutes, format, formatISO, parse } from 'date-fns';
+import { addMinutes, format, formatISO, parse, setHours, setMinutes } from 'date-fns';
 import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/$types';
 
 export type EventIn = {
@@ -46,10 +47,31 @@ export function getFields(form: ActionData): Omit<EventIn, 'endTime'> {
 	}
 }
 
+// TODO try to use stopPropragtion like this: on:change|stopPropragation
+
 export function add15Minutes(time: string) {
 	const date = parse(time, TIME, new Date());
 
 	const date15MinutesLater = addMinutes(date, 15);
 
 	return format(date15MinutesLater, TIME);
+}
+
+export function buildEvent(date: Date, timeInterval: number): TEvent {
+	return {
+		id: 0,
+		name: '',
+		description: null,
+		startDate: buildDate(date, timeInterval),
+		endDate: buildDate(date, timeInterval),
+		isDone: false
+	};
+}
+
+function buildDate(date: Date, timeInterval: number) {
+	if (timeInterval < 0 || timeInterval > 48) {
+		throw 'Invalid number. Please enter a number between 0 and 48.';
+	}
+
+	return setMinutes(setHours(date, 0), timeInterval * 30);
 }

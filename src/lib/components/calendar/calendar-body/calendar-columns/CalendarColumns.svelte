@@ -27,7 +27,7 @@
 						{format(date, 'dd')}
 					</span>
 				</div>
-				<CalendarRows {date} on:edit />
+				<CalendarRows {date} on:edit on:create />
 			</div>
 		{/each}
 	</div>
@@ -55,6 +55,6 @@
 				</button>
 			{/each}
 		</div>
-		<CalendarRows date={selectedDate} on:edit />
+		<CalendarRows date={selectedDate} on:edit on:create />
 	</div>
 </div>

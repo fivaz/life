@@ -1,5 +1,6 @@
 <script lang="ts">
 	import EventForm from '$lib/components/calendar/event-form/EventForm.svelte';
+	import { buildEvent } from '$lib/components/calendar/event-form/service';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { startOfWeek } from 'date-fns';
 
@@ -21,11 +22,18 @@
 	<CalendarBody
 		{weekStart}
 		{currentDate}
-		on:edit={(event) => {
+		on:edit={(e) => {
 			showForm = true;
 			form = {
 				save: true,
-				data: event.detail
+				data: e.detail
+			};
+		}}
+		on:create={(e) => {
+			showForm = true;
+			form = {
+				save: true,
+				data: buildEvent(e.detail.date, e.detail.timeInterval)
 			};
 		}}
 	/>
