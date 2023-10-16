@@ -16,14 +16,14 @@ export const actions = {
 		const description = data.get('description');
 		const startDate = data.get('startDate');
 		const endDate = data.get('endDate');
-		const isDone = !!data.get('isDone');
+		const isDone = data.get('isDone') === 'true';
 
 		try {
 			if (!name || typeof name !== 'string') {
 				throw Error('name is required');
 			}
 
-			if (typeof description !== 'string') {
+			if (description instanceof File) {
 				throw Error('description must be a string');
 			}
 
