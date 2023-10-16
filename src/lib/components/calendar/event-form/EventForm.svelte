@@ -6,6 +6,7 @@
 		getFields,
 		updateDate
 	} from '$lib/components/calendar/event-form/service';
+	import Input from '$lib/components/input/Input.svelte';
 	import { removeEvent, updateEvent } from '$lib/store/events';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/$types';
@@ -55,7 +56,13 @@
 	class="w-[336px] shadow rounded-md overflow-hidden"
 >
 	<div class="flex flex-col gap-3 px-4 py-5 bg-white sm:p-6">
-		<h2 class="text-lg font-medium text-gray-900">{fields.id ? 'Edit Event' : 'Add Event'}</h2>
+		<h2 class="text-lg font-medium text-gray-900">
+			{#if fields.id}
+				Edit Event
+			{:else}
+				Add Event
+			{/if}
+		</h2>
 
 		{#if error}
 			<p class="text-red-500">{error}</p>
@@ -64,66 +71,42 @@
 		<input type="hidden" name="id" value={fields.id} />
 		<input type="hidden" name="isDone" value={fields.isDone} />
 
-		<div>
-			<label class="block text-sm font-medium text-gray-700 mb-1">
-				Name
-				<input
-					autocomplete="off"
-					name="name"
-					value={fields.name}
-					class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-				/>
-			</label>
-		</div>
+		<Input
+			label="Name"
+			autocomplete="off"
+			name="name"
+			value={fields.name}
+			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+		/>
 
-		<div>
-			<label class="block text-sm font-medium text-gray-700 mb-1">
-				Description
-				<textarea
-					name="description"
-					value={fields.description}
-					class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-				/>
-			</label>
-		</div>
+		<label class="block text-sm font-medium text-gray-700 mb-1">
+			Description
+			<textarea
+				name="description"
+				value={fields.description}
+				class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+			/>
+		</label>
 
-		<div>
-			<label class="block text-sm font-medium text-gray-700 mb-1">
-				Date
-				<input
-					type="date"
-					name="date"
-					value={fields.date}
-					class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-				/>
-			</label>
-		</div>
+		<Input
+			label="Date"
+			type="date"
+			name="date"
+			value={fields.date}
+			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+		/>
 
 		<div class="grid grid-cols-4 gap-3">
-			<div class="col-span-2">
-				<label class="block text-sm font-medium text-gray-700 mb-1">
-					Start time
-					<input
-						type="time"
-						name="startTime"
-						class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-						value={fields.startTime}
-						on:input={(e) => (endTime = add15Minutes(e.currentTarget.value))}
-					/>
-				</label>
-			</div>
+			<Input
+				labelClass="col-span-2"
+				label="Start time"
+				type="time"
+				name="startTime"
+				value={fields.startTime}
+				on:input={(e) => (endTime = add15Minutes(e.detail))}
+			/>
 
-			<div class="col-span-2">
-				<label class="block text-sm font-medium text-gray-700 mb-1">
-					End time
-					<input
-						type="time"
-						name="endTime"
-						value={endTime}
-						class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-					/>
-				</label>
-			</div>
+			<Input labelClass="col-span-2" label="End time" type="time" name="endTime" value={endTime} />
 		</div>
 	</div>
 
@@ -134,6 +117,12 @@
 			<div />
 		{/if}
 
-		<Button isLoading={loading} type="submit">{fields.id ? 'Edit' : 'Add'}</Button>
+		<Button isLoading={loading} type="submit">
+			{#if fields.id}
+				Edit
+			{:else}
+				Add
+			{/if}
+		</Button>
 	</div>
 </form>
