@@ -1,8 +1,13 @@
 <script lang="ts">
 	import { enhance, applyAction } from '$app/forms';
-	import { add15Minutes, getFields, updateDate } from '$lib/components/calendar/event-form/service';
+	import {
+		add15Minutes,
+		getEndTime,
+		getFields,
+		updateDate
+	} from '$lib/components/calendar/event-form/service';
 	import { removeEvent, updateEvent } from '$lib/store/events';
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/$types';
 	import Button from '../../button/Button.svelte';
 
@@ -11,11 +16,7 @@
 
 	$: fields = getFields(form);
 
-	let endTime: string = '';
-
-	//I need to do this inside an onMount because startTime is derived and so is
-	// only executed after the rest of the script and before the template
-	onMount(() => (endTime = add15Minutes(fields.startTime)));
+	let endTime: string = getEndTime(form);
 
 	let error = '';
 

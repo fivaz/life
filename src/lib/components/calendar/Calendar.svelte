@@ -18,7 +18,14 @@
 </script>
 
 <div class="flex h-full flex-col divide-gray-200">
-	<CalendarHeader bind:weekStart {currentDate} on:create={() => (showForm = true)} />
+	<CalendarHeader
+		bind:weekStart
+		{currentDate}
+		on:create={() => {
+			showForm = true;
+			form = null;
+		}}
+	/>
 	<CalendarBody
 		{weekStart}
 		{currentDate}

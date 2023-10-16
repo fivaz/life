@@ -25,7 +25,7 @@ export function updateDate(formData: FormData) {
 	formData.append('endDate', getISODate(date, endTime));
 }
 
-export function getFields(form: ActionData): Omit<EventIn, 'endTime'> {
+export function getFields(form: ActionData): EventIn | Omit<EventIn, 'endTime'> {
 	if (form?.save) {
 		return {
 			id: form.data.id,
@@ -47,6 +47,14 @@ export function getFields(form: ActionData): Omit<EventIn, 'endTime'> {
 	}
 }
 
+export function getEndTime(form: ActionData): string {
+	if (form?.save) {
+		return format(form.data.endDate, TIME);
+	} else {
+		return format(addMinutes(new Date(), 15), TIME);
+	}
+}
+
 export function add15Minutes(time: string) {
 	const date = parse(time, TIME, new Date());
 
@@ -61,7 +69,7 @@ export function buildEvent(date: Date, timeInterval: number): TEvent {
 		name: '',
 		description: null,
 		startDate: buildDate(date, timeInterval),
-		endDate: buildDate(date, timeInterval),
+		endDate: buildDate(date, timeInterval + 0.5),
 		isDone: false
 	};
 }
