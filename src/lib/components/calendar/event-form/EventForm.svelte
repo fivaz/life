@@ -55,7 +55,7 @@
 	class="w-[336px] shadow rounded-md overflow-hidden"
 >
 	<div class="flex flex-col gap-3 px-4 py-5 bg-white sm:p-6">
-		<h2 class="text-lg font-medium text-gray-900">Add Event</h2>
+		<h2 class="text-lg font-medium text-gray-900">{fields.id ? 'Edit Event' : 'Add Event'}</h2>
 
 		{#if error}
 			<p class="text-red-500">{error}</p>
@@ -89,7 +89,7 @@
 
 		<div>
 			<label class="block text-sm font-medium text-gray-700 mb-1">
-				Start
+				Date
 				<input
 					type="date"
 					name="date"
@@ -134,6 +134,6 @@
 			<div />
 		{/if}
 
-		<Button isLoading={loading} type="submit">Add</Button>
+		<Button isLoading={loading} type="submit">{fields.id ? 'Edit' : 'Add'}</Button>
 	</div>
 </form>

@@ -70,12 +70,13 @@ export const actions = {
 	toggle: async ({ request }) => {
 		// TODO check why the isDone arriving here is either null or "on"
 		const data = await request.formData();
-		await prisma.event.update({
+		const event = await prisma.event.update({
 			where: { id: Number(data.get('id')) },
 			data: {
 				isDone: !!data.get('isDone')
 			}
 		});
+		return { save: true, data: event };
 	},
 	remove: async ({ request }) => {
 		const data = await request.formData();
