@@ -30,7 +30,7 @@
 	>
 		{#each eventsData as event (event)}
 			<li
-				class="relative w-full h-full rounded-lg z-10"
+				class="w-full h-full rounded-lg"
 				style="grid-row: {event.gridRowStart} / {event.gridRowEnd};"
 			>
 				<Event {event} on:edit />

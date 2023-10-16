@@ -55,6 +55,6 @@
 				</button>
 			{/each}
 		</div>
-		<CalendarRows date={selectedDate} />
+		<CalendarRows date={selectedDate} on:edit />
 	</div>
 </div>
