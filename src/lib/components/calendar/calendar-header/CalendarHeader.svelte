@@ -5,8 +5,8 @@
 	import classnames from 'classnames';
 	import { addDays, format } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
-	
-export let currentDate: Date;
+
+	export let currentDate: Date;
 	export let weekStart: Date;
 
 	const dispatch = createEventDispatcher();
@@ -123,7 +123,7 @@ export let currentDate: Date;
 				on:click={() => dispatch('create')}
 				class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
 			>
-				Add event
+				Create event
 			</button>
 		</div>
 		<!--Mobile-->
@@ -149,6 +149,7 @@ export let currentDate: Date;
 					<div class="py-1">
 						<MenuItem let:active>
 							<button
+								on:click={() => dispatch('create')}
 								class={classnames(
 									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
 									'block px-4 py-2 text-sm'

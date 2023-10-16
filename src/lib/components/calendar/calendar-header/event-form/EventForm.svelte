@@ -9,8 +9,8 @@
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/$types';
 	import Button from '../../../button/Button.svelte';
-	
-let submitting = false;
+
+	let submitting = false;
 	export let form: ActionData | null = null;
 
 	$: fields = getFields(form);
@@ -29,7 +29,6 @@ let submitting = false;
 			updateDate(formData);
 
 			return async ({ result }) => {
-				submitting = false;
 				await applyAction(result);
 				if (result.type === 'success') {
 					if (form?.remove) {
@@ -45,7 +44,9 @@ let submitting = false;
 				}
 			};
 		} catch (e) {
-			error = 'Invalid date';
+			error = 'date is invalid';
+		} finally {
+			submitting = false;
 		}
 	}}
 	class="w-[336px] shadow rounded-md overflow-hidden"
