@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import type { Meta } from '@storybook/svelte';
-	import EventForm from '$lib/components/calendar/calendar-header/event-form/EventForm.svelte';
+	import EventForm from '$lib/components/calendar/event-form/EventForm.svelte';
 	import Modal from './Modal.svelte';
 
 	export const meta = {
@@ -23,5 +23,5 @@
 </Story>
 
 <Story name="Form" args={{ show: true }} let:args>
-	<Modal {...args}><EventForm /></Modal>
+	<Modal {...args}><EventForm form={null} /></Modal>
 </Story>

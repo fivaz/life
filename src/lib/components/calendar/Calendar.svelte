@@ -1,5 +1,5 @@
 <script lang="ts">
-	import EventForm from '$lib/components/calendar/calendar-header/event-form/EventForm.svelte';
+	import EventForm from '$lib/components/calendar/event-form/EventForm.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { startOfWeek } from 'date-fns';
 
@@ -13,7 +13,7 @@
 
 	let showForm: boolean = false;
 
-	export let form: ActionData | null = null;
+	export let form: ActionData | null;
 </script>
 
 <div class="flex h-full flex-col divide-gray-200">

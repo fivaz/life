@@ -6,3 +6,6 @@ export type TEvent = {
 	endDate: Date;
 	isDone: boolean;
 };
+
+export const DATE = 'yyyy-MM-dd';
+export const TIME = 'HH:mm';
