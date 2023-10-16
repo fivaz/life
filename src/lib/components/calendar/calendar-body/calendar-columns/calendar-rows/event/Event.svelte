@@ -23,7 +23,7 @@
 	)}
 >
 	<div class="absolute right-0 pr-2">
-		<form method="POST" action="?/update" use:enhance bind:this={form}>
+		<form method="POST" action="?/toggle" use:enhance bind:this={form}>
 			<input type="hidden" name="id" value={event.id} />
 			<label>
 				<input

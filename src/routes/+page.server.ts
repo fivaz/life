@@ -67,6 +67,16 @@ export const actions = {
 			});
 		}
 	},
+	toggle: async ({ request }) => {
+		// TODO check why the isDone arriving here is either null or "on"
+		const data = await request.formData();
+		await prisma.event.update({
+			where: { id: Number(data.get('id')) },
+			data: {
+				isDone: !!data.get('isDone')
+			}
+		});
+	},
 	remove: async ({ request }) => {
 		const data = await request.formData();
 		const id = Number(data.get('id'));
