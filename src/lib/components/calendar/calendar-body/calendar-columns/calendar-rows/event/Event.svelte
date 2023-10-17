@@ -48,16 +48,14 @@
 	<div class="absolute right-0 pr-2">
 		<form method="POST" action="?/toggle" bind:this={form} use:enhance={submit}>
 			<input type="hidden" name="id" value={event.id} />
-			<label>
-				<input
-					type="checkbox"
-					checked={event.isDone}
-					on:change={() => form.requestSubmit()}
-					on:click|stopPropagation
-					name="isDone"
-					class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-				/>
-			</label>
+			<input
+				type="checkbox"
+				checked={event.isDone}
+				on:change={() => form.requestSubmit()}
+				on:click|stopPropagation
+				name="isDone"
+				class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+			/>
 		</form>
 	</div>
 	<p class={classnames({ hidden: isShort(event) }, 'text-blue-500 group-hover:text-blue-700')}>
@@ -76,8 +74,8 @@
 
 {#if loading}
 	<div
-		class="absolute w-full h-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
+		class="absolute flex justify-center items-center w-full h-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
 	>
-		<Icon src={Loader2} class="animate-spin" />
+		<Icon src={Loader2} class="animate-spin h-4 w-4" />
 	</div>
 {/if}

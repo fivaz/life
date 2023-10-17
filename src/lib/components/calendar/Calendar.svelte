@@ -32,13 +32,13 @@
 		on:edit={(e) => {
 			showForm = true;
 			form = {
-				save: e.detail
+				saved: e.detail
 			};
 		}}
 		on:create={(e) => {
 			showForm = true;
 			form = {
-				save: buildEvent(e.detail.date, e.detail.timeInterval)
+				saved: buildEvent(e.detail.date, e.detail.timeInterval)
 			};
 		}}
 	/>

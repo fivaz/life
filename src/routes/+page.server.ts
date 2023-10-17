@@ -48,7 +48,7 @@ export const actions = {
 						isDone
 					}
 				});
-				return { save: event };
+				return { saved: event };
 			} else {
 				const event = await prisma.event.create({
 					data: {
