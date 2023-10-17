@@ -12,12 +12,12 @@ export default function (plop) {
 			{
 				type: 'add',
 				path: '../src/lib/components/{{dashCase name}}/{{pascalCase name}}.svelte',
-				templateFile: 'templates/component.tsx.hbs'
+				templateFile: 'templates/component.hbs'
 			},
 			{
 				type: 'add',
 				path: '../src/lib/components/{{dashCase name}}/{{dashCase name}}.stories.svelte',
-				templateFile: 'templates/component-stories.svelte.hbs'
+				templateFile: 'templates/component-stories.hbs'
 			}
 		]
 	});
@@ -35,7 +35,12 @@ export default function (plop) {
 			{
 				type: 'add',
 				path: '../src/routes/{{dashCase name}}/+page.svelte',
-				templateFile: 'templates/page.tsx.hbs'
+				templateFile: 'templates/page.hbs'
+			},
+			{
+				type: 'add',
+				path: '../src/routes/{{dashCase name}}/+page.server.ts',
+				templateFile: 'templates/page-server.hbs'
 			}
 		]
 	});
