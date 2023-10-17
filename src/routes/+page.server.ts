@@ -1,11 +1,11 @@
 import { fail } from '@sveltejs/kit';
+import type { TEvent } from '$lib';
 import prisma from '$lib/prisma';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load = (async () => {
-	const response = await prisma.event.findMany();
-
-	return { events: response };
+	const events: TEvent[] = await prisma.event.findMany({ where: { deleted: null } });
+	return { events };
 }) satisfies PageServerLoad;
 
 export const actions = {
@@ -59,7 +59,7 @@ export const actions = {
 						isDone
 					}
 				});
-				return { saved: event };
+				return { saved: event as TEvent };
 			}
 		} catch (error) {
 			return fail(422, {
@@ -68,7 +68,6 @@ export const actions = {
 		}
 	},
 	toggle: async ({ request }) => {
-		// TODO check why the isDone arriving here is either null or "on"
 		const data = await request.formData();
 		const event = await prisma.event.update({
 			where: { id: Number(data.get('id')) },
@@ -76,14 +75,18 @@ export const actions = {
 				isDone: !!data.get('isDone')
 			}
 		});
-		return { saved: event };
+
+		return { saved: event as TEvent };
 	},
 	remove: async ({ request }) => {
 		const data = await request.formData();
 		const id = Number(data.get('id'));
-		const event = await prisma.event.delete({
-			where: { id }
+		const event = await prisma.event.update({
+			where: { id },
+			data: {
+				deleted: new Date()
+			}
 		});
-		return { removed: event };
+		return { removed: event as TEvent };
 	}
 } satisfies Actions;
