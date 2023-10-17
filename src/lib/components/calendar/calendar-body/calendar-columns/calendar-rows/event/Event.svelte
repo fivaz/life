@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Loader2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
 	import type { TEvent } from '$lib';
 	import { toggleEvent } from '$lib/store/events';
@@ -15,7 +16,19 @@
 
 	let loading: boolean = false;
 
-	const dispatch = createEventDispatcher();
+	const dispatch = createEventDispatcher<{
+		edit: TEvent;
+	}>();
+
+	const submit: SubmitFunction = () => {
+		loading = true;
+		return async ({ result }) => {
+			if (result.type === 'success') {
+				toggleEvent(event);
+			}
+			loading = false;
+		};
+	};
 </script>
 
 <div
@@ -33,20 +46,7 @@
 	)}
 >
 	<div class="absolute right-0 pr-2">
-		<form
-			method="POST"
-			action="?/toggle"
-			bind:this={form}
-			use:enhance={() => {
-				loading = true;
-				return async ({ result }) => {
-					if (result.type === 'success') {
-						toggleEvent(event);
-					}
-					loading = false;
-				};
-			}}
-		>
+		<form method="POST" action="?/toggle" bind:this={form} use:enhance={submit}>
 			<input type="hidden" name="id" value={event.id} />
 			<label>
 				<input

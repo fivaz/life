@@ -25,15 +25,16 @@ export function updateDate(formData: FormData) {
 	formData.append('endDate', getISODate(date, endTime));
 }
 
-export function getFields(form: ActionData): EventIn | Omit<EventIn, 'endTime'> {
-	if (form?.save) {
+export function getFields(form: ActionData): EventIn {
+	if (form?.saved) {
 		return {
-			id: form.data.id,
-			name: form.data.name,
-			description: form.data.description,
-			isDone: form.data.isDone,
-			date: format(form.data.startDate, DATE),
-			startTime: format(form.data.startDate, TIME)
+			id: form.saved.id,
+			name: form.saved.name,
+			description: form.saved.description,
+			isDone: form.saved.isDone,
+			date: format(form.saved.startDate, DATE),
+			startTime: format(form.saved.startDate, TIME),
+			endTime: format(form.saved.endDate, TIME)
 		};
 	} else {
 		return {
@@ -42,14 +43,15 @@ export function getFields(form: ActionData): EventIn | Omit<EventIn, 'endTime'> 
 			description: null,
 			isDone: false,
 			date: format(new Date(), DATE),
-			startTime: format(new Date(), TIME)
+			startTime: format(new Date(), TIME),
+			endTime: format(addMinutes(new Date(), 15), TIME)
 		};
 	}
 }
 
 export function getEndTime(form: ActionData): string {
-	if (form?.save) {
-		return format(form.data.endDate, TIME);
+	if (form?.saved) {
+		return format(form.saved.endDate, TIME);
 	} else {
 		return format(addMinutes(new Date(), 15), TIME);
 	}

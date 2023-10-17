@@ -16,8 +16,8 @@ export function updateEvent(newEvent: TEvent) {
 	});
 }
 
-export function removeEvent(eventId: TEvent['id']) {
-	events.update(($events) => $events.filter((event) => event.id !== eventId));
+export function removeEvent(event: TEvent) {
+	events.update(($events) => $events.filter((event) => event.id !== event.id));
 }
 export function toggleEvent(event: TEvent) {
 	events.update(($todos) => [

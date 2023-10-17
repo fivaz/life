@@ -48,7 +48,7 @@ export const actions = {
 						isDone
 					}
 				});
-				return { save: true, data: event };
+				return { save: event };
 			} else {
 				const event = await prisma.event.create({
 					data: {
@@ -59,7 +59,7 @@ export const actions = {
 						isDone
 					}
 				});
-				return { save: true, data: event };
+				return { saved: event };
 			}
 		} catch (error) {
 			return fail(422, {
@@ -76,14 +76,14 @@ export const actions = {
 				isDone: !!data.get('isDone')
 			}
 		});
-		return { save: true, data: event };
+		return { saved: event };
 	},
 	remove: async ({ request }) => {
 		const data = await request.formData();
 		const id = Number(data.get('id'));
-		await prisma.event.delete({
+		const event = await prisma.event.delete({
 			where: { id }
 		});
-		return { remove: true, data: { id } };
+		return { removed: event };
 	}
 } satisfies Actions;
