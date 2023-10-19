@@ -12,6 +12,7 @@
 		<div class="mx-auto w-full max-w-sm lg:w-96">
 			<div>
 				{#if session}
+					<pre>{JSON.stringify(session.user, null, 2)}</pre>
 					<img class="h-10 w-auto" src={session.user?.image} alt="avatar" />
 				{:else}
 					<img
