@@ -48,7 +48,18 @@ module.exports = {
 	rules: {
 		'no-unused-vars': 'off',
 		'@typescript-eslint/no-unused-vars': 'off',
-		'import/no-unresolved': [2, { ignore: ['^\\$app/forms'] }],
+		'import/no-unresolved': [
+			2,
+			{
+				ignore: [
+					'^\\$app/forms',
+					'^\\$app/stores',
+					'^\\$app/navigation',
+					'^\\$env/static/private',
+					'^\\$env/static/public'
+				]
+			}
+		],
 		'import/imports-first': 'error',
 		'import/export': 'error',
 		'import/no-deprecated': 'error',

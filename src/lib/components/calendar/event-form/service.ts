@@ -1,7 +1,7 @@
 import type { TEvent } from '$lib';
 import { DATE, TIME } from '$lib';
 import { addMinutes, format, formatISO, parse, setHours, setMinutes } from 'date-fns';
-import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/$types';
+import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/$types';
 
 export type EventIn = {
 	id: number;

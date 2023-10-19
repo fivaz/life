@@ -5,7 +5,7 @@
 	import Input from '$lib/components/input/Input.svelte';
 	import { removeEvent, updateEvent } from '$lib/store/events';
 	import { createEventDispatcher } from 'svelte';
-	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/$types';
+	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/$types';
 	import Button from '../../button/Button.svelte';
 
 	let loading = false;

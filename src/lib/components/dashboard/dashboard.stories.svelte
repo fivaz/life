@@ -19,13 +19,13 @@
 </Template>
 
 <Story name="With Calendar" args={{}}>
-	<Dashboard>
+	<Dashboard session={null}>
 		<Calendar form={null} />
 	</Dashboard>
 </Story>
 
 <Story name="Empty" args={{}}>
-	<Dashboard>
+	<Dashboard session={null}>
 		<div class="h-96 rounded-lg border-4 border-dashed border-gray-200" />
 	</Dashboard>
 </Story>

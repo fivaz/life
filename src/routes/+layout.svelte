@@ -1,12 +1,9 @@
-<script>
+<script lang="ts">
 	import '../app.css';
-	import Dashboard from '$lib/components/dashboard/Dashboard.svelte';
 </script>
 
-<html lang="en" class="h-full bg-gray-50">
+<html lang="en" class="h-full">
 	<body class="h-full">
-		<Dashboard>
-			<slot />
-		</Dashboard>
+		<slot />
 	</body>
 </html>

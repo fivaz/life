@@ -1,9 +1,15 @@
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import type { TEvent } from '$lib';
 import prisma from '$lib/prisma';
 import type { Actions, PageServerLoad } from './$types';
 
-export const load = (async () => {
+export const load = (async (event) => {
+	const session = await event.locals.getSession();
+	if (!session?.user) {
+		console.log('not authentificated');
+		throw redirect(303, '/');
+	}
+
 	const events: TEvent[] = await prisma.event.findMany({ where: { deleted: null } });
 	return { events };
 }) satisfies PageServerLoad;
