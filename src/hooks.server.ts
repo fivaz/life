@@ -5,7 +5,7 @@ import { redirect } from '@sveltejs/kit';
 import type { Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 import { GITHUB_ID, GITHUB_SECRET } from '$env/static/private';
-import { dashboardRoute, loginRoute } from '$lib';
+import { dashboardRoute, loginRoute } from '$lib/event';
 import prisma from '$lib/prisma';
 
 const authorization: Handle = async ({ event, resolve }) => {

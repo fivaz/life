@@ -1,4 +1,4 @@
-import type { EEvent } from '$lib';
+import type { EEvent } from '$lib/event';
 import { endOfDay, isWithinInterval, startOfDay } from 'date-fns';
 
 export const halfHourInterval = 24 * 2;

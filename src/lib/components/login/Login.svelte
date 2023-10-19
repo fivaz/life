@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Session } from '@auth/core/types';
 	import { signIn } from '@auth/sveltekit/client';
-	import { dashboardRoute } from '$lib';
+	import { dashboardRoute } from '$lib/event';
 
 	export let session: Session | null;
 </script>

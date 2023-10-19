@@ -1,5 +1,5 @@
-import type { EEvent } from '$lib';
-import { DATE, TIME } from '$lib';
+import type { EEvent } from '$lib/event';
+import { DATE, TIME } from '$lib/event';
 import { addMinutes, format, formatISO, parse, setHours, setMinutes } from 'date-fns';
 import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/$types';
 

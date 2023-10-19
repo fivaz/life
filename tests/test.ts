@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { loginRoute } from '$lib';
+import { loginRoute } from '$lib/event';
 
 test('index page has expected h1', async ({ page }) => {
 	await page.goto(loginRoute);

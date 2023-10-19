@@ -1,4 +1,5 @@
 import { fail, redirect } from '@sveltejs/kit';
+import type { Category } from '$lib/category';
 import type { EEvent } from '$lib/event';
 import { loginRoute } from '$lib/event';
 import prisma from '$lib/prisma';
@@ -11,11 +12,11 @@ export const load = (async (event) => {
 		throw redirect(303, loginRoute);
 	}
 
-	const events: EEvent[] = await prisma.event.findMany({
+	const categories: Category[] = await prisma.category.findMany({
 		where: { deleted: null, userId: session.user.id }
 	});
 
-	return { events };
+	return { categories };
 }) satisfies PageServerLoad;
 
 export const actions = {
@@ -29,83 +30,40 @@ export const actions = {
 		const data = await request.formData();
 		const id = Number(data.get('id'));
 		const name = data.get('name');
-		const description = data.get('description');
-		const startDate = data.get('startDate');
-		const endDate = data.get('endDate');
-		const isDone = data.get('isDone') === 'true';
+		const isDefault = data.get('isDefault') === 'true';
 
 		try {
 			if (!name || typeof name !== 'string') {
 				throw Error('name is required');
 			}
 
-			if (description instanceof File) {
-				throw Error('description must be a string');
-			}
-
-			if (!startDate || typeof startDate !== 'string') {
-				throw Error('startDate is required');
-			}
-
-			if (!endDate || typeof endDate !== 'string') {
-				throw Error('endDate is required');
-			}
-
 			if (id) {
-				const event: EEvent = await prisma.event.update({
+				const category: Category = await prisma.category.update({
 					where: {
 						id,
 						userId: session.user.id
 					},
 					data: {
 						name,
-						description,
-						startDate: new Date(startDate),
-						endDate: new Date(endDate),
-						isDone
+						isDefault
 					}
 				});
-				return { saved: event };
+				return { saved: category };
 			} else {
-				const event: EEvent = await prisma.event.create({
+				const category: Category = await prisma.category.create({
 					data: {
 						userId: session.user.id,
 						name,
-						description,
-						startDate: new Date(startDate),
-						endDate: new Date(endDate),
-						isDone
+						isDefault
 					}
 				});
-				return { saved: event };
+				return { saved: category };
 			}
 		} catch (error) {
 			return fail(422, {
 				error: error instanceof Error ? error.message : "error isn't an instance of error"
 			});
 		}
-	},
-	toggle: async ({ request, locals }) => {
-		const session = await locals.getSession();
-
-		if (!session?.user) {
-			throw redirect(303, loginRoute);
-		}
-
-		const data = await request.formData();
-		const id = Number(data.get('id'));
-		const isDone = !!data.get('isDone');
-		const event: EEvent = await prisma.event.update({
-			where: {
-				id,
-				userId: session.user.id
-			},
-			data: {
-				isDone
-			}
-		});
-
-		return { saved: event };
 	},
 	remove: async ({ request, locals }) => {
 		const session = await locals.getSession();
@@ -116,7 +74,7 @@ export const actions = {
 
 		const data = await request.formData();
 		const id = Number(data.get('id'));
-		const event: EEvent = await prisma.event.update({
+		const category: Category = await prisma.category.update({
 			where: {
 				id,
 				userId: session.user.id
@@ -125,6 +83,6 @@ export const actions = {
 				deleted: new Date()
 			}
 		});
-		return { removed: event };
+		return { removed: category };
 	}
 } satisfies Actions;

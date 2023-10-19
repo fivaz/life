@@ -1,4 +1,4 @@
-import type { EEvent } from '$lib';
+import type { EEvent } from '$lib/event';
 import { writable } from 'svelte/store';
 
 export const events = writable<EEvent[]>([]);

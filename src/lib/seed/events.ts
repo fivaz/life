@@ -1,4 +1,4 @@
-import type { EEvent } from '$lib';
+import type { EEvent } from '$lib/event';
 import { addDays } from 'date-fns';
 
 function getTodayAtTime(time: string): Date {
