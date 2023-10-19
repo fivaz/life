@@ -72,6 +72,7 @@
 	"type": "module",
 	"dependencies": {
 		"@auth/core": "^0.17.0",
-		"@auth/sveltekit": "^0.3.10"
+		"@auth/sveltekit": "^0.3.10",
+		"eslint-plugin-import-no-duplicates-prefix-resolved-path": "^2.0.0"
 	}
 }

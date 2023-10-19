@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { Session } from '@auth/core/types';
 	import { signIn } from '@auth/sveltekit/client';
-	
-export let session: Session | null;
+
+	export let session: Session | null;
 </script>
 
 <div class="flex min-h-full flex-1">

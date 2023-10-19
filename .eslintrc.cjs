@@ -19,7 +19,13 @@ module.exports = {
 		}
 	},
 	parser: '@typescript-eslint/parser',
-	plugins: ['@typescript-eslint', 'eslint-plugin-import-helpers', 'import', 'unused-imports'],
+	plugins: [
+		'@typescript-eslint',
+		'eslint-plugin-import-helpers',
+		'import',
+		'unused-imports',
+		'import-no-duplicates-prefix-resolved-path'
+	],
 	parserOptions: {
 		sourceType: 'module',
 		ecmaVersion: 2020,
@@ -49,7 +55,7 @@ module.exports = {
 		'no-unused-vars': 'off',
 		'@typescript-eslint/no-unused-vars': 'off',
 		'import/no-unresolved': [
-			2,
+			'error',
 			{
 				ignore: [
 					'^\\$app/forms',
@@ -88,7 +94,13 @@ module.exports = {
 		'import/first': 'error',
 		'import/max-dependencies': 'error',
 		'import/newline-after-import': 'error',
-		'import/no-duplicates': 'error',
+		'import/no-duplicates': 'off',
+		'import-no-duplicates-prefix-resolved-path/no-duplicates': [
+			'error',
+			{
+				prefixResolvedPathWithImportName: true
+			}
+		],
 		'import/no-named-default': 'error',
 		'import/no-namespace': 'error',
 		'import-helpers/order-imports': [

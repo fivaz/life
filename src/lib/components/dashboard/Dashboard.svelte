@@ -235,7 +235,7 @@
 								alt="avatar"
 							/>
 							<span class="sr-only">Your profile</span>
-							<span aria-hidden="true">Tom Cook</span>
+							<span aria-hidden="true">{session?.user?.name}</span>
 						</button>
 					</li>
 				</ul>
