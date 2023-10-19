@@ -1,5 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
-import type { TEvent } from '$lib';
+import type { EEvent } from '$lib';
+import { loginRoute } from '$lib';
 import prisma from '$lib/prisma';
 import type { Actions, PageServerLoad } from './$types';
 
@@ -7,10 +8,10 @@ export const load = (async (event) => {
 	const session = await event.locals.getSession();
 
 	if (!session?.user) {
-		throw redirect(303, '/');
+		throw redirect(303, loginRoute);
 	}
 
-	const events: TEvent[] = await prisma.event.findMany({
+	const events: EEvent[] = await prisma.event.findMany({
 		where: { deleted: null, userId: session.user.id }
 	});
 
@@ -22,7 +23,7 @@ export const actions = {
 		const session = await locals.getSession();
 
 		if (!session?.user) {
-			throw redirect(303, '/');
+			throw redirect(303, loginRoute);
 		}
 
 		const data = await request.formData();
@@ -42,16 +43,16 @@ export const actions = {
 				throw Error('description must be a string');
 			}
 
-			if (typeof startDate !== 'string') {
+			if (!startDate || typeof startDate !== 'string') {
 				throw Error('startDate is required');
 			}
 
-			if (typeof endDate !== 'string') {
+			if (!endDate || typeof endDate !== 'string') {
 				throw Error('endDate is required');
 			}
 
 			if (id) {
-				const event = await prisma.event.update({
+				const event: EEvent = await prisma.event.update({
 					where: {
 						id,
 						userId: session.user.id
@@ -66,7 +67,7 @@ export const actions = {
 				});
 				return { saved: event };
 			} else {
-				const event = await prisma.event.create({
+				const event: EEvent = await prisma.event.create({
 					data: {
 						userId: session.user.id,
 						name,
@@ -76,10 +77,9 @@ export const actions = {
 						isDone
 					}
 				});
-				return { saved: event as TEvent };
+				return { saved: event };
 			}
 		} catch (error) {
-			console.log(error);
 			return fail(422, {
 				error: error instanceof Error ? error.message : "error isn't an instance of error"
 			});
@@ -89,33 +89,34 @@ export const actions = {
 		const session = await locals.getSession();
 
 		if (!session?.user) {
-			throw redirect(303, '/');
+			throw redirect(303, loginRoute);
 		}
 
 		const data = await request.formData();
-		const event = await prisma.event.update({
+		const id = Number(data.get('id'));
+		const isDone = !!data.get('isDone');
+		const event: EEvent = await prisma.event.update({
 			where: {
-				id: Number(data.get('id')),
-
+				id,
 				userId: session.user.id
 			},
 			data: {
-				isDone: !!data.get('isDone')
+				isDone
 			}
 		});
 
-		return { saved: event as TEvent };
+		return { saved: event };
 	},
 	remove: async ({ request, locals }) => {
 		const session = await locals.getSession();
 
 		if (!session?.user) {
-			throw redirect(303, '/');
+			throw redirect(303, loginRoute);
 		}
 
 		const data = await request.formData();
 		const id = Number(data.get('id'));
-		const event = await prisma.event.update({
+		const event: EEvent = await prisma.event.update({
 			where: {
 				id,
 				userId: session.user.id
@@ -124,6 +125,6 @@ export const actions = {
 				deleted: new Date()
 			}
 		});
-		return { removed: event as TEvent };
+		return { removed: event };
 	}
 } satisfies Actions;

@@ -1,4 +1,4 @@
-export type TEvent = {
+export type EEvent = {
 	id: number;
 	name: string;
 	description: string | null;
@@ -9,3 +9,6 @@ export type TEvent = {
 
 export const DATE = 'yyyy-MM-dd';
 export const TIME = 'HH:mm';
+
+export const loginRoute = '/';
+export const dashboardRoute = '/dashboard';

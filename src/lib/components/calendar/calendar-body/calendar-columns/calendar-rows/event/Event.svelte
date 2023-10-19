@@ -3,21 +3,21 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
-	import type { TEvent } from '$lib';
+	import type { EEvent } from '$lib';
 	import { toggleEvent } from '$lib/store/events';
 	import classnames from 'classnames';
 	import { format } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 	import { isShort } from './service';
 
-	export let event: TEvent;
+	export let event: EEvent;
 
 	let form: HTMLFormElement;
 
 	let loading: boolean = false;
 
 	const dispatch = createEventDispatcher<{
-		edit: TEvent;
+		edit: EEvent;
 	}>();
 
 	const submit: SubmitFunction = () => {

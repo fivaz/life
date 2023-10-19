@@ -1,4 +1,4 @@
-import type { TEvent } from '$lib';
+import type { EEvent } from '$lib';
 import { addDays } from 'date-fns';
 
 function getTodayAtTime(time: string): Date {
@@ -17,7 +17,7 @@ function getTodayAtTime(time: string): Date {
 // Usage:
 console.log(getTodayAtTime('06:30')); // Outputs today's date at 06:30 in ISO format
 
-export const normalWithoutDescription: TEvent = {
+export const normalWithoutDescription: EEvent = {
 	id: 1,
 	name: 'Breakfast',
 	description: null,
@@ -26,7 +26,7 @@ export const normalWithoutDescription: TEvent = {
 	isDone: false
 };
 
-export const shortWithoutDescription: TEvent = {
+export const shortWithoutDescription: EEvent = {
 	id: 2,
 	name: 'Breakfast2 ',
 	description: null,
@@ -35,7 +35,7 @@ export const shortWithoutDescription: TEvent = {
 	isDone: false
 };
 
-export const normalDescription: TEvent = {
+export const normalDescription: EEvent = {
 	id: 3,
 	name: 'Flight to Paris',
 	description: 'John F. Kennedy International Airport',
@@ -44,7 +44,7 @@ export const normalDescription: TEvent = {
 	isDone: false
 };
 
-export const long: TEvent = {
+export const long: EEvent = {
 	id: 4,
 	name: 'Meeting with design team at Disney',
 	description: null,
@@ -53,7 +53,7 @@ export const long: TEvent = {
 	isDone: true
 };
 
-export const done: TEvent = {
+export const done: EEvent = {
 	id: 4,
 	name: 'Meeting with design team at Disney',
 	description: null,
@@ -62,7 +62,7 @@ export const done: TEvent = {
 	isDone: true
 };
 
-export const events: TEvent[] = [
+export const events: EEvent[] = [
 	normalWithoutDescription,
 	shortWithoutDescription,
 	normalDescription,

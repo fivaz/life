@@ -1,4 +1,4 @@
-import type { TEvent } from '$lib';
+import type { EEvent } from '$lib';
 import { DATE, TIME } from '$lib';
 import { addMinutes, format, formatISO, parse, setHours, setMinutes } from 'date-fns';
 import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/$types';
@@ -65,7 +65,7 @@ export function add15Minutes(time: string) {
 	return format(date15MinutesLater, TIME);
 }
 
-export function buildEvent(date: Date, timeInterval: number): TEvent {
+export function buildEvent(date: Date, timeInterval: number): EEvent {
 	return {
 		id: 0,
 		name: '',

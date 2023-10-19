@@ -1,9 +1,9 @@
-import type { TEvent } from '$lib';
+import type { EEvent } from '$lib';
 import { writable } from 'svelte/store';
 
-export const events = writable<TEvent[]>([]);
+export const events = writable<EEvent[]>([]);
 
-export function updateEvent(newEvent: TEvent) {
+export function updateEvent(newEvent: EEvent) {
 	events.update(($events) => {
 		const index = $events.findIndex((event) => event.id === newEvent.id);
 		if (index !== -1) {
@@ -16,10 +16,10 @@ export function updateEvent(newEvent: TEvent) {
 	});
 }
 
-export function removeEvent(event: TEvent) {
+export function removeEvent(event: EEvent) {
 	events.update(($events) => $events.filter((existingEvent) => existingEvent.id !== event.id));
 }
-export function toggleEvent(event: TEvent) {
+export function toggleEvent(event: EEvent) {
 	events.update(($events) => [
 		...$events.filter((existingEvent) => existingEvent.id !== event.id),
 		{ ...event, isDone: !event.isDone }
