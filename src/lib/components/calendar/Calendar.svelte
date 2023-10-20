@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { CCategory } from '$lib/category/utils';
 	import EventForm from '$lib/components/calendar/event-form/EventForm.svelte';
 	import { buildEvent } from '$lib/components/calendar/event-form/service';
 	import Modal from '$lib/components/modal/Modal.svelte';
@@ -13,6 +14,8 @@
 	let weekStart = startOfWeek(currentDate);
 
 	let showForm: boolean = false;
+
+	export let categories: CCategory[];
 
 	export let form: ActionData | null;
 </script>
@@ -43,6 +46,6 @@
 		}}
 	/>
 	<Modal show={showForm} on:close={() => (showForm = false)}>
-		<EventForm on:submit={() => (showForm = false)} {form} />
+		<EventForm on:submit={() => (showForm = false)} {form} {categories} />
 	</Modal>
 </div>

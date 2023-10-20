@@ -1,7 +1,8 @@
 import { fail, redirect } from '@sveltejs/kit';
-import type { EEvent } from '$lib/event';
-import { loginRoute } from '$lib/event';
+import type { CCategory } from '$lib/category/utils';
+import type { EEvent } from '$lib/event/utils';
 import prisma from '$lib/prisma';
+import { loginRoute } from '$lib/utils';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load = (async (event) => {
@@ -15,7 +16,11 @@ export const load = (async (event) => {
 		where: { deleted: null, userId: session.user.id }
 	});
 
-	return { events };
+	const categories: CCategory[] = await prisma.category.findMany({
+		where: { deleted: null, userId: session.user.id }
+	});
+
+	return { events, categories };
 }) satisfies PageServerLoad;
 
 export const actions = {
@@ -33,6 +38,7 @@ export const actions = {
 		const startDate = data.get('startDate');
 		const endDate = data.get('endDate');
 		const isDone = data.get('isDone') === 'true';
+		const categoryId = Number(data.get('categoryId'));
 
 		try {
 			if (!name || typeof name !== 'string') {
@@ -62,7 +68,8 @@ export const actions = {
 						description,
 						startDate: new Date(startDate),
 						endDate: new Date(endDate),
-						isDone
+						isDone,
+						categoryId
 					}
 				});
 				return { saved: event };
@@ -74,7 +81,8 @@ export const actions = {
 						description,
 						startDate: new Date(startDate),
 						endDate: new Date(endDate),
-						isDone
+						isDone,
+						categoryId
 					}
 				});
 				return { saved: event };

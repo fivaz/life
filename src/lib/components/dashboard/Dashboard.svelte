@@ -7,16 +7,7 @@
 		TransitionChild,
 		TransitionRoot
 	} from '@rgossiaux/svelte-headlessui';
-	import {
-		Bars3,
-		Calendar,
-		ChartPie,
-		DocumentDuplicate,
-		Folder,
-		Home,
-		Users,
-		XMark
-	} from '@steeze-ui/heroicons';
+	import { Bars3, Calendar, DocumentDuplicate, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { page } from '$app/stores';
 	import classnames from 'classnames';

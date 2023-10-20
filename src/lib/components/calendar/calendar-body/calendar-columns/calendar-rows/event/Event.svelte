@@ -3,8 +3,8 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
-	import type { EEvent } from '$lib/event';
-	import { toggleEvent } from '$lib/store/events';
+	import { toggleEvent } from '$lib/event/store';
+	import type { EEvent } from '$lib/event/utils';
 	import classnames from 'classnames';
 	import { format } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';

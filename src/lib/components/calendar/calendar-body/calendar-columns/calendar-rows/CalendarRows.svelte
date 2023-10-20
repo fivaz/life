@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { events } from '$lib/store/events';
+	import { events } from '$lib/event/store';
 	import { createEventDispatcher } from 'svelte';
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
 	import Event from './event/Event.svelte';

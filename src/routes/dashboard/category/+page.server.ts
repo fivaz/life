@@ -1,8 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
-import type { Category } from '$lib/category';
-import type { EEvent } from '$lib/event';
-import { loginRoute } from '$lib/event';
+import type { CCategory } from '$lib/category/utils';
 import prisma from '$lib/prisma';
+import { loginRoute } from '$lib/utils';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load = (async (event) => {
@@ -12,7 +11,7 @@ export const load = (async (event) => {
 		throw redirect(303, loginRoute);
 	}
 
-	const categories: Category[] = await prisma.category.findMany({
+	const categories: CCategory[] = await prisma.category.findMany({
 		where: { deleted: null, userId: session.user.id }
 	});
 
@@ -38,7 +37,7 @@ export const actions = {
 			}
 
 			if (id) {
-				const category: Category = await prisma.category.update({
+				const category: CCategory = await prisma.category.update({
 					where: {
 						id,
 						userId: session.user.id
@@ -50,7 +49,7 @@ export const actions = {
 				});
 				return { saved: category };
 			} else {
-				const category: Category = await prisma.category.create({
+				const category: CCategory = await prisma.category.create({
 					data: {
 						userId: session.user.id,
 						name,
@@ -74,7 +73,7 @@ export const actions = {
 
 		const data = await request.formData();
 		const id = Number(data.get('id'));
-		const category: Category = await prisma.category.update({
+		const category: CCategory = await prisma.category.update({
 			where: {
 				id,
 				userId: session.user.id

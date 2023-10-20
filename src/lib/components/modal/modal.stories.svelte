@@ -23,5 +23,5 @@
 </Story>
 
 <Story name="Form" args={{ show: true }} let:args>
-	<Modal {...args}><EventForm form={null} /></Modal>
+	<Modal {...args}><EventForm form={null} categories={[]} /></Modal>
 </Story>

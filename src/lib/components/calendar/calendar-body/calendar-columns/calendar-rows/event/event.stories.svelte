@@ -7,7 +7,7 @@
 		normalDescription,
 		normalWithoutDescription,
 		shortWithoutDescription
-	} from '$lib/seed/events';
+	} from '$lib/event/seed';
 	import Event from './Event.svelte';
 
 	export const meta = {

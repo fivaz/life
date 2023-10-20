@@ -1,5 +1,5 @@
-import type { EEvent } from '$lib/event';
-import { DATE, TIME } from '$lib/event';
+import type { EEvent } from '$lib/event/utils';
+import { DATE, TIME } from '$lib/utils';
 import { addMinutes, format, formatISO, parse, setHours, setMinutes } from 'date-fns';
 import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/$types';
 
@@ -25,27 +25,26 @@ export function updateDate(formData: FormData) {
 	formData.append('endDate', getISODate(date, endTime));
 }
 
-export function getFields(form: ActionData): EventIn {
+export function getDate(form: ActionData): string {
 	if (form?.saved) {
-		return {
-			id: form.saved.id,
-			name: form.saved.name,
-			description: form.saved.description,
-			isDone: form.saved.isDone,
-			date: format(form.saved.startDate, DATE),
-			startTime: format(form.saved.startDate, TIME),
-			endTime: format(form.saved.endDate, TIME)
-		};
+		return format(form.saved.startDate, DATE);
 	} else {
-		return {
-			id: 0,
-			name: '',
-			description: null,
-			isDone: false,
-			date: format(new Date(), DATE),
-			startTime: format(new Date(), TIME),
-			endTime: format(addMinutes(new Date(), 15), TIME)
-		};
+		return format(new Date(), DATE);
+	}
+}
+
+export function getStartDate(form: ActionData): string {
+	if (form?.saved) {
+		return format(form.saved.startDate, TIME);
+	} else {
+		return format(new Date(), TIME);
+	}
+}
+export function getStartTime(form: ActionData): string {
+	if (form?.saved) {
+		return format(form.saved.startDate, TIME);
+	} else {
+		return format(new Date(), TIME);
 	}
 }
 
@@ -72,7 +71,8 @@ export function buildEvent(date: Date, timeInterval: number): EEvent {
 		description: null,
 		startDate: buildDate(date, timeInterval),
 		endDate: buildDate(date, timeInterval + 0.5),
-		isDone: false
+		isDone: false,
+		categoryId: 0
 	};
 }
 

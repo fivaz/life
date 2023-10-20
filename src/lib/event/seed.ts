@@ -1,4 +1,4 @@
-import type { EEvent } from '$lib/event';
+import type { EEvent } from '$lib/event/utils';
 import { addDays } from 'date-fns';
 
 function getTodayAtTime(time: string): Date {
@@ -23,7 +23,8 @@ export const normalWithoutDescription: EEvent = {
 	description: null,
 	startDate: getTodayAtTime('07:00'),
 	endDate: getTodayAtTime('07:45'),
-	isDone: false
+	isDone: false,
+	categoryId: 2
 };
 
 export const shortWithoutDescription: EEvent = {
@@ -32,7 +33,8 @@ export const shortWithoutDescription: EEvent = {
 	description: null,
 	startDate: getTodayAtTime('07:45'),
 	endDate: getTodayAtTime('08:00'),
-	isDone: false
+	isDone: false,
+	categoryId: 2
 };
 
 export const normalDescription: EEvent = {
@@ -41,7 +43,8 @@ export const normalDescription: EEvent = {
 	description: 'John F. Kennedy International Airport',
 	startDate: addDays(getTodayAtTime('00:00'), 2),
 	endDate: addDays(getTodayAtTime('23:59'), 2),
-	isDone: false
+	isDone: false,
+	categoryId: 2
 };
 
 export const long: EEvent = {
@@ -50,7 +53,8 @@ export const long: EEvent = {
 	description: null,
 	startDate: getTodayAtTime('10:15'),
 	endDate: addDays(getTodayAtTime('12:30'), 1),
-	isDone: true
+	isDone: true,
+	categoryId: 1
 };
 
 export const done: EEvent = {
@@ -59,7 +63,8 @@ export const done: EEvent = {
 	description: null,
 	startDate: getTodayAtTime('10:15'),
 	endDate: getTodayAtTime('12:30'),
-	isDone: true
+	isDone: true,
+	categoryId: 1
 };
 
 export const events: EEvent[] = [
