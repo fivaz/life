@@ -1,3 +1,3 @@
-import type { Event } from "@prisma/client";
+import type { Event } from '@prisma/client';
 
-export type EEvent = Omit<Event, "deleted" | "userId">;
+export type EEvent = Omit<Event, 'deleted' | 'userId'>;

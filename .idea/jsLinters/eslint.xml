@@ -2,6 +2,7 @@
 <project version="4">
   <component name="EslintConfiguration">
     <extra-options value="--rule 'unused-imports/no-unused-imports: 0'" />
+    <files-pattern value="{**/*,*}.{js,ts,jsx,tsx,html,vue,svelte}" />
     <option name="fix-on-save" value="true" />
   </component>
 </project>
