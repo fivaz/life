@@ -54,6 +54,8 @@
 			default
 		</label>
 
+		<!--		TODO fix buttons can't have on:click events-->
+
 		<div class="flex justify-end px-4 py-3 bg-gray-50 text-right sm:px-6">
 			<button type="submit">
 				{#if form?.saved?.id} Edit {:else} Add {/if}
