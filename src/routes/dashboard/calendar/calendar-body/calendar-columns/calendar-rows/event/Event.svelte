@@ -45,23 +45,34 @@
 		'group w-full h-full flex flex-col overflow-y-auto rounded-lg bg-blue-50 py-1 px-2 text-xs leading-5 hover:bg-blue-100'
 	)}
 >
-	<div class="absolute right-0 pr-2">
-		<form method="POST" action="?/toggle" bind:this={form} use:enhance={submit}>
-			<input type="hidden" name="id" value={event.id} />
-			<input
-				type="checkbox"
-				checked={event.isDone}
-				on:change={() => form.requestSubmit()}
-				on:click|stopPropagation
-				name="isDone"
-				class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-			/>
-		</form>
-	</div>
+	<form
+		class="absolute right-0 flex pr-2"
+		method="POST"
+		action="?/toggle"
+		bind:this={form}
+		use:enhance={submit}
+	>
+		<input type="hidden" name="id" value={event.id} />
+		<input
+			type="checkbox"
+			checked={event.isDone}
+			on:change={() => form.requestSubmit()}
+			on:click|stopPropagation
+			name="isDone"
+			class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+		/>
+	</form>
 	<p class={classnames({ hidden: isShort(event) }, 'text-blue-500 group-hover:text-blue-700')}>
-		<time dateTime="2022-01-22T06:00">{format(event.startDate, 'p')}</time>
+		<time dateTime={event.startDate.toISOString()}>{format(event.startDate, 'p')}</time>
 	</p>
-	<p class="font-semibold text-blue-700">{event.name}</p>
+	<!--20px is the width of the form of the checkbox-->
+	<p
+		class={classnames('font-semibold text-blue-700', {
+			'truncate w-[calc(100%-20px)]': isShort(event)
+		})}
+	>
+		{event.name}
+	</p>
 	<p
 		class={classnames(
 			{ hidden: isShort(event) || !event.description },

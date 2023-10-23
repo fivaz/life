@@ -10,6 +10,10 @@
 	let selectedDate: Date = currentDate;
 
 	$: dates = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
+
+	$: isToday = (date: Date) => getDate(currentDate) === getDate(date);
+
+	$: isSelectedDate = (date: Date) => getDate(selectedDate) === getDate(date);
 </script>
 
 <div class="h-full w-full bg-white text-sm leading-6 text-gray-500">
@@ -20,7 +24,7 @@
 					{format(date, 'E')}
 					<span
 						class={classnames(
-							{ 'rounded-full bg-indigo-600 text-white': getDate(currentDate) === getDate(date) },
+							{ 'rounded-full bg-indigo-600 text-white': isToday(date) },
 							'flex items-center justify-center font-semibold h-8 w-8'
 						)}
 					>
@@ -42,11 +46,8 @@
 					{format(date, 'EEEEE')}
 					<span
 						class={classnames(
-							{
-								'rounded-full bg-indigo-300 text-white':
-									getDate(selectedDate) === getDate(date) && getDate(currentDate) !== getDate(date)
-							},
-							{ 'rounded-full bg-indigo-600 text-white': getDate(currentDate) === getDate(date) },
+							{ 'rounded-full bg-indigo-300 text-white': isSelectedDate(date) && !isToday(date) },
+							{ 'rounded-full bg-indigo-600 text-white': isToday(date) },
 							'flex items-center justify-center font-semibold h-8 w-8'
 						)}
 					>

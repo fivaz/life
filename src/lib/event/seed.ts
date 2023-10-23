@@ -29,7 +29,7 @@ export const normalWithoutDescription: EEvent = {
 
 export const shortWithoutDescription: EEvent = {
 	id: 2,
-	name: 'Breakfast2 ',
+	name: 'Breakfast',
 	description: null,
 	startDate: getTodayAtTime('07:45'),
 	endDate: getTodayAtTime('08:00'),
@@ -49,7 +49,7 @@ export const normalDescription: EEvent = {
 
 export const long: EEvent = {
 	id: 4,
-	name: 'Meeting with design team at Disney',
+	name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
 	description: null,
 	startDate: getTodayAtTime('10:15'),
 	endDate: addDays(getTodayAtTime('12:30'), 1),
@@ -59,10 +59,10 @@ export const long: EEvent = {
 
 export const done: EEvent = {
 	id: 4,
-	name: 'Meeting with design team at Disney',
+	name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
 	description: null,
-	startDate: getTodayAtTime('10:15'),
-	endDate: getTodayAtTime('12:30'),
+	startDate: getTodayAtTime('00:15'),
+	endDate: getTodayAtTime('01:30'),
 	isDone: true,
 	categoryId: 1
 };

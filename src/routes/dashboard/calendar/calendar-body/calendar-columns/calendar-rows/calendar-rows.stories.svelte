@@ -14,7 +14,7 @@
 </script>
 
 <Template let:args>
-	<div class="h-96 w-96">
+	<div class="h-96 w-24">
 		<CalendarRows {...args} />
 	</div>
 </Template>
