@@ -17,4 +17,5 @@
 		)}
 		on:input={(e) => dispatch('input', e.currentTarget.value)}
 	/>
+	<!--	TODO check if even could only be this on:input without dispatch-->
 </label>

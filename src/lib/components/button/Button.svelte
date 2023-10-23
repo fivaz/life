@@ -27,7 +27,8 @@
 		'inline-flex gap-2 justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
 	)}
 	{type}
-	{formaction}
+	on:click
+	{...$$restProps}
 >
 	{#if isLoading}
 		<Icon src={ArrowPath} class="animate-spin h-5 w-5" />

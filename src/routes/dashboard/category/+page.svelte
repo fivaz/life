@@ -28,6 +28,9 @@
 					saved: e.detail
 				};
 			}}
+			on:remove={(e) => {
+				console.log('remove');
+			}}
 		/>
 	{/each}
 </ul>

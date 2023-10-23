@@ -14,7 +14,9 @@
 </script>
 
 <Template let:args>
-	<CategoryRow {...args} />
+	<div class="w-96">
+		<CategoryRow {...args} />
+	</div>
 </Template>
 
 <Story name="Primary" args={{ category: categories[0] }} />
