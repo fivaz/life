@@ -80,7 +80,7 @@
 			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 		/>
 
-		<select name="categoryId" value={form?.saved?.categoryId || categories[0]}>
+		<select name="categoryId" value={form?.saved?.categoryId || categories[0].id}>
 			{#each categories as category (category.id)}
 				<option value={category.id}>{category.name}</option>
 			{/each}

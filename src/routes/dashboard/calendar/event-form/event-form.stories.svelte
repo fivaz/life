@@ -1,6 +1,8 @@
 <script lang="ts" context="module">
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import type { Meta } from '@storybook/svelte';
+	import { categories } from '$lib/category/seed';
+	import { normalDescription } from '$lib/event/seed.js';
 	import EventForm from './EventForm.svelte';
 
 	export const meta = {
@@ -17,4 +19,20 @@
 	<EventForm {...args} />
 </Template>
 
-<Story name="Primary" args={{}} />
+<Story
+	name="Create"
+	args={{
+		categories,
+		form: null
+	}}
+/>
+
+<Story
+	name="Edit"
+	args={{
+		categories,
+		form: {
+			saved: normalDescription
+		}
+	}}
+/>
