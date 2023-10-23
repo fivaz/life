@@ -1,13 +1,13 @@
 <script lang="ts">
 	import type { CCategory } from '$lib/category/utils';
-	import EventForm from '$lib/components/calendar/event-form/EventForm.svelte';
-	import { buildEvent } from '$lib/components/calendar/event-form/service';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { startOfWeek } from 'date-fns';
 
 	import type { ActionData } from '../../../../.svelte-kit/types/src/routes/dashboard/$types';
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
+	import EventForm from './event-form/EventForm.svelte';
+	import { buildEvent } from './event-form/service';
 
 	let currentDate = new Date();
 

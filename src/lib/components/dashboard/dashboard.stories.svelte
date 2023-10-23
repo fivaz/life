@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import type { Meta } from '@storybook/svelte';
-	import Calendar from '$lib/components/calendar/Calendar.svelte';
+	import Calendar from '../../../routes/dashboard/calendar/Calendar.svelte';
 	import Dashboard from './Dashboard.svelte';
 
 	export const meta = {

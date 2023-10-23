@@ -2,18 +2,12 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance, applyAction } from '$app/forms';
 	import type { CCategory } from '$lib/category/utils';
-	import {
-		add15Minutes,
-		getDate,
-		getEndTime,
-		getStartTime,
-		updateDate
-	} from '$lib/components/calendar/event-form/service';
+	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import { removeEvent, updateEvent } from '$lib/event/store';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/$types';
-	import Button from '../../button/Button.svelte';
+	import { add15Minutes, getDate, getEndTime, getStartTime, updateDate } from './service';
 
 	let loading = false;
 	export let form: ActionData | null;
