@@ -83,10 +83,9 @@
 			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 		/>
 
-		<input type="hidden" name="categoryId" value={categoryId} />
-
 		<Select
-			bind:value={categoryId}
+			value={categoryId}
+			name="categoryId"
 			items={categories.map((category) => ({ id: category.id, name: category.name }))}
 		/>
 

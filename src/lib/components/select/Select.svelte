@@ -15,6 +15,7 @@
 
 	export let valueField = 'id';
 	export let nameField = 'name';
+	export let name: string;
 
 	export let items: Array<Record<string, string | number | string[] | null | undefined>> = [];
 
@@ -24,6 +25,7 @@
 <!--TODO use context API to pass data up and down in my calendar hierarchy-->
 
 <Listbox bind:value>
+	<input type="hidden" {name} {value} />
 	{#if label}
 		<ListboxLabel class="block text-sm font-medium leading-6 text-gray-900">{label}</ListboxLabel>
 	{/if}
