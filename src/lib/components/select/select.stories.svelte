@@ -2,7 +2,6 @@
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import type { Meta } from '@storybook/svelte';
 	import { categories } from '$lib/category/seed';
-	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from './Select.svelte';
 
 	export const meta = {
@@ -20,18 +19,28 @@
 
 <Template let:args>
 	<div class="w-96">
-		{selectedCategory}
-		<Select {...args} bind:value={selectedCategory}>
-			<span slot="selected">
-				{categories.find((category) => category.id === selectedCategory)?.name}
-			</span>
-			{#each categories as category (category.id)}
-				<SelectItem value={category.id}>{category.name}</SelectItem>
-			{/each}
-		</Select>
+		<Select
+			{...args}
+			bind:value={selectedCategory}
+			items={categories}
+			valueField="id"
+			nameField="name"
+		/>
 	</div>
 </Template>
 
 <Story name="With Label" />
 
-<!--<Story name="Without Label" args={{ label: 'Label' }} />-->
+<Story name="Without Label" args={{ label: 'Label' }} />
+
+<Story
+	name="With different key names"
+	args={{
+		items: categories.map((category) => ({
+			value: category.id,
+			label: category.name
+		})),
+		valueField: 'value',
+		nameField: 'label'
+	}}
+/>
