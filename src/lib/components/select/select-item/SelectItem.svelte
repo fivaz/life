@@ -1,12 +1,10 @@
 <script lang="ts">
-	import {
-		ListboxOption
-	} from '@rgossiaux/svelte-headlessui';
+	import { ListboxOption } from '@rgossiaux/svelte-headlessui';
 	import { Check } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import classnames from 'classnames';
 
-	export let value: string | number;
+	export let value: string | number | string[] | null | undefined;
 </script>
 
 <ListboxOption {value} let:selected let:active>

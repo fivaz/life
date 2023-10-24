@@ -15,13 +15,16 @@
 </script>
 
 <script lang="ts">
-	let selectedCategory: number = categories[0].id;
+	let selectedCategory = categories[0].id;
 </script>
 
 <Template let:args>
 	<div class="w-96">
 		{selectedCategory}
 		<Select {...args} bind:value={selectedCategory}>
+			<span slot="selected">
+				{categories.find((category) => category.id === selectedCategory)?.name}
+			</span>
 			{#each categories as category (category.id)}
 				<SelectItem value={category.id}>{category.name}</SelectItem>
 			{/each}
