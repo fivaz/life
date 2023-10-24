@@ -13,12 +13,10 @@
 
 	function nextWeek() {
 		weekStart = addDays(weekStart, 7);
-		console.log(weekStart);
 	}
 
 	function previousWeek() {
 		weekStart = addDays(weekStart, -7);
-		console.log(weekStart);
 	}
 </script>
 

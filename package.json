@@ -22,7 +22,7 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
-		"@prisma/client": "5.4.2",
+		"@prisma/client": "5.5.0",
 		"@rgossiaux/svelte-headlessui": "^2.0.0",
 		"@steeze-ui/heroicons": "^2.2.3",
 		"@steeze-ui/lucide-icons": "^1.2.0",
@@ -57,7 +57,7 @@
 		"postcss": "^8.4.31",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.10.1",
-		"prisma": "^5.4.2",
+		"prisma": "^5.5.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"storybook": "^7.5.1",
