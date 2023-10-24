@@ -4,6 +4,7 @@
 	import type { CCategory } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
+	import Select from '$lib/components/select/Select.svelte';
 	import { removeEvent, updateEvent } from '$lib/event/store';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/$types';
@@ -19,6 +20,8 @@
 	let error = '';
 
 	export let categories: CCategory[];
+
+	let categoryId = form?.saved.categoryId || categories[0].id;
 
 	const dispatch = createEventDispatcher();
 
@@ -80,11 +83,12 @@
 			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 		/>
 
-		<select name="categoryId" value={form?.saved?.categoryId || categories[0].id}>
-			{#each categories as category (category.id)}
-				<option value={category.id}>{category.name}</option>
-			{/each}
-		</select>
+		<input type="hidden" name="categoryId" value={categoryId} />
+
+		<Select
+			bind:value={categoryId}
+			items={categories.map((category) => ({ id: category.id, name: category.name }))}
+		/>
 
 		<label class="block text-sm font-medium text-gray-700 mb-1">
 			Description
