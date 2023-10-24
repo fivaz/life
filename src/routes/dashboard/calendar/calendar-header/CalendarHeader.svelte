@@ -2,6 +2,7 @@
 	import { Transition, Menu, MenuButton, MenuItems, MenuItem } from '@rgossiaux/svelte-headlessui';
 	import { ChevronLeft, ChevronRight, ChevronDown, EllipsisHorizontal } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import Button from '$lib/components/button/Button.svelte';
 	import classnames from 'classnames';
 	import { addDays, format } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
@@ -116,13 +117,9 @@
 				</Transition>
 			</Menu>
 			<div class="ml-6 h-6 w-px bg-gray-300" />
-			<button
-				type="button"
-				on:click={() => dispatch('create')}
-				class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-			>
+			<Button type="button" on:click={() => dispatch('create')} className="ml-6">
 				Create event
-			</button>
+			</Button>
 		</div>
 		<!--Mobile-->
 		<Menu class="relative ml-6 md:hidden">

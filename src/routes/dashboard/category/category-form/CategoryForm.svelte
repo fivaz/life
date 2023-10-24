@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 
+	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/category/$types';
@@ -53,13 +54,11 @@
 			/>
 			default
 		</label>
+	</div>
 
-		<!--		TODO fix buttons can't have on:click events-->
-
-		<div class="flex justify-end px-4 py-3 bg-gray-50 text-right sm:px-6">
-			<button type="submit">
-				{#if form?.saved?.id} Edit {:else} Add {/if}
-			</button>
-		</div>
+	<div class="flex justify-end px-4 py-3 bg-gray-50 text-right sm:px-6">
+		<Button type="submit">
+			{#if form?.saved?.id} Edit {:else} Add {/if}
+		</Button>
 	</div>
 </form>

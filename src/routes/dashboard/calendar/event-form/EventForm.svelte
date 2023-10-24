@@ -21,8 +21,6 @@
 
 	export let categories: CCategory[];
 
-	let categoryId = form?.saved.categoryId || categories[0].id;
-
 	const dispatch = createEventDispatcher();
 
 	const submit: SubmitFunction = ({ formData }) => {
@@ -84,7 +82,7 @@
 		/>
 
 		<Select
-			value={categoryId}
+			value={form?.saved?.categoryId || categories[0].id}
 			name="categoryId"
 			items={categories.map((category) => ({ id: category.id, name: category.name }))}
 		/>

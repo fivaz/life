@@ -16,6 +16,8 @@
 		indigo: 'focus-visible:outline-indigo-600 bg-indigo-600 hover:bg-indigo-500'
 	};
 
+	export let className: string | null = null;
+
 	let slot: HTMLElement | null = null;
 
 	$: slotText = slot?.innerText || '';
@@ -24,7 +26,8 @@
 <button
 	class={classnames(
 		colors[color],
-		'inline-flex gap-2 justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
+		'inline-flex gap-2 justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
+		className
 	)}
 	{type}
 	{formaction}

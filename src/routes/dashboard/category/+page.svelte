@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import type { ActionData, PageData } from './$types';
 	import CategoryForm from './category-form/CategoryForm.svelte';
@@ -9,14 +10,14 @@
 	export let data: PageData;
 </script>
 
-<button
+<Button
 	on:click={() => {
 		showForm = true;
 		form = null;
 	}}
 >
 	create category
-</button>
+</Button>
 
 <ul role="list" class="divide-y divide-gray-100">
 	{#each data.categories as category (category)}
