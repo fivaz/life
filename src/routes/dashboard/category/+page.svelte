@@ -29,9 +29,7 @@
 					saved: e.detail
 				};
 			}}
-			on:remove={(e) => {
-				console.log('remove');
-			}}
+			on:remove={() => console.log('remove')}
 		/>
 	{/each}
 </ul>

@@ -4,7 +4,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import Button from '$lib/components/button/Button.svelte';
 	import classnames from 'classnames';
-	import { addDays, format } from 'date-fns';
+	import { addDays, format, startOfWeek } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 
 	export let currentDate: Date;
@@ -12,11 +12,15 @@
 
 	const dispatch = createEventDispatcher();
 
-	function nextWeek() {
+	function goToToday() {
+		weekStart = startOfWeek(currentDate);
+	}
+
+	function goToNextWeek() {
 		weekStart = addDays(weekStart, 7);
 	}
 
-	function previousWeek() {
+	function goToPreviousWeek() {
 		weekStart = addDays(weekStart, -7);
 	}
 </script>
@@ -28,7 +32,7 @@
 	<div class="flex items-center">
 		<div class="relative flex items-center rounded-md bg-white shadow-sm md:items-stretch">
 			<button
-				on:click={previousWeek}
+				on:click={goToPreviousWeek}
 				type="button"
 				class="flex h-9 w-12 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50"
 			>
@@ -36,13 +40,15 @@
 				<Icon src={ChevronLeft} class="h-5 w-5" aria-hidden="true" />
 			</button>
 			<button
+				on:click={goToToday}
 				type="button"
 				class="hidden border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative md:block"
-				>Today
+			>
+				Today
 			</button>
 			<span class="relative -mx-px h-5 w-px bg-gray-300 md:hidden" />
 			<button
-				on:click={nextWeek}
+				on:click={goToNextWeek}
 				type="button"
 				class="flex h-9 w-12 items-center justify-center rounded-r-md border-y border-r border-gray-300 pl-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pl-0 md:hover:bg-gray-50"
 			>
@@ -161,7 +167,9 @@
 									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
 									'block px-4 py-2 text-sm'
 								)}
-								>Go to today
+								on:click={goToToday}
+							>
+								Go to today
 							</button>
 						</MenuItem>
 					</div>
@@ -172,7 +180,8 @@
 									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
 									'block px-4 py-2 text-sm'
 								)}
-								>Day view
+							>
+								Day view
 							</button>
 						</MenuItem>
 						<MenuItem let:active>
@@ -181,7 +190,8 @@
 									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
 									'block px-4 py-2 text-sm'
 								)}
-								>Week view
+							>
+								Week view
 							</button>
 						</MenuItem>
 						<MenuItem let:active>
@@ -190,7 +200,8 @@
 									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
 									'block px-4 py-2 text-sm'
 								)}
-								>Month view
+							>
+								Month view
 							</button>
 						</MenuItem>
 						<MenuItem let:active>
@@ -199,7 +210,8 @@
 									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
 									'block px-4 py-2 text-sm'
 								)}
-								>Year view
+							>
+								Year view
 							</button>
 						</MenuItem>
 					</div>
