@@ -29,11 +29,16 @@ export const actions = {
 		const data = await request.formData();
 		const id = Number(data.get('id'));
 		const name = data.get('name');
+		const color = data.get('color');
 		const isDefault = !!data.get('isDefault');
 
 		try {
 			if (!name || typeof name !== 'string') {
 				throw Error('name is required');
+			}
+
+			if (!color || typeof color !== 'string') {
+				throw Error('color is required');
 			}
 
 			if (id) {
@@ -44,6 +49,7 @@ export const actions = {
 					},
 					data: {
 						name,
+						color,
 						isDefault,
 					},
 				});
@@ -53,6 +59,7 @@ export const actions = {
 					data: {
 						userId: session.user.id,
 						name,
+						color,
 						isDefault,
 					},
 				});

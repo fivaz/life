@@ -7,8 +7,8 @@
 	} from '@rgossiaux/svelte-headlessui';
 	import { ChevronUpDown } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	
-export let label: string = '';
+
+	export let label: string = '';
 
 	export let value: string | number | string[] | null | undefined;
 

@@ -54,7 +54,6 @@
 			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 		/>
 
-		{JSON.stringify(colorClass)}
 		<Select name="color" bind:value={color}>
 			<div slot="placeholder" class="flex gap-5 items-center">
 				<div class={classnames('h-5 w-5 rounded-md', colorClass)} />
