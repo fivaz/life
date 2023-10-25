@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-
+	import type { SubmitFunction } from '@sveltejs/kit';
+	import { applyAction, enhance } from '$app/forms';
+	import { removeCategory, updateCategory } from '$lib/category/store';
 	import { tailwindClasses } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
@@ -8,6 +9,7 @@
 	import Select from '$lib/components/select/Select.svelte';
 	import classnames from 'classnames';
 	import { createEventDispatcher } from 'svelte';
+	// eslint-disable-next-line import/max-dependencies
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/category/$types';
 
 	let loading = false;
@@ -21,14 +23,40 @@
 		tailwindClasses[0].color;
 
 	$: colorClass = tailwindClasses.find((tailwindClass) => tailwindClass.color === color)?.classes;
+
+	const submit: SubmitFunction = () => {
+		try {
+			loading = true;
+
+			return async ({ result }) => {
+				await applyAction(result);
+				if (result.type === 'success') {
+					if (form?.removed) {
+						removeCategory(form.removed);
+					} else if (form?.saved) {
+						updateCategory(form.saved);
+					}
+					dispatch('submit');
+				} else {
+					if (form?.error) {
+						error = form.error;
+					}
+				}
+			};
+		} catch (e) {
+			if (e instanceof Error) {
+				error = e.message;
+			}
+		} finally {
+			loading = false;
+		}
+	};
 </script>
 
 <form
 	method="POST"
 	action="?/save"
-	use:enhance={() => {
-		dispatch('submit');
-	}}
+	use:enhance={submit}
 	class="w-[336px] shadow rounded-md overflow-hidden"
 >
 	<div class="flex flex-col gap-3 px-4 py-5 bg-white sm:p-6">
@@ -81,8 +109,14 @@
 		</label>
 	</div>
 
-	<div class="flex justify-end px-4 py-3 bg-gray-50 text-right sm:px-6">
-		<Button type="submit">
+	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
+		{#if form?.saved?.id}
+			<Button formaction="?/remove" color="red">Delete</Button>
+		{:else}
+			<div />
+		{/if}
+
+		<Button isLoading={loading} type="submit">
 			{#if form?.saved?.id} Edit {:else} Add {/if}
 		</Button>
 	</div>

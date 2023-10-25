@@ -49,7 +49,11 @@
 				}
 			};
 		} catch (e) {
-			error = 'date is invalid';
+			if (e instanceof Error) {
+				error = e.message;
+			} else {
+				error = 'date is invalid';
+			}
 		} finally {
 			loading = false;
 		}
