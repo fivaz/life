@@ -7,8 +7,8 @@
 		component: Input,
 		tags: ['autodocs'],
 		parameters: {
-			layout: 'centered'
-		}
+			layout: 'centered',
+		},
 	} satisfies Meta<Input>;
 </script>
 
@@ -23,6 +23,6 @@
 		name: 'endTime',
 		value: '10:00',
 		class:
-			'block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+			'block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm',
 	}}
 />

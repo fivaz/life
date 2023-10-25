@@ -30,11 +30,11 @@ export const handle: Handle = sequence(
 					...session,
 					user: {
 						...session.user,
-						...(user && { id: user.id })
-					}
+						...(user && { id: user.id }),
+					},
 				};
-			}
-		}
+			},
+		},
 	}),
-	authorization
+	authorization,
 );

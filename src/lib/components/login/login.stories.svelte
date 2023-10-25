@@ -7,8 +7,8 @@
 		component: Login,
 		tags: ['autodocs'],
 		parameters: {
-			layout: 'centered'
-		}
+			layout: 'centered',
+		},
 	} satisfies Meta<Login>;
 </script>
 

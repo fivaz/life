@@ -9,9 +9,9 @@
 		component: EventForm,
 		tags: ['autodocs'],
 		parameters: {
-			layout: 'centered'
+			layout: 'centered',
 		},
-		argTypes: {}
+		argTypes: {},
 	} satisfies Meta<EventForm>;
 </script>
 
@@ -23,7 +23,7 @@
 	name="Create"
 	args={{
 		categories,
-		form: null
+		form: null,
 	}}
 />
 
@@ -32,7 +32,7 @@
 	args={{
 		categories,
 		form: {
-			saved: normalDescription
-		}
+			saved: normalDescription,
+		},
 	}}
 />

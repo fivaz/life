@@ -42,7 +42,7 @@
 	role="button"
 	class={classnames(
 		{ 'py-2': !isShort(event) },
-		'group w-full h-full flex flex-col overflow-y-auto rounded-lg bg-blue-50 py-1 px-2 text-xs leading-5 hover:bg-blue-100'
+		'group w-full h-full flex flex-col overflow-y-auto rounded-lg bg-blue-50 py-1 px-2 text-xs leading-5 hover:bg-blue-100',
 	)}
 >
 	<form
@@ -68,7 +68,7 @@
 	<!--20px is the width of the form of the checkbox-->
 	<p
 		class={classnames('font-semibold text-blue-700', {
-			'truncate w-[calc(100%-20px)]': isShort(event)
+			'truncate w-[calc(100%-20px)]': isShort(event),
 		})}
 	>
 		{event.name}
@@ -76,7 +76,7 @@
 	<p
 		class={classnames(
 			{ hidden: isShort(event) || !event.description },
-			'text-pink-500 group-hover:text-pink-700'
+			'text-pink-500 group-hover:text-pink-700',
 		)}
 	>
 		{event.description}

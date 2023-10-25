@@ -26,7 +26,7 @@
 			on:edit={(e) => {
 				showForm = true;
 				form = {
-					saved: e.detail
+					saved: e.detail,
 				};
 			}}
 			on:remove={() => console.log('remove')}

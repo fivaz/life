@@ -6,14 +6,14 @@ const config: StorybookConfig = {
 		'@storybook/addon-links',
 		'@storybook/addon-essentials',
 		'@storybook/addon-interactions',
-		'@storybook/addon-svelte-csf'
+		'@storybook/addon-svelte-csf',
 	],
 	framework: {
 		name: '@storybook/sveltekit',
-		options: {}
+		options: {},
 	},
 	docs: {
-		autodocs: 'tag'
-	}
+		autodocs: 'tag',
+	},
 };
 export default config;

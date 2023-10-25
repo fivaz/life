@@ -2,8 +2,8 @@
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
-		extend: {}
+		extend: {},
 	},
 	// eslint-disable-next-line import/no-extraneous-dependencies
-	plugins: [require('@tailwindcss/forms')]
+	plugins: [require('@tailwindcss/forms')],
 };

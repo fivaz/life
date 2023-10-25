@@ -7,8 +7,8 @@
 		component: CategoryForm,
 		tags: ['autodocs'],
 		parameters: {
-			layout: 'centered'
-		}
+			layout: 'centered',
+		},
 	} satisfies Meta<CategoryForm>;
 </script>
 
@@ -19,6 +19,6 @@
 <Story
 	name="Primary"
 	args={{
-		form: null
+		form: null,
 	}}
 />

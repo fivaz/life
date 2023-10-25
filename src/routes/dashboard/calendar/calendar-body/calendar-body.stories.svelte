@@ -8,9 +8,9 @@
 		component: CalendarBody,
 		tags: ['autodocs'],
 		parameters: {
-			layout: 'fullscreen'
+			layout: 'fullscreen',
 		},
-		argTypes: {}
+		argTypes: {},
 	} satisfies Meta<CalendarBody>;
 </script>
 
@@ -24,6 +24,6 @@
 	name="Primary"
 	args={{
 		currentDate: new Date(),
-		weekStart: startOfWeek(new Date())
+		weekStart: startOfWeek(new Date()),
 	}}
 />

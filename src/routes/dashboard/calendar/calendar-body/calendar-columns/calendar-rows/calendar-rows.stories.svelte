@@ -7,9 +7,9 @@
 		component: CalendarRows,
 		tags: ['autodocs'],
 		parameters: {
-			layout: 'centered'
+			layout: 'centered',
 		},
-		argTypes: {}
+		argTypes: {},
 	} satisfies Meta<CalendarRows>;
 </script>
 
@@ -22,6 +22,6 @@
 <Story
 	name="Primary"
 	args={{
-		date: new Date()
+		date: new Date(),
 	}}
 />

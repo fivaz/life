@@ -6,7 +6,7 @@
 		long,
 		normalDescription,
 		normalWithoutDescription,
-		shortWithoutDescription
+		shortWithoutDescription,
 	} from '$lib/event/seed';
 	import Event from './Event.svelte';
 
@@ -14,9 +14,9 @@
 		component: Event,
 		tags: ['autodocs'],
 		parameters: {
-			layout: 'centered'
+			layout: 'centered',
 		},
-		argTypes: {}
+		argTypes: {},
 	} satisfies Meta<Event>;
 </script>
 

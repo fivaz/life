@@ -7,9 +7,9 @@
 		component: CalendarGrid,
 		tags: ['autodocs'],
 		parameters: {
-			layout: 'centered'
+			layout: 'centered',
 		},
-		argTypes: {}
+		argTypes: {},
 	} satisfies Meta<CalendarGrid>;
 </script>
 

@@ -8,9 +8,9 @@
 		component: Modal,
 		tags: ['autodocs'],
 		parameters: {
-			layout: 'centered'
+			layout: 'centered',
 		},
-		argTypes: {}
+		argTypes: {},
 	} satisfies Meta<Modal>;
 </script>
 

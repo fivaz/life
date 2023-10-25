@@ -82,7 +82,7 @@
 								<button
 									class={classnames(
 										active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-										'block px-4 py-2 text-sm'
+										'block px-4 py-2 text-sm',
 									)}
 								>
 									Day view
@@ -92,7 +92,7 @@
 								<button
 									class={classnames(
 										active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-										'block px-4 py-2 text-sm'
+										'block px-4 py-2 text-sm',
 									)}
 								>
 									Week view
@@ -102,7 +102,7 @@
 								<button
 									class={classnames(
 										active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-										'block px-4 py-2 text-sm'
+										'block px-4 py-2 text-sm',
 									)}
 								>
 									Month view
@@ -112,7 +112,7 @@
 								<button
 									class={classnames(
 										active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-										'block px-4 py-2 text-sm'
+										'block px-4 py-2 text-sm',
 									)}
 								>
 									Year view
@@ -153,7 +153,7 @@
 								on:click={() => dispatch('create')}
 								class={classnames(
 									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-									'block px-4 py-2 text-sm'
+									'block px-4 py-2 text-sm',
 								)}
 							>
 								Create event
@@ -165,7 +165,7 @@
 							<button
 								class={classnames(
 									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-									'block px-4 py-2 text-sm'
+									'block px-4 py-2 text-sm',
 								)}
 								on:click={goToToday}
 							>
@@ -178,7 +178,7 @@
 							<button
 								class={classnames(
 									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-									'block px-4 py-2 text-sm'
+									'block px-4 py-2 text-sm',
 								)}
 							>
 								Day view
@@ -188,7 +188,7 @@
 							<button
 								class={classnames(
 									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-									'block px-4 py-2 text-sm'
+									'block px-4 py-2 text-sm',
 								)}
 							>
 								Week view
@@ -198,7 +198,7 @@
 							<button
 								class={classnames(
 									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-									'block px-4 py-2 text-sm'
+									'block px-4 py-2 text-sm',
 								)}
 							>
 								Month view
@@ -208,7 +208,7 @@
 							<button
 								class={classnames(
 									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-									'block px-4 py-2 text-sm'
+									'block px-4 py-2 text-sm',
 								)}
 							>
 								Year view

@@ -3,7 +3,7 @@
 		TransitionChild,
 		TransitionRoot,
 		Dialog,
-		DialogOverlay
+		DialogOverlay,
 	} from '@rgossiaux/svelte-headlessui';
 	import { createEventDispatcher } from 'svelte';
 

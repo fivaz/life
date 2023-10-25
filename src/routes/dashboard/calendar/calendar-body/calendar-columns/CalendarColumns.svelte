@@ -25,7 +25,7 @@
 					<span
 						class={classnames(
 							{ 'rounded-full bg-indigo-600 text-white': isToday(date) },
-							'flex items-center justify-center font-semibold h-8 w-8'
+							'flex items-center justify-center font-semibold h-8 w-8',
 						)}
 					>
 						{format(date, 'dd')}
@@ -48,7 +48,7 @@
 						class={classnames(
 							{ 'rounded-full bg-indigo-300 text-white': isSelectedDate(date) && !isToday(date) },
 							{ 'rounded-full bg-indigo-600 text-white': isToday(date) },
-							'flex items-center justify-center font-semibold h-8 w-8'
+							'flex items-center justify-center font-semibold h-8 w-8',
 						)}
 					>
 						{format(date, 'dd')}

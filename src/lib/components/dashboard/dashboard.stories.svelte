@@ -8,9 +8,9 @@
 		component: Dashboard,
 		tags: ['autodocs'],
 		parameters: {
-			layout: 'centered'
+			layout: 'centered',
 		},
-		argTypes: {}
+		argTypes: {},
 	} satisfies Meta<Dashboard>;
 </script>
 

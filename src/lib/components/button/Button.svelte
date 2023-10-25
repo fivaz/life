@@ -13,7 +13,7 @@
 
 	const colors = {
 		red: 'focus-visible:outline-red-600 bg-red-600 hover:bg-red-500',
-		indigo: 'focus-visible:outline-indigo-600 bg-indigo-600 hover:bg-indigo-500'
+		indigo: 'focus-visible:outline-indigo-600 bg-indigo-600 hover:bg-indigo-500',
 	};
 
 	export let className: string | null = null;
@@ -27,7 +27,7 @@
 	class={classnames(
 		colors[color],
 		'inline-flex gap-2 justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
-		className
+		className,
 	)}
 	{type}
 	{formaction}

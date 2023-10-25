@@ -24,7 +24,7 @@ export const normalWithoutDescription: EEvent = {
 	startDate: getTodayAtTime('07:00'),
 	endDate: getTodayAtTime('07:45'),
 	isDone: false,
-	categoryId: 2
+	categoryId: 2,
 };
 
 export const shortWithoutDescription: EEvent = {
@@ -34,7 +34,7 @@ export const shortWithoutDescription: EEvent = {
 	startDate: getTodayAtTime('07:45'),
 	endDate: getTodayAtTime('08:00'),
 	isDone: false,
-	categoryId: 2
+	categoryId: 2,
 };
 
 export const normalDescription: EEvent = {
@@ -44,7 +44,7 @@ export const normalDescription: EEvent = {
 	startDate: addDays(getTodayAtTime('00:00'), 2),
 	endDate: addDays(getTodayAtTime('23:59'), 2),
 	isDone: false,
-	categoryId: 2
+	categoryId: 2,
 };
 
 export const long: EEvent = {
@@ -54,7 +54,7 @@ export const long: EEvent = {
 	startDate: getTodayAtTime('10:15'),
 	endDate: addDays(getTodayAtTime('12:30'), 1),
 	isDone: true,
-	categoryId: 1
+	categoryId: 1,
 };
 
 export const done: EEvent = {
@@ -64,7 +64,7 @@ export const done: EEvent = {
 	startDate: getTodayAtTime('00:15'),
 	endDate: getTodayAtTime('01:30'),
 	isDone: true,
-	categoryId: 1
+	categoryId: 1,
 };
 
 export const events: EEvent[] = [
@@ -72,5 +72,5 @@ export const events: EEvent[] = [
 	shortWithoutDescription,
 	normalDescription,
 	long,
-	done
+	done,
 ];

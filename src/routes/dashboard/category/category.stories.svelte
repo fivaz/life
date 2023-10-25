@@ -8,8 +8,8 @@
 		component: Category,
 		tags: ['autodocs'],
 		parameters: {
-			layout: 'centered'
-		}
+			layout: 'centered',
+		},
 	} satisfies Meta<Category>;
 </script>
 

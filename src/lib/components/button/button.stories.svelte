@@ -9,9 +9,9 @@
 		component: Button,
 		tags: ['autodocs'],
 		parameters: {
-			layout: 'centered'
+			layout: 'centered',
 		},
-		argTypes: {}
+		argTypes: {},
 	} satisfies Meta<Button>;
 </script>
 

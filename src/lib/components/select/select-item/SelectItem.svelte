@@ -11,7 +11,7 @@
 	<li
 		class={classnames(
 			active ? 'bg-indigo-600 text-white' : 'text-gray-900',
-			'relative cursor-default select-none py-2 pl-3 pr-9'
+			'relative cursor-default select-none py-2 pl-3 pr-9',
 		)}
 	>
 		<span class={classnames(active ? 'font-semibold' : 'font-normal', 'block truncate')}>
@@ -22,7 +22,7 @@
 			<span
 				class={classnames(
 					active ? 'text-white' : 'text-indigo-600',
-					'absolute inset-y-0 right-0 flex items-center pr-4'
+					'absolute inset-y-0 right-0 flex items-center pr-4',
 				)}
 			>
 				<Icon src={Check} class="h-5 w-5" aria-hidden="true" />

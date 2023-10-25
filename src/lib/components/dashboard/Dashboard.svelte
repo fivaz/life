@@ -5,7 +5,7 @@
 		Dialog,
 		DialogDescription,
 		TransitionChild,
-		TransitionRoot
+		TransitionRoot,
 	} from '@rgossiaux/svelte-headlessui';
 	import { Bars3, Calendar, DocumentDuplicate, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -14,7 +14,7 @@
 
 	const navigation = [
 		{ name: 'Calendar', href: '/dashboard', icon: Calendar },
-		{ name: 'Category', href: '/dashboard/category', icon: DocumentDuplicate }
+		{ name: 'Category', href: '/dashboard/category', icon: DocumentDuplicate },
 	];
 
 	export let session: Session | null;
@@ -84,7 +84,7 @@
 															$page.url.pathname === item.href
 																? 'bg-gray-50 text-indigo-600'
 																: 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50',
-															'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+															'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
 														)}
 													>
 														<Icon
@@ -93,7 +93,7 @@
 																$page.url.pathname === item.href
 																	? 'text-indigo-600'
 																	: 'text-gray-400 group-hover:text-indigo-600',
-																'h-6 w-6 shrink-0'
+																'h-6 w-6 shrink-0',
 															)}
 															aria-hidden="true"
 														/>
@@ -135,7 +135,7 @@
 											$page.url.pathname === item.href
 												? 'bg-gray-50 text-indigo-600'
 												: 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50',
-											'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+											'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
 										)}
 									>
 										<Icon
@@ -144,7 +144,7 @@
 												$page.url.pathname === item.href
 													? 'text-indigo-600'
 													: 'text-gray-400 group-hover:text-indigo-600',
-												'h-6 w-6 shrink-0'
+												'h-6 w-6 shrink-0',
 											)}
 											aria-hidden="true"
 										/>

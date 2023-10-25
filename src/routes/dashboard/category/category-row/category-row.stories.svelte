@@ -8,8 +8,8 @@
 		component: CategoryRow,
 		tags: ['autodocs'],
 		parameters: {
-			layout: 'centered'
-		}
+			layout: 'centered',
+		},
 	} satisfies Meta<CategoryRow>;
 </script>
 

@@ -8,9 +8,9 @@
 		component: CalendarColumns,
 		tags: ['autodocs'],
 		parameters: {
-			layout: 'centered'
+			layout: 'centered',
 		},
-		argTypes: {}
+		argTypes: {},
 	} satisfies Meta<CalendarColumns>;
 </script>
 
@@ -24,6 +24,6 @@
 	name="Primary"
 	args={{
 		currentDate: new Date(),
-		weekStart: startOfWeek(new Date())
+		weekStart: startOfWeek(new Date()),
 	}}
 />

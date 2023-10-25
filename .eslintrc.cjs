@@ -7,16 +7,16 @@ module.exports = {
 		'plugin:@typescript-eslint/recommended',
 		'plugin:svelte/recommended',
 		'prettier',
-		'plugin:storybook/recommended'
+		'plugin:storybook/recommended',
 	],
 	settings: {
 		'import/resolver': {
 			typescript: true,
-			node: true
+			node: true,
 		},
 		'import/parsers': {
-			'@typescript-eslint/parser': ['.ts', '.tsx']
-		}
+			'@typescript-eslint/parser': ['.ts', '.tsx'],
+		},
 	},
 	parser: '@typescript-eslint/parser',
 	plugins: [
@@ -24,32 +24,32 @@ module.exports = {
 		'eslint-plugin-import-helpers',
 		'import',
 		'unused-imports',
-		'import-no-duplicates-prefix-resolved-path'
+		'import-no-duplicates-prefix-resolved-path',
 	],
 	parserOptions: {
 		sourceType: 'module',
 		ecmaVersion: 2020,
-		extraFileExtensions: ['.svelte']
+		extraFileExtensions: ['.svelte'],
 	},
 	env: {
 		browser: true,
 		es2017: true,
-		node: true
+		node: true,
 	},
 	overrides: [
 		{
 			files: ['*.svelte'],
 			parser: 'svelte-eslint-parser',
 			parserOptions: {
-				parser: '@typescript-eslint/parser'
-			}
+				parser: '@typescript-eslint/parser',
+			},
 		},
 		{
 			files: ['*.svelte'],
 			rules: {
-				'svelte/valid-compile': 'warn'
-			}
-		}
+				'svelte/valid-compile': 'warn',
+			},
+		},
 	],
 	rules: {
 		'no-unused-vars': 'off',
@@ -62,9 +62,9 @@ module.exports = {
 					'^\\$app/stores',
 					'^\\$app/navigation',
 					'^\\$env/static/private',
-					'^\\$env/static/public'
-				]
-			}
+					'^\\$env/static/public',
+				],
+			},
 		],
 		'import/imports-first': 'error',
 		'import/export': 'error',
@@ -98,8 +98,8 @@ module.exports = {
 		'import-no-duplicates-prefix-resolved-path/no-duplicates': [
 			'error',
 			{
-				prefixResolvedPathWithImportName: true
-			}
+				prefixResolvedPathWithImportName: true,
+			},
 		],
 		'import/no-named-default': 'error',
 		'import/no-namespace': 'error',
@@ -107,8 +107,8 @@ module.exports = {
 			'warn',
 			{
 				groups: ['module', '/^@shared/', ['parent', 'sibling', 'index']],
-				alphabetize: { order: 'asc', ignoreCase: true }
-			}
+				alphabetize: { order: 'asc', ignoreCase: true },
+			},
 		],
 		'unused-imports/no-unused-imports': 'warn',
 		'unused-imports/no-unused-vars': [
@@ -117,10 +117,10 @@ module.exports = {
 				vars: 'all',
 				varsIgnorePattern: '^_',
 				args: 'after-used',
-				argsIgnorePattern: '^_'
-			}
-		]
-	}
+				argsIgnorePattern: '^_',
+			},
+		],
+	},
 };
 
 // in webstorm add --rule 'unused-imports/no-unused-imports: off' in Extra eslint options to avoid removing unused imports on save

@@ -8,8 +8,8 @@
 		component: Select,
 		tags: ['autodocs'],
 		parameters: {
-			layout: 'centered'
-		}
+			layout: 'centered',
+		},
 	} satisfies Meta<Select>;
 </script>
 
@@ -38,9 +38,9 @@
 	args={{
 		items: categories.map((category) => ({
 			value: category.id,
-			label: category.name
+			label: category.name,
 		})),
 		valueField: 'value',
-		nameField: 'label'
+		nameField: 'label',
 	}}
 />

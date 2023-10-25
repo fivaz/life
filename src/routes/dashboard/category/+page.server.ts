@@ -12,7 +12,7 @@ export const load = (async (event) => {
 	}
 
 	const categories: CCategory[] = await prisma.category.findMany({
-		where: { deleted: null, userId: session.user.id }
+		where: { deleted: null, userId: session.user.id },
 	});
 
 	return { categories };
@@ -40,12 +40,12 @@ export const actions = {
 				const category: CCategory = await prisma.category.update({
 					where: {
 						id,
-						userId: session.user.id
+						userId: session.user.id,
 					},
 					data: {
 						name,
-						isDefault
-					}
+						isDefault,
+					},
 				});
 				return { saved: category };
 			} else {
@@ -53,14 +53,14 @@ export const actions = {
 					data: {
 						userId: session.user.id,
 						name,
-						isDefault
-					}
+						isDefault,
+					},
 				});
 				return { saved: category };
 			}
 		} catch (error) {
 			return fail(422, {
-				error: error instanceof Error ? error.message : "error isn't an instance of error"
+				error: error instanceof Error ? error.message : "error isn't an instance of error",
 			});
 		}
 	},
@@ -76,12 +76,12 @@ export const actions = {
 		const category: CCategory = await prisma.category.update({
 			where: {
 				id,
-				userId: session.user.id
+				userId: session.user.id,
 			},
 			data: {
-				deleted: new Date()
-			}
+				deleted: new Date(),
+			},
 		});
 		return { removed: category };
-	}
+	},
 } satisfies Actions;

@@ -6,11 +6,11 @@ export function isEventOnDay(event: EEvent, targetDay: Date): boolean {
 	return (
 		isWithinInterval(event.startDate, {
 			start: startOfDay(targetDay),
-			end: endOfDay(targetDay)
+			end: endOfDay(targetDay),
 		}) ||
 		isWithinInterval(event.endDate, {
 			start: startOfDay(targetDay),
-			end: endOfDay(targetDay)
+			end: endOfDay(targetDay),
 		})
 	);
 }

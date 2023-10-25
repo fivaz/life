@@ -7,8 +7,8 @@
 		component: SelectItem,
 		tags: ['autodocs'],
 		parameters: {
-			layout: 'centered'
-		}
+			layout: 'centered',
+		},
 	} satisfies Meta<SelectItem>;
 </script>
 

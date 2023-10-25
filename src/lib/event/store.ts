@@ -22,6 +22,6 @@ export function removeEvent(event: EEvent) {
 export function toggleEvent(event: EEvent) {
 	events.update(($events) => [
 		...$events.filter((existingEvent) => existingEvent.id !== event.id),
-		{ ...event, isDone: !event.isDone }
+		{ ...event, isDone: !event.isDone },
 	]);
 }

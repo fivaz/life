@@ -7,9 +7,9 @@
 		component: CalendarTimeLabels,
 		tags: ['autodocs'],
 		parameters: {
-			layout: 'centered'
+			layout: 'centered',
 		},
-		argTypes: {}
+		argTypes: {},
 	} satisfies Meta<CalendarTimeLabels>;
 </script>
 
