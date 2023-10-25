@@ -1,17 +1,26 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 
+	import { tailwindClasses } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
+	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
+	import Select from '$lib/components/select/Select.svelte';
+	import classnames from 'classnames';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/category/$types';
 
 	let loading = false;
 	export let form: ActionData | null;
-
 	let error = '';
 
 	const dispatch = createEventDispatcher();
+
+	let color =
+		tailwindClasses.find((tailwindClass) => tailwindClass.color === form?.saved?.color)?.color ||
+		tailwindClasses[0].color;
+
+	$: colorClass = tailwindClasses.find((tailwindClass) => tailwindClass.color === color)?.classes;
 </script>
 
 <form
@@ -44,6 +53,23 @@
 			value={form?.saved?.name || ''}
 			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 		/>
+
+		{JSON.stringify(colorClass)}
+		<Select name="color" bind:value={color}>
+			<div slot="placeholder" class="flex gap-5 items-center">
+				<div class={classnames('h-5 w-5 rounded-md', colorClass)} />
+				{color}
+			</div>
+
+			{#each tailwindClasses as tailwindClass (tailwindClass)}
+				<SelectItem value={tailwindClass.color}>
+					<div class="flex gap-5 items-center">
+						<div class={classnames('h-5 w-5 rounded-md', tailwindClass.classes)} />
+						{tailwindClass.color}
+					</div>
+				</SelectItem>
+			{/each}
+		</Select>
 
 		<label>
 			<input

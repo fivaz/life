@@ -4,22 +4,27 @@
 	import type { CCategory } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
+	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import { removeEvent, updateEvent } from '$lib/event/store';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/$types';
+	// eslint-disable-next-line import/max-dependencies
 	import { add15Minutes, getDate, getEndTime, getStartTime, updateDate } from './service';
 
 	let loading = false;
+	export let categories: CCategory[];
 	export let form: ActionData | null;
-
-	let date = getDate(form);
-	let startTime = getStartTime(form);
-	let endTime = getEndTime(form);
-
 	let error = '';
 
-	export let categories: CCategory[];
+	let defaultDate = getDate(form);
+	let defaultStartTime = getStartTime(form);
+	let defaultEndTime = getEndTime(form);
+	let defaultCategoryId =
+		categories.find((category) => category.id === form?.saved?.categoryId)?.id ||
+		categories.find((category) => category.isDefault)?.id ||
+		categories[0].id;
+	$: categoryName = categories.find((category) => category.id === defaultCategoryId)?.name;
 
 	const dispatch = createEventDispatcher();
 
@@ -81,11 +86,12 @@
 			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 		/>
 
-		<Select
-			value={form?.saved?.categoryId || categories[0].id}
-			name="categoryId"
-			items={categories.map((category) => ({ id: category.id, name: category.name }))}
-		/>
+		<Select bind:value={defaultCategoryId} name="categoryId">
+			<span slot="placeholder">{categoryName}</span>
+			{#each categories as category (category)}
+				<SelectItem value={category.id}>{category.name}</SelectItem>
+			{/each}
+		</Select>
 
 		<label class="block text-sm font-medium text-gray-700 mb-1">
 			Description
@@ -100,7 +106,7 @@
 			label="Date"
 			type="date"
 			name="date"
-			value={date}
+			value={defaultDate}
 			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 		/>
 
@@ -110,11 +116,17 @@
 				label="Start time"
 				type="time"
 				name="startTime"
-				value={startTime}
-				on:input={(e) => (endTime = add15Minutes(e.detail))}
+				value={defaultStartTime}
+				on:input={(e) => (defaultEndTime = add15Minutes(e.detail))}
 			/>
 
-			<Input labelClass="col-span-2" label="End time" type="time" name="endTime" value={endTime} />
+			<Input
+				labelClass="col-span-2"
+				label="End time"
+				type="time"
+				name="endTime"
+				value={defaultEndTime}
+			/>
 		</div>
 	</div>
 
