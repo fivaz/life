@@ -38,7 +38,7 @@
 				class="h-screen flex justify-center items-end sm:items-center pb-14"
 			>
 				<div
-					class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:align-middle"
+					class="inline-block align-bottom bg-white rounded-lg text-left shadow-xl transform transition-all sm:align-middle"
 				>
 					<slot />
 				</div>

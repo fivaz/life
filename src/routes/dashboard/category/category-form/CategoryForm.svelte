@@ -19,6 +19,14 @@
 
 	let selectedColor = form?.saved?.color || Object.keys(tailwindClasses)[0];
 
+	const colors: Record<string, string> = {
+		green: 'bg-green-500',
+		blue: 'bg-blue-500',
+		red: 'bg-red-500',
+		yellow: 'bg-yellow-500',
+		purple: 'bg-purple-500',
+	};
+
 	const submit: SubmitFunction = () => {
 		try {
 			loading = true;
@@ -48,13 +56,8 @@
 	};
 </script>
 
-<form
-	method="POST"
-	action="?/save"
-	use:enhance={submit}
-	class="w-[336px] shadow rounded-md overflow-hidden"
->
-	<div class="flex flex-col gap-3 px-4 py-5 bg-white sm:p-6">
+<form method="POST" action="?/save" use:enhance={submit} class="w-[336px] shadow">
+	<div class="flex flex-col gap-3 px-4 py-5 bg-white rounded-md sm:p-6">
 		<h2 class="text-lg font-medium text-gray-900">
 			{#if form?.saved?.id}
 				Edit Category
@@ -79,14 +82,14 @@
 
 		<Select name="color" bind:value={selectedColor}>
 			<div slot="placeholder" class="flex gap-5 items-center">
-				<div class={classnames('h-5 w-5 rounded-md', tailwindClasses[selectedColor])} />
+				<div class={classnames('h-5 w-5 rounded-md', colors[selectedColor])} />
 				{selectedColor}
 			</div>
 
-			{#each Object.keys(tailwindClasses) as color (color)}
+			{#each Object.keys(colors) as color (color)}
 				<SelectItem value={color}>
 					<div class="flex gap-5 items-center">
-						<div class={classnames('h-5 w-5 rounded-md', tailwindClasses[color])} />
+						<div class={classnames('h-5 w-5 rounded-md', colors[color])} />
 						{color}
 					</div>
 				</SelectItem>
@@ -104,7 +107,7 @@
 		</label>
 	</div>
 
-	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
+	<div class="flex justify-between px-4 py-3 bg-gray-50 rounded-md text-right sm:px-6">
 		{#if form?.saved?.id}
 			<Button formaction="?/remove" color="red">Delete</Button>
 		{:else}

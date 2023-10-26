@@ -9,7 +9,6 @@
 	import { removeEvent, updateEvent } from '$lib/event/store';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/$types';
-	// eslint-disable-next-line import/max-dependencies
 	import { add15Minutes, getDate, getEndTime, getStartTime, updateDate } from './service';
 
 	let loading = false;
