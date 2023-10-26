@@ -20,14 +20,14 @@ const authorization: Handle = async ({ event, resolve }) => {
 export const handle: Handle = SvelteKitAuth({
 	adapter: PrismaAdapter(prisma),
 	providers: [GitHub({ clientId: GITHUB_ID, clientSecret: GITHUB_SECRET })],
-	// callbacks: {
-	// 	async session({ session, user, token }) {
-	// 		console.log('session', session);
-	// 		console.log('user', user);
-	// 		if (user) {
-	// 			session.user.id = user.id;
-	// 		}
-	// 		return session;
-	// 	},
-	// },
+	callbacks: {
+		async session({ session, user, token }) {
+			console.log('session', session);
+			console.log('user', user);
+			// if (user) {
+			// 	session.user.id = user.id;
+			// }
+			return session;
+		},
+	},
 });
