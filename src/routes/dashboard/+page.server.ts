@@ -12,14 +12,15 @@ export const load = (async (event) => {
 		throw redirect(303, loginRoute);
 	}
 
-	const events: EEvent[] = await prisma.event.findMany({
-		where: { deleted: null, userId: session.user.id },
-		include: { category: true },
-	});
-
-	const categories: CCategory[] = await prisma.category.findMany({
-		where: { deleted: null, userId: session.user.id },
-	});
+	const [events, categories]: [events: EEvent[], categories: CCategory[]] = await Promise.all([
+		prisma.event.findMany({
+			where: { deleted: null, userId: session.user.id },
+			include: { category: true },
+		}),
+		prisma.category.findMany({
+			where: { deleted: null, userId: session.user.id },
+		}),
+	]);
 
 	return { events, categories };
 }) satisfies PageServerLoad;
