@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Trash } from '@steeze-ui/heroicons';
 	import { Settings } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { CCategory } from '$lib/category/utils';
@@ -17,10 +16,6 @@
 	<div>
 		<Button on:click={() => dispatch('edit', category)} type="button">
 			<Icon src={Settings} class="h-4 w-4" />
-		</Button>
-
-		<Button on:click={() => dispatch('remove', category)}>
-			<Icon src={Trash} class="h-4 w-4" />
 		</Button>
 	</div>
 </li>
