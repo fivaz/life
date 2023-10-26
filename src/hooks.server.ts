@@ -24,9 +24,9 @@ export const handle: Handle = SvelteKitAuth({
 		async session({ session, user, token }) {
 			console.log('session', session);
 			console.log('user', user);
-			// if (user) {
-			// 	session.user.id = user.id;
-			// }
+			if (user) {
+				session.user.id = user.id;
+			}
 			return session;
 		},
 	},
