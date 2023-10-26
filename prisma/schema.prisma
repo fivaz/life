@@ -63,7 +63,7 @@ model Category {
   id        Int       @id @default(autoincrement())
   name      String
   isDefault Boolean
-  color     String?
+  color     String
   deleted   DateTime? @db.Timestamp(6)
   userId    String
   user      User      @relation(fields: [userId], references: [id])
