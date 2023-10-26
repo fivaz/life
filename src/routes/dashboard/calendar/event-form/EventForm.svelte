@@ -16,14 +16,15 @@
 	export let form: ActionData | null;
 	let error = '';
 
-	let defaultDate = getDate(form);
-	let defaultStartTime = getStartTime(form);
-	let defaultEndTime = getEndTime(form);
-	let defaultCategoryId =
+	let date = getDate(form);
+	let startTime = getStartTime(form);
+	let endTime = getEndTime(form);
+	let categoryId =
 		categories.find((category) => category.id === form?.saved?.categoryId)?.id ||
 		categories.find((category) => category.isDefault)?.id ||
 		categories[0].id;
-	$: categoryName = categories.find((category) => category.id === defaultCategoryId)?.name;
+
+	$: categoryName = categories.find((category) => category.id === categoryId)?.name;
 
 	const dispatch = createEventDispatcher();
 
@@ -89,7 +90,7 @@
 			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 		/>
 
-		<Select bind:value={defaultCategoryId} name="categoryId">
+		<Select bind:value={categoryId} name="categoryId">
 			<span slot="placeholder">{categoryName}</span>
 			{#each categories as category (category)}
 				<SelectItem value={category.id}>{category.name}</SelectItem>
@@ -109,7 +110,7 @@
 			label="Date"
 			type="date"
 			name="date"
-			value={defaultDate}
+			value={date}
 			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 		/>
 
@@ -119,17 +120,11 @@
 				label="Start time"
 				type="time"
 				name="startTime"
-				value={defaultStartTime}
-				on:input={(e) => (defaultEndTime = add15Minutes(e.detail))}
+				value={startTime}
+				on:input={(e) => (endTime = add15Minutes(e.detail))}
 			/>
 
-			<Input
-				labelClass="col-span-2"
-				label="End time"
-				type="time"
-				name="endTime"
-				value={defaultEndTime}
-			/>
+			<Input labelClass="col-span-2" label="End time" type="time" name="endTime" value={endTime} />
 		</div>
 	</div>
 

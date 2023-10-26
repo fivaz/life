@@ -8,7 +8,7 @@
 	import type { EEvent } from '$lib/event/utils';
 	import classnames from 'classnames';
 	import { format } from 'date-fns';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import { isShort } from './service';
 
 	export let event: EEvent;
@@ -28,9 +28,24 @@
 			loading = false;
 		};
 	};
+
+	let eventContainer: HTMLDivElement | null = null;
+
+	let nameContainer: HTMLParagraphElement | null = null;
+
+	onMount(() => {
+		if (eventContainer && nameContainer) {
+			const words = event.name.split(' ');
+			while (eventContainer.scrollHeight > eventContainer.clientHeight) {
+				words.pop();
+				nameContainer.innerText = words.join(' ') + ' ...';
+			}
+		}
+	});
 </script>
 
 <div
+	bind:this={eventContainer}
 	on:click={() => dispatch('edit', event)}
 	on:keydown={(e) => {
 		if (e.key === 'Enter') {
@@ -41,7 +56,7 @@
 	role="button"
 	class={classnames(
 		{ 'py-2': !isShort(event) },
-		'group w-full h-full flex flex-col overflow-y-auto rounded-lg py-1 px-2 text-xs leading-5',
+		'group w-full h-full flex flex-col rounded-lg py-1 px-2 text-xs leading-5 overflow-hidden',
 		tailwindClasses[event.category.color],
 	)}
 >
@@ -67,6 +82,7 @@
 	</p>
 	<!--20px is the width of the form of the checkbox-->
 	<p
+		bind:this={nameContainer}
 		class={classnames('font-semibold ', {
 			'truncate w-[calc(100%-20px)]': isShort(event),
 		})}
