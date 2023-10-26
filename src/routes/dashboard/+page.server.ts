@@ -14,6 +14,7 @@ export const load = (async (event) => {
 
 	const events: EEvent[] = await prisma.event.findMany({
 		where: { deleted: null, userId: session.user.id },
+		include: { category: true },
 	});
 
 	const categories: CCategory[] = await prisma.category.findMany({
@@ -71,6 +72,7 @@ export const actions = {
 						isDone,
 						categoryId,
 					},
+					include: { category: true },
 				});
 				return { saved: event };
 			} else {
@@ -84,6 +86,7 @@ export const actions = {
 						isDone,
 						categoryId,
 					},
+					include: { category: true },
 				});
 				return { saved: event };
 			}
@@ -111,6 +114,7 @@ export const actions = {
 			data: {
 				isDone,
 			},
+			include: { category: true },
 		});
 
 		return { saved: event };
@@ -132,6 +136,7 @@ export const actions = {
 			data: {
 				deleted: new Date(),
 			},
+			include: { category: true },
 		});
 		return { removed: event };
 	},

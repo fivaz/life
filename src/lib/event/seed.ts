@@ -1,3 +1,4 @@
+import { fun, routine, work } from '$lib/category/seed';
 import type { EEvent } from '$lib/event/utils';
 import { addDays } from 'date-fns';
 
@@ -14,9 +15,6 @@ function getTodayAtTime(time: string): Date {
 	return date;
 }
 
-// Usage:
-console.log(getTodayAtTime('06:30')); // Outputs today's date at 06:30 in ISO format
-
 export const normalWithoutDescription: EEvent = {
 	id: 1,
 	name: 'Breakfast',
@@ -24,7 +22,8 @@ export const normalWithoutDescription: EEvent = {
 	startDate: getTodayAtTime('07:00'),
 	endDate: getTodayAtTime('07:45'),
 	isDone: false,
-	categoryId: 2,
+	categoryId: routine.id,
+	category: routine,
 };
 
 export const shortWithoutDescription: EEvent = {
@@ -34,7 +33,8 @@ export const shortWithoutDescription: EEvent = {
 	startDate: getTodayAtTime('07:45'),
 	endDate: getTodayAtTime('08:00'),
 	isDone: false,
-	categoryId: 2,
+	categoryId: routine.id,
+	category: routine,
 };
 
 export const normalDescription: EEvent = {
@@ -44,7 +44,8 @@ export const normalDescription: EEvent = {
 	startDate: addDays(getTodayAtTime('00:00'), 2),
 	endDate: addDays(getTodayAtTime('23:59'), 2),
 	isDone: false,
-	categoryId: 2,
+	categoryId: work.id,
+	category: work,
 };
 
 export const long: EEvent = {
@@ -54,17 +55,30 @@ export const long: EEvent = {
 	startDate: getTodayAtTime('10:15'),
 	endDate: addDays(getTodayAtTime('12:30'), 1),
 	isDone: true,
-	categoryId: 1,
+	categoryId: work.id,
+	category: work,
 };
 
 export const done: EEvent = {
-	id: 4,
+	id: 5,
 	name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
 	description: null,
 	startDate: getTodayAtTime('00:15'),
 	endDate: getTodayAtTime('01:30'),
 	isDone: true,
-	categoryId: 1,
+	categoryId: work.id,
+	category: work,
+};
+
+export const redEvent = {
+	id: 6,
+	name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+	description: null,
+	startDate: getTodayAtTime('15:15'),
+	endDate: getTodayAtTime('16:30'),
+	isDone: false,
+	categoryId: fun.id,
+	category: fun,
 };
 
 export const events: EEvent[] = [
@@ -73,4 +87,5 @@ export const events: EEvent[] = [
 	normalDescription,
 	long,
 	done,
+	redEvent,
 ];

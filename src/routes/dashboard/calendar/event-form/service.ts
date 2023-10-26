@@ -73,6 +73,12 @@ export function buildEvent(date: Date, timeInterval: number): EEvent {
 		endDate: buildDate(date, timeInterval + 0.5),
 		isDone: false,
 		categoryId: 0,
+		category: {
+			id: 0,
+			name: '',
+			isDefault: false,
+			color: '',
+		},
 	};
 }
 

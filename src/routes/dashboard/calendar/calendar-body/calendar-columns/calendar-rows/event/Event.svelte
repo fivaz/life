@@ -3,6 +3,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
+	import { tailwindClasses } from '$lib/category/utils';
 	import { toggleEvent } from '$lib/event/store';
 	import type { EEvent } from '$lib/event/utils';
 	import classnames from 'classnames';
@@ -16,9 +17,7 @@
 
 	let loading: boolean = false;
 
-	const dispatch = createEventDispatcher<{
-		edit: EEvent;
-	}>();
+	const dispatch = createEventDispatcher<{ edit: EEvent }>();
 
 	const submit: SubmitFunction = () => {
 		loading = true;
@@ -42,7 +41,8 @@
 	role="button"
 	class={classnames(
 		{ 'py-2': !isShort(event) },
-		'group w-full h-full flex flex-col overflow-y-auto rounded-lg bg-blue-50 py-1 px-2 text-xs leading-5 hover:bg-blue-100',
+		'group w-full h-full flex flex-col overflow-y-auto rounded-lg py-1 px-2 text-xs leading-5',
+		tailwindClasses[event.category.color],
 	)}
 >
 	<form
@@ -59,7 +59,7 @@
 			on:change={() => form.requestSubmit()}
 			on:click|stopPropagation
 			name="isDone"
-			class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+			class="rounded border-gray-300 focus:ring-indigo-600"
 		/>
 	</form>
 	<p class={classnames({ hidden: isShort(event) }, 'text-blue-500 group-hover:text-blue-700')}>
@@ -67,7 +67,7 @@
 	</p>
 	<!--20px is the width of the form of the checkbox-->
 	<p
-		class={classnames('font-semibold text-blue-700', {
+		class={classnames('font-semibold ', {
 			'truncate w-[calc(100%-20px)]': isShort(event),
 		})}
 	>

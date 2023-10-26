@@ -92,7 +92,13 @@ module.exports = {
 		'import/dynamic-import-chunkname': 'error',
 		'import/extensions': 'error',
 		'import/first': 'error',
-		'import/max-dependencies': 'error',
+		'import/max-dependencies': [
+			'error',
+			{
+				max: 10,
+				ignoreTypeImports: true,
+			},
+		],
 		'import/newline-after-import': 'error',
 		'import/no-duplicates': 'off',
 		'import-no-duplicates-prefix-resolved-path/no-duplicates': [

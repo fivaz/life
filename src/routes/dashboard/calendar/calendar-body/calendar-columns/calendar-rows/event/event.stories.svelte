@@ -7,6 +7,7 @@
 		normalDescription,
 		normalWithoutDescription,
 		shortWithoutDescription,
+		redEvent,
 	} from '$lib/event/seed';
 	import Event from './Event.svelte';
 
@@ -18,6 +19,9 @@
 		},
 		argTypes: {},
 	} satisfies Meta<Event>;
+</script>
+
+<script>
 </script>
 
 <Template let:args>
@@ -35,3 +39,5 @@
 <Story name="Long" args={{ event: long }} />
 
 <Story name="Done" args={{ event: done }} />
+
+<Story name="Red event" args={{ event: redEvent }} />

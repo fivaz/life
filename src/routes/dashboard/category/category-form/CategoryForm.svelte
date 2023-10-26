@@ -9,7 +9,6 @@
 	import Select from '$lib/components/select/Select.svelte';
 	import classnames from 'classnames';
 	import { createEventDispatcher } from 'svelte';
-	// eslint-disable-next-line import/max-dependencies
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/category/$types';
 
 	let loading = false;
@@ -18,11 +17,7 @@
 
 	const dispatch = createEventDispatcher();
 
-	let color =
-		tailwindClasses.find((tailwindClass) => tailwindClass.color === form?.saved?.color)?.color ||
-		tailwindClasses[0].color;
-
-	$: colorClass = tailwindClasses.find((tailwindClass) => tailwindClass.color === color)?.classes;
+	let selectedColor = form?.saved?.color || Object.keys(tailwindClasses)[0];
 
 	const submit: SubmitFunction = () => {
 		try {
@@ -82,17 +77,17 @@
 			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 		/>
 
-		<Select name="color" bind:value={color}>
+		<Select name="color" bind:value={selectedColor}>
 			<div slot="placeholder" class="flex gap-5 items-center">
-				<div class={classnames('h-5 w-5 rounded-md', colorClass)} />
-				{color}
+				<div class={classnames('h-5 w-5 rounded-md', tailwindClasses[selectedColor])} />
+				{selectedColor}
 			</div>
 
-			{#each tailwindClasses as tailwindClass (tailwindClass)}
-				<SelectItem value={tailwindClass.color}>
+			{#each Object.keys(tailwindClasses) as color (color)}
+				<SelectItem value={color}>
 					<div class="flex gap-5 items-center">
-						<div class={classnames('h-5 w-5 rounded-md', tailwindClass.classes)} />
-						{tailwindClass.color}
+						<div class={classnames('h-5 w-5 rounded-md', tailwindClasses[color])} />
+						{color}
 					</div>
 				</SelectItem>
 			{/each}
