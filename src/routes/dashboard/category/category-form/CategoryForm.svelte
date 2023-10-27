@@ -45,12 +45,12 @@
 						error = form.error;
 					}
 				}
+				loading = false;
 			};
 		} catch (e) {
 			if (e instanceof Error) {
 				error = e.message;
 			}
-		} finally {
 			loading = false;
 		}
 	};

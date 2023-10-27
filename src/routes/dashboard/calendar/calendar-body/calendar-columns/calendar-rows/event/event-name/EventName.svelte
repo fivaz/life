@@ -14,7 +14,6 @@
 		if (eventContainer && nameContainer) {
 			const words = event.name.split(' ');
 			while (eventContainer.scrollHeight > eventContainer.clientHeight && words.length) {
-				console.log('y');
 				words.pop();
 				nameContainer.innerText = words.join(' ') + ' ...';
 			}

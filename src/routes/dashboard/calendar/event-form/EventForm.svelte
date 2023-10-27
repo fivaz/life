@@ -47,6 +47,7 @@
 						error = form.error;
 					}
 				}
+				loading = false;
 			};
 		} catch (e) {
 			if (e instanceof Error) {
@@ -54,7 +55,6 @@
 			} else {
 				error = 'date is invalid';
 			}
-		} finally {
 			loading = false;
 		}
 	};
