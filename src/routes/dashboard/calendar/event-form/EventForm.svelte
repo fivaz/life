@@ -4,6 +4,7 @@
 	import type { CCategory } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
+	import Loading from '$lib/components/loading/Loading.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import { removeEvent, updateEvent } from '$lib/event/store';
@@ -64,7 +65,7 @@
 	method="POST"
 	action="?/save"
 	use:enhance={submit}
-	class="w-[336px] shadow rounded-md overflow-hidden"
+	class="w-[336px] shadow rounded-md overflow-hidden relative"
 >
 	<div class="flex flex-col gap-3 px-4 py-5 bg-white sm:p-6">
 		<h2 class="text-lg font-medium text-gray-900">
@@ -130,13 +131,15 @@
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
 		{#if form?.saved?.id}
-			<Button formaction="?/remove" color="red">Delete</Button>
+			<Button disabled={loading} formaction="?/remove" color="red">Delete</Button>
 		{:else}
 			<div />
 		{/if}
 
-		<Button isLoading={loading} type="submit">
+		<Button disabled={loading} type="submit">
 			{#if form?.saved?.id} Edit {:else} Add {/if}
 		</Button>
 	</div>
+
+	<Loading {loading} className="h-8 w-8 text-indigo-500" />
 </form>

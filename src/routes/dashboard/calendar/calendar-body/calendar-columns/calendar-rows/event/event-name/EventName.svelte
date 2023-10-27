@@ -10,15 +10,17 @@
 
 	export let event: EEvent;
 
-	onMount(() => {
+	function truncateText() {
 		if (eventContainer && nameContainer) {
 			const words = event.name.split(' ');
 			while (eventContainer.scrollHeight > eventContainer.clientHeight && words.length) {
 				words.pop();
-				nameContainer.innerText = words.join(' ') + ' ...';
+				nameContainer.innerText = `${words.join(' ')} ...`;
 			}
 		}
-	});
+	}
+
+	onMount(truncateText);
 </script>
 
 <!--20px is the width of the form of the checkbox-->

@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { Loader2 } from '@steeze-ui/lucide-icons';
-	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
 	import { tailwindClasses } from '$lib/category/utils';
+	import Loading from '$lib/components/loading/Loading.svelte';
 	import { toggleEvent } from '$lib/event/store';
 	import type { EEvent } from '$lib/event/utils';
 	import classnames from 'classnames';
@@ -14,7 +13,7 @@
 
 	export let event: EEvent;
 
-	let loading: boolean = false;
+	let loading = false;
 
 	let form: HTMLFormElement | null = null;
 
@@ -60,6 +59,7 @@
 			on:change={() => form?.requestSubmit()}
 			on:click|stopPropagation
 			name="isDone"
+			disabled={loading}
 			class="rounded border-gray-300 focus:ring-indigo-600"
 		/>
 	</form>
@@ -80,10 +80,4 @@
 	</p>
 </div>
 
-{#if loading}
-	<div
-		class="absolute flex justify-center items-center w-full h-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
-	>
-		<Icon src={Loader2} class="animate-spin h-4 w-4" />
-	</div>
-{/if}
+<Loading {loading} className={classnames(tailwindClasses[event.category.color], 'h-4 w-4')} />

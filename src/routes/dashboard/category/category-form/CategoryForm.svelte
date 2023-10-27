@@ -5,6 +5,7 @@
 	import { tailwindClasses } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
+	import Loading from '$lib/components/loading/Loading.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import classnames from 'classnames';
@@ -109,13 +110,15 @@
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 rounded-md text-right sm:px-6">
 		{#if form?.saved?.id}
-			<Button formaction="?/remove" color="red">Delete</Button>
+			<Button disabled={loading} formaction="?/remove" color="red">Delete</Button>
 		{:else}
 			<div />
 		{/if}
 
-		<Button isLoading={loading} type="submit">
+		<Button disabled={loading} type="submit">
 			{#if form?.saved?.id} Edit {:else} Add {/if}
 		</Button>
 	</div>
+
+	<Loading {loading} className="h-8 w-8 text-indigo-500" />
 </form>
