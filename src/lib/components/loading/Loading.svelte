@@ -4,7 +4,9 @@
 	import classnames from 'classnames';
 
 	export let loading: boolean;
-	export let className: string | null = null;
+
+	let className = '';
+	export { className as class };
 </script>
 
 {#if loading}

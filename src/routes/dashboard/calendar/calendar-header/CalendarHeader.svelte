@@ -123,9 +123,7 @@
 				</Transition>
 			</Menu>
 			<div class="ml-6 h-6 w-px bg-gray-300" />
-			<Button type="button" on:click={() => dispatch('create')} className="ml-6">
-				Create event
-			</Button>
+			<Button type="button" on:click={() => dispatch('create')} class="ml-6">Create event</Button>
 		</div>
 		<!--Mobile-->
 		<Menu class="relative ml-6 md:hidden">

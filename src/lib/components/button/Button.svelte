@@ -16,7 +16,8 @@
 		indigo: 'focus-visible:outline-indigo-600 bg-indigo-600 hover:bg-indigo-500',
 	};
 
-	export let className: string | null = null;
+	let className = '';
+	export { className as class };
 
 	let slot: HTMLElement | null = null;
 

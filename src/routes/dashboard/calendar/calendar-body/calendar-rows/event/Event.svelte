@@ -80,4 +80,4 @@
 	</p>
 </div>
 
-<Loading {loading} className={classnames(tailwindClasses[event.category.color], 'h-4 w-4')} />
+<Loading {loading} class={classnames(tailwindClasses[event.category.color], 'h-4 w-4')} />

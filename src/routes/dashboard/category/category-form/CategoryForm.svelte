@@ -120,5 +120,5 @@
 		</Button>
 	</div>
 
-	<Loading {loading} className="h-8 w-8 text-indigo-500" />
+	<Loading {loading} class="h-8 w-8 text-indigo-500" />
 </form>
