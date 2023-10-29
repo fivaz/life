@@ -30,6 +30,7 @@ export const actions = {
 		const id = Number(data.get('id'));
 		const name = data.get('name');
 		const color = data.get('color');
+		const group = data.get('group');
 		const isDefault = !!data.get('isDefault');
 
 		try {
@@ -41,6 +42,10 @@ export const actions = {
 				throw Error('color is required');
 			}
 
+			if (!group || typeof group !== 'string') {
+				throw Error('group is required');
+			}
+
 			if (id) {
 				const category: CCategory = await prisma.category.update({
 					where: {
@@ -50,6 +55,7 @@ export const actions = {
 					data: {
 						name,
 						color,
+						group,
 						isDefault,
 					},
 				});
@@ -60,6 +66,7 @@ export const actions = {
 						userId: session.user.id,
 						name,
 						color,
+						group,
 						isDefault,
 					},
 				});

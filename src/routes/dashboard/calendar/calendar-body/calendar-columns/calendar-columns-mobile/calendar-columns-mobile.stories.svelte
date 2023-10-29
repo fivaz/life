@@ -2,21 +2,21 @@
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import type { Meta } from '@storybook/svelte';
 	import { addDays } from 'date-fns';
-	import CalendarColumns from './CalendarColumnsMobile.svelte';
+	import CalendarColumnsMobile from './CalendarColumnsMobile.svelte';
 
 	export const meta = {
-		component: CalendarColumns,
+		component: CalendarColumnsMobile,
 		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
 		argTypes: {},
-	} satisfies Meta<CalendarColumns>;
+	} satisfies Meta<CalendarColumnsMobile>;
 </script>
 
 <Template let:args>
 	<div class="w-[800px] h-[800px]">
-		<CalendarColumns {...args} />
+		<CalendarColumnsMobile {...args} />
 	</div>
 </Template>
 

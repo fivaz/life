@@ -5,6 +5,7 @@ export const work = {
 	name: 'Work',
 	isDefault: true,
 	color: 'green',
+	group: 'work',
 };
 
 export const fun = {
@@ -12,6 +13,7 @@ export const fun = {
 	name: 'Free time',
 	isDefault: false,
 	color: 'red',
+	group: 'fun',
 };
 
 export const routine = {
@@ -19,6 +21,15 @@ export const routine = {
 	name: 'Routine',
 	isDefault: false,
 	color: 'yellow',
+	group: 'fun',
 };
 
-export const categories: CCategory[] = [work, fun, routine];
+export const sleep = {
+	id: 3,
+	name: 'Sleep',
+	isDefault: false,
+	color: 'blue',
+	group: 'sleep',
+};
+
+export const categories: CCategory[] = [work, fun, routine, sleep];

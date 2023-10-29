@@ -9,3 +9,5 @@ export const tailwindClasses: Record<string, string> = {
 	yellow: 'bg-yellow-50 hover:bg-yellow-100 text-yellow-700',
 	purple: 'bg-purple-50 hover:bg-purple-100 text-purple-700',
 };
+
+export const groups = ['sleep', 'work', 'fun'] as const;

@@ -70,7 +70,7 @@ export const done: EEvent = {
 	category: work,
 };
 
-export const redEvent = {
+export const redEvent: EEvent = {
 	id: 6,
 	name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
 	description: null,

@@ -2,7 +2,7 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { applyAction, enhance } from '$app/forms';
 	import { removeCategory, updateCategory } from '$lib/category/store';
-	import { tailwindClasses } from '$lib/category/utils';
+	import { groups, tailwindClasses } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import Loading from '$lib/components/loading/Loading.svelte';
@@ -27,6 +27,8 @@
 		yellow: 'bg-yellow-500',
 		purple: 'bg-purple-500',
 	};
+
+	let selectedGroup = form?.saved?.group || groups[0];
 
 	const submit: SubmitFunction = () => {
 		try {
@@ -97,6 +99,15 @@
 			{/each}
 		</Select>
 
+		<Select name="group" bind:value={selectedGroup}>
+			<div slot="placeholder" class="flex gap-5 items-center">{selectedGroup}</div>
+
+			{#each groups as group (group)}
+				<SelectItem value={group} class="flex gap-5 items-center">{group}</SelectItem>
+			{/each}
+		</Select>
+
+		<!--		Add a toggle-->
 		<label>
 			<input
 				name="isDefault"

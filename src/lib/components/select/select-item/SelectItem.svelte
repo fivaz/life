@@ -4,6 +4,9 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import classnames from 'classnames';
 
+	let className = '';
+	export { className as class };
+
 	export let value: string | number | string[] | null | undefined;
 </script>
 
@@ -14,7 +17,7 @@
 			'relative cursor-default select-none py-2 pl-3 pr-9',
 		)}
 	>
-		<span class={classnames(active ? 'font-semibold' : 'font-normal', 'block truncate')}>
+		<span class={classnames(active ? 'font-semibold' : 'font-normal', 'block truncate', className)}>
 			<slot />
 		</span>
 

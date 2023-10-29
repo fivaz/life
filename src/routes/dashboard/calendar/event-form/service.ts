@@ -1,3 +1,4 @@
+import { groups } from '$lib/category/utils';
 import type { EEvent } from '$lib/event/utils';
 import { DATE, TIME } from '$lib/utils';
 import { addMinutes, format, formatISO, parse, setHours, setMinutes } from 'date-fns';
@@ -57,11 +58,16 @@ export function getEndTime(form: ActionData): string {
 }
 
 export function add15Minutes(time: string) {
-	const date = parse(time, TIME, new Date());
+	try {
+		const date = parse(time, TIME, new Date());
 
-	const date15MinutesLater = addMinutes(date, 15);
+		const date15MinutesLater = addMinutes(date, 15);
 
-	return format(date15MinutesLater, TIME);
+		return format(date15MinutesLater, TIME);
+	} catch (e) {
+		console.warn(e);
+		return '';
+	}
 }
 
 export function buildEvent(date: Date, timeInterval: number): EEvent {
@@ -78,6 +84,7 @@ export function buildEvent(date: Date, timeInterval: number): EEvent {
 			name: '',
 			isDefault: false,
 			color: '',
+			group: groups[0],
 		},
 	};
 }

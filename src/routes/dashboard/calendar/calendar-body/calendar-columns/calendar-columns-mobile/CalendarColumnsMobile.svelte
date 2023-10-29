@@ -3,8 +3,8 @@
 	import { format, getDate, isToday } from 'date-fns';
 
 	import CalendarRows from '../calendar-rows/CalendarRows.svelte';
-	
-export let dates: Date[];
+
+	export let dates: Date[];
 
 	let className = '';
 	export { className as class };

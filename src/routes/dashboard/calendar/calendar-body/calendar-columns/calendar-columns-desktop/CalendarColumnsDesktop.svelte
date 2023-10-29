@@ -14,7 +14,7 @@
 	<div class="h-full grid grid-cols-7 divide-x">
 		{#each dates as date (date)}
 			<div>
-				<Stats />
+				<Stats {date} />
 				<div class="h-full flex flex-col divide-y">
 					<div class="flex items-center justify-center gap-1 flex-row py-3">
 						{format(date, 'E')}

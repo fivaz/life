@@ -11,9 +11,7 @@
 
 	const quarterHourInterval = halfHourInterval * 2;
 
-	const dispatch = createEventDispatcher<{
-		create: { timeInterval: number; date: Date };
-	}>();
+	const dispatch = createEventDispatcher<{ create: { timeInterval: number; date: Date } }>();
 </script>
 
 <!--TODO make top and side sticky-->

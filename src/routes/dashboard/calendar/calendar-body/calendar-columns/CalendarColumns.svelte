@@ -2,8 +2,8 @@
 	import { addDays } from 'date-fns';
 	import CalendarColumnsDesktop from './calendar-columns-desktop/CalendarColumnsDesktop.svelte';
 	import CalendarColumnsMobile from './calendar-columns-mobile/CalendarColumnsMobile.svelte';
-	
-export let weekStart: Date;
+
+	export let weekStart: Date;
 
 	$: dates = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
 </script>
