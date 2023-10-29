@@ -23,7 +23,6 @@
 <Story
 	name="Primary"
 	args={{
-		currentDate: new Date(),
 		weekStart: startOfWeek(new Date()),
 	}}
 />

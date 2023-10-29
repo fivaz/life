@@ -1,17 +1,15 @@
 <script lang="ts">
 	import classnames from 'classnames';
-	import { addDays, format, getDate, isToday } from 'date-fns';
+	import { format, getDate, isToday } from 'date-fns';
 
 	import CalendarRows from '../calendar-rows/CalendarRows.svelte';
-
-	export let weekStart: Date;
-
-	let selectedDate = new Date();
+	
+export let dates: Date[];
 
 	let className = '';
 	export { className as class };
 
-	$: dates = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
+	let selectedDate = new Date();
 
 	$: isSelectedDate = (date: Date) => getDate(selectedDate) === getDate(date);
 </script>

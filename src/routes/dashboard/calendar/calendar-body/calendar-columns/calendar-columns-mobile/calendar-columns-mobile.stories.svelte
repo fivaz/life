@@ -1,8 +1,8 @@
 <script lang="ts" context="module">
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import type { Meta } from '@storybook/svelte';
-	import { startOfWeek } from 'date-fns';
-	import CalendarColumns from './CalendarColumns.svelte';
+	import { addDays } from 'date-fns';
+	import CalendarColumns from './CalendarColumnsMobile.svelte';
 
 	export const meta = {
 		component: CalendarColumns,
@@ -10,18 +10,19 @@
 		parameters: {
 			layout: 'centered',
 		},
+		argTypes: {},
 	} satisfies Meta<CalendarColumns>;
 </script>
 
 <Template let:args>
-	<div class="w-[800px]">
+	<div class="w-[800px] h-[800px]">
 		<CalendarColumns {...args} />
 	</div>
 </Template>
 
 <Story
-	name="Desktop"
+	name="Primary"
 	args={{
-		weekStart: startOfWeek(new Date()),
+		dates: Array.from({ length: 7 }, (_, i) => addDays(new Date(), i)),
 	}}
 />
