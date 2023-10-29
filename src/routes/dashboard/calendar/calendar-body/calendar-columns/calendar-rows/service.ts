@@ -1,19 +1,6 @@
 import type { EEvent } from '$lib/event/utils';
-import { endOfDay, isWithinInterval, startOfDay } from 'date-fns';
 
 export const halfHourInterval = 24 * 2;
-export function isEventOnDay(event: EEvent, targetDay: Date): boolean {
-	return (
-		isWithinInterval(event.startDate, {
-			start: startOfDay(targetDay),
-			end: endOfDay(targetDay),
-		}) ||
-		isWithinInterval(event.endDate, {
-			start: startOfDay(targetDay),
-			end: endOfDay(targetDay),
-		})
-	);
-}
 
 function getGridRows(event: EEvent): { start: number; end: number } {
 	// Calculate the number of 15-minute intervals from midnight for the start and end times

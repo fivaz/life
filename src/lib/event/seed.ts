@@ -37,17 +37,6 @@ export const shortWithoutDescription: EEvent = {
 	category: routine,
 };
 
-export const normalDescription: EEvent = {
-	id: 3,
-	name: 'Flight to Paris',
-	description: 'John F. Kennedy International Airport',
-	startDate: addDays(getTodayAtTime('00:00'), 2),
-	endDate: addDays(getTodayAtTime('23:59'), 2),
-	isDone: false,
-	categoryId: work.id,
-	category: work,
-};
-
 export const long: EEvent = {
 	id: 4,
 	name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
@@ -84,7 +73,6 @@ export const redEvent: EEvent = {
 export const events: EEvent[] = [
 	normalWithoutDescription,
 	shortWithoutDescription,
-	normalDescription,
 	long,
 	done,
 	redEvent,

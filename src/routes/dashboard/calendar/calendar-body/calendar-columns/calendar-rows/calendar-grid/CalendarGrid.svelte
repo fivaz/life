@@ -2,7 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import { halfHourInterval } from '../service';
 
-	const dispatch = createEventDispatcher();
+	const dispatch = createEventDispatcher<{ create: number }>();
 </script>
 
 <div

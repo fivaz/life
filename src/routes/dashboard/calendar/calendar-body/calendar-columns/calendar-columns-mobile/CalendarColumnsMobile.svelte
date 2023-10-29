@@ -1,8 +1,11 @@
 <script lang="ts">
+	import { events } from '$lib/event/store';
 	import classnames from 'classnames';
 	import { format, getDate, isToday } from 'date-fns';
 
+	import { createEventDispatcher } from 'svelte';
 	import CalendarRows from '../calendar-rows/CalendarRows.svelte';
+	import { isEventOnDay } from '../service';
 
 	export let dates: Date[];
 
@@ -12,6 +15,8 @@
 	let selectedDate = new Date();
 
 	$: isSelectedDate = (date: Date) => getDate(selectedDate) === getDate(date);
+
+	const dispatch = createEventDispatcher<{ create: { timeInterval: number; date: Date } }>();
 </script>
 
 <div class={classnames('h-full divide-y', className)}>
@@ -34,5 +39,10 @@
 			</button>
 		{/each}
 	</div>
-	<CalendarRows date={selectedDate} on:edit on:create />
+
+	<CalendarRows
+		events={$events.filter((event) => isEventOnDay(event, selectedDate))}
+		on:edit
+		on:create={(e) => dispatch('create', { timeInterval: e.detail, date: selectedDate })}
+	/>
 </div>

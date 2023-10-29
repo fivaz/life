@@ -9,6 +9,6 @@
 </script>
 
 <div class="h-full w-full bg-white text-sm leading-6 text-gray-500">
-	<CalendarColumnsDesktop {dates} on:edit on:create class="block sm:hidden" />
-	<CalendarColumnsMobile {dates} on:edit on:create class="hidden sm:block" />
+	<CalendarColumnsDesktop {dates} on:edit on:create class="hidden sm:block" />
+	<CalendarColumnsMobile {dates} on:edit on:create class="block sm:hidden " />
 </div>

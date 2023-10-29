@@ -1,20 +1,25 @@
 <script lang="ts">
+	import { events } from '$lib/event/store';
 	import classnames from 'classnames';
 	import { format, isToday } from 'date-fns';
+	import { createEventDispatcher } from 'svelte';
 	import CalendarRows from '../calendar-rows/CalendarRows.svelte';
+	import { isEventOnDay } from '../service';
 	import Stats from '../stats/Stats.svelte';
 
 	export let dates: Date[];
 
 	let className = '';
 	export { className as class };
+
+	const dispatch = createEventDispatcher<{ create: { timeInterval: number; date: Date } }>();
 </script>
 
 <div class={className}>
 	<div class="h-full grid grid-cols-7 divide-x">
 		{#each dates as date (date)}
 			<div>
-				<Stats {date} />
+				<Stats {date} events={$events.filter((event) => isEventOnDay(event, date))} />
 				<div class="h-full flex flex-col divide-y">
 					<div class="flex items-center justify-center gap-1 flex-row py-3">
 						{format(date, 'E')}
@@ -27,7 +32,11 @@
 							{format(date, 'dd')}
 						</span>
 					</div>
-					<CalendarRows {date} on:edit on:create />
+					<CalendarRows
+						events={$events.filter((event) => isEventOnDay(event, date))}
+						on:edit
+						on:create={(e) => dispatch('create', { timeInterval: e.detail, date })}
+					/>
 				</div>
 			</div>
 		{/each}

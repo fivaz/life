@@ -1,10 +1,8 @@
 <script lang="ts">
-	import { events } from '$lib/event/store';
-	import { isEventOnDay } from '../calendar-rows/service';
+	import type { EEvent } from '$lib/event/utils';
 
 	export let date: Date;
-
-	$: dayEvents = $events.filter((event) => isEventOnDay(event, date));
+	export let events: EEvent[];
 </script>
 
-<div class="text-2xl font-bold">Stats</div>
+<div />

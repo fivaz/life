@@ -4,7 +4,6 @@
 	import {
 		done,
 		long,
-		normalDescription,
 		normalWithoutDescription,
 		shortWithoutDescription,
 		redEvent,
@@ -33,8 +32,6 @@
 <Story name="normal Without a Description" args={{ event: normalWithoutDescription }} />
 
 <Story name="short Without a Description" args={{ event: shortWithoutDescription }} />
-
-<Story name="normal with Description" args={{ event: normalDescription }} />
 
 <Story name="Long" args={{ event: long }} />
 

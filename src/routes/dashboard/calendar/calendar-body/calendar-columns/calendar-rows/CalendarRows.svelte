@@ -1,31 +1,26 @@
 <script lang="ts">
-	import { events } from '$lib/event/store';
-	import { createEventDispatcher } from 'svelte';
+	import type { EEvent } from '$lib/event/utils';
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
 	import Event from './event/Event.svelte';
-	import { halfHourInterval, isEventOnDay, getGridRowsStyle } from './service';
+	import { halfHourInterval, getGridRowsStyle } from './service';
 
-	export let date: Date;
-
-	$: dayEvents = $events.filter((event) => isEventOnDay(event, date));
+	export let events: EEvent[];
 
 	const quarterHourInterval = halfHourInterval * 2;
-
-	const dispatch = createEventDispatcher<{ create: { timeInterval: number; date: Date } }>();
 </script>
 
 <!--TODO make top and side sticky-->
 <!--TODO handle event that takes more than 1 day-->
 
 <div class="relative w-full h-full">
-	<CalendarGrid on:create={(e) => dispatch('create', { timeInterval: e.detail, date })} />
+	<CalendarGrid on:create />
 	<!--pointer-events-none will make the list container of events incapable of catching point events-->
 	<!--so we can catch the events emit by CalendarGrid behind it-->
 	<ol
 		class="absolute inset-0 grid pointer-events-none"
 		style="grid-template-rows: repeat({quarterHourInterval}, minmax(1.75rem, 1fr)) auto"
 	>
-		{#each dayEvents as event (event)}
+		{#each events as event (event)}
 			<!--then we set each element of the list with pointer-events-auto so they can catch events to edit the TEvent-->
 			<!--the min-w-0 is necessary due to a issue with truncate text in a grid layout see: https://dev.to/timhecker/grid-cell-issue-with-white-space-nowrap--text-overflow-ellipsis-52g6-->
 			<li

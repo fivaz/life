@@ -2,7 +2,7 @@
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import type { Meta } from '@storybook/svelte';
 	import { categories } from '$lib/category/seed';
-	import { normalDescription } from '$lib/event/seed.js';
+	import { redEvent } from '$lib/event/seed';
 	import EventForm from './EventForm.svelte';
 
 	export const meta = {
@@ -32,7 +32,7 @@
 	args={{
 		categories,
 		form: {
-			saved: normalDescription,
+			saved: redEvent,
 		},
 	}}
 />
