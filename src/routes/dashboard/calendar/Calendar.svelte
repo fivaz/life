@@ -31,7 +31,6 @@
 	/>
 	<CalendarBody
 		{weekStart}
-		{currentDate}
 		on:edit={(e) => {
 			showForm = true;
 			form = {
