@@ -6,6 +6,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import CalendarRows from '../calendar-rows/CalendarRows.svelte';
 	import { isEventOnDay } from '../service';
+	import Stats from '../stats/Stats.svelte';
 
 	export let dates: Date[];
 
@@ -20,6 +21,12 @@
 </script>
 
 <div class={classnames('h-full divide-y', className)}>
+	<Stats
+		class="justify-around"
+		date={selectedDate}
+		events={$events.filter((event) => isEventOnDay(event, selectedDate))}
+	/>
+
 	<div class="grid grid-cols-7">
 		{#each dates as date (date)}
 			<button

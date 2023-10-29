@@ -1,4 +1,4 @@
-import { fun, routine, work } from '$lib/category/seed';
+import { fun, routine, sleep, work } from '$lib/category/seed';
 import type { EEvent } from '$lib/event/utils';
 import { addDays } from 'date-fns';
 
@@ -77,3 +77,38 @@ export const events: EEvent[] = [
 	done,
 	redEvent,
 ];
+
+export const sleepEvent: EEvent = {
+	id: 11,
+	name: 'sleep',
+	description: null,
+	startDate: getTodayAtTime('00:00'),
+	endDate: getTodayAtTime('08:00'),
+	isDone: false,
+	categoryId: sleep.id,
+	category: sleep,
+};
+
+export const workEvent: EEvent = {
+	id: 12,
+	name: 'work',
+	description: null,
+	startDate: getTodayAtTime('08:00'),
+	endDate: getTodayAtTime('16:00'),
+	isDone: false,
+	categoryId: work.id,
+	category: work,
+};
+
+export const funEvent: EEvent = {
+	id: 12,
+	name: 'fun',
+	description: null,
+	startDate: getTodayAtTime('16:00'),
+	endDate: getTodayAtTime('23:59'),
+	isDone: false,
+	categoryId: fun.id,
+	category: fun,
+};
+
+export const perfectDay: EEvent[] = [sleepEvent, workEvent, funEvent];

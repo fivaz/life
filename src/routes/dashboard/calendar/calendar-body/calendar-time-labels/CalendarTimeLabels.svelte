@@ -28,7 +28,7 @@
 </script>
 
 <div class="divide-y">
-	<div class="h-[80px] sm:h-[56px]" />
+	<div class="h-[97px] sm:h-[73px]" />
 	<div
 		class="grid text-right text-xs leading-5 text-gray-400"
 		style="grid-template-rows: repeat({timeLabels.length * 2}, minmax(3.5rem, 1fr))"

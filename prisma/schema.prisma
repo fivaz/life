@@ -65,7 +65,7 @@ model Category {
   name      String
   isDefault Boolean
   color     String
-  group     String?
+  group     String
   deleted   DateTime? @db.Timestamp(6)
   userId    String
   user      User      @relation(fields: [userId], references: [id])
