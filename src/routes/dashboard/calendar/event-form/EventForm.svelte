@@ -109,6 +109,7 @@
 			type="date"
 			name="date"
 			value={date}
+			required
 			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 		/>
 
@@ -118,11 +119,19 @@
 				label="Start time"
 				type="time"
 				name="startTime"
+				required
 				value={startTime}
 				on:input={(e) => (endTime = add15Minutes(e.detail))}
 			/>
 
-			<Input labelClass="col-span-2" label="End time" type="time" name="endTime" value={endTime} />
+			<Input
+				labelClass="col-span-2"
+				label="End time"
+				type="time"
+				name="endTime"
+				required
+				value={endTime}
+			/>
 		</div>
 	</div>
 
