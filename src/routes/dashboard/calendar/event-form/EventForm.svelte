@@ -127,7 +127,6 @@
 	</div>
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
-		-{form?.saved?.id}-
 		{#if form?.saved?.id}
 			<Button disabled={loading} formaction="?/remove" color="red">Delete</Button>
 		{:else}
