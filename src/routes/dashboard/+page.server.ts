@@ -35,27 +35,28 @@ export const actions = {
 
 		const data = await request.formData();
 		const id = Number(data.get('id'));
-		const name = data.get('name');
-		const description = data.get('description');
-		const startDate = data.get('startDate');
-		const endDate = data.get('endDate');
 		const isDone = data.get('isDone') === 'true';
 		const categoryId = Number(data.get('categoryId'));
+		let name = data.get('name') as string;
+		const description = data.get('description') as string;
+		const startDate = data.get('startDate') as string;
+		const endDate = data.get('endDate') as string;
+		const categoryName = data.get('categoryName') as string;
 
 		try {
-			if (!name || typeof name !== 'string') {
-				throw Error('name is required');
+			if (!categoryName || !categoryId) {
+				throw Error('internal error, please refresh the page');
 			}
 
-			if (description instanceof File) {
-				throw Error('description must be a string');
+			if (!name) {
+				name = categoryName;
 			}
 
-			if (!startDate || typeof startDate !== 'string') {
+			if (!startDate) {
 				throw Error('startDate is required');
 			}
 
-			if (!endDate || typeof endDate !== 'string') {
+			if (!endDate) {
 				throw Error('endDate is required');
 			}
 

@@ -10,7 +10,7 @@
 	import { removeEvent, updateEvent } from '$lib/event/store';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/$types';
-	import { add15Minutes, getDate, getEndTime, getStartTime, updateData } from './service';
+	import { add15Minutes, getDate, getEndTime, getStartTime, updateDates } from './service';
 
 	let loading = false;
 	export let categories: CCategory[];
@@ -32,7 +32,7 @@
 	const submit: SubmitFunction = ({ formData }) => {
 		try {
 			loading = true;
-			updateData(formData, categoryName);
+			updateDates(formData);
 
 			return async ({ result }) => {
 				await applyAction(result);
@@ -82,6 +82,7 @@
 
 		<input type="hidden" name="id" value={form?.saved?.id || ''} />
 		<input type="hidden" name="isDone" value={form?.saved?.isDone || false} />
+		<input type="hidden" name="categoryName" value={categoryName} />
 
 		<Input
 			label="Name"

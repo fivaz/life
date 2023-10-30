@@ -8,19 +8,7 @@ export function getISODate(date: string | File | null, time: string | File | nul
 	return formatISO(new Date(`${date}T${time}:00`));
 }
 
-export function updateData(formData: FormData, categoryName: string) {
-	updateName(formData, categoryName);
-	updateDates(formData);
-}
-
-function updateName(formData: FormData, categoryName: string) {
-	const name = formData.get('name');
-	if (!name) {
-		formData.set('name', categoryName);
-	}
-}
-
-function updateDates(formData: FormData) {
+export function updateDates(formData: FormData) {
 	const startTime = formData.get('startTime');
 	const endTime = formData.get('endTime');
 	const date = formData.get('date');
