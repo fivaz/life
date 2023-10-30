@@ -10,7 +10,7 @@
 	import { removeEvent, updateEvent } from '$lib/event/store';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/$types';
-	import { add15Minutes, getDate, getEndTime, getStartTime, updateDate } from './service';
+	import { add15Minutes, getDate, getEndTime, getStartTime, updateData } from './service';
 
 	let loading = false;
 	export let categories: CCategory[];
@@ -25,14 +25,14 @@
 		categories.find((category) => category.isDefault)?.id ||
 		categories[0].id;
 
-	$: categoryName = categories.find((category) => category.id === categoryId)?.name;
+	$: categoryName = categories.find((category) => category.id === categoryId)?.name || '';
 
 	const dispatch = createEventDispatcher();
 
 	const submit: SubmitFunction = ({ formData }) => {
 		try {
 			loading = true;
-			updateDate(formData);
+			updateData(formData, categoryName);
 
 			return async ({ result }) => {
 				await applyAction(result);

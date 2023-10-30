@@ -4,26 +4,28 @@ import { DATE, TIME } from '$lib/utils';
 import { addMinutes, format, formatISO, parse, setHours, setMinutes } from 'date-fns';
 import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/$types';
 
-export type EventIn = {
-	id: number;
-	name: string;
-	description: string | null;
-	isDone: boolean;
-	startTime: string;
-	endTime: string;
-	date: string;
-};
-
 export function getISODate(date: string | File | null, time: string | File | null) {
 	return formatISO(new Date(`${date}T${time}:00`));
 }
 
-export function updateDate(formData: FormData) {
+export function updateData(formData: FormData, categoryName: string) {
+	updateName(formData, categoryName);
+	updateDates(formData);
+}
+
+function updateName(formData: FormData, categoryName: string) {
+	const name = formData.get('name');
+	if (!name) {
+		formData.set('name', categoryName);
+	}
+}
+
+function updateDates(formData: FormData) {
 	const startTime = formData.get('startTime');
 	const endTime = formData.get('endTime');
 	const date = formData.get('date');
-	formData.append('startDate', getISODate(date, startTime));
-	formData.append('endDate', getISODate(date, endTime));
+	formData.set('startDate', getISODate(date, startTime));
+	formData.set('endDate', getISODate(date, endTime));
 }
 
 export function getDate(form: ActionData): string {
@@ -34,13 +36,6 @@ export function getDate(form: ActionData): string {
 	}
 }
 
-export function getStartDate(form: ActionData): string {
-	if (form?.saved) {
-		return format(form.saved.startDate, TIME);
-	} else {
-		return format(new Date(), TIME);
-	}
-}
 export function getStartTime(form: ActionData): string {
 	if (form?.saved) {
 		return format(form.saved.startDate, TIME);
