@@ -5,7 +5,6 @@
 
 	let className = '';
 	export { className as class };
-	export let date: Date;
 	export let events: EEvent[];
 
 	$: groups = calculateGroupPercentages(events);

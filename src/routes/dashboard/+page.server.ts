@@ -3,6 +3,8 @@ import type { CCategory } from '$lib/category/utils';
 import type { EEvent } from '$lib/event/utils';
 import prisma from '$lib/prisma';
 import { loginRoute } from '$lib/utils';
+import { isValid, parse } from 'date-fns';
+import { zonedTimeToUtc } from 'date-fns-tz';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load = (async (event) => {
@@ -38,57 +40,66 @@ export const actions = {
 			const id = Number(data.get('id'));
 			const isDone = data.get('isDone') === 'true';
 			const categoryId = Number(data.get('categoryId'));
-			let name = data.get('name') as string;
+			const name = data.get('name') as string;
 			const description = data.get('description') as string;
-			const startDate = new Date(data.get('startDate') as string);
-			const endDate = new Date(data.get('endDate') as string);
+			const startTime = data.get('startTime') as string;
+			const endTime = data.get('endTime') as string;
+			const date = data.get('date') as string;
 			const categoryName = data.get('categoryName') as string;
 
 			if (!categoryName || !categoryId) {
 				throw Error('internal error, please refresh the page');
 			}
 
-			if (!name) {
-				name = categoryName;
+			const startDateString = `${date}T${startTime}:00`;
+			const endDateString = `${date}T${endTime}:00`;
+
+			const parsedStartDate = parse(startDateString, "yyyy-MM-dd'T'HH:mm:00", new Date());
+			const parsedEndDate = parse(endDateString, "yyyy-MM-dd'T'HH:mm:00", new Date());
+
+			if (!isValid(parsedStartDate) || !isValid(parsedEndDate)) {
+				throw Error('date, startTime and endTime should be valid date and time');
 			}
+
+			const startDate = zonedTimeToUtc(`${date}T${startTime}:00`, 'Europe/Zurich');
+			const endDate = zonedTimeToUtc(`${date}T${endTime}:00`, 'Europe/Zurich');
 
 			if (startDate > endDate) {
 				throw Error('startDate should be before endDate');
 			}
 
-			if (startDate)
-				if (id) {
-					const event: EEvent = await prisma.event.update({
-						where: {
-							id,
-							userId: session.user.id,
-						},
-						data: {
-							name,
-							description,
-							startDate,
-							endDate,
-							isDone,
-							categoryId,
-						},
-						include: { category: true },
-					});
-					return { saved: event };
-				} else {
-					const event: EEvent = await prisma.event.create({
-						data: {
-							userId: session.user.id,
-							name,
-							description,
-							startDate,
-							endDate,
-							isDone,
-							categoryId,
-						},
-						include: { category: true },
-					});
-					return { saved: event };
-				}
+			if (id) {
+				const event: EEvent = await prisma.event.update({
+					where: {
+						id,
+						userId: session.user.id,
+					},
+					data: {
+						name: name || categoryName,
+						description,
+						startDate,
+						endDate,
+						isDone,
+						categoryId,
+					},
+					include: { category: true },
+				});
+				return { saved: event };
+			} else {
+				const event: EEvent = await prisma.event.create({
+					data: {
+						userId: session.user.id,
+						name: name || categoryName,
+						description,
+						startDate,
+						endDate,
+						isDone,
+						categoryId,
+					},
+					include: { category: true },
+				});
+				return { saved: event };
+			}
 		} catch (error) {
 			return fail(422, {
 				error: error instanceof Error ? error.message : 'unknown error',

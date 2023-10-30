@@ -22,7 +22,6 @@
 		{#each dates as date (date)}
 			<div class="flex flex-col divide-y">
 				<Stats
-					{date}
 					events={$events.filter((event) => isEventOnDay(event, date))}
 					class="justify-center"
 				/>

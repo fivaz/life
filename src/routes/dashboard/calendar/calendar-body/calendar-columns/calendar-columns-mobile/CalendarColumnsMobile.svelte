@@ -23,7 +23,6 @@
 <div class={classnames('h-full divide-y', className)}>
 	<Stats
 		class="justify-around"
-		date={selectedDate}
 		events={$events.filter((event) => isEventOnDay(event, selectedDate))}
 	/>
 

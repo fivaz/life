@@ -10,11 +10,13 @@
 	import { removeEvent, updateEvent } from '$lib/event/store';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/$types';
-	import { add15Minutes, getDate, getEndTime, getStartTime, updateDates } from './service';
+	import { add15Minutes, getDate, getEndTime, getStartTime } from './service';
 
-	let loading = false;
 	export let categories: CCategory[];
 	export let form: ActionData | null;
+
+	let loading = false;
+
 	let error = '';
 
 	let date = getDate(form);
@@ -29,11 +31,9 @@
 
 	const dispatch = createEventDispatcher();
 
-	const submit: SubmitFunction = ({ formData }) => {
+	const submit: SubmitFunction = () => {
 		try {
 			loading = true;
-			updateDates(formData);
-
 			return async ({ result }) => {
 				await applyAction(result);
 				if (result.type === 'success') {
@@ -51,11 +51,7 @@
 				loading = false;
 			};
 		} catch (e) {
-			if (e instanceof Error) {
-				error = e.message;
-			} else {
-				error = 'date is invalid';
-			}
+			error = e instanceof Error ? e.message : 'unknown error';
 			loading = false;
 		}
 	};
@@ -131,6 +127,7 @@
 	</div>
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
+		-{form?.saved?.id}-
 		{#if form?.saved?.id}
 			<Button disabled={loading} formaction="?/remove" color="red">Delete</Button>
 		{:else}
