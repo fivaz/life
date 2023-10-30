@@ -1,7 +1,5 @@
-import { groups } from '$lib/category/utils';
-import type { EEvent } from '$lib/event/utils';
 import { DATE, TIME } from '$lib/utils';
-import { addMinutes, format, formatISO, parse, setHours, setMinutes } from 'date-fns';
+import { addMinutes, format, formatISO, parse } from 'date-fns';
 import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/$types';
 
 export function getISODate(date: string | File | null, time: string | File | null) {
@@ -51,31 +49,4 @@ export function add15Minutes(time: string) {
 		console.warn(e);
 		return '';
 	}
-}
-
-export function buildEvent(date: Date, timeInterval: number): EEvent {
-	return {
-		id: 0,
-		name: '',
-		description: null,
-		startDate: buildDate(date, timeInterval),
-		endDate: buildDate(date, timeInterval + 0.5),
-		isDone: false,
-		categoryId: 0,
-		category: {
-			id: 0,
-			name: '',
-			isDefault: false,
-			color: '',
-			group: groups[0],
-		},
-	};
-}
-
-function buildDate(date: Date, timeInterval: number) {
-	if (timeInterval < 0 || timeInterval > 48) {
-		throw 'Invalid number. Please enter a number between 0 and 48.';
-	}
-
-	return setMinutes(setHours(date, 0), timeInterval * 30);
 }

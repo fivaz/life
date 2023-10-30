@@ -1,13 +1,14 @@
 <script lang="ts">
 	import type { CCategory } from '$lib/category/utils';
+	import { groups } from '$lib/category/utils';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import { startOfWeek } from 'date-fns';
+	import type { EEvent } from '$lib/event/utils';
+	import { setHours, setMinutes, startOfWeek } from 'date-fns';
 
 	import type { ActionData } from '../../../../.svelte-kit/types/src/routes/dashboard/$types';
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
 	import EventForm from './event-form/EventForm.svelte';
-	import { buildEvent } from './event-form/service';
 
 	let currentDate = new Date();
 
@@ -18,6 +19,33 @@
 	export let categories: CCategory[];
 
 	export let form: ActionData | null;
+
+	function buildDate(date: Date, timeInterval: number) {
+		if (timeInterval < 0 || timeInterval > 48) {
+			throw 'Invalid number. Please enter a number between 0 and 48.';
+		}
+
+		return setMinutes(setHours(date, 0), timeInterval * 30);
+	}
+
+	function buildDefaultEvent(date: Date, timeInterval: number): EEvent {
+		return {
+			id: 0,
+			name: '',
+			description: null,
+			startDate: buildDate(date, timeInterval),
+			endDate: buildDate(date, timeInterval + 0.5),
+			isDone: false,
+			categoryId: 0,
+			category: {
+				id: 0,
+				name: '',
+				isDefault: false,
+				color: '',
+				group: groups[0],
+			},
+		};
+	}
 </script>
 
 <div class="flex h-full flex-col divide-gray-200">
@@ -40,7 +68,7 @@
 		on:create={(e) => {
 			showForm = true;
 			form = {
-				saved: buildEvent(e.detail.date, e.detail.timeInterval),
+				saved: buildDefaultEvent(e.detail.date, e.detail.timeInterval),
 			};
 		}}
 	/>

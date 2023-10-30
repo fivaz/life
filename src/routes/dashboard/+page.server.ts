@@ -33,17 +33,17 @@ export const actions = {
 			throw redirect(303, loginRoute);
 		}
 
-		const data = await request.formData();
-		const id = Number(data.get('id'));
-		const isDone = data.get('isDone') === 'true';
-		const categoryId = Number(data.get('categoryId'));
-		let name = data.get('name') as string;
-		const description = data.get('description') as string;
-		const startDate = data.get('startDate') as string;
-		const endDate = data.get('endDate') as string;
-		const categoryName = data.get('categoryName') as string;
-
 		try {
+			const data = await request.formData();
+			const id = Number(data.get('id'));
+			const isDone = data.get('isDone') === 'true';
+			const categoryId = Number(data.get('categoryId'));
+			let name = data.get('name') as string;
+			const description = data.get('description') as string;
+			const startDate = new Date(data.get('startDate') as string);
+			const endDate = new Date(data.get('endDate') as string);
+			const categoryName = data.get('categoryName') as string;
+
 			if (!categoryName || !categoryId) {
 				throw Error('internal error, please refresh the page');
 			}
@@ -52,49 +52,46 @@ export const actions = {
 				name = categoryName;
 			}
 
-			if (!startDate) {
-				throw Error('startDate is required');
+			if (startDate > endDate) {
+				throw Error('startDate should be before endDate');
 			}
 
-			if (!endDate) {
-				throw Error('endDate is required');
-			}
-
-			if (id) {
-				const event: EEvent = await prisma.event.update({
-					where: {
-						id,
-						userId: session.user.id,
-					},
-					data: {
-						name,
-						description,
-						startDate: new Date(startDate),
-						endDate: new Date(endDate),
-						isDone,
-						categoryId,
-					},
-					include: { category: true },
-				});
-				return { saved: event };
-			} else {
-				const event: EEvent = await prisma.event.create({
-					data: {
-						userId: session.user.id,
-						name,
-						description,
-						startDate: new Date(startDate),
-						endDate: new Date(endDate),
-						isDone,
-						categoryId,
-					},
-					include: { category: true },
-				});
-				return { saved: event };
-			}
+			if (startDate)
+				if (id) {
+					const event: EEvent = await prisma.event.update({
+						where: {
+							id,
+							userId: session.user.id,
+						},
+						data: {
+							name,
+							description,
+							startDate,
+							endDate,
+							isDone,
+							categoryId,
+						},
+						include: { category: true },
+					});
+					return { saved: event };
+				} else {
+					const event: EEvent = await prisma.event.create({
+						data: {
+							userId: session.user.id,
+							name,
+							description,
+							startDate,
+							endDate,
+							isDone,
+							categoryId,
+						},
+						include: { category: true },
+					});
+					return { saved: event };
+				}
 		} catch (error) {
 			return fail(422, {
-				error: error instanceof Error ? error.message : "error isn't an instance of error",
+				error: error instanceof Error ? error.message : 'unknown error',
 			});
 		}
 	},
