@@ -81,7 +81,6 @@
 			name="name"
 			value={event.name}
 			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-			on:input={(e) => console.log(e.detail)}
 		/>
 
 		<Select bind:value={event.categoryId} name="categoryId">
@@ -110,7 +109,6 @@
 		/>
 
 		<div class="grid grid-cols-4 gap-3">
-			{event.startTime}
 			<Input
 				labelClass="col-span-2"
 				label="Start time"
@@ -120,7 +118,6 @@
 				bind:value={event.startTime}
 			/>
 
-			{event.endTime}
 			<Input
 				labelClass="col-span-2"
 				label="End time"
