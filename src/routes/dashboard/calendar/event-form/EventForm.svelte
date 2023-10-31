@@ -8,9 +8,10 @@
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import { removeEvent, updateEvent } from '$lib/event/store';
+	import type { EEvent } from '$lib/event/utils';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/$types';
-	import { add15Minutes, getDate, getEndTime, getStartTime } from './service';
+	import { getDate, getEndTime, getStartTime } from './service';
 
 	export let categories: CCategory[];
 	export let form: ActionData | null;
@@ -19,19 +20,15 @@
 
 	let error = '';
 
-	let date = getDate(form);
-	let startTime = getStartTime(form);
-	let endTime = getEndTime(form);
-	let categoryId =
-		categories.find((category) => category.id === form?.saved?.categoryId)?.id ||
-		categories.find((category) => category.isDefault)?.id ||
-		categories[0].id;
+	export let event: EEvent;
 
-	$: categoryName = categories.find((category) => category.id === categoryId)?.name || '';
+	$: categoryName =
+		categories.find((category) => category.id === event.categoryId)?.name || categories[0].name;
 
 	const dispatch = createEventDispatcher();
 
 	const submit: SubmitFunction = () => {
+		dispatch('submit');
 		try {
 			loading = true;
 			return async ({ result }) => {
@@ -42,7 +39,6 @@
 					} else if (form?.saved) {
 						updateEvent(form.saved);
 					}
-					dispatch('submit');
 				} else {
 					if (form?.error) {
 						error = form.error;
@@ -65,7 +61,7 @@
 >
 	<div class="flex flex-col gap-3 px-4 py-5 bg-white sm:p-6">
 		<h2 class="text-lg font-medium text-gray-900">
-			{#if form?.saved?.id}
+			{#if event.id}
 				Edit Event
 			{:else}
 				Add Event
@@ -76,19 +72,20 @@
 			<p class="text-red-500">{error}</p>
 		{/if}
 
-		<input type="hidden" name="id" value={form?.saved?.id || ''} />
-		<input type="hidden" name="isDone" value={form?.saved?.isDone || false} />
+		<input type="hidden" name="id" value={event.id} />
+		<input type="hidden" name="isDone" value={event.isDone} />
 		<input type="hidden" name="categoryName" value={categoryName} />
 
 		<Input
 			label="Name"
 			autocomplete="off"
 			name="name"
-			value={form?.saved?.name || ''}
+			value={event.name}
 			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 		/>
 
-		<Select bind:value={categoryId} name="categoryId">
+		{event.categoryId}
+		<Select bind:value={event.categoryId} name="categoryId">
 			<span slot="placeholder">{categoryName}</span>
 			{#each categories as category (category)}
 				<SelectItem value={category.id}>{category.name}</SelectItem>
@@ -99,7 +96,7 @@
 			Description
 			<textarea
 				name="description"
-				value={form?.saved?.description || null}
+				value={event.description}
 				class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 			/>
 		</label>
@@ -108,7 +105,7 @@
 			label="Date"
 			type="date"
 			name="date"
-			value={date}
+			value={getDate(event)}
 			required
 			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 		/>
@@ -120,8 +117,7 @@
 				type="time"
 				name="startTime"
 				required
-				value={startTime}
-				on:input={(e) => (endTime = add15Minutes(e.detail))}
+				value={getStartTime(event)}
 			/>
 
 			<Input
@@ -130,20 +126,20 @@
 				type="time"
 				name="endTime"
 				required
-				value={endTime}
+				value={getEndTime(event)}
 			/>
 		</div>
 	</div>
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
-		{#if form?.saved?.id}
+		{#if event.id}
 			<Button disabled={loading} formaction="?/remove" color="red">Delete</Button>
 		{:else}
 			<div />
 		{/if}
 
 		<Button disabled={loading} type="submit">
-			{#if form?.saved?.id} Edit {:else} Add {/if}
+			{#if event.id} Edit {:else} Add {/if}
 		</Button>
 	</div>
 

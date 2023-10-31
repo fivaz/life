@@ -1,48 +1,22 @@
 <script lang="ts">
-	import {
-		TransitionChild,
-		TransitionRoot,
-		Dialog,
-		DialogOverlay,
-	} from '@rgossiaux/svelte-headlessui';
+	import classnames from 'classnames';
 	import { createEventDispatcher } from 'svelte';
-
-	const dispatch = createEventDispatcher();
+	import { fade } from 'svelte/transition';
 
 	export let show: boolean;
+
+	const dispatch = createEventDispatcher();
 </script>
 
-<TransitionRoot {show}>
-	<Dialog class="fixed z-20 inset-0 overflow-y-auto" on:close={() => dispatch('close')}>
-		<div
-			class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
-		>
-			<TransitionChild
-				enter="ease-out duration-300"
-				enterFrom="opacity-0"
-				enterTo="opacity-100"
-				leave="ease-in duration-200"
-				leaveFrom="opacity-100"
-				leaveTo="opacity-0"
-			>
-				<DialogOverlay class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-			</TransitionChild>
+<div class={classnames({ hidden: !show })}>
+	<div
+		class="fixed inset-0 flex items-center justify-center z-50"
+		transition:fade={{ duration: 900 }}
+	>
+		<div class="absolute inset-0 bg-black opacity-50" on:click={() => dispatch('close')} />
 
-			<TransitionChild
-				enter="ease-out duration-300"
-				enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-				enterTo="opacity-100 translate-y-0 sm:scale-100"
-				leave="ease-in duration-200"
-				leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-				leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-				class="h-screen flex justify-center items-end sm:items-center pb-14"
-			>
-				<div
-					class="inline-block align-bottom bg-white rounded-lg text-left shadow-xl transform transition-all sm:align-middle"
-				>
-					<slot />
-				</div>
-			</TransitionChild>
+		<div class="relative">
+			<slot />
 		</div>
-	</Dialog>
-</TransitionRoot>
+	</div>
+</div>

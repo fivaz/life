@@ -1,7 +1,9 @@
 <script lang="ts" context="module">
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import type { Meta } from '@storybook/svelte';
+	import { categories } from '$lib/category/seed';
 	import EventForm from '../../../routes/dashboard/calendar/event-form/EventForm.svelte';
+	import { buildDefaultEvent } from '../../../routes/dashboard/calendar/service';
 	import Modal from './Modal.svelte';
 
 	export const meta = {
@@ -14,6 +16,9 @@
 	} satisfies Meta<Modal>;
 </script>
 
+<script>
+</script>
+
 <Template let:args>
 	<Modal {...args} />
 </Template>
@@ -23,5 +28,7 @@
 </Story>
 
 <Story name="Form" args={{ show: true }} let:args>
-	<Modal {...args}><EventForm form={null} categories={[]} /></Modal>
+	<Modal {...args}>
+		<EventForm form={null} event={buildDefaultEvent(categories)} categories={[]} />
+	</Modal>
 </Story>
