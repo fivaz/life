@@ -3,7 +3,7 @@
 	import type { Meta } from '@storybook/svelte';
 	import { categories } from '$lib/category/seed';
 	import EventForm from '../../../routes/dashboard/calendar/event-form/EventForm.svelte';
-	import { buildDefaultEvent } from '../../../routes/dashboard/calendar/service';
+	import { buildEmptyEventIn } from '../../../routes/dashboard/calendar/service';
 	import Modal from './Modal.svelte';
 
 	export const meta = {
@@ -29,6 +29,6 @@
 
 <Story name="Form" args={{ show: true }} let:args>
 	<Modal {...args}>
-		<EventForm form={null} event={buildDefaultEvent(categories)} categories={[]} />
+		<EventForm form={null} event={buildEmptyEventIn(categories)} categories={[]} />
 	</Modal>
 </Story>

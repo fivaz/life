@@ -8,19 +8,23 @@
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import { removeEvent, updateEvent } from '$lib/event/store';
-	import type { EEvent } from '$lib/event/utils';
+	import { TIME } from '$lib/utils';
+	import { isAfter, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/$types';
-	import { getDate, getEndTime, getStartTime } from './service';
+	import type { EventIn } from '../service';
 
 	export let categories: CCategory[];
 	export let form: ActionData | null;
 
+	export let event: EventIn;
+
 	let loading = false;
 
-	let error = '';
-
-	export let event: EEvent;
+	$: error = !isAfter(
+		parse(event.endTime, TIME, new Date()),
+		parse(event.startTime, TIME, new Date()),
+	);
 
 	$: categoryName =
 		categories.find((category) => category.id === event.categoryId)?.name || categories[0].name;
@@ -29,27 +33,22 @@
 
 	const submit: SubmitFunction = () => {
 		dispatch('submit');
-		try {
-			loading = true;
-			return async ({ result }) => {
-				await applyAction(result);
-				if (result.type === 'success') {
-					if (form?.removed) {
-						removeEvent(form.removed);
-					} else if (form?.saved) {
-						updateEvent(form.saved);
-					}
-				} else {
-					if (form?.error) {
-						error = form.error;
-					}
+		loading = true;
+		return async ({ result }) => {
+			await applyAction(result);
+			if (result.type === 'success') {
+				if (form?.removed) {
+					removeEvent(form.removed);
+				} else if (form?.saved) {
+					updateEvent(form.saved);
 				}
-				loading = false;
-			};
-		} catch (e) {
-			error = e instanceof Error ? e.message : 'unknown error';
+			} else {
+				if (form?.error) {
+					console.log(form?.error);
+				}
+			}
 			loading = false;
-		}
+		};
 	};
 </script>
 
@@ -69,7 +68,7 @@
 		</h2>
 
 		{#if error}
-			<p class="text-red-500">{error}</p>
+			<p class="text-red-500">startDate should be before endDate</p>
 		{/if}
 
 		<input type="hidden" name="id" value={event.id} />
@@ -104,28 +103,30 @@
 			label="Date"
 			type="date"
 			name="date"
-			value={getDate(event)}
+			value={event.date}
 			required
 			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 		/>
 
 		<div class="grid grid-cols-4 gap-3">
+			{event.startTime}
 			<Input
 				labelClass="col-span-2"
 				label="Start time"
 				type="time"
 				name="startTime"
 				required
-				value={getStartTime(event)}
+				bind:value={event.startTime}
 			/>
 
+			{event.endTime}
 			<Input
 				labelClass="col-span-2"
 				label="End time"
 				type="time"
 				name="endTime"
 				required
-				value={getEndTime(event)}
+				bind:value={event.endTime}
 			/>
 		</div>
 	</div>
@@ -137,7 +138,7 @@
 			<div />
 		{/if}
 
-		<Button disabled={loading} type="submit">
+		<Button disabled={error} type="submit">
 			{#if event.id} Edit {:else} Add {/if}
 		</Button>
 	</div>

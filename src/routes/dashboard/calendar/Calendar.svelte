@@ -7,7 +7,8 @@
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
 	import EventForm from './event-form/EventForm.svelte';
-	import { buildDefaultEvent, buildEventWithTime } from './service';
+	import { buildEmptyEventIn, buildEventWithTime, convertToEventIn } from './service';
+	import type { EventIn } from './service';
 
 	let currentDate = new Date();
 
@@ -19,7 +20,7 @@
 
 	export let form: ActionData | null;
 
-	let event = buildDefaultEvent(categories);
+	let event: EventIn = buildEmptyEventIn(categories);
 </script>
 
 <div class="flex h-full flex-col divide-gray-200">
@@ -28,14 +29,14 @@
 		{currentDate}
 		on:create={() => {
 			showForm = true;
-			event = buildDefaultEvent(categories);
+			event = buildEmptyEventIn(categories);
 		}}
 	/>
 	<CalendarBody
 		{weekStart}
 		on:edit={(e) => {
 			showForm = true;
-			event = e.detail;
+			event = convertToEventIn(e.detail);
 		}}
 		on:create={(e) => {
 			showForm = true;
