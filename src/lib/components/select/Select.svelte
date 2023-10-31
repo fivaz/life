@@ -15,8 +15,6 @@
 	export let name: string;
 </script>
 
-<!--TODO use context API to pass data up and down in my calendar hierarchy-->
-
 <Listbox bind:value>
 	<input type="hidden" {name} {value} />
 	{#if label}

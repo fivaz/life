@@ -81,6 +81,7 @@
 			name="name"
 			value={event.name}
 			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+			on:input={(e) => console.log(e.detail)}
 		/>
 
 		<Select bind:value={event.categoryId} name="categoryId">

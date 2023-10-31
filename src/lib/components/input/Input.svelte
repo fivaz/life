@@ -20,5 +20,6 @@
 		bind:value
 		on:input={(e) => dispatch('input', e.currentTarget.value)}
 	/>
-	<!--	TODO check if even could only be this on:input without dispatch-->
+	<!--on:input needs to dispatch itself in order to its type be correctly typed, otherwise we can use
+	e.currentTarget outside a native inputElement and we can't cast a type inside a Svelte template-->
 </label>

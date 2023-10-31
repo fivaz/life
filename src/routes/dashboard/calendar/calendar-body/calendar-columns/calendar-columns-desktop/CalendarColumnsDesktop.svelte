@@ -15,8 +15,6 @@
 	const dispatch = createEventDispatcher<{ create: { timeInterval: number; date: Date } }>();
 </script>
 
-<!--TODO the end date cant be before the start Date in an event-->
-
 <div class={className}>
 	<div class="h-full grid grid-cols-7 divide-x">
 		{#each dates as date (date)}
