@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance, applyAction } from '$app/forms';
-	import type { CCategory } from '$lib/category/utils';
+	import { categories } from '$lib/category/store';
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
@@ -10,11 +10,10 @@
 	import { TIME } from '$lib/utils';
 	import { isAfter, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
-	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/$types';
+	import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
 	import type { EventIn } from '../service';
 	import { getDuration, getEndTime } from './service';
 
-	export let categories: CCategory[];
 	export let form: ActionData | null;
 
 	export let event: EventIn;
@@ -25,7 +24,7 @@
 	);
 
 	$: categoryName =
-		categories.find((category) => category.id === event.categoryId)?.name ||
+		$categories.find((category) => category.id === event.categoryId)?.name ||
 		'create a category first';
 
 	const dispatch = createEventDispatcher();
@@ -82,7 +81,7 @@
 
 		<Select bind:value={event.categoryId} name="categoryId">
 			<span slot="placeholder">{categoryName}</span>
-			{#each categories as category (category)}
+			{#each $categories as category (category)}
 				<SelectItem value={category.id}>{category.name}</SelectItem>
 			{/each}
 		</Select>

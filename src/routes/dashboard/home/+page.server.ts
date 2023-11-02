@@ -1,25 +1,14 @@
 import { fail, redirect } from '@sveltejs/kit';
-import type { EEvent } from '$lib/event/utils';
 import { convertToMinutes } from '$lib/event/utils';
+import type { EEvent } from '$lib/event/utils';
 import prisma from '$lib/prisma';
 import { loginRoute } from '$lib/utils';
-import { add, addMinutes, isValid, parse, set } from 'date-fns';
+import { isValid, parse } from 'date-fns';
 import { zonedTimeToUtc } from 'date-fns-tz';
 import type { Actions } from './$types';
 
-function getTomorrowDate(date: Date): Date {
-	const tomorrow = add(new Date(), { days: 1 });
-
-	// Reschedule the event to be tomorrow at the same time
-	return set(date, {
-		year: tomorrow.getFullYear(),
-		month: tomorrow.getMonth(),
-		date: tomorrow.getDate(),
-	});
-}
-
 export const actions = {
-	rescheduleToTomorrow: async ({ request, locals }) => {
+	toggle: async ({ request, locals }) => {
 		const session = await locals.getSession();
 
 		if (!session?.user) {
@@ -28,22 +17,18 @@ export const actions = {
 
 		const data = await request.formData();
 		const id = Number(data.get('id'));
-		const startDate = new Date(data.get('startDate') as string);
-		const duration = Number(data.get('duration'));
-
-		const tomorrowDate = getTomorrowDate(startDate);
-
+		const isDone = !!data.get('isDone');
 		const event: EEvent = await prisma.event.update({
 			where: {
 				id,
 				userId: session.user.id,
 			},
 			data: {
-				startDate: tomorrowDate,
-				endDate: addMinutes(tomorrowDate, duration),
+				isDone,
 			},
 			include: { category: true },
 		});
+
 		return { saved: event };
 	},
 	save: async ({ request, locals }) => {

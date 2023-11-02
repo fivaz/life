@@ -4,8 +4,8 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { applyAction, enhance } from '$app/forms';
 	import Button from '$lib/components/button/Button.svelte';
+	import { updateEvent } from '$lib/event/store';
 	import type { EEvent } from '$lib/event/utils';
-	import { updateToDo } from '$lib/to-do/store';
 	import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/dashboard/to-do/$types';
 
 	export let toDo: EEvent;
@@ -16,7 +16,7 @@
 			await applyAction(result);
 			if (result.type === 'success') {
 				if (form?.saved) {
-					updateToDo(form.saved);
+					updateEvent(form.saved);
 				}
 			}
 		};

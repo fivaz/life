@@ -1,7 +1,11 @@
 import type { EEvent } from '$lib/event/utils';
-import { writable } from 'svelte/store';
+import { derived, writable } from 'svelte/store';
 
 export const events = writable<EEvent[]>([]);
+
+export const toDos = derived(events, ($events) =>
+	$events.filter((event) => event.isDone === false),
+);
 
 export function updateEvent(newEvent: EEvent) {
 	events.update(($events) => {

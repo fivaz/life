@@ -4,7 +4,7 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import Loading from '$lib/components/loading/Loading.svelte';
-	import { removeToDo, updateToDo } from '$lib/to-do/store';
+	import { removeEvent, updateEvent } from '$lib/event/store';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/to-do/$types';
 
@@ -22,9 +22,9 @@
 				await applyAction(result);
 				if (result.type === 'success') {
 					if (form?.removed) {
-						removeToDo(form.removed);
+						removeEvent(form.removed);
 					} else if (form?.saved) {
-						updateToDo(form.saved);
+						updateEvent(form.saved);
 					}
 					dispatch('submit');
 				} else {

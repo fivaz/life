@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Session } from '@auth/core/types';
 	import { signIn } from '@auth/sveltekit/client';
-	import { dashboardRoute } from '$lib/utils';
+	import { homeRoute } from '$lib/utils';
 
 	export let session: Session | null;
 </script>
@@ -107,7 +107,7 @@
 
 					<div class="mt-6 grid grid-cols-1">
 						<button
-							on:click={() => signIn('github', { callbackUrl: dashboardRoute })}
+							on:click={() => signIn('github', { callbackUrl: homeRoute })}
 							class="flex w-full items-center justify-center gap-3 rounded-md bg-[#24292F] px-3 py-1.5 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#24292F]"
 						>
 							<svg class="h-5 w-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">

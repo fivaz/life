@@ -11,12 +11,13 @@
 	import { List } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { page } from '$app/stores';
+	import { categoryRoute, homeRoute, toDoRoute } from '$lib/utils';
 	import classnames from 'classnames';
 
 	const navigation = [
-		{ name: 'Calendar', href: '/dashboard', icon: Calendar },
-		{ name: 'Category', href: '/dashboard/category', icon: DocumentDuplicate },
-		{ name: 'To Do', href: '/dashboard/to-do', icon: List },
+		{ name: 'Calendar', href: homeRoute, icon: Calendar },
+		{ name: 'Category', href: categoryRoute, icon: DocumentDuplicate },
+		{ name: 'To Do', href: toDoRoute, icon: List },
 	];
 
 	export let session: Session | null;

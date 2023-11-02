@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import type { Meta } from '@storybook/svelte';
-	import Calendar from '../../../routes/dashboard/calendar/Calendar.svelte';
+	import Calendar from '../../../routes/dashboard/home/calendar/Calendar.svelte';
 	import Dashboard from './Dashboard.svelte';
 
 	export const meta = {
@@ -20,7 +20,7 @@
 
 <Story name="With Calendar" args={{}}>
 	<Dashboard session={null}>
-		<Calendar form={null} categories={[]} />
+		<Calendar form={null} />
 	</Dashboard>
 </Story>
 
