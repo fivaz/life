@@ -7,20 +7,26 @@
 	} from '@rgossiaux/svelte-headlessui';
 	import { ChevronUpDown } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import classnames from 'classnames';
 
 	export let label: string = '';
 
 	export let value: string | number | string[] | null | undefined;
 
 	export let name: string;
+
+	let className = '';
+	export { className as class };
 </script>
 
-<Listbox bind:value>
+<Listbox bind:value class={classnames(className)}>
 	<input type="hidden" {name} {value} />
 	{#if label}
-		<ListboxLabel class="block text-sm font-medium leading-6 text-gray-900">{label}</ListboxLabel>
+		<ListboxLabel class="block text-sm font-medium text-gray-700 mb-1">
+			{label}
+		</ListboxLabel>
 	{/if}
-	<div class="relative mt-2">
+	<div class="relative">
 		<ListboxButton
 			class="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
 		>
