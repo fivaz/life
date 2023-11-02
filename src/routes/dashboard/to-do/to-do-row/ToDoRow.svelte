@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { ArrowUturnUp } from '@steeze-ui/heroicons';
 	import { Settings } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import Button from '$lib/components/button/Button.svelte';
 	import type { EEvent } from '$lib/event/utils';
 	import { convertToTime } from '$lib/event/utils';
-	import { DATE, DATE_FR, DATETIME_FR, TIME } from '$lib/utils';
+	import { DATE_FR, TIME } from '$lib/utils';
 	import { format } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/to-do/$types';

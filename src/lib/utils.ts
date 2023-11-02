@@ -1,5 +1,3 @@
-import { format } from 'date-fns';
-
 export const DATE = 'yyyy-MM-dd';
 export const TIME = 'HH:mm';
 

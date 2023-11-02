@@ -2,13 +2,11 @@
 	import { categories } from '$lib/category/store';
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import type { EEvent } from '$lib/event/utils';
 	import { toDos } from '$lib/to-do/store';
 	import EventForm from '../calendar/event-form/EventForm.svelte';
 	import { buildEmptyEventIn, convertToEventIn } from '../calendar/service';
 	import type { EventIn } from '../calendar/service';
 	import type { ActionData, PageData } from './$types';
-	import ToDoForm from './to-do-form/ToDoForm.svelte';
 	import ToDoRow from './to-do-row/ToDoRow.svelte';
 
 	let showForm: boolean = false;
