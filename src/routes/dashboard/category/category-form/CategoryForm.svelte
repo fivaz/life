@@ -2,7 +2,7 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { applyAction, enhance } from '$app/forms';
 	import { removeCategory, updateCategory } from '$lib/category/store';
-	import { groups, tailwindClasses } from '$lib/category/utils';
+	import { groups, tailwindColors } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import Loading from '$lib/components/loading/Loading.svelte';
@@ -18,15 +18,7 @@
 
 	const dispatch = createEventDispatcher();
 
-	let selectedColor = form?.saved?.color || Object.keys(tailwindClasses)[0];
-
-	const colors: Record<string, string> = {
-		green: 'bg-green-500',
-		blue: 'bg-blue-500',
-		red: 'bg-red-500',
-		yellow: 'bg-yellow-500',
-		purple: 'bg-purple-500',
-	};
+	let selectedColor = form?.saved?.color || Object.keys(tailwindColors)[0];
 
 	let selectedGroup = form?.saved?.group || groups[0];
 
@@ -85,14 +77,14 @@
 
 		<Select name="color" bind:value={selectedColor}>
 			<div slot="placeholder" class="flex gap-5 items-center">
-				<div class={classnames('h-5 w-5 rounded-md', colors[selectedColor])} />
+				<div class={classnames('h-5 w-5 rounded-md', tailwindColors[selectedColor].darkBg)} />
 				{selectedColor}
 			</div>
 
-			{#each Object.keys(colors) as color (color)}
+			{#each Object.keys(tailwindColors) as color (color)}
 				<SelectItem value={color}>
 					<div class="flex gap-5 items-center">
-						<div class={classnames('h-5 w-5 rounded-md', colors[color])} />
+						<div class={classnames('h-5 w-5 rounded-md', tailwindColors[color].darkBg)} />
 						{color}
 					</div>
 				</SelectItem>

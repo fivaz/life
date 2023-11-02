@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
-	import { tailwindClasses } from '$lib/category/utils';
+	import { tailwindColors } from '$lib/category/utils';
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import { toggleEvent } from '$lib/event/store';
 	import type { EEvent } from '$lib/event/utils';
@@ -42,7 +42,9 @@
 	class={classnames(
 		{ 'py-2': !isShort(event) },
 		'group w-full h-full flex flex-col rounded-lg py-1 px-2 text-xs leading-5',
-		tailwindClasses[event.category.color],
+		tailwindColors[event.category.color].lightBg,
+		tailwindColors[event.category.color].hoverBg,
+		tailwindColors[event.category.color].text,
 	)}
 >
 	<form
@@ -80,4 +82,4 @@
 	</p>
 </div>
 
-<Loading {loading} class={classnames(tailwindClasses[event.category.color], 'h-4 w-4')} />
+<Loading {loading} class={classnames('h-4 w-4', tailwindColors[event.category.color].text)} />

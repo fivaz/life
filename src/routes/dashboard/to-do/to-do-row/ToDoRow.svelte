@@ -5,6 +5,7 @@
 	import type { EEvent } from '$lib/event/utils';
 	import { convertToTime } from '$lib/event/utils';
 	import { DATE_FR, TIME } from '$lib/utils';
+	import classnames from 'classnames';
 	import { format } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/to-do/$types';
@@ -16,7 +17,7 @@
 	let dispatch = createEventDispatcher<{ edit: EEvent; rescheduleToTomorrow: EEvent }>();
 </script>
 
-<li class="flex gap-x-6 py-3 items-center">
+<li class={classnames('flex gap-x-6 py-3 items-center rounded-lg')}>
 	<div class="flex-1 flex gap-x-6 text-sm font-semibold leading-6 text-gray-900">
 		<div class="flex-1 flex gap-x-6">
 			<div>{format(toDo.startDate, DATE_FR)}</div>

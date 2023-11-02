@@ -17,9 +17,9 @@
 </script>
 
 <Template let:args>
-	<div class="w-96">
+	<div class="w-[500px]">
 		<ToDoRow {...args} />
 	</div>
 </Template>
 
-<Story name="Primary" args={{ toDo: events[0] }} />
+<Story name="Primary" args={{ toDo: events[0], form: null }} />
