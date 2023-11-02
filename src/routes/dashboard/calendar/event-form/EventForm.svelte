@@ -26,8 +26,7 @@
 
 	$: categoryName =
 		categories.find((category) => category.id === event.categoryId)?.name ||
-		categories[0]?.name ||
-		'';
+		'create a category first';
 
 	const dispatch = createEventDispatcher();
 

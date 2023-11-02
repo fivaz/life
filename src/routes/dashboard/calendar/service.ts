@@ -39,7 +39,7 @@ export function buildEmptyEventIn(categories: CCategory[]): EventIn {
 		endTime: format(addMinutes(new Date(), 15), TIME),
 		duration: '00:15',
 		isDone: false,
-		categoryId: categories[0]?.id || 0,
+		categoryId: categories.find((category) => category.isDefault)?.id || 0,
 	};
 }
 
@@ -67,6 +67,6 @@ export function buildEventWithTime(
 		endTime: buildDate(date, timeInterval + 0.5),
 		duration: '00:15',
 		isDone: false,
-		categoryId: categories[0].id,
+		categoryId: categories.find((category) => category.isDefault)?.id || 0,
 	};
 }
