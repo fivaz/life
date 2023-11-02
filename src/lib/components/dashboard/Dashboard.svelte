@@ -8,6 +8,7 @@
 		TransitionRoot,
 	} from '@rgossiaux/svelte-headlessui';
 	import { Bars3, Calendar, DocumentDuplicate, XMark } from '@steeze-ui/heroicons';
+	import { List } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { page } from '$app/stores';
 	import classnames from 'classnames';
@@ -15,6 +16,7 @@
 	const navigation = [
 		{ name: 'Calendar', href: '/dashboard', icon: Calendar },
 		{ name: 'Category', href: '/dashboard/category', icon: DocumentDuplicate },
+		{ name: 'To Do', href: '/dashboard/to-do', icon: List },
 	];
 
 	export let session: Session | null;
