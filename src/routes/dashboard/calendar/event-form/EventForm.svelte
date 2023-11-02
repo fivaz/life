@@ -4,7 +4,6 @@
 	import type { CCategory } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
-	import Loading from '$lib/components/loading/Loading.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import { removeEvent, updateEvent } from '$lib/event/store';
@@ -13,13 +12,12 @@
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/$types';
 	import type { EventIn } from '../service';
+	import { getDuration, getEndTime } from './service';
 
 	export let categories: CCategory[];
 	export let form: ActionData | null;
 
 	export let event: EventIn;
-
-	let loading = false;
 
 	$: error = !isAfter(
 		parse(event.endTime, TIME, new Date()),
@@ -33,9 +31,8 @@
 
 	const dispatch = createEventDispatcher();
 
-	const submit: SubmitFunction = () => {
+	export const submit: SubmitFunction = () => {
 		dispatch('submit');
-		loading = true;
 		return async ({ result }) => {
 			await applyAction(result);
 			if (result.type === 'success') {
@@ -49,7 +46,6 @@
 					console.log(form?.error);
 				}
 			}
-			loading = false;
 		};
 	};
 </script>
@@ -119,6 +115,7 @@
 				name="duration"
 				required
 				bind:value={event.duration}
+				on:input={(e) => (event.endTime = getEndTime(event.startTime, e.detail))}
 			/>
 		</div>
 
@@ -139,13 +136,14 @@
 				name="endTime"
 				required
 				bind:value={event.endTime}
+				on:input={(e) => (event.duration = getDuration(event.startTime, e.detail))}
 			/>
 		</div>
 	</div>
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
 		{#if event.id}
-			<Button disabled={loading} formaction="?/remove" color="red">Delete</Button>
+			<Button formaction="?/remove" color="red">Delete</Button>
 		{:else}
 			<div />
 		{/if}
@@ -154,6 +152,4 @@
 			{#if event.id} Edit {:else} Add {/if}
 		</Button>
 	</div>
-
-	<Loading {loading} class="h-8 w-8 text-indigo-500" />
 </form>
