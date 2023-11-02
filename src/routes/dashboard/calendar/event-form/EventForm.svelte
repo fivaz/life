@@ -79,7 +79,7 @@
 			label="Name"
 			autocomplete="off"
 			name="name"
-			value={event.name}
+			bind:value={event.name}
 			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 		/>
 
@@ -94,7 +94,7 @@
 			Description
 			<textarea
 				name="description"
-				value={event.description}
+				bind:value={event.description}
 				class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 			/>
 		</label>
@@ -103,7 +103,7 @@
 			label="Date"
 			type="date"
 			name="date"
-			value={event.date}
+			bind:value={event.date}
 			required
 			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 		/>
