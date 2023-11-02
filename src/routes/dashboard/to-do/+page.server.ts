@@ -1,5 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { EEvent } from '$lib/event/utils';
+import { convertToMinutes } from '$lib/event/utils';
 import prisma from '$lib/prisma';
 import { loginRoute } from '$lib/utils';
 import type { Actions, PageServerLoad } from './$types';
@@ -29,13 +30,10 @@ export const actions = {
 
 		const data = await request.formData();
 		const id = Number(data.get('id'));
-		const name = data.get('name');
+		const name = data.get('name') as string;
+		const duration = convertToMinutes(data.get('duration') as string);
 
 		try {
-			if (!name || typeof name !== 'string') {
-				throw Error('name is required');
-			}
-
 			if (id) {
 				const event: EEvent = await prisma.event.update({
 					where: {
@@ -57,6 +55,7 @@ export const actions = {
 						isDone: false,
 						startDate: new Date(),
 						endDate: new Date(),
+						duration,
 						categoryId: 1,
 					},
 					include: { category: true },

@@ -1,6 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { CCategory } from '$lib/category/utils';
 import type { EEvent } from '$lib/event/utils';
+import { convertToMinutes } from '$lib/event/utils';
 import prisma from '$lib/prisma';
 import { loginRoute } from '$lib/utils';
 import { isValid, parse } from 'date-fns';
@@ -44,6 +45,7 @@ export const actions = {
 			const description = data.get('description') as string;
 			const startTime = data.get('startTime') as string;
 			const endTime = data.get('endTime') as string;
+			const duration = convertToMinutes(data.get('duration') as string);
 			const date = data.get('date') as string;
 			const categoryName = data.get('categoryName') as string;
 
@@ -79,6 +81,7 @@ export const actions = {
 						description,
 						startDate,
 						endDate,
+						duration,
 						isDone,
 						categoryId,
 					},
@@ -93,6 +96,7 @@ export const actions = {
 						description,
 						startDate,
 						endDate,
+						duration,
 						isDone,
 						categoryId,
 					},

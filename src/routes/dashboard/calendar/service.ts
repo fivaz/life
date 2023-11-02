@@ -1,13 +1,19 @@
 import type { CCategory } from '$lib/category/utils';
-import type { EEvent } from '$lib/event/utils';
+import type { EEvent, OnlyEEvent } from '$lib/event/utils';
 import { DATE, TIME } from '$lib/utils';
 import { addMinutes, format, setHours, setMinutes } from 'date-fns';
 
-export type EventIn = Omit<EEvent, 'startDate' | 'endDate'> & {
+export type EventIn = Omit<OnlyEEvent, 'startDate' | 'endDate' | 'duration'> & {
 	date: string;
 	startTime: string;
 	endTime: string;
+	duration: string;
 };
+
+function convertToString(minutes: number): string {
+	const date = new Date(0, 0, 0, Math.floor(minutes / 60), minutes % 60);
+	return format(date, TIME);
+}
 
 export function convertToEventIn(event: EEvent): EventIn {
 	return {
@@ -17,9 +23,9 @@ export function convertToEventIn(event: EEvent): EventIn {
 		date: format(event.startDate, DATE),
 		startTime: format(event.startDate, TIME),
 		endTime: format(event.endDate, TIME),
+		duration: convertToString(event.duration),
 		isDone: event.isDone,
 		categoryId: event.categoryId,
-		category: event.category,
 	};
 }
 
@@ -31,9 +37,9 @@ export function buildEmptyEventIn(categories: CCategory[]): EventIn {
 		date: format(new Date(), DATE),
 		startTime: format(new Date(), TIME),
 		endTime: format(addMinutes(new Date(), 15), TIME),
+		duration: '00:15',
 		isDone: false,
-		categoryId: categories[0].id,
-		category: categories[0],
+		categoryId: categories[0]?.id || 0,
 	};
 }
 
@@ -59,8 +65,8 @@ export function buildEventWithTime(
 		date: format(date, DATE),
 		startTime: buildDate(date, timeInterval),
 		endTime: buildDate(date, timeInterval + 0.5),
+		duration: '00:15',
 		isDone: false,
 		categoryId: categories[0].id,
-		category: categories[0],
 	};
 }

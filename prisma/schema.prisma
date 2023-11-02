@@ -14,6 +14,7 @@ model Event {
   description String?
   startDate   DateTime  @db.Timestamp(6)
   endDate     DateTime  @db.Timestamp(6)
+  duration    Int
   isDone      Boolean
   deleted     DateTime? @db.Timestamp(6)
   userId      String

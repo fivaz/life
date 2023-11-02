@@ -3,6 +3,8 @@
 	import type { Meta } from '@storybook/svelte';
 	import { categories } from '$lib/category/seed';
 	import { redEvent } from '$lib/event/seed';
+	import { buildEmptyEventIn } from '../service';
+	import { convertToEventIn } from '../service.js';
 	import EventForm from './EventForm.svelte';
 
 	export const meta = {
@@ -15,6 +17,9 @@
 	} satisfies Meta<EventForm>;
 </script>
 
+<script>
+</script>
+
 <Template let:args>
 	<EventForm {...args} />
 </Template>
@@ -24,6 +29,7 @@
 	args={{
 		categories,
 		form: null,
+		event: buildEmptyEventIn(categories),
 	}}
 />
 
@@ -31,8 +37,7 @@
 	name="Edit"
 	args={{
 		categories,
-		form: {
-			saved: redEvent,
-		},
+		form: null,
+		event: convertToEventIn(redEvent),
 	}}
 />

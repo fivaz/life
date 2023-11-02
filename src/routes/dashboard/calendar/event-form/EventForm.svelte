@@ -27,7 +27,9 @@
 	);
 
 	$: categoryName =
-		categories.find((category) => category.id === event.categoryId)?.name || categories[0].name;
+		categories.find((category) => category.id === event.categoryId)?.name ||
+		categories[0]?.name ||
+		'';
 
 	const dispatch = createEventDispatcher();
 
@@ -99,14 +101,26 @@
 			/>
 		</label>
 
-		<Input
-			label="Date"
-			type="date"
-			name="date"
-			bind:value={event.date}
-			required
-			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-		/>
+		<div class="grid grid-cols-4 gap-3">
+			<Input
+				labelClass="col-span-2"
+				label="Date"
+				type="date"
+				name="date"
+				bind:value={event.date}
+				required
+				class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+			/>
+
+			<Input
+				labelClass="col-span-2"
+				label="Start time"
+				type="time"
+				name="duration"
+				required
+				bind:value={event.duration}
+			/>
+		</div>
 
 		<div class="grid grid-cols-4 gap-3">
 			<Input
