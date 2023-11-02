@@ -4,7 +4,9 @@ import { derived, writable } from 'svelte/store';
 export const events = writable<EEvent[]>([]);
 
 export const toDos = derived(events, ($events) =>
-	$events.filter((event) => event.isDone === false),
+	$events
+		.filter((event) => event.isDone === false)
+		.sort((a, b) => b.startDate.valueOf() - a.startDate.valueOf()),
 );
 
 export function updateEvent(newEvent: EEvent) {
