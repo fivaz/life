@@ -110,7 +110,7 @@
 
 			<Input
 				labelClass="col-span-2"
-				label="Start time"
+				label="Duration"
 				type="time"
 				name="duration"
 				required
