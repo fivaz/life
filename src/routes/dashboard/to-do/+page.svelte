@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { categories } from '$lib/category/store';
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { toDos } from '$lib/event/store';
@@ -18,7 +19,7 @@
 		<Button
 			on:click={() => {
 				showForm = true;
-				form = null;
+				event = buildEmptyEventIn($categories);
 			}}
 		>
 			create To Do

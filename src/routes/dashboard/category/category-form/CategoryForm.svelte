@@ -3,6 +3,7 @@
 	import { applyAction, enhance } from '$app/forms';
 	import { removeCategory, updateCategory } from '$lib/category/store';
 	import { groups, tailwindColors } from '$lib/category/utils';
+	import type { CCategory } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import Loading from '$lib/components/loading/Loading.svelte';
@@ -13,14 +14,14 @@
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/category/$types';
 
 	let loading = false;
+
+	export let category: CCategory;
+
 	export let form: ActionData | null;
+
 	let error = '';
 
 	const dispatch = createEventDispatcher();
-
-	let selectedColor = form?.saved?.color || Object.keys(tailwindColors)[0];
-
-	let selectedGroup = form?.saved?.group || groups[0];
 
 	const submit: SubmitFunction = () => {
 		try {
@@ -54,31 +55,32 @@
 <form method="POST" action="?/save" use:enhance={submit} class="w-[336px] shadow">
 	<div class="flex flex-col gap-3 px-4 py-5 bg-white rounded-md sm:p-6">
 		<h2 class="text-lg font-medium text-gray-900">
-			{#if form?.saved?.id}
+			{#if category.id}
 				Edit Category
 			{:else}
 				Add Category
 			{/if}
 		</h2>
+		{JSON.stringify(category, null, 2)}
 
 		{#if error}
 			<p class="text-red-500">{error}</p>
 		{/if}
 
-		<input type="hidden" name="id" value={form?.saved?.id || ''} />
+		<input type="hidden" name="id" value={category.id} />
 
 		<Input
 			label="Name"
 			autocomplete="off"
 			name="name"
-			value={form?.saved?.name || ''}
+			bind:value={category.name}
 			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 		/>
 
-		<Select name="color" bind:value={selectedColor}>
+		<Select name="color" bind:value={category.color}>
 			<div slot="placeholder" class="flex gap-5 items-center">
-				<div class={classnames('h-5 w-5 rounded-md', tailwindColors[selectedColor].darkBg)} />
-				{selectedColor}
+				<div class={classnames('h-5 w-5 rounded-md', tailwindColors[category.color].darkBg)} />
+				{category.color}
 			</div>
 
 			{#each Object.keys(tailwindColors) as color (color)}
@@ -91,20 +93,20 @@
 			{/each}
 		</Select>
 
-		<Select name="group" bind:value={selectedGroup}>
-			<div slot="placeholder" class="flex gap-5 items-center">{selectedGroup}</div>
+		<Select name="group" bind:value={category.group}>
+			<div slot="placeholder" class="flex gap-5 items-center">{category.group}</div>
 
 			{#each groups as group (group)}
 				<SelectItem value={group} class="flex gap-5 items-center">{group}</SelectItem>
 			{/each}
 		</Select>
 
-		<!--		Add a toggle-->
+		<!--		TODO Add a toggle-->
 		<label>
 			<input
 				name="isDefault"
 				type="checkbox"
-				checked={form?.saved?.isDefault || false}
+				bind:checked={category.isDefault}
 				class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
 			/>
 			default
@@ -112,14 +114,14 @@
 	</div>
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 rounded-md text-right sm:px-6">
-		{#if form?.saved?.id}
+		{#if category.id}
 			<Button disabled={loading} formaction="?/remove" color="red">Delete</Button>
 		{:else}
 			<div />
 		{/if}
 
 		<Button disabled={loading} type="submit">
-			{#if form?.saved?.id} Edit {:else} Add {/if}
+			{#if category.id} Edit {:else} Add {/if}
 		</Button>
 	</div>
 

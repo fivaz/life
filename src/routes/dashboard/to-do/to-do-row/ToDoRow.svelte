@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Settings } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { tailwindColors } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import type { EEvent } from '$lib/event/utils';
 	import { convertToTime } from '$lib/event/utils';
@@ -17,8 +18,13 @@
 	let dispatch = createEventDispatcher<{ edit: EEvent; rescheduleToTomorrow: EEvent }>();
 </script>
 
-<li class={classnames('flex gap-x-6 py-3 items-center rounded-lg')}>
-	<div class="flex-1 flex gap-x-6 text-sm font-semibold leading-6 text-gray-900">
+<li
+	class={classnames(
+		tailwindColors[toDo.category.color].darkBg,
+		'flex gap-x-6 items-center rounded-lg p-3',
+	)}
+>
+	<div class="flex-1 flex gap-x-6 text-sm font-semibold leading-6 text-gray-50">
 		<div class="flex-1 flex gap-x-6">
 			<div>{format(toDo.startDate, DATE_FR)}</div>
 			<div>{toDo.name}</div>
