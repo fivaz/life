@@ -1,6 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
+import type { EEvent } from '$lib/event/utils';
 import prisma from '$lib/prisma';
-import type { TToDo } from '$lib/to-do/utils';
 import { loginRoute } from '$lib/utils';
 import type { Actions, PageServerLoad } from './$types';
 
@@ -11,8 +11,9 @@ export const load = (async (event) => {
 		throw redirect(303, loginRoute);
 	}
 
-	const toDos: TToDo[] = await prisma.toDo.findMany({
-		where: { deleted: null, userId: session.user.id },
+	const toDos: EEvent[] = await prisma.event.findMany({
+		where: { deleted: null, userId: session.user.id, isDone: false },
+		include: { category: true },
 	});
 
 	return { toDos };
@@ -36,7 +37,7 @@ export const actions = {
 			}
 
 			if (id) {
-				const toDo: TToDo = await prisma.toDo.update({
+				const event: EEvent = await prisma.event.update({
 					where: {
 						id,
 						userId: session.user.id,
@@ -44,17 +45,23 @@ export const actions = {
 					data: {
 						name,
 					},
+					include: { category: true },
 				});
-				return { saved: toDo };
+				return { saved: event };
 			} else {
-				const toDo: TToDo = await prisma.toDo.create({
+				const event: EEvent = await prisma.event.create({
 					data: {
 						userId: session.user.id,
 						name,
+						description: null,
 						isDone: false,
+						startDate: new Date(),
+						endDate: new Date(),
+						categoryId: 1,
 					},
+					include: { category: true },
 				});
-				return { saved: toDo };
+				return { saved: event };
 			}
 		} catch (error) {
 			return fail(422, {
@@ -71,7 +78,7 @@ export const actions = {
 
 		const data = await request.formData();
 		const id = Number(data.get('id'));
-		const toDo: TToDo = await prisma.toDo.update({
+		const event: EEvent = await prisma.event.update({
 			where: {
 				id,
 				userId: session.user.id,
@@ -79,7 +86,8 @@ export const actions = {
 			data: {
 				deleted: new Date(),
 			},
+			include: { category: true },
 		});
-		return { removed: toDo };
+		return { removed: event };
 	},
 } satisfies Actions;

@@ -2,12 +2,12 @@
 	import { Settings } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import Button from '$lib/components/button/Button.svelte';
-	import type { TToDo } from '$lib/to-do/utils';
+	import type { EEvent } from '$lib/event/utils';
 	import { createEventDispatcher } from 'svelte';
 
-	export let toDo: TToDo;
+	export let toDo: EEvent;
 
-	let dispatch = createEventDispatcher<{ edit: TToDo; remove: TToDo }>();
+	let dispatch = createEventDispatcher<{ edit: EEvent; remove: EEvent }>();
 </script>
 
 <li class="flex justify-between gap-x-6 py-3">

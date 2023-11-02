@@ -58,7 +58,6 @@ model User {
   Category      Category[]
   events        Event[]
   sessions      Session[]
-  ToDo          ToDo[]
 }
 
 model Category {
@@ -71,15 +70,6 @@ model Category {
   userId    String
   user      User      @relation(fields: [userId], references: [id])
   Event     Event[]
-}
-
-model ToDo {
-  id      Int       @id @default(autoincrement())
-  name    String
-  isDone  Boolean
-  deleted DateTime? @db.Timestamp(6)
-  userId  String
-  user    User      @relation(fields: [userId], references: [id])
 }
 
 model VerificationToken {

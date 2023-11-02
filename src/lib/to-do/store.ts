@@ -1,9 +1,9 @@
-import type { TToDo } from '$lib/to-do/utils';
+import type { EEvent } from '$lib/event/utils';
 import { writable } from 'svelte/store';
 
-export const toDos = writable<TToDo[]>([]);
+export const toDos = writable<EEvent[]>([]);
 
-export function updateToDo(newToDo: TToDo) {
+export function updateToDo(newToDo: EEvent) {
 	toDos.update(($toDos) => {
 		const index = $toDos.findIndex((toDo) => toDo.id === newToDo.id);
 		if (index !== -1) {
@@ -14,6 +14,6 @@ export function updateToDo(newToDo: TToDo) {
 	});
 }
 
-export function removeToDo(toDo: TToDo) {
+export function removeToDo(toDo: EEvent) {
 	toDos.update(($toDos) => $toDos.filter((existingToDo) => existingToDo.id !== toDo.id));
 }
