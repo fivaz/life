@@ -4,8 +4,6 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { toDos } from '$lib/event/store';
 	import type { EEvent } from '$lib/event/utils';
-	import { DATE_FR } from '$lib/utils';
-	import { format } from 'date-fns';
 	import EventForm from '../home/calendar/event-form/EventForm.svelte';
 	import { buildEmptyEventIn, convertToEventIn } from '../home/calendar/service';
 	import type { EventIn } from '../home/calendar/service';
@@ -16,14 +14,12 @@
 	export let form: ActionData | null = null;
 	export let event: EventIn = buildEmptyEventIn([]);
 
-	$: groupedToDos = $toDos.reduce<Record<string, EEvent[]>>((groups, event) => {
-		const date = format(event.startDate, DATE_FR);
-		if (!groups[date]) {
-			groups[date] = [];
-		}
-		groups[date].push(event);
-		return groups;
-	}, {});
+	export function getSumOfDurationsAsTime(events: EEvent[]): string {
+		const sumOfDurationsInMinutes = events.reduce((sum, event) => sum + event.duration, 0);
+		const hours = Math.floor(sumOfDurationsInMinutes / 60);
+		const remainingMinutes = sumOfDurationsInMinutes % 60;
+		return `${hours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')}`;
+	}
 </script>
 
 <div class="flex flex-col gap-5">
@@ -39,9 +35,12 @@
 	</div>
 
 	<ul role="list" class="divide-y divide-gray-100">
-		{#each Object.entries(groupedToDos) as [date, toDos] (date)}
-			<div>{date}</div>
-			{#each toDos as toDo (toDo)}
+		{#each Object.entries($toDos) as [date, list] (date)}
+			<div class="flex justify-between px-2">
+				<div>{date}</div>
+				<div>{getSumOfDurationsAsTime(list)}</div>
+			</div>
+			{#each list as toDo (toDo)}
 				<ToDoRow
 					{toDo}
 					{form}

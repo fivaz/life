@@ -1,12 +1,23 @@
 import type { EEvent } from '$lib/event/utils';
+import { DATE_FR } from '$lib/utils';
+import { format } from 'date-fns';
 import { derived, writable } from 'svelte/store';
 
 export const events = writable<EEvent[]>([]);
 
+function groupEventsByDate(events: EEvent[]): Record<string, EEvent[]> {
+	return events.reduce<Record<string, EEvent[]>>((groups, event) => {
+		const date = format(event.startDate, DATE_FR);
+		if (!groups[date]) {
+			groups[date] = [];
+		}
+		groups[date].push(event);
+		return groups;
+	}, {});
+}
+
 export const toDos = derived(events, ($events) =>
-	$events
-		.filter((event) => event.isDone === false)
-		.sort((a, b) => b.startDate.valueOf() - a.startDate.valueOf()),
+	groupEventsByDate($events.filter((event) => event.isDone === false)),
 );
 
 export function updateEvent(newEvent: EEvent) {
