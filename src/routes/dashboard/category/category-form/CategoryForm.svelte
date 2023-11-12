@@ -61,7 +61,6 @@
 				Add Category
 			{/if}
 		</h2>
-		{JSON.stringify(category, null, 2)}
 
 		{#if error}
 			<p class="text-red-500">{error}</p>
