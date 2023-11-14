@@ -17,7 +17,10 @@
 
 	$: isSelectedDate = (date: Date) => getDate(selectedDate) === getDate(date);
 
-	const dispatch = createEventDispatcher<{ create: { timeInterval: number; date: Date } }>();
+	const dispatch = createEventDispatcher<{
+		create: { timeInterval: number; date: Date };
+		move: { timeInterval: number; date: Date };
+	}>();
 </script>
 
 <div class={classnames('h-full divide-y', className)}>
@@ -50,5 +53,6 @@
 		events={$events.filter((event) => isEventOnDay(event, selectedDate))}
 		on:edit
 		on:create={(e) => dispatch('create', { timeInterval: e.detail, date: selectedDate })}
+		on:move={(e) => dispatch('move', { timeInterval: e.detail, date: selectedDate })}
 	/>
 </div>

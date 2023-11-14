@@ -3,6 +3,7 @@
 	import { enhance } from '$app/forms';
 	import { tailwindColors } from '$lib/category/utils';
 	import Loading from '$lib/components/loading/Loading.svelte';
+	import { draggedEvent } from '$lib/dragged/store';
 	import { toggleEvent } from '$lib/event/store';
 	import type { EEvent } from '$lib/event/utils';
 	import classnames from 'classnames';
@@ -19,6 +20,20 @@
 
 	const dispatch = createEventDispatcher<{ edit: EEvent }>();
 
+	function dragStart(e: DragEvent) {
+		if (e.currentTarget instanceof HTMLDivElement) {
+			e.currentTarget.style.opacity = '0.5';
+			draggedEvent.set(event);
+		}
+	}
+
+	function dragEnd(e: DragEvent) {
+		if (e.currentTarget instanceof HTMLDivElement) {
+			e.currentTarget.style.opacity = '';
+			draggedEvent.set(undefined);
+		}
+	}
+
 	const submit: SubmitFunction = () => {
 		loading = true;
 		return async ({ result }) => {
@@ -31,6 +46,8 @@
 </script>
 
 <div
+	on:dragstart={dragStart}
+	on:dragend={dragEnd}
 	on:click={() => dispatch('edit', event)}
 	on:keydown={(e) => {
 		if (e.key === 'Enter') {
@@ -39,9 +56,10 @@
 	}}
 	tabindex="0"
 	role="button"
+	draggable="true"
 	class={classnames(
 		{ 'py-2': !isShort(event) },
-		'group w-full h-full flex flex-col rounded-lg py-1 px-2 text-xs leading-5',
+		'cursor-move group w-full h-full flex flex-col rounded-lg py-1 px-2 text-xs leading-5',
 		tailwindColors[event.category.color].lightBg,
 		tailwindColors[event.category.color].hoverBg,
 		tailwindColors[event.category.color].text,

@@ -1,7 +1,9 @@
 import type { CCategory } from '$lib/category/utils';
 
+let id = 0;
+
 export const work = {
-	id: 1,
+	id: id++,
 	name: 'Work',
 	isDefault: true,
 	color: 'green',
@@ -9,7 +11,7 @@ export const work = {
 };
 
 export const fun = {
-	id: 2,
+	id: id++,
 	name: 'Free time',
 	isDefault: false,
 	color: 'red',
@@ -17,7 +19,7 @@ export const fun = {
 };
 
 export const routine = {
-	id: 3,
+	id: id++,
 	name: 'Routine',
 	isDefault: false,
 	color: 'yellow',
@@ -25,7 +27,7 @@ export const routine = {
 };
 
 export const sleep = {
-	id: 3,
+	id: id++,
 	name: 'Sleep',
 	isDefault: false,
 	color: 'blue',

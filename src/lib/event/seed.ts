@@ -15,8 +15,9 @@ function getTodayAtTime(time: string): Date {
 	return date;
 }
 
+let id = 0;
 export const normalWithoutDescription: EEvent = {
-	id: 1,
+	id: id++,
 	name: 'Breakfast',
 	description: null,
 	startDate: getTodayAtTime('07:00'),
@@ -28,7 +29,7 @@ export const normalWithoutDescription: EEvent = {
 };
 
 export const shortWithoutDescription: EEvent = {
-	id: 2,
+	id: id++,
 	name: 'Breakfast',
 	description: null,
 	startDate: getTodayAtTime('07:45'),
@@ -40,7 +41,7 @@ export const shortWithoutDescription: EEvent = {
 };
 
 export const long: EEvent = {
-	id: 4,
+	id: id++,
 	name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
 	description: null,
 	startDate: getTodayAtTime('10:15'),
@@ -52,7 +53,7 @@ export const long: EEvent = {
 };
 
 export const done: EEvent = {
-	id: 5,
+	id: id++,
 	name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
 	description: null,
 	startDate: getTodayAtTime('00:15'),
@@ -64,7 +65,7 @@ export const done: EEvent = {
 };
 
 export const redEvent: EEvent = {
-	id: 6,
+	id: id++,
 	name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
 	description: null,
 	startDate: getTodayAtTime('15:15'),
@@ -84,7 +85,7 @@ export const events: EEvent[] = [
 ];
 
 export const sleepEvent: EEvent = {
-	id: 11,
+	id: id++,
 	name: 'sleep',
 	description: null,
 	startDate: getTodayAtTime('00:00'),
@@ -96,7 +97,7 @@ export const sleepEvent: EEvent = {
 };
 
 export const workEvent: EEvent = {
-	id: 12,
+	id: id++,
 	name: 'work',
 	description: null,
 	startDate: getTodayAtTime('08:00'),
@@ -108,7 +109,7 @@ export const workEvent: EEvent = {
 };
 
 export const funEvent: EEvent = {
-	id: 12,
+	id: id++,
 	name: 'fun',
 	description: null,
 	startDate: getTodayAtTime('16:00'),

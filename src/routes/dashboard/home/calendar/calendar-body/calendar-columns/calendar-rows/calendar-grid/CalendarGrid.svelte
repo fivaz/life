@@ -1,8 +1,6 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import { halfHourInterval } from '../service';
-
-	const dispatch = createEventDispatcher<{ create: number }>();
+	import GridCell from './grid-cell/GridCell.svelte';
 </script>
 
 <div
@@ -10,15 +8,6 @@
 	style="grid-template-rows: repeat({halfHourInterval}, minmax(3.5rem, 1fr))"
 >
 	{#each Array.from({ length: halfHourInterval }, (_, i) => i) as halfHour (halfHour)}
-		<div
-			on:click={() => dispatch('create', halfHour)}
-			on:keydown={(e) => {
-				if (e.key === 'Enter') {
-					dispatch('create', halfHour);
-				}
-			}}
-			tabindex="0"
-			role="button"
-		/>
+		<GridCell on:create on:move {halfHour} />
 	{/each}
 </div>

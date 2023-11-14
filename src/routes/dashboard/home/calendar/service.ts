@@ -2,7 +2,7 @@ import type { CCategory } from '$lib/category/utils';
 import type { EEvent, OnlyEEvent } from '$lib/event/utils';
 import { convertToTime } from '$lib/event/utils';
 import { DATE, TIME } from '$lib/utils';
-import { addMinutes, format, setHours, setMinutes } from 'date-fns';
+import { addMinutes, differenceInMinutes, format, setHours, setMinutes } from 'date-fns';
 
 export type EventIn = Omit<OnlyEEvent, 'startDate' | 'endDate' | 'duration'> & {
 	date: string;
@@ -65,4 +65,13 @@ export function buildEventWithTime(
 		isDone: false,
 		categoryId: categories.find((category) => category.isDefault)?.id || 0,
 	};
+}
+
+export function moveEvent(event: EEvent, date: Date, timeInterval: number) {
+	const duration = differenceInMinutes(event.startDate, event.endDate);
+	return {
+		...event,
+		startDate: setMinutes(setHours(date, 0), timeInterval * 30),
+		endDate: setMinutes(setHours(date, 0), timeInterval * 30 + duration),
+	} satisfies EEvent;
 }

@@ -13,7 +13,7 @@
 <!--TODO handle event that takes more than 1 day-->
 
 <div class="relative w-full h-full">
-	<CalendarGrid on:create />
+	<CalendarGrid on:create on:move />
 	<!--pointer-events-none will make the list container of events incapable of catching point events-->
 	<!--so we can catch the events emit by CalendarGrid behind it-->
 	<ol

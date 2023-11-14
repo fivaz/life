@@ -12,7 +12,10 @@
 	let className = '';
 	export { className as class };
 
-	const dispatch = createEventDispatcher<{ create: { timeInterval: number; date: Date } }>();
+	const dispatch = createEventDispatcher<{
+		create: { timeInterval: number; date: Date };
+		move: { timeInterval: number; date: Date };
+	}>();
 </script>
 
 <div class={className}>
@@ -38,6 +41,7 @@
 					events={$events.filter((event) => isEventOnDay(event, date))}
 					on:edit
 					on:create={(e) => dispatch('create', { timeInterval: e.detail, date })}
+					on:move={(e) => dispatch('move', { timeInterval: e.detail, date })}
 				/>
 			</div>
 		{/each}
