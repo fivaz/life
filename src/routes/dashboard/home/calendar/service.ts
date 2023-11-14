@@ -44,7 +44,7 @@ function buildDate(date: Date, timeInterval: number) {
 		throw 'Invalid number. Please enter a number between 0 and 48.';
 	}
 
-	const datetime = setMinutes(setHours(date, 0), timeInterval * 30);
+	const datetime = setMinutes(setHours(date, 0), timeInterval * 15);
 
 	return format(datetime, TIME);
 }
@@ -52,34 +52,28 @@ function buildDate(date: Date, timeInterval: number) {
 export function buildEventWithTime(
 	categories: CCategory[],
 	date: Date,
-	timeInterval: number,
+	quarterHourInterval: number,
 ): EventIn {
 	return {
 		id: 0,
 		name: '',
 		description: null,
 		date: format(date, DATE),
-		startTime: buildDate(date, timeInterval),
-		endTime: buildDate(date, timeInterval + 0.5),
+		startTime: buildDate(date, quarterHourInterval),
+		endTime: buildDate(date, quarterHourInterval + 0.5),
 		duration: '00:15',
 		isDone: false,
 		categoryId: categories.find((category) => category.isDefault)?.id || 0,
 	};
 }
 
-export function moveEvent(event: EEvent, date: Date, timeInterval: number) {
-	console.log('event.startDate', event.startDate);
-	console.log('event.endDate', event.endDate);
+export function moveEvent(event: EEvent, date: Date, quarterHourInterval: number) {
 	const duration = differenceInMinutes(event.endDate, event.startDate);
-	console.log(duration);
-	const newEvent = {
+	return {
 		...event,
-		startDate: setMinutes(setHours(date, 0), timeInterval * 30),
-		endDate: setMinutes(setHours(date, 0), timeInterval * 30 + duration),
+		startDate: setMinutes(setHours(date, 0), quarterHourInterval * 15),
+		endDate: setMinutes(setHours(date, 0), quarterHourInterval * 15 + duration),
 	} satisfies EEvent;
-
-	console.log(newEvent);
-	return newEvent;
 }
 
 export async function preserveEvent(event: EEvent) {
