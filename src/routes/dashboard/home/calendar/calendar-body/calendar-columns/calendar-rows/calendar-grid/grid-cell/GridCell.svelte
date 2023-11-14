@@ -34,6 +34,4 @@
 	}}
 	tabindex="0"
 	role="button"
->
-	{quarterHour}
-</div>
+/>
