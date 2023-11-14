@@ -68,10 +68,23 @@ export function buildEventWithTime(
 }
 
 export function moveEvent(event: EEvent, date: Date, timeInterval: number) {
-	const duration = differenceInMinutes(event.startDate, event.endDate);
-	return {
+	console.log('event.startDate', event.startDate);
+	console.log('event.endDate', event.endDate);
+	const duration = differenceInMinutes(event.endDate, event.startDate);
+	console.log(duration);
+	const newEvent = {
 		...event,
 		startDate: setMinutes(setHours(date, 0), timeInterval * 30),
 		endDate: setMinutes(setHours(date, 0), timeInterval * 30 + duration),
 	} satisfies EEvent;
+
+	console.log(newEvent);
+	return newEvent;
+}
+
+export async function preserveEvent(event: EEvent) {
+	await fetch('/dashboard/home/api', {
+		method: 'POST',
+		body: JSON.stringify(event),
+	});
 }

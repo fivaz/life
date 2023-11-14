@@ -3,7 +3,7 @@
 	import { enhance } from '$app/forms';
 	import { tailwindColors } from '$lib/category/utils';
 	import Loading from '$lib/components/loading/Loading.svelte';
-	import { draggedEvent } from '$lib/dragged/store';
+	import { removeDraggedEvent, setDraggedEvent } from '$lib/dragged/store';
 	import { toggleEvent } from '$lib/event/store';
 	import type { EEvent } from '$lib/event/utils';
 	import classnames from 'classnames';
@@ -23,14 +23,14 @@
 	function dragStart(e: DragEvent) {
 		if (e.currentTarget instanceof HTMLDivElement) {
 			e.currentTarget.style.opacity = '0.5';
-			draggedEvent.set(event);
+			setDraggedEvent(event);
 		}
 	}
 
 	function dragEnd(e: DragEvent) {
 		if (e.currentTarget instanceof HTMLDivElement) {
 			e.currentTarget.style.opacity = '';
-			draggedEvent.set(undefined);
+			removeDraggedEvent();
 		}
 	}
 

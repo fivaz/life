@@ -9,7 +9,13 @@
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
 	import EventForm from './event-form/EventForm.svelte';
-	import { buildEmptyEventIn, buildEventWithTime, convertToEventIn, moveEvent } from './service';
+	import {
+		buildEmptyEventIn,
+		buildEventWithTime,
+		convertToEventIn,
+		moveEvent,
+		preserveEvent,
+	} from './service';
 	import type { EventIn } from './service';
 
 	let currentDate = new Date();
@@ -46,6 +52,7 @@
 			if ($draggedEvent) {
 				const event = moveEvent($draggedEvent, e.detail.date, e.detail.timeInterval);
 				updateEvent(event);
+				preserveEvent(event);
 			}
 		}}
 	/>
