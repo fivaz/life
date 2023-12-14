@@ -12,7 +12,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
 	import type { EventIn } from '../service';
-	import { getDuration, getEndTime } from './service';
+	import { getDuration, getEndTime, buildDates } from './service';
 
 	export let form: ActionData | null;
 
@@ -29,7 +29,8 @@
 
 	const dispatch = createEventDispatcher();
 
-	export const submit: SubmitFunction = () => {
+	export const submit: SubmitFunction = ({ formData }) => {
+		buildDates(formData);
 		dispatch('submit');
 		return async ({ result }) => {
 			await applyAction(result);

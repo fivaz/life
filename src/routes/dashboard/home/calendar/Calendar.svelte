@@ -50,7 +50,6 @@
 		}}
 		on:move={(e) => {
 			if ($draggedEvent) {
-				console.log(e.detail);
 				const event = moveEvent($draggedEvent, e.detail.date, e.detail.timeInterval);
 				updateEvent(event);
 				preserveEvent(event);
