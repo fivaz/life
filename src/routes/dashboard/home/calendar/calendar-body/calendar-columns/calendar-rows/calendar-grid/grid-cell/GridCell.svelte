@@ -9,7 +9,6 @@
 
 	function dragOver(event: DragEvent) {
 		event.preventDefault();
-		console.log('dragOver - quarterHour', quarterHour);
 		if (event.dataTransfer) {
 			event.dataTransfer.dropEffect = 'move';
 		}
@@ -17,7 +16,6 @@
 
 	function drop(event: DragEvent) {
 		event.preventDefault();
-		console.log('drop - quarterHour', quarterHour);
 		dispatch('move', quarterHour);
 	}
 </script>

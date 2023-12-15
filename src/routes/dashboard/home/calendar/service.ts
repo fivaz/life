@@ -3,6 +3,7 @@ import type { EEvent, OnlyEEvent } from '$lib/event/utils';
 import { convertToTime } from '$lib/event/utils';
 import { DATE, TIME } from '$lib/utils';
 import { addMinutes, differenceInMinutes, format, setHours, setMinutes } from 'date-fns';
+import { halfHourInterval } from './calendar-body/calendar-columns/calendar-rows/service';
 
 export type EventIn = Omit<OnlyEEvent, 'startDate' | 'endDate' | 'duration'> & {
 	date: string;
@@ -40,8 +41,8 @@ export function buildEmptyEventIn(categories: CCategory[]): EventIn {
 }
 
 function buildDate(date: Date, timeInterval: number) {
-	if (timeInterval < 0 || timeInterval > 48) {
-		throw 'Invalid number. Please enter a number between 0 and 48.';
+	if (timeInterval < 0 || timeInterval > halfHourInterval * 2) {
+		throw 'Invalid number. Please enter a number between 0 and 95.';
 	}
 
 	const datetime = setMinutes(setHours(date, 0), timeInterval * 15);
@@ -54,6 +55,7 @@ export function buildEventWithTime(
 	date: Date,
 	quarterHourInterval: number,
 ): EventIn {
+	console.log('quarterHourInterval', quarterHourInterval);
 	return {
 		id: 0,
 		name: '',
