@@ -14,7 +14,7 @@
 	import type { EventIn } from '../service';
 	import { getDuration, getEndTime, buildDates } from './service';
 
-	export let form: ActionData | null;
+	export let form: ActionData | null = null;
 
 	export let event: EventIn;
 

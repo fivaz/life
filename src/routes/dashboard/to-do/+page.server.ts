@@ -3,8 +3,7 @@ import type { EEvent } from '$lib/event/utils';
 import { convertToMinutes } from '$lib/event/utils';
 import prisma from '$lib/prisma';
 import { loginRoute } from '$lib/utils';
-import { add, addMinutes, isValid, parse, set } from 'date-fns';
-import { zonedTimeToUtc } from 'date-fns-tz';
+import { add, addMinutes, parseISO, set } from 'date-fns';
 import type { Actions } from './$types';
 
 function getTomorrowDate(date: Date): Date {
@@ -60,28 +59,19 @@ export const actions = {
 			const categoryId = Number(data.get('categoryId'));
 			const name = data.get('name') as string;
 			const description = data.get('description') as string;
-			const startTime = data.get('startTime') as string;
-			const endTime = data.get('endTime') as string;
+			const startDateString = data.get('startDate') as string;
+			const endDateString = data.get('endDate') as string;
+
 			const duration = convertToMinutes(data.get('duration') as string);
-			const date = data.get('date') as string;
+
 			const categoryName = data.get('categoryName') as string;
 
 			if (!categoryName || !categoryId) {
 				throw Error('internal error, please refresh the page');
 			}
 
-			const startDateString = `${date}T${startTime}:00`;
-			const endDateString = `${date}T${endTime}:00`;
-
-			const parsedStartDate = parse(startDateString, "yyyy-MM-dd'T'HH:mm:00", new Date());
-			const parsedEndDate = parse(endDateString, "yyyy-MM-dd'T'HH:mm:00", new Date());
-
-			if (!isValid(parsedStartDate) || !isValid(parsedEndDate)) {
-				throw Error('date, startTime and endTime should be valid date and time');
-			}
-
-			const startDate = zonedTimeToUtc(`${date}T${startTime}:00`, 'Europe/Zurich');
-			const endDate = zonedTimeToUtc(`${date}T${endTime}:00`, 'Europe/Zurich');
+			const startDate = parseISO(startDateString);
+			const endDate = parseISO(endDateString);
 
 			if (startDate > endDate) {
 				throw Error('startDate should be before endDate');
