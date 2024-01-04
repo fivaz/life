@@ -3,6 +3,7 @@
 	import { enhance, applyAction } from '$app/forms';
 	import { categories } from '$lib/category/store';
 	import Button from '$lib/components/button/Button.svelte';
+	import DaysCheckbox from '$lib/components/days-checkbox/DaysCheckbox.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
@@ -140,7 +141,7 @@
 					bind:value={event.recurrent.endAt}
 				/>
 			</div>
-			<!--			<DaysCheckbox bind:value={event.recurrent.daysOfWeek} />-->
+			<DaysCheckbox bind:value={event.recurrent.daysOfWeek} />
 		</div>
 
 		<div class="flex gap-3">
