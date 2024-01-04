@@ -108,16 +108,18 @@
 			/>
 		</label>
 
-		<label class="flex gap-3 items-center">
-			Recurring
-			<input
-				name="isRecurring"
-				type="checkbox"
-				bind:checked={event.isRecurring}
-				class="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-			/>
-			<!--mt-1 is to align the checkbox with the label-->
-		</label>
+		<div class="flex justify-start">
+			<label class="flex gap-2 items-center text-sm font-medium text-gray-700">
+				Recurring
+				<input
+					name="isRecurring"
+					type="checkbox"
+					bind:checked={event.isRecurring}
+					class="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+				/>
+				<!--mt-1 is to align the checkbox with the label-->
+			</label>
+		</div>
 
 		{#if event.isRecurring}
 			<div class="flex gap-3">

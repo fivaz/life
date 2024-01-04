@@ -19,10 +19,10 @@
 	export { className as class };
 </script>
 
-<Listbox bind:value class={classnames(className)}>
+<Listbox bind:value class={classnames(className, 'text-sm font-medium text-gray-700')}>
 	<input type="hidden" {name} {value} />
 	{#if label}
-		<ListboxLabel class="block text-sm font-medium text-gray-700 mb-1">
+		<ListboxLabel class="block mb-1">
 			{label}
 		</ListboxLabel>
 	{/if}
