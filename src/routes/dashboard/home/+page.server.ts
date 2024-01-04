@@ -90,8 +90,6 @@ export const actions = {
 					include: { category: true },
 				});
 
-				console.log(event);
-
 				return { saved: event };
 			} else {
 				const event: EEvent = await prisma.event.create({
@@ -112,11 +110,10 @@ export const actions = {
 					include: { category: true },
 				});
 
-				console.log(event);
-
 				return { saved: event };
 			}
 		} catch (error) {
+			console.log(error);
 			return fail(422, {
 				error: error instanceof Error ? error.message : 'unknown error',
 			});
