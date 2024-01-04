@@ -9,18 +9,20 @@ datasource db {
 }
 
 model Event {
-  id          Int       @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   name        String
   description String?
-  startDate   DateTime  @db.Timestamp(6)
-  endDate     DateTime  @db.Timestamp(6)
-  duration    Int
+  startDate   DateTime   @db.Timestamp(6)
+  endDate     DateTime   @db.Timestamp(6)
   isDone      Boolean
-  deleted     DateTime? @db.Timestamp(6)
+  deleted     DateTime?  @db.Timestamp(6)
   userId      String
+  recurrentId Int?
   categoryId  Int
-  category    Category  @relation(fields: [categoryId], references: [id])
-  user        User      @relation(fields: [userId], references: [id])
+  duration    Int
+  category    Category   @relation(fields: [categoryId], references: [id])
+  user        User       @relation(fields: [userId], references: [id])
+  recurrent   Recurrent? @relation(fields: [recurrentId], references: [id])
 }
 
 model Account {
@@ -64,11 +66,11 @@ model User {
 model Category {
   id        Int       @id @default(autoincrement())
   name      String
+  userId    String
   isDefault Boolean
+  deleted   DateTime? @db.Timestamp(6)
   color     String
   group     String
-  deleted   DateTime? @db.Timestamp(6)
-  userId    String
   user      User      @relation(fields: [userId], references: [id])
   Event     Event[]
 }
@@ -79,4 +81,12 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Recurrent {
+  id         Int      @id @default(autoincrement())
+  startAt    DateTime @db.Timestamp(6)
+  endAt      DateTime @db.Timestamp(6)
+  daysOfWeek String[]
+  Event      Event[]
 }

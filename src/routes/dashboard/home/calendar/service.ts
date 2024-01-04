@@ -23,6 +23,7 @@ export function convertToEventIn(event: EEvent): EventIn {
 		duration: convertToTime(event.duration),
 		isDone: event.isDone,
 		categoryId: event.categoryId,
+		recurrentId: event.recurrentId,
 	};
 }
 
@@ -37,6 +38,7 @@ export function buildEmptyEventIn(categories: CCategory[]): EventIn {
 		duration: '00:15',
 		isDone: false,
 		categoryId: categories.find((category) => category.isDefault)?.id || 0,
+		recurrentId: null,
 	};
 }
 
@@ -66,6 +68,7 @@ export function buildEventWithTime(
 		duration: '00:15',
 		isDone: false,
 		categoryId: categories.find((category) => category.isDefault)?.id || 0,
+		recurrentId: null,
 	};
 }
 
