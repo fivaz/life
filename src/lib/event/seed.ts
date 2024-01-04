@@ -27,6 +27,7 @@ export const normalWithoutDescription: EEvent = {
 	categoryId: routine.id,
 	category: routine,
 	recurrentId: null,
+	recurrent: null,
 };
 
 export const shortWithoutDescription: EEvent = {
@@ -40,6 +41,7 @@ export const shortWithoutDescription: EEvent = {
 	categoryId: routine.id,
 	category: routine,
 	recurrentId: null,
+	recurrent: null,
 };
 
 export const long: EEvent = {
@@ -53,6 +55,7 @@ export const long: EEvent = {
 	categoryId: work.id,
 	category: work,
 	recurrentId: null,
+	recurrent: null,
 };
 
 export const done: EEvent = {
@@ -66,6 +69,7 @@ export const done: EEvent = {
 	categoryId: work.id,
 	category: work,
 	recurrentId: null,
+	recurrent: null,
 };
 
 export const redEvent: EEvent = {
@@ -79,6 +83,7 @@ export const redEvent: EEvent = {
 	categoryId: fun.id,
 	category: fun,
 	recurrentId: null,
+	recurrent: null,
 };
 
 export const events: EEvent[] = [
@@ -100,6 +105,7 @@ export const sleepEvent: EEvent = {
 	categoryId: sleep.id,
 	category: sleep,
 	recurrentId: null,
+	recurrent: null,
 };
 
 export const workEvent: EEvent = {
@@ -113,6 +119,12 @@ export const workEvent: EEvent = {
 	categoryId: work.id,
 	category: work,
 	recurrentId: null,
+	recurrent: {
+		id: 1,
+		startAt: new Date(),
+		endAt: addDays(new Date(), 7),
+		daysOfWeek: ['mon', 'tue', 'wed', 'thu', 'fri'],
+	},
 };
 
 export const funEvent: EEvent = {
@@ -126,6 +138,7 @@ export const funEvent: EEvent = {
 	categoryId: fun.id,
 	category: fun,
 	recurrentId: null,
+	recurrent: null,
 };
 
 export const perfectDay: EEvent[] = [sleepEvent, workEvent, funEvent];

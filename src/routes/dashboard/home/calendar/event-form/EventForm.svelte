@@ -8,6 +8,7 @@
 	import Select from '$lib/components/select/Select.svelte';
 	import { removeEvent, updateEvent } from '$lib/event/store';
 	import { TIME } from '$lib/utils';
+	import classnames from 'classnames';
 	import { isAfter, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
@@ -53,7 +54,7 @@
 	method="POST"
 	action="?/save"
 	use:enhance={submit}
-	class="w-[336px] shadow rounded-md overflow-hidden relative"
+	class="w-[355px] shadow rounded-md overflow-hidden relative"
 >
 	<div class="flex flex-col gap-3 px-4 py-5 bg-white sm:p-6">
 		<h2 class="text-lg font-medium text-gray-900">
@@ -108,9 +109,43 @@
 			/>
 		</label>
 
-		<div class="grid grid-cols-4 gap-3">
+		<label class="flex gap-3 items-center">
+			Recurring
+			<input
+				name="isDone"
+				type="checkbox"
+				bind:checked={event.isRecurrent}
+				class="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+			/>
+			<!--mt-1 is to align the checkbox with the label-->
+		</label>
+
+		<div class={classnames({ hidden: !event.isRecurrent })}>
+			<div class="flex gap-3">
+				<Input
+					labelClass="w-1/2"
+					label="Start at"
+					type="date"
+					name="recurrent.startAt"
+					required
+					bind:value={event.recurrent.startAt}
+				/>
+
+				<Input
+					labelClass="w-1/2"
+					label="End at"
+					type="date"
+					name="recurrent.endAt"
+					required
+					bind:value={event.recurrent.endAt}
+				/>
+			</div>
+			<!--			<DaysCheckbox bind:value={event.recurrent.daysOfWeek} />-->
+		</div>
+
+		<div class="flex gap-3">
 			<Input
-				labelClass="col-span-2"
+				labelClass="w-1/2"
 				label="Date"
 				type="date"
 				name="date"
@@ -120,7 +155,7 @@
 			/>
 
 			<Input
-				labelClass="col-span-2"
+				labelClass="w-1/2"
 				label="Duration"
 				type="time"
 				name="duration"
@@ -130,9 +165,9 @@
 			/>
 		</div>
 
-		<div class="grid grid-cols-4 gap-3">
+		<div class="flex gap-3">
 			<Input
-				labelClass="col-span-2"
+				labelClass="w-1/2"
 				label="Start time"
 				type="time"
 				name="startTime"
@@ -141,7 +176,7 @@
 			/>
 
 			<Input
-				labelClass="col-span-2"
+				labelClass="w-1/2"
 				label="End time"
 				type="time"
 				name="endTime"

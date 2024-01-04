@@ -10,6 +10,12 @@ export type EventIn = Omit<OnlyEEvent, 'startDate' | 'endDate' | 'duration'> & {
 	startTime: string;
 	endTime: string;
 	duration: string;
+	isRecurrent: boolean;
+	recurrent: {
+		startAt: string;
+		endAt: string;
+		daysOfWeek: string[];
+	};
 };
 
 export function convertToEventIn(event: EEvent): EventIn {
@@ -24,6 +30,12 @@ export function convertToEventIn(event: EEvent): EventIn {
 		isDone: event.isDone,
 		categoryId: event.categoryId,
 		recurrentId: event.recurrentId,
+		isRecurrent: event.recurrentId != null,
+		recurrent: {
+			startAt: event.recurrent?.startAt.toString() || '',
+			endAt: event.recurrent?.endAt.toString() || '',
+			daysOfWeek: event.recurrent?.daysOfWeek || [],
+		},
 	};
 }
 
@@ -39,6 +51,12 @@ export function buildEmptyEventIn(categories: CCategory[]): EventIn {
 		isDone: false,
 		categoryId: categories.find((category) => category.isDefault)?.id || 0,
 		recurrentId: null,
+		isRecurrent: false,
+		recurrent: {
+			startAt: '',
+			endAt: '',
+			daysOfWeek: [],
+		},
 	};
 }
 
@@ -69,6 +87,12 @@ export function buildEventWithTime(
 		isDone: false,
 		categoryId: categories.find((category) => category.isDefault)?.id || 0,
 		recurrentId: null,
+		isRecurrent: false,
+		recurrent: {
+			startAt: '',
+			endAt: '',
+			daysOfWeek: [],
+		},
 	};
 }
 

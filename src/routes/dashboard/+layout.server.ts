@@ -15,7 +15,7 @@ export const load = (async (event) => {
 	const [events, categories]: [events: EEvent[], categories: CCategory[]] = await Promise.all([
 		prisma.event.findMany({
 			where: { deleted: null, userId: session.user.id },
-			include: { category: true },
+			include: { category: true, recurrent: true },
 		}),
 		prisma.category.findMany({
 			where: { deleted: null, userId: session.user.id },

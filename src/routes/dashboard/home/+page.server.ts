@@ -25,7 +25,7 @@ export const actions = {
 			data: {
 				isDone,
 			},
-			include: { category: true },
+			include: { category: true, recurrent: true },
 		});
 
 		return { saved: event };
@@ -77,7 +77,7 @@ export const actions = {
 						isDone,
 						categoryId,
 					},
-					include: { category: true },
+					include: { category: true, recurrent: true },
 				});
 				return { saved: event };
 			} else {
@@ -92,7 +92,7 @@ export const actions = {
 						isDone,
 						categoryId,
 					},
-					include: { category: true },
+					include: { category: true, recurrent: true },
 				});
 				return { saved: event };
 			}
@@ -119,7 +119,7 @@ export const actions = {
 			data: {
 				deleted: new Date(),
 			},
-			include: { category: true },
+			include: { category: true, recurrent: true },
 		});
 		return { removed: event };
 	},
