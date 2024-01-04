@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { TTask } from '$lib/task/utils';
+	import type { EEvent } from '$lib/task/utils';
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
 	import Event from './event/Event.svelte';
 	import { halfHourInterval, getGridRowsStyle } from './service';
 
-	export let events: TTask[];
+	export let events: EEvent[];
 
 	const quarterHourInterval = halfHourInterval * 2;
 </script>

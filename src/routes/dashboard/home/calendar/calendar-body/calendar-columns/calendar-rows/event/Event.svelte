@@ -5,20 +5,20 @@
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import { removeDraggedEvent, setDraggedEvent } from '$lib/dragged/store';
 	import { toggleTask } from '$lib/task/store';
-	import type { TTask } from '$lib/task/utils';
+	import type { EEvent } from '$lib/task/utils';
 	import classnames from 'classnames';
 	import { format } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 	import EventName from './event-name/EventName.svelte';
 	import { isShort } from './service';
 
-	export let event: TTask;
+	export let event: EEvent;
 
 	let loading = false;
 
 	let form: HTMLFormElement | null = null;
 
-	const dispatch = createEventDispatcher<{ edit: TTask }>();
+	const dispatch = createEventDispatcher<{ edit: EEvent }>();
 
 	function dragStart(e: DragEvent) {
 		if (e.currentTarget instanceof HTMLDivElement) {

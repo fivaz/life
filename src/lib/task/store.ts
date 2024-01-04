@@ -1,11 +1,14 @@
-import type { TTask } from '$lib/task/utils';
+import type { EEvent, TTask } from '$lib/task/utils';
 import { DATE_FR } from '$lib/utils';
 import { format, isToday, isTomorrow, isYesterday } from 'date-fns';
 import { derived, writable } from 'svelte/store';
 
 export const tasks = writable<TTask[]>([]);
 
-function getDateName(date: Date): string {
+function getDateName(date: Date | null): string {
+	if (!date) {
+		return 'Unset';
+	}
 	if (isToday(date)) {
 		return 'Today';
 	}
@@ -30,12 +33,13 @@ function groupToDosByDate(toDos: TTask[]): Record<string, TTask[]> {
 	}, {});
 }
 
-export const toDos = derived(tasks, ($tasks) =>
-	groupToDosByDate($tasks.filter((task) => task.isDone === false)),
+export const events = derived(
+	tasks,
+	($tasks) => $tasks.filter((task) => task.startDate && task.endDate) as EEvent[],
 );
 
-export const events = derived(tasks, ($tasks) =>
-	$tasks.filter((task) => task.startDate && task.endDate),
+export const toDos = derived(tasks, ($tasks) =>
+	groupToDosByDate($tasks.filter((task) => task.isDone === false)),
 );
 
 export function updateTask(newTask: TTask) {
@@ -54,6 +58,7 @@ export function updateTask(newTask: TTask) {
 export function removeTask(task: TTask) {
 	tasks.update(($tasks) => $tasks.filter((existingTask) => existingTask.id !== task.id));
 }
+
 export function toggleTask(task: TTask) {
 	tasks.update(($tasks) => [
 		...$tasks.filter((existingTask) => existingTask.id !== task.id),

@@ -15,7 +15,7 @@
 	export let event: EventIn = buildEmptyEventIn([]);
 
 	export function getSumOfDurationsAsTime(events: TTask[]): string {
-		const sumOfDurationsInMinutes = events.reduce((sum, event) => sum + event.duration, 0);
+		const sumOfDurationsInMinutes = events.reduce((sum, event) => sum + (event.duration || 0), 0);
 		const hours = Math.floor(sumOfDurationsInMinutes / 60);
 		const remainingMinutes = sumOfDurationsInMinutes % 60;
 		return `${hours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')}`;
