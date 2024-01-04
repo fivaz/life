@@ -3,7 +3,7 @@ import { DATE_FR } from '$lib/utils';
 import { format, isToday, isTomorrow, isYesterday } from 'date-fns';
 import { derived, writable } from 'svelte/store';
 
-export const events = writable<TTask[]>([]);
+export const tasks = writable<TTask[]>([]);
 
 function getDateName(date: Date): string {
 	if (isToday(date)) {
@@ -18,41 +18,45 @@ function getDateName(date: Date): string {
 	return format(date, DATE_FR);
 }
 
-function groupEventsByDate(events: TTask[]): Record<string, TTask[]> {
-	return events.reduce<Record<string, TTask[]>>((groups, event) => {
-		const date = getDateName(event.startDate);
+function groupToDosByDate(toDos: TTask[]): Record<string, TTask[]> {
+	return toDos.reduce<Record<string, TTask[]>>((groups, toDo) => {
+		const date = getDateName(toDo.startDate);
 
 		if (!groups[date]) {
 			groups[date] = [];
 		}
-		groups[date].push(event);
+		groups[date].push(toDo);
 		return groups;
 	}, {});
 }
 
-export const toDos = derived(events, ($events) =>
-	groupEventsByDate($events.filter((event) => event.isDone === false)),
+export const toDos = derived(tasks, ($tasks) =>
+	groupToDosByDate($tasks.filter((task) => task.isDone === false)),
 );
 
-export function updateEvent(newEvent: TTask) {
-	events.update(($events) => {
-		const index = $events.findIndex((event) => event.id === newEvent.id);
+export const events = derived(tasks, ($tasks) =>
+	$tasks.filter((task) => task.startDate && task.endDate),
+);
+
+export function updateTask(newTask: TTask) {
+	tasks.update(($tasks) => {
+		const index = $tasks.findIndex((task) => task.id === newTask.id);
 		if (index !== -1) {
 			// Update existing task
-			return $events.map((event) => (event.id === newEvent.id ? newEvent : event));
+			return $tasks.map((task) => (task.id === newTask.id ? newTask : task));
 		} else {
 			// Add new task
-			return [...$events, newEvent];
+			return [...$tasks, newTask];
 		}
 	});
 }
 
-export function removeEvent(event: TTask) {
-	events.update(($events) => $events.filter((existingEvent) => existingEvent.id !== event.id));
+export function removeTask(task: TTask) {
+	tasks.update(($tasks) => $tasks.filter((existingTask) => existingTask.id !== task.id));
 }
-export function toggleEvent(event: TTask) {
-	events.update(($events) => [
-		...$events.filter((existingEvent) => existingEvent.id !== event.id),
-		{ ...event, isDone: !event.isDone },
+export function toggleTask(task: TTask) {
+	tasks.update(($tasks) => [
+		...$tasks.filter((existingTask) => existingTask.id !== task.id),
+		{ ...task, isDone: !task.isDone },
 	]);
 }

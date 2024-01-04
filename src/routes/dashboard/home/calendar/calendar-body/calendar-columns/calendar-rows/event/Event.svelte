@@ -4,7 +4,7 @@
 	import { tailwindColors } from '$lib/category/utils';
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import { removeDraggedEvent, setDraggedEvent } from '$lib/dragged/store';
-	import { toggleEvent } from '$lib/task/store';
+	import { toggleTask } from '$lib/task/store';
 	import type { TTask } from '$lib/task/utils';
 	import classnames from 'classnames';
 	import { format } from 'date-fns';
@@ -38,7 +38,7 @@
 		loading = true;
 		return async ({ result }) => {
 			if (result.type === 'success') {
-				toggleEvent(event);
+				toggleTask(event);
 			}
 			loading = false;
 		};

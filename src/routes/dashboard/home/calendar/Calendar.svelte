@@ -2,13 +2,12 @@
 	import { categories } from '$lib/category/store';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { draggedEvent } from '$lib/dragged/store';
-	import { updateEvent } from '$lib/task/store';
+	import { updateTask } from '$lib/task/store';
 	import { startOfWeek } from 'date-fns';
 
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
-	import EventForm from './event-form/EventForm.svelte';
 	import {
 		buildEmptyEventIn,
 		buildEventWithTime,
@@ -17,6 +16,7 @@
 		preserveEvent,
 	} from './service';
 	import type { EventIn } from './service';
+	import TaskForm from './task-form/TaskForm.svelte';
 
 	let currentDate = new Date();
 
@@ -51,12 +51,12 @@
 		on:move={(e) => {
 			if ($draggedEvent) {
 				const event = moveEvent($draggedEvent, e.detail.date, e.detail.timeInterval);
-				updateEvent(event);
+				updateTask(event);
 				preserveEvent(event);
 			}
 		}}
 	/>
 	<Modal show={showForm} on:close={() => (showForm = false)}>
-		<EventForm on:submit={() => (showForm = false)} {form} {event} />
+		<TaskForm on:submit={() => (showForm = false)} {form} {event} />
 	</Modal>
 </div>

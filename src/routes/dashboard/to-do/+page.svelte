@@ -4,9 +4,9 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { toDos } from '$lib/task/store';
 	import type { TTask } from '$lib/task/utils';
-	import EventForm from '../home/calendar/event-form/EventForm.svelte';
 	import { buildEmptyEventIn, convertToEventIn } from '../home/calendar/service';
 	import type { EventIn } from '../home/calendar/service';
+	import TaskForm from '../home/calendar/task-form/TaskForm.svelte';
 	import type { ActionData } from './$types';
 	import ToDoRow from './to-do-row/ToDoRow.svelte';
 
@@ -54,6 +54,6 @@
 	</ul>
 
 	<Modal show={showForm} on:close={() => (showForm = false)}>
-		<EventForm on:submit={() => (showForm = false)} {event} {form} />
+		<TaskForm on:submit={() => (showForm = false)} {event} {form} />
 	</Modal>
 </div>
