@@ -2,7 +2,7 @@
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import type { Meta } from '@storybook/svelte';
 	import { categories } from '$lib/category/seed';
-	import { redEvent } from '$lib/event/seed';
+	import { redEvent } from '$lib/task/seed';
 	import { buildEmptyEventIn } from '../service';
 	import { convertToEventIn } from '../service.js';
 	import EventForm from './EventForm.svelte';

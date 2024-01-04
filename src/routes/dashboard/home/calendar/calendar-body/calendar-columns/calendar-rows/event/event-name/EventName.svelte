@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { EEvent } from '$lib/event/utils';
+	import type { TTask } from '$lib/task/utils';
 	import classnames from 'classnames';
 	import { onMount } from 'svelte';
 	import { isShort } from '../service';
@@ -8,7 +8,7 @@
 
 	let nameContainer: HTMLParagraphElement | null = null;
 
-	export let event: EEvent;
+	export let event: TTask;
 
 	function truncateText() {
 		if (eventContainer && nameContainer) {

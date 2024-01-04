@@ -1,7 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
-import type { EEvent } from '$lib/event/utils';
-import { convertToMinutes } from '$lib/event/utils';
 import prisma from '$lib/prisma';
+import type { TTask } from '$lib/task/utils';
+import { convertToMinutes } from '$lib/task/utils';
 import { loginRoute } from '$lib/utils';
 import { add, addMinutes, parseISO, set } from 'date-fns';
 import type { Actions } from './$types';
@@ -9,7 +9,7 @@ import type { Actions } from './$types';
 function getTomorrowDate(date: Date): Date {
 	const tomorrow = add(new Date(), { days: 1 });
 
-	// Reschedule the event to be tomorrow at the same time
+	// Reschedule the task to be tomorrow at the same time
 	return set(date, {
 		year: tomorrow.getFullYear(),
 		month: tomorrow.getMonth(),
@@ -32,7 +32,7 @@ export const actions = {
 
 		const tomorrowDate = getTomorrowDate(startDate);
 
-		const event: EEvent = await prisma.event.update({
+		const event: TTask = await prisma.task.update({
 			where: {
 				id,
 				userId: session.user.id,
@@ -78,7 +78,7 @@ export const actions = {
 			}
 
 			if (id) {
-				const event: EEvent = await prisma.event.update({
+				const event: TTask = await prisma.task.update({
 					where: {
 						id,
 						userId: session.user.id,
@@ -96,7 +96,7 @@ export const actions = {
 				});
 				return { saved: event };
 			} else {
-				const event: EEvent = await prisma.event.create({
+				const event: TTask = await prisma.task.create({
 					data: {
 						userId: session.user.id,
 						name: name || categoryName,
@@ -126,7 +126,7 @@ export const actions = {
 
 		const data = await request.formData();
 		const id = Number(data.get('id'));
-		const event: EEvent = await prisma.event.update({
+		const event: TTask = await prisma.task.update({
 			where: {
 				id,
 				userId: session.user.id,

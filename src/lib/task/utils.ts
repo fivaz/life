@@ -1,13 +1,13 @@
-import type { Event } from '@prisma/client';
+import type { Task } from '@prisma/client';
 import type { CCategory } from '$lib/category/utils';
 import { TIME } from '$lib/utils';
 import { format } from 'date-fns';
 
-export type EEvent = Omit<Event, 'deleted' | 'userId'> & {
+export type TTask = Omit<Task, 'deleted' | 'userId'> & {
 	category: CCategory;
 };
 
-export type OnlyEEvent = Omit<EEvent, 'category'>;
+export type OnlyTTask = Omit<TTask, 'category'>;
 
 export function convertToMinutes(duration: string) {
 	const [hours, minutes] = duration.split(':').map(Number);
