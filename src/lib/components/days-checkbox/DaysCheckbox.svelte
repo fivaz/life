@@ -1,5 +1,5 @@
 <script lang="ts">
-	const weekDays: string[] = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+	import { weekDays } from '$lib/components/days-checkbox/service';
 
 	export let value: string[];
 

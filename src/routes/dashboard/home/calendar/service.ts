@@ -1,8 +1,9 @@
 import type { CCategory } from '$lib/category/utils';
+import { weekDays } from '$lib/components/days-checkbox/service';
 import type { EEvent, OnlyEEvent } from '$lib/event/utils';
 import { convertToTime } from '$lib/event/utils';
 import { DATE, TIME } from '$lib/utils';
-import { addMinutes, differenceInMinutes, format, setHours, setMinutes } from 'date-fns';
+import { addMinutes, addMonths, differenceInMinutes, format, setHours, setMinutes } from 'date-fns';
 import { halfHourInterval } from './calendar-body/calendar-columns/calendar-rows/service';
 
 export type EventIn = Omit<
@@ -47,9 +48,9 @@ export function buildEmptyEventIn(categories: CCategory[]): EventIn {
 		isDone: false,
 		categoryId: categories.find((category) => category.isDefault)?.id || 0,
 		isRecurring: false,
-		recurringStartAt: '',
-		recurringEndAt: '',
-		recurringDaysOfWeek: [],
+		recurringStartAt: format(new Date(), DATE),
+		recurringEndAt: format(addMonths(new Date(), 1), DATE),
+		recurringDaysOfWeek: weekDays.slice(1, 6),
 	};
 }
 
