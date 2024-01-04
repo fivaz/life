@@ -8,7 +8,6 @@
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
-	import EventForm from './event-form/EventForm.svelte';
 	import {
 		buildEmptyEventIn,
 		buildEventWithTime,
@@ -17,6 +16,7 @@
 		preserveEvent,
 	} from './service';
 	import type { EventIn } from './service';
+	import EventForm from './task-form/TaskForm.svelte';
 
 	let currentDate = new Date();
 

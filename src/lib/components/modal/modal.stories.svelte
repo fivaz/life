@@ -2,8 +2,8 @@
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import type { Meta } from '@storybook/svelte';
 	import { categories } from '$lib/category/seed';
-	import EventForm from '../../../routes/dashboard/home/calendar/event-form/EventForm.svelte';
 	import { buildEmptyEventIn } from '../../../routes/dashboard/home/calendar/service';
+	import EventForm from '../../../routes/dashboard/home/calendar/task-form/TaskForm.svelte';
 	import Modal from './Modal.svelte';
 
 	export const meta = {

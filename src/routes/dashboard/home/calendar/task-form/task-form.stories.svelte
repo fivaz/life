@@ -5,7 +5,7 @@
 	import { redEvent } from '$lib/task/seed';
 	import { buildEmptyEventIn } from '../service';
 	import { convertToEventIn } from '../service.js';
-	import EventForm from './EventForm.svelte';
+	import EventForm from './TaskForm.svelte';
 
 	export const meta = {
 		component: EventForm,
