@@ -5,17 +5,16 @@ import { DATE, TIME } from '$lib/utils';
 import { addMinutes, differenceInMinutes, format, setHours, setMinutes } from 'date-fns';
 import { halfHourInterval } from './calendar-body/calendar-columns/calendar-rows/service';
 
-export type EventIn = Omit<OnlyEEvent, 'startDate' | 'endDate' | 'duration'> & {
+export type EventIn = Omit<
+	OnlyEEvent,
+	'startDate' | 'endDate' | 'duration' | 'recurringStartAt' | 'recurringEndAt'
+> & {
 	date: string;
 	startTime: string;
 	endTime: string;
 	duration: string;
-	isRecurrent: boolean;
-	recurrent: {
-		startAt: string;
-		endAt: string;
-		daysOfWeek: string[];
-	};
+	recurringStartAt: string;
+	recurringEndAt: string;
 };
 
 export function convertToEventIn(event: EEvent): EventIn {
@@ -29,13 +28,10 @@ export function convertToEventIn(event: EEvent): EventIn {
 		duration: convertToTime(event.duration),
 		isDone: event.isDone,
 		categoryId: event.categoryId,
-		recurrentId: event.recurrentId,
-		isRecurrent: event.recurrentId != null,
-		recurrent: {
-			startAt: event.recurrent?.startAt.toString() || '',
-			endAt: event.recurrent?.endAt.toString() || '',
-			daysOfWeek: event.recurrent?.daysOfWeek || [],
-		},
+		isRecurring: event.isRecurring,
+		recurringStartAt: event.recurringStartAt ? format(event.recurringStartAt, DATE) : '',
+		recurringEndAt: event.recurringEndAt ? format(event.recurringEndAt, DATE) : '',
+		recurringDaysOfWeek: event.recurringDaysOfWeek || [],
 	};
 }
 
@@ -50,13 +46,10 @@ export function buildEmptyEventIn(categories: CCategory[]): EventIn {
 		duration: '00:15',
 		isDone: false,
 		categoryId: categories.find((category) => category.isDefault)?.id || 0,
-		recurrentId: null,
-		isRecurrent: false,
-		recurrent: {
-			startAt: '',
-			endAt: '',
-			daysOfWeek: [],
-		},
+		isRecurring: false,
+		recurringStartAt: '',
+		recurringEndAt: '',
+		recurringDaysOfWeek: [],
 	};
 }
 
@@ -86,13 +79,10 @@ export function buildEventWithTime(
 		duration: '00:15',
 		isDone: false,
 		categoryId: categories.find((category) => category.isDefault)?.id || 0,
-		recurrentId: null,
-		isRecurrent: false,
-		recurrent: {
-			startAt: '',
-			endAt: '',
-			daysOfWeek: [],
-		},
+		isRecurring: false,
+		recurringStartAt: '',
+		recurringEndAt: '',
+		recurringDaysOfWeek: [],
 	};
 }
 

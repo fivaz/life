@@ -25,7 +25,7 @@ export const actions = {
 			data: {
 				isDone,
 			},
-			include: { category: true, recurrent: true },
+			include: { category: true },
 		});
 
 		return { saved: event };
@@ -40,16 +40,18 @@ export const actions = {
 		try {
 			const data = await request.formData();
 			const id = Number(data.get('id'));
-			const isDone = data.get('isDone') === 'true';
+			const isDone = !!data.get('isDone');
 			const categoryId = Number(data.get('categoryId'));
 			const name = data.get('name') as string;
 			const description = data.get('description') as string;
 			const startDateString = data.get('startDate') as string;
 			const endDateString = data.get('endDate') as string;
-
 			const duration = convertToMinutes(data.get('duration') as string);
-
 			const categoryName = data.get('categoryName') as string;
+			const isRecurring = !!data.get('isRecurring');
+			const recurringStartAtString = data.get('recurringStartAt') as string;
+			const recurringEndAtString = data.get('recurringEndAt') as string;
+			const recurringDaysOfWeekString = data.get('recurringDaysOfWeek') as string;
 
 			if (!categoryName || !categoryId) {
 				throw Error('internal error, please refresh the page');
@@ -57,6 +59,10 @@ export const actions = {
 
 			const startDate = parseISO(startDateString);
 			const endDate = parseISO(endDateString);
+
+			const recurringStartAt = isRecurring ? parseISO(recurringStartAtString) : null;
+			const recurringEndAt = isRecurring ? parseISO(recurringEndAtString) : null;
+			const recurringDaysOfWeek = isRecurring ? recurringDaysOfWeekString.split(',') : [];
 
 			if (startDate > endDate) {
 				throw Error('startDate should be before endDate');
@@ -76,9 +82,16 @@ export const actions = {
 						duration,
 						isDone,
 						categoryId,
+						isRecurring,
+						recurringStartAt,
+						recurringEndAt,
+						recurringDaysOfWeek,
 					},
-					include: { category: true, recurrent: true },
+					include: { category: true },
 				});
+
+				console.log(event);
+
 				return { saved: event };
 			} else {
 				const event: EEvent = await prisma.event.create({
@@ -91,9 +104,16 @@ export const actions = {
 						duration,
 						isDone,
 						categoryId,
+						isRecurring,
+						recurringStartAt,
+						recurringEndAt,
+						recurringDaysOfWeek,
 					},
-					include: { category: true, recurrent: true },
+					include: { category: true },
 				});
+
+				console.log(event);
+
 				return { saved: event };
 			}
 		} catch (error) {
@@ -119,7 +139,7 @@ export const actions = {
 			data: {
 				deleted: new Date(),
 			},
-			include: { category: true, recurrent: true },
+			include: { category: true },
 		});
 		return { removed: event };
 	},

@@ -9,7 +9,6 @@
 	import Select from '$lib/components/select/Select.svelte';
 	import { removeEvent, updateEvent } from '$lib/event/store';
 	import { TIME } from '$lib/utils';
-	import classnames from 'classnames';
 	import { isAfter, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
@@ -71,7 +70,6 @@
 		{/if}
 
 		<input type="hidden" name="id" value={event.id} />
-		<input type="hidden" name="isDone" value={event.isDone} />
 		<input type="hidden" name="categoryName" value={categoryName} />
 
 		<Input
@@ -113,36 +111,36 @@
 		<label class="flex gap-3 items-center">
 			Recurring
 			<input
-				name="isDone"
+				name="isRecurring"
 				type="checkbox"
-				bind:checked={event.isRecurrent}
+				bind:checked={event.isRecurring}
 				class="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
 			/>
 			<!--mt-1 is to align the checkbox with the label-->
 		</label>
 
-		<div class={classnames({ hidden: !event.isRecurrent })}>
+		{#if event.isRecurring}
 			<div class="flex gap-3">
 				<Input
 					labelClass="w-1/2"
 					label="Start at"
 					type="date"
-					name="recurrent.startAt"
+					name="recurringStartAt"
 					required
-					bind:value={event.recurrent.startAt}
+					bind:value={event.recurringStartAt}
 				/>
 
 				<Input
 					labelClass="w-1/2"
 					label="End at"
 					type="date"
-					name="recurrent.endAt"
+					name="recurringEndAt"
 					required
-					bind:value={event.recurrent.endAt}
+					bind:value={event.recurringEndAt}
 				/>
 			</div>
-			<DaysCheckbox bind:value={event.recurrent.daysOfWeek} />
-		</div>
+			<DaysCheckbox name="recurringDaysOfWeek" bind:value={event.recurringDaysOfWeek} />
+		{/if}
 
 		<div class="flex gap-3">
 			<Input

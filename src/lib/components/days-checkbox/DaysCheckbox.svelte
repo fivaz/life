@@ -1,7 +1,9 @@
 <script lang="ts">
 	const weekDays: string[] = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
-	export let value: string[] = [];
+	export let value: string[];
+
+	export let name: string;
 
 	function handleCheckboxChange(day: string) {
 		const index = value.indexOf(day);
@@ -19,6 +21,8 @@
 		value = [...value];
 	}
 </script>
+
+<input type="hidden" {name} {value} />
 
 <div class="flex justify-between">
 	{#each weekDays as day (day)}

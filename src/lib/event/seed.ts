@@ -26,8 +26,10 @@ export const normalWithoutDescription: EEvent = {
 	isDone: false,
 	categoryId: routine.id,
 	category: routine,
-	recurrentId: null,
-	recurrent: null,
+	isRecurring: false,
+	recurringStartAt: null,
+	recurringEndAt: null,
+	recurringDaysOfWeek: [],
 };
 
 export const shortWithoutDescription: EEvent = {
@@ -40,8 +42,10 @@ export const shortWithoutDescription: EEvent = {
 	isDone: false,
 	categoryId: routine.id,
 	category: routine,
-	recurrentId: null,
-	recurrent: null,
+	isRecurring: false,
+	recurringStartAt: null,
+	recurringEndAt: null,
+	recurringDaysOfWeek: [],
 };
 
 export const long: EEvent = {
@@ -54,8 +58,10 @@ export const long: EEvent = {
 	isDone: true,
 	categoryId: work.id,
 	category: work,
-	recurrentId: null,
-	recurrent: null,
+	isRecurring: false,
+	recurringStartAt: null,
+	recurringEndAt: null,
+	recurringDaysOfWeek: [],
 };
 
 export const done: EEvent = {
@@ -68,8 +74,10 @@ export const done: EEvent = {
 	isDone: true,
 	categoryId: work.id,
 	category: work,
-	recurrentId: null,
-	recurrent: null,
+	isRecurring: false,
+	recurringStartAt: null,
+	recurringEndAt: null,
+	recurringDaysOfWeek: [],
 };
 
 export const redEvent: EEvent = {
@@ -82,8 +90,10 @@ export const redEvent: EEvent = {
 	isDone: false,
 	categoryId: fun.id,
 	category: fun,
-	recurrentId: null,
-	recurrent: null,
+	isRecurring: false,
+	recurringStartAt: null,
+	recurringEndAt: null,
+	recurringDaysOfWeek: [],
 };
 
 export const events: EEvent[] = [
@@ -104,8 +114,10 @@ export const sleepEvent: EEvent = {
 	isDone: false,
 	categoryId: sleep.id,
 	category: sleep,
-	recurrentId: null,
-	recurrent: null,
+	isRecurring: false,
+	recurringStartAt: null,
+	recurringEndAt: null,
+	recurringDaysOfWeek: [],
 };
 
 export const workEvent: EEvent = {
@@ -118,13 +130,10 @@ export const workEvent: EEvent = {
 	isDone: false,
 	categoryId: work.id,
 	category: work,
-	recurrentId: null,
-	recurrent: {
-		id: 1,
-		startAt: new Date(),
-		endAt: addDays(new Date(), 7),
-		daysOfWeek: ['mon', 'tue', 'wed', 'thu', 'fri'],
-	},
+	isRecurring: true,
+	recurringStartAt: new Date(),
+	recurringEndAt: addDays(new Date(), 7),
+	recurringDaysOfWeek: ['mon', 'tue', 'wed', 'thu', 'fri'],
 };
 
 export const funEvent: EEvent = {
@@ -137,8 +146,10 @@ export const funEvent: EEvent = {
 	isDone: false,
 	categoryId: fun.id,
 	category: fun,
-	recurrentId: null,
-	recurrent: null,
+	isRecurring: null,
+	recurringStartAt: null,
+	recurringEndAt: null,
+	recurringDaysOfWeek: [],
 };
 
 export const perfectDay: EEvent[] = [sleepEvent, workEvent, funEvent];

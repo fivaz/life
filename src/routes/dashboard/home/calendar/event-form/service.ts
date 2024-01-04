@@ -29,6 +29,7 @@ export function buildDates(formData: FormData): void {
 	const date = formData.get('date') as string;
 	const startTime = formData.get('startTime') as string;
 	const endTime = formData.get('endTime') as string;
+	const isRecurring = !!formData.get('isRecurring');
 
 	const startDateString = `${date} ${startTime}`;
 	const endDateString = `${date} ${endTime}`;
@@ -43,4 +44,18 @@ export function buildDates(formData: FormData): void {
 
 	formData.set('startDate', startDate.toISOString());
 	formData.set('endDate', endDate.toISOString());
+
+	if (isRecurring) {
+		const recurringStartAtString = formData.get('recurringStartAt') as string;
+		const recurringEndAtString = formData.get('recurringEndAt') as string;
+		const recurringStartAt = parse(recurringStartAtString, 'yyyy-MM-dd', new Date());
+		const recurringEndAt = parse(recurringEndAtString, 'yyyy-MM-dd', new Date());
+
+		if (!isValid(recurringStartAt) || !isValid(recurringEndAt)) {
+			throw Error('date, recurringStartAt and recurringEndAt should be valid date and time');
+		}
+
+		formData.set('recurringStartAt', recurringStartAt.toISOString());
+		formData.set('recurringEndAt', recurringEndAt.toISOString());
+	}
 }
