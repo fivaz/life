@@ -1,9 +1,9 @@
-import type { Event } from '@prisma/client';
+import type { Task } from '@prisma/client';
 import type { CCategory } from '$lib/category/utils';
 import { TIME } from '$lib/consts';
 import { format } from 'date-fns';
 
-export type EEvent = Omit<Event, 'deleted' | 'userId'> & {
+export type EEvent = Omit<Task, 'deleted' | 'userId'> & {
 	category: CCategory;
 };
 

@@ -13,7 +13,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 
 	const event: EEvent = await request.json();
 
-	await prisma.event.update({
+	await prisma.task.update({
 		where: {
 			id: event.id,
 			userId: session.user.id,
