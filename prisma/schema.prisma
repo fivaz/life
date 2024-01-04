@@ -8,7 +8,7 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
-model Event {
+model Task {
   id                  Int       @id @default(autoincrement())
   name                String
   description         String?
@@ -61,7 +61,7 @@ model User {
   image         String?
   accounts      Account[]
   Category      Category[]
-  events        Event[]
+  tasks         Task[]
   sessions      Session[]
 }
 
@@ -74,7 +74,7 @@ model Category {
   color     String
   group     String
   user      User      @relation(fields: [userId], references: [id])
-  Event     Event[]
+  Task      Task[]
 }
 
 model VerificationToken {
