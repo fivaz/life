@@ -146,7 +146,7 @@ export const funEvent: EEvent = {
 	isDone: false,
 	categoryId: fun.id,
 	category: fun,
-	isRecurring: null,
+	isRecurring: false,
 	recurringStartAt: null,
 	recurringEndAt: null,
 	recurringDaysOfWeek: [],
