@@ -25,7 +25,7 @@ export const handle: Handle = sequence(
 		providers: [GitHub({ clientId: GITHUB_ID, clientSecret: GITHUB_SECRET })],
 		callbacks: {
 			async session({ session, user, token }) {
-				if (user) {
+				if (user && session.user) {
 					session.user.id = user.id;
 				}
 				return session;

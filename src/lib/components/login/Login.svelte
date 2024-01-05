@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Session } from '@auth/core/types';
+	import type { User } from '@auth/core/types';
 	import { signIn } from '@auth/sveltekit/client';
 	import { homeRoute } from '$lib/utils';
 
-	export let session: Session | null;
+	export let user: User | undefined;
 </script>
 
 <div class="flex min-h-full flex-1">
@@ -12,8 +12,8 @@
 	>
 		<div class="mx-auto w-full max-w-sm lg:w-96">
 			<div>
-				{#if session}
-					<img class="h-10 w-auto" src={session.user?.image} alt="avatar" />
+				{#if user}
+					<img class="h-10 w-auto" src={user?.image} alt="avatar" />
 				{:else}
 					<img
 						class="h-10 w-auto"

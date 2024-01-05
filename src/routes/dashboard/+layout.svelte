@@ -11,6 +11,6 @@
 	categories.set(data.categories);
 </script>
 
-<Dashboard session={$page.data.session}>
+<Dashboard user={$page.data.session?.user}>
 	<slot />
 </Dashboard>
