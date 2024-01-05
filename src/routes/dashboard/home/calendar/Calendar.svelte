@@ -57,6 +57,6 @@
 		}}
 	/>
 	<Modal show={showForm} on:close={() => (showForm = false)}>
-		<TaskForm on:submit={() => (showForm = false)} {form} {event} isOnlyEvent />
+		<TaskForm on:submit={() => (showForm = false)} {form} {event} />
 	</Modal>
 </div>

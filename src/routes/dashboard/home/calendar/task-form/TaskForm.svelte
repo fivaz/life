@@ -19,9 +19,6 @@
 
 	export let event: EventIn;
 
-	export let isOnlyEvent: boolean = false;
-	let isEvent: boolean = isOnlyEvent;
-
 	$: error = !isAfter(
 		parse(event.endTime, TIME, new Date()),
 		parse(event.startTime, TIME, new Date()),
@@ -34,9 +31,7 @@
 	const dispatch = createEventDispatcher();
 
 	export const submit: SubmitFunction = ({ formData }) => {
-		if (isEvent) {
-			buildDates(formData);
-		}
+		buildDates(formData);
 		dispatch('submit');
 		return async ({ result }) => {
 			await applyAction(result);
@@ -113,100 +108,84 @@
 			/>
 		</label>
 
-		{#if !isOnlyEvent}
-			<div class="flex justify-start">
-				<label class="flex gap-2 items-center text-sm font-medium text-gray-700">
-					Event
-					<input
-						type="checkbox"
-						bind:checked={isEvent}
-						class="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-					/>
-					<!--mt-1 is to align the checkbox with the label-->
-				</label>
-			</div>
-		{/if}
+		<div class="flex justify-start">
+			<label class="flex gap-2 items-center text-sm font-medium text-gray-700">
+				Recurring
+				<input
+					name="isRecurring"
+					type="checkbox"
+					bind:checked={event.isRecurring}
+					class="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+				/>
+				<!--mt-1 is to align the checkbox with the label-->
+			</label>
+		</div>
 
-		{#if isEvent}
+		{#if event.isRecurring}
 			<div class="flex gap-3">
 				<Input
 					labelClass="w-1/2"
-					label="Date"
+					label="Start at"
 					type="date"
-					name="date"
-					bind:value={event.date}
+					name="recurringStartAt"
 					required
-					class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+					bind:value={event.recurringStartAt}
 				/>
 
 				<Input
 					labelClass="w-1/2"
-					label="Duration"
-					type="time"
-					name="duration"
+					label="End at"
+					type="date"
+					name="recurringEndAt"
 					required
-					bind:value={event.duration}
-					on:input={(e) => (event.endTime = getEndTime(event.startTime, e.detail))}
+					bind:value={event.recurringEndAt}
 				/>
 			</div>
-
-			<div class="flex gap-3">
-				<Input
-					labelClass="w-1/2"
-					label="Start time"
-					type="time"
-					name="startTime"
-					required
-					bind:value={event.startTime}
-				/>
-
-				<Input
-					labelClass="w-1/2"
-					label="End time"
-					type="time"
-					name="endTime"
-					required
-					bind:value={event.endTime}
-					on:input={(e) => (event.duration = getDuration(event.startTime, e.detail))}
-				/>
-			</div>
-
-			<div class="flex justify-start">
-				<label class="flex gap-2 items-center text-sm font-medium text-gray-700">
-					Recurring
-					<input
-						name="isRecurring"
-						type="checkbox"
-						bind:checked={event.isRecurring}
-						class="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-					/>
-					<!--mt-1 is to align the checkbox with the label-->
-				</label>
-			</div>
-
-			{#if event.isRecurring}
-				<div class="flex gap-3">
-					<Input
-						labelClass="w-1/2"
-						label="Start at"
-						type="date"
-						name="recurringStartAt"
-						required
-						bind:value={event.recurringStartAt}
-					/>
-
-					<Input
-						labelClass="w-1/2"
-						label="End at"
-						type="date"
-						name="recurringEndAt"
-						required
-						bind:value={event.recurringEndAt}
-					/>
-				</div>
-				<DaysCheckbox name="recurringDaysOfWeek" bind:value={event.recurringDaysOfWeek} />
-			{/if}
+			<DaysCheckbox name="recurringDaysOfWeek" bind:value={event.recurringDaysOfWeek} />
 		{/if}
+
+		<div class="flex gap-3">
+			<Input
+				labelClass="w-1/2"
+				label="Date"
+				type="date"
+				name="date"
+				bind:value={event.date}
+				required
+				class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+			/>
+
+			<Input
+				labelClass="w-1/2"
+				label="Duration"
+				type="time"
+				name="duration"
+				required
+				bind:value={event.duration}
+				on:input={(e) => (event.endTime = getEndTime(event.startTime, e.detail))}
+			/>
+		</div>
+
+		<div class="flex gap-3">
+			<Input
+				labelClass="w-1/2"
+				label="Start time"
+				type="time"
+				name="startTime"
+				required
+				bind:value={event.startTime}
+			/>
+
+			<Input
+				labelClass="w-1/2"
+				label="End time"
+				type="time"
+				name="endTime"
+				required
+				bind:value={event.endTime}
+				on:input={(e) => (event.duration = getDuration(event.startTime, e.detail))}
+			/>
+		</div>
 	</div>
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">

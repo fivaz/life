@@ -1,9 +1,9 @@
-import { redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import prisma from '$lib/prisma';
 import type { TTask } from '$lib/task/utils';
-import { deleteTask, saveTask } from '$lib/task/utils';
+import { convertToMinutes } from '$lib/task/utils';
 import { loginRoute } from '$lib/utils';
-import { add, addMinutes, set } from 'date-fns';
+import { add, addMinutes, parseISO, set } from 'date-fns';
 import type { Actions } from './$types';
 
 function getTomorrowDate(date: Date): Date {
@@ -46,9 +46,96 @@ export const actions = {
 		return { saved: event };
 	},
 	save: async ({ request, locals }) => {
-		return await saveTask(locals, request);
+		const session = await locals.getSession();
+
+		if (!session?.user) {
+			throw redirect(303, loginRoute);
+		}
+
+		try {
+			const data = await request.formData();
+			const id = Number(data.get('id'));
+			const isDone = data.get('isDone') === 'true';
+			const categoryId = Number(data.get('categoryId'));
+			const name = data.get('name') as string;
+			const description = data.get('description') as string;
+			const startDateString = data.get('startDate') as string;
+			const endDateString = data.get('endDate') as string;
+
+			const duration = convertToMinutes(data.get('duration') as string);
+
+			const categoryName = data.get('categoryName') as string;
+
+			if (!categoryName || !categoryId) {
+				throw Error('internal error, please refresh the page');
+			}
+
+			const startDate = parseISO(startDateString);
+			const endDate = parseISO(endDateString);
+
+			if (startDate > endDate) {
+				throw Error('startDate should be before endDate');
+			}
+
+			if (id) {
+				const event: TTask = await prisma.task.update({
+					where: {
+						id,
+						userId: session.user.id,
+					},
+					data: {
+						name: name || categoryName,
+						description,
+						startDate,
+						endDate,
+						duration,
+						isDone,
+						categoryId,
+					},
+					include: { category: true },
+				});
+				return { saved: event };
+			} else {
+				const event: TTask = await prisma.task.create({
+					data: {
+						userId: session.user.id,
+						name: name || categoryName,
+						description,
+						startDate,
+						endDate,
+						duration,
+						isDone,
+						categoryId,
+					},
+					include: { category: true },
+				});
+				return { saved: event };
+			}
+		} catch (error) {
+			return fail(422, {
+				error: error instanceof Error ? error.message : 'unknown error',
+			});
+		}
 	},
 	remove: async ({ request, locals }) => {
-		return await deleteTask(locals, request);
+		const session = await locals.getSession();
+
+		if (!session?.user) {
+			throw redirect(303, loginRoute);
+		}
+
+		const data = await request.formData();
+		const id = Number(data.get('id'));
+		const event: TTask = await prisma.task.update({
+			where: {
+				id,
+				userId: session.user.id,
+			},
+			data: {
+				deleted: new Date(),
+			},
+			include: { category: true },
+		});
+		return { removed: event };
 	},
 } satisfies Actions;
