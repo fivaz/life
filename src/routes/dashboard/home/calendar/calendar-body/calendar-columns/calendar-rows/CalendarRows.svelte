@@ -1,16 +1,16 @@
 <script lang="ts">
-	import type { TTask } from '$lib/task/utils';
+	import type { EEvent } from '$lib/event/utils';
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
 	import Event from './event/Event.svelte';
 	import { halfHourInterval, getGridRowsStyle } from './service';
 
-	export let events: TTask[];
+	export let events: EEvent[];
 
 	const quarterHourInterval = halfHourInterval * 2;
 </script>
 
 <!--TODO make top and side sticky-->
-<!--TODO handle task that takes more than 1 day-->
+<!--TODO handle event that takes more than 1 day-->
 
 <div class="relative w-full h-full">
 	<CalendarGrid on:create on:move />

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { events } from '$lib/task/store';
+	import { events } from '$lib/event/store';
 	import classnames from 'classnames';
 	import { format, getDate, isToday } from 'date-fns';
 

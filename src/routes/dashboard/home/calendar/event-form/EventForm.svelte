@@ -7,7 +7,7 @@
 	import Input from '$lib/components/input/Input.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
-	import { removeEvent, updateEvent } from '$lib/task/store';
+	import { removeEvent, updateEvent } from '$lib/event/store';
 	import { TIME } from '$lib/utils';
 	import { isAfter, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';

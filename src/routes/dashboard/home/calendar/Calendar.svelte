@@ -2,7 +2,7 @@
 	import { categories } from '$lib/category/store';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { draggedEvent } from '$lib/dragged/store';
-	import { updateEvent } from '$lib/task/store';
+	import { updateEvent } from '$lib/event/store';
 	import { startOfWeek } from 'date-fns';
 
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/home/$types';

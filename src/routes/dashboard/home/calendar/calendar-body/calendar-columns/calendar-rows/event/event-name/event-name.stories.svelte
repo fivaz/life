@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import type { Meta } from '@storybook/svelte';
-	import { normalWithoutDescription } from '$lib/task/seed';
+	import { normalWithoutDescription } from '$lib/event/seed';
 	import EventName from './EventName.svelte';
 
 	export const meta = {

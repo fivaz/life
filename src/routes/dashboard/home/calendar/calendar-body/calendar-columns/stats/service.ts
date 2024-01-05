@@ -1,10 +1,10 @@
 import type { groups } from '$lib/category/utils';
-import type { TTask } from '$lib/task/utils';
+import type { EEvent } from '$lib/event/utils';
 import { differenceInMilliseconds } from 'date-fns';
 
 type GroupType = (typeof groups)[number];
 
-export function calculateGroupPercentages(events: TTask[]): Record<GroupType, number> {
+export function calculateGroupPercentages(events: EEvent[]): Record<GroupType, number> {
 	const groupTimes = calculateGroupTimes(events);
 	const totalDayTime = 24 * 60 * 60 * 1000; // Total day time in milliseconds
 	const groupPercentage: Record<GroupType, number> = {
@@ -21,7 +21,7 @@ export function calculateGroupPercentages(events: TTask[]): Record<GroupType, nu
 	return groupPercentage;
 }
 
-function calculateGroupTimes(events: TTask[]): Record<GroupType, number> {
+function calculateGroupTimes(events: EEvent[]): Record<GroupType, number> {
 	const groupTimes: Record<GroupType, number> = {
 		sleep: 0,
 		work: 0,

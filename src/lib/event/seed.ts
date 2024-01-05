@@ -1,5 +1,5 @@
 import { fun, routine, sleep, work } from '$lib/category/seed';
-import type { TTask } from '$lib/task/utils';
+import type { EEvent } from '$lib/event/utils';
 import { addDays } from 'date-fns';
 
 function getTodayAtTime(time: string): Date {
@@ -16,7 +16,7 @@ function getTodayAtTime(time: string): Date {
 }
 
 let id = 0;
-export const normalWithoutDescription: TTask = {
+export const normalWithoutDescription: EEvent = {
 	id: id++,
 	name: 'Breakfast',
 	description: null,
@@ -32,7 +32,7 @@ export const normalWithoutDescription: TTask = {
 	recurringDaysOfWeek: [],
 };
 
-export const shortWithoutDescription: TTask = {
+export const shortWithoutDescription: EEvent = {
 	id: id++,
 	name: 'Breakfast',
 	description: null,
@@ -48,7 +48,7 @@ export const shortWithoutDescription: TTask = {
 	recurringDaysOfWeek: [],
 };
 
-export const long: TTask = {
+export const long: EEvent = {
 	id: id++,
 	name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
 	description: null,
@@ -64,7 +64,7 @@ export const long: TTask = {
 	recurringDaysOfWeek: [],
 };
 
-export const done: TTask = {
+export const done: EEvent = {
 	id: id++,
 	name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
 	description: null,
@@ -80,7 +80,7 @@ export const done: TTask = {
 	recurringDaysOfWeek: [],
 };
 
-export const redEvent: TTask = {
+export const redEvent: EEvent = {
 	id: id++,
 	name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
 	description: null,
@@ -96,7 +96,7 @@ export const redEvent: TTask = {
 	recurringDaysOfWeek: [],
 };
 
-export const events: TTask[] = [
+export const events: EEvent[] = [
 	normalWithoutDescription,
 	shortWithoutDescription,
 	long,
@@ -104,7 +104,7 @@ export const events: TTask[] = [
 	redEvent,
 ];
 
-export const sleepEvent: TTask = {
+export const sleepEvent: EEvent = {
 	id: id++,
 	name: 'sleep',
 	description: null,
@@ -120,7 +120,7 @@ export const sleepEvent: TTask = {
 	recurringDaysOfWeek: [],
 };
 
-export const workEvent: TTask = {
+export const workEvent: EEvent = {
 	id: id++,
 	name: 'work',
 	description: null,
@@ -136,7 +136,7 @@ export const workEvent: TTask = {
 	recurringDaysOfWeek: ['mon', 'tue', 'wed', 'thu', 'fri'],
 };
 
-export const funEvent: TTask = {
+export const funEvent: EEvent = {
 	id: id++,
 	name: 'fun',
 	description: null,
@@ -152,4 +152,4 @@ export const funEvent: TTask = {
 	recurringDaysOfWeek: [],
 };
 
-export const perfectDay: TTask[] = [sleepEvent, workEvent, funEvent];
+export const perfectDay: EEvent[] = [sleepEvent, workEvent, funEvent];

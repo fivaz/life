@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { TTask } from '$lib/task/utils';
+	import type { EEvent } from '$lib/event/utils';
 	import classnames from 'classnames';
 	import { calculateGroupPercentages } from './service';
 
 	let className = '';
 	export { className as class };
-	export let events: TTask[];
+	export let events: EEvent[];
 
 	$: groups = calculateGroupPercentages(events);
 </script>

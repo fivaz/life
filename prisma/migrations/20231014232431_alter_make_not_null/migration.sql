@@ -1,10 +1,10 @@
 /*
   Warnings:
 
-  - Made the column `name` on table `task` required. This step will fail if there are existing NULL values in that column.
-  - Made the column `startDate` on table `task` required. This step will fail if there are existing NULL values in that column.
-  - Made the column `endDate` on table `task` required. This step will fail if there are existing NULL values in that column.
-  - Made the column `isDone` on table `task` required. This step will fail if there are existing NULL values in that column.
+  - Made the column `name` on table `event` required. This step will fail if there are existing NULL values in that column.
+  - Made the column `startDate` on table `event` required. This step will fail if there are existing NULL values in that column.
+  - Made the column `endDate` on table `event` required. This step will fail if there are existing NULL values in that column.
+  - Made the column `isDone` on table `event` required. This step will fail if there are existing NULL values in that column.
 
 */
 -- AlterTable
