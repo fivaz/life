@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
-import { loginRoute } from '$lib/utils';
+import { homeRoute } from '$lib/utils';
 
 test('index page has expected h1', async ({ page }) => {
-	await page.goto(loginRoute);
+	await page.goto(homeRoute);
 	await expect(page.getByRole('heading', { name: 'Welcome to SvelteKit' })).toBeVisible();
 });
