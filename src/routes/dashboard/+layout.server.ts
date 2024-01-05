@@ -12,7 +12,7 @@ export const load = (async (event) => {
 		throw redirect(303, loginRoute);
 	}
 
-	const [tasks, categories]: [tasks: TTask[], categories: CCategory[]] = await Promise.all([
+	const [events, categories]: [events: TTask[], categories: CCategory[]] = await Promise.all([
 		prisma.task.findMany({
 			where: { deleted: null, userId: session.user.id },
 			include: { category: true },
@@ -22,5 +22,5 @@ export const load = (async (event) => {
 		}),
 	]);
 
-	return { tasks, categories };
+	return { events, categories };
 }) satisfies LayoutServerLoad;

@@ -5,23 +5,23 @@
 	import { redEvent } from '$lib/task/seed';
 	import { buildEmptyEventIn } from '../service';
 	import { convertToEventIn } from '../service.js';
-	import TaskForm from './TaskForm.svelte';
+	import EventForm from './EventForm.svelte';
 
 	export const meta = {
-		component: TaskForm,
+		component: EventForm,
 		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
 		argTypes: {},
-	} satisfies Meta<TaskForm>;
+	} satisfies Meta<EventForm>;
 </script>
 
 <script>
 </script>
 
 <Template let:args>
-	<TaskForm {...args} />
+	<EventForm {...args} />
 </Template>
 
 <Story

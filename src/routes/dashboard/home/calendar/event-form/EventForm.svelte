@@ -7,7 +7,7 @@
 	import Input from '$lib/components/input/Input.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
-	import { removeTask, updateTask } from '$lib/task/store';
+	import { removeEvent, updateEvent } from '$lib/task/store';
 	import { TIME } from '$lib/utils';
 	import { isAfter, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
@@ -37,9 +37,9 @@
 			await applyAction(result);
 			if (result.type === 'success') {
 				if (form?.removed) {
-					removeTask(form.removed);
+					removeEvent(form.removed);
 				} else if (form?.saved) {
-					updateTask(form.saved);
+					updateEvent(form.saved);
 				}
 			} else {
 				if (form?.error) {
