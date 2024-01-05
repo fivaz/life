@@ -18,7 +18,8 @@
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
 		"svelte-check": "svelte-check --watch",
-		"postinstall": "prisma generate"
+		"postinstall": "prisma generate && npm run prisma:inline",
+		"prisma:inline": "cp ./node_modules/.prisma/client/*.js ./node_modules/@prisma/client"
 	},
 	"devDependencies": {
 		"@auth/core": "^0.17.0",
