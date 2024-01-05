@@ -12,13 +12,13 @@ model Task {
   id                  Int       @id @default(autoincrement())
   name                String
   description         String?
-  startDate           DateTime? @db.Timestamp(6)
-  endDate             DateTime? @db.Timestamp(6)
+  startDate           DateTime  @db.Timestamp(6)
+  endDate             DateTime  @db.Timestamp(6)
   isDone              Boolean
   deleted             DateTime? @db.Timestamp(6)
   userId              String
   categoryId          Int
-  duration            Int?
+  duration            Int
   isRecurring         Boolean?
   recurringStartAt    DateTime? @db.Timestamp(6)
   recurringEndAt      DateTime? @db.Timestamp(6)

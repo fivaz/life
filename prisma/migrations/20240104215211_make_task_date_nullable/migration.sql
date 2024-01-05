@@ -1,4 +1,0 @@
--- AlterTable
-ALTER TABLE "Task" ALTER COLUMN "startDate" DROP NOT NULL,
-ALTER COLUMN "endDate" DROP NOT NULL,
-ALTER COLUMN "duration" DROP NOT NULL;

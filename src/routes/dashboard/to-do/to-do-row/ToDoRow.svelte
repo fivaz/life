@@ -26,11 +26,10 @@
 >
 	<div class="flex-1 flex gap-x-6 text-sm font-semibold leading-6 text-gray-50">
 		<div class="flex-1 flex gap-x-6">
-			<!--TODO check if it's right to have startDate twice instead of startDate and endDate-->
-			<div>{toDo.startDate ? format(toDo.startDate, DATE_FR) : ''}</div>
+			<div>{format(toDo.startDate, DATE_FR)}</div>
 			<div>{toDo.name}</div>
 		</div>
-		<div>{toDo.startDate ? format(toDo.startDate, TIME) : ''}</div>
+		<div>{format(toDo.startDate, TIME)}</div>
 		<div>{convertToTime(toDo.duration)}</div>
 	</div>
 
