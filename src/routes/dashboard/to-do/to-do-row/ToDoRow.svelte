@@ -3,9 +3,9 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { tailwindColors } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
+	import { DATE_FR, TIME } from '$lib/consts';
 	import type { EEvent } from '$lib/event/utils';
 	import { convertToTime } from '$lib/event/utils';
-	import { DATE_FR, TIME } from '$lib/utils';
 	import classnames from 'classnames';
 	import { format } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';

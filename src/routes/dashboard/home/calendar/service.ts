@@ -1,8 +1,8 @@
 import type { CCategory } from '$lib/category/utils';
 import { weekDays } from '$lib/components/days-checkbox/service';
+import { DATE, TIME } from '$lib/consts';
 import type { EEvent, OnlyEEvent } from '$lib/event/utils';
 import { convertToTime } from '$lib/event/utils';
-import { DATE, TIME } from '$lib/utils';
 import { addMinutes, addMonths, differenceInMinutes, format, setHours, setMinutes } from 'date-fns';
 import { halfHourInterval } from './calendar-body/calendar-columns/calendar-rows/service';
 

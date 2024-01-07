@@ -1,8 +1,8 @@
 import { fail, redirect } from '@sveltejs/kit';
+import { loginRoute } from '$lib/consts';
 import { convertToMinutes } from '$lib/event/utils';
 import type { EEvent } from '$lib/event/utils';
 import prisma from '$lib/prisma';
-import { loginRoute } from '$lib/utils';
 import { parseISO } from 'date-fns';
 import type { Actions } from './$types';
 

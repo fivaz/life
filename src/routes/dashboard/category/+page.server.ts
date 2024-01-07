@@ -1,7 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { CCategory } from '$lib/category/utils';
+import { loginRoute } from '$lib/consts';
 import prisma from '$lib/prisma';
-import { loginRoute } from '$lib/utils';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load = (async (event) => {

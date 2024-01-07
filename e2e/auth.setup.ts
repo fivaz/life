@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { config } from 'dotenv';
-import { homeRoute, loginRoute } from '../src/lib/utils';
+import { homeRoute, loginRoute } from '../src/lib/consts';
 
 config();
 

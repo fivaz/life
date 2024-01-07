@@ -11,7 +11,7 @@
 	import { List } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { page } from '$app/stores';
-	import { categoryRoute, homeRoute, toDoRoute } from '$lib/utils';
+	import { categoryRoute, homeRoute, toDoRoute } from '$lib/consts';
 	import classnames from 'classnames';
 
 	const navigation = [

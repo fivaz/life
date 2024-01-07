@@ -1,4 +1,4 @@
-import { TIME } from '$lib/utils';
+import { TIME } from '$lib/consts';
 import { add, differenceInMinutes, format, isValid, parse } from 'date-fns';
 
 export function getEndTime(startTime: string, duration: string): string {

@@ -1,8 +1,8 @@
 import { redirect } from '@sveltejs/kit';
 import type { CCategory } from '$lib/category/utils';
+import { loginRoute } from '$lib/consts';
 import type { EEvent } from '$lib/event/utils';
 import prisma from '$lib/prisma';
-import { loginRoute } from '$lib/utils';
 import type { LayoutServerLoad } from './$types';
 
 export const load = (async (event) => {
