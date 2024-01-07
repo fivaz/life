@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { config } from 'dotenv';
-import { loginRoute } from '../src/lib/utils';
+import { homeRoute, loginRoute } from '../src/lib/utils';
 
 config();
 
@@ -22,11 +22,10 @@ test('authenticate', async ({ page }) => {
 	//
 	// Sometimes login flow sets cookies in the process of several redirects.
 	// Wait for the final URL to ensure that the cookies are actually set.
-	await page.waitForURL(`**/dashboard/home`);
+	await page.waitForURL(`**/${homeRoute}`);
 	// Alternatively, you can wait until the page reaches a state where all cookies are set.
 	await expect(page.getByRole('button', { name: 'Create event' })).toBeVisible();
 
 	// End of authentication steps.
-
 	await page.context().storageState({ path: authFile });
 });
