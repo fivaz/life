@@ -1,4 +1,26 @@
 <script lang="ts">
+	import { signIn } from '@auth/sveltekit/client';
+	import type { SubmitFunction } from '@sveltejs/kit';
+	import { applyAction, enhance } from '$app/forms';
+	import { homeRoute } from '$lib/consts';
+	import type { ActionData } from '../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
+	
+export let form: ActionData | null = null;
+	export const submit: SubmitFunction = () => {
+		return async ({ result }) => {
+			await applyAction(result);
+			if (result.type === 'success') {
+				console.log(form);
+				if (form?.saved) {
+					console.log('here');
+					await signIn('credentials', { ...form.saved, callbackUrl: homeRoute });
+				} else {
+					console.log(form);
+					console.log(result);
+				}
+			}
+		};
+	};
 </script>
 
 <div class="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -15,7 +37,7 @@
 
 	<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
 		<div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-			<form class="space-y-6" action="#" method="POST">
+			<form class="space-y-6" method="POST" use:enhance={submit}>
 				<div>
 					<label for="email" class="block text-sm font-medium leading-6 text-gray-900">
 						Full name
@@ -25,6 +47,7 @@
 							id="name"
 							name="name"
 							type="text"
+							value="test"
 							required
 							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 						/>
@@ -39,6 +62,7 @@
 							id="email"
 							name="email"
 							type="email"
+							value="test@test.com"
 							autocomplete="email"
 							required
 							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -55,6 +79,7 @@
 							id="password"
 							name="password"
 							type="password"
+							value="test"
 							autocomplete="current-password"
 							required
 							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"

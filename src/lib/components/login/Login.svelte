@@ -2,11 +2,20 @@
 	import type { User } from '@auth/core/types';
 	import { signIn } from '@auth/sveltekit/client';
 	import { homeRoute } from '$lib/consts';
-
-	export let user: User | undefined;
+	
+export let user: User | undefined;
 
 	let email: string = 'test@test.com';
 	let password: string = 'test';
+	let error: string = '';
+
+	async function login() {
+		try {
+			await signIn('credentials', { email, password, redirect: false });
+		} catch (e) {
+			error = 'login or password incorrect';
+		}
+	}
 </script>
 
 <div class="flex min-h-full flex-1">
@@ -37,7 +46,11 @@
 
 			<div class="mt-10">
 				<div>
-					<form action="#" method="POST" class="space-y-6">
+					<div class="space-y-6">
+						{#if error}
+							<p class="text-center text-red-500">{error}</p>
+						{/if}
+
 						<div>
 							<label for="email" class="block text-sm font-medium leading-6 text-gray-900">
 								Email address
@@ -95,12 +108,12 @@
 						<div>
 							<button
 								class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-								on:click={() => signIn('credentials', { email, password })}
+								on:click={() => login()}
 							>
 								Sign in
 							</button>
 						</div>
-					</form>
+					</div>
 				</div>
 
 				<div class="mt-10">

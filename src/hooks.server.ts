@@ -1,6 +1,5 @@
 import Credentials from '@auth/core/providers/credentials';
 import GitHub from '@auth/core/providers/github';
-import { PrismaAdapter } from '@auth/prisma-adapter';
 import { SvelteKitAuth } from '@auth/sveltekit';
 import type { Handle } from '@sveltejs/kit';
 import { redirect } from '@sveltejs/kit';
@@ -8,7 +7,6 @@ import { sequence } from '@sveltejs/kit/hooks';
 import { GITHUB_ID, GITHUB_SECRET } from '$env/static/private';
 import { homeRoute, loginRoute } from '$lib/consts';
 import { getUser, saltAndHashPassword } from '$lib/login-utils';
-import prisma from '$lib/prisma';
 
 const authorization: Handle = async ({ event, resolve }) => {
 	if (event.url.pathname.startsWith(homeRoute)) {
@@ -23,7 +21,10 @@ const authorization: Handle = async ({ event, resolve }) => {
 
 export const handle: Handle = sequence(
 	SvelteKitAuth({
-		adapter: PrismaAdapter(prisma),
+		session: {
+			strategy: 'jwt',
+		},
+		// adapter: PrismaAdapter(prisma),
 		providers: [
 			GitHub({ clientId: GITHUB_ID, clientSecret: GITHUB_SECRET }),
 			Credentials({
@@ -32,6 +33,7 @@ export const handle: Handle = sequence(
 					password: { label: 'Password', type: 'password' },
 				},
 				async authorize(credentials, req) {
+					//TODO validate fields
 					const { email, password } = credentials as { email: string; password: string };
 
 					const hashedPassword = saltAndHashPassword(password);

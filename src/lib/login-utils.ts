@@ -1,15 +1,13 @@
 import prisma from '$lib/prisma';
-// import crypto from 'crypto';
+// eslint-disable-next-line import/no-nodejs-modules
+import crypto from 'crypto';
+
+const salt = 'random_salt_for_user';
 
 export function saltAndHashPassword(password: string) {
-	return password;
-	// const salt = crypto.randomBytes(16).toString('hex');
-	//
-	// const iterations = 10000; // You can adjust the number of iterations based on your security requirements
-	// const keylen = 64; // The length of the generated key
-	//
-	// const hashedPassword = crypto.pbkdf2Sync(password, salt, iterations, keylen, 'sha512');
-	// return hashedPassword.toString('hex');
+	const hash = crypto.createHash('sha256');
+	hash.update(password + salt);
+	return hash.digest('hex');
 }
 
 export function getUser(email: string, hashedPassword: string) {
