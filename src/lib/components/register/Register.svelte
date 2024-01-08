@@ -4,8 +4,8 @@
 	import { applyAction, enhance } from '$app/forms';
 	import { homeRoute } from '$lib/consts';
 	import type { ActionData } from '../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
-	
-export let form: ActionData | null = null;
+
+	export let form: ActionData | null = null;
 	export const submit: SubmitFunction = () => {
 		return async ({ result }) => {
 			await applyAction(result);

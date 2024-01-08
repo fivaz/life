@@ -4,18 +4,12 @@
 	import { homeRoute } from '$lib/consts';
 	
 export let user: User | undefined;
+	export let error: string | null;
 
-	let email: string = 'test@test.com';
-	let password: string = 'test';
-	let error: string = '';
+	$: errorMessage = error === 'CredentialsSignin' ? 'login or password are incorrect' : '';
 
-	async function login() {
-		try {
-			await signIn('credentials', { email, password, redirect: false });
-		} catch (e) {
-			error = 'login or password incorrect';
-		}
-	}
+	let email: string = '';
+	let password: string = '';
 </script>
 
 <div class="flex min-h-full flex-1">
@@ -47,8 +41,8 @@ export let user: User | undefined;
 			<div class="mt-10">
 				<div>
 					<div class="space-y-6">
-						{#if error}
-							<p class="text-center text-red-500">{error}</p>
+						{#if errorMessage}
+							<p class="text-center text-red-500">{errorMessage}</p>
 						{/if}
 
 						<div>
@@ -108,7 +102,7 @@ export let user: User | undefined;
 						<div>
 							<button
 								class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-								on:click={() => login()}
+								on:click={() => signIn('credentials', { email, password })}
 							>
 								Sign in
 							</button>
