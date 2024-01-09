@@ -19,7 +19,10 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
       - name: Run Playwright tests
-        run: echo $TEST_USERNAME && echo $TEST_PASSWORD && pnpm exec playwright test
+        run: |
+          echo test u : $TEST_USERNAME 
+          echo test p : $TEST_PASSWORD 
+          pnpm exec playwright test
         env:
           TEST_URL: ${{ needs.test_setup.outputs.preview_url }}
           TEST_USERNAME: ${{ vars.TEST_USERNAME }}
