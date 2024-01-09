@@ -16,6 +16,10 @@ export const actions = {
 		const username = formData.get('username') as string;
 		const password = formData.get('password') as string;
 
+		console.log('trying with:');
+		console.log('username=', username, '.');
+		console.log('password=', password, '.');
+
 		try {
 			// find user by key
 			// and validate password
@@ -33,9 +37,6 @@ export const actions = {
 				(error.message === 'AUTH_INVALID_KEY_ID' || error.message === 'AUTH_INVALID_PASSWORD')
 			) {
 				console.log('Incorrect username or password');
-				console.log('trying with:');
-				console.log('username', username);
-				console.log('password', password);
 				// user does not exist
 				// or invalid password
 				return fail(400, {
