@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	export let user: any | undefined;
 	export let error: string | null;
 
@@ -51,7 +51,6 @@
 									name="username"
 									autocomplete="username"
 									required
-									value="test"
 									class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 								/>
 							</div>
@@ -66,7 +65,6 @@
 									id="password"
 									name="password"
 									type="password"
-									value="test"
 									autocomplete="current-password"
 									required
 									class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"

@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "event" ALTER COLUMN "deleted" SET DATA TYPE TIMESTAMP(6);
