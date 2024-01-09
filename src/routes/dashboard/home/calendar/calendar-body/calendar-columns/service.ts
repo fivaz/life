@@ -1,5 +1,5 @@
 import { weekDays } from '$lib/components/days-checkbox/service';
-import type { EEvent } from '$lib/event/utils';
+import type { EEvent } from '$lib/task/utils';
 import { endOfDay, getDay, isWithinInterval, startOfDay } from 'date-fns';
 
 export function isEventOnDay(event: EEvent, targetDay: Date): boolean {

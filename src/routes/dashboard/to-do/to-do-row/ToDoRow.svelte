@@ -4,8 +4,8 @@
 	import { tailwindColors } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import { DATE_FR, TIME } from '$lib/consts';
-	import type { EEvent } from '$lib/event/utils';
-	import { convertToTime } from '$lib/event/utils';
+	import type { EEvent } from '$lib/task/utils';
+	import { convertToTime } from '$lib/task/utils';
 	import classnames from 'classnames';
 	import { format } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';

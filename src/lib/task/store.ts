@@ -1,5 +1,5 @@
 import { DATE_FR } from '$lib/consts';
-import type { EEvent } from '$lib/event/utils';
+import type { EEvent } from '$lib/task/utils';
 import { format, isToday, isTomorrow, isYesterday } from 'date-fns';
 import { derived, writable } from 'svelte/store';
 

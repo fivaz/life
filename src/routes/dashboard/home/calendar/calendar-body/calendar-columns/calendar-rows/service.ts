@@ -1,4 +1,4 @@
-import type { EEvent } from '$lib/event/utils';
+import type { EEvent } from '$lib/task/utils';
 
 export const halfHourInterval = 24 * 2;
 

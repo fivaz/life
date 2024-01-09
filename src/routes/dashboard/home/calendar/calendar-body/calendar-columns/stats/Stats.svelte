@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { EEvent } from '$lib/event/utils';
+	import type { EEvent } from '$lib/task/utils';
 	import classnames from 'classnames';
 	import { calculateGroupPercentages } from './service';
 

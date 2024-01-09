@@ -1,5 +1,5 @@
 import type { groups } from '$lib/category/utils';
-import type { EEvent } from '$lib/event/utils';
+import type { EEvent } from '$lib/task/utils';
 import { differenceInMilliseconds } from 'date-fns';
 
 type GroupType = (typeof groups)[number];

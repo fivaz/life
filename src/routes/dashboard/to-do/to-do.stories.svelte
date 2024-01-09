@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import type { Meta } from '@storybook/svelte';
-	import { events } from '$lib/event/seed.js';
+	import { events } from '$lib/task/seed.js';
 	import ToDo from './+page.svelte';
 
 	export const meta = {

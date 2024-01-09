@@ -4,8 +4,8 @@
 	import { tailwindColors } from '$lib/category/utils';
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import { removeDraggedEvent, setDraggedEvent } from '$lib/dragged/store';
-	import { toggleEvent } from '$lib/event/store';
-	import type { EEvent } from '$lib/event/utils';
+	import { toggleEvent } from '$lib/task/store';
+	import type { EEvent } from '$lib/task/utils';
 	import classnames from 'classnames';
 	import { format } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';

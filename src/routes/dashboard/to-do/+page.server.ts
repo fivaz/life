@@ -1,8 +1,8 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { loginRoute } from '$lib/consts';
-import type { EEvent } from '$lib/event/utils';
-import { convertToMinutes } from '$lib/event/utils';
 import prisma from '$lib/prisma';
+import type { EEvent } from '$lib/task/utils';
+import { convertToMinutes } from '$lib/task/utils';
 import { add, addMinutes, parseISO, set } from 'date-fns';
 import type { Actions } from './$types';
 

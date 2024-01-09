@@ -1,7 +1,7 @@
 import { json, redirect } from '@sveltejs/kit';
 import { loginRoute } from '$lib/consts';
-import type { EEvent } from '$lib/event/utils';
 import prisma from '$lib/prisma';
+import type { EEvent } from '$lib/task/utils';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request, locals }) => {

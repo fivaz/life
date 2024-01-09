@@ -1,5 +1,5 @@
 import { fun, routine, sleep, work } from '$lib/category/seed';
-import type { EEvent } from '$lib/event/utils';
+import type { EEvent } from '$lib/task/utils';
 import { addDays } from 'date-fns';
 
 function getTodayAtTime(time: string): Date {

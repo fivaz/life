@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { EEvent } from '$lib/event/utils';
+	import type { EEvent } from '$lib/task/utils';
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
 	import Event from './event/Event.svelte';
 	import { halfHourInterval, getGridRowsStyle } from './service';

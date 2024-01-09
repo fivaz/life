@@ -2,8 +2,8 @@
 	import { categories } from '$lib/category/store';
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import { toDos } from '$lib/event/store';
-	import type { EEvent } from '$lib/event/utils';
+	import { toDos } from '$lib/task/store';
+	import type { EEvent } from '$lib/task/utils';
 	import EventForm from '../home/calendar/event-form/EventForm.svelte';
 	import { buildEmptyEventIn, convertToEventIn } from '../home/calendar/service';
 	import type { EventIn } from '../home/calendar/service';

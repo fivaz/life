@@ -1,4 +1,4 @@
-import type { EEvent } from '$lib/event/utils';
+import type { EEvent } from '$lib/task/utils';
 import { differenceInMinutes } from 'date-fns';
 
 export function isShort(event: EEvent) {
