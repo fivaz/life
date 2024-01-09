@@ -4,18 +4,19 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { toDos } from '$lib/task/store';
 	import type { TTask } from '$lib/task/utils';
-	import { buildEmptyEventIn, convertToEventIn } from '../home/calendar/service';
-	import type { EventIn } from '../home/calendar/service';
+	import { buildEmptyTaskIn, convertToEventIn } from '../home/calendar/service';
+	import type { TaskIn } from '../home/calendar/service';
 	import TaskForm from '../home/calendar/task-form/TaskForm.svelte';
 	import type { ActionData } from './$types';
 	import ToDoRow from './to-do-row/ToDoRow.svelte';
 
 	let showForm: boolean = false;
 	export let form: ActionData | null = null;
-	export let event: EventIn = buildEmptyEventIn([]);
 
-	export function getSumOfDurationsAsTime(events: TTask[]): string {
-		const sumOfDurationsInMinutes = events.reduce((sum, event) => sum + (event.duration || 0), 0);
+	let editingToDo: TaskIn = buildEmptyTaskIn([], false);
+
+	export function getSumOfDurationsAsTime(tasks: TTask[]): string {
+		const sumOfDurationsInMinutes = tasks.reduce((sum, task) => sum + (task.duration || 0), 0);
 		const hours = Math.floor(sumOfDurationsInMinutes / 60);
 		const remainingMinutes = sumOfDurationsInMinutes % 60;
 		return `${hours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')}`;
@@ -27,7 +28,7 @@
 		<Button
 			on:click={() => {
 				showForm = true;
-				event = buildEmptyEventIn($categories);
+				editingToDo = buildEmptyTaskIn($categories, false);
 			}}
 		>
 			create To Do
@@ -46,7 +47,7 @@
 					{form}
 					on:edit={(e) => {
 						showForm = true;
-						event = convertToEventIn(e.detail);
+						editingToDo = convertToEventIn(e.detail);
 					}}
 				/>
 			{/each}
@@ -54,6 +55,11 @@
 	</ul>
 
 	<Modal show={showForm} on:close={() => (showForm = false)}>
-		<TaskForm on:submit={() => (showForm = false)} {event} {form} />
+		<TaskForm
+			on:submit={() => (showForm = false)}
+			task={editingToDo}
+			{form}
+			isEvent={editingToDo.isEvent}
+		/>
 	</Modal>
 </div>

@@ -2,6 +2,9 @@ import { TIME } from '$lib/consts';
 import { add, differenceInMinutes, format, isValid, parse } from 'date-fns';
 
 export function getEndTime(startTime: string, duration: string): string {
+	if (!startTime || !duration) {
+		return '';
+	}
 	const [startTimeHours, startTimeMinutes] = startTime.split(':').map(Number);
 	const [DurationHours, durationMinutes] = duration.split(':').map(Number);
 
@@ -12,6 +15,9 @@ export function getEndTime(startTime: string, duration: string): string {
 }
 
 export function getDuration(startTime: string, endTime: string): string {
+	if (!startTime || !endTime) {
+		return '';
+	}
 	const [startTimeHours, startTimeMinutes] = startTime.split(':').map(Number);
 	const [endTimeHours, endTimeMinutes] = endTime.split(':').map(Number);
 

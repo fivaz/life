@@ -12,23 +12,23 @@
 	import { isAfter, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
-	import type { EventIn } from '../service';
+	import type { TaskIn } from '../service';
 	import { getDuration, getEndTime, buildDates } from './service';
 
 	export let form: ActionData | null = null;
 
-	export let event: EventIn;
+	export let task: TaskIn;
 
 	export let isOnlyEvent: boolean = false;
-	let isEvent: boolean = isOnlyEvent;
 
-	$: error = !isAfter(
-		parse(event.endTime, TIME, new Date()),
-		parse(event.startTime, TIME, new Date()),
-	);
+	export let isEvent: boolean = isOnlyEvent;
+
+	$: error =
+		isEvent &&
+		!isAfter(parse(task.endTime, TIME, new Date()), parse(task.startTime, TIME, new Date()));
 
 	$: categoryName =
-		$categories.find((category) => category.id === event.categoryId)?.name ||
+		$categories.find((category) => category.id === task.categoryId)?.name ||
 		'create a category first';
 
 	const dispatch = createEventDispatcher();
@@ -63,7 +63,7 @@
 >
 	<div class="flex flex-col gap-3 px-4 py-5 bg-white sm:p-6">
 		<h2 class="text-lg font-medium text-gray-900">
-			{#if event.id}
+			{#if task.id}
 				Edit Event
 			{:else}
 				Add Event
@@ -74,7 +74,7 @@
 			<p class="text-red-500">startDate should be before endDate</p>
 		{/if}
 
-		<input type="hidden" name="id" value={event.id} />
+		<input type="hidden" name="id" value={task.id} />
 		<input type="hidden" name="categoryName" value={categoryName} />
 
 		<Input
@@ -82,12 +82,12 @@
 			label="Name"
 			autocomplete="off"
 			name="name"
-			bind:value={event.name}
+			bind:value={task.name}
 			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 		/>
 
 		<div class="flex gap-3 items-center">
-			<Select bind:value={event.categoryId} name="categoryId" label="Category" class="flex-1">
+			<Select bind:value={task.categoryId} name="categoryId" label="Category" class="flex-1">
 				<span slot="placeholder">{categoryName}</span>
 				{#each $categories as category (category)}
 					<SelectItem value={category.id}>{category.name}</SelectItem>
@@ -98,7 +98,7 @@
 				<input
 					name="isDone"
 					type="checkbox"
-					bind:checked={event.isDone}
+					bind:checked={task.isDone}
 					class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
 				/>
 			</label>
@@ -108,7 +108,7 @@
 			Description
 			<textarea
 				name="description"
-				bind:value={event.description}
+				bind:value={task.description}
 				class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 			/>
 		</label>
@@ -134,7 +134,7 @@
 					label="Date"
 					type="date"
 					name="date"
-					bind:value={event.date}
+					bind:value={task.date}
 					required
 					class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 				/>
@@ -145,8 +145,8 @@
 					type="time"
 					name="duration"
 					required
-					bind:value={event.duration}
-					on:input={(e) => (event.endTime = getEndTime(event.startTime, e.detail))}
+					bind:value={task.duration}
+					on:input={(e) => (task.endTime = getEndTime(task.startTime, e.detail))}
 				/>
 			</div>
 
@@ -157,7 +157,7 @@
 					type="time"
 					name="startTime"
 					required
-					bind:value={event.startTime}
+					bind:value={task.startTime}
 				/>
 
 				<Input
@@ -166,8 +166,8 @@
 					type="time"
 					name="endTime"
 					required
-					bind:value={event.endTime}
-					on:input={(e) => (event.duration = getDuration(event.startTime, e.detail))}
+					bind:value={task.endTime}
+					on:input={(e) => (task.duration = getDuration(task.startTime, e.detail))}
 				/>
 			</div>
 
@@ -177,14 +177,14 @@
 					<input
 						name="isRecurring"
 						type="checkbox"
-						bind:checked={event.isRecurring}
+						bind:checked={task.isRecurring}
 						class="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
 					/>
 					<!--mt-1 is to align the checkbox with the label-->
 				</label>
 			</div>
 
-			{#if event.isRecurring}
+			{#if task.isRecurring}
 				<div class="flex gap-3">
 					<Input
 						labelClass="w-1/2"
@@ -192,7 +192,7 @@
 						type="date"
 						name="recurringStartAt"
 						required
-						bind:value={event.recurringStartAt}
+						bind:value={task.recurringStartAt}
 					/>
 
 					<Input
@@ -201,23 +201,23 @@
 						type="date"
 						name="recurringEndAt"
 						required
-						bind:value={event.recurringEndAt}
+						bind:value={task.recurringEndAt}
 					/>
 				</div>
-				<DaysCheckbox name="recurringDaysOfWeek" bind:value={event.recurringDaysOfWeek} />
+				<DaysCheckbox name="recurringDaysOfWeek" bind:value={task.recurringDaysOfWeek} />
 			{/if}
 		{/if}
 	</div>
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
-		{#if event.id}
+		{#if task.id}
 			<Button formaction="?/remove" color="red">Delete</Button>
 		{:else}
 			<div />
 		{/if}
 
 		<Button disabled={error} type="submit">
-			{#if event.id} Edit {:else} Add {/if}
+			{#if task.id} Edit {:else} Add {/if}
 		</Button>
 	</div>
 </form>

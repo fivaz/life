@@ -10,7 +10,7 @@
 </script>
 
 <!--TODO make top and side sticky-->
-<!--TODO handle event that takes more than 1 day-->
+<!--TODO handle toDo that takes more than 1 day-->
 
 <div class="relative w-full h-full">
 	<CalendarGrid on:create on:move />

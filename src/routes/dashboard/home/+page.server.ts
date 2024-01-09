@@ -39,15 +39,19 @@ export const actions = {
 
 		try {
 			const data = await request.formData();
+			const categoryId = Number(data.get('categoryId'));
+			const categoryName = data.get('categoryName') as string;
+
 			const id = Number(data.get('id'));
 			const isDone = !!data.get('isDone');
-			const categoryId = Number(data.get('categoryId'));
 			const name = data.get('name') as string;
 			const description = data.get('description') as string;
+			const isEvent = !!data.get('isEvent');
+
 			const startDateString = data.get('startDate') as string;
 			const endDateString = data.get('endDate') as string;
 			const duration = convertToMinutes(data.get('duration') as string);
-			const categoryName = data.get('categoryName') as string;
+
 			const isRecurring = !!data.get('isRecurring');
 			const recurringStartAtString = data.get('recurringStartAt') as string;
 			const recurringEndAtString = data.get('recurringEndAt') as string;
@@ -57,8 +61,8 @@ export const actions = {
 				throw Error('internal error, please refresh the page');
 			}
 
-			const startDate = startDateString ? parseISO(startDateString) : null;
-			const endDate = endDateString ? parseISO(endDateString) : null;
+			const startDate = isEvent ? parseISO(startDateString) : null;
+			const endDate = isEvent ? parseISO(endDateString) : null;
 
 			const recurringStartAt = isRecurring ? parseISO(recurringStartAtString) : null;
 			const recurringEndAt = isRecurring ? parseISO(recurringEndAtString) : null;

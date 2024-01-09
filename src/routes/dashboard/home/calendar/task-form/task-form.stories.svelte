@@ -3,38 +3,47 @@
 	import type { Meta } from '@storybook/svelte';
 	import { categories } from '$lib/category/seed';
 	import { redEvent } from '$lib/task/seed';
-	import { buildEmptyEventIn } from '../service';
+	import { buildEmptyTaskIn } from '../service';
 	import { convertToEventIn } from '../service.js';
-	import EventForm from './TaskForm.svelte';
+	import TaskForm from './TaskForm.svelte';
 
 	export const meta = {
-		component: EventForm,
+		component: TaskForm,
 		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
 		argTypes: {},
-	} satisfies Meta<EventForm>;
+	} satisfies Meta<TaskForm>;
 </script>
 
 <script>
 </script>
 
 <Template let:args>
-	<EventForm {...args} />
+	<TaskForm {...args} />
 </Template>
 
 <Story
-	name="Create"
+	name="Create Event"
 	args={{
 		categories,
 		form: null,
-		event: buildEmptyEventIn(categories),
+		event: buildEmptyTaskIn(categories, true),
 	}}
 />
 
 <Story
-	name="Edit"
+	name="Create ToDo"
+	args={{
+		categories,
+		form: null,
+		event: buildEmptyTaskIn(categories, false),
+	}}
+/>
+
+<Story
+	name="Edit event"
 	args={{
 		categories,
 		form: null,

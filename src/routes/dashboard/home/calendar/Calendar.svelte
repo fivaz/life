@@ -9,13 +9,13 @@
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
 	import {
-		buildEmptyEventIn,
+		buildEmptyTaskIn,
 		buildEventWithTime,
 		convertToEventIn,
 		moveEvent,
 		preserveEvent,
 	} from './service';
-	import type { EventIn } from './service';
+	import type { TaskIn } from './service';
 	import TaskForm from './task-form/TaskForm.svelte';
 
 	let currentDate = new Date();
@@ -26,7 +26,7 @@
 
 	export let form: ActionData | null;
 
-	let event: EventIn = buildEmptyEventIn($categories);
+	let editingEvent: TaskIn = buildEmptyTaskIn($categories, true);
 </script>
 
 <div class="flex h-full flex-col divide-gray-200">
@@ -35,18 +35,18 @@
 		{currentDate}
 		on:create={() => {
 			showForm = true;
-			event = buildEmptyEventIn($categories);
+			editingEvent = buildEmptyTaskIn($categories, true);
 		}}
 	/>
 	<CalendarBody
 		{weekStart}
 		on:edit={(e) => {
 			showForm = true;
-			event = convertToEventIn(e.detail);
+			editingEvent = convertToEventIn(e.detail);
 		}}
 		on:create={(e) => {
 			showForm = true;
-			event = buildEventWithTime($categories, e.detail.date, e.detail.timeInterval);
+			editingEvent = buildEventWithTime($categories, e.detail.date, e.detail.timeInterval);
 		}}
 		on:move={(e) => {
 			if ($draggedEvent) {
@@ -57,6 +57,6 @@
 		}}
 	/>
 	<Modal show={showForm} on:close={() => (showForm = false)}>
-		<TaskForm on:submit={() => (showForm = false)} {form} {event} isOnlyEvent />
+		<TaskForm on:submit={() => (showForm = false)} {form} task={editingEvent} isOnlyEvent />
 	</Modal>
 </div>

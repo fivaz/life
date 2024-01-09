@@ -6,7 +6,7 @@ import { convertToTime } from '$lib/task/utils';
 import { addMinutes, addMonths, differenceInMinutes, format, setHours, setMinutes } from 'date-fns';
 import { halfHourInterval } from './calendar-body/calendar-columns/calendar-rows/service';
 
-export type EventIn = Omit<
+export type TaskIn = Omit<
 	OnlyTTask,
 	'startDate' | 'endDate' | 'duration' | 'recurringStartAt' | 'recurringEndAt'
 > & {
@@ -16,31 +16,36 @@ export type EventIn = Omit<
 	duration: string;
 	recurringStartAt: string;
 	recurringEndAt: string;
+	isEvent: boolean;
 };
 
-export function convertToEventIn(event: TTask): EventIn {
+export function convertToEventIn(event: TTask): TaskIn {
 	return {
 		id: event.id,
 		name: event.name,
 		description: event.description,
-		date: event.startDate ? format(event.startDate, DATE) : '',
-		startTime: event.startDate ? format(event.startDate, TIME) : '',
-		endTime: event.endDate ? format(event.endDate, TIME) : '',
-		duration: convertToTime(event.duration),
+		isEvent: !!(event.startDate && event.endDate && event.duration),
+		date: format(event.startDate || new Date(), DATE),
+		startTime: format(event.startDate || new Date(), TIME),
+		endTime: format(event.endDate || addMinutes(new Date(), 15), TIME),
+		duration: convertToTime(event.duration || 15),
 		isDone: event.isDone,
 		categoryId: event.categoryId,
 		isRecurring: event.isRecurring,
-		recurringStartAt: event.recurringStartAt ? format(event.recurringStartAt, DATE) : '',
-		recurringEndAt: event.recurringEndAt ? format(event.recurringEndAt, DATE) : '',
-		recurringDaysOfWeek: event.recurringDaysOfWeek || [],
+		recurringStartAt: format(event.recurringStartAt || new Date(), DATE),
+		recurringEndAt: format(event.recurringEndAt || addMonths(new Date(), 1), DATE),
+		recurringDaysOfWeek: event.recurringDaysOfWeek.length
+			? event.recurringDaysOfWeek
+			: weekDays.slice(1, 6),
 	};
 }
 
-export function buildEmptyEventIn(categories: CCategory[]): EventIn {
+export function buildEmptyTaskIn(categories: CCategory[], isEvent: boolean): TaskIn {
 	return {
 		id: 0,
 		name: '',
 		description: null,
+		isEvent,
 		date: format(new Date(), DATE),
 		startTime: format(new Date(), TIME),
 		endTime: format(addMinutes(new Date(), 15), TIME),
@@ -68,12 +73,12 @@ export function buildEventWithTime(
 	categories: CCategory[],
 	date: Date,
 	quarterHourInterval: number,
-): EventIn {
-	console.log('quarterHourInterval', quarterHourInterval);
+): TaskIn {
 	return {
 		id: 0,
 		name: '',
 		description: null,
+		isEvent: true,
 		date: format(date, DATE),
 		startTime: buildDate(date, quarterHourInterval),
 		endTime: buildDate(date, quarterHourInterval + 0.5),
