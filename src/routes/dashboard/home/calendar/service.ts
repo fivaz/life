@@ -1,13 +1,13 @@
 import type { CCategory } from '$lib/category/utils';
 import { weekDays } from '$lib/components/days-checkbox/service';
 import { DATE, TIME } from '$lib/consts';
-import type { EEvent, OnlyEEvent } from '$lib/task/utils';
+import type { TTask, OnlyTTask } from '$lib/task/utils';
 import { convertToTime } from '$lib/task/utils';
 import { addMinutes, addMonths, differenceInMinutes, format, setHours, setMinutes } from 'date-fns';
 import { halfHourInterval } from './calendar-body/calendar-columns/calendar-rows/service';
 
 export type EventIn = Omit<
-	OnlyEEvent,
+	OnlyTTask,
 	'startDate' | 'endDate' | 'duration' | 'recurringStartAt' | 'recurringEndAt'
 > & {
 	date: string;
@@ -18,7 +18,7 @@ export type EventIn = Omit<
 	recurringEndAt: string;
 };
 
-export function convertToEventIn(event: EEvent): EventIn {
+export function convertToEventIn(event: TTask): EventIn {
 	return {
 		id: event.id,
 		name: event.name,
@@ -87,16 +87,16 @@ export function buildEventWithTime(
 	};
 }
 
-export function moveEvent(event: EEvent, date: Date, quarterHourInterval: number) {
+export function moveEvent(event: TTask, date: Date, quarterHourInterval: number) {
 	const duration = differenceInMinutes(event.endDate, event.startDate);
 	return {
 		...event,
 		startDate: setMinutes(setHours(date, 0), quarterHourInterval * 15),
 		endDate: setMinutes(setHours(date, 0), quarterHourInterval * 15 + duration),
-	} satisfies EEvent;
+	} satisfies TTask;
 }
 
-export async function preserveEvent(event: EEvent) {
+export async function preserveEvent(event: TTask) {
 	await fetch('/dashboard/home/api', {
 		method: 'POST',
 		body: JSON.stringify(event),

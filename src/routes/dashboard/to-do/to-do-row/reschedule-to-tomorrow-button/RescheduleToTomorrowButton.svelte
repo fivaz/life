@@ -5,10 +5,10 @@
 	import { applyAction, enhance } from '$app/forms';
 	import Button from '$lib/components/button/Button.svelte';
 	import { updateEvent } from '$lib/task/store';
-	import type { EEvent } from '$lib/task/utils';
+	import type { TTask } from '$lib/task/utils';
 	import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/dashboard/to-do/$types';
 
-	export let toDo: EEvent;
+	export let toDo: TTask;
 
 	export let form: ActionData | null;
 	const submit: SubmitFunction = () => {

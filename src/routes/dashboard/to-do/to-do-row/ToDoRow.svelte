@@ -4,7 +4,7 @@
 	import { tailwindColors } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import { DATE_FR, TIME } from '$lib/consts';
-	import type { EEvent } from '$lib/task/utils';
+	import type { TTask } from '$lib/task/utils';
 	import { convertToTime } from '$lib/task/utils';
 	import classnames from 'classnames';
 	import { format } from 'date-fns';
@@ -12,10 +12,10 @@
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/to-do/$types';
 	import RescheduleToTomorrowButton from './reschedule-to-tomorrow-button/RescheduleToTomorrowButton.svelte';
 
-	export let toDo: EEvent;
+	export let toDo: TTask;
 	export let form: ActionData | null;
 
-	let dispatch = createEventDispatcher<{ edit: EEvent; rescheduleToTomorrow: EEvent }>();
+	let dispatch = createEventDispatcher<{ edit: TTask; rescheduleToTomorrow: TTask }>();
 </script>
 
 <li

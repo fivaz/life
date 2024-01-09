@@ -1,7 +1,7 @@
 import { json, redirect } from '@sveltejs/kit';
 import { loginRoute } from '$lib/consts';
 import prisma from '$lib/prisma';
-import type { EEvent } from '$lib/task/utils';
+import type { TTask } from '$lib/task/utils';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request, locals }) => {
@@ -11,7 +11,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		throw redirect(303, loginRoute);
 	}
 
-	const event: EEvent = await request.json();
+	const event: TTask = await request.json();
 
 	await prisma.task.update({
 		where: {

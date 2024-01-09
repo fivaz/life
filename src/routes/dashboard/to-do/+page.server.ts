@@ -1,7 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { loginRoute } from '$lib/consts';
 import prisma from '$lib/prisma';
-import type { EEvent } from '$lib/task/utils';
+import type { TTask } from '$lib/task/utils';
 import { convertToMinutes } from '$lib/task/utils';
 import { add, addMinutes, parseISO, set } from 'date-fns';
 import type { Actions } from './$types';
@@ -32,7 +32,7 @@ export const actions = {
 
 		const tomorrowDate = getTomorrowDate(startDate);
 
-		const event: EEvent = await prisma.task.update({
+		const event: TTask = await prisma.task.update({
 			where: {
 				id,
 				userId: session.user.id,
@@ -78,7 +78,7 @@ export const actions = {
 			}
 
 			if (id) {
-				const event: EEvent = await prisma.task.update({
+				const event: TTask = await prisma.task.update({
 					where: {
 						id,
 						userId: session.user.id,
@@ -96,7 +96,7 @@ export const actions = {
 				});
 				return { saved: event };
 			} else {
-				const event: EEvent = await prisma.task.create({
+				const event: TTask = await prisma.task.create({
 					data: {
 						userId: session.user.id,
 						name: name || categoryName,
@@ -126,7 +126,7 @@ export const actions = {
 
 		const data = await request.formData();
 		const id = Number(data.get('id'));
-		const event: EEvent = await prisma.task.update({
+		const event: TTask = await prisma.task.update({
 			where: {
 				id,
 				userId: session.user.id,
