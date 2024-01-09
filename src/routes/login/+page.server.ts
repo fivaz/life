@@ -32,6 +32,10 @@ export const actions = {
 				error instanceof LuciaError &&
 				(error.message === 'AUTH_INVALID_KEY_ID' || error.message === 'AUTH_INVALID_PASSWORD')
 			) {
+				console.log('Incorrect username or password');
+				console.log('trying with:');
+				console.log('username', username);
+				console.log('password', password);
 				// user does not exist
 				// or invalid password
 				return fail(400, {
