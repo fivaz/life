@@ -9,7 +9,7 @@ import { config } from 'dotenv';
 
 config();
 
-const url = (process.env.TEST_URL as string) || 'http://localhost:5173';
+const url = (process.env.TEST_URL as string) || 'http://localhost:4173';
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
