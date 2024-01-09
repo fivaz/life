@@ -1,6 +1,4 @@
 <script lang="ts">
-	import type { User } from '@auth/core/types';
-	import { signOut } from '@auth/sveltekit/client';
 	import {
 		Dialog,
 		DialogDescription,
@@ -20,7 +18,8 @@
 		{ name: 'To Do', href: toDoRoute, icon: List },
 	];
 
-	export let user: User | undefined = undefined;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	export let user: any | undefined = undefined;
 
 	let sidebarOpen = false;
 </script>
@@ -159,7 +158,7 @@
 					</li>
 					<li class="-mx-6 mt-auto">
 						<button
-							on:click={() => signOut()}
+							on:click={() => console.log('signout')}
 							class="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50"
 						>
 							<img class="h-8 w-8 rounded-full bg-gray-50" src={user?.image} alt="avatar" />
@@ -184,7 +183,7 @@
 			<Icon src={Bars3} theme="solid" class="h-6 w-6" aria-hidden="true" />
 		</button>
 		<div class="flex-1 text-sm font-semibold leading-6 text-gray-900">Dashboard</div>
-		<button on:click={() => signOut()}>
+		<button on:click={() => console.log('signout')}>
 			<span class="sr-only">Your profile</span>
 			<img class="h-8 w-8 rounded-full bg-gray-50" src={user?.image} alt="avatar" />
 		</button>

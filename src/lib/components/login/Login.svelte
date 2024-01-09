@@ -1,15 +1,11 @@
 <script lang="ts">
-	import type { User } from '@auth/core/types';
-	import { signIn } from '@auth/sveltekit/client';
-	import { homeRoute } from '$lib/consts';
-
-	export let user: User | undefined;
+	import { enhance } from '$app/forms';
+	
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	export let user: any | undefined;
 	export let error: string | null;
 
 	$: errorMessage = error === 'CredentialsSignin' ? 'login or password are incorrect' : '';
-
-	let email: string = '';
-	let password: string = '';
 </script>
 
 <div class="flex min-h-full flex-1">
@@ -32,7 +28,7 @@
 				</h2>
 				<p class="mt-2 text-sm leading-6 text-gray-500">
 					Not a member?{' '}
-					<a href="/register" class="font-semibold text-indigo-600 hover:text-indigo-500">
+					<a href="/signup" class="font-semibold text-indigo-600 hover:text-indigo-500">
 						Register
 					</a>
 				</p>
@@ -40,23 +36,22 @@
 
 			<div class="mt-10">
 				<div>
-					<div class="space-y-6">
+					<form class="space-y-6" method="POST" use:enhance>
 						{#if errorMessage}
 							<p class="text-center text-red-500">{errorMessage}</p>
 						{/if}
 
 						<div>
-							<label for="email" class="block text-sm font-medium leading-6 text-gray-900">
+							<label for="username" class="block text-sm font-medium leading-6 text-gray-900">
 								Email address
 							</label>
 							<div class="mt-2">
 								<input
-									id="email"
-									name="email"
-									type="email"
-									autocomplete="email"
+									id="username"
+									name="username"
+									autocomplete="username"
 									required
-									bind:value={email}
+									value="test"
 									class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 								/>
 							</div>
@@ -71,9 +66,9 @@
 									id="password"
 									name="password"
 									type="password"
+									value="test"
 									autocomplete="current-password"
 									required
-									bind:value={password}
 									class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 								/>
 							</div>
@@ -102,12 +97,12 @@
 						<div>
 							<button
 								class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-								on:click={() => signIn('credentials', { email, password, callbackUrl: homeRoute })}
+								type="submit"
 							>
 								Sign in
 							</button>
 						</div>
-					</div>
+					</form>
 				</div>
 
 				<div class="mt-10">
@@ -122,7 +117,9 @@
 
 					<div class="mt-6 grid grid-cols-1">
 						<button
-							on:click={() => signIn('github', { callbackUrl: homeRoute })}
+							on:click={() => {
+								console.log('github');
+							}}
 							class="flex w-full items-center justify-center gap-3 rounded-md bg-[#24292F] px-3 py-1.5 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#24292F]"
 						>
 							<svg class="h-5 w-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">

@@ -21,9 +21,7 @@
 		"postinstall": "prisma generate"
 	},
 	"devDependencies": {
-		"@auth/core": "^0.20.0",
-		"@auth/prisma-adapter": "^1.0.12",
-		"@auth/sveltekit": "^0.5.2",
+		"@lucia-auth/adapter-prisma": "^3.0.2",
 		"@playwright/test": "^1.40.1",
 		"@prisma/client": "5.7.0",
 		"@rgossiaux/svelte-headlessui": "^2.0.0",
@@ -61,6 +59,7 @@
 		"eslint-plugin-unused-imports": "^3.0.0",
 		"husky": "^8.0.3",
 		"lint-staged": "^14.0.1",
+		"lucia": "^2.7.6",
 		"plop": "^4.0.1",
 		"postcss": "^8.4.33",
 		"prettier": "^2.8.8",

@@ -1,14 +1,14 @@
-import { json, redirect } from '@sveltejs/kit';
-import { loginRoute } from '$lib/consts';
+import { fail, json } from '@sveltejs/kit';
+import { unauthorized } from '$lib/consts';
 import prisma from '$lib/prisma';
 import type { TTask } from '$lib/task/utils';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request, locals }) => {
-	const session = await locals.getSession();
+	const session = await locals.auth.validate();
 
-	if (!session?.user) {
-		throw redirect(303, loginRoute);
+	if (!session) {
+		throw fail(401, { error: unauthorized });
 	}
 
 	const event: TTask = await request.json();
@@ -16,7 +16,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	await prisma.task.update({
 		where: {
 			id: event.id,
-			userId: session.user.id,
+			userId: session.user.userId,
 		},
 		data: {
 			name: event.name,

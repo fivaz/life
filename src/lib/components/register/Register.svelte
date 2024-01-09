@@ -1,23 +1,8 @@
 <script lang="ts">
-	import { signIn } from '@auth/sveltekit/client';
-	import type { SubmitFunction } from '@sveltejs/kit';
-	import { applyAction, enhance } from '$app/forms';
-	import { homeRoute } from '$lib/consts';
-	import type { ActionData } from '../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
-
-	export let form: ActionData | null = null;
-	export const submit: SubmitFunction = () => {
-		return async ({ result }) => {
-			await applyAction(result);
-			if (result.type === 'success') {
-				if (form?.saved) {
-					await signIn('credentials', { ...form.saved, callbackUrl: homeRoute });
-				}
-			}
-		};
-	};
+	import { enhance } from '$app/forms';
 </script>
 
+<!--TODO block the button submit so I can't submit the form twice-->
 <div class="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
 	<div class="sm:mx-auto sm:w-full sm:max-w-md">
 		<img
@@ -32,9 +17,9 @@
 
 	<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
 		<div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-			<form class="space-y-6" method="POST" use:enhance={submit}>
+			<form class="space-y-6" method="POST" use:enhance>
 				<div>
-					<label for="email" class="block text-sm font-medium leading-6 text-gray-900">
+					<label for="name" class="block text-sm font-medium leading-6 text-gray-900">
 						Full name
 					</label>
 					<div class="mt-2">
@@ -48,15 +33,15 @@
 					</div>
 				</div>
 				<div>
-					<label for="email" class="block text-sm font-medium leading-6 text-gray-900">
+					<label for="username" class="block text-sm font-medium leading-6 text-gray-900">
 						Email address
 					</label>
 					<div class="mt-2">
 						<input
-							id="email"
-							name="email"
+							id="username"
+							name="username"
 							type="email"
-							autocomplete="email"
+							autocomplete="username"
 							required
 							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 						/>

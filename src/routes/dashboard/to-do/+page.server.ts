@@ -1,5 +1,5 @@
-import { fail, redirect } from '@sveltejs/kit';
-import { loginRoute } from '$lib/consts';
+import { fail } from '@sveltejs/kit';
+import { unauthorized } from '$lib/consts';
 import prisma from '$lib/prisma';
 import type { TTask } from '$lib/task/utils';
 import { convertToMinutes } from '$lib/task/utils';
@@ -19,10 +19,10 @@ function getTomorrowDate(date: Date): Date {
 
 export const actions = {
 	rescheduleToTomorrow: async ({ request, locals }) => {
-		const session = await locals.getSession();
+		const session = await locals.auth.validate();
 
-		if (!session?.user) {
-			throw redirect(303, loginRoute);
+		if (!session) {
+			throw fail(401, { error: unauthorized });
 		}
 
 		const data = await request.formData();
@@ -35,7 +35,7 @@ export const actions = {
 		const event: TTask = await prisma.task.update({
 			where: {
 				id,
-				userId: session.user.id,
+				userId: session.user.userId,
 			},
 			data: {
 				startDate: tomorrowDate,
@@ -46,10 +46,10 @@ export const actions = {
 		return { saved: event };
 	},
 	save: async ({ request, locals }) => {
-		const session = await locals.getSession();
+		const session = await locals.auth.validate();
 
-		if (!session?.user) {
-			throw redirect(303, loginRoute);
+		if (!session) {
+			throw fail(401, { error: unauthorized });
 		}
 
 		try {
@@ -81,7 +81,7 @@ export const actions = {
 				const event: TTask = await prisma.task.update({
 					where: {
 						id,
-						userId: session.user.id,
+						userId: session.user.userId,
 					},
 					data: {
 						name: name || categoryName,
@@ -98,7 +98,7 @@ export const actions = {
 			} else {
 				const event: TTask = await prisma.task.create({
 					data: {
-						userId: session.user.id,
+						userId: session.user.userId,
 						name: name || categoryName,
 						description,
 						startDate,
@@ -118,10 +118,10 @@ export const actions = {
 		}
 	},
 	remove: async ({ request, locals }) => {
-		const session = await locals.getSession();
+		const session = await locals.auth.validate();
 
-		if (!session?.user) {
-			throw redirect(303, loginRoute);
+		if (!session) {
+			throw fail(401, { error: unauthorized });
 		}
 
 		const data = await request.formData();
@@ -129,7 +129,7 @@ export const actions = {
 		const event: TTask = await prisma.task.update({
 			where: {
 				id,
-				userId: session.user.id,
+				userId: session.user.userId,
 			},
 			data: {
 				deleted: new Date(),

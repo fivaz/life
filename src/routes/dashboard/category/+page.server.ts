@@ -1,18 +1,18 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 import type { CCategory } from '$lib/category/utils';
-import { loginRoute } from '$lib/consts';
+import { unauthorized } from '$lib/consts';
 import prisma from '$lib/prisma';
 import type { Actions, PageServerLoad } from './$types';
 
-export const load = (async (event) => {
-	const session = await event.locals.getSession();
+export const load = (async ({ locals }) => {
+	const session = await locals.auth.validate();
 
-	if (!session?.user) {
-		throw redirect(303, loginRoute);
+	if (!session) {
+		throw fail(401, { error: unauthorized });
 	}
 
 	const categories: CCategory[] = await prisma.category.findMany({
-		where: { deleted: null, userId: session.user.id },
+		where: { deleted: null, userId: session.user.userId },
 	});
 
 	return { categories };
@@ -20,10 +20,10 @@ export const load = (async (event) => {
 
 export const actions = {
 	save: async ({ request, locals }) => {
-		const session = await locals.getSession();
+		const session = await locals.auth.validate();
 
-		if (!session?.user) {
-			throw redirect(303, loginRoute);
+		if (!session) {
+			throw fail(401, { error: unauthorized });
 		}
 
 		const data = await request.formData();
@@ -50,7 +50,7 @@ export const actions = {
 				const category: CCategory = await prisma.category.update({
 					where: {
 						id,
-						userId: session.user.id,
+						userId: session.user.userId,
 					},
 					data: {
 						name,
@@ -63,7 +63,7 @@ export const actions = {
 			} else {
 				const category: CCategory = await prisma.category.create({
 					data: {
-						userId: session.user.id,
+						userId: session.user.userId,
 						name,
 						color,
 						group,
@@ -79,10 +79,10 @@ export const actions = {
 		}
 	},
 	remove: async ({ request, locals }) => {
-		const session = await locals.getSession();
+		const session = await locals.auth.validate();
 
-		if (!session?.user) {
-			throw redirect(303, loginRoute);
+		if (!session) {
+			throw fail(401, { error: unauthorized });
 		}
 
 		const data = await request.formData();
@@ -90,7 +90,7 @@ export const actions = {
 		const category: CCategory = await prisma.category.update({
 			where: {
 				id,
-				userId: session.user.id,
+				userId: session.user.userId,
 			},
 			data: {
 				deleted: new Date(),
