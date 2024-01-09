@@ -68,16 +68,16 @@ export default defineConfig({
 		//   use: { ...devices['Desktop Edge'], channel: 'msedge' },
 		// },
 		// Setup project
-		{ name: 'setup', testMatch: /.*\.setup\.ts/ },
+		// { name: 'setup', testMatch: /.*\.setup\.ts/ },
 		{
 			name: 'Google Chrome',
 			use: {
 				...devices['Desktop Chrome'],
 				// Use prepared auth state.
-				storageState: 'playwright/.auth/user.json',
+				// storageState: 'playwright/.auth/user.json',
 				channel: 'chrome',
 			},
-			dependencies: ['setup'],
+			// dependencies: ['setup'],
 		},
 	],
 
