@@ -10,13 +10,8 @@
 		return async ({ result }) => {
 			await applyAction(result);
 			if (result.type === 'success') {
-				console.log(form);
 				if (form?.saved) {
-					console.log('here');
 					await signIn('credentials', { ...form.saved, callbackUrl: homeRoute });
-				} else {
-					console.log(form);
-					console.log(result);
 				}
 			}
 		};

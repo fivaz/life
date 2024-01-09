@@ -1,6 +1,6 @@
-import { DefaultSession } from '@auth/core/types';
+import { DefaultSession } from '@auth/sveltekit';
 
-declare module '@auth/core/types' {
+declare module '@auth/sveltekit' {
 	/**
 	 * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
 	 */

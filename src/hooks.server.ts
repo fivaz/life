@@ -1,6 +1,6 @@
-import Credentials from '@auth/core/providers/credentials';
-import GitHub from '@auth/core/providers/github';
 import { SvelteKitAuth } from '@auth/sveltekit';
+import Credentials from '@auth/sveltekit/providers/credentials';
+import GitHub from '@auth/sveltekit/providers/github';
 import type { Handle } from '@sveltejs/kit';
 import { redirect } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
@@ -45,13 +45,29 @@ export const handle: Handle = sequence(
 			}),
 		],
 		callbacks: {
-			async session({ session, user, token }) {
-				if (user && session.user) {
-					session.user.id = user.id;
+			async session(params) {
+				// 	TODO use user instead of jwt when strategy is database
+				if ('token' in params) {
+					if (params.token.userId && params.session.user) {
+						params.session.user.id = params.token.userId;
+					}
 				}
-				return session;
+
+				return params.session;
+			},
+			async jwt({ user, token }) {
+				if (user) {
+					token.userId = user.id;
+				}
+				return token;
 			},
 		},
 	}),
 	authorization,
 );
+
+declare module '@auth/core/jwt' {
+	interface JWT {
+		userId?: string;
+	}
+}

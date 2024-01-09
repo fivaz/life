@@ -21,9 +21,9 @@
 		"postinstall": "prisma generate"
 	},
 	"devDependencies": {
-		"@auth/core": "^0.17.0",
+		"@auth/core": "^0.20.0",
 		"@auth/prisma-adapter": "^1.0.12",
-		"@auth/sveltekit": "^0.3.16",
+		"@auth/sveltekit": "^0.5.2",
 		"@playwright/test": "^1.40.1",
 		"@prisma/client": "5.7.0",
 		"@rgossiaux/svelte-headlessui": "^2.0.0",

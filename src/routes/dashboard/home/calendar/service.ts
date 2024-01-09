@@ -69,7 +69,6 @@ export function buildEventWithTime(
 	date: Date,
 	quarterHourInterval: number,
 ): EventIn {
-	console.log('quarterHourInterval', quarterHourInterval);
 	return {
 		id: 0,
 		name: '',
