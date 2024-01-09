@@ -9,7 +9,7 @@ import { config } from 'dotenv';
 
 config();
 
-const url = (process.env.TEST_URL as string) || 'http://localhost:4173';
+const url = (process.env.TEST_URL as string) || 'http://localhost:5173';
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -83,8 +83,8 @@ export default defineConfig({
 
 	/* Run your local dev server before starting the tests */
 	// webServer: {
-	// 	command: 'pnpm run build && pnpm run preview',
-	// 	// command: 'pnpm run dev --port 4173',
+	// 	// command: 'pnpm run build && pnpm run preview',
+	// 	command: 'pnpm run dev --port 4173',
 	// 	url,
 	// 	reuseExistingServer: !process.env.CI,
 	// },

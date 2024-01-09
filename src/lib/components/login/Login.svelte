@@ -2,8 +2,8 @@
 	import type { User } from '@auth/core/types';
 	import { signIn } from '@auth/sveltekit/client';
 	import { homeRoute } from '$lib/consts';
-	
-export let user: User | undefined;
+
+	export let user: User | undefined;
 	export let error: string | null;
 
 	$: errorMessage = error === 'CredentialsSignin' ? 'login or password are incorrect' : '';
@@ -102,7 +102,7 @@ export let user: User | undefined;
 						<div>
 							<button
 								class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-								on:click={() => signIn('credentials', { email, password })}
+								on:click={() => signIn('credentials', { email, password, callbackUrl: homeRoute })}
 							>
 								Sign in
 							</button>

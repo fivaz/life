@@ -22,7 +22,7 @@ const authorization: Handle = async ({ event, resolve }) => {
 export const handle: Handle = sequence(
 	SvelteKitAuth({
 		pages: {
-			signIn: '/login',
+			signIn: loginRoute,
 		},
 		session: {
 			strategy: 'jwt',
