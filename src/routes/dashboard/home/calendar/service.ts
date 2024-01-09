@@ -1,7 +1,7 @@
 import type { CCategory } from '$lib/category/utils';
 import { weekDays } from '$lib/components/days-checkbox/service';
 import { DATE, TIME } from '$lib/consts';
-import type { TTask, OnlyTTask } from '$lib/task/utils';
+import type { TTask, OnlyTTask, EEvent } from '$lib/task/utils';
 import { convertToTime } from '$lib/task/utils';
 import { addMinutes, addMonths, differenceInMinutes, format, setHours, setMinutes } from 'date-fns';
 import { halfHourInterval } from './calendar-body/calendar-columns/calendar-rows/service';
@@ -23,9 +23,9 @@ export function convertToEventIn(event: TTask): EventIn {
 		id: event.id,
 		name: event.name,
 		description: event.description,
-		date: format(event.startDate, DATE),
-		startTime: format(event.startDate, TIME),
-		endTime: format(event.endDate, TIME),
+		date: event.startDate ? format(event.startDate, DATE) : '',
+		startTime: event.startDate ? format(event.startDate, TIME) : '',
+		endTime: event.endDate ? format(event.endDate, TIME) : '',
 		duration: convertToTime(event.duration),
 		isDone: event.isDone,
 		categoryId: event.categoryId,
@@ -69,6 +69,7 @@ export function buildEventWithTime(
 	date: Date,
 	quarterHourInterval: number,
 ): EventIn {
+	console.log('quarterHourInterval', quarterHourInterval);
 	return {
 		id: 0,
 		name: '',
@@ -86,7 +87,7 @@ export function buildEventWithTime(
 	};
 }
 
-export function moveEvent(event: TTask, date: Date, quarterHourInterval: number) {
+export function moveEvent(event: EEvent, date: Date, quarterHourInterval: number) {
 	const duration = differenceInMinutes(event.endDate, event.startDate);
 	return {
 		...event,

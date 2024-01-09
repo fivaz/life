@@ -2,12 +2,12 @@
 	import { page } from '$app/stores';
 	import { categories } from '$lib/category/store.js';
 	import Dashboard from '$lib/components/dashboard/Dashboard.svelte';
-	import { events } from '$lib/task/store.js';
+	import { tasks } from '$lib/task/store.js';
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;
 
-	events.set(data.events);
+	tasks.set(data.tasks);
 	categories.set(data.categories);
 </script>
 

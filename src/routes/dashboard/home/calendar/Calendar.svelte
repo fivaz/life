@@ -2,7 +2,7 @@
 	import { categories } from '$lib/category/store';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { draggedEvent } from '$lib/dragged/store';
-	import { updateEvent } from '$lib/task/store';
+	import { updateTask } from '$lib/task/store';
 	import { startOfWeek } from 'date-fns';
 
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
@@ -51,7 +51,7 @@
 		on:move={(e) => {
 			if ($draggedEvent) {
 				const event = moveEvent($draggedEvent, e.detail.date, e.detail.timeInterval);
-				updateEvent(event);
+				updateTask(event);
 				preserveEvent(event);
 			}
 		}}

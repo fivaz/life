@@ -6,7 +6,7 @@
 	import type { TTask } from '$lib/task/utils';
 	import { buildEmptyEventIn, convertToEventIn } from '../home/calendar/service';
 	import type { EventIn } from '../home/calendar/service';
-	import EventForm from '../home/calendar/task-form/TaskForm.svelte';
+	import TaskForm from '../home/calendar/task-form/TaskForm.svelte';
 	import type { ActionData } from './$types';
 	import ToDoRow from './to-do-row/ToDoRow.svelte';
 
@@ -15,7 +15,7 @@
 	export let event: EventIn = buildEmptyEventIn([]);
 
 	export function getSumOfDurationsAsTime(events: TTask[]): string {
-		const sumOfDurationsInMinutes = events.reduce((sum, event) => sum + event.duration, 0);
+		const sumOfDurationsInMinutes = events.reduce((sum, event) => sum + (event.duration || 0), 0);
 		const hours = Math.floor(sumOfDurationsInMinutes / 60);
 		const remainingMinutes = sumOfDurationsInMinutes % 60;
 		return `${hours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')}`;
@@ -54,6 +54,6 @@
 	</ul>
 
 	<Modal show={showForm} on:close={() => (showForm = false)}>
-		<EventForm on:submit={() => (showForm = false)} {event} {form} />
+		<TaskForm on:submit={() => (showForm = false)} {event} {form} />
 	</Modal>
 </div>

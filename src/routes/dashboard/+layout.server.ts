@@ -12,7 +12,7 @@ export const load = (async ({ locals }) => {
 		throw fail(401, { error: unauthorized });
 	}
 
-	const [events, categories]: [events: TTask[], categories: CCategory[]] = await Promise.all([
+	const [tasks, categories]: [tasks: TTask[], categories: CCategory[]] = await Promise.all([
 		prisma.task.findMany({
 			where: { deleted: null, userId: session.user.userId },
 			include: { category: true },
@@ -22,5 +22,5 @@ export const load = (async ({ locals }) => {
 		}),
 	]);
 
-	return { events, categories };
+	return { tasks, categories };
 }) satisfies LayoutServerLoad;

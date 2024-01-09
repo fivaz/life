@@ -16,10 +16,6 @@ export const actions = {
 		const username = formData.get('username') as string;
 		const password = formData.get('password') as string;
 
-		console.log('trying with:');
-		console.log('username=', username, '.');
-		console.log('password=', password, '.');
-
 		try {
 			// find user by key
 			// and validate password
