@@ -68,24 +68,24 @@ export default defineConfig({
 		//   use: { ...devices['Desktop Edge'], channel: 'msedge' },
 		// },
 		// Setup project
-		// { name: 'setup', testMatch: /.*\.setup\.ts/ },
+		{ name: 'setup', testMatch: /.*\.setup\.ts/ },
 		{
 			name: 'Google Chrome',
 			use: {
 				...devices['Desktop Chrome'],
 				// Use prepared auth state.
-				// storageState: 'playwright/.auth/user.json',
+				storageState: 'playwright/.auth/user.json',
 				channel: 'chrome',
 			},
-			// dependencies: ['setup'],
+			dependencies: ['setup'],
 		},
 	],
 
 	/* Run your local dev server before starting the tests */
-	// webServer: {
-	// 	// command: 'pnpm run build && pnpm run preview',
-	// 	command: 'pnpm run dev --port 4173',
-	// 	url,
-	// 	reuseExistingServer: !process.env.CI,
-	// },
+	webServer: {
+		// command: 'pnpm run build && pnpm run preview',
+		command: 'pnpm run dev --port 4173',
+		url,
+		reuseExistingServer: !process.env.CI,
+	},
 });

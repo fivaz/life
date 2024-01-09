@@ -57,14 +57,14 @@ export const actions = {
 				throw Error('internal error, please refresh the page');
 			}
 
-			const startDate = parseISO(startDateString);
-			const endDate = parseISO(endDateString);
+			const startDate = startDateString ? parseISO(startDateString) : null;
+			const endDate = endDateString ? parseISO(endDateString) : null;
 
 			const recurringStartAt = isRecurring ? parseISO(recurringStartAtString) : null;
 			const recurringEndAt = isRecurring ? parseISO(recurringEndAtString) : null;
 			const recurringDaysOfWeek = isRecurring ? recurringDaysOfWeekString.split(',') : [];
 
-			if (startDate > endDate) {
+			if (startDate && endDate && startDate > endDate) {
 				throw Error('startDate should be before endDate');
 			}
 
@@ -113,7 +113,7 @@ export const actions = {
 				return { saved: event };
 			}
 		} catch (error) {
-			console.log(error);
+			console.log('error', error);
 			return fail(422, {
 				error: error instanceof Error ? error.message : 'unknown error',
 			});

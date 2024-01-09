@@ -16,7 +16,7 @@
 		preserveEvent,
 	} from './service';
 	import type { EventIn } from './service';
-	import EventForm from './task-form/TaskForm.svelte';
+	import TaskForm from './task-form/TaskForm.svelte';
 
 	let currentDate = new Date();
 
@@ -57,6 +57,6 @@
 		}}
 	/>
 	<Modal show={showForm} on:close={() => (showForm = false)}>
-		<EventForm on:submit={() => (showForm = false)} {form} {event} />
+		<TaskForm on:submit={() => (showForm = false)} {form} {event} isOnlyEvent />
 	</Modal>
 </div>

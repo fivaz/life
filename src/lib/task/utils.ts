@@ -16,6 +16,10 @@ export type EEvent = Omit<TTask, 'startDate' | 'endDate' | 'duration'> & {
 };
 
 export function convertToMinutes(duration: string) {
+	// to check if the duration string is HH:mm format
+	if (!/^([01]\d|2[0-3]):([0-5]\d)$/.test(duration)) {
+		return 0;
+	}
 	const [hours, minutes] = duration.split(':').map(Number);
 	return hours * 60 + minutes;
 }
