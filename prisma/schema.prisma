@@ -19,7 +19,7 @@ model Task {
   userId              String
   categoryId          Int
   duration            Int?
-  isRecurring         Boolean?
+  isRecurring         Boolean
   recurringStartAt    DateTime? @db.Timestamp(6)
   recurringEndAt      DateTime? @db.Timestamp(6)
   recurringDaysOfWeek String[]
