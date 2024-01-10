@@ -16,9 +16,6 @@
 	} satisfies Meta<Modal>;
 </script>
 
-<script>
-</script>
-
 <Template let:args>
 	<Modal {...args} />
 </Template>
