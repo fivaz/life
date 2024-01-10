@@ -24,5 +24,4 @@
 	confirmText={$modal.confirmText}
 	cancelText={$modal.cancelText}
 	resolve={$modal.resolve}
-	reject={$modal.reject}
 />

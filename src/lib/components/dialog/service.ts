@@ -7,7 +7,6 @@ const closedModal = {
 	confirmText: '',
 	cancelText: '',
 	resolve: () => {},
-	reject: () => {},
 };
 
 export const modal = writable<{
@@ -17,7 +16,6 @@ export const modal = writable<{
 	confirmText: string;
 	cancelText: string;
 	resolve: (value: boolean | null) => void;
-	reject: (value: boolean | null) => void;
 }>(closedModal);
 
 export function createModal(
@@ -26,7 +24,7 @@ export function createModal(
 	confirmText = 'confirm',
 	cancelText = 'cancel',
 ) {
-	return new Promise<boolean | null>((resolve, reject) => {
+	return new Promise<boolean | null>((resolve) => {
 		modal.update(($modal) => ({
 			show: true,
 			title,
@@ -34,7 +32,6 @@ export function createModal(
 			confirmText,
 			cancelText,
 			resolve,
-			reject,
 		}));
 	});
 }

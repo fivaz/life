@@ -3,6 +3,7 @@
 	import { enhance, applyAction } from '$app/forms';
 	import { categories } from '$lib/category/store';
 	import Button from '$lib/components/button/Button.svelte';
+	import ConfirmButton from '$lib/components/confirm-button/ConfirmButton.svelte';
 	import DaysCheckbox from '$lib/components/days-checkbox/DaysCheckbox.svelte';
 	import { createModal } from '$lib/components/dialog/service';
 	import Input from '$lib/components/input/Input.svelte';
@@ -213,21 +214,9 @@
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
 		{#if task.id}
-			<Button
-				on:click={async (e) => {
-					e.preventDefault();
-					if (await createModal('Are you sure?')) {
-						if (formTag) {
-							formTag.action = '?/remove';
-							formTag.requestSubmit();
-						}
-					}
-				}}
-				formaction="?/remove"
-				color="red"
-			>
+			<ConfirmButton title="Are you sure?" form={formTag} formaction="?/remove" color="red">
 				Delete
-			</Button>
+			</ConfirmButton>
 		{:else}
 			<div />
 		{/if}

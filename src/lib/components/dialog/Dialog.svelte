@@ -3,14 +3,13 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { closeModal } from '$lib/components/dialog/service';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	
-export let show: boolean;
+
+	export let show: boolean;
 	export let title: string;
 	export let message: string = '';
 	export let confirmText: string;
 	export let cancelText: string;
 	export let resolve: (value: boolean | null) => void;
-	export let reject: (value: boolean | null) => void;
 
 	function confirm() {
 		resolve(true);
