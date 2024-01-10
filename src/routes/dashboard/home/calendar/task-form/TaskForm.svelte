@@ -9,6 +9,7 @@
 	import Select from '$lib/components/select/Select.svelte';
 	import { TIME } from '$lib/consts';
 	import { removeTask, updateTask } from '$lib/task/store';
+	import classnames from 'classnames';
 	import { isAfter, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
@@ -19,12 +20,10 @@
 
 	export let task: TaskIn;
 
-	export let isOnlyEvent: boolean = false;
-
-	export let isEvent: boolean = isOnlyEvent;
+	export let isOnlyEvent: boolean;
 
 	$: error =
-		isEvent &&
+		task.isEvent &&
 		!isAfter(parse(task.endTime, TIME, new Date()), parse(task.startTime, TIME, new Date()));
 
 	$: categoryName =
@@ -34,7 +33,7 @@
 	const dispatch = createEventDispatcher();
 
 	export const submit: SubmitFunction = ({ formData }) => {
-		if (isEvent) {
+		if (task.isEvent) {
 			buildDates(formData);
 		}
 		dispatch('submit');
@@ -113,21 +112,20 @@
 			/>
 		</label>
 
-		{#if !isOnlyEvent}
-			<div class="flex justify-start">
-				<label class="flex gap-2 items-center text-sm font-medium text-gray-700">
-					Event
-					<input
-						type="checkbox"
-						bind:checked={isEvent}
-						class="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-					/>
-					<!--mt-1 is to align the checkbox with the label-->
-				</label>
-			</div>
-		{/if}
+		<div class={classnames({ hidden: isOnlyEvent }, 'flex justify-start')}>
+			<label class="flex gap-2 items-center text-sm font-medium text-gray-700">
+				Event
+				<input
+					name="isEvent"
+					type="checkbox"
+					bind:checked={task.isEvent}
+					class="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+				/>
+				<!--mt-1 is to align the checkbox with the label-->
+			</label>
+		</div>
 
-		{#if isEvent}
+		{#if task.isEvent}
 			<div class="flex gap-3">
 				<Input
 					labelClass="w-1/2"

@@ -55,11 +55,6 @@
 	</ul>
 
 	<Modal show={showForm} on:close={() => (showForm = false)}>
-		<TaskForm
-			on:submit={() => (showForm = false)}
-			task={editingToDo}
-			{form}
-			isEvent={editingToDo.isEvent}
-		/>
+		<TaskForm on:submit={() => (showForm = false)} task={editingToDo} {form} isOnlyEvent={false} />
 	</Modal>
 </div>

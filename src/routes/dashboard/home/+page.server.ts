@@ -50,7 +50,7 @@ export const actions = {
 
 			const startDateString = data.get('startDate') as string;
 			const endDateString = data.get('endDate') as string;
-			const duration = convertToMinutes(data.get('duration') as string);
+			const durationString = data.get('duration') as string;
 
 			const isRecurring = !!data.get('isRecurring');
 			const recurringStartAtString = data.get('recurringStartAt') as string;
@@ -63,6 +63,7 @@ export const actions = {
 
 			const startDate = isEvent ? parseISO(startDateString) : null;
 			const endDate = isEvent ? parseISO(endDateString) : null;
+			const duration = isEvent ? convertToMinutes(durationString) : null;
 
 			const recurringStartAt = isRecurring ? parseISO(recurringStartAtString) : null;
 			const recurringEndAt = isRecurring ? parseISO(recurringEndAtString) : null;

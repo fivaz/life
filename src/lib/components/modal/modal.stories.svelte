@@ -26,6 +26,6 @@
 
 <Story name="Form" args={{ show: true }} let:args>
 	<Modal {...args}>
-		<TaskForm form={null} task={buildEmptyTaskIn(categories, true)} />
+		<TaskForm form={null} task={buildEmptyTaskIn(categories, true)} isOnlyEvent={false} />
 	</Modal>
 </Story>
