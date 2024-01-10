@@ -4,6 +4,7 @@
 	import { categories } from '$lib/category/store';
 	import Button from '$lib/components/button/Button.svelte';
 	import DaysCheckbox from '$lib/components/days-checkbox/DaysCheckbox.svelte';
+	import { createModal } from '$lib/components/dialog/service';
 	import Input from '$lib/components/input/Input.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
@@ -21,6 +22,8 @@
 	export let task: TaskIn;
 
 	export let isOnlyEvent: boolean;
+
+	let formTag: HTMLFormElement | null = null;
 
 	$: error =
 		task.isEvent &&
@@ -58,6 +61,7 @@
 	method="POST"
 	action="?/save"
 	use:enhance={submit}
+	bind:this={formTag}
 	class="w-[355px] shadow rounded-md overflow-hidden relative"
 >
 	<div class="flex flex-col gap-3 px-4 py-5 bg-white sm:p-6">
@@ -214,7 +218,18 @@
 			<div />
 		{/if}
 
-		<Button disabled={error} type="submit">
+		<Button
+			disabled={error}
+			on:click={async (e) => {
+				e.preventDefault();
+				const result = await createModal('Are you sure?');
+				if (result) {
+					formTag?.requestSubmit();
+				} else {
+					console.log('catch');
+				}
+			}}
+		>
 			{#if task.id} Edit {:else} Add {/if}
 		</Button>
 	</div>

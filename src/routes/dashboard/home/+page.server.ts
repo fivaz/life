@@ -1,5 +1,5 @@
-import { fail } from '@sveltejs/kit';
-import { unauthorized } from '$lib/consts';
+import { fail, redirect } from '@sveltejs/kit';
+import { loginRoute, unauthorized } from '$lib/consts';
 import prisma from '$lib/prisma';
 import { convertToMinutes } from '$lib/task/utils';
 import type { TTask } from '$lib/task/utils';
@@ -11,7 +11,7 @@ export const actions = {
 		const session = await locals.auth.validate();
 
 		if (!session) {
-			throw fail(401, { error: unauthorized });
+			throw redirect(302, loginRoute);
 		}
 
 		const data = await request.formData();

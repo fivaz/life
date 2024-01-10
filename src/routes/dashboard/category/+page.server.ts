@@ -1,6 +1,6 @@
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import type { CCategory } from '$lib/category/utils';
-import { unauthorized } from '$lib/consts';
+import { loginRoute, unauthorized } from '$lib/consts';
 import prisma from '$lib/prisma';
 import type { Actions, PageServerLoad } from './$types';
 
@@ -23,7 +23,7 @@ export const actions = {
 		const session = await locals.auth.validate();
 
 		if (!session) {
-			throw fail(401, { error: unauthorized });
+			throw redirect(302, loginRoute);
 		}
 
 		const data = await request.formData();
