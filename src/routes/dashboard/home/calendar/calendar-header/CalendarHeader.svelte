@@ -123,7 +123,7 @@
 				</Transition>
 			</Menu>
 			<div class="ml-6 h-6 w-px bg-gray-300" />
-			<Button type="button" on:click={() => dispatch('create')} class="ml-6">Create task</Button>
+			<Button type="button" on:click={() => dispatch('create')} class="ml-6">Create event</Button>
 		</div>
 		<!--Mobile-->
 		<Menu class="relative ml-6 md:hidden">
@@ -154,7 +154,7 @@
 									'block px-4 py-2 text-sm',
 								)}
 							>
-								Create task
+								Create event
 							</button>
 						</MenuItem>
 					</div>
