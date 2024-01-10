@@ -18,12 +18,17 @@ export const modal = writable<{
 	resolve: (value: boolean | null) => void;
 }>(closedModal);
 
-export function createModal(
-	title: string,
+export function createModal({
+	title,
 	message = '',
 	confirmText = 'confirm',
 	cancelText = 'cancel',
-) {
+}: {
+	title: string;
+	message?: string;
+	confirmText?: string;
+	cancelText?: string;
+}) {
 	return new Promise<boolean | null>((resolve) => {
 		modal.update(($modal) => ({
 			show: true,

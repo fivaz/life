@@ -1,9 +1,8 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { loginRoute, unauthorized } from '$lib/consts';
 import prisma from '$lib/prisma';
-import { convertToMinutes } from '$lib/task/utils';
+import { getTask } from '$lib/task/utils';
 import type { TTask } from '$lib/task/utils';
-import { parseISO } from 'date-fns';
 import type { Actions } from './$types';
 
 export const actions = {
@@ -38,40 +37,7 @@ export const actions = {
 		}
 
 		try {
-			const data = await request.formData();
-			const categoryId = Number(data.get('categoryId'));
-			const categoryName = data.get('categoryName') as string;
-
-			const id = Number(data.get('id'));
-			const isDone = !!data.get('isDone');
-			const name = data.get('name') as string;
-			const description = data.get('description') as string;
-			const isEvent = !!data.get('isEvent');
-
-			const startDateString = data.get('startDate') as string;
-			const endDateString = data.get('endDate') as string;
-			const durationString = data.get('duration') as string;
-
-			const isRecurring = !!data.get('isRecurring');
-			const recurringStartAtString = data.get('recurringStartAt') as string;
-			const recurringEndAtString = data.get('recurringEndAt') as string;
-			const recurringDaysOfWeekString = data.get('recurringDaysOfWeek') as string;
-
-			if (!categoryName || !categoryId) {
-				throw Error('internal error, please refresh the page');
-			}
-
-			const startDate = isEvent ? parseISO(startDateString) : null;
-			const endDate = isEvent ? parseISO(endDateString) : null;
-			const duration = isEvent ? convertToMinutes(durationString) : null;
-
-			const recurringStartAt = isRecurring ? parseISO(recurringStartAtString) : null;
-			const recurringEndAt = isRecurring ? parseISO(recurringEndAtString) : null;
-			const recurringDaysOfWeek = isRecurring ? recurringDaysOfWeekString.split(',') : [];
-
-			if (startDate && endDate && startDate > endDate) {
-				throw Error('startDate should be before endDate');
-			}
+			const { id, ...task } = await getTask(request);
 
 			if (id) {
 				const event: TTask = await prisma.task.update({
@@ -79,39 +45,14 @@ export const actions = {
 						id,
 						userId: session.user.userId,
 					},
-					data: {
-						name: name || categoryName,
-						description,
-						startDate,
-						endDate,
-						duration,
-						isDone,
-						categoryId,
-						isRecurring,
-						recurringStartAt,
-						recurringEndAt,
-						recurringDaysOfWeek,
-					},
+					data: task,
 					include: { category: true },
 				});
 
 				return { saved: event };
 			} else {
 				const event: TTask = await prisma.task.create({
-					data: {
-						userId: session.user.userId,
-						name: name || categoryName,
-						description,
-						startDate,
-						endDate,
-						duration,
-						isDone,
-						categoryId,
-						isRecurring,
-						recurringStartAt,
-						recurringEndAt,
-						recurringDaysOfWeek,
-					},
+					data: { ...task, userId: session.user.userId },
 					include: { category: true },
 				});
 

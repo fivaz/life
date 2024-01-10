@@ -226,12 +226,27 @@
 			type="submit"
 			on:click={async (e) => {
 				e.preventDefault();
-				const result = await createModal('Are you sure?');
-				if (result) {
-					formTag?.requestSubmit();
-				} else {
-					console.log('catch');
+
+				if (!formTag) {
+					return;
 				}
+
+				if (task.isRecurring) {
+					const thisEventOnly = await createModal({
+						title: 'This is a repeating event',
+						message: 'Do you want to save the changes for ?',
+						confirmText: 'this event only',
+						cancelText: 'future events',
+					});
+
+					if (thisEventOnly === null) {
+						return;
+					}
+
+					const formData = new FormData(formTag);
+					formData.set('isForThisEventOnly', thisEventOnly ? 'true' : '');
+				}
+				formTag.requestSubmit();
 			}}
 		>
 			{#if task.id} Edit {:else} Add {/if}

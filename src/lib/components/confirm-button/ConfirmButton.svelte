@@ -14,7 +14,7 @@
 <Button
 	on:click={async (e) => {
 		e.preventDefault();
-		if (await createModal(title)) {
+		if (await createModal({ title })) {
 			if (form) {
 				if (formaction) {
 					form.action = formaction;

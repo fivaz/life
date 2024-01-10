@@ -14,6 +14,7 @@ export type TaskIn = Omit<
 	startTime: string;
 	endTime: string;
 	duration: string;
+	isRecurring: boolean;
 	recurringStartAt: string;
 	recurringEndAt: string;
 	isEvent: boolean;
