@@ -213,13 +213,28 @@
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
 		{#if task.id}
-			<Button formaction="?/remove" color="red">Delete</Button>
+			<Button
+				on:click={async (e) => {
+					e.preventDefault();
+					if (await createModal('Are you sure?')) {
+						if (formTag) {
+							formTag.action = '?/remove';
+							formTag.requestSubmit();
+						}
+					}
+				}}
+				formaction="?/remove"
+				color="red"
+			>
+				Delete
+			</Button>
 		{:else}
 			<div />
 		{/if}
 
 		<Button
 			disabled={error}
+			type="submit"
 			on:click={async (e) => {
 				e.preventDefault();
 				const result = await createModal('Are you sure?');
