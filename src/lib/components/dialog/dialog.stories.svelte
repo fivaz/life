@@ -13,7 +13,21 @@
 </script>
 
 <Template let:args>
-	<Dialog {...args} />
+	<Dialog
+		{...args}
+		on:close={() => console.log('close')}
+		on:confirm={() => console.log('confirm')}
+		on:cancel={() => console.log('cancel')}
+	/>
 </Template>
 
-<Story name="Primary" args={{ show: true }} />
+<Story
+	name="Primary"
+	args={{
+		show: true,
+		title: 'Delete event ?',
+		message: 'Are you sure you want to delete this event ?',
+		confirmText: 'Confirm',
+		cancelText: 'Cancel',
+	}}
+/>
