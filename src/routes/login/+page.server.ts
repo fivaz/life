@@ -38,7 +38,7 @@ export const actions = {
 				// user does not exist
 				// or invalid password
 				return fail(400, {
-					message: 'Incorrect username or password',
+					error: 'Incorrect username or password',
 				});
 			}
 

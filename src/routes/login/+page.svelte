@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import type { ActionData } from './$types';
 	import Login from './login/Login.svelte';
+
+	export let form: ActionData | null = null;
 </script>
 
-<Login error={$page.url.searchParams.get('error')} user={$page.data.session?.user} />
+<Login {form} />
