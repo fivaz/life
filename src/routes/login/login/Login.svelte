@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { registerRoute } from '$lib/consts';
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	export let user: any | undefined;
@@ -28,7 +29,7 @@
 				</h2>
 				<p class="mt-2 text-sm leading-6 text-gray-500">
 					Not a member?{' '}
-					<a href="/signup" class="font-semibold text-indigo-600 hover:text-indigo-500">
+					<a href={registerRoute} class="font-semibold text-indigo-600 hover:text-indigo-500">
 						Register
 					</a>
 				</p>
@@ -50,6 +51,7 @@
 									id="username"
 									name="username"
 									autocomplete="username"
+									value="test@test.com1"
 									class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 								/>
 							</div>
@@ -64,6 +66,7 @@
 									id="password"
 									name="password"
 									type="password"
+									value="test"
 									autocomplete="current-password"
 									class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 								/>

@@ -1,6 +1,6 @@
 import type { CCategory } from '$lib/category/utils';
 import { weekDays } from '$lib/components/days-checkbox/service';
-import { DATE, TIME } from '$lib/consts';
+import { DATE, homeRoute, TIME } from '$lib/consts';
 import type { TTask, OnlyTTask, EEvent } from '$lib/task/utils';
 import { convertToTime } from '$lib/task/utils';
 import { addMinutes, addMonths, differenceInMinutes, format, setHours, setMinutes } from 'date-fns';
@@ -110,7 +110,7 @@ export function moveEvent(event: EEvent, date: Date, quarterHourInterval: number
 }
 
 export async function preserveEvent(event: TTask) {
-	await fetch('/dashboard/home/api', {
+	await fetch(`${homeRoute}/api`, {
 		method: 'POST',
 		body: JSON.stringify(event),
 	});

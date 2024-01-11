@@ -1,4 +1,5 @@
 import { fail, redirect } from '@sveltejs/kit';
+import { homeRoute } from '$lib/consts';
 import { auth } from '$lib/server/lucia';
 import { LuciaError } from 'lucia';
 
@@ -6,8 +7,9 @@ import type { PageServerLoad, Actions } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
-	if (session) throw redirect(302, '/');
-	return {};
+	if (session) {
+		throw redirect(302, homeRoute);
+	}
 };
 
 export const actions = {
@@ -46,6 +48,6 @@ export const actions = {
 			});
 		}
 
-		throw redirect(302, '/');
+		throw redirect(302, homeRoute);
 	},
 } satisfies Actions;

@@ -78,7 +78,9 @@
 		<p class="mt-10 text-center text-sm text-gray-500">
 			Already a member?
 			{' '}
-			<a href="/" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"> Log in </a>
+			<a href="/static" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+				Log in
+			</a>
 		</p>
 	</div>
 </div>

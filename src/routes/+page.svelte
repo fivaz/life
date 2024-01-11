@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { loginRoute } from '$lib/consts';
 </script>
 
-<a href="/login">login</a>
+<a href={loginRoute}>login</a>
