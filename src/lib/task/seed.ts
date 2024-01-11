@@ -30,6 +30,7 @@ export const normalWithoutDescription: TTask = {
 	recurringStartAt: null,
 	recurringEndAt: null,
 	recurringDaysOfWeek: [],
+	recurringExceptions: [],
 };
 
 export const shortWithoutDescription: TTask = {
@@ -46,6 +47,7 @@ export const shortWithoutDescription: TTask = {
 	recurringStartAt: null,
 	recurringEndAt: null,
 	recurringDaysOfWeek: [],
+	recurringExceptions: [],
 };
 
 export const long: TTask = {
@@ -62,6 +64,7 @@ export const long: TTask = {
 	recurringStartAt: null,
 	recurringEndAt: null,
 	recurringDaysOfWeek: [],
+	recurringExceptions: [],
 };
 
 export const done: TTask = {
@@ -78,6 +81,7 @@ export const done: TTask = {
 	recurringStartAt: null,
 	recurringEndAt: null,
 	recurringDaysOfWeek: [],
+	recurringExceptions: [],
 };
 
 export const redEvent: TTask = {
@@ -94,6 +98,7 @@ export const redEvent: TTask = {
 	recurringStartAt: null,
 	recurringEndAt: null,
 	recurringDaysOfWeek: [],
+	recurringExceptions: [],
 };
 
 export const events: TTask[] = [
@@ -118,6 +123,7 @@ export const sleepEvent: TTask = {
 	recurringStartAt: null,
 	recurringEndAt: null,
 	recurringDaysOfWeek: [],
+	recurringExceptions: [],
 };
 
 export const workEvent: TTask = {
@@ -134,6 +140,7 @@ export const workEvent: TTask = {
 	recurringStartAt: new Date(),
 	recurringEndAt: addDays(new Date(), 7),
 	recurringDaysOfWeek: ['mon', 'tue', 'wed', 'thu', 'fri'],
+	recurringExceptions: [],
 };
 
 export const funEvent: TTask = {
@@ -150,6 +157,7 @@ export const funEvent: TTask = {
 	recurringStartAt: null,
 	recurringEndAt: null,
 	recurringDaysOfWeek: [],
+	recurringExceptions: [],
 };
 
 export const perfectDay: TTask[] = [sleepEvent, workEvent, funEvent];

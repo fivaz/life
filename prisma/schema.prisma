@@ -9,22 +9,23 @@ datasource db {
 }
 
 model Task {
-  id                  Int       @id @default(autoincrement())
+  id                  Int        @id @default(autoincrement())
   name                String
   description         String?
-  startDate           DateTime? @db.Timestamp(6)
-  endDate             DateTime? @db.Timestamp(6)
+  startDate           DateTime?  @db.Timestamp(6)
+  endDate             DateTime?  @db.Timestamp(6)
   isDone              Boolean
-  deleted             DateTime? @db.Timestamp(6)
+  deleted             DateTime?  @db.Timestamp(6)
   userId              String
   categoryId          Int
   duration            Int?
   isRecurring         Boolean
-  recurringStartAt    DateTime? @db.Timestamp(6)
-  recurringEndAt      DateTime? @db.Timestamp(6)
+  recurringStartAt    DateTime?  @db.Timestamp(6)
+  recurringEndAt      DateTime?  @db.Timestamp(6)
   recurringDaysOfWeek String[]
-  category            Category  @relation(fields: [categoryId], references: [id])
-  user                User      @relation(fields: [userId], references: [id])
+  recurringExceptions DateTime[]
+  category            Category   @relation(fields: [categoryId], references: [id])
+  user                User       @relation(fields: [userId], references: [id])
 }
 
 model Category {

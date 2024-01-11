@@ -40,6 +40,7 @@ export function convertToEventIn(event: TTask): TaskIn {
 		recurringDaysOfWeek: event.recurringDaysOfWeek.length
 			? event.recurringDaysOfWeek
 			: weekDays.slice(1, 6),
+		recurringExceptions: event.recurringExceptions,
 	};
 }
 
@@ -60,6 +61,7 @@ export function buildEmptyTaskIn(categories: CCategory[], isEvent: boolean): Tas
 		recurringStartAt: format(new Date(), DATE),
 		recurringEndAt: format(addMonths(new Date(), 1), DATE),
 		recurringDaysOfWeek: weekDays.slice(1, 6),
+		recurringExceptions: [],
 	};
 }
 
@@ -94,6 +96,7 @@ export function buildEventWithTime(
 		recurringStartAt: '',
 		recurringEndAt: '',
 		recurringDaysOfWeek: [],
+		recurringExceptions: [],
 	};
 }
 
