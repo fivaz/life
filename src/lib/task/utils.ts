@@ -1,7 +1,7 @@
 import type { Task } from '@prisma/client';
 import type { CCategory } from '$lib/category/utils';
-import { TIME } from '$lib/consts';
-import { format, parseISO } from 'date-fns';
+import { DATE, TIME } from '$lib/consts';
+import { format, parse, parseISO } from 'date-fns';
 
 export type TTask = Omit<Task, 'deleted' | 'userId'> & {
 	category: CCategory;
@@ -55,6 +55,7 @@ export async function getTask(
 	const recurringStartAtString = data.get('recurringStartAt') as string;
 	const recurringEndAtString = data.get('recurringEndAt') as string;
 	const recurringDaysOfWeekString = data.get('recurringDaysOfWeek') as string;
+	const recurringExceptionsString = data.get('recurringExceptions') as string;
 
 	if (!categoryName || !categoryId) {
 		throw Error('internal error, please refresh the page');
@@ -73,6 +74,7 @@ export async function getTask(
 	let recurringStartAt = null;
 	let recurringEndAt = null;
 	let recurringDaysOfWeek: string[] = [];
+	let recurringExceptions: Date[] = [];
 
 	if (isForThisEventOnly) {
 		isRecurring = false;
@@ -82,6 +84,9 @@ export async function getTask(
 		recurringStartAt = parseISO(recurringStartAtString);
 		recurringEndAt = parseISO(recurringEndAtString);
 		recurringDaysOfWeek = recurringDaysOfWeekString.split(',');
+		recurringExceptions = recurringExceptionsString
+			.split(',')
+			.map((date) => parse(date, DATE, new Date()));
 	}
 
 	if (startDate && endDate && startDate > endDate) {
@@ -102,6 +107,6 @@ export async function getTask(
 		recurringEndAt,
 		recurringDaysOfWeek,
 		isForThisEventOnly,
-		copyOf: null,
+		recurringExceptions,
 	};
 }

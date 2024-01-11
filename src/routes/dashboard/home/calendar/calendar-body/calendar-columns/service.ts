@@ -2,24 +2,43 @@ import { weekDays } from '$lib/components/days-checkbox/service';
 import type { EEvent } from '$lib/task/utils';
 import { endOfDay, getDay, isWithinInterval, startOfDay } from 'date-fns';
 
-export function isEventOnDay(event: EEvent, targetDay: Date): boolean {
-	if (event.isRecurring && event.recurringStartAt && event.recurringEndAt) {
-		if (isWithinInterval(targetDay, { start: event.recurringStartAt, end: event.recurringEndAt })) {
-			// Check if today is one of the recurring days of the week
-			const todayDayOfWeek = getDay(targetDay);
-			return event.recurringDaysOfWeek.includes(weekDays[todayDayOfWeek]);
-		}
+function isRecurringOnDay(event: EEvent, day: Date): boolean {
+	if (
+		event.recurringExceptions.some((exceptionDate) => {
+			return isWithinInterval(exceptionDate, {
+				start: startOfDay(day),
+				end: endOfDay(day),
+			});
+		})
+	) {
 		return false;
 	}
+	if (
+		// don't forget to always put this inside an if to check recurringStartAt and recurringEndAt
+		isWithinInterval(day, {
+			start: event.recurringStartAt as Date,
+			end: event.recurringEndAt as Date,
+		})
+	) {
+		// Check if today is one of the recurring days of the week
+		const todayDayOfWeek = getDay(day);
+		return event.recurringDaysOfWeek.includes(weekDays[todayDayOfWeek]);
+	}
+	return false;
+}
 
+export function isEventOnDay(event: EEvent, day: Date): boolean {
+	if (event.isRecurring && event.recurringStartAt && event.recurringEndAt) {
+		return isRecurringOnDay(event, day);
+	}
 	return (
 		isWithinInterval(event.startDate, {
-			start: startOfDay(targetDay),
-			end: endOfDay(targetDay),
+			start: startOfDay(day),
+			end: endOfDay(day),
 		}) ||
 		isWithinInterval(event.endDate, {
-			start: startOfDay(targetDay),
-			end: endOfDay(targetDay),
+			start: startOfDay(day),
+			end: endOfDay(day),
 		})
 	);
 }

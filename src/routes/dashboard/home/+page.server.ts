@@ -43,9 +43,19 @@ export const actions = {
 			if (id) {
 				if (isForThisEventOnly) {
 					savedTask = await prisma.task.create({
-						data: { ...task, copyOf: id, userId: session.user.userId },
+						data: { ...task, userId: session.user.userId },
 						include: { category: true },
 					});
+					const recurringTask = await prisma.task.findFirst({
+						where: { id, userId: session.user.userId },
+					});
+					if (recurringTask && task.startDate) {
+						await prisma.task.update({
+							where: { id, userId: session.user.userId },
+							data: { recurringExceptions: [...recurringTask.recurringExceptions, task.startDate] },
+							include: { category: true },
+						});
+					}
 				} else {
 					savedTask = await prisma.task.update({
 						where: { id, userId: session.user.userId },
