@@ -2,7 +2,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { loginRoute } from '$lib/consts';
 import { auth } from '$lib/server/lucia';
-
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -12,6 +11,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	}
 	return {
 		userId: session.user.userId,
+		name: 'Test',
 		username: session.user.username,
 	};
 };

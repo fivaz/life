@@ -9,6 +9,7 @@
 	import { List } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { page } from '$app/stores';
+	import ProfileDropDown from '$lib/components/dashboard/profile-drop-down/ProfileDropDown.svelte';
 	import { categoryRoute, homeRoute, toDoRoute } from '$lib/consts';
 	import classnames from 'classnames';
 
@@ -157,14 +158,15 @@
 						</ul>
 					</li>
 					<li class="-mx-6 mt-auto">
-						<button
-							on:click={() => console.log('signout')}
-							class="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50"
-						>
-							<img class="h-8 w-8 rounded-full bg-gray-50" src={user?.image} alt="avatar" />
-							<span class="sr-only">Your profile</span>
-							<span aria-hidden="true">{user?.name}</span>
-						</button>
+						<ProfileDropDown>
+							<div
+								class="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50"
+							>
+								<img class="h-8 w-8 rounded-full bg-gray-50" src={user?.image} alt="avatar" />
+								<span class="sr-only">Your profile</span>
+								<span aria-hidden="true">{user?.name}</span>
+							</div>
+						</ProfileDropDown>
 					</li>
 				</ul>
 			</nav>
