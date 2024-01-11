@@ -1,9 +1,13 @@
 <script lang="ts">
 	import { weekDays } from '$lib/components/days-checkbox/service';
+	import classnames from 'classnames';
 
 	export let value: string[];
 
 	export let name: string;
+
+	let className = '';
+	export { className as class };
 
 	function handleCheckboxChange(day: string) {
 		const index = value.indexOf(day);
@@ -24,7 +28,7 @@
 
 <input type="hidden" {name} {value} />
 
-<div class="flex justify-between">
+<div class={classnames(className)}>
 	{#each weekDays as day (day)}
 		<div class="flex flex-col items-center gap-1">
 			<label for={day} class="text-sm font-medium text-gray-700">{day}</label>

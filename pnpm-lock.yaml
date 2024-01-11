@@ -152,6 +152,9 @@ devDependencies:
   svelte-check:
     specifier: ^3.6.2
     version: 3.6.2(@babel/core@7.23.7)(postcss@8.4.33)(svelte@4.2.8)
+  svelte-flatpickr:
+    specifier: ^3.3.4
+    version: 3.3.4(svelte@4.2.8)
   tailwindcss:
     specifier: ^3.4.0
     version: 3.4.0
@@ -8151,6 +8154,13 @@ packages:
       rimraf: 3.0.2
     dev: true
 
+  /flatpickr@4.6.13:
+    resolution:
+      {
+        integrity: sha512-97PMG/aywoYpB4IvbvUJi0RQi8vearvU0oov1WW3k0WZPBMrTQVqekSX5CjSG/M4Q3i6A/0FKXC7RyAoAUUSPw==,
+      }
+    dev: true
+
   /flatted@3.2.9:
     resolution:
       {
@@ -13050,6 +13060,18 @@ packages:
       espree: 9.6.1
       postcss: 8.4.33
       postcss-scss: 4.0.9(postcss@8.4.33)
+      svelte: 4.2.8
+    dev: true
+
+  /svelte-flatpickr@3.3.4(svelte@4.2.8):
+    resolution:
+      {
+        integrity: sha512-i+QqJRs8zPRKsxv8r2GIk1fsb8cI3ozn3/aHXtViAoNKLy0j4PV7OSWavgEZC1wlAa34qi2hMkUh+vg6qt2DRA==,
+      }
+    peerDependencies:
+      svelte: '>= 3.31.0 < 5.0'
+    dependencies:
+      flatpickr: 4.6.13
       svelte: 4.2.8
     dev: true
 

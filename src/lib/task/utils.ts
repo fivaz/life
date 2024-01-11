@@ -83,10 +83,12 @@ export async function getTask(
 	if (isRecurring) {
 		recurringStartAt = parseISO(recurringStartAtString);
 		recurringEndAt = parseISO(recurringEndAtString);
+
 		recurringDaysOfWeek = recurringDaysOfWeekString.split(',');
+
 		recurringExceptions = recurringExceptionsString
-			.split(',')
-			.map((date) => parse(date, DATE, new Date()));
+			? recurringExceptionsString.split(', ').map((date) => parse(date, DATE, new Date()))
+			: [];
 	}
 
 	if (startDate && endDate && startDate > endDate) {

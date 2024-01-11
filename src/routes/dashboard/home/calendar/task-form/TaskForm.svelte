@@ -13,9 +13,12 @@
 	import classnames from 'classnames';
 	import { isAfter, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
+	import Flatpickr from 'svelte-flatpickr';
 	import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
 	import type { TaskIn } from '../service';
 	import { getDuration, getEndTime, buildDates } from './service';
+	// eslint-disable-next-line import/extensions, import/no-unresolved
+	import 'flatpickr/dist/themes/airbnb.css';
 
 	export let form: ActionData | null = null;
 
@@ -41,7 +44,7 @@
 			const result = await createModal({ title: 'Are you sure?' });
 
 			if (!result) {
-				return;
+				return () => {};
 			}
 		}
 
@@ -58,7 +61,7 @@
 					});
 
 					if (result === null) {
-						return;
+						return () => {};
 					}
 
 					formData.set('isForThisEventOnly', result ? 'true' : '');
@@ -89,7 +92,7 @@
 	use:enhance={submit}
 	class="w-[355px] shadow rounded-md overflow-hidden relative"
 >
-	<div class="flex flex-col gap-3 px-4 py-5 bg-white sm:p-6">
+	<div class="flex flex-col gap-2 px-4 py-5 bg-white sm:p-6">
 		<h2 class="text-lg font-medium text-gray-900">
 			{#if task.id}
 				Edit Event
@@ -163,7 +166,6 @@
 					name="date"
 					bind:value={task.date}
 					required
-					class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 				/>
 
 				<Input
@@ -231,7 +233,30 @@
 						bind:value={task.recurringEndAt}
 					/>
 				</div>
-				<DaysCheckbox name="recurringDaysOfWeek" bind:value={task.recurringDaysOfWeek} />
+				<div class="">
+					<h3 class="block text-sm font-medium text-gray-700 mb-1">Repeat every</h3>
+					<DaysCheckbox
+						class="flex justify-around"
+						name="recurringDaysOfWeek"
+						bind:value={task.recurringDaysOfWeek}
+					/>
+				</div>
+
+				<div>
+					<label for="recurringExceptions" class="block text-sm font-medium text-gray-700 mb-1"
+						>Exclude on</label
+					>
+					<Flatpickr
+						id="recurringExceptions"
+						class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+						name="recurringExceptions"
+						options={{
+							mode: 'multiple',
+							dateFormat: 'Y-m-d',
+						}}
+						bind:value={task.recurringExceptions}
+					/>
+				</div>
 			{/if}
 		{/if}
 	</div>
