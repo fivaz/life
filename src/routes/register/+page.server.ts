@@ -2,6 +2,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import { homeRoute } from '$lib/consts';
 import { auth } from '$lib/server/lucia';
 
+import { LuciaError } from 'lucia';
 import type { PageServerLoad, Actions } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -26,6 +27,7 @@ export const actions = {
 					password, // hashed by Lucia
 				},
 				attributes: {
+					name,
 					username,
 				},
 			});
@@ -35,18 +37,13 @@ export const actions = {
 				attributes: {},
 			});
 
-			console.log('session', session);
-
 			locals.auth.setSession(session); // set session cookie
 		} catch (error) {
-			// if (
-			// 	error instanceof SomeDatabaseError &&
-			// 	error.message === USER_TABLE_UNIQUE_CONSTRAINT_ERROR
-			// ) {
-			// 	return fail(400, {
-			// 		message: 'Username already taken',
-			// 	});
-			// }
+			if (error instanceof LuciaError && error.message === 'AUTH_DUPLICATE_KEY_ID') {
+				return fail(400, {
+					message: 'Username already taken',
+				});
+			}
 
 			console.log(error);
 			return fail(422, {
