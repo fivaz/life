@@ -8,8 +8,6 @@ import type { LayoutServerLoad } from './$types';
 export const load = (async ({ locals }) => {
 	const session = await locals.auth.validate();
 
-	console.log(session);
-
 	if (!session) {
 		throw redirect(302, loginRoute);
 	}

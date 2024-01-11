@@ -1,14 +1,8 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import type { PageData } from './$types';
+	import Profile from './profile/Profile.svelte';
 
 	export let data: PageData;
 </script>
 
-<h1>Profile</h1>
-<p>User id: {data.userId}</p>
-<p>name: {data.name}</p>
-<p>Username: {data.username}</p>
-<form method="post" action="?/logout" use:enhance>
-	<input type="submit" value="Sign out" />
-</form>
+<Profile user={{ name: data.name, username: data.username }} />
