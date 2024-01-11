@@ -15,6 +15,7 @@ export type TaskIn = Omit<
 	endTime: string;
 	duration: string;
 	isRecurring: boolean;
+	wasRecurring: boolean;
 	recurringStartAt: string;
 	recurringEndAt: string;
 	isEvent: boolean;
@@ -33,6 +34,7 @@ export function convertToEventIn(event: TTask): TaskIn {
 		isDone: event.isDone,
 		categoryId: event.categoryId,
 		isRecurring: event.isRecurring,
+		wasRecurring: event.isRecurring,
 		recurringStartAt: format(event.recurringStartAt || new Date(), DATE),
 		recurringEndAt: format(event.recurringEndAt || addMonths(new Date(), 1), DATE),
 		recurringDaysOfWeek: event.recurringDaysOfWeek.length
@@ -54,6 +56,7 @@ export function buildEmptyTaskIn(categories: CCategory[], isEvent: boolean): Tas
 		isDone: false,
 		categoryId: categories.find((category) => category.isDefault)?.id || categories[0]?.id || 0,
 		isRecurring: false,
+		wasRecurring: false,
 		recurringStartAt: format(new Date(), DATE),
 		recurringEndAt: format(addMonths(new Date(), 1), DATE),
 		recurringDaysOfWeek: weekDays.slice(1, 6),
@@ -87,6 +90,7 @@ export function buildEventWithTime(
 		isDone: false,
 		categoryId: categories.find((category) => category.isDefault)?.id || categories[0]?.id || 0,
 		isRecurring: false,
+		wasRecurring: false,
 		recurringStartAt: '',
 		recurringEndAt: '',
 		recurringDaysOfWeek: [],

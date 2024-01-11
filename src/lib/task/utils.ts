@@ -32,7 +32,9 @@ export function convertToTime(minutes: number | null): string {
 	return format(date, TIME);
 }
 
-export async function getTask(request: Request): Promise<OnlyTTask> {
+export async function getTask(
+	request: Request,
+): Promise<OnlyTTask & { isForThisEventOnly: boolean }> {
 	const data = await request.formData();
 	const categoryId = Number(data.get('categoryId'));
 	const categoryName = data.get('categoryName') as string;
@@ -47,23 +49,40 @@ export async function getTask(request: Request): Promise<OnlyTTask> {
 	const endDateString = data.get('endDate') as string;
 	const durationString = data.get('duration') as string;
 
-	const isRecurring = !!data.get('isRecurring');
+	let isRecurring = !!data.get('isRecurring');
+	const isForThisEventOnly = !!data.get('isForThisEventOnly');
+
 	const recurringStartAtString = data.get('recurringStartAt') as string;
 	const recurringEndAtString = data.get('recurringEndAt') as string;
 	const recurringDaysOfWeekString = data.get('recurringDaysOfWeek') as string;
-	const isForThisEventOnly = !!data.get('isForThisEventOnly');
 
 	if (!categoryName || !categoryId) {
 		throw Error('internal error, please refresh the page');
 	}
 
-	const startDate = isEvent ? parseISO(startDateString) : null;
-	const endDate = isEvent ? parseISO(endDateString) : null;
-	const duration = isEvent ? convertToMinutes(durationString) : null;
+	let startDate = null;
+	let endDate = null;
+	let duration = null;
 
-	const recurringStartAt = isRecurring ? parseISO(recurringStartAtString) : null;
-	const recurringEndAt = isRecurring ? parseISO(recurringEndAtString) : null;
-	const recurringDaysOfWeek = isRecurring ? recurringDaysOfWeekString.split(',') : [];
+	if (isEvent) {
+		startDate = parseISO(startDateString);
+		endDate = parseISO(endDateString);
+		duration = convertToMinutes(durationString);
+	}
+
+	let recurringStartAt = null;
+	let recurringEndAt = null;
+	let recurringDaysOfWeek: string[] = [];
+
+	if (isForThisEventOnly) {
+		isRecurring = false;
+	}
+
+	if (isRecurring) {
+		recurringStartAt = parseISO(recurringStartAtString);
+		recurringEndAt = parseISO(recurringEndAtString);
+		recurringDaysOfWeek = recurringDaysOfWeekString.split(',');
+	}
 
 	if (startDate && endDate && startDate > endDate) {
 		throw Error('startDate should be before endDate');
@@ -82,5 +101,7 @@ export async function getTask(request: Request): Promise<OnlyTTask> {
 		recurringStartAt,
 		recurringEndAt,
 		recurringDaysOfWeek,
+		isForThisEventOnly,
+		copyOf: null,
 	};
 }

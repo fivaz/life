@@ -3,7 +3,6 @@
 	import { enhance, applyAction } from '$app/forms';
 	import { categories } from '$lib/category/store';
 	import Button from '$lib/components/button/Button.svelte';
-	import ConfirmButton from '$lib/components/confirm-button/ConfirmButton.svelte';
 	import DaysCheckbox from '$lib/components/days-checkbox/DaysCheckbox.svelte';
 	import { createModal } from '$lib/components/dialog/service';
 	import Input from '$lib/components/input/Input.svelte';
@@ -24,7 +23,8 @@
 
 	export let isOnlyEvent: boolean;
 
-	let formTag: HTMLFormElement | null = null;
+	const DELETE_ACTION = '?/remove';
+	const SAVE_ACTION = '?/save';
 
 	$: error =
 		task.isEvent &&
@@ -36,9 +36,34 @@
 
 	const dispatch = createEventDispatcher();
 
-	export const submit: SubmitFunction = ({ formData }) => {
-		if (task.isEvent) {
-			buildDates(formData);
+	export const submit: SubmitFunction = async ({ formData, action }) => {
+		if (action.search === DELETE_ACTION) {
+			const result = await createModal({ title: 'Are you sure?' });
+
+			if (!result) {
+				return;
+			}
+		}
+
+		if (action.search === SAVE_ACTION) {
+			if (task.isEvent) {
+				buildDates(formData);
+
+				if (task.wasRecurring && task.isRecurring) {
+					const result = await createModal({
+						title: 'This is a repeating event',
+						message: 'Do you want to save the changes for ?',
+						confirmText: 'this event only',
+						cancelText: 'future events',
+					});
+
+					if (result === null) {
+						return;
+					}
+
+					formData.set('isForThisEventOnly', result ? 'true' : '');
+				}
+			}
 		}
 		dispatch('submit');
 		return async ({ result }) => {
@@ -60,9 +85,8 @@
 
 <form
 	method="POST"
-	action="?/save"
+	action={SAVE_ACTION}
 	use:enhance={submit}
-	bind:this={formTag}
 	class="w-[355px] shadow rounded-md overflow-hidden relative"
 >
 	<div class="flex flex-col gap-3 px-4 py-5 bg-white sm:p-6">
@@ -214,41 +238,12 @@
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
 		{#if task.id}
-			<ConfirmButton title="Are you sure?" form={formTag} formaction="?/remove" color="red">
-				Delete
-			</ConfirmButton>
+			<Button formaction={DELETE_ACTION} color="red">Delete</Button>
 		{:else}
 			<div />
 		{/if}
 
-		<Button
-			disabled={error}
-			type="submit"
-			on:click={async (e) => {
-				e.preventDefault();
-
-				if (!formTag) {
-					return;
-				}
-
-				if (task.isRecurring) {
-					const thisEventOnly = await createModal({
-						title: 'This is a repeating event',
-						message: 'Do you want to save the changes for ?',
-						confirmText: 'this event only',
-						cancelText: 'future events',
-					});
-
-					if (thisEventOnly === null) {
-						return;
-					}
-
-					const formData = new FormData(formTag);
-					formData.set('isForThisEventOnly', thisEventOnly ? 'true' : '');
-				}
-				formTag.requestSubmit();
-			}}
-		>
+		<Button disabled={error} type="submit">
 			{#if task.id} Edit {:else} Add {/if}
 		</Button>
 	</div>

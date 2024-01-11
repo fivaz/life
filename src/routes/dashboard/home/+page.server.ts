@@ -37,27 +37,30 @@ export const actions = {
 		}
 
 		try {
-			const { id, ...task } = await getTask(request);
+			const { id, isForThisEventOnly, ...task } = await getTask(request);
 
+			let savedTask: TTask;
 			if (id) {
-				const event: TTask = await prisma.task.update({
-					where: {
-						id,
-						userId: session.user.userId,
-					},
-					data: task,
-					include: { category: true },
-				});
-
-				return { saved: event };
+				if (isForThisEventOnly) {
+					savedTask = await prisma.task.create({
+						data: { ...task, copyOf: id, userId: session.user.userId },
+						include: { category: true },
+					});
+				} else {
+					savedTask = await prisma.task.update({
+						where: { id, userId: session.user.userId },
+						data: task,
+						include: { category: true },
+					});
+				}
 			} else {
-				const event: TTask = await prisma.task.create({
+				savedTask = await prisma.task.create({
 					data: { ...task, userId: session.user.userId },
 					include: { category: true },
 				});
-
-				return { saved: event };
 			}
+
+			return { saved: savedTask };
 		} catch (error) {
 			console.log('error', error);
 			return fail(422, {
