@@ -17,7 +17,6 @@
 	import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
 	import type { TaskIn } from '../service';
 	import { getDuration, getEndTime, buildDates } from './service';
-	// eslint-disable-next-line import/extensions, import/no-unresolved
 	import 'flatpickr/dist/themes/airbnb.css';
 
 	export let form: ActionData | null = null;

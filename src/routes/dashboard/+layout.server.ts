@@ -1,6 +1,6 @@
-import { fail } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import type { CCategory } from '$lib/category/utils';
-import { unauthorized } from '$lib/consts';
+import { loginRoute } from '$lib/consts';
 import prisma from '$lib/prisma';
 import type { TTask } from '$lib/task/utils';
 import type { LayoutServerLoad } from './$types';
@@ -9,7 +9,7 @@ export const load = (async ({ locals }) => {
 	const session = await locals.auth.validate();
 
 	if (!session) {
-		throw fail(401, { error: unauthorized });
+		throw redirect(302, loginRoute);
 	}
 
 	const [tasks, categories]: [tasks: TTask[], categories: CCategory[]] = await Promise.all([
