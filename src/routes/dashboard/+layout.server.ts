@@ -3,7 +3,6 @@ import type { CCategory } from '$lib/category/utils';
 import { loginRoute } from '$lib/consts';
 import prisma from '$lib/prisma';
 import type { TTask } from '$lib/task/utils';
-import { endOfWeek, startOfWeek } from 'date-fns';
 import type { LayoutServerLoad } from './$types';
 
 export const load = (async ({ locals }) => {
@@ -18,10 +17,10 @@ export const load = (async ({ locals }) => {
 			where: {
 				deleted: null,
 				userId: session.user.userId,
-				startDate: {
-					gte: startOfWeek(new Date()),
-					lte: endOfWeek(new Date()),
-				},
+				// startDate: {
+				// 	gte: startOfWeek(new Date()),
+				// 	lte: endOfWeek(new Date()),
+				// },
 			},
 			include: { category: true },
 		}),
