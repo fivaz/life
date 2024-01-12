@@ -12,3 +12,5 @@ export const categoryRoute = '/dashboard/category';
 export const toDoRoute = '/dashboard/to-do';
 
 export const unauthorized = 'Unauthorized';
+
+export const UnknownError = 'Unknown error';

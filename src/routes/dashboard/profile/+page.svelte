@@ -1,8 +1,10 @@
 <script lang="ts">
-	import type { PageData } from './$types';
+	import type { ActionData, PageData } from './$types';
 	import Profile from './profile/Profile.svelte';
 
 	export let data: PageData;
+
+	export let form: ActionData;
 </script>
 
-<Profile user={{ name: data.name, username: data.username }} />
+<Profile {form} user={data.user} />
