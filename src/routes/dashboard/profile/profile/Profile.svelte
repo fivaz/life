@@ -31,7 +31,11 @@
 		</h2>
 	</div>
 	<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-		<Alert isVisible={!!form?.success} on:close={() => (form ? (form.success = false) : null)}>
+		<Alert
+			type="success"
+			isVisible={!!form?.success}
+			on:close={() => (form ? (form.success = false) : null)}
+		>
 			Profile successfully edited
 		</Alert>
 		<div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">

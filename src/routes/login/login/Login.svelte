@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import Alert from '$lib/components/alert/Alert.svelte';
+	import Button from '$lib/components/button/Button.svelte';
 	import { registerRoute } from '$lib/consts';
 	import type { ActionData } from '../../../../.svelte-kit/types/src/routes/login/$types';
 
 	export let form: ActionData | null = null;
+	let isLoading: boolean = false;
 </script>
 
 <div class="flex min-h-full flex-1">
@@ -28,13 +31,16 @@
 				</p>
 			</div>
 
-			<div class="mt-10">
-				<div>
+			<div class="mt-5">
+				<Alert
+					type="error"
+					isVisible={!!form?.error}
+					on:close={() => (form ? (form.error = '') : null)}
+				>
+					{form?.error}
+				</Alert>
+				<div class="mt-5">
 					<form class="space-y-6" method="POST" use:enhance>
-						{#if form?.error}
-							<p class="text-center text-red-500">{form?.error}</p>
-						{/if}
-
 						<div>
 							<label for="username" class="block text-sm font-medium leading-6 text-gray-900">
 								Email address
@@ -85,12 +91,14 @@
 						</div>
 
 						<div>
-							<button
-								class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+							<Button
+								{isLoading}
+								on:click={() => (isLoading = true)}
 								type="submit"
+								class="w-full leading-6"
 							>
 								Sign in
-							</button>
+							</Button>
 						</div>
 					</form>
 				</div>
