@@ -15,6 +15,7 @@ export const auth = lucia({
 
 	getUserAttributes: (data) => {
 		return {
+			avatar: data.avatar,
 			name: data.name,
 			username: data.username,
 		};

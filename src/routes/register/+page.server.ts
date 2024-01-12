@@ -16,10 +16,10 @@ export const actions = {
 	default: async ({ request, locals }) => {
 		try {
 			const data = await request.formData();
+			const avatar = data.get('avatar') as string;
 			const name = data.get('name') as string;
 			const username = data.get('username') as string;
 			const password = data.get('password') as string;
-
 			const user = await auth.createUser({
 				key: {
 					providerId: 'username', // auth method
@@ -27,6 +27,7 @@ export const actions = {
 					password, // hashed by Lucia
 				},
 				attributes: {
+					avatar,
 					name,
 					username,
 				},

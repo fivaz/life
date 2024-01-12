@@ -43,6 +43,7 @@ model Category {
 model User {
   id           String     @id @default(cuid())
   auth_session Session[]
+  avatar       String?
   key          Key[]
   name         String
   username     String

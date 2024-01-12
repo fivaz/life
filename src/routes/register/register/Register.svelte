@@ -1,5 +1,10 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { loginRoute } from '$lib/consts';
+	import { minidenticon } from 'minidenticons';
+
+	let username: string = '';
+	$: svgURI = 'data:image/svg+xml;utf8,' + encodeURIComponent(minidenticon(username, 95, 45));
 </script>
 
 <!--TODO block the button submit so I can't submit the form twice-->
@@ -18,6 +23,15 @@
 	<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
 		<div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
 			<form class="space-y-6" method="POST" use:enhance>
+				{#if username}
+					<div class="flex flex-col justify-center">
+						<input type="hidden" name="avatar" value={svgURI} />
+						<h3 class="text-center block text-sm font-medium leading-6 text-gray-900">
+							Your Avatar
+						</h3>
+						<img class="h-10 w-auto" src={svgURI} alt="your avatar" />
+					</div>
+				{/if}
 				<div>
 					<label for="name" class="block text-sm font-medium leading-6 text-gray-900">
 						Full name
@@ -43,6 +57,7 @@
 							type="email"
 							autocomplete="username"
 							required
+							bind:value={username}
 							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 						/>
 					</div>
@@ -78,7 +93,7 @@
 		<p class="mt-10 text-center text-sm text-gray-500">
 			Already a member?
 			{' '}
-			<a href="/static" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+			<a href={loginRoute} class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
 				Log in
 			</a>
 		</p>
