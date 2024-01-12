@@ -5,9 +5,6 @@
 </script>
 
 <Menu as="div" class="relative inline-block text-left">
-	<MenuButton>
-		<slot />
-	</MenuButton>
 	<Transition
 		enter="transition ease-out duration-50"
 		enterFrom="transform opacity-0 scale-95"
@@ -17,7 +14,7 @@
 		leaveTo="transform opacity-0 scale-95"
 	>
 		<MenuItems
-			class="transform absolute right-0 w-32 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+			class="-top-2 transform -translate-y-full absolute left-0 w-32 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
 		>
 			<MenuItem let:active>
 				<a
@@ -44,4 +41,7 @@
 			</MenuItem>
 		</MenuItems>
 	</Transition>
+	<MenuButton>
+		<slot />
+	</MenuButton>
 </Menu>
