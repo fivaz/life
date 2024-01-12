@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import Button from '$lib/components/button/Button.svelte';
 	import { loginRoute } from '$lib/consts';
 	import { minidenticon } from 'minidenticons';
 
 	let username: string = '';
 	$: svgURI = 'data:image/svg+xml;utf8,' + encodeURIComponent(minidenticon(username, 95, 45));
+
+	let isLoading: boolean = false;
 </script>
 
 <!--TODO block the button submit so I can't submit the form twice-->
@@ -80,12 +83,14 @@
 				</div>
 
 				<div>
-					<button
+					<Button
+						{isLoading}
+						on:click={() => (isLoading = true)}
 						type="submit"
-						class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+						class="w-full leading-6"
 					>
 						Register
-					</button>
+					</Button>
 				</div>
 			</form>
 		</div>
