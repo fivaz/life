@@ -1,5 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { homeRoute } from '$lib/consts';
+import { handleError } from '$lib/server/form-utils';
 import { auth } from '$lib/server/lucia';
 import { LuciaError } from 'lucia';
 
@@ -39,10 +40,7 @@ export const actions = {
 				});
 			}
 
-			console.log(error);
-			return fail(422, {
-				error: error instanceof Error ? error.message : 'unknown error',
-			});
+			return handleError(error);
 		}
 
 		throw redirect(302, homeRoute);

@@ -1,18 +1,13 @@
 import { fun, routine, sleep, work } from '$lib/category/seed';
 import type { TTask } from '$lib/task/utils';
-import { addDays } from 'date-fns';
+import { addDays, set } from 'date-fns';
 
 function getTodayAtTime(time: string): Date {
-	// Parse the hour and minute from the input time
-	const [hour, minute] = time.split(':').map(Number);
+	const [hours, minutes] = time.split(':').map(Number);
 
-	// Get today's date at the given hour and minute
-	// Format the date as an ISO 8601 string
 	const date = new Date();
 
-	date.setHours(hour, minute, 0, 0);
-
-	return date;
+	return set(date, { hours, minutes });
 }
 
 let id = 0;
