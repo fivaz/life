@@ -1,8 +1,9 @@
 import { fail, json } from '@sveltejs/kit';
 import { unauthorized } from '$lib/consts';
 import prisma from '$lib/prisma';
-import type { TTask } from '$lib/task/utils';
+import { splitEventFromRecurring } from '$lib/server/form-utils';
 import type { RequestHandler } from './$types';
+import { deserializeEvent } from './service';
 
 export const POST: RequestHandler = async ({ request, locals }) => {
 	const session = await locals.auth.validate();
@@ -11,22 +12,21 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		throw fail(401, { error: unauthorized });
 	}
 
-	const event: TTask = await request.json();
+	const serializedEvent = await request.json();
 
-	await prisma.task.update({
-		where: {
-			id: event.id,
-			userId: session.user.userId,
-		},
-		data: {
-			name: event.name,
-			description: event.description,
-			categoryId: event.category.id,
-			startDate: event.startDate,
-			endDate: event.endDate,
-			isDone: event.isDone,
-		},
-	});
+	const { category, ...event } = deserializeEvent(serializedEvent);
 
-	return json({ status: 201 });
+	if (event.isRecurring) {
+		const events = await splitEventFromRecurring(event, event.startDate, session.user.userId);
+
+		return json(events);
+	} else {
+		const updatedEvent = await prisma.task.update({
+			where: { id: event.id, userId: session.user.userId },
+			data: event,
+			include: { category: true },
+		});
+
+		return json([updatedEvent]);
+	}
 };

@@ -1,61 +1,11 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { loginRoute, unauthorized } from '$lib/consts';
 import prisma from '$lib/prisma';
-import { handleError } from '$lib/server/form-utils';
+import { handleError, splitEventFromRecurring } from '$lib/server/form-utils';
 import { getTask } from '$lib/task/utils';
 import type { OnlyEEvent, OnlyTTask, TTask } from '$lib/task/utils';
-import { parseISO, set } from 'date-fns';
+import { parseISO } from 'date-fns';
 import type { Actions } from './$types';
-
-function updateTime(date: Date, time: Date) {
-	const hours = time.getHours();
-	const minutes = time.getMinutes();
-
-	return set(date, { hours, minutes });
-}
-
-async function splitEventFromRecurring(
-	event: OnlyEEvent,
-	targetDate: Date,
-	userId: string,
-): Promise<TTask[]> {
-	// remove id from event
-	const { id, ...eventData } = event;
-
-	const singleEvent = {
-		...eventData,
-		startDate: updateTime(targetDate, event.startDate),
-		endDate: updateTime(targetDate, event.endDate),
-		isRecurring: false,
-		recurringStartAt: null,
-		recurringEndAt: null,
-		recurringDaysOfWeek: [],
-		recurringExceptions: [],
-	};
-
-	const newEvent = await prisma.task.create({
-		data: { ...singleEvent, userId },
-		include: { category: true },
-	});
-
-	const recurringEvent = await prisma.task.findFirst({
-		where: { id, userId },
-	});
-
-	const events: TTask[] = [newEvent];
-
-	if (recurringEvent && singleEvent.startDate) {
-		const existingEvent = await prisma.task.update({
-			where: { id: recurringEvent.id },
-			data: { recurringExceptions: [...recurringEvent.recurringExceptions, singleEvent.startDate] },
-			include: { category: true },
-		});
-
-		events.push(existingEvent);
-	}
-
-	return events;
-}
 
 export const actions = {
 	toggle: async ({ request, locals }) => {

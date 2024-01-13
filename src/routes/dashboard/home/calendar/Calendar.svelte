@@ -3,7 +3,7 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { draggedEvent } from '$lib/dragged/store';
 	import { closeModal, isModalVisible, openModal } from '$lib/form-modal/store';
-	import { updateTask } from '$lib/task/store';
+	import { updateTasks } from '$lib/task/store';
 	import { startOfWeek } from 'date-fns';
 
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
@@ -47,11 +47,11 @@
 			openModal();
 			editingEvent = buildEventWithTime($categories, e.detail.date, e.detail.timeInterval);
 		}}
-		on:move={(e) => {
+		on:move={async (e) => {
 			if ($draggedEvent) {
 				const event = moveEvent($draggedEvent, e.detail.date, e.detail.timeInterval);
-				updateTask(event);
-				preserveEvent(event);
+				const events = await preserveEvent(event);
+				updateTasks(events);
 			}
 		}}
 	/>

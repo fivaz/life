@@ -1,9 +1,11 @@
 import type { CCategory } from '$lib/category/utils';
 import { weekDays } from '$lib/components/days-checkbox/service';
 import { DATE, homeRoute, TIME } from '$lib/consts';
-import type { TTask, OnlyTTask, EEvent } from '$lib/task/utils';
+import type { EEvent, OnlyTTask, TTask } from '$lib/task/utils';
 import { convertToTime } from '$lib/task/utils';
 import { addMinutes, addMonths, differenceInMinutes, format, setHours, setMinutes } from 'date-fns';
+import type { SerializedEvent } from '../api/service';
+import { deserializeEvent } from '../api/service';
 import { halfHourInterval } from './calendar-body/calendar-columns/calendar-rows/service';
 
 export type TaskIn = Omit<
@@ -109,9 +111,13 @@ export function moveEvent(event: EEvent, date: Date, quarterHourInterval: number
 	} satisfies TTask;
 }
 
-export async function preserveEvent(event: TTask) {
-	await fetch(`${homeRoute}/api`, {
+export async function preserveEvent(event: TTask): Promise<EEvent[]> {
+	const response = await fetch(`${homeRoute}/api`, {
 		method: 'POST',
 		body: JSON.stringify(event),
 	});
+
+	const serializedEvents: SerializedEvent[] = await response.json();
+
+	return serializedEvents.map((event) => deserializeEvent(event));
 }
