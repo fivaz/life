@@ -2,7 +2,7 @@
 	import { categories } from '$lib/category/store';
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import { closeModal, isModalVisible } from '$lib/form-modal/store';
+	import { closeModal, isModalVisible, openModal } from '$lib/form-modal/store';
 	import { toDos } from '$lib/task/store';
 	import type { TTask } from '$lib/task/utils';
 	import { buildEmptyTaskIn, convertToEventIn } from '../home/calendar/service';
@@ -11,7 +11,6 @@
 	import type { ActionData } from './$types';
 	import ToDoRow from './to-do-row/ToDoRow.svelte';
 
-	let showForm: boolean = false;
 	export let form: ActionData | null = null;
 
 	let editingToDo: TaskIn = buildEmptyTaskIn([], false);
@@ -28,7 +27,7 @@
 	<div class="flex justify-end">
 		<Button
 			on:click={() => {
-				showForm = true;
+				openModal();
 				editingToDo = buildEmptyTaskIn($categories, false);
 			}}
 		>
@@ -47,7 +46,7 @@
 					{toDo}
 					{form}
 					on:edit={(e) => {
-						showForm = true;
+						openModal();
 						editingToDo = convertToEventIn(e.detail);
 					}}
 				/>
