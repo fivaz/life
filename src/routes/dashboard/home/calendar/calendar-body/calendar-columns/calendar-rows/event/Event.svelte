@@ -24,7 +24,7 @@
 
 	let form = getContext<{ updated?: EEvent } | null>('form');
 
-	const dispatch = createEventDispatcher<{ edit: EEvent }>();
+	const dispatch = createEventDispatcher<{ edit: { event: EEvent; targetDate: Date } }>();
 
 	function dragStart(e: DragEvent) {
 		if (e.currentTarget instanceof HTMLDivElement) {
@@ -54,10 +54,10 @@
 <div
 	on:dragstart={dragStart}
 	on:dragend={dragEnd}
-	on:click={() => dispatch('edit', event)}
+	on:click={() => dispatch('edit', { event, targetDate })}
 	on:keydown={(e) => {
 		if (e.key === 'Enter') {
-			dispatch('edit', event);
+			dispatch('edit', { event, targetDate });
 		}
 	}}
 	tabindex="0"
@@ -79,7 +79,7 @@
 		use:enhance={submit}
 	>
 		<input type="hidden" name="id" value={event.id} />
-		<input type="hidden" name="targetDate" value={targetDate.toISOString()} />
+		<input type="hidden" name="targetDate" value={targetDate} />
 		<input
 			type="checkbox"
 			checked={event.isDone}

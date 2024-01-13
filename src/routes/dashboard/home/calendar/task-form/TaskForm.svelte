@@ -30,6 +30,8 @@
 
 	export let isOnlyEvent: boolean;
 
+	export let targetDate: Date | null = null;
+
 	$: isEditing = !!task.id;
 
 	const DELETE_ACTION = '?/remove';
@@ -149,6 +151,7 @@
 
 		<input type="hidden" name="id" value={task.id} />
 		<input type="hidden" name="categoryName" value={categoryName} />
+		<input type="hidden" name="targetDate" value={targetDate?.toISOString() || null} />
 
 		<Input
 			labelClass="flex-1"

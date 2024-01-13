@@ -23,6 +23,8 @@
 
 	let weekStart = startOfWeek(currentDate);
 
+	let targetDate: Date | null = null;
+
 	export let form: ActionData | null;
 
 	let editingEvent: TaskIn = buildEmptyTaskIn($categories, true);
@@ -41,7 +43,8 @@
 		{weekStart}
 		on:edit={(e) => {
 			openModal();
-			editingEvent = convertToEventIn(e.detail);
+			targetDate = e.detail.targetDate;
+			editingEvent = convertToEventIn(e.detail.event);
 		}}
 		on:create={(e) => {
 			openModal();
@@ -56,6 +59,6 @@
 		}}
 	/>
 	<Modal show={$isModalVisible} on:close={() => closeModal()}>
-		<TaskForm {form} task={editingEvent} isOnlyEvent />
+		<TaskForm {form} task={editingEvent} {targetDate} isOnlyEvent />
 	</Modal>
 </div>
