@@ -4,19 +4,25 @@
 	import { tailwindColors } from '$lib/category/utils';
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import { removeDraggedEvent, setDraggedEvent } from '$lib/dragged/store';
-	import { toggleEvent } from '$lib/task/store';
+	import { updateTasks } from '$lib/task/store';
 	import type { EEvent } from '$lib/task/utils';
 	import classnames from 'classnames';
 	import { format } from 'date-fns';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, getContext } from 'svelte';
 	import EventName from './event-name/EventName.svelte';
 	import { isShort } from './service';
 
 	export let event: EEvent;
 
+	// the date this event is taking place, in case of a recurring Event
+	// this might not be the same day as the event.startDate
+	export let targetDate: Date;
+
 	let loading = false;
 
-	let form: HTMLFormElement | null = null;
+	let formElement: HTMLFormElement | null = null;
+
+	let form = getContext<{ updated?: EEvent } | null>('form');
 
 	const dispatch = createEventDispatcher<{ edit: EEvent }>();
 
@@ -37,8 +43,8 @@
 	const submit: SubmitFunction = () => {
 		loading = true;
 		return async ({ result }) => {
-			if (result.type === 'success') {
-				toggleEvent(event);
+			if (result.type === 'success' && form?.updated) {
+				updateTasks(form.updated);
 			}
 			loading = false;
 		};
@@ -69,14 +75,15 @@
 		class="absolute right-0 flex pr-2"
 		method="POST"
 		action="?/toggle"
-		bind:this={form}
+		bind:this={formElement}
 		use:enhance={submit}
 	>
 		<input type="hidden" name="id" value={event.id} />
+		<input type="hidden" name="targetDate" value={targetDate.toISOString()} />
 		<input
 			type="checkbox"
 			checked={event.isDone}
-			on:change={() => form?.requestSubmit()}
+			on:change={() => formElement?.requestSubmit()}
 			on:click|stopPropagation
 			name="isDone"
 			disabled={loading}

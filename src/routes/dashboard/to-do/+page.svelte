@@ -2,6 +2,7 @@
 	import { categories } from '$lib/category/store';
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
+	import { closeModal, isModalVisible } from '$lib/form-modal/store';
 	import { toDos } from '$lib/task/store';
 	import type { TTask } from '$lib/task/utils';
 	import { buildEmptyTaskIn, convertToEventIn } from '../home/calendar/service';
@@ -54,7 +55,7 @@
 		{/each}
 	</ul>
 
-	<Modal show={showForm} on:close={() => (showForm = false)}>
-		<TaskForm on:submit={() => (showForm = false)} task={editingToDo} {form} isOnlyEvent={false} />
+	<Modal show={$isModalVisible} on:close={() => closeModal()}>
+		<TaskForm {form} task={editingToDo} isOnlyEvent={false} />
 	</Modal>
 </div>

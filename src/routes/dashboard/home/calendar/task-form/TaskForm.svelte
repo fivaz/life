@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { SubmitFunction } from '@sveltejs/kit';
+	import type { ActionResult, MaybePromise, SubmitFunction } from '@sveltejs/kit';
 	import { enhance, applyAction } from '$app/forms';
 	import { categories } from '$lib/category/store';
 	import Button from '$lib/components/button/Button.svelte';
@@ -8,92 +8,135 @@
 	import Input from '$lib/components/input/Input.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
-	import { TIME } from '$lib/consts';
-	import { removeTask, updateTask } from '$lib/task/store';
+	import { TIME, UnknownError } from '$lib/consts';
+	import { removeTask, updateTasks } from '$lib/task/store';
 	import classnames from 'classnames';
 	import { isAfter, parse } from 'date-fns';
-	import { createEventDispatcher } from 'svelte';
 	import Flatpickr from 'svelte-flatpickr';
-	import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
 	import type { TaskIn } from '../service';
 	import { getDuration, getEndTime, buildDates } from './service';
 	import 'flatpickr/dist/themes/airbnb.css';
+	import type { TTask } from '$lib/task/utils';
+	import { closeModal } from '$lib/form-modal/store';
 
-	export let form: ActionData | null = null;
+	export let form: {
+		created?: TTask;
+		updated?: TTask | TTask[];
+		removed?: TTask;
+		error?: string;
+	} | null = null;
 
 	export let task: TaskIn;
 
 	export let isOnlyEvent: boolean;
 
+	$: isEditing = !!task.id;
+
 	const DELETE_ACTION = '?/remove';
-	const SAVE_ACTION = '?/save';
+	const CREATE_ACTION = '?/create';
+	const UPDATE_ACTION = '?/update';
 
 	$: error =
 		task.isEvent &&
 		!isAfter(parse(task.endTime, TIME, new Date()), parse(task.startTime, TIME, new Date()));
 
+	// TODO show an error if no category exists
+	// create the 3 categories on Register
 	$: categoryName =
 		$categories.find((category) => category.id === task.categoryId)?.name ||
 		'create a category first';
 
-	const dispatch = createEventDispatcher();
+	type SubSubmitFunction = ({
+		formData,
+	}: {
+		formData: FormData;
+	}) => MaybePromise<(opts: { result: ActionResult }) => void>;
+
+	const handleDelete: SubSubmitFunction = async () => {
+		const result = await createModal({ title: 'Are you sure?' });
+
+		if (!result) {
+			return () => {};
+		}
+		closeModal();
+
+		return async ({ result }) => {
+			await applyAction(result);
+			if (result.type === 'success' && form?.removed) {
+				removeTask(form.removed);
+			} else {
+				console.log(form?.error || UnknownError);
+			}
+		};
+	};
+
+	const handleCreate: SubSubmitFunction = ({ formData }) => {
+		if (task.isEvent) {
+			buildDates(formData);
+		}
+		closeModal();
+
+		return async ({ result }) => {
+			await applyAction(result);
+			if (result.type === 'success' && form?.created) {
+				updateTasks(form.created);
+			} else {
+				console.log(form?.error || UnknownError);
+			}
+		};
+	};
+
+	const handleEdit: SubSubmitFunction = async ({ formData }) => {
+		if (task.isEvent) {
+			buildDates(formData);
+
+			if (task.wasRecurring && task.isRecurring) {
+				const result = await createModal({
+					title: 'This is a repeating event',
+					message: 'Do you want to save the changes for ?',
+					confirmText: 'this event only',
+					cancelText: 'future events',
+				});
+
+				if (result === null) {
+					return () => {};
+				}
+
+				formData.set('isForThisEventOnly', result ? 'true' : '');
+			}
+		}
+		closeModal();
+
+		return async ({ result }) => {
+			await applyAction(result);
+			if (result.type === 'success' && form?.updated) {
+				updateTasks(form.updated);
+			} else {
+				console.log(form?.error || UnknownError);
+			}
+		};
+	};
 
 	export const submit: SubmitFunction = async ({ formData, action }) => {
 		if (action.search === DELETE_ACTION) {
-			const result = await createModal({ title: 'Are you sure?' });
-
-			if (!result) {
-				return () => {};
-			}
+			return handleDelete({ formData });
+		} else if (action.search === CREATE_ACTION) {
+			return handleCreate({ formData });
+		} else if (action.search === UPDATE_ACTION) {
+			return handleEdit({ formData });
 		}
-
-		if (action.search === SAVE_ACTION) {
-			if (task.isEvent) {
-				buildDates(formData);
-
-				if (task.wasRecurring && task.isRecurring) {
-					const result = await createModal({
-						title: 'This is a repeating event',
-						message: 'Do you want to save the changes for ?',
-						confirmText: 'this event only',
-						cancelText: 'future events',
-					});
-
-					if (result === null) {
-						return () => {};
-					}
-
-					formData.set('isForThisEventOnly', result ? 'true' : '');
-				}
-			}
-		}
-		dispatch('submit');
-		return async ({ result }) => {
-			await applyAction(result);
-			if (result.type === 'success') {
-				if (form?.removed) {
-					removeTask(form.removed);
-				} else if (form?.saved) {
-					updateTask(form.saved);
-				}
-			} else {
-				if (form?.error) {
-					console.log(form?.error);
-				}
-			}
-		};
 	};
 </script>
 
 <form
 	method="POST"
-	action={SAVE_ACTION}
+	action={isEditing ? UPDATE_ACTION : CREATE_ACTION}
 	use:enhance={submit}
 	class="w-[355px] shadow rounded-md overflow-hidden relative"
 >
 	<div class="flex flex-col gap-2 px-4 py-5 bg-white sm:p-6">
 		<h2 class="text-lg font-medium text-gray-900">
-			{#if task.id}
+			{#if isEditing}
 				Edit Event
 			{:else}
 				Add Event
@@ -242,9 +285,9 @@
 				</div>
 
 				<div>
-					<label for="recurringExceptions" class="block text-sm font-medium text-gray-700 mb-1"
-						>Exclude on</label
-					>
+					<label for="recurringExceptions" class="block text-sm font-medium text-gray-700 mb-1">
+						Exclude on
+					</label>
 					<Flatpickr
 						id="recurringExceptions"
 						class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -261,14 +304,14 @@
 	</div>
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
-		{#if task.id}
+		{#if isEditing}
 			<Button formaction={DELETE_ACTION} color="red">Delete</Button>
 		{:else}
 			<div />
 		{/if}
 
 		<Button disabled={error} type="submit">
-			{#if task.id} Edit {:else} Add {/if}
+			{#if isEditing} Edit {:else} Add {/if}
 		</Button>
 	</div>
 </form>

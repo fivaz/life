@@ -6,6 +6,8 @@
 
 	export let events: EEvent[];
 
+	export let targetDate: Date;
+
 	const quarterHourInterval = halfHourInterval * 2;
 </script>
 
@@ -27,7 +29,7 @@
 				class="relative w-full h-full rounded-lg pointer-events-auto min-w-0"
 				style={getGridRowsStyle(event)}
 			>
-				<Event {event} on:edit />
+				<Event {targetDate} {event} on:edit />
 			</li>
 		{/each}
 	</ol>

@@ -42,15 +42,23 @@ export const toDos = derived(tasks, ($tasks) =>
 	groupToDosByDate($tasks.filter((task) => task.isDone === false)),
 );
 
-export function updateTask(newTask: TTask) {
+export function updateTasks(savedTasks: TTask | TTask[]) {
+	if (Array.isArray(savedTasks)) {
+		savedTasks.forEach((savedTask) => updateTask(savedTask));
+	} else {
+		updateTask(savedTasks);
+	}
+}
+
+export function updateTask(task: TTask) {
 	tasks.update(($tasks) => {
-		const index = $tasks.findIndex((task) => task.id === newTask.id);
+		const index = $tasks.findIndex((existingTask) => existingTask.id === task.id);
 		if (index !== -1) {
 			// Update existing task
-			return $tasks.map((task) => (task.id === newTask.id ? newTask : task));
+			return $tasks.map((existingTask) => (existingTask.id === task.id ? task : existingTask));
 		} else {
 			// Add new task
-			return [...$tasks, newTask];
+			return [...$tasks, task];
 		}
 	});
 }

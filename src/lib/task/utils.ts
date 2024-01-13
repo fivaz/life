@@ -15,6 +15,8 @@ export type EEvent = Omit<TTask, 'startDate' | 'endDate' | 'duration'> & {
 	duration: number;
 };
 
+export type OnlyEEvent = Omit<EEvent, 'category'>;
+
 export function convertToMinutes(duration: string) {
 	// to check if the duration string is HH:mm format
 	if (!/^([01]\d|2[0-3]):([0-5]\d)$/.test(duration)) {
@@ -34,7 +36,7 @@ export function convertToTime(minutes: number | null): string {
 
 export async function getTask(
 	request: Request,
-): Promise<OnlyTTask & { isForThisEventOnly: boolean }> {
+): Promise<{ task: OnlyTTask; isForThisEventOnly: boolean; targetDate: Date | null }> {
 	const data = await request.formData();
 	const categoryId = Number(data.get('categoryId'));
 	const categoryName = data.get('categoryName') as string;
@@ -49,8 +51,9 @@ export async function getTask(
 	const endDateString = data.get('endDate') as string;
 	const durationString = data.get('duration') as string;
 
-	let isRecurring = !!data.get('isRecurring');
+	const isRecurring = !!data.get('isRecurring');
 	const isForThisEventOnly = !!data.get('isForThisEventOnly');
+	const targetDateString = data.get('targetDate') as string;
 
 	const recurringStartAtString = data.get('recurringStartAt') as string;
 	const recurringEndAtString = data.get('recurringEndAt') as string;
@@ -75,10 +78,7 @@ export async function getTask(
 	let recurringEndAt = null;
 	let recurringDaysOfWeek: string[] = [];
 	let recurringExceptions: Date[] = [];
-
-	if (isForThisEventOnly) {
-		isRecurring = false;
-	}
+	let targetDate = null;
 
 	if (isRecurring) {
 		recurringStartAt = parseISO(recurringStartAtString);
@@ -89,6 +89,8 @@ export async function getTask(
 		recurringExceptions = recurringExceptionsString
 			? recurringExceptionsString.split(', ').map((date) => parse(date, DATE, new Date()))
 			: [];
+
+		targetDate = parseISO(targetDateString);
 	}
 
 	if (startDate && endDate && startDate > endDate) {
@@ -96,19 +98,22 @@ export async function getTask(
 	}
 
 	return {
-		id,
-		name: name || categoryName,
-		description,
-		startDate,
-		endDate,
-		duration,
-		isDone,
-		categoryId,
-		isRecurring,
-		recurringStartAt,
-		recurringEndAt,
-		recurringDaysOfWeek,
 		isForThisEventOnly,
-		recurringExceptions,
+		targetDate,
+		task: {
+			id,
+			name: name || categoryName,
+			description,
+			startDate,
+			endDate,
+			duration,
+			isDone,
+			categoryId,
+			isRecurring,
+			recurringStartAt,
+			recurringEndAt,
+			recurringDaysOfWeek,
+			recurringExceptions,
+		},
 	};
 }

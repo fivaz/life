@@ -38,6 +38,7 @@
 					</span>
 				</div>
 				<CalendarRows
+					targetDate={date}
 					events={$events.filter((event) => isEventOnDay(event, date))}
 					on:edit
 					on:create={(e) => dispatch('create', { timeInterval: e.detail, date })}

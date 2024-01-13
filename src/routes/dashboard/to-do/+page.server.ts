@@ -1,6 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { loginRoute, unauthorized } from '$lib/consts';
 import prisma from '$lib/prisma';
+import { handleError } from '$lib/server/form-utils';
 import { getTask } from '$lib/task/utils';
 import type { TTask } from '$lib/task/utils';
 import { add, addMinutes, set } from 'date-fns';
@@ -45,7 +46,7 @@ export const actions = {
 		});
 		return { saved: event };
 	},
-	save: async ({ request, locals }) => {
+	create: async ({ request, locals }) => {
 		const session = await locals.auth.validate();
 
 		if (!session) {
@@ -53,32 +54,38 @@ export const actions = {
 		}
 
 		try {
-			const { id, ...task } = await getTask(request);
+			const {
+				task: { id, ...taskData },
+			} = await getTask(request);
 
-			if (id) {
-				const event: TTask = await prisma.task.update({
-					where: {
-						id,
-						userId: session.user.userId,
-					},
-					data: task,
-					include: { category: true },
-				});
-
-				return { saved: event };
-			} else {
-				const event: TTask = await prisma.task.create({
-					data: { ...task, userId: session.user.userId },
-					include: { category: true },
-				});
-
-				return { saved: event };
-			}
-		} catch (error) {
-			console.log('error', error);
-			return fail(422, {
-				error: error instanceof Error ? error.message : 'unknown error',
+			const task = await prisma.task.create({
+				data: { ...taskData, userId: session.user.userId },
+				include: { category: true },
 			});
+			return { created: task };
+		} catch (error) {
+			return handleError(error);
+		}
+	},
+	update: async ({ request, locals }) => {
+		const session = await locals.auth.validate();
+
+		if (!session) {
+			throw fail(401, { error: unauthorized });
+		}
+
+		try {
+			const { task } = await getTask(request);
+
+			const updatedTask: TTask = await prisma.task.update({
+				where: { id: task.id, userId: session.user.userId },
+				data: task,
+				include: { category: true },
+			});
+
+			return { updated: [updatedTask] };
+		} catch (error) {
+			return handleError(error);
 		}
 	},
 	remove: async ({ request, locals }) => {
@@ -90,7 +97,8 @@ export const actions = {
 
 		const data = await request.formData();
 		const id = Number(data.get('id'));
-		const event: TTask = await prisma.task.update({
+
+		const task: TTask = await prisma.task.update({
 			where: {
 				id,
 				userId: session.user.userId,
@@ -100,6 +108,6 @@ export const actions = {
 			},
 			include: { category: true },
 		});
-		return { removed: event };
+		return { removed: task };
 	},
 } satisfies Actions;

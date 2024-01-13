@@ -2,6 +2,7 @@
 	import { categories } from '$lib/category/store';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { draggedEvent } from '$lib/dragged/store';
+	import { closeModal, isModalVisible, openModal } from '$lib/form-modal/store';
 	import { updateTask } from '$lib/task/store';
 	import { startOfWeek } from 'date-fns';
 
@@ -22,8 +23,6 @@
 
 	let weekStart = startOfWeek(currentDate);
 
-	let showForm: boolean = false;
-
 	export let form: ActionData | null;
 
 	let editingEvent: TaskIn = buildEmptyTaskIn($categories, true);
@@ -34,18 +33,18 @@
 		bind:weekStart
 		{currentDate}
 		on:create={() => {
-			showForm = true;
+			openModal();
 			editingEvent = buildEmptyTaskIn($categories, true);
 		}}
 	/>
 	<CalendarBody
 		{weekStart}
 		on:edit={(e) => {
-			showForm = true;
+			openModal();
 			editingEvent = convertToEventIn(e.detail);
 		}}
 		on:create={(e) => {
-			showForm = true;
+			openModal();
 			editingEvent = buildEventWithTime($categories, e.detail.date, e.detail.timeInterval);
 		}}
 		on:move={(e) => {
@@ -56,7 +55,7 @@
 			}
 		}}
 	/>
-	<Modal show={showForm} on:close={() => (showForm = false)}>
-		<TaskForm on:submit={() => (showForm = false)} {form} task={editingEvent} isOnlyEvent />
+	<Modal show={$isModalVisible} on:close={() => closeModal()}>
+		<TaskForm {form} task={editingEvent} isOnlyEvent />
 	</Modal>
 </div>
