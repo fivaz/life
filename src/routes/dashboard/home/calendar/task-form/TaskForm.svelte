@@ -229,6 +229,9 @@
 					name="startTime"
 					required
 					bind:value={task.startTime}
+					on:input={(e) => {
+						task.endTime = getEndTime(e.detail, task.duration);
+					}}
 				/>
 
 				<Input
