@@ -9,7 +9,7 @@
 	import classnames from 'classnames';
 	import { format } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
-	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/to-do/$types';
+	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/to-dos/$types';
 	import RescheduleToTomorrowButton from './reschedule-to-tomorrow-button/RescheduleToTomorrowButton.svelte';
 
 	export let toDo: TTask;

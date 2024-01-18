@@ -6,18 +6,19 @@
 		TransitionRoot,
 	} from '@rgossiaux/svelte-headlessui';
 	import { Bars3, Calendar, DocumentDuplicate, XMark } from '@steeze-ui/heroicons';
-	import { List } from '@steeze-ui/lucide-icons';
+	import { List, Target } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { page } from '$app/stores';
 	import ProfileDropDown from '$lib/components/dashboard/profile-drop-down/ProfileDropDown.svelte';
 	import ProfileDropUp from '$lib/components/dashboard/profile-drop-up/ProfileDropUp.svelte';
-	import { categoryRoute, homeRoute, toDoRoute } from '$lib/consts';
+	import { categoriesRoute, homeRoute, toDosRoute, toGoalsRoute } from '$lib/consts';
 	import classnames from 'classnames';
 
 	const navigation = [
 		{ name: 'Calendar', href: homeRoute, icon: Calendar },
-		{ name: 'Category', href: categoryRoute, icon: DocumentDuplicate },
-		{ name: 'To Do', href: toDoRoute, icon: List },
+		{ name: 'Categories', href: categoriesRoute, icon: DocumentDuplicate },
+		{ name: 'To Dos', href: toDosRoute, icon: List },
+		{ name: 'Goals', href: toGoalsRoute, icon: Target },
 	];
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

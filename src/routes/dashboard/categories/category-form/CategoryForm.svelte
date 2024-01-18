@@ -11,7 +11,7 @@
 	import Select from '$lib/components/select/Select.svelte';
 	import classnames from 'classnames';
 	import { createEventDispatcher } from 'svelte';
-	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/category/$types';
+	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/categories/$types';
 
 	let loading = false;
 

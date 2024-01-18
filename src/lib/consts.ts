@@ -7,9 +7,12 @@ export const DATETIME_FR = 'dd.MM.yyyy HH:mm';
 export const loginRoute = '/login';
 export const registerRoute = '/register';
 export const profileRoute = '/dashboard/profile';
-export const homeRoute = '/dashboard/home';
-export const categoryRoute = '/dashboard/category';
-export const toDoRoute = '/dashboard/to-do';
+
+export const dashboardRoute = '/dashboard';
+export const homeRoute = `${dashboardRoute}/home`;
+export const categoriesRoute = `${dashboardRoute}/categories`;
+export const toDosRoute = `${dashboardRoute}/to-dos`;
+export const toGoalsRoute = `${dashboardRoute}/goals`;
 
 export const unauthorized = 'Unauthorized';
 

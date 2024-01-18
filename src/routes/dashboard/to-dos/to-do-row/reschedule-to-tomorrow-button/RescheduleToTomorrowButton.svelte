@@ -6,7 +6,7 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import { updateTask } from '$lib/task/store';
 	import type { TTask } from '$lib/task/utils';
-	import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/dashboard/to-do/$types';
+	import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/dashboard/to-dos/$types';
 
 	export let toDo: TTask;
 
