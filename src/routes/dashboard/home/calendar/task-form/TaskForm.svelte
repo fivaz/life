@@ -8,17 +8,18 @@
 	import Input from '$lib/components/input/Input.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
-	import { TIME, UnknownError } from '$lib/consts';
+	import { UnknownError } from '$lib/consts';
 	import { removeTask, updateTasks } from '$lib/task/store';
 	import classnames from 'classnames';
-	import { isAfter, parse } from 'date-fns';
 	import Flatpickr from 'svelte-flatpickr';
 	import type { TaskIn } from '../service';
-	import { getDuration, getEndTime, buildDates } from './service';
+	import { getDuration, getEndTime, buildDates, isEventsDateInverted } from './service';
 	import 'flatpickr/dist/themes/airbnb.css';
 	import { closeModal } from '$lib/form-modal/store';
 	import type { SubSubmitFunction } from '$lib/types-utils';
 	import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
+	import { goals } from '$lib/goal/store';
+	import Alert from '$lib/components/alert/Alert.svelte';
 
 	export let form: ActionData | null;
 
@@ -34,15 +35,23 @@
 	const CREATE_ACTION = '?/create';
 	const UPDATE_ACTION = '?/update';
 
-	$: error =
-		task.isEvent &&
-		!isAfter(parse(task.endTime, TIME, new Date()), parse(task.startTime, TIME, new Date()));
+	let error = '';
 
-	// TODO show an error if no category exists
-	// create the 3 categories on Register
+	$: {
+		if (isEventsDateInverted(task)) {
+			error = 'start date should be before end date';
+		} else if ($categories.length === 0) {
+			error = 'create a category first';
+		} else {
+			error = '';
+		}
+	}
+
 	$: categoryName =
 		$categories.find((category) => category.id === task.categoryId)?.name ||
 		'create a category first';
+
+	$: goalName = $goals.find((goal) => goal.id === task.goalId)?.name || 'no goal';
 
 	const handleDelete: SubSubmitFunction = async () => {
 		const result = await createModal({ title: 'Are you sure?' });
@@ -128,39 +137,26 @@
 >
 	<div class="flex flex-col gap-2 px-4 py-5 bg-white sm:p-6">
 		<h2 class="text-lg font-medium text-gray-900">
-			{#if isEditing}
-				Edit Event
-			{:else}
-				Add Event
-			{/if}
+			{#if isEditing} Edit Event {:else} Add Event {/if}
 		</h2>
 
-		{#if error}
-			<p class="text-red-500">startDate should be before endDate</p>
-		{/if}
+		<Alert type="error" isVisible={!!error} hasCloseButton={false}>{error}</Alert>
 
 		<input type="hidden" name="id" value={task.id} />
 		<input type="hidden" name="categoryName" value={categoryName} />
 		<input type="hidden" name="targetDate" value={targetDate?.toISOString() || null} />
 
-		<Input
-			labelClass="flex-1"
-			label="Name"
-			autocomplete="off"
-			name="name"
-			bind:value={task.name}
-			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-		/>
-
 		<div class="flex gap-3 items-center">
-			<Select bind:value={task.categoryId} name="categoryId" label="Category" class="flex-1">
-				<span slot="placeholder">{categoryName}</span>
-				{#each $categories as category (category)}
-					<SelectItem value={category.id}>{category.name}</SelectItem>
-				{/each}
-			</Select>
+			<Input
+				labelClass="flex-1"
+				label="Name"
+				autocomplete="off"
+				name="name"
+				bind:value={task.name}
+				class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+			/>
 
-			<label class="pt-5">
+			<label>
 				<input
 					name="isDone"
 					type="checkbox"
@@ -168,6 +164,22 @@
 					class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
 				/>
 			</label>
+		</div>
+
+		<div class="flex gap-3 items-center">
+			<Select bind:value={task.categoryId} name="categoryId" label="Category" class="w-1/2">
+				<span slot="placeholder">{categoryName}</span>
+				{#each $categories as category (category)}
+					<SelectItem value={category.id}>{category.name}</SelectItem>
+				{/each}
+			</Select>
+
+			<Select bind:value={task.goalId} name="goalId" label="Goal" class="w-1/2">
+				<span slot="placeholder">{goalName}</span>
+				{#each $goals as goal (goal)}
+					<SelectItem value={goal.id}>{goal.name}</SelectItem>
+				{/each}
+			</Select>
 		</div>
 
 		<label class="block text-sm font-medium text-gray-700 mb-1">

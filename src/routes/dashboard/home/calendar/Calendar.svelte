@@ -12,7 +12,7 @@
 	import {
 		buildEmptyTaskIn,
 		buildEventWithTime,
-		convertToEventIn,
+		convertToTaskIn,
 		moveEvent,
 		preserveEvent,
 	} from './service';
@@ -44,7 +44,7 @@
 		on:edit={(e) => {
 			openModal();
 			targetDate = e.detail.targetDate;
-			editingEvent = convertToEventIn(e.detail.event);
+			editingEvent = convertToTaskIn(e.detail.event);
 		}}
 		on:create={(e) => {
 			openModal();

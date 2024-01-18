@@ -4,7 +4,7 @@
 	import { categories } from '$lib/category/seed';
 	import { redEvent } from '$lib/task/seed';
 	import { buildEmptyTaskIn } from '../service';
-	import { convertToEventIn } from '../service.js';
+	import { convertToTaskIn } from '../service.js';
 	import TaskForm from './TaskForm.svelte';
 
 	export const meta = {
@@ -47,6 +47,6 @@
 	args={{
 		categories,
 		form: null,
-		event: convertToEventIn(redEvent),
+		event: convertToTaskIn(redEvent),
 	}}
 />

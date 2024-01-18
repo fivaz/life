@@ -39,7 +39,7 @@ model Category {
   color     String
   group     String
   user      User      @relation(fields: [userId], references: [id])
-  Task      Task[]
+  tasks     Task[]
 }
 
 model Goal {
@@ -50,7 +50,7 @@ model Goal {
   userId   String
   deleted  DateTime? @db.Timestamp(6)
   user     User      @relation(fields: [userId], references: [id])
-  Task     Task[]
+  tasks    Task[]
 }
 
 model User {

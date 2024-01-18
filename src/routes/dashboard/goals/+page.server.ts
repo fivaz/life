@@ -1,6 +1,6 @@
 import { fail } from '@sveltejs/kit';
 import { DATE, unauthorized } from '$lib/consts';
-import type { GGoal } from '$lib/goal/utils';
+import type { GGoal, GoalWithTasks } from '$lib/goal/utils';
 import prisma from '$lib/prisma';
 import { handleError } from '$lib/server/form-utils';
 import { parse } from 'date-fns';
@@ -13,8 +13,9 @@ export const load = (async ({ locals }) => {
 		throw fail(401, { error: unauthorized });
 	}
 
-	const goals: GGoal[] = await prisma.goal.findMany({
+	const goals: GoalWithTasks[] = await prisma.goal.findMany({
 		where: { deleted: null, userId: session.user.userId },
+		include: { tasks: true },
 	});
 
 	return { goals };
@@ -48,16 +49,18 @@ export const actions = {
 		const { id, ...goalData } = await getGoal(request);
 
 		try {
-			let goal: GGoal;
+			let goal: GoalWithTasks;
 
 			if (!id) {
 				goal = await prisma.goal.create({
 					data: { ...goalData, userId: session.user.userId },
+					include: { tasks: true },
 				});
 			} else {
 				goal = await prisma.goal.update({
 					where: { id, userId: session.user.userId },
 					data: goalData,
+					include: { tasks: true },
 				});
 			}
 			return { saved: goal };
@@ -76,7 +79,7 @@ export const actions = {
 			const data = await request.formData();
 			const id = Number(data.get('id'));
 
-			const goal: GGoal = await prisma.goal.update({
+			const goal: GoalWithTasks = await prisma.goal.update({
 				where: {
 					id,
 					userId: session.user.userId,
@@ -84,6 +87,7 @@ export const actions = {
 				data: {
 					deleted: new Date(),
 				},
+				include: { tasks: true },
 			});
 
 			return { removed: goal };

@@ -1,5 +1,6 @@
 import { TIME } from '$lib/consts';
-import { add, differenceInMinutes, format, isValid, parse } from 'date-fns';
+import { add, differenceInMinutes, format, isAfter, isValid, parse } from 'date-fns';
+import type { TaskIn } from '../service';
 
 export function getEndTime(startTime: string, duration: string): string {
 	if (!startTime || !duration) {
@@ -64,4 +65,11 @@ export function buildDates(formData: FormData): void {
 		formData.set('recurringStartAt', recurringStartAt.toISOString());
 		formData.set('recurringEndAt', recurringEndAt.toISOString());
 	}
+}
+
+export function isEventsDateInverted(task: TaskIn) {
+	return (
+		task.isEvent &&
+		!isAfter(parse(task.endTime, TIME, new Date()), parse(task.startTime, TIME, new Date()))
+	);
 }

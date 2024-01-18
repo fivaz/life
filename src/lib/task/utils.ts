@@ -41,6 +41,7 @@ export async function getTask(
 ): Promise<{ task: OnlyTTask; isForThisEventOnly: boolean; targetDate: Date | null }> {
 	const data = await request.formData();
 	const categoryId = Number(data.get('categoryId'));
+	const goalId = data.get('goalId') ? Number(data.get('goalId')) : null;
 	const categoryName = data.get('categoryName') as string;
 
 	const id = Number(data.get('id'));
@@ -111,7 +112,7 @@ export async function getTask(
 			duration,
 			isDone,
 			categoryId,
-			goalId: null,
+			goalId,
 			isRecurring,
 			recurringStartAt,
 			recurringEndAt,

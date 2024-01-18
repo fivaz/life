@@ -13,6 +13,8 @@
 
 	export let isVisible: boolean;
 
+	export let hasCloseButton = true;
+
 	export let type: 'warning' | 'error' | 'info' | 'success';
 
 	const typeElements = {
@@ -62,21 +64,23 @@
 			<div class="ml-3">
 				<p class={classnames(typeElements[type].button, 'text-sm font-medium')}><slot /></p>
 			</div>
-			<div class="ml-auto pl-3">
-				<div class="-mx-1.5 -my-1.5">
-					<button
-						type="button"
-						class={classnames(
-							typeElements[type].button,
-							'inline-flex rounded-md p-1.5 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50',
-						)}
-						on:click={() => dispatch('close')}
-					>
-						<span class="sr-only">Dismiss</span>
-						<Icon src={XMark} class="h-5 w-5" aria-hidden="true" />
-					</button>
+			{#if hasCloseButton}
+				<div class="ml-auto pl-3">
+					<div class="-mx-1.5 -my-1.5">
+						<button
+							type="button"
+							class={classnames(
+								typeElements[type].button,
+								'inline-flex rounded-md p-1.5 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50',
+							)}
+							on:click={() => dispatch('close')}
+						>
+							<span class="sr-only">Dismiss</span>
+							<Icon src={XMark} class="h-5 w-5" aria-hidden="true" />
+						</button>
+					</div>
 				</div>
-			</div>
+			{/if}
 		</div>
 	</div>
 {/if}

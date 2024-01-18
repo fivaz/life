@@ -2,7 +2,7 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { closeModal, isModalVisible, openModal } from '$lib/form-modal/store';
-	import { goals } from '$lib/goal/store';
+	import { goals, groupedGoals } from '$lib/goal/store';
 	import type { ActionData, PageData } from './$types';
 	import GoalForm from './goal-form/GoalForm.svelte';
 	import GoalRow from './goal-row/GoalRow.svelte';
@@ -30,14 +30,19 @@
 	</div>
 
 	<ul role="list" class="divide-y divide-gray-100">
-		{#each $goals as goal (goal)}
-			<GoalRow
-				{goal}
-				on:edit={(e) => {
-					openModal();
-					editingGoal = convertToGoalIn(e.detail);
-				}}
-			/>
+		{#each Object.entries($groupedGoals) as [date, list] (date)}
+			<div class="flex justify-between px-2">
+				<div>{date}</div>
+			</div>
+			{#each list as goal (goal)}
+				<GoalRow
+					{goal}
+					on:edit={(e) => {
+						openModal();
+						editingGoal = convertToGoalIn(e.detail);
+					}}
+				/>
+			{/each}
 		{/each}
 	</ul>
 

@@ -23,27 +23,27 @@ export type TaskIn = Omit<
 	isEvent: boolean;
 };
 
-export function convertToEventIn(event: TTask): TaskIn {
+export function convertToTaskIn(task: TTask): TaskIn {
 	return {
-		id: event.id,
-		name: event.name,
-		description: event.description,
-		isEvent: !!(event.startDate && event.endDate && event.duration),
-		date: format(event.startDate || new Date(), DATE),
-		startTime: format(event.startDate || new Date(), TIME),
-		endTime: format(event.endDate || addMinutes(new Date(), 15), TIME),
-		duration: convertToTime(event.duration || 15),
-		isDone: event.isDone,
-		categoryId: event.categoryId,
-		goalId: null,
-		isRecurring: event.isRecurring,
-		wasRecurring: event.isRecurring,
-		recurringStartAt: format(event.recurringStartAt || new Date(), DATE),
-		recurringEndAt: format(event.recurringEndAt || addMonths(new Date(), 1), DATE),
-		recurringDaysOfWeek: event.recurringDaysOfWeek.length
-			? event.recurringDaysOfWeek
+		id: task.id,
+		name: task.name,
+		description: task.description,
+		isEvent: !!(task.startDate && task.endDate && task.duration),
+		date: format(task.startDate || new Date(), DATE),
+		startTime: format(task.startDate || new Date(), TIME),
+		endTime: format(task.endDate || addMinutes(new Date(), 15), TIME),
+		duration: convertToTime(task.duration || 15),
+		isDone: task.isDone,
+		categoryId: task.categoryId,
+		goalId: task.goalId,
+		isRecurring: task.isRecurring,
+		wasRecurring: task.isRecurring,
+		recurringStartAt: format(task.recurringStartAt || new Date(), DATE),
+		recurringEndAt: format(task.recurringEndAt || addMonths(new Date(), 1), DATE),
+		recurringDaysOfWeek: task.recurringDaysOfWeek.length
+			? task.recurringDaysOfWeek
 			: weekDays.slice(1, 6),
-		recurringExceptions: event.recurringExceptions,
+		recurringExceptions: task.recurringExceptions,
 	};
 }
 

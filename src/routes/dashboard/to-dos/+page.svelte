@@ -5,7 +5,7 @@
 	import { closeModal, isModalVisible, openModal } from '$lib/form-modal/store';
 	import { toDos } from '$lib/task/store';
 	import type { TTask } from '$lib/task/utils';
-	import { buildEmptyTaskIn, convertToEventIn } from '../home/calendar/service';
+	import { buildEmptyTaskIn, convertToTaskIn } from '../home/calendar/service';
 	import type { TaskIn } from '../home/calendar/service';
 	import TaskForm from '../home/calendar/task-form/TaskForm.svelte';
 	import type { ActionData } from './$types';
@@ -47,7 +47,7 @@
 					{form}
 					on:edit={(e) => {
 						openModal();
-						editingToDo = convertToEventIn(e.detail);
+						editingToDo = convertToTaskIn(e.detail);
 					}}
 				/>
 			{/each}
