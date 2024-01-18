@@ -5,57 +5,101 @@
 	import { groups, tailwindColors } from '$lib/category/utils';
 	import type { CCategory } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
+	import { createModal } from '$lib/components/dialog/service';
 	import Input from '$lib/components/input/Input.svelte';
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
+	import { UnknownError } from '$lib/consts';
+	import { closeModal } from '$lib/form-modal/store';
+	import { removeTask, updateTasks } from '$lib/task/store';
+	import type { SubSubmitFunction } from '$lib/types-utils';
 	import classnames from 'classnames';
 	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/categories/$types';
-
-	let loading = false;
+	import { buildDates } from '../../home/calendar/task-form/service';
 
 	export let category: CCategory;
 
+	$: isEditing = !!category.id;
+
 	export let form: ActionData | null;
+
+	let loading = false;
 
 	let error = '';
 
-	const dispatch = createEventDispatcher();
+	const DELETE_ACTION = '?/remove';
+	const CREATE_ACTION = '?/create';
+	const UPDATE_ACTION = '?/update';
 
-	const submit: SubmitFunction = () => {
-		try {
-			loading = true;
+	const handleDelete: SubSubmitFunction = async () => {
+		const result = await createModal({ title: 'Are you sure?' });
 
-			return async ({ result }) => {
-				await applyAction(result);
-				if (result.type === 'success') {
-					if (form?.removed) {
-						removeCategory(form.removed);
-					} else if (form?.saved) {
-						updateCategory(form.saved);
-					}
-					dispatch('submit');
-				} else {
-					if (form?.error) {
-						error = form.error;
-					}
-				}
-				loading = false;
-			};
-		} catch (e) {
-			if (e instanceof Error) {
-				error = e.message;
+		if (!result) {
+			return () => {};
+		}
+
+		loading = true;
+		return async ({ result }) => {
+			await applyAction(result);
+			if (result.type === 'success' && form?.removed) {
+				removeCategory(form.removed);
+			} else {
+				console.log(form?.error || UnknownError);
+			}
+			closeModal();
+			loading = false;
+		};
+	};
+
+	const handleCreate: SubSubmitFunction = () => {
+		return async ({ result }) => {
+			await applyAction(result);
+			if (result.type === 'success' && form?.created) {
+				updateCategory(form.created);
+			} else {
+				console.log(form?.error || UnknownError);
 			}
 			loading = false;
+			closeModal();
+		};
+	};
+
+	const handleEdit: SubSubmitFunction = async ({ formData }) => {
+		loading = true;
+		return async ({ result }) => {
+			await applyAction(result);
+			if (result.type === 'success' && form?.updated) {
+				updateCategory(form.updated);
+			} else {
+				console.log(form?.error || UnknownError);
+			}
+			loading = false;
+			closeModal();
+		};
+	};
+
+	export const submit: SubmitFunction = async ({ formData, action }) => {
+		if (action.search === DELETE_ACTION) {
+			return handleDelete({ formData });
+		} else if (action.search === CREATE_ACTION) {
+			return handleCreate({ formData });
+		} else if (action.search === UPDATE_ACTION) {
+			return handleEdit({ formData });
 		}
 	};
 </script>
 
-<form method="POST" action="?/save" use:enhance={submit} class="w-[336px] shadow">
+<form
+	method="POST"
+	action={isEditing ? UPDATE_ACTION : CREATE_ACTION}
+	use:enhance={submit}
+	class="w-[336px] shadow"
+>
 	<div class="flex flex-col gap-3 px-4 py-5 bg-white rounded-md sm:p-6">
 		<h2 class="text-lg font-medium text-gray-900">
-			{#if category.id}
+			{#if isEditing}
 				Edit Category
 			{:else}
 				Add Category
@@ -113,14 +157,14 @@
 	</div>
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 rounded-md text-right sm:px-6">
-		{#if category.id}
+		{#if isEditing}
 			<Button disabled={loading} formaction="?/remove" color="red">Delete</Button>
 		{:else}
 			<div />
 		{/if}
 
 		<Button disabled={loading} type="submit">
-			{#if category.id} Edit {:else} Add {/if}
+			{#if isEditing} Edit {:else} Add {/if}
 		</Button>
 	</div>
 

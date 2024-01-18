@@ -4,6 +4,7 @@
 	import type { CCategory } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
+	import { closeModal, isModalVisible, openModal } from '$lib/form-modal/store';
 	import type { ActionData, PageData } from './$types';
 	import CategoryForm from './category-form/CategoryForm.svelte';
 	import CategoryRow from './category-row/CategoryRow.svelte';
@@ -12,9 +13,7 @@
 
 	export let data: PageData;
 
-	let showForm = false;
-
-	let category = buildEmptyCategory();
+	let editingCategory = buildEmptyCategory();
 
 	function buildEmptyCategory(): CCategory {
 		return {
@@ -33,8 +32,8 @@
 	<div class="flex justify-end">
 		<Button
 			on:click={() => {
-				showForm = true;
-				category = buildEmptyCategory();
+				openModal();
+				editingCategory = buildEmptyCategory();
 			}}
 		>
 			create category
@@ -46,14 +45,14 @@
 			<CategoryRow
 				category={thisCategory}
 				on:edit={(e) => {
-					showForm = true;
-					category = e.detail;
+					openModal();
+					editingCategory = e.detail;
 				}}
 			/>
 		{/each}
 	</ul>
 
-	<Modal show={showForm} on:close={() => (showForm = false)}>
-		<CategoryForm on:submit={() => (showForm = false)} {form} {category} />
+	<Modal show={$isModalVisible} on:close={() => closeModal()}>
+		<CategoryForm {form} category={editingCategory} />
 	</Modal>
 </div>
