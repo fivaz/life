@@ -14,7 +14,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 
 	const serializedEvent = await request.json();
 
-	const { category, ...event } = deserializeEvent(serializedEvent);
+	const { category, goal, ...event } = deserializeEvent(serializedEvent);
 
 	if (event.isRecurring) {
 		const events = await splitEventFromRecurring(event, event.startDate, session.user.userId);
@@ -24,7 +24,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		const updatedEvent = await prisma.task.update({
 			where: { id: event.id, userId: session.user.userId },
 			data: event,
-			include: { category: true },
+			include: { category: true, goal: true },
 		});
 
 		return json([updatedEvent]);

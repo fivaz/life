@@ -4,6 +4,7 @@
 	import Dashboard from '$lib/components/dashboard/Dashboard.svelte';
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
 	import { modal } from '$lib/components/dialog/service';
+	import { goals } from '$lib/goal/store';
 	import { tasks } from '$lib/task/store.js';
 	import type { LayoutData } from './$types';
 
@@ -11,6 +12,7 @@
 
 	tasks.set(data.tasks);
 	categories.set(data.categories);
+	goals.set(data.goals);
 </script>
 
 <Dashboard user={$page.data.session?.user}>

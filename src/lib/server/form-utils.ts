@@ -38,7 +38,7 @@ export async function splitEventFromRecurring(
 
 	const newEvent = await prisma.task.create({
 		data: { ...singleEvent, userId },
-		include: { category: true },
+		include: { category: true, goal: true },
 	});
 
 	const recurringEvent = await prisma.task.findFirst({
@@ -51,7 +51,7 @@ export async function splitEventFromRecurring(
 		const existingEvent = await prisma.task.update({
 			where: { id: recurringEvent.id },
 			data: { recurringExceptions: [...recurringEvent.recurringExceptions, singleEvent.startDate] },
-			include: { category: true },
+			include: { category: true, goal: true },
 		});
 
 		events.push(existingEvent);

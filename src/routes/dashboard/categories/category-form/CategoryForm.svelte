@@ -12,12 +12,9 @@
 	import Select from '$lib/components/select/Select.svelte';
 	import { UnknownError } from '$lib/consts';
 	import { closeModal } from '$lib/form-modal/store';
-	import { removeTask, updateTasks } from '$lib/task/store';
 	import type { SubSubmitFunction } from '$lib/types-utils';
 	import classnames from 'classnames';
-	import { createEventDispatcher } from 'svelte';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/categories/$types';
-	import { buildDates } from '../../home/calendar/task-form/service';
 
 	export let category: CCategory;
 

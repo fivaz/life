@@ -1,13 +1,15 @@
 import type { Task } from '@prisma/client';
 import type { CCategory } from '$lib/category/utils';
 import { DATE, TIME } from '$lib/consts';
+import type { GGoal } from '$lib/goal/utils';
 import { format, parse, parseISO } from 'date-fns';
 
 export type TTask = Omit<Task, 'deleted' | 'userId'> & {
 	category: CCategory;
+	goal: GGoal | null | undefined;
 };
 
-export type OnlyTTask = Omit<TTask, 'category'>;
+export type OnlyTTask = Omit<TTask, 'category' | 'goal'>;
 
 export type EEvent = Omit<TTask, 'startDate' | 'endDate' | 'duration'> & {
 	startDate: Date;
@@ -15,7 +17,7 @@ export type EEvent = Omit<TTask, 'startDate' | 'endDate' | 'duration'> & {
 	duration: number;
 };
 
-export type OnlyEEvent = Omit<EEvent, 'category'>;
+export type OnlyEEvent = Omit<EEvent, 'category' | 'goal'>;
 
 export function convertToMinutes(duration: string) {
 	// to check if the duration string is HH:mm format
@@ -109,6 +111,7 @@ export async function getTask(
 			duration,
 			isDone,
 			categoryId,
+			goalId: null,
 			isRecurring,
 			recurringStartAt,
 			recurringEndAt,

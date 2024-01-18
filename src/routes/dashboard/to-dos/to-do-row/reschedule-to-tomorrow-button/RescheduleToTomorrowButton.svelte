@@ -4,7 +4,7 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { applyAction, enhance } from '$app/forms';
 	import Button from '$lib/components/button/Button.svelte';
-	import { updateTask } from '$lib/task/store';
+	import { updateTasks } from '$lib/task/store';
 	import type { TTask } from '$lib/task/utils';
 	import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/dashboard/to-dos/$types';
 
@@ -15,8 +15,8 @@
 		return async ({ result }) => {
 			await applyAction(result);
 			if (result.type === 'success') {
-				if (form?.saved) {
-					updateTask(form.saved);
+				if (form?.updated) {
+					updateTasks(form.updated);
 				}
 			}
 		};

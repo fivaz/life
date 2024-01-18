@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ActionResult, MaybePromise, SubmitFunction } from '@sveltejs/kit';
+	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance, applyAction } from '$app/forms';
 	import { categories } from '$lib/category/store';
 	import Button from '$lib/components/button/Button.svelte';
@@ -16,15 +16,11 @@
 	import type { TaskIn } from '../service';
 	import { getDuration, getEndTime, buildDates } from './service';
 	import 'flatpickr/dist/themes/airbnb.css';
-	import type { TTask } from '$lib/task/utils';
 	import { closeModal } from '$lib/form-modal/store';
+	import type { SubSubmitFunction } from '$lib/types-utils';
+	import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
 
-	export let form: {
-		created?: TTask;
-		updated?: TTask | TTask[];
-		removed?: TTask;
-		error?: string;
-	} | null = null;
+	export let form: ActionData | null;
 
 	export let task: TaskIn;
 
@@ -47,12 +43,6 @@
 	$: categoryName =
 		$categories.find((category) => category.id === task.categoryId)?.name ||
 		'create a category first';
-
-	type SubSubmitFunction = ({
-		formData,
-	}: {
-		formData: FormData;
-	}) => MaybePromise<(opts: { result: ActionResult }) => void>;
 
 	const handleDelete: SubSubmitFunction = async () => {
 		const result = await createModal({ title: 'Are you sure?' });

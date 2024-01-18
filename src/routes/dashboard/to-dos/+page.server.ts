@@ -42,9 +42,9 @@ export const actions = {
 				startDate: tomorrowDate,
 				endDate: addMinutes(tomorrowDate, duration),
 			},
-			include: { category: true },
+			include: { category: true, goal: true },
 		});
-		return { saved: event };
+		return { updated: [event] };
 	},
 	create: async ({ request, locals }) => {
 		const session = await locals.auth.validate();
@@ -60,7 +60,7 @@ export const actions = {
 
 			const task = await prisma.task.create({
 				data: { ...taskData, userId: session.user.userId },
-				include: { category: true },
+				include: { category: true, goal: true },
 			});
 			return { created: task };
 		} catch (error) {
@@ -80,7 +80,7 @@ export const actions = {
 			const updatedTask: TTask = await prisma.task.update({
 				where: { id: task.id, userId: session.user.userId },
 				data: task,
-				include: { category: true },
+				include: { category: true, goal: true },
 			});
 
 			return { updated: [updatedTask] };
@@ -106,7 +106,7 @@ export const actions = {
 			data: {
 				deleted: new Date(),
 			},
-			include: { category: true },
+			include: { category: true, goal: true },
 		});
 		return { removed: task };
 	},

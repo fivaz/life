@@ -40,7 +40,7 @@ export const actions = {
 			data: {
 				isDone,
 			},
-			include: { category: true },
+			include: { category: true, goal: true },
 		});
 
 		return { updated: [event] };
@@ -59,7 +59,7 @@ export const actions = {
 
 			const event = await prisma.task.create({
 				data: { ...taskData, userId: session.user.userId },
-				include: { category: true },
+				include: { category: true, goal: true },
 			});
 			return { created: event };
 		} catch (error) {
@@ -88,7 +88,7 @@ export const actions = {
 				const event = await prisma.task.update({
 					where: { id: task.id, userId: session.user.userId },
 					data: task,
-					include: { category: true },
+					include: { category: true, goal: true },
 				});
 
 				return { updated: [event] };
@@ -116,7 +116,7 @@ export const actions = {
 				data: {
 					deleted: new Date(),
 				},
-				include: { category: true },
+				include: { category: true, goal: true },
 			});
 
 			return { removed: event };
