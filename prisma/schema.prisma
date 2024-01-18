@@ -43,13 +43,14 @@ model Category {
 }
 
 model Goal {
-  id      Int       @id @default(autoincrement())
-  name    String
-  isDone  Boolean
-  userId  String
-  deleted DateTime? @db.Timestamp(6)
-  user    User      @relation(fields: [userId], references: [id])
-  Task    Task[]
+  id       Int       @id @default(autoincrement())
+  name     String
+  deadline DateTime
+  isDone   Boolean
+  userId   String
+  deleted  DateTime? @db.Timestamp(6)
+  user     User      @relation(fields: [userId], references: [id])
+  Task     Task[]
 }
 
 model User {
