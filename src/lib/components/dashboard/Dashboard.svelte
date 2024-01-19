@@ -1,10 +1,5 @@
 <script lang="ts">
-	import {
-		Dialog,
-		DialogDescription,
-		TransitionChild,
-		TransitionRoot,
-	} from '@rgossiaux/svelte-headlessui';
+	import { Dialog, TransitionChild, TransitionRoot } from '@rgossiaux/svelte-headlessui';
 	import { Bars3, Calendar, DocumentDuplicate, XMark } from '@steeze-ui/heroicons';
 	import { List, Target } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -51,7 +46,7 @@
 					leaveFrom="translate-x-0"
 					leaveTo="-translate-x-full"
 				>
-					<DialogDescription class="relative mr-16 flex w-full max-w-xs flex-1">
+					<div class="relative mr-16 flex w-full h-full max-w-xs flex-1">
 						<TransitionChild
 							as="div"
 							enter="ease-in-out duration-300"
@@ -111,7 +106,7 @@
 								</ul>
 							</nav>
 						</div>
-					</DialogDescription>
+					</div>
 				</TransitionChild>
 			</div>
 		</Dialog>
