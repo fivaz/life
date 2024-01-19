@@ -45,7 +45,7 @@
 		};
 	};
 
-	const handleSave: SubSubmitFunction = async ({ formData }) => {
+	const handleSave: SubSubmitFunction = async () => {
 		loading = true;
 		return async ({ result }) => {
 			await applyAction(result);

@@ -31,3 +31,13 @@
 		cancelText: 'Cancel',
 	}}
 />
+
+<Story
+	name="No Message"
+	args={{
+		show: true,
+		title: 'Delete?',
+		confirmText: 'Confirm',
+		cancelText: 'Cancel',
+	}}
+/>

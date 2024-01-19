@@ -20,7 +20,7 @@
 	<Modal {...args} />
 </Template>
 
-<Story name="Dialog" args={{ show: true }} let:args>
+<Story name="Modal" args={{ show: true }} let:args>
 	<Modal {...args}><p class="p-5">Dialog</p></Modal>
 </Story>
 
