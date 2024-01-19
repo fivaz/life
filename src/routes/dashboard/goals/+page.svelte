@@ -34,15 +34,17 @@
 			<div class="flex justify-between px-2">
 				<div>{date}</div>
 			</div>
-			{#each list as goal (goal)}
-				<GoalRow
-					{goal}
-					on:edit={(e) => {
-						openModal();
-						editingGoal = convertToGoalIn(e.detail);
-					}}
-				/>
-			{/each}
+			<div class="flex flex-col gap-2">
+				{#each list as goal (goal)}
+					<GoalRow
+						{goal}
+						on:edit={(e) => {
+							openModal();
+							editingGoal = convertToGoalIn(e.detail);
+						}}
+					/>
+				{/each}
+			</div>
 		{/each}
 	</ul>
 
