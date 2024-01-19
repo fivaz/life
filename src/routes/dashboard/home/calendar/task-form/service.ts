@@ -1,4 +1,4 @@
-import { TIME } from '$lib/consts';
+import { DATE, DATETIME, TIME } from '$lib/consts';
 import { add, differenceInMinutes, format, isAfter, isValid, parse } from 'date-fns';
 import type { TaskIn } from '../service';
 
@@ -42,8 +42,8 @@ export function buildDates(formData: FormData): void {
 	const endDateString = `${date} ${endTime}`;
 
 	// Parse the date and time string
-	const startDate = parse(startDateString, 'yyyy-MM-dd HH:mm', new Date());
-	const endDate = parse(endDateString, 'yyyy-MM-dd HH:mm', new Date());
+	const startDate = parse(startDateString, DATETIME, new Date());
+	const endDate = parse(endDateString, DATETIME, new Date());
 
 	if (!isValid(startDate) || !isValid(endDate)) {
 		throw Error('date, startTime and endTime should be valid date and time');
@@ -55,8 +55,8 @@ export function buildDates(formData: FormData): void {
 	if (isRecurring) {
 		const recurringStartAtString = formData.get('recurringStartAt') as string;
 		const recurringEndAtString = formData.get('recurringEndAt') as string;
-		const recurringStartAt = parse(recurringStartAtString, 'yyyy-MM-dd', new Date());
-		const recurringEndAt = parse(recurringEndAtString, 'yyyy-MM-dd', new Date());
+		const recurringStartAt = parse(recurringStartAtString, DATE, new Date());
+		const recurringEndAt = parse(recurringEndAtString, DATE, new Date());
 
 		if (!isValid(recurringStartAt) || !isValid(recurringEndAt)) {
 			throw Error('date, recurringStartAt and recurringEndAt should be valid date and time');

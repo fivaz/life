@@ -5,10 +5,11 @@
 	import { createModal } from '$lib/components/dialog/service';
 	import Input from '$lib/components/input/Input.svelte';
 	import Loading from '$lib/components/loading/Loading.svelte';
-	import { UnknownError } from '$lib/consts';
+	import { DATE, UnknownError } from '$lib/consts';
 	import { closeModal } from '$lib/form-modal/store';
 	import { removeGoal, updateGoal } from '$lib/goal/store';
 	import type { SubSubmitFunction } from '$lib/types-utils';
+	import { parse } from 'date-fns';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/goals/$types';
 	import type { GoalIn } from '../service';
 
@@ -45,8 +46,20 @@
 		};
 	};
 
-	const handleSave: SubSubmitFunction = async () => {
+	function buildDate(formData: FormData) {
+		// This need to be done in the client to avoid persisting a date from a different
+		// timezone if the server is in a different timezone
+		const date = formData.get('deadline') as string;
+
+		const dateISO = parse(date, DATE, new Date());
+
+		formData.set('deadline', dateISO.toISOString());
+	}
+
+	const handleSave: SubSubmitFunction = async ({ formData }) => {
 		loading = true;
+		buildDate(formData);
+
 		return async ({ result }) => {
 			await applyAction(result);
 			if (result.type === 'success' && form?.saved) {

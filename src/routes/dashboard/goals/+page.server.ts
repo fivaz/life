@@ -1,9 +1,9 @@
 import { fail } from '@sveltejs/kit';
-import { DATE, unauthorized } from '$lib/consts';
+import { unauthorized } from '$lib/consts';
 import type { GGoal, GoalWithTasks } from '$lib/goal/utils';
 import prisma from '$lib/prisma';
 import { handleError } from '$lib/server/form-utils';
-import { parse } from 'date-fns';
+import { parseISO } from 'date-fns';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load = (async ({ locals }) => {
@@ -28,7 +28,7 @@ async function getGoal(request: Request): Promise<GGoal> {
 	const deadlineString = data.get('deadline') as string;
 	const isDone = !!data.get('isDone');
 
-	const deadline = parse(deadlineString, DATE, new Date());
+	const deadline = parseISO(deadlineString);
 
 	return {
 		id,
