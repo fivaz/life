@@ -79,7 +79,7 @@
 		use:enhance={submit}
 	>
 		<input type="hidden" name="id" value={event.id} />
-		<input type="hidden" name="targetDate" value={targetDate} />
+		<input type="hidden" name="targetDate" value={targetDate.toISOString()} />
 		<input
 			type="checkbox"
 			checked={event.isDone}
