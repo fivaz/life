@@ -25,7 +25,7 @@
 				editingGoal = buildEmptyGoal();
 			}}
 		>
-			create goal
+			Create Goal
 		</Button>
 	</div>
 

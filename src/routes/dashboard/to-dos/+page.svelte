@@ -31,7 +31,7 @@
 				editingToDo = buildEmptyTaskIn($categories, false);
 			}}
 		>
-			create To Do
+			Create Task
 		</Button>
 	</div>
 

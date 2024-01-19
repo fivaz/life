@@ -36,7 +36,7 @@
 				editingCategory = buildEmptyCategory();
 			}}
 		>
-			create category
+			Create Category
 		</Button>
 	</div>
 
