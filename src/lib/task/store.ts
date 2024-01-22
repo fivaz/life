@@ -9,7 +9,13 @@ function isCurrentWeek(date: Date) {
 	return startOfWeek(new Date()).getTime() === startOfWeek(date).getTime();
 }
 
-function getDateName(date: Date | null): string {
+function getDateName(task: TTask): string {
+	const date = task.startDate || task.deadline;
+
+	if (task.isRecurring) {
+		return 'Recurring';
+	}
+
 	if (!date) {
 		return 'Someday';
 	}
@@ -50,7 +56,7 @@ function getToDos(tasks: TTask[]): Record<string, TTask[]> {
 
 function groupToDosByDate(toDos: TTask[]): Record<string, TTask[]> {
 	return toDos.reduce<Record<string, TTask[]>>((groups, toDo) => {
-		const date = getDateName(toDo.startDate || toDo.deadline);
+		const date = getDateName(toDo);
 
 		if (!groups[date]) {
 			groups[date] = [];

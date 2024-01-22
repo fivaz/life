@@ -76,11 +76,11 @@ function buildEventDates(formData: FormData): void {
 }
 
 function buildDeadline(formData: FormData) {
-	const deadline = formData.get('deadline') as string;
+	const deadlineString = formData.get('deadline') as string;
 
-	const deadlineISO = parse(deadline, DATE, new Date());
+	const deadline = deadlineString ? parse(deadlineString, DATE, new Date()).toISOString() : '';
 
-	formData.set('deadline', deadlineISO.toISOString());
+	formData.set('deadline', deadline);
 }
 
 export function isEventsDateInverted(task: TaskIn) {

@@ -3,7 +3,15 @@ import { weekDays } from '$lib/components/days-checkbox/service';
 import { DATE, homeRoute, TIME } from '$lib/consts';
 import type { EEvent, OnlyTTask, TTask } from '$lib/task/utils';
 import { convertToTime } from '$lib/task/utils';
-import { addMinutes, addMonths, differenceInMinutes, format, setHours, setMinutes } from 'date-fns';
+import {
+	addMinutes,
+	addMonths,
+	differenceInMinutes,
+	endOfWeek,
+	format,
+	setHours,
+	setMinutes,
+} from 'date-fns';
 import type { SerializedEvent } from '../api/service';
 import { deserializeEvent } from '../api/service';
 import { halfHourInterval } from './calendar-body/calendar-columns/calendar-rows/service';
@@ -34,7 +42,7 @@ export function convertToTaskIn(task: TTask): TaskIn {
 		startTime: format(task.startDate || new Date(), TIME),
 		endTime: format(task.endDate || addMinutes(new Date(), 15), TIME),
 		duration: convertToTime(task.duration || 15),
-		deadline: format(task.deadline || new Date(), DATE),
+		deadline: task.deadline ? format(task.deadline || new Date(), DATE) : '',
 		isDone: task.isDone,
 		categoryId: task.categoryId,
 		goalId: task.goalId,
@@ -59,7 +67,7 @@ export function buildEmptyTaskIn(categories: CCategory[], isEvent: boolean): Tas
 		startTime: format(new Date(), TIME),
 		endTime: format(addMinutes(new Date(), 15), TIME),
 		duration: '00:15',
-		deadline: format(new Date(), DATE),
+		deadline: format(endOfWeek(new Date()), DATE),
 		isDone: false,
 		categoryId: categories.find((category) => category.isDefault)?.id || categories[0]?.id || 0,
 		goalId: null,
