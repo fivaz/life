@@ -1,7 +1,8 @@
 import type { CCategory } from '$lib/category/utils';
 import { weekDays } from '$lib/components/days-checkbox/service';
+import type { TaskIn } from '$lib/components/task-form/service';
 import { DATE, homeRoute, TIME } from '$lib/consts';
-import type { EEvent, OnlyTTask, TTask } from '$lib/task/utils';
+import type { EEvent, TTask } from '$lib/task/utils';
 import { convertToTime } from '$lib/task/utils';
 import {
 	addMinutes,
@@ -15,22 +16,6 @@ import {
 import type { SerializedEvent } from '../api/service';
 import { deserializeEvent } from '../api/service';
 import { halfHourInterval } from './calendar-body/calendar-columns/calendar-rows/service';
-
-export type TaskIn = Omit<
-	OnlyTTask,
-	'startDate' | 'endDate' | 'duration' | 'deadline' | 'recurringStartAt' | 'recurringEndAt'
-> & {
-	date: string;
-	startTime: string;
-	endTime: string;
-	duration: string;
-	deadline: string;
-	isRecurring: boolean;
-	wasRecurring: boolean;
-	recurringStartAt: string;
-	recurringEndAt: string;
-	isEvent: boolean;
-};
 
 export function convertToTaskIn(task: TTask): TaskIn {
 	return {

@@ -1,6 +1,22 @@
 import { DATE, DATETIME, TIME } from '$lib/consts';
+import type { OnlyTTask } from '$lib/task/utils';
 import { add, differenceInMinutes, format, isAfter, isValid, parse } from 'date-fns';
-import type { TaskIn } from '../service';
+
+export type TaskIn = Omit<
+	OnlyTTask,
+	'startDate' | 'endDate' | 'duration' | 'deadline' | 'recurringStartAt' | 'recurringEndAt'
+> & {
+	date: string;
+	startTime: string;
+	endTime: string;
+	duration: string;
+	deadline: string;
+	isRecurring: boolean;
+	wasRecurring: boolean;
+	recurringStartAt: string;
+	recurringEndAt: string;
+	isEvent: boolean;
+};
 
 export function getEndTime(startTime: string, duration: string): string {
 	if (!startTime || !duration) {

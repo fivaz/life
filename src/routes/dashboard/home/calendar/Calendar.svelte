@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { categories } from '$lib/category/store';
 	import Modal from '$lib/components/modal/Modal.svelte';
+	import type { TaskIn } from '$lib/components/task-form/service';
+	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import { draggedEvent } from '$lib/dragged/store';
 	import { closeModal, isModalVisible, openModal } from '$lib/form-modal/store';
 	import { updateTasks } from '$lib/task/store';
@@ -16,8 +18,6 @@
 		moveEvent,
 		preserveEvent,
 	} from './service';
-	import type { TaskIn } from './service';
-	import TaskForm from './task-form/TaskForm.svelte';
 
 	let currentDate = new Date();
 

@@ -3,8 +3,8 @@
 	import type { Meta } from '@storybook/svelte';
 	import { categories } from '$lib/category/seed';
 	import { redEvent } from '$lib/task/seed';
-	import { buildEmptyTaskIn } from '../service';
-	import { convertToTaskIn } from '../service.js';
+	import { buildEmptyTaskIn } from '../../../routes/dashboard/home/calendar/service';
+	import { convertToTaskIn } from '../../../routes/dashboard/home/calendar/service.js';
 	import TaskForm from './TaskForm.svelte';
 
 	export const meta = {

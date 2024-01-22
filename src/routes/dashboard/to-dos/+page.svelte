@@ -2,12 +2,12 @@
 	import { categories } from '$lib/category/store';
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
+	import type { TaskIn } from '$lib/components/task-form/service';
+	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import { closeModal, isModalVisible, openModal } from '$lib/form-modal/store';
 	import { toDos } from '$lib/task/store';
 	import type { TTask } from '$lib/task/utils';
 	import { buildEmptyTaskIn, convertToTaskIn } from '../home/calendar/service';
-	import type { TaskIn } from '../home/calendar/service';
-	import TaskForm from '../home/calendar/task-form/TaskForm.svelte';
 	import type { ActionData } from './$types';
 	import ToDoRow from './to-do-row/ToDoRow.svelte';
 

@@ -179,4 +179,4 @@ export const funEvent: TTask = {
 	recurringExceptions: [],
 };
 
-export const perfectDay: TTask[] = [sleepEvent, workEvent, funEvent];
+export const tasks: TTask[] = [sleepEvent, workEvent, funEvent];

@@ -1,33 +1,25 @@
 <script lang="ts" context="module">
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import type { Meta } from '@storybook/svelte';
-	import { events } from '$lib/task/seed';
 	import { tasks } from '$lib/task/seed.js';
-	import Stats from './Stats.svelte';
+	import EventSection from './EventSection.svelte';
 
 	export const meta = {
-		component: Stats,
+		component: EventSection,
 		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
-	} satisfies Meta<Stats>;
+	} satisfies Meta<EventSection>;
 </script>
 
 <Template let:args>
-	<Stats {...args} />
+	<EventSection {...args} />
 </Template>
 
 <Story
 	name="Primary"
 	args={{
-		events,
-	}}
-/>
-
-<Story
-	name="Perfect Day"
-	args={{
-		events: tasks,
+		task: tasks[0],
 	}}
 />
