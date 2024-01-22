@@ -3,14 +3,7 @@ import { weekDays } from '$lib/components/days-checkbox/service';
 import { DATE, homeRoute, TIME } from '$lib/consts';
 import type { EEvent, OnlyTTask, TTask } from '$lib/task/utils';
 import { convertToTime } from '$lib/task/utils';
-import {
-	addMinutes,
-	addMonths,
-	differenceInMinutes,
-	format,
-	setHours,
-	setMinutes,
-} from 'date-fns';
+import { addMinutes, addMonths, differenceInMinutes, format, setHours, setMinutes } from 'date-fns';
 import type { SerializedEvent } from '../api/service';
 import { deserializeEvent } from '../api/service';
 import { halfHourInterval } from './calendar-body/calendar-columns/calendar-rows/service';
