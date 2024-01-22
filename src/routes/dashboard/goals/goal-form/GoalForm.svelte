@@ -102,13 +102,7 @@
 
 		<input type="hidden" name="id" value={goal.id} />
 
-		<Input
-			label="Name"
-			autocomplete="off"
-			name="name"
-			bind:value={goal.name}
-			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-		/>
+		<Input label="Name" autocomplete="off" name="name" bind:value={goal.name} />
 
 		<div class="flex gap-3">
 			<Input

@@ -109,13 +109,7 @@
 
 		<input type="hidden" name="id" value={category.id} />
 
-		<Input
-			label="Name"
-			autocomplete="off"
-			name="name"
-			bind:value={category.name}
-			class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-		/>
+		<Input label="Name" autocomplete="off" name="name" bind:value={category.name} />
 
 		<Select name="color" bind:value={category.color}>
 			<div slot="placeholder" class="flex gap-5 items-center">

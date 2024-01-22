@@ -20,11 +20,7 @@
 	import { goals } from '$lib/goal/store';
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
-	import {
-		Disclosure,
-		DisclosureButton,
-		DisclosurePanel,
-	} from '@rgossiaux/svelte-headlessui';
+	import { Disclosure, DisclosureButton, DisclosurePanel } from '@rgossiaux/svelte-headlessui';
 	import { slide } from 'svelte/transition';
 
 	export let form: ActionData | null;
@@ -152,14 +148,7 @@
 		<input type="hidden" name="targetDate" value={targetDate?.toISOString() || null} />
 
 		<div class="flex gap-3 items-center">
-			<Input
-				labelClass="flex-1"
-				label="Name"
-				autocomplete="off"
-				name="name"
-				bind:value={task.name}
-				class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-			/>
+			<Input class="flex-1" label="Name" autocomplete="off" name="name" bind:value={task.name} />
 
 			<label>
 				<input
@@ -196,11 +185,14 @@
 			/>
 		</label>
 
-		{#if !task.isEvent}
-			<Input label="Deadline" type="date" name="deadline" bind:value={task.deadline} />
-		{/if}
+		<Input
+			label="Deadline"
+			type="date"
+			name="deadline"
+			bind:value={task.deadline}
+			disabled={task.isEvent}
+		/>
 
-		{task.isEvent}
 		<Disclosure class="bg-white rounded-lg p-2" let:open>
 			<div class="flex justify-between">
 				<DisclosureButton>Event</DisclosureButton>
@@ -212,7 +204,7 @@
 					<DisclosurePanel static>
 						<div class="flex gap-3">
 							<Input
-								labelClass="w-1/2"
+								class="w-1/2"
 								label="Date"
 								type="date"
 								name="date"
@@ -221,7 +213,7 @@
 							/>
 
 							<Input
-								labelClass="w-1/2"
+								class="w-1/2"
 								label="Duration"
 								type="time"
 								name="duration"
@@ -233,7 +225,7 @@
 
 						<div class="flex gap-3">
 							<Input
-								labelClass="w-1/2"
+								class="w-1/2"
 								label="Start time"
 								type="time"
 								name="startTime"
@@ -245,7 +237,7 @@
 							/>
 
 							<Input
-								labelClass="w-1/2"
+								class="w-1/2"
 								label="End time"
 								type="time"
 								name="endTime"
@@ -271,7 +263,7 @@
 						<DisclosurePanel static>
 							<div class="flex gap-3">
 								<Input
-									labelClass="w-1/2"
+									class="w-1/2"
 									label="Start at"
 									type="date"
 									name="recurringStartAt"
@@ -280,7 +272,7 @@
 								/>
 
 								<Input
-									labelClass="w-1/2"
+									class="w-1/2"
 									label="End at"
 									type="date"
 									name="recurringEndAt"
