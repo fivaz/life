@@ -10,7 +10,6 @@
 	import Select from '$lib/components/select/Select.svelte';
 	import { UnknownError } from '$lib/consts';
 	import { removeTask, updateTasks } from '$lib/task/store';
-	import classnames from 'classnames';
 	import Flatpickr from 'svelte-flatpickr';
 	import type { TaskIn } from '../service';
 	import { getDuration, getEndTime, formatDates, isEventsDateInverted } from './service';
@@ -20,12 +19,17 @@
 	import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
 	import { goals } from '$lib/goal/store';
 	import Alert from '$lib/components/alert/Alert.svelte';
+	import Toggle from '$lib/components/toggle/Toggle.svelte';
+	import {
+		Disclosure,
+		DisclosureButton,
+		DisclosurePanel,
+	} from '@rgossiaux/svelte-headlessui';
+	import { slide } from 'svelte/transition';
 
 	export let form: ActionData | null;
 
 	export let task: TaskIn;
-
-	export let isOnlyEvent: boolean;
 
 	export let targetDate: Date | null = null;
 
@@ -196,123 +200,125 @@
 			<Input label="Deadline" type="date" name="deadline" bind:value={task.deadline} />
 		{/if}
 
-		<div class={classnames({ hidden: isOnlyEvent }, 'flex justify-start')}>
-			<label class="flex gap-2 items-center text-sm font-medium text-gray-700">
-				Event
-				<input
-					name="isEvent"
-					type="checkbox"
-					bind:checked={task.isEvent}
-					class="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-				/>
-				<!--mt-1 is to align the checkbox with the label-->
-			</label>
-		</div>
-
-		{#if task.isEvent}
-			<div class="flex gap-3">
-				<Input
-					labelClass="w-1/2"
-					label="Date"
-					type="date"
-					name="date"
-					bind:value={task.date}
-					required
-				/>
-
-				<Input
-					labelClass="w-1/2"
-					label="Duration"
-					type="time"
-					name="duration"
-					required
-					bind:value={task.duration}
-					on:input={(e) => (task.endTime = getEndTime(task.startTime, e.detail))}
-				/>
+		{task.isEvent}
+		<Disclosure class="bg-white rounded-lg p-2" let:open>
+			<div class="flex justify-between">
+				<DisclosureButton>Event</DisclosureButton>
+				<Toggle name="isEvent" bind:value={task.isEvent} />
 			</div>
 
-			<div class="flex gap-3">
-				<Input
-					labelClass="w-1/2"
-					label="Start time"
-					type="time"
-					name="startTime"
-					required
-					bind:value={task.startTime}
-					on:input={(e) => {
-						task.endTime = getEndTime(e.detail, task.duration);
-					}}
-				/>
+			{#if open}
+				<div transition:slide>
+					<DisclosurePanel static>
+						<div class="flex gap-3">
+							<Input
+								labelClass="w-1/2"
+								label="Date"
+								type="date"
+								name="date"
+								bind:value={task.date}
+								required
+							/>
 
-				<Input
-					labelClass="w-1/2"
-					label="End time"
-					type="time"
-					name="endTime"
-					required
-					bind:value={task.endTime}
-					on:input={(e) => (task.duration = getDuration(task.startTime, e.detail))}
-				/>
-			</div>
+							<Input
+								labelClass="w-1/2"
+								label="Duration"
+								type="time"
+								name="duration"
+								required
+								bind:value={task.duration}
+								on:input={(e) => (task.endTime = getEndTime(task.startTime, e.detail))}
+							/>
+						</div>
 
-			<div class="flex justify-start">
-				<label class="flex gap-2 items-center text-sm font-medium text-gray-700">
-					Recurring
-					<input
-						name="isRecurring"
-						type="checkbox"
-						bind:checked={task.isRecurring}
-						class="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-					/>
-					<!--mt-1 is to align the checkbox with the label-->
-				</label>
-			</div>
+						<div class="flex gap-3">
+							<Input
+								labelClass="w-1/2"
+								label="Start time"
+								type="time"
+								name="startTime"
+								required
+								bind:value={task.startTime}
+								on:input={(e) => {
+									task.endTime = getEndTime(e.detail, task.duration);
+								}}
+							/>
 
-			{#if task.isRecurring}
-				<div class="flex gap-3">
-					<Input
-						labelClass="w-1/2"
-						label="Start at"
-						type="date"
-						name="recurringStartAt"
-						required
-						bind:value={task.recurringStartAt}
-					/>
-
-					<Input
-						labelClass="w-1/2"
-						label="End at"
-						type="date"
-						name="recurringEndAt"
-						required
-						bind:value={task.recurringEndAt}
-					/>
-				</div>
-				<div class="">
-					<h3 class="block text-sm font-medium text-gray-700 mb-1">Repeat every</h3>
-					<DaysCheckbox
-						class="flex justify-around"
-						name="recurringDaysOfWeek"
-						bind:value={task.recurringDaysOfWeek}
-					/>
-				</div>
-
-				<div>
-					<label for="recurringExceptions" class="block text-sm font-medium text-gray-700 mb-1">
-						Exclude on
-					</label>
-					<Flatpickr
-						id="recurringExceptions"
-						class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-						name="recurringExceptions"
-						options={{
-							mode: 'multiple',
-							dateFormat: 'Y-m-d',
-						}}
-						bind:value={task.recurringExceptions}
-					/>
+							<Input
+								labelClass="w-1/2"
+								label="End time"
+								type="time"
+								name="endTime"
+								required
+								bind:value={task.endTime}
+								on:input={(e) => (task.duration = getDuration(task.startTime, e.detail))}
+							/>
+						</div>
+					</DisclosurePanel>
 				</div>
 			{/if}
+		</Disclosure>
+
+		{#if task.isEvent}
+			<Disclosure class="bg-white rounded-lg p-2" let:open>
+				<div class="flex justify-between">
+					<DisclosureButton>Recurring</DisclosureButton>
+					<Toggle name="isEvent" value={task.isRecurring} />
+				</div>
+
+				{#if open}
+					<div transition:slide>
+						<DisclosurePanel static>
+							<div class="flex gap-3">
+								<Input
+									labelClass="w-1/2"
+									label="Start at"
+									type="date"
+									name="recurringStartAt"
+									required
+									bind:value={task.recurringStartAt}
+								/>
+
+								<Input
+									labelClass="w-1/2"
+									label="End at"
+									type="date"
+									name="recurringEndAt"
+									required
+									bind:value={task.recurringEndAt}
+								/>
+							</div>
+							<div class="">
+								<h3 class="block text-sm font-medium text-gray-700 mb-1">Repeat every</h3>
+								<DaysCheckbox
+									class="flex justify-around"
+									name="recurringDaysOfWeek"
+									bind:value={task.recurringDaysOfWeek}
+								/>
+							</div>
+
+							<div>
+								<label
+									for="recurringExceptions"
+									class="block text-sm font-medium text-gray-700 mb-1"
+								>
+									Exclude on
+								</label>
+								<Flatpickr
+									id="recurringExceptions"
+									class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+									name="recurringExceptions"
+									options={{
+										mode: 'multiple',
+										dateFormat: 'Y-m-d',
+									}}
+									bind:value={task.recurringExceptions}
+								/>
+							</div>
+						</DisclosurePanel>
+					</div>
+				{/if}
+			</Disclosure>
 		{/if}
 	</div>
 

@@ -59,6 +59,6 @@
 		}}
 	/>
 	<Modal show={$isModalVisible} on:close={() => closeModal()}>
-		<TaskForm {form} task={editingEvent} {targetDate} isOnlyEvent />
+		<TaskForm {form} task={editingEvent} {targetDate} />
 	</Modal>
 </div>

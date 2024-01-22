@@ -55,6 +55,6 @@
 	</ul>
 
 	<Modal show={$isModalVisible} on:close={() => closeModal()}>
-		<TaskForm {form} task={editingToDo} isOnlyEvent={false} />
+		<TaskForm {form} task={editingToDo} />
 	</Modal>
 </div>
