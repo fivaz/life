@@ -53,6 +53,7 @@ export async function getTask(
 	const startDateString = data.get('startDate') as string;
 	const endDateString = data.get('endDate') as string;
 	const durationString = data.get('duration') as string;
+	const deadlineString = data.get('deadline') as string;
 
 	const isRecurring = !!data.get('isRecurring');
 	const isForThisEventOnly = !!data.get('isForThisEventOnly');
@@ -66,6 +67,8 @@ export async function getTask(
 	if (!categoryName || !categoryId) {
 		throw Error('internal error, please refresh the page');
 	}
+
+	const deadline = deadlineString ? parseISO(deadlineString) : null;
 
 	let startDate = null;
 	let endDate = null;
@@ -110,6 +113,7 @@ export async function getTask(
 			startDate,
 			endDate,
 			duration,
+			deadline,
 			isDone,
 			categoryId,
 			goalId,

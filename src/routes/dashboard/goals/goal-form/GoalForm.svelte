@@ -46,7 +46,7 @@
 		};
 	};
 
-	function buildDate(formData: FormData) {
+	function buildDeadline(formData: FormData) {
 		// This need to be done in the client to avoid persisting a date from a different
 		// timezone if the server is in a different timezone
 		const date = formData.get('deadline') as string;
@@ -58,7 +58,7 @@
 
 	const handleSave: SubSubmitFunction = async ({ formData }) => {
 		loading = true;
-		buildDate(formData);
+		buildDeadline(formData);
 
 		return async ({ result }) => {
 			await applyAction(result);

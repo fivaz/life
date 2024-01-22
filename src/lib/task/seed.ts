@@ -1,6 +1,6 @@
 import { fun, routine, sleep, work } from '$lib/category/seed';
 import type { TTask } from '$lib/task/utils';
-import { addDays, set } from 'date-fns';
+import { addDays, set, startOfWeek } from 'date-fns';
 
 function getTodayAtTime(time: string): Date {
 	const [hours, minutes] = time.split(':').map(Number);
@@ -18,6 +18,7 @@ export const normalWithoutDescription: TTask = {
 	startDate: getTodayAtTime('07:00'),
 	endDate: getTodayAtTime('07:45'),
 	duration: 45,
+	deadline: startOfWeek(new Date()),
 	isDone: false,
 	categoryId: routine.id,
 	category: routine,
@@ -37,6 +38,7 @@ export const shortWithoutDescription: TTask = {
 	startDate: getTodayAtTime('07:45'),
 	endDate: getTodayAtTime('08:00'),
 	duration: 15,
+	deadline: startOfWeek(new Date()),
 	isDone: false,
 	categoryId: routine.id,
 	category: routine,
@@ -56,6 +58,7 @@ export const long: TTask = {
 	startDate: getTodayAtTime('10:15'),
 	endDate: addDays(getTodayAtTime('12:30'), 1),
 	duration: 135,
+	deadline: startOfWeek(new Date()),
 	isDone: true,
 	categoryId: work.id,
 	category: work,
@@ -75,6 +78,7 @@ export const done: TTask = {
 	startDate: getTodayAtTime('00:15'),
 	endDate: getTodayAtTime('01:30'),
 	duration: 75,
+	deadline: startOfWeek(new Date()),
 	isDone: true,
 	categoryId: work.id,
 	category: work,
@@ -94,6 +98,7 @@ export const redEvent: TTask = {
 	startDate: getTodayAtTime('15:15'),
 	endDate: getTodayAtTime('16:30'),
 	duration: 75,
+	deadline: startOfWeek(new Date()),
 	isDone: false,
 	categoryId: fun.id,
 	category: fun,
@@ -121,6 +126,7 @@ export const sleepEvent: TTask = {
 	startDate: getTodayAtTime('00:00'),
 	endDate: getTodayAtTime('08:00'),
 	duration: 480,
+	deadline: startOfWeek(new Date()),
 	isDone: false,
 	categoryId: sleep.id,
 	category: sleep,
@@ -140,6 +146,7 @@ export const workEvent: TTask = {
 	startDate: getTodayAtTime('08:00'),
 	endDate: getTodayAtTime('16:00'),
 	duration: 480,
+	deadline: startOfWeek(new Date()),
 	isDone: false,
 	categoryId: work.id,
 	category: work,
@@ -159,6 +166,7 @@ export const funEvent: TTask = {
 	startDate: getTodayAtTime('16:00'),
 	endDate: getTodayAtTime('23:59'),
 	duration: 480,
+	deadline: startOfWeek(new Date()),
 	isDone: false,
 	categoryId: fun.id,
 	category: fun,

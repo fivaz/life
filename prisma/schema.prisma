@@ -12,6 +12,7 @@ model Task {
   id                  Int        @id @default(autoincrement())
   name                String
   description         String?
+  deadline            DateTime?  @db.Timestamp(6)
   startDate           DateTime?  @db.Timestamp(6)
   endDate             DateTime?  @db.Timestamp(6)
   isDone              Boolean

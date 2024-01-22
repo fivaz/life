@@ -32,7 +32,15 @@ export function getDuration(startTime: string, endTime: string): string {
 	return format(new Date(0, 0, 0, totalHours, remainingMinutes), TIME);
 }
 
-export function buildDates(formData: FormData): void {
+export function formatDates(task: TaskIn, formData: FormData) {
+	if (task.isEvent) {
+		buildEventDates(formData);
+	} else {
+		buildDeadline(formData);
+	}
+}
+
+function buildEventDates(formData: FormData): void {
 	const date = formData.get('date') as string;
 	const startTime = formData.get('startTime') as string;
 	const endTime = formData.get('endTime') as string;
@@ -65,6 +73,14 @@ export function buildDates(formData: FormData): void {
 		formData.set('recurringStartAt', recurringStartAt.toISOString());
 		formData.set('recurringEndAt', recurringEndAt.toISOString());
 	}
+}
+
+function buildDeadline(formData: FormData) {
+	const deadline = formData.get('deadline') as string;
+
+	const deadlineISO = parse(deadline, DATE, new Date());
+
+	formData.set('deadline', deadlineISO.toISOString());
 }
 
 export function isEventsDateInverted(task: TaskIn) {

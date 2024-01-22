@@ -13,7 +13,7 @@
 	import classnames from 'classnames';
 	import Flatpickr from 'svelte-flatpickr';
 	import type { TaskIn } from '../service';
-	import { getDuration, getEndTime, buildDates, isEventsDateInverted } from './service';
+	import { getDuration, getEndTime, formatDates, isEventsDateInverted } from './service';
 	import 'flatpickr/dist/themes/airbnb.css';
 	import { closeModal } from '$lib/form-modal/store';
 	import type { SubSubmitFunction } from '$lib/types-utils';
@@ -53,6 +53,8 @@
 
 	$: goalName = $goals.find((goal) => goal.id === task.goalId)?.name || 'no goal';
 
+	$: formName = `${isEditing ? 'Edit' : 'Add'} ${task.isEvent ? 'Event' : 'Task'}`;
+
 	const handleDelete: SubSubmitFunction = async () => {
 		const result = await createModal({ title: 'Are you sure?' });
 
@@ -72,9 +74,8 @@
 	};
 
 	const handleCreate: SubSubmitFunction = ({ formData }) => {
-		if (task.isEvent) {
-			buildDates(formData);
-		}
+		formatDates(task, formData);
+
 		closeModal();
 
 		return async ({ result }) => {
@@ -88,9 +89,9 @@
 	};
 
 	const handleEdit: SubSubmitFunction = async ({ formData }) => {
-		if (task.isEvent) {
-			buildDates(formData);
+		formatDates(task, formData);
 
+		if (task.isEvent) {
 			if (task.wasRecurring && task.isRecurring) {
 				const result = await createModal({
 					title: 'This is a repeating event',
@@ -118,7 +119,7 @@
 		};
 	};
 
-	export const submit: SubmitFunction = async ({ formData, action }) => {
+	const submit: SubmitFunction = async ({ formData, action }) => {
 		if (action.search === DELETE_ACTION) {
 			return handleDelete({ formData });
 		} else if (action.search === CREATE_ACTION) {
@@ -137,7 +138,7 @@
 >
 	<div class="flex flex-col gap-2 px-4 py-5 bg-white sm:p-6">
 		<h2 class="text-lg font-medium text-gray-900">
-			{#if isEditing} Edit Event {:else} Add Event {/if}
+			{formName}
 		</h2>
 
 		<Alert type="error" isVisible={!!error} hasCloseButton={false}>{error}</Alert>
@@ -190,6 +191,10 @@
 				class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 			/>
 		</label>
+
+		{#if !task.isEvent}
+			<Input label="Deadline" type="date" name="deadline" bind:value={task.deadline} />
+		{/if}
 
 		<div class={classnames({ hidden: isOnlyEvent }, 'flex justify-start')}>
 			<label class="flex gap-2 items-center text-sm font-medium text-gray-700">
