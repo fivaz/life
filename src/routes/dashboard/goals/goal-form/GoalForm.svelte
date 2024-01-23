@@ -9,15 +9,12 @@
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import { closeModal } from '$lib/form-modal/store';
-	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/goals/$types';
 	import type { GoalIn } from '../service';
 	import { handleSave, handleDelete } from './service';
 
 	export let goal: GoalIn;
 
 	$: isEditing = !!goal.id;
-
-	export let form: ActionData | null;
 
 	let loading = false;
 
@@ -28,9 +25,9 @@
 
 	export const submit: SubmitFunction = async ({ formData, action }) => {
 		if (action.search === DELETE_ACTION) {
-			return handleDelete({ formData, data: goal, form });
+			return handleDelete({ formData, data: goal });
 		} else if (action.search === SAVE_ACTION) {
-			return handleSave({ formData, data: goal, form });
+			return handleSave({ formData, data: goal });
 		}
 	};
 </script>

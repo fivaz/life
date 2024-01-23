@@ -8,7 +8,7 @@
 	import type { EEvent } from '$lib/task/utils';
 	import classnames from 'classnames';
 	import { format } from 'date-fns';
-	import { createEventDispatcher, getContext } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 	import EventName from './event-name/EventName.svelte';
 	import { isShort } from './service';
 
@@ -21,8 +21,6 @@
 	let loading = false;
 
 	let formElement: HTMLFormElement | null = null;
-
-	let form = getContext<{ updated?: EEvent } | null>('form');
 
 	const dispatch = createEventDispatcher<{ edit: { event: EEvent; targetDate: Date } }>();
 
@@ -43,8 +41,8 @@
 	const submit: SubmitFunction = () => {
 		loading = true;
 		return async ({ result }) => {
-			if (result.type === 'success' && form?.updated) {
-				updateTasks(form.updated);
+			if (result.type === 'success' && result.data?.updated) {
+				updateTasks(result.data.updated);
 			}
 			loading = false;
 		};

@@ -6,7 +6,6 @@ import { removeTask, updateTasks } from '$lib/task/store';
 import type { OnlyTTask } from '$lib/task/utils';
 import type { SubSubmitFunction } from '$lib/types-utils';
 import { add, differenceInMinutes, format, isAfter, isValid, parse } from 'date-fns';
-import type { ActionData } from '../../../routes/dashboard/home/$types';
 
 export type TaskIn = Omit<
 	OnlyTTask,
@@ -112,7 +111,7 @@ export function isEventsDateInverted(task: TaskIn) {
 	);
 }
 
-export const handleDelete: SubSubmitFunction<TaskIn, ActionData> = async ({ form }) => {
+export const handleDelete: SubSubmitFunction<TaskIn> = async () => {
 	const result = await createModal({ title: 'Are you sure?' });
 
 	if (!result) {
@@ -122,38 +121,30 @@ export const handleDelete: SubSubmitFunction<TaskIn, ActionData> = async ({ form
 
 	return async ({ result }) => {
 		await applyAction(result);
-		if (result.type === 'success' && form?.removed) {
-			removeTask(form.removed);
-		} else {
-			console.log(form?.error || UnknownError);
+		if (result.type === 'success' && result.data?.removed) {
+			removeTask(result.data.removed);
+		} else if (result.type === 'error') {
+			console.log(result.error || UnknownError);
 		}
 	};
 };
 
-export const handleCreate: SubSubmitFunction<TaskIn, ActionData> = ({
-	formData,
-	data: task,
-	form,
-}) => {
+export const handleCreate: SubSubmitFunction<TaskIn> = ({ formData, data: task }) => {
 	formatDates(task, formData);
 
 	closeModal();
 
 	return async ({ result }) => {
 		await applyAction(result);
-		if (result.type === 'success' && form?.created) {
-			updateTasks(form.created);
-		} else {
-			console.log(form?.error || UnknownError);
+		if (result.type === 'success' && result.data?.created) {
+			updateTasks(result.data.created);
+		} else if (result.type === 'error') {
+			console.log(result.error || UnknownError);
 		}
 	};
 };
 
-export const handleEdit: SubSubmitFunction<TaskIn, ActionData> = async ({
-	formData,
-	data: task,
-	form,
-}) => {
+export const handleEdit: SubSubmitFunction<TaskIn> = async ({ formData, data: task }) => {
 	formatDates(task, formData);
 
 	if (task.isEvent) {
@@ -176,10 +167,10 @@ export const handleEdit: SubSubmitFunction<TaskIn, ActionData> = async ({
 
 	return async ({ result }) => {
 		await applyAction(result);
-		if (result.type === 'success' && form?.updated) {
-			updateTasks(form.updated);
-		} else {
-			console.log(form?.error || UnknownError);
+		if (result.type === 'success' && result.data?.updated) {
+			updateTasks(result.data.updated);
+		} else if (result.type === 'error') {
+			console.log(result.error || UnknownError);
 		}
 	};
 };

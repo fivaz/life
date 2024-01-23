@@ -5,11 +5,9 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { closeModal, isModalVisible, openModal } from '$lib/form-modal/store';
-	import type { ActionData, PageData } from './$types';
+	import type { PageData } from './$types';
 	import CategoryForm from './category-form/CategoryForm.svelte';
 	import CategoryRow from './category-row/CategoryRow.svelte';
-
-	export let form: ActionData | null = null;
 
 	export let data: PageData;
 
@@ -53,6 +51,6 @@
 	</ul>
 
 	<Modal show={$isModalVisible} on:close={() => closeModal()}>
-		<CategoryForm {form} category={editingCategory} />
+		<CategoryForm category={editingCategory} />
 	</Modal>
 </div>

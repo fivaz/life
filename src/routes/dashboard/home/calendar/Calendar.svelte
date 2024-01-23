@@ -8,7 +8,6 @@
 	import { updateTasks } from '$lib/task/store';
 	import { startOfWeek } from 'date-fns';
 
-	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
 	import {
@@ -24,8 +23,6 @@
 	let weekStart = startOfWeek(currentDate);
 
 	let targetDate: Date | null = null;
-
-	export let form: ActionData | null;
 
 	let editingEvent: TaskIn = buildEmptyTaskIn($categories, true);
 </script>
@@ -59,6 +56,6 @@
 		}}
 	/>
 	<Modal show={$isModalVisible} on:close={() => closeModal()}>
-		<TaskForm {form} task={editingEvent} {targetDate} />
+		<TaskForm task={editingEvent} {targetDate} />
 	</Modal>
 </div>

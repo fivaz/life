@@ -5,10 +5,9 @@ import { closeModal } from '$lib/form-modal/store';
 import { removeGoal, updateGoal } from '$lib/goal/store';
 import type { SubSubmitFunction } from '$lib/types-utils';
 import { parse } from 'date-fns';
-import type { ActionData } from '../$types';
 import type { GoalIn } from '../service';
 
-export const handleDelete: SubSubmitFunction<GoalIn, ActionData> = async ({ form }) => {
+export const handleDelete: SubSubmitFunction<GoalIn> = async () => {
 	const result = await createModal({ title: 'Are you sure?' });
 
 	if (!result) {
@@ -17,10 +16,10 @@ export const handleDelete: SubSubmitFunction<GoalIn, ActionData> = async ({ form
 
 	return async ({ result }) => {
 		await applyAction(result);
-		if (result.type === 'success' && form?.removed) {
-			removeGoal(form.removed);
-		} else {
-			console.log(form?.error || UnknownError);
+		if (result.type === 'success' && result.data?.removed) {
+			removeGoal(result.data.removed);
+		} else if (result.type === 'error') {
+			console.log(result.error || UnknownError);
 		}
 		closeModal();
 	};
@@ -34,15 +33,15 @@ function buildDeadline(formData: FormData) {
 
 	formData.set('deadline', dateISO.toISOString());
 }
-export const handleSave: SubSubmitFunction<GoalIn, ActionData> = async ({ formData, form }) => {
+export const handleSave: SubSubmitFunction<GoalIn> = async ({ formData }) => {
 	buildDeadline(formData);
 
 	return async ({ result }) => {
 		await applyAction(result);
-		if (result.type === 'success' && form?.saved) {
-			updateGoal(form.saved);
-		} else {
-			console.log(form?.error || UnknownError);
+		if (result.type === 'success' && result.data?.saved) {
+			updateGoal(result.data.saved);
+		} else if (result.type === 'error') {
+			console.log(result.error || UnknownError);
 		}
 		closeModal();
 	};

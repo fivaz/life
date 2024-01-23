@@ -20,7 +20,7 @@
 
 <Story name="With Calendar" args={{}}>
 	<Dashboard>
-		<Calendar form={null} />
+		<Calendar />
 	</Dashboard>
 </Story>
 

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { XMark } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
 	import { categories } from '$lib/category/store';
@@ -6,15 +8,10 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import DefaultSection from '$lib/components/task-form/default-section/DefaultSection.svelte';
 	import EventSection from '$lib/components/task-form/event-section/EventSection.svelte';
-	import type { ActionData } from '../../../../.svelte-kit/types/src/routes/dashboard/home/$types';
+	import { closeModal } from '$lib/form-modal/store';
 	import { handleCreate, handleDelete, handleEdit, isEventsDateInverted } from './service';
 	import type { TaskIn } from './service';
 	import 'flatpickr/dist/themes/airbnb.css';
-	import { XMark } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
-	import { closeModal } from '$lib/form-modal/store';
-
-	export let form: ActionData | null;
 
 	export let task: TaskIn;
 
@@ -42,11 +39,11 @@
 
 	const submit: SubmitFunction = async ({ formData, action }) => {
 		if (action.search === DELETE_ACTION) {
-			return handleDelete({ formData, data: task, form });
+			return handleDelete({ formData, data: task });
 		} else if (action.search === CREATE_ACTION) {
-			return handleCreate({ formData, data: task, form });
+			return handleCreate({ formData, data: task });
 		} else if (action.search === UPDATE_ACTION) {
-			return handleEdit({ formData, data: task, form });
+			return handleEdit({ formData, data: task });
 		}
 	};
 </script>

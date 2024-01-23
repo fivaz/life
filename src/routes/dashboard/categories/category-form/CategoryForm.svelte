@@ -18,13 +18,10 @@
 	import { closeModal } from '$lib/form-modal/store';
 	import type { SubSubmitFunction } from '$lib/types-utils';
 	import classnames from 'classnames';
-	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/categories/$types';
-
-	export let category: CCategory;
+	
+export let category: CCategory;
 
 	$: isEditing = !!category.id;
-
-	export let form: ActionData | null;
 
 	let loading = false;
 
@@ -34,7 +31,7 @@
 	const CREATE_ACTION = '?/create';
 	const UPDATE_ACTION = '?/update';
 
-	const handleDelete: SubSubmitFunction<CCategory, ActionData> = async ({ form }) => {
+	const handleDelete: SubSubmitFunction<CCategory> = async () => {
 		const result = await createModal({ title: 'Are you sure?' });
 
 		if (!result) {
@@ -44,37 +41,37 @@
 		loading = true;
 		return async ({ result }) => {
 			await applyAction(result);
-			if (result.type === 'success' && form?.removed) {
-				removeCategory(form.removed);
-			} else {
-				console.log(form?.error || UnknownError);
+			if (result.type === 'success' && result.data?.removed) {
+				removeCategory(result.data.removed);
+			} else if (result.type === 'error') {
+				console.log(result.error || UnknownError);
 			}
 			closeModal();
 			loading = false;
 		};
 	};
 
-	const handleCreate: SubSubmitFunction<CCategory, ActionData> = ({ form }) => {
+	const handleCreate: SubSubmitFunction<CCategory> = () => {
 		return async ({ result }) => {
 			await applyAction(result);
-			if (result.type === 'success' && form?.created) {
-				updateCategory(form.created);
-			} else {
-				console.log(form?.error || UnknownError);
+			if (result.type === 'success' && result.data?.created) {
+				updateCategory(result.data.created);
+			} else if (result.type === 'error') {
+				console.log(result.error || UnknownError);
 			}
 			loading = false;
 			closeModal();
 		};
 	};
 
-	const handleEdit: SubSubmitFunction<CCategory, ActionData> = async ({ form }) => {
+	const handleEdit: SubSubmitFunction<CCategory> = async () => {
 		loading = true;
 		return async ({ result }) => {
 			await applyAction(result);
-			if (result.type === 'success' && form?.updated) {
-				updateCategory(form.updated);
-			} else {
-				console.log(form?.error || UnknownError);
+			if (result.type === 'success' && result.data?.updated) {
+				updateCategory(result.data.updated);
+			} else if (result.type === 'error') {
+				console.log(result.error || UnknownError);
 			}
 			loading = false;
 			closeModal();
@@ -83,11 +80,11 @@
 
 	export const submit: SubmitFunction = async ({ formData, action }) => {
 		if (action.search === DELETE_ACTION) {
-			return handleDelete({ formData, data: category, form });
+			return handleDelete({ formData, data: category });
 		} else if (action.search === CREATE_ACTION) {
-			return handleCreate({ formData, data: category, form });
+			return handleCreate({ formData, data: category });
 		} else if (action.search === UPDATE_ACTION) {
-			return handleEdit({ formData, data: category, form });
+			return handleEdit({ formData, data: category });
 		}
 	};
 </script>

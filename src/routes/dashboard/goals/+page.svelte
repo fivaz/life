@@ -3,12 +3,10 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { closeModal, isModalVisible, openModal } from '$lib/form-modal/store';
 	import { goals, groupedGoals } from '$lib/goal/store';
-	import type { ActionData, PageData } from './$types';
+	import type { PageData } from './$types';
 	import GoalForm from './goal-form/GoalForm.svelte';
 	import GoalRow from './goal-row/GoalRow.svelte';
 	import { buildEmptyGoal, convertToGoalIn } from './service';
-
-	export let form: ActionData | null = null;
 
 	export let data: PageData;
 
@@ -49,6 +47,6 @@
 	</ul>
 
 	<Modal show={$isModalVisible} on:close={() => closeModal()}>
-		<GoalForm {form} goal={editingGoal} />
+		<GoalForm goal={editingGoal} />
 	</Modal>
 </div>

@@ -17,7 +17,7 @@
 </script>
 
 <SwitchGroup>
-	<input {name} {value} type="hidden" />
+	<input {name} value={value ? 'true' : ''} type="hidden" />
 	<div class="flex items-center">
 		<SwitchLabel class="flex-1 text-start">{label}</SwitchLabel>
 		<Switch
