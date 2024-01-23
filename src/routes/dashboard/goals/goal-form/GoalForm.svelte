@@ -1,17 +1,12 @@
 <script lang="ts">
 	import type { SubmitFunction } from '@sveltejs/kit';
-	import { applyAction, enhance } from '$app/forms';
+	import { enhance } from '$app/forms';
 	import Button from '$lib/components/button/Button.svelte';
-	import { createModal } from '$lib/components/dialog/service';
 	import Input from '$lib/components/input/Input.svelte';
 	import Loading from '$lib/components/loading/Loading.svelte';
-	import { DATE, UnknownError } from '$lib/consts';
-	import { closeModal } from '$lib/form-modal/store';
-	import { removeGoal, updateGoal } from '$lib/goal/store';
-	import type { SubSubmitFunction } from '$lib/types-utils';
-	import { parse } from 'date-fns';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/goals/$types';
 	import type { GoalIn } from '../service';
+	import { handleSave, handleDelete } from './service';
 
 	export let goal: GoalIn;
 
@@ -26,57 +21,11 @@
 	const DELETE_ACTION = '?/remove';
 	const SAVE_ACTION = '?/save';
 
-	const handleDelete: SubSubmitFunction = async () => {
-		const result = await createModal({ title: 'Are you sure?' });
-
-		if (!result) {
-			return () => {};
-		}
-
-		loading = true;
-		return async ({ result }) => {
-			await applyAction(result);
-			if (result.type === 'success' && form?.removed) {
-				removeGoal(form.removed);
-			} else {
-				console.log(form?.error || UnknownError);
-			}
-			closeModal();
-			loading = false;
-		};
-	};
-
-	function buildDeadline(formData: FormData) {
-		// This need to be done in the client to avoid persisting a date from a different
-		// timezone if the server is in a different timezone
-		const date = formData.get('deadline') as string;
-
-		const dateISO = parse(date, DATE, new Date());
-
-		formData.set('deadline', dateISO.toISOString());
-	}
-
-	const handleSave: SubSubmitFunction = async ({ formData }) => {
-		loading = true;
-		buildDeadline(formData);
-
-		return async ({ result }) => {
-			await applyAction(result);
-			if (result.type === 'success' && form?.saved) {
-				updateGoal(form.saved);
-			} else {
-				console.log(form?.error || UnknownError);
-			}
-			loading = false;
-			closeModal();
-		};
-	};
-
 	export const submit: SubmitFunction = async ({ formData, action }) => {
 		if (action.search === DELETE_ACTION) {
-			return handleDelete({ formData });
+			return handleDelete({ formData, data: goal, form });
 		} else if (action.search === SAVE_ACTION) {
-			return handleSave({ formData });
+			return handleSave({ formData, data: goal, form });
 		}
 	};
 </script>

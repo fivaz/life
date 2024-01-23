@@ -1,6 +1,12 @@
-import { DATE, DATETIME, TIME } from '$lib/consts';
+import { applyAction } from '$app/forms';
+import { createModal } from '$lib/components/dialog/service';
+import { DATE, DATETIME, TIME, UnknownError } from '$lib/consts';
+import { closeModal } from '$lib/form-modal/store';
+import { removeTask, updateTasks } from '$lib/task/store';
 import type { OnlyTTask } from '$lib/task/utils';
+import type { SubSubmitFunction } from '$lib/types-utils';
 import { add, differenceInMinutes, format, isAfter, isValid, parse } from 'date-fns';
+import type { ActionData } from '../../../routes/dashboard/home/$types';
 
 export type TaskIn = Omit<
 	OnlyTTask,
@@ -105,3 +111,75 @@ export function isEventsDateInverted(task: TaskIn) {
 		!isAfter(parse(task.endTime, TIME, new Date()), parse(task.startTime, TIME, new Date()))
 	);
 }
+
+export const handleDelete: SubSubmitFunction<TaskIn, ActionData> = async ({ form }) => {
+	const result = await createModal({ title: 'Are you sure?' });
+
+	if (!result) {
+		return () => {};
+	}
+	closeModal();
+
+	return async ({ result }) => {
+		await applyAction(result);
+		if (result.type === 'success' && form?.removed) {
+			removeTask(form.removed);
+		} else {
+			console.log(form?.error || UnknownError);
+		}
+	};
+};
+
+export const handleCreate: SubSubmitFunction<TaskIn, ActionData> = ({
+	formData,
+	data: task,
+	form,
+}) => {
+	formatDates(task, formData);
+
+	closeModal();
+
+	return async ({ result }) => {
+		await applyAction(result);
+		if (result.type === 'success' && form?.created) {
+			updateTasks(form.created);
+		} else {
+			console.log(form?.error || UnknownError);
+		}
+	};
+};
+
+export const handleEdit: SubSubmitFunction<TaskIn, ActionData> = async ({
+	formData,
+	data: task,
+	form,
+}) => {
+	formatDates(task, formData);
+
+	if (task.isEvent) {
+		if (task.wasRecurring && task.isRecurring) {
+			const result = await createModal({
+				title: 'This is a repeating event',
+				message: 'Do you want to save the changes for ?',
+				confirmText: 'this event only',
+				cancelText: 'future events',
+			});
+
+			if (result === null) {
+				return () => {};
+			}
+
+			formData.set('isForThisEventOnly', result ? 'true' : '');
+		}
+	}
+	closeModal();
+
+	return async ({ result }) => {
+		await applyAction(result);
+		if (result.type === 'success' && form?.updated) {
+			updateTasks(form.updated);
+		} else {
+			console.log(form?.error || UnknownError);
+		}
+	};
+};

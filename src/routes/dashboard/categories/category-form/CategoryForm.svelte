@@ -30,7 +30,7 @@
 	const CREATE_ACTION = '?/create';
 	const UPDATE_ACTION = '?/update';
 
-	const handleDelete: SubSubmitFunction = async () => {
+	const handleDelete: SubSubmitFunction<CCategory, ActionData> = async ({ form }) => {
 		const result = await createModal({ title: 'Are you sure?' });
 
 		if (!result) {
@@ -50,7 +50,7 @@
 		};
 	};
 
-	const handleCreate: SubSubmitFunction = () => {
+	const handleCreate: SubSubmitFunction<CCategory, ActionData> = ({ form }) => {
 		return async ({ result }) => {
 			await applyAction(result);
 			if (result.type === 'success' && form?.created) {
@@ -63,7 +63,7 @@
 		};
 	};
 
-	const handleEdit: SubSubmitFunction = async ({ formData }) => {
+	const handleEdit: SubSubmitFunction<CCategory, ActionData> = async ({ form }) => {
 		loading = true;
 		return async ({ result }) => {
 			await applyAction(result);
@@ -79,11 +79,11 @@
 
 	export const submit: SubmitFunction = async ({ formData, action }) => {
 		if (action.search === DELETE_ACTION) {
-			return handleDelete({ formData });
+			return handleDelete({ formData, data: category, form });
 		} else if (action.search === CREATE_ACTION) {
-			return handleCreate({ formData });
+			return handleCreate({ formData, data: category, form });
 		} else if (action.search === UPDATE_ACTION) {
-			return handleEdit({ formData });
+			return handleEdit({ formData, data: category, form });
 		}
 	};
 </script>
