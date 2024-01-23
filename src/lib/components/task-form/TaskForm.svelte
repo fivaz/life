@@ -60,16 +60,14 @@
 	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
 		<div class="flex justify-between items-center pb-2">
 			<h2 class="text-lg font-medium text-gray-900">{formName}</h2>
-			<div class="pl-2">
-				<button
-					type="button"
-					class="inline-flex rounded-md p-1.5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
-					on:click={() => closeModal()}
-				>
-					<span class="sr-only">Dismiss</span>
-					<Icon src={XMark} class="h-5 w-5" aria-hidden="true" />
-				</button>
-			</div>
+			<button
+				type="button"
+				class="pl-2 inline-flex rounded-md p-1.5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
+				on:click={() => closeModal()}
+			>
+				<span class="sr-only">Dismiss</span>
+				<Icon src={XMark} class="h-5 w-5" aria-hidden="true" />
+			</button>
 		</div>
 
 		<Alert type="error" isVisible={!!error} hasCloseButton={false}>{error}</Alert>

@@ -1,9 +1,14 @@
 <script lang="ts">
+	import { XMark } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
+	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import Loading from '$lib/components/loading/Loading.svelte';
+	import Toggle from '$lib/components/toggle/Toggle.svelte';
+	import { closeModal } from '$lib/form-modal/store';
 	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/goals/$types';
 	import type { GoalIn } from '../service';
 	import { handleSave, handleDelete } from './service';
@@ -36,26 +41,42 @@
 	use:enhance={submit}
 	class="w-[355px] shadow rounded-md overflow-hidden relative"
 >
-	<div class="flex flex-col gap-2 px-4 py-5 bg-white sm:p-6">
-		<h2 class="text-lg font-medium text-gray-900">
-			{#if isEditing}
-				Edit Goal
-			{:else}
-				Add Goal
-			{/if}
-		</h2>
+	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
+		<div class="flex justify-between items-center pb-2">
+			<h2 class="text-lg font-medium text-gray-900">
+				{#if isEditing}
+					Edit Goal
+				{:else}
+					Add Goal
+				{/if}
+			</h2>
+			<button
+				type="button"
+				class="pl-2 inline-flex rounded-md p-1.5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
+				on:click={() => closeModal()}
+			>
+				<span class="sr-only">Dismiss</span>
+				<Icon src={XMark} class="h-5 w-5" aria-hidden="true" />
+			</button>
+		</div>
 
-		{#if error}
-			<p class="text-red-500">{error}</p>
-		{/if}
+		<Alert type="error" isVisible={!!error} hasCloseButton={false}>{error}</Alert>
 
-		<input type="hidden" name="id" value={goal.id} />
+		<div class="flex flex-col gap-2 text-sm font-medium text-gray-700">
+			<input type="hidden" name="id" value={goal.id} />
 
-		<Input label="Name" autocomplete="off" name="name" bind:value={goal.name} />
-
-		<div class="flex gap-3">
 			<Input
-				labelClass="w-1/2"
+				class="flex"
+				placeholder="Name"
+				autocomplete="off"
+				name="name"
+				bind:value={goal.name}
+			/>
+
+			<Input
+				class="flex items-center"
+				labelClass="w-1/4"
+				inputClass="flex-1"
 				label="Deadline"
 				type="date"
 				name="deadline"
@@ -63,31 +84,23 @@
 				required
 			/>
 
-			<div class="flex w-1/2 justify-end">
-				<label class="flex gap-2 items-center text-sm font-medium text-gray-700">
-					Is complete
-					<input
-						name="isDone"
-						type="checkbox"
-						bind:checked={goal.isDone}
-						class="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-					/>
-				</label>
+			<div class="border border-gray-200 rounded-lg p-2">
+				<Toggle name="isDone" label="Is complete" bind:value={goal.isDone} />
 			</div>
 		</div>
-
-		<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
-			{#if isEditing}
-				<Button disabled={loading} formaction="?/remove" color="red">Delete</Button>
-			{:else}
-				<div />
-			{/if}
-
-			<Button disabled={loading} type="submit">
-				{#if isEditing} Edit {:else} Add {/if}
-			</Button>
-		</div>
-
-		<Loading {loading} class="h-8 w-8 text-indigo-500" />
 	</div>
+
+	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
+		{#if isEditing}
+			<Button disabled={loading} formaction="?/remove" color="red">Delete</Button>
+		{:else}
+			<div />
+		{/if}
+
+		<Button disabled={loading} type="submit">
+			{#if isEditing} Edit {:else} Add {/if}
+		</Button>
+	</div>
+
+	<Loading {loading} class="h-8 w-8 text-indigo-500" />
 </form>
