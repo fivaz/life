@@ -71,7 +71,7 @@ export const events = derived(
 	($tasks) => $tasks.filter((task) => task.startDate && task.endDate) as EEvent[],
 );
 
-export const toDos = derived(tasks, ($tasks) => getToDos($tasks));
+export const groupedToDos = derived(tasks, ($tasks) => getToDos($tasks));
 
 export function updateTasks(savedTasks: TTask | TTask[]) {
 	if (Array.isArray(savedTasks)) {

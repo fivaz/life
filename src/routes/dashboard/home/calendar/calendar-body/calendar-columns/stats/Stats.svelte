@@ -10,7 +10,7 @@
 	$: groups = calculateGroupPercentages(events);
 </script>
 
-<div class={classnames('flex text-xs gap-1', className)}>
+<div class={classnames('flex gap-1', className)}>
 	<div class="text-blue-600">{groups.sleep || 0}%</div>
 	<div class="text-green-600">{groups.work || 0}%</div>
 	<div class="text-red-600">{groups.fun || 0}%</div>

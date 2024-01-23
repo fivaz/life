@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { events } from '$lib/task/store';
+	import DueToDos from '$lib/components/due-to-dos/DueToDos.svelte';
+	import { events, tasks } from '$lib/task/store';
 	import classnames from 'classnames';
 	import { format, isToday } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 	import CalendarRows from '../calendar-rows/CalendarRows.svelte';
-	import { isEventOnDay } from '../service';
+	import { isEventOnDay, isToDoOnDay } from '../service';
 	import Stats from '../stats/Stats.svelte';
 
 	export let dates: Date[];
@@ -22,10 +23,14 @@
 	<div class="h-full grid grid-cols-7 divide-x">
 		{#each dates as date (date)}
 			<div class="flex flex-col divide-y">
-				<Stats
-					events={$events.filter((event) => isEventOnDay(event, date))}
-					class="justify-center"
-				/>
+				<div class="text-xs text-center h-8">
+					<Stats
+						events={$events.filter((event) => isEventOnDay(event, date))}
+						class="justify-center"
+					/>
+					<DueToDos toDos={$tasks.filter((task) => isToDoOnDay(task, date))} />
+				</div>
+
 				<div class="flex items-center justify-center gap-1 flex-row py-3">
 					{format(date, 'E')}
 					<span

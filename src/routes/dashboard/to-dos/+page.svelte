@@ -5,7 +5,7 @@
 	import type { TaskIn } from '$lib/components/task-form/service';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import { closeModal, isModalVisible, openModal } from '$lib/form-modal/store';
-	import { toDos } from '$lib/task/store';
+	import { groupedToDos } from '$lib/task/store';
 	import type { TTask } from '$lib/task/utils';
 	import { buildEmptyTaskIn, convertToTaskIn } from '../home/calendar/service';
 	import type { ActionData } from './$types';
@@ -36,7 +36,7 @@
 	</div>
 
 	<ul role="list" class="divide-y divide-gray-100">
-		{#each Object.entries($toDos) as [date, list] (date)}
+		{#each Object.entries($groupedToDos) as [date, list] (date)}
 			<div class="flex justify-between px-2">
 				<div>{date}</div>
 				<div>{getSumOfDurationsAsTime(list)}</div>

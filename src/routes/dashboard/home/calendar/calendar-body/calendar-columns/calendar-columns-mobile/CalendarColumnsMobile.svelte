@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { events } from '$lib/task/store';
+	import DueToDos from '$lib/components/due-to-dos/DueToDos.svelte';
+	import { events, tasks } from '$lib/task/store';
 	import classnames from 'classnames';
 	import { format, getDate, isToday } from 'date-fns';
 
 	import { createEventDispatcher } from 'svelte';
 	import CalendarRows from '../calendar-rows/CalendarRows.svelte';
-	import { isEventOnDay } from '../service';
+	import { isEventOnDay, isToDoOnDay } from '../service';
 	import Stats from '../stats/Stats.svelte';
 
 	export let dates: Date[];
@@ -24,10 +25,13 @@
 </script>
 
 <div class={classnames('h-full divide-y', className)}>
-	<Stats
-		class="justify-around"
-		events={$events.filter((event) => isEventOnDay(event, selectedDate))}
-	/>
+	<div class="text-xs text-center h-8">
+		<Stats
+			class="justify-around"
+			events={$events.filter((event) => isEventOnDay(event, selectedDate))}
+		/>
+		<DueToDos toDos={$tasks.filter((task) => isToDoOnDay(task, selectedDate))} />
+	</div>
 
 	<div class="grid grid-cols-7">
 		{#each dates as date (date)}
