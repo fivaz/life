@@ -18,8 +18,8 @@
 	import { closeModal } from '$lib/form-modal/store';
 	import type { SubSubmitFunction } from '$lib/types-utils';
 	import classnames from 'classnames';
-	
-export let category: CCategory;
+
+	export let category: CCategory;
 
 	$: isEditing = !!category.id;
 

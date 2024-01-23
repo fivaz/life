@@ -6,8 +6,8 @@
 	import type { TaskIn } from '$lib/components/task-form/service';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import Flatpickr from 'svelte-flatpickr';
-	
-export let task: TaskIn;
+
+	export let task: TaskIn;
 
 	let isEventOpen = false;
 
