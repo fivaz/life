@@ -17,16 +17,20 @@
 
 	let className = '';
 	export { className as class };
+
+	export let labelClass: string = '';
+
+	export let selectClass: string = '';
 </script>
 
 <Listbox bind:value class={classnames(className, 'text-sm font-medium text-gray-700')}>
 	<input type="hidden" {name} {value} />
 	{#if label}
-		<ListboxLabel class="block mb-1">
+		<ListboxLabel class={classnames(labelClass, 'block mb-1')}>
 			{label}
 		</ListboxLabel>
 	{/if}
-	<div class="relative">
+	<div class={classnames(selectClass, 'relative')}>
 		<ListboxButton
 			class="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
 		>

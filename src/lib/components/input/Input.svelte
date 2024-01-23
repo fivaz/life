@@ -2,7 +2,9 @@
 	import classnames from 'classnames';
 	import { createEventDispatcher } from 'svelte';
 
-	export let label: string;
+	export let label: string = '';
+
+	export let inputClass: string = '';
 
 	export let labelClass: string = '';
 
@@ -14,7 +16,7 @@
 <label
 	class={classnames(
 		$$props.class,
-		'block text-sm font-medium mb-1',
+		'block text-sm font-medium',
 		$$props.disabled ? 'text-gray-500' : 'text-gray-700',
 	)}
 >
@@ -26,8 +28,9 @@
 	<input
 		{...$$props}
 		class={classnames(
+			inputClass,
 			{ 'cursor-not-allowed': $$props.disabled },
-			'block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm',
+			'p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm',
 		)}
 		bind:value
 		on:input={(e) => dispatch('input', e.currentTarget.value)}

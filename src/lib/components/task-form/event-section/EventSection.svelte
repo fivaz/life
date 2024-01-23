@@ -15,16 +15,21 @@
 </script>
 
 <Input
-	label="Deadline"
 	type="date"
 	name="deadline"
+	label="Deadline"
+	class="flex items-center"
+	labelClass="w-1/5"
+	inputClass="flex-1"
 	bind:value={task.deadline}
 	disabled={task.isEvent}
 />
 
 <div class="bg-white rounded-lg p-2">
-	<div class="flex justify-between">
-		<button type="button" on:click={() => (isEventOpen = !isEventOpen)}>Event</button>
+	<div class="flex">
+		<button class="flex-1 text-start" type="button" on:click={() => (isEventOpen = !isEventOpen)}>
+			Event
+		</button>
 		<Toggle
 			name="isEvent"
 			bind:value={task.isEvent}
@@ -38,7 +43,7 @@
 
 	{#if isEventOpen}
 		<div transition:slide>
-			<div class="flex gap-3">
+			<div class="flex gap-3 pt-2">
 				<Input class="w-1/2" label="Date" type="date" name="date" bind:value={task.date} required />
 
 				<Input
@@ -81,8 +86,14 @@
 
 {#if task.isEvent}
 	<div class="bg-white rounded-lg p-2">
-		<div class="flex justify-between">
-			<button type="button" on:click={() => (isRecurringOpen = !isRecurringOpen)}>Recurring</button>
+		<div class="flex">
+			<button
+				class="flex-1 text-start"
+				type="button"
+				on:click={() => (isRecurringOpen = !isRecurringOpen)}
+			>
+				Recurring
+			</button>
 			<Toggle
 				name="isEvent"
 				bind:value={task.isRecurring}
@@ -96,7 +107,7 @@
 
 		{#if isRecurringOpen}
 			<div transition:slide>
-				<div class="flex gap-3">
+				<div class="flex gap-3 pt-2">
 					<Input
 						class="w-1/2"
 						label="Start at"

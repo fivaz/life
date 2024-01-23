@@ -57,11 +57,9 @@
 	use:enhance={submit}
 	class="w-[355px] shadow rounded-md overflow-hidden relative"
 >
-	<div class="flex flex-col gap-2 px-4 py-5 bg-neutral-100 sm:p-6">
-		<div class="flex justify-between items-center">
-			<h2 class="text-lg font-medium text-gray-900">
-				{formName}
-			</h2>
+	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
+		<div class="flex justify-between items-center pb-2">
+			<h2 class="text-lg font-medium text-gray-900">{formName}</h2>
 			<div class="pl-2">
 				<button
 					type="button"
@@ -76,9 +74,11 @@
 
 		<Alert type="error" isVisible={!!error} hasCloseButton={false}>{error}</Alert>
 
-		<DefaultSection {task} {targetDate} />
+		<div class="flex flex-col gap-2 text-sm font-medium text-gray-700">
+			<DefaultSection {task} {targetDate} />
 
-		<EventSection {task} />
+			<EventSection {task} />
+		</div>
 	</div>
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
