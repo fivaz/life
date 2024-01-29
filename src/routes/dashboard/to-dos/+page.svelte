@@ -3,11 +3,11 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import type { TaskIn } from '$lib/components/task-form/service';
+	import { buildEmptyTaskIn, convertToTaskIn, modalId } from '$lib/components/task-form/service';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
-	import { closeModal, isModalVisible, openModal } from '$lib/form-modal/store';
+	import { closeModal, modalMap, openModal } from '$lib/form-modal/store';
 	import { groupedToDos } from '$lib/task/store';
 	import type { TTask } from '$lib/task/utils';
-	import { buildEmptyTaskIn, convertToTaskIn } from '../home/calendar/service';
 	import type { ActionData } from './$types';
 	import ToDoRow from './to-do-row/ToDoRow.svelte';
 
@@ -27,7 +27,7 @@
 	<div class="flex justify-end">
 		<Button
 			on:click={() => {
-				openModal();
+				openModal(modalId);
 				editingToDo = buildEmptyTaskIn($categories, false);
 			}}
 		>
@@ -46,7 +46,7 @@
 					{toDo}
 					{form}
 					on:edit={(e) => {
-						openModal();
+						openModal(modalId);
 						editingToDo = convertToTaskIn(e.detail);
 					}}
 				/>
@@ -54,7 +54,7 @@
 		{/each}
 	</ul>
 
-	<Modal show={$isModalVisible} on:close={() => closeModal()}>
+	<Modal show={!!$modalMap.get(modalId)} on:close={() => closeModal(modalId)}>
 		<TaskForm task={editingToDo} />
 	</Modal>
 </div>

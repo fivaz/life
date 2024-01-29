@@ -18,6 +18,7 @@
 	import { closeModal } from '$lib/form-modal/store';
 	import type { SubSubmitFunction } from '$lib/types-utils';
 	import classnames from 'classnames';
+	import { modalId } from './service';
 
 	export let category: CCategory;
 
@@ -46,7 +47,7 @@
 			} else if (result.type === 'error') {
 				console.log(result.error || UnknownError);
 			}
-			closeModal();
+			closeModal(modalId);
 			loading = false;
 		};
 	};
@@ -60,7 +61,7 @@
 				console.log(result.error || UnknownError);
 			}
 			loading = false;
-			closeModal();
+			closeModal(modalId);
 		};
 	};
 
@@ -74,7 +75,7 @@
 				console.log(result.error || UnknownError);
 			}
 			loading = false;
-			closeModal();
+			closeModal(modalId);
 		};
 	};
 
@@ -107,7 +108,7 @@
 			<button
 				type="button"
 				class="pl-2 inline-flex rounded-md p-1.5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
-				on:click={() => closeModal()}
+				on:click={() => closeModal(modalId)}
 			>
 				<span class="sr-only">Dismiss</span>
 				<Icon src={XMark} class="h-5 w-5" aria-hidden="true" />

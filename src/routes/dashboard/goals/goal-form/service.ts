@@ -7,6 +7,8 @@ import type { SubSubmitFunction } from '$lib/types-utils';
 import { parse } from 'date-fns';
 import type { GoalIn } from '../service';
 
+export const modalId = 'goal-form';
+
 export const handleDelete: SubSubmitFunction<GoalIn> = async () => {
 	const result = await createModal({ title: 'Are you sure?' });
 
@@ -21,7 +23,7 @@ export const handleDelete: SubSubmitFunction<GoalIn> = async () => {
 		} else if (result.type === 'error') {
 			console.log(result.error || UnknownError);
 		}
-		closeModal();
+		closeModal(modalId);
 	};
 };
 function buildDeadline(formData: FormData) {
@@ -43,6 +45,6 @@ export const handleSave: SubSubmitFunction<GoalIn> = async ({ formData }) => {
 		} else if (result.type === 'error') {
 			console.log(result.error || UnknownError);
 		}
-		closeModal();
+		closeModal(modalId);
 	};
 };

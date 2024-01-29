@@ -2,21 +2,16 @@
 	import { categories } from '$lib/category/store';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import type { TaskIn } from '$lib/components/task-form/service';
+	import { buildEmptyTaskIn, convertToTaskIn, modalId } from '$lib/components/task-form/service';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import { draggedEvent } from '$lib/dragged/store';
-	import { closeModal, isModalVisible, openModal } from '$lib/form-modal/store';
+	import { closeModal, modalMap, openModal } from '$lib/form-modal/store';
 	import { updateTasks } from '$lib/task/store';
 	import { startOfWeek } from 'date-fns';
 
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
-	import {
-		buildEmptyTaskIn,
-		buildEventWithTime,
-		convertToTaskIn,
-		moveEvent,
-		preserveEvent,
-	} from './service';
+	import { buildEventWithTime, moveEvent, preserveEvent } from './service';
 
 	let currentDate = new Date();
 
@@ -32,19 +27,19 @@
 		bind:weekStart
 		{currentDate}
 		on:create={() => {
-			openModal();
+			openModal(modalId);
 			editingEvent = buildEmptyTaskIn($categories, true);
 		}}
 	/>
 	<CalendarBody
 		{weekStart}
 		on:edit={(e) => {
-			openModal();
+			openModal(modalId);
 			targetDate = e.detail.targetDate;
 			editingEvent = convertToTaskIn(e.detail.event);
 		}}
 		on:create={(e) => {
-			openModal();
+			openModal(modalId);
 			editingEvent = buildEventWithTime($categories, e.detail.date, e.detail.timeInterval);
 		}}
 		on:move={async (e) => {
@@ -55,7 +50,7 @@
 			}
 		}}
 	/>
-	<Modal show={$isModalVisible} on:close={() => closeModal()}>
+	<Modal show={!!$modalMap.get(modalId)} on:close={() => closeModal(modalId)}>
 		<TaskForm task={editingEvent} {targetDate} />
 	</Modal>
 </div>

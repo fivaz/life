@@ -1,14 +1,9 @@
 import type { CCategory } from '$lib/category/utils';
-import { weekDays } from '$lib/components/days-checkbox/service';
 import type { TaskIn } from '$lib/components/task-form/service';
 import { DATE, homeRoute, TIME } from '$lib/consts';
 import type { EEvent, TTask } from '$lib/task/utils';
-import { convertToTime } from '$lib/task/utils';
 import {
-	addMinutes,
-	addMonths,
 	differenceInMinutes,
-	endOfWeek,
 	format,
 	setHours,
 	setMinutes,
@@ -16,54 +11,6 @@ import {
 import type { SerializedEvent } from '../api/service';
 import { deserializeEvent } from '../api/service';
 import { halfHourInterval } from './calendar-body/calendar-columns/calendar-rows/service';
-
-export function convertToTaskIn(task: TTask): TaskIn {
-	return {
-		id: task.id,
-		name: task.name,
-		description: task.description,
-		isEvent: !!(task.startDate && task.endDate && task.duration),
-		date: format(task.startDate || new Date(), DATE),
-		startTime: format(task.startDate || new Date(), TIME),
-		endTime: format(task.endDate || addMinutes(new Date(), 15), TIME),
-		duration: convertToTime(task.duration || 15),
-		deadline: task.deadline ? format(task.deadline || new Date(), DATE) : '',
-		isDone: task.isDone,
-		categoryId: task.categoryId,
-		goalId: task.goalId,
-		isRecurring: task.isRecurring,
-		wasRecurring: task.isRecurring,
-		recurringStartAt: format(task.recurringStartAt || new Date(), DATE),
-		recurringEndAt: format(task.recurringEndAt || addMonths(new Date(), 1), DATE),
-		recurringDaysOfWeek: task.recurringDaysOfWeek.length
-			? task.recurringDaysOfWeek
-			: weekDays.slice(1, 6),
-		recurringExceptions: task.recurringExceptions,
-	};
-}
-
-export function buildEmptyTaskIn(categories: CCategory[], isEvent: boolean): TaskIn {
-	return {
-		id: 0,
-		name: '',
-		description: null,
-		isEvent,
-		date: format(new Date(), DATE),
-		startTime: format(new Date(), TIME),
-		endTime: format(addMinutes(new Date(), 15), TIME),
-		duration: '00:15',
-		deadline: format(endOfWeek(new Date()), DATE),
-		isDone: false,
-		categoryId: categories.find((category) => category.isDefault)?.id || categories[0]?.id || 0,
-		goalId: null,
-		isRecurring: false,
-		wasRecurring: false,
-		recurringStartAt: format(new Date(), DATE),
-		recurringEndAt: format(addMonths(new Date(), 1), DATE),
-		recurringDaysOfWeek: weekDays.slice(1, 6),
-		recurringExceptions: [],
-	};
-}
 
 function buildDate(date: Date, timeInterval: number) {
 	if (timeInterval < 0 || timeInterval > halfHourInterval * 2) {

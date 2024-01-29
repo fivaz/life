@@ -10,7 +10,7 @@
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import { closeModal } from '$lib/form-modal/store';
 	import type { GoalIn } from '../service';
-	import { handleSave, handleDelete } from './service';
+	import { handleSave, handleDelete, modalId } from './service';
 
 	export let goal: GoalIn;
 
@@ -50,7 +50,7 @@
 			<button
 				type="button"
 				class="pl-2 inline-flex rounded-md p-1.5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
-				on:click={() => closeModal()}
+				on:click={() => closeModal(modalId)}
 			>
 				<span class="sr-only">Dismiss</span>
 				<Icon src={XMark} class="h-5 w-5" aria-hidden="true" />

@@ -1,11 +1,19 @@
 import { writable } from 'svelte/store';
 
-export const isModalVisible = writable<boolean>(false);
+export const modalMap = writable<Map<string, boolean>>(new Map());
 
-export function openModal() {
-	isModalVisible.update(() => true);
+// Function to open a modal
+export function openModal(modalId: string) {
+	modalMap.update((modals) => {
+		modals.set(modalId, true);
+		return new Map(modals);
+	});
 }
 
-export function closeModal() {
-	isModalVisible.update(() => false);
+// Function to close a modal
+export function closeModal(modalId: string) {
+	modalMap.update((modals) => {
+		modals.set(modalId, false);
+		return new Map(modals);
+	});
 }

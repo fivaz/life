@@ -2,9 +2,8 @@
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import type { Meta } from '@storybook/svelte';
 	import { categories } from '$lib/category/seed';
+	import { buildEmptyTaskIn, convertToTaskIn } from '$lib/components/task-form/service';
 	import { redEvent } from '$lib/task/seed';
-	import { buildEmptyTaskIn } from '../../../routes/dashboard/home/calendar/service';
-	import { convertToTaskIn } from '../../../routes/dashboard/home/calendar/service.js';
 	import TaskForm from './TaskForm.svelte';
 
 	export const meta = {
@@ -15,9 +14,6 @@
 		},
 		argTypes: {},
 	} satisfies Meta<TaskForm>;
-</script>
-
-<script>
 </script>
 
 <Template let:args>

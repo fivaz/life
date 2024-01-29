@@ -1,11 +1,24 @@
 import { applyAction } from '$app/forms';
+import type { CCategory } from '$lib/category/utils';
+import { weekDays } from '$lib/components/days-checkbox/service';
 import { createModal } from '$lib/components/dialog/service';
 import { DATE, DATETIME, TIME, UnknownError } from '$lib/consts';
 import { closeModal } from '$lib/form-modal/store';
 import { removeTask, updateTasks } from '$lib/task/store';
-import type { OnlyTTask } from '$lib/task/utils';
+import type { OnlyTTask, TTask } from '$lib/task/utils';
+import { convertToTime } from '$lib/task/utils';
 import type { SubSubmitFunction } from '$lib/types-utils';
-import { add, differenceInMinutes, format, isAfter, isValid, parse } from 'date-fns';
+import {
+	add,
+	addMinutes,
+	addMonths,
+	differenceInMinutes,
+	endOfWeek,
+	format,
+	isAfter,
+	isValid,
+	parse,
+} from 'date-fns';
 
 export type TaskIn = Omit<
 	OnlyTTask,
@@ -22,6 +35,56 @@ export type TaskIn = Omit<
 	recurringEndAt: string;
 	isEvent: boolean;
 };
+
+export const modalId = 'task-form';
+
+export function convertToTaskIn(task: TTask): TaskIn {
+	return {
+		id: task.id,
+		name: task.name,
+		description: task.description,
+		isEvent: !!(task.startDate && task.endDate && task.duration),
+		date: format(task.startDate || new Date(), DATE),
+		startTime: format(task.startDate || new Date(), TIME),
+		endTime: format(task.endDate || addMinutes(new Date(), 15), TIME),
+		duration: convertToTime(task.duration || 15),
+		deadline: task.deadline ? format(task.deadline || new Date(), DATE) : '',
+		isDone: task.isDone,
+		categoryId: task.categoryId,
+		goalId: task.goalId,
+		isRecurring: task.isRecurring,
+		wasRecurring: task.isRecurring,
+		recurringStartAt: format(task.recurringStartAt || new Date(), DATE),
+		recurringEndAt: format(task.recurringEndAt || addMonths(new Date(), 1), DATE),
+		recurringDaysOfWeek: task.recurringDaysOfWeek.length
+			? task.recurringDaysOfWeek
+			: weekDays.slice(1, 6),
+		recurringExceptions: task.recurringExceptions,
+	};
+}
+
+export function buildEmptyTaskIn(categories: CCategory[], isEvent: boolean): TaskIn {
+	return {
+		id: 0,
+		name: '',
+		description: null,
+		isEvent,
+		date: format(new Date(), DATE),
+		startTime: format(new Date(), TIME),
+		endTime: format(addMinutes(new Date(), 15), TIME),
+		duration: '00:15',
+		deadline: format(endOfWeek(new Date()), DATE),
+		isDone: false,
+		categoryId: categories.find((category) => category.isDefault)?.id || categories[0]?.id || 0,
+		goalId: null,
+		isRecurring: false,
+		wasRecurring: false,
+		recurringStartAt: format(new Date(), DATE),
+		recurringEndAt: format(addMonths(new Date(), 1), DATE),
+		recurringDaysOfWeek: weekDays.slice(1, 6),
+		recurringExceptions: [],
+	};
+}
 
 export function getEndTime(startTime: string, duration: string): string {
 	if (!startTime || !duration) {
@@ -117,7 +180,7 @@ export const handleDelete: SubSubmitFunction<TaskIn> = async () => {
 	if (!result) {
 		return () => {};
 	}
-	closeModal();
+	closeModal(modalId);
 
 	return async ({ result }) => {
 		await applyAction(result);
@@ -132,7 +195,7 @@ export const handleDelete: SubSubmitFunction<TaskIn> = async () => {
 export const handleCreate: SubSubmitFunction<TaskIn> = ({ formData, data: task }) => {
 	formatDates(task, formData);
 
-	closeModal();
+	closeModal(modalId);
 
 	return async ({ result }) => {
 		await applyAction(result);
@@ -163,7 +226,7 @@ export const handleEdit: SubSubmitFunction<TaskIn> = async ({ formData, data: ta
 			formData.set('isForThisEventOnly', result ? 'true' : '');
 		}
 	}
-	closeModal();
+	closeModal(modalId);
 
 	return async ({ result }) => {
 		await applyAction(result);

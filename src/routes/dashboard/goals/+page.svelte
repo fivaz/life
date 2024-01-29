@@ -1,10 +1,11 @@
 <script lang="ts">
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import { closeModal, isModalVisible, openModal } from '$lib/form-modal/store';
+	import { closeModal, modalMap, openModal } from '$lib/form-modal/store';
 	import { goals, groupedGoals } from '$lib/goal/store';
 	import type { PageData } from './$types';
 	import GoalForm from './goal-form/GoalForm.svelte';
+	import { modalId } from './goal-form/service';
 	import GoalRow from './goal-row/GoalRow.svelte';
 	import { buildEmptyGoal, convertToGoalIn } from './service';
 
@@ -19,7 +20,7 @@
 	<div class="flex justify-end">
 		<Button
 			on:click={() => {
-				openModal();
+				openModal(modalId);
 				editingGoal = buildEmptyGoal();
 			}}
 		>
@@ -37,7 +38,7 @@
 					<GoalRow
 						{goal}
 						on:edit={(e) => {
-							openModal();
+							openModal(modalId);
 							editingGoal = convertToGoalIn(e.detail);
 						}}
 					/>
@@ -46,7 +47,7 @@
 		{/each}
 	</ul>
 
-	<Modal show={$isModalVisible} on:close={() => closeModal()}>
+	<Modal show={!!$modalMap.get(modalId)} on:close={() => closeModal(modalId)}>
 		<GoalForm goal={editingGoal} />
 	</Modal>
 </div>

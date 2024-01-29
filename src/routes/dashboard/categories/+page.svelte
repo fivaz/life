@@ -4,9 +4,10 @@
 	import type { CCategory } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import { closeModal, isModalVisible, openModal } from '$lib/form-modal/store';
+	import { closeModal, modalMap, openModal } from '$lib/form-modal/store';
 	import type { PageData } from './$types';
 	import CategoryForm from './category-form/CategoryForm.svelte';
+	import { modalId } from './category-form/service';
 	import CategoryRow from './category-row/CategoryRow.svelte';
 
 	export let data: PageData;
@@ -30,7 +31,7 @@
 	<div class="flex justify-end">
 		<Button
 			on:click={() => {
-				openModal();
+				openModal(modalId);
 				editingCategory = buildEmptyCategory();
 			}}
 		>
@@ -43,14 +44,14 @@
 			<CategoryRow
 				category={thisCategory}
 				on:edit={(e) => {
-					openModal();
+					openModal(modalId);
 					editingCategory = e.detail;
 				}}
 			/>
 		{/each}
 	</ul>
 
-	<Modal show={$isModalVisible} on:close={() => closeModal()}>
+	<Modal show={!!$modalMap.get(modalId)} on:close={() => closeModal(modalId)}>
 		<CategoryForm category={editingCategory} />
 	</Modal>
 </div>
