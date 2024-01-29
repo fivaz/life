@@ -2,12 +2,7 @@ import type { CCategory } from '$lib/category/utils';
 import type { TaskIn } from '$lib/components/task-form/service';
 import { DATE, homeRoute, TIME } from '$lib/consts';
 import type { EEvent, TTask } from '$lib/task/utils';
-import {
-	differenceInMinutes,
-	format,
-	setHours,
-	setMinutes,
-} from 'date-fns';
+import { differenceInMinutes, format, setHours, setMinutes } from 'date-fns';
 import type { SerializedEvent } from '../api/service';
 import { deserializeEvent } from '../api/service';
 import { halfHourInterval } from './calendar-body/calendar-columns/calendar-rows/service';

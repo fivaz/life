@@ -1,13 +1,8 @@
-import { applyAction } from '$app/forms';
 import type { CCategory } from '$lib/category/utils';
 import { weekDays } from '$lib/components/days-checkbox/service';
-import { createModal } from '$lib/components/dialog/service';
-import { DATE, DATETIME, TIME, UnknownError } from '$lib/consts';
-import { closeModal } from '$lib/form-modal/store';
-import { removeTask, updateTasks } from '$lib/task/store';
+import { DATE, DATETIME, TIME } from '$lib/consts';
 import type { OnlyTTask, TTask } from '$lib/task/utils';
 import { convertToTime } from '$lib/task/utils';
-import type { SubSubmitFunction } from '$lib/types-utils';
 import {
 	add,
 	addMinutes,
@@ -177,67 +172,3 @@ export function isEventsDateInverted(task: TaskIn) {
 		!isAfter(parse(task.endTime, TIME, new Date()), parse(task.startTime, TIME, new Date()))
 	);
 }
-
-export const handleDelete: SubSubmitFunction<TaskIn> = async () => {
-	const result = await createModal({ title: 'Are you sure?' });
-
-	if (!result) {
-		return () => {};
-	}
-	closeModal(modalId);
-
-	return async ({ result }) => {
-		await applyAction(result);
-		if (result.type === 'success' && result.data?.removed) {
-			removeTask(result.data.removed);
-		} else if (result.type === 'error') {
-			console.log(result.error || UnknownError);
-		}
-	};
-};
-
-export const handleCreate: SubSubmitFunction<TaskIn> = ({ formData, data: task }) => {
-	formatDates(task, formData);
-
-	closeModal(modalId);
-
-	return async ({ result }) => {
-		await applyAction(result);
-		if (result.type === 'success' && result.data?.created) {
-			updateTasks(result.data.created);
-		} else if (result.type === 'error') {
-			console.log(result.error || UnknownError);
-		}
-	};
-};
-
-export const handleEdit: SubSubmitFunction<TaskIn> = async ({ formData, data: task }) => {
-	formatDates(task, formData);
-
-	if (task.isEvent) {
-		if (task.wasRecurring && task.isRecurring) {
-			const result = await createModal({
-				title: 'This is a repeating event',
-				message: 'Do you want to save the changes for ?',
-				confirmText: 'this event only',
-				cancelText: 'future events',
-			});
-
-			if (result === null) {
-				return () => {};
-			}
-
-			formData.set('isForThisEventOnly', result ? 'true' : '');
-		}
-	}
-	closeModal(modalId);
-
-	return async ({ result }) => {
-		await applyAction(result);
-		if (result.type === 'success' && result.data?.updated) {
-			updateTasks(result.data.updated);
-		} else if (result.type === 'error') {
-			console.log(result.error || UnknownError);
-		}
-	};
-};

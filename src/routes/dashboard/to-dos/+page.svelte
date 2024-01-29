@@ -1,11 +1,9 @@
 <script lang="ts">
 	import { categories } from '$lib/category/store';
 	import Button from '$lib/components/button/Button.svelte';
-	import Modal from '$lib/components/modal/Modal.svelte';
 	import type { TaskIn } from '$lib/components/task-form/service';
-	import { buildEmptyTaskIn, convertToTaskIn, modalId } from '$lib/components/task-form/service';
+	import { buildEmptyTaskIn, convertToTaskIn } from '$lib/components/task-form/service';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
-	import { closeModal, modalMap, openModal } from '$lib/form-modal/store';
 	import { groupedToDos } from '$lib/task/store';
 	import type { TTask } from '$lib/task/utils';
 	import type { ActionData } from './$types';
@@ -14,6 +12,8 @@
 	export let form: ActionData | null = null;
 
 	let editingToDo: TaskIn = buildEmptyTaskIn([]);
+
+	let showForm = false;
 
 	export function getSumOfDurationsAsTime(tasks: TTask[]): string {
 		const sumOfDurationsInMinutes = tasks.reduce((sum, task) => sum + (task.duration || 0), 0);
@@ -27,7 +27,7 @@
 	<div class="flex justify-end">
 		<Button
 			on:click={() => {
-				openModal(modalId);
+				showForm = true;
 				editingToDo = buildEmptyTaskIn($categories);
 			}}
 		>
@@ -46,7 +46,7 @@
 					{toDo}
 					{form}
 					on:edit={(e) => {
-						openModal(modalId);
+						showForm = true;
 						editingToDo = convertToTaskIn(e.detail);
 					}}
 				/>
@@ -54,7 +54,5 @@
 		{/each}
 	</ul>
 
-	<Modal show={!!$modalMap.get(modalId)} on:close={() => closeModal(modalId)}>
-		<TaskForm task={editingToDo} />
-	</Modal>
+	<TaskForm show={showForm} task={editingToDo} on:close={() => (showForm = false)} />
 </div>

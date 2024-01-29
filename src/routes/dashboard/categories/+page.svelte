@@ -3,16 +3,15 @@
 	import { groups, tailwindColors } from '$lib/category/utils';
 	import type { CCategory } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
-	import Modal from '$lib/components/modal/Modal.svelte';
-	import { closeModal, modalMap, openModal } from '$lib/form-modal/store';
 	import type { PageData } from './$types';
 	import CategoryForm from './category-form/CategoryForm.svelte';
-	import { modalId } from './category-form/service';
 	import CategoryRow from './category-row/CategoryRow.svelte';
 
 	export let data: PageData;
 
 	let editingCategory = buildEmptyCategory();
+
+	let showForm = false;
 
 	function buildEmptyCategory(): CCategory {
 		return {
@@ -31,7 +30,7 @@
 	<div class="flex justify-end">
 		<Button
 			on:click={() => {
-				openModal(modalId);
+				showForm = true;
 				editingCategory = buildEmptyCategory();
 			}}
 		>
@@ -44,14 +43,12 @@
 			<CategoryRow
 				category={thisCategory}
 				on:edit={(e) => {
-					openModal(modalId);
+					showForm = true;
 					editingCategory = e.detail;
 				}}
 			/>
 		{/each}
 	</ul>
 
-	<Modal show={!!$modalMap.get(modalId)} on:close={() => closeModal(modalId)}>
-		<CategoryForm category={editingCategory} />
-	</Modal>
+	<CategoryForm show={showForm} category={editingCategory} on:close={() => (showForm = false)} />
 </div>

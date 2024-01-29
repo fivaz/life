@@ -5,12 +5,10 @@
 	import { categories } from '$lib/category/store';
 	import Button from '$lib/components/button/Button.svelte';
 	import GoalTasks from '$lib/components/goal-tasks/GoalTasks.svelte';
-	import Modal from '$lib/components/modal/Modal.svelte';
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
-	import { buildEmptyTaskIn, modalId } from '$lib/components/task-form/service';
+	import { buildEmptyTaskIn } from '$lib/components/task-form/service';
 	import type { TaskIn } from '$lib/components/task-form/service';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
-	import { closeModal, modalMap, openModal } from '$lib/form-modal/store';
 	import type { GGoal, GoalWithTasks } from '$lib/goal/utils';
 	import classnames from 'classnames';
 	import { createEventDispatcher } from 'svelte';
@@ -22,6 +20,8 @@
 	let dispatch = createEventDispatcher<{ edit: GGoal; remove: GGoal }>();
 
 	let editingTask: TaskIn = buildEmptyTaskIn([], goal.id);
+
+	let showForm = false;
 </script>
 
 <li class="rounded-lg p-3 bg-neutral-100 text-blue-500 text-sm font-semibold leading-6">
@@ -33,7 +33,7 @@
 		<div>
 			<Button
 				on:click={() => {
-					openModal(modalId);
+					showForm = true;
 					editingTask = buildEmptyTaskIn($categories, goal.id);
 				}}
 				type="button"
@@ -55,7 +55,5 @@
 		{/if}
 	</div>
 
-	<Modal show={!!$modalMap.get(modalId)} on:close={() => closeModal(modalId)}>
-		<TaskForm task={editingTask} />
-	</Modal>
+	<TaskForm show={showForm} task={editingTask} on:close={() => (showForm = false)} />
 </li>

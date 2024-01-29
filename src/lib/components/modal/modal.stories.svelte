@@ -1,9 +1,6 @@
 <script lang="ts" context="module">
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import type { Meta } from '@storybook/svelte';
-	import { categories } from '$lib/category/seed';
-	import { buildEmptyTaskIn } from '$lib/components/task-form/service';
-	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import Modal from './Modal.svelte';
 
 	export const meta = {
@@ -26,6 +23,6 @@
 
 <Story name="Form" args={{ show: true }} let:args>
 	<Modal {...args}>
-		<TaskForm targetDate={null} task={buildEmptyTaskIn(categories, null, true)} />
+		<div>Test</div>
 	</Modal>
 </Story>
