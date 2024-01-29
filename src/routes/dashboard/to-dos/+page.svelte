@@ -13,7 +13,7 @@
 
 	export let form: ActionData | null = null;
 
-	let editingToDo: TaskIn = buildEmptyTaskIn([], false);
+	let editingToDo: TaskIn = buildEmptyTaskIn([]);
 
 	export function getSumOfDurationsAsTime(tasks: TTask[]): string {
 		const sumOfDurationsInMinutes = tasks.reduce((sum, task) => sum + (task.duration || 0), 0);
@@ -28,7 +28,7 @@
 		<Button
 			on:click={() => {
 				openModal(modalId);
-				editingToDo = buildEmptyTaskIn($categories, false);
+				editingToDo = buildEmptyTaskIn($categories);
 			}}
 		>
 			Create Task

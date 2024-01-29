@@ -12,8 +12,8 @@
 	import { handleCreate, handleDelete, handleEdit, isEventsDateInverted, modalId } from './service';
 	import type { TaskIn } from './service';
 	import 'flatpickr/dist/themes/airbnb.css';
-
-	export let task: TaskIn;
+	
+export let task: TaskIn;
 
 	export let targetDate: Date | null = null;
 

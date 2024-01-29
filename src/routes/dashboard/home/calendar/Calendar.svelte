@@ -19,7 +19,7 @@
 
 	let targetDate: Date | null = null;
 
-	let editingEvent: TaskIn = buildEmptyTaskIn($categories, true);
+	let editingEvent: TaskIn = buildEmptyTaskIn($categories, null, true);
 </script>
 
 <div class="flex h-full flex-col divide-gray-200">
@@ -28,7 +28,7 @@
 		{currentDate}
 		on:create={() => {
 			openModal(modalId);
-			editingEvent = buildEmptyTaskIn($categories, true);
+			editingEvent = buildEmptyTaskIn($categories, null, true);
 		}}
 	/>
 	<CalendarBody

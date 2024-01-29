@@ -26,6 +26,6 @@
 
 <Story name="Form" args={{ show: true }} let:args>
 	<Modal {...args}>
-		<TaskForm targetDate={null} task={buildEmptyTaskIn(categories, true)} />
+		<TaskForm targetDate={null} task={buildEmptyTaskIn(categories, null, true)} />
 	</Modal>
 </Story>

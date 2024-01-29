@@ -1,11 +1,11 @@
 <script lang="ts">
-	import DueToDos from '$lib/components/due-to-dos/DueToDos.svelte';
 	import { events, tasks } from '$lib/task/store';
 	import classnames from 'classnames';
 	import { format, getDate, isToday } from 'date-fns';
 
 	import { createEventDispatcher } from 'svelte';
 	import CalendarRows from '../calendar-rows/CalendarRows.svelte';
+	import DueToDos from '../due-to-dos/DueToDos.svelte';
 	import { isEventOnDay, isToDoOnDay } from '../service';
 	import Stats from '../stats/Stats.svelte';
 

@@ -63,7 +63,11 @@ export function convertToTaskIn(task: TTask): TaskIn {
 	};
 }
 
-export function buildEmptyTaskIn(categories: CCategory[], isEvent: boolean): TaskIn {
+export function buildEmptyTaskIn(
+	categories: CCategory[],
+	goalId: number | null = null,
+	isEvent: boolean = false,
+): TaskIn {
 	return {
 		id: 0,
 		name: '',
@@ -76,7 +80,7 @@ export function buildEmptyTaskIn(categories: CCategory[], isEvent: boolean): Tas
 		deadline: format(endOfWeek(new Date()), DATE),
 		isDone: false,
 		categoryId: categories.find((category) => category.isDefault)?.id || categories[0]?.id || 0,
-		goalId: null,
+		goalId,
 		isRecurring: false,
 		wasRecurring: false,
 		recurringStartAt: format(new Date(), DATE),

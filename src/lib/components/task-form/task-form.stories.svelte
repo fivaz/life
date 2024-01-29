@@ -25,7 +25,7 @@
 	args={{
 		categories,
 		form: null,
-		event: buildEmptyTaskIn(categories, true),
+		event: buildEmptyTaskIn(categories, null, true),
 	}}
 />
 
@@ -34,7 +34,7 @@
 	args={{
 		categories,
 		form: null,
-		event: buildEmptyTaskIn(categories, false),
+		event: buildEmptyTaskIn(categories),
 	}}
 />
 
