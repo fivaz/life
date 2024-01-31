@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { loginRoute } from '$lib/consts';
+	import Authenticate from './Authenticate.svelte';
 </script>
 
-<a href={loginRoute}>login</a>
+<Authenticate />
