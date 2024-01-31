@@ -19,8 +19,8 @@
 	import type { SubSubmitFunction } from '$lib/types-utils';
 	import classnames from 'classnames';
 	import { createEventDispatcher } from 'svelte';
-	
-export let show: boolean;
+
+	export let show: boolean;
 	export let category: CCategory;
 
 	$: isEditing = !!category.id;

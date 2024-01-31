@@ -8,6 +8,7 @@ export const loginRoute = '/login';
 export const registerRoute = '/register';
 export const profileRoute = '/dashboard/profile';
 
+export const rootRoute = '/';
 export const dashboardRoute = '/dashboard';
 export const homeRoute = `${dashboardRoute}/home`;
 export const categoriesRoute = `${dashboardRoute}/categories`;

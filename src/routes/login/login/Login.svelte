@@ -1,12 +1,32 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
-	import { registerRoute } from '$lib/consts';
-	import type { ActionData } from '../../../../.svelte-kit/types/src/routes/login/$types';
+	import { registerRoute, rootRoute } from '$lib/consts';
+	import { auth } from '$lib/firebase';
+	import { signInWithEmailAndPassword } from 'firebase/auth';
+	import type { AuthError } from 'firebase/auth';
 
-	export let form: ActionData | null = null;
 	let isLoading: boolean = false;
+
+	let email = '';
+	let password = '';
+	let errorMessage: string | unknown = '';
+
+	async function submit() {
+		isLoading = true;
+		try {
+			await signInWithEmailAndPassword(auth, email, password);
+			void goto(rootRoute);
+		} catch (error) {
+			if ((error as AuthError).code === 'auth/invalid-credential') {
+				errorMessage = 'login or password are incorrect';
+			} else {
+				errorMessage = error;
+			}
+		}
+		isLoading = false;
+	}
 </script>
 
 <div class="flex min-h-full flex-1">
@@ -32,25 +52,23 @@
 			</div>
 
 			<div class="mt-5">
-				<Alert
-					type="error"
-					isVisible={!!form?.error}
-					on:close={() => (form ? (form.error = '') : null)}
-				>
-					{form?.error}
+				<Alert type="error" isVisible={!!errorMessage} on:close={() => (errorMessage = '')}>
+					{errorMessage}
 				</Alert>
 				<div class="mt-5">
-					<form class="space-y-6" method="POST" use:enhance>
+					<form class="space-y-6" method="POST" on:submit|preventDefault={submit}>
 						<div>
-							<label for="username" class="block text-sm font-medium leading-6 text-gray-900">
+							<label for="email" class="block text-sm font-medium leading-6 text-gray-900">
 								Email address
 							</label>
 							<div class="mt-2">
 								<input
-									id="username"
-									name="username"
-									autocomplete="username"
+									id="email"
+									name="email"
+									type="email"
+									autocomplete="email"
 									class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+									bind:value={email}
 								/>
 							</div>
 						</div>
@@ -66,6 +84,7 @@
 									type="password"
 									autocomplete="current-password"
 									class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+									bind:value={password}
 								/>
 							</div>
 						</div>
@@ -76,6 +95,7 @@
 									id="remember-me"
 									name="remember-me"
 									type="checkbox"
+									disabled
 									class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
 								/>
 								<label for="remember-me" class="ml-3 block text-sm leading-6 text-gray-700">
@@ -91,14 +111,7 @@
 						</div>
 
 						<div>
-							<Button
-								{isLoading}
-								on:click={() => (isLoading = true)}
-								type="submit"
-								class="w-full leading-6"
-							>
-								Sign in
-							</Button>
+							<Button {isLoading} type="submit" class="w-full leading-6">Sign in</Button>
 						</div>
 					</form>
 				</div>
