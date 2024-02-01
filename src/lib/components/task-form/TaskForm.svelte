@@ -16,22 +16,14 @@
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import { DATE, TIME } from '$lib/consts';
 	import { parseGoals } from '$lib/goal/utils';
-	import { updateTasks } from '$lib/task/store';
 	import type { Task } from '$lib/task/utils';
 	import { addMinutes, endOfWeek, format } from 'date-fns';
-	import { createForm, getValue } from 'felte';
+	import { createForm } from 'felte';
 	import { createEventDispatcher } from 'svelte';
 	import Flatpickr from 'svelte-flatpickr';
-	import { object, string } from 'yup';
-	import {
-		addTask,
-		deleteTask,
-		editTask,
-		formatDates,
-		getDuration,
-		getEndTime,
-		isEventsDateInverted,
-	} from './service';
+	import { object } from 'yup';
+	// eslint-disable-next-line import/max-dependencies
+	import { addTask, deleteTask, editTask, isEventsDateInverted } from './service';
 
 	export let userId: string;
 
@@ -43,13 +35,13 @@
 
 	$: isEditing = !!task.id;
 
+	let isEvent = !!task.date;
+
+	let isRecurring = !!task.recurringStartAt;
+
 	let isEventOpen = false;
 
 	let isRecurringOpen = false;
-
-	let isEvent = false;
-
-	let isRecurring = !!task.recurringStartAt;
 
 	let error = '';
 
@@ -57,7 +49,7 @@
 
 	const schema = object({});
 
-	const { form, data, errors, setFields, unsetField } = createForm({
+	const { form, data, errors, setFields, setData, unsetField } = createForm({
 		extend: [validator({ schema })],
 		validateSchema: schema,
 		initialValues: task,
@@ -106,8 +98,6 @@
 	$: parsedErrors = Object.values($errors)
 		.filter((value) => value)
 		.join(', ');
-
-	// $: console.log($data);
 
 	$: {
 		if (isEvent) {
@@ -254,36 +244,13 @@
 						<div class="flex gap-3 pt-2 overflow-hidden">
 							<Input class="w-1/2" label="Date" type="date" name="date" required />
 
-							<Input
-								class="w-1/2"
-								label="Duration"
-								type="time"
-								name="duration"
-								required
-								on:input={(e) => setFields('endTime', getEndTime($data.startTime, e.detail))}
-							/>
+							<Input class="w-1/2" label="Duration" type="time" name="duration" required />
 						</div>
 
 						<div class="flex gap-3">
-							<Input
-								class="w-1/2"
-								label="Start time"
-								type="time"
-								name="startTime"
-								required
-								on:input={(e) =>
-									setFields('endTime', getEndTime(e.detail, getValue($data, 'duration')))}
-							/>
+							<Input class="w-1/2" label="Start time" type="time" name="startTime" required />
 
-							<Input
-								class="w-1/2"
-								label="End time"
-								type="time"
-								name="endTime"
-								required
-								on:input={(e) =>
-									setFields('duration', getDuration(getValue($data, 'startTime'), e.detail))}
-							/>
+							<Input class="w-1/2" label="End time" type="time" name="endTime" required />
 						</div>
 					</Transition>
 				{/if}

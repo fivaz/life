@@ -2,19 +2,12 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
-	import type { TaskIn } from '$lib/components/task-form/service';
-	import { buildEmptyTask, convertToTaskIn } from '$lib/components/task-form/service';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import { auth, db } from '$lib/firebase';
-	import { getToDos, groupedToDos } from '$lib/task/store';
-	import type { Task } from '$lib/task/utils';
+	import { getToDos } from '$lib/task/store';
 	import { collection, query, where } from 'firebase/firestore';
-	import { collectionStore, SignedIn, userStore } from 'sveltefire';
-	import { string } from 'yup';
-	import CategoryForm from '../categories/category-form/CategoryForm.svelte';
+	import { SignedIn, userStore } from 'sveltefire';
 	import { parseCategories } from '../categories/service';
-	import { buildEmptyGoal } from '../goals/service';
-	import type { ActionData } from './$types';
 	import { buildEmptyToDo, getSumOfDurationsAsTime, parseTasks } from './service';
 	import ToDoRow from './to-do-row/ToDoRow.svelte';
 
@@ -58,6 +51,7 @@
 								{task}
 								on:edit={(e) => {
 									showForm = true;
+									console.log(e.detail);
 									editingToDo = e.detail;
 								}}
 							/>
