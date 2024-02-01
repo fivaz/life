@@ -3,7 +3,6 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { applyAction, enhance } from '$app/forms';
-	import { categories } from '$lib/category/store';
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import { createModal } from '$lib/components/dialog/service';
@@ -35,7 +34,7 @@
 	$: {
 		if (isEventsDateInverted(task)) {
 			error = 'start date should be before end date';
-		} else if ($categories.length === 0) {
+		} else if ([].length === 0) {
 			error = 'create a category first';
 		} else {
 			error = '';

@@ -19,8 +19,10 @@
 
 	let showForm = false;
 
-	function parseCategories(categoriesCollection: Array<Record<string, any>>) {
-		return categoriesCollection.map((datum: any) => ({
+	function parseCategories(
+		categoriesCollection: Array<Category & Record<string, string>>,
+	): Category[] {
+		return categoriesCollection.map((datum) => ({
 			id: datum.id,
 			name: datum.name,
 			color: datum.color,

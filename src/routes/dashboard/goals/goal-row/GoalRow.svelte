@@ -6,17 +6,17 @@
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
 	import { buildEmptyTaskIn } from '$lib/components/task-form/service';
 	import type { TaskIn } from '$lib/components/task-form/service';
-	import type { GGoal, GoalWithTasks } from '$lib/goal/utils';
+	import type { Goal, GoalWithTasks } from '$lib/goal/utils';
 	import classnames from 'classnames';
 	import { createEventDispatcher } from 'svelte';
 
 	export let goal: GoalWithTasks;
 
-	$: tasksCompleted = goal.tasks.reduce((total, task) => total + Number(task.isDone), 0);
+	// $: tasksCompleted = goal.tasks.reduce((total, task) => total + Number(task.isDone), 0);
 
-	let dispatch = createEventDispatcher<{ edit: GGoal; remove: GGoal }>();
+	let dispatch = createEventDispatcher<{ edit: Goal; remove: Goal }>();
 
-	let editingTask: TaskIn = buildEmptyTaskIn([], goal.id);
+	// let editingTask: TaskIn = buildEmptyTaskIn([], goal.id);
 
 	let showForm = false;
 </script>
@@ -43,14 +43,14 @@
 		</div>
 	</div>
 
-	<div>
-		{#if goal.tasks.length}
-			<ProgressBar value={tasksCompleted} maxValue={goal.tasks.length} />
-			<GoalTasks {goal} />
-		{:else}
-			<div class="text-red-500">No tasks yet</div>
-		{/if}
-	</div>
+	<!--	<div>-->
+	<!--		{#if goal.tasks.length}-->
+	<!--			<ProgressBar value={tasksCompleted} maxValue={goal.tasks.length} />-->
+	<!--			<GoalTasks {goal} />-->
+	<!--		{:else}-->
+	<!--			<div class="text-red-500">No tasks yet</div>-->
+	<!--		{/if}-->
+	<!--	</div>-->
 
 	<!--	<TaskForm show={showForm} task={editingTask} on:close={() => (showForm = false)} />-->
 </li>

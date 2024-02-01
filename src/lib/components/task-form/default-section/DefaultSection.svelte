@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { categories } from '$lib/category/store';
 	import Input from '$lib/components/input/Input.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
@@ -11,8 +10,7 @@
 	export let task: TaskIn;
 
 	$: categoryName =
-		$categories.find((category) => category.id === task.categoryId)?.name ||
-		'create a category first';
+		[].find((category) => category.id === task.categoryId)?.name || 'create a category first';
 
 	$: goalName = $goals.find((goal) => goal.id === task.goalId)?.name || 'no goal';
 </script>
@@ -52,8 +50,8 @@
 	selectClass="flex-1"
 >
 	<span slot="placeholder">{categoryName}</span>
-	{#each $categories as category (category)}
-		<SelectItem value={category.id}>{category.name}</SelectItem>
+	{#each [] as category (category)}
+		<!--		<SelectItem value={category.id}>{category.name}</SelectItem>-->
 	{/each}
 </Select>
 

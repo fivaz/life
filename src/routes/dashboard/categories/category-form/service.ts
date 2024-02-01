@@ -4,8 +4,6 @@ import { db } from '$lib/firebase';
 import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { string } from 'yup';
 
-export const modalId = 'category-form';
-
 export function buildEmptyCategory() {
 	return {
 		name: '',

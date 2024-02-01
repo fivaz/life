@@ -18,11 +18,11 @@
 	import { addDoc, updateDoc, collection, doc, setDoc } from 'firebase/firestore';
 	import { createEventDispatcher, onMount } from 'svelte';
 	import { object, string } from 'yup';
-	import { addCategory, buildEmptyCategory, deleteCategory, editCategory } from './service';
+	import { addCategory, deleteCategory, editCategory } from './service';
 
 	export let userId: string;
 
-	export let category: Category = buildEmptyCategory();
+	export let category: Category;
 
 	$: isEditing = !!category.id;
 
@@ -52,7 +52,7 @@
 		.join(', ');
 </script>
 
-<form method="POST" use:form on:submit|preventDefault class="w-[355px] shadow rounded-md">
+<form use:form on:submit|preventDefault class="w-[355px] shadow rounded-md">
 	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
 		<div class="flex justify-between items-center pb-2">
 			<h2 class="text-lg font-medium text-gray-900">
@@ -71,6 +71,7 @@
 				<Icon src={XMark} class="h-5 w-5" aria-hidden="true" />
 			</button>
 		</div>
+
 		<Alert type="error" isVisible={!!parsedErrors} hasCloseButton={false}>{parsedErrors}</Alert>
 
 		<div class="flex flex-col gap-2 text-sm font-medium text-gray-700">

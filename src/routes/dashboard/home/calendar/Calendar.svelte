@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { categories } from '$lib/category/store';
 	import type { TaskIn } from '$lib/components/task-form/service';
 	import { buildEmptyTaskIn, convertToTaskIn } from '$lib/components/task-form/service';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
@@ -17,7 +16,7 @@
 
 	let targetDate: Date | null = null;
 
-	let editingEvent: TaskIn = buildEmptyTaskIn($categories, null, true);
+	let editingEvent: TaskIn = buildEmptyTaskIn([], null, true);
 
 	let showForm = false;
 </script>
@@ -28,7 +27,7 @@
 		{currentDate}
 		on:create={() => {
 			showForm = true;
-			editingEvent = buildEmptyTaskIn($categories, null, true);
+			editingEvent = buildEmptyTaskIn([], null, true);
 		}}
 	/>
 	<CalendarBody
@@ -40,7 +39,7 @@
 		}}
 		on:create={(e) => {
 			showForm = true;
-			editingEvent = buildEventWithTime($categories, e.detail.date, e.detail.timeInterval);
+			editingEvent = buildEventWithTime([], e.detail.date, e.detail.timeInterval);
 		}}
 		on:move={async (e) => {
 			if ($draggedEvent) {

@@ -1,6 +1,10 @@
-import type { Goal } from '@prisma/client';
 import type { OnlyTTask } from '$lib/task/utils';
 
-export type GGoal = Omit<Goal, 'userId' | 'deleted'>;
+export type Goal = {
+	id?: string;
+	name: string;
+	deadline: string;
+	isDone: boolean;
+};
 
-export type GoalWithTasks = GGoal & { tasks: OnlyTTask[] };
+export type GoalWithTasks = Goal & { tasks: OnlyTTask[] };

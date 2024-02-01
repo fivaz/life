@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { categories } from '$lib/category/store';
 	import Button from '$lib/components/button/Button.svelte';
 	import type { TaskIn } from '$lib/components/task-form/service';
 	import { buildEmptyTaskIn, convertToTaskIn } from '$lib/components/task-form/service';
@@ -28,7 +27,6 @@
 		<Button
 			on:click={() => {
 				showForm = true;
-				editingToDo = buildEmptyTaskIn($categories);
 			}}
 		>
 			Create Task
