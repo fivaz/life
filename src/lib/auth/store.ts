@@ -1,7 +1,6 @@
 import { auth } from '$lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { writable } from 'svelte/store';
-import type { Writable } from 'svelte/store';
 
 export function sessionStore() {
 	let unsubscribe: () => void;

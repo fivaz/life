@@ -2,7 +2,6 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
-	import type { Goal } from '$lib/goal/utils';
 	import { parseGoals } from '$lib/goal/utils';
 	import { SignedIn } from 'sveltefire';
 	import GoalForm from './goal-form/GoalForm.svelte';

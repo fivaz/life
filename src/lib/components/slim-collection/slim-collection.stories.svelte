@@ -1,19 +1,19 @@
 <script lang="ts" context="module">
-  import { Story, Template } from '@storybook/addon-svelte-csf';
-  import type { Meta } from '@storybook/svelte';
-  import SlimCollection from './SlimCollection.svelte';
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+	import type { Meta } from '@storybook/svelte';
+	import SlimCollection from './SlimCollection.svelte';
 
-  export const meta = {
-    component: SlimCollection,
-    tags: ['autodocs'],
-    parameters: {
-      layout: 'centered'
-    }
-  } satisfies Meta<SlimCollection>;
+	export const meta = {
+		component: SlimCollection,
+		tags: ['autodocs'],
+		parameters: {
+			layout: 'centered',
+		},
+	} satisfies Meta<SlimCollection>;
 </script>
 
 <Template let:args>
-  <SlimCollection {...args}></SlimCollection>
+	<SlimCollection {...args} />
 </Template>
 
 <Story name="Primary" args={{}} />

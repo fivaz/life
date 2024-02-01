@@ -1,8 +1,6 @@
 <script lang="ts">
 	import '../app.css';
 	import { auth, db } from '$lib/firebase';
-	import { onAuthStateChanged } from 'firebase/auth';
-	import { onMount } from 'svelte';
 	import { FirebaseApp } from 'sveltefire';
 </script>
 

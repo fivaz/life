@@ -7,16 +7,12 @@
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
-	import Loading from '$lib/components/loading/Loading.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
-	import { db } from '$lib/firebase';
 	import classnames from 'classnames';
-	import { ca } from 'date-fns/locale';
 	import { createForm } from 'felte';
-	import { addDoc, updateDoc, collection, doc, setDoc } from 'firebase/firestore';
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 	import { object, string } from 'yup';
 	import { addCategory, deleteCategory, editCategory } from './service';
 

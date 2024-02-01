@@ -2,10 +2,6 @@
 	import { Settings } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import Button from '$lib/components/button/Button.svelte';
-	import GoalTasks from '$lib/components/goal-tasks/GoalTasks.svelte';
-	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
-	import { buildEmptyTask } from '$lib/components/task-form/service';
-	import type { TaskIn } from '$lib/components/task-form/service';
 	import type { Goal, GoalWithTasks } from '$lib/goal/utils';
 	import classnames from 'classnames';
 	import { createEventDispatcher } from 'svelte';

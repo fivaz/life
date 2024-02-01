@@ -3,12 +3,7 @@ import { DATE, TIME } from '$lib/consts';
 import type { Goal } from '$lib/goal/utils';
 import type { Event } from '$lib/task/utils';
 import { getDuration } from '$lib/task/utils';
-import {
-	addMinutes,
-	format,
-	setHours,
-	setMinutes,
-} from 'date-fns';
+import { addMinutes, format, setHours, setMinutes } from 'date-fns';
 import { halfHourInterval } from './calendar-body/calendar-columns/calendar-rows/service';
 
 function buildDate(date: Date, timeInterval: number) {

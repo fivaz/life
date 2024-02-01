@@ -2,27 +2,15 @@
 	import { validator } from '@felte/validator-yup';
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import type { SubmitFunction } from '@sveltejs/kit';
-	import { applyAction, enhance } from '$app/forms';
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
-	import { createModal } from '$lib/components/dialog/service';
 	import Input from '$lib/components/input/Input.svelte';
-	import Loading from '$lib/components/loading/Loading.svelte';
-	import Modal from '$lib/components/modal/Modal.svelte';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
-	import { DATE, UnknownError } from '$lib/consts';
 	import type { Goal } from '$lib/goal/utils';
-	import type { SubSubmitFunction } from '$lib/types-utils';
-	import { parse } from 'date-fns';
 	import { createForm } from 'felte';
 	import { createEventDispatcher } from 'svelte';
 	import { object, string } from 'yup';
-	import {
-		addCategory,
-		deleteCategory,
-		editCategory,
-	} from '../../categories/category-form/service';
+
 	import { addGoal, deleteGoal, editGoal } from './service';
 
 	export let userId: string;

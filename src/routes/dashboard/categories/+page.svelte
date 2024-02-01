@@ -1,16 +1,8 @@
 <script lang="ts">
-	import { types, tailwindColors } from '$lib/category/utils';
-	import type { Category } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
-	import { auth, db } from '$lib/firebase';
-	import { collection, doc, getDocs, onSnapshot } from 'firebase/firestore';
-	import type { Unsubscribe } from 'firebase/firestore';
-	import { onDestroy, onMount } from 'svelte';
-	import { get } from 'svelte/store';
-	import { Collection, collectionStore, SignedIn, userStore } from 'sveltefire';
-	import type { PageData } from './$types';
+	import { SignedIn } from 'sveltefire';
 	import CategoryForm from './category-form/CategoryForm.svelte';
 	import { buildEmptyCategory } from './category-form/service';
 	import CategoryRow from './category-row/CategoryRow.svelte';
