@@ -1,10 +1,15 @@
 <script lang="ts">
 	import '../app.css';
-
-	</script>
+	import { auth, db } from '$lib/firebase';
+	import { onAuthStateChanged } from 'firebase/auth';
+	import { onMount } from 'svelte';
+	import { FirebaseApp } from 'sveltefire';
+</script>
 
 <html lang="en" class="h-full">
 	<body class="h-full">
-		<slot />
+		<FirebaseApp {auth} firestore={db}>
+			<slot />
+		</FirebaseApp>
 	</body>
 </html>

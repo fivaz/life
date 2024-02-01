@@ -8,11 +8,8 @@
 	const dispatch = createEventDispatcher();
 </script>
 
-<div class={classnames({ hidden: !show })}>
-	<div
-		class="fixed inset-0 flex items-center justify-center z-50"
-		transition:fade={{ duration: 900 }}
-	>
+{#if show}
+	<div class="fixed inset-0 flex items-center justify-center z-50">
 		<div
 			on:keydown={(e) => {
 				if (e.key === 'Esc') {
@@ -29,4 +26,4 @@
 			<slot />
 		</div>
 	</div>
-</div>
+{/if}

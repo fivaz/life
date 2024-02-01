@@ -1,6 +1,9 @@
 import type { Category } from '@prisma/client';
 
-export type CCategory = Omit<Category, 'userId' | 'deleted'>;
+export type CCategory = Omit<Category, 'id' | 'userId' | 'deleted' | 'group'> & {
+	id?: string;
+	type: string;
+};
 
 export type TailwindColor = {
 	lightBg: string;
@@ -42,4 +45,4 @@ export const tailwindColors: Record<string, TailwindColor> = {
 	},
 };
 
-export const groups = ['sleep', 'work', 'fun'] as const;
+export const types = ['sleep', 'work', 'fun'] as const;

@@ -1,8 +1,8 @@
-import type { groups } from '$lib/category/utils';
+import type { types } from '$lib/category/utils';
 import type { EEvent } from '$lib/task/utils';
 import { differenceInMilliseconds } from 'date-fns';
 
-type GroupType = (typeof groups)[number];
+type GroupType = (typeof types)[number];
 
 export function calculateGroupPercentages(events: EEvent[]): Record<GroupType, number> {
 	const groupTimes = calculateGroupTimes(events);

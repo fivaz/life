@@ -26,7 +26,7 @@ if (!getApps().length) {
 	firebaseApp = initializeApp(firebaseConfig);
 } else {
 	firebaseApp = getApp();
-	deleteApp(firebaseApp);
+	void deleteApp(firebaseApp);
 	firebaseApp = initializeApp(firebaseConfig);
 }
 

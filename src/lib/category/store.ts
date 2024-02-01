@@ -3,6 +3,12 @@ import { writable } from 'svelte/store';
 
 export const categories = writable<CCategory[]>([]);
 
+export function addCategory(newCategory: any) {
+	categories.update(($categories) => {
+		return [...$categories, newCategory];
+	});
+}
+
 export function updateCategory(newCategory: CCategory) {
 	categories.update(($categories) => {
 		const index = $categories.findIndex((category) => category.id === newCategory.id);

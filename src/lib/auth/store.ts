@@ -1,16 +1,26 @@
 import { auth } from '$lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import type { User } from 'firebase/auth';
 import { writable } from 'svelte/store';
+import type { Writable } from 'svelte/store';
 
-const nullUser = { uid: '' };
-export const session = writable<User | { uid: string }>(nullUser);
+export function sessionStore() {
+	let unsubscribe: () => void;
 
-onAuthStateChanged(auth, async (user) => {
-	if (user) {
-		session.set(user);
-	} else {
-		// User is signed out
-		session.set(nullUser);
+	// Fallback for SSR
+	if (!globalThis.window) {
+		const { subscribe } = writable(null);
+		return {
+			subscribe,
+		};
 	}
-});
+
+	const { subscribe } = writable(auth.currentUser ?? null, (set) => {
+		unsubscribe = onAuthStateChanged(auth, (user) => set(user));
+
+		return () => unsubscribe();
+	});
+
+	return {
+		subscribe,
+	};
+}

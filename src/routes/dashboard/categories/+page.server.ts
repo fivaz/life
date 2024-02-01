@@ -5,20 +5,6 @@ import prisma from '$lib/prisma';
 import { handleError } from '$lib/server/form-utils';
 import type { Actions, PageServerLoad } from './$types';
 
-export const load = (async ({ locals }) => {
-	const session = await locals.auth.validate();
-
-	if (!session) {
-		throw fail(401, { error: unauthorized });
-	}
-
-	const categories: CCategory[] = await prisma.category.findMany({
-		where: { deleted: null, userId: session.user.userId },
-	});
-
-	return { categories };
-}) satisfies PageServerLoad;
-
 async function getCategory(request: Request): Promise<CCategory> {
 	const data = await request.formData();
 	const id = Number(data.get('id'));
