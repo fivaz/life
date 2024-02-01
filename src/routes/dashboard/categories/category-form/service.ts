@@ -1,4 +1,8 @@
 import { tailwindColors, types } from '$lib/category/utils';
+import type { CCategory } from '$lib/category/utils';
+import { db } from '$lib/firebase';
+import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { string } from 'yup';
 
 export const modalId = 'category-form';
 
@@ -9,4 +13,21 @@ export function buildEmptyCategory() {
 		color: Object.keys(tailwindColors)[0],
 		type: types[0] as string,
 	};
+}
+
+export function editCategory(id: string, data: Omit<CCategory, 'id'>, userId: string) {
+	const categoryDocRef = doc(db, 'users', userId, 'categories', id);
+	return updateDoc(categoryDocRef, data);
+}
+
+export function addCategory(data: Omit<CCategory, 'id'>, userId: string) {
+	const categoriesCollectionRef = collection(db, 'users', userId, 'categories');
+	return addDoc(categoriesCollectionRef, data);
+}
+
+export async function deleteCategory(id: string | undefined, userId: string) {
+	if (id) {
+		const categoryDocRef = doc(db, 'users', userId, 'categories', id);
+		await deleteDoc(categoryDocRef);
+	}
 }

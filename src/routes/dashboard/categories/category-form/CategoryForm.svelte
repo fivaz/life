@@ -18,19 +18,13 @@
 	import { addDoc, updateDoc, collection, doc, setDoc } from 'firebase/firestore';
 	import { createEventDispatcher, onMount } from 'svelte';
 	import { object, string } from 'yup';
+	import { addCategory, buildEmptyCategory, deleteCategory, editCategory } from './service';
 
 	export let userId: string;
 
-	export let category: CCategory = {
-		name: '',
-		isDefault: false,
-		color: Object.keys(tailwindColors)[0],
-		type: types[0],
-	};
+	export let category: CCategory = buildEmptyCategory();
 
-	$: isEditing = false;
-
-	let loading = false;
+	$: isEditing = !!category.id;
 
 	const dispatch = createEventDispatcher<{ close: null }>();
 
@@ -42,14 +36,12 @@
 		extend: [validator({ schema })],
 		validateSchema: schema,
 		initialValues: category,
-		onSubmit: async (values) => {
+		onSubmit: (values) => {
 			const { id, ...data } = values;
 			if (id) {
-				const categoryDocRef = doc(db, 'users', userId, 'categories', id);
-				void updateDoc(categoryDocRef, data);
+				editCategory(id, data, userId);
 			} else {
-				const categoriesCollectionRef = collection(db, 'users', userId, 'categories');
-				void addDoc(categoriesCollectionRef, data);
+				addCategory(data, userId);
 			}
 			dispatch('close');
 		},
@@ -130,15 +122,13 @@
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
 		{#if isEditing}
-			<Button disabled={loading} color="red">Delete</Button>
+			<Button color="red" on:click={() => deleteCategory(category.id, userId)}>Delete</Button>
 		{:else}
 			<div />
 		{/if}
 
-		<Button disabled={loading} type="submit">
+		<Button type="submit">
 			{#if isEditing} Edit {:else} Add {/if}
 		</Button>
 	</div>
-
-	<Loading {loading} class="h-8 w-8 text-indigo-500" />
 </form>
