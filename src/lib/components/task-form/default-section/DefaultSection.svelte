@@ -1,70 +1,21 @@
 <script lang="ts">
+	import type { Category } from '$lib/category/utils';
 	import Input from '$lib/components/input/Input.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import type { TaskIn } from '$lib/components/task-form/service';
-	import { goals } from '$lib/goal/store';
 
 	export let targetDate: Date | null;
 
+	export let categories: Category[];
+
 	export let task: TaskIn;
 
-	$: categoryName =
-		[].find((category) => category.id === task.categoryId)?.name || 'create a category first';
+	export let data: Pick<TaskIn, 'goal' | 'category'>;
 
-	$: goalName = $goals.find((goal) => goal.id === task.goalId)?.name || 'no goal';
+	$: categoryName = 'create a category first';
+	// [].find((category) => category.id === task.categoryId)?.name || 'create a category first';
+
+	$: goalName = 'no goal';
+	// $: goalName = [].find((goal) => goal.id === task.goalId)?.name || 'no goal';
 </script>
-
-<input type="hidden" name="id" value={task.id} />
-<input type="hidden" name="categoryName" value={categoryName} />
-<input type="hidden" name="targetDate" value={targetDate?.toISOString() || null} />
-
-<div class="flex gap-3 items-center">
-	<Input class="flex-1" placeholder="Name" autocomplete="off" name="name" bind:value={task.name} />
-
-	<label>
-		<input
-			name="isDone"
-			type="checkbox"
-			bind:checked={task.isDone}
-			class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-		/>
-	</label>
-</div>
-
-<label class="block text-sm font-medium text-gray-700">
-	<textarea
-		name="description"
-		placeholder="description"
-		bind:value={task.description}
-		class="p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-	/>
-</label>
-
-<Select
-	bind:value={task.categoryId}
-	name="categoryId"
-	label="Category"
-	class="flex items-center"
-	labelClass="w-1/5"
-	selectClass="flex-1"
->
-	<span slot="placeholder">{categoryName}</span>
-	{#each [] as category (category)}
-		<!--		<SelectItem value={category.id}>{category.name}</SelectItem>-->
-	{/each}
-</Select>
-
-<Select
-	bind:value={task.goalId}
-	name="goalId"
-	label="Goal"
-	class="flex items-center"
-	labelClass="w-1/5"
-	selectClass="flex-1"
->
-	<span slot="placeholder">{goalName}</span>
-	{#each $goals as goal (goal)}
-		<SelectItem value={goal.id}>{goal.name}</SelectItem>
-	{/each}
-</Select>

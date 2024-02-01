@@ -1,7 +1,7 @@
 import type { Category } from '$lib/category/utils';
 import type { TaskIn } from '$lib/components/task-form/service';
 import { DATE, homeRoute, TIME } from '$lib/consts';
-import type { EEvent, TTask } from '$lib/task/utils';
+import type { EEvent, Task } from '$lib/task/utils';
 import { differenceInMinutes, format, setHours, setMinutes } from 'date-fns';
 import type { SerializedEvent } from '../api/service';
 import { deserializeEvent } from '../api/service';
@@ -50,10 +50,10 @@ export function moveEvent(event: EEvent, date: Date, quarterHourInterval: number
 		...event,
 		startDate: setMinutes(setHours(date, 0), quarterHourInterval * 15),
 		endDate: setMinutes(setHours(date, 0), quarterHourInterval * 15 + duration),
-	} satisfies TTask;
+	} satisfies Task;
 }
 
-export async function preserveEvent(event: TTask): Promise<EEvent[]> {
+export async function preserveEvent(event: Task): Promise<EEvent[]> {
 	const response = await fetch(`${homeRoute}/api`, {
 		method: 'POST',
 		body: JSON.stringify(event),

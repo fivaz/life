@@ -1,5 +1,5 @@
 import { weekDays } from '$lib/components/days-checkbox/service';
-import type { EEvent, TTask } from '$lib/task/utils';
+import type { EEvent, Task } from '$lib/task/utils';
 import { endOfDay, getDay, isSameDay, isWithinInterval, startOfDay } from 'date-fns';
 
 function isRecurringOnDay(event: EEvent, day: Date): boolean {
@@ -27,7 +27,7 @@ function isRecurringOnDay(event: EEvent, day: Date): boolean {
 	return false;
 }
 
-export function isToDoOnDay(task: TTask, day: Date): boolean {
+export function isToDoOnDay(task: Task, day: Date): boolean {
 	return !!task.deadline && isSameDay(task.deadline, day);
 }
 

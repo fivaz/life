@@ -2,9 +2,9 @@
 	import { Calendar } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import type { TTask } from '$lib/task/utils';
+	import type { Task } from '$lib/task/utils';
 
-	export let toDos: TTask[];
+	export let toDos: Task[];
 
 	let isOpen = false;
 </script>

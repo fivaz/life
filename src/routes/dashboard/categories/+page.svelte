@@ -14,22 +14,11 @@
 	import CategoryForm from './category-form/CategoryForm.svelte';
 	import { buildEmptyCategory } from './category-form/service';
 	import CategoryRow from './category-row/CategoryRow.svelte';
+	import { parseCategories } from './service';
 
 	let editingCategory = buildEmptyCategory();
 
 	let showForm = false;
-
-	function parseCategories(
-		categoriesCollection: Array<Category & Record<string, string>>,
-	): Category[] {
-		return categoriesCollection.map((datum) => ({
-			id: datum.id,
-			name: datum.name,
-			color: datum.color,
-			type: datum.type,
-			isDefault: datum.isDefault,
-		}));
-	}
 </script>
 
 <SignedIn let:user>

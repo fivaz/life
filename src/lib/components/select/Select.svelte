@@ -11,7 +11,7 @@
 
 	export let label: string = '';
 
-	export let value: string | number | string[] | null | undefined = undefined;
+	export let value: any = undefined;
 
 	export let name: string;
 

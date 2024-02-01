@@ -1,7 +1,12 @@
+import { applyAction } from '$app/forms';
 import type { Category } from '$lib/category/utils';
 import { weekDays } from '$lib/components/days-checkbox/service';
-import { DATE, DATETIME, TIME } from '$lib/consts';
-import type { OnlyTTask, TTask } from '$lib/task/utils';
+import { createModal } from '$lib/components/dialog/service';
+import { DATE, DATETIME, TIME, UnknownError } from '$lib/consts';
+import { db } from '$lib/firebase';
+import type { Goal } from '$lib/goal/utils';
+import { updateTasks } from '$lib/task/store';
+import type { OnlyTTask, Task } from '$lib/task/utils';
 import { convertToTime } from '$lib/task/utils';
 import {
 	add,
@@ -14,26 +19,17 @@ import {
 	isValid,
 	parse,
 } from 'date-fns';
+import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { string } from 'yup';
 
-export type TaskIn = Omit<
-	OnlyTTask,
-	'startDate' | 'endDate' | 'duration' | 'deadline' | 'recurringStartAt' | 'recurringEndAt'
-> & {
-	date: string;
-	startTime: string;
-	endTime: string;
-	duration: string;
-	deadline: string;
-	isRecurring: boolean;
+export type TaskIn = OnlyTTask & {
 	wasRecurring: boolean;
-	recurringStartAt: string;
-	recurringEndAt: string;
 	isEvent: boolean;
 };
 
 export const modalId = 'task-form';
 
-export function convertToTaskIn(task: TTask): TaskIn {
+export function convertToTaskIn(task: Task): TaskIn {
 	return {
 		id: task.id,
 		name: task.name,
@@ -60,13 +56,12 @@ export function convertToTaskIn(task: TTask): TaskIn {
 
 export function buildEmptyTaskIn(
 	categories: Category[],
-	goalId: number | null = null,
+	goal: Goal | null = null,
 	isEvent: boolean = false,
-): TaskIn {
+): Task {
 	return {
-		id: 0,
 		name: '',
-		description: null,
+		description: '',
 		isEvent,
 		date: format(new Date(), DATE),
 		startTime: format(new Date(), TIME),
@@ -74,8 +69,8 @@ export function buildEmptyTaskIn(
 		duration: '00:15',
 		deadline: format(endOfWeek(new Date()), DATE),
 		isDone: false,
-		categoryId: categories.find((category) => category.isDefault)?.id || categories[0]?.id || 0,
-		goalId,
+		category: categories.find((category) => category.isDefault) || categories[0],
+		goal,
 		isRecurring: false,
 		wasRecurring: false,
 		recurringStartAt: format(new Date(), DATE),
@@ -166,9 +161,72 @@ function buildDeadline(formData: FormData) {
 	formData.set('deadline', deadline);
 }
 
-export function isEventsDateInverted(task: TaskIn) {
+export function isEventsDateInverted(task: Task) {
 	return (
 		task.isEvent &&
 		!isAfter(parse(task.endTime, TIME, new Date()), parse(task.startTime, TIME, new Date()))
 	);
 }
+
+export function editTask(id: string, data: Partial<Omit<Task, 'id'>>, userId: string) {
+	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
+	return updateDoc(taskDocRef, data);
+}
+
+export function addTask(data: Partial<Omit<Task, 'id'>>, userId: string) {
+	const tasksCollectionRef = collection(db, 'users', userId, 'tasks');
+	return addDoc(tasksCollectionRef, data);
+}
+
+export async function deleteTask(id: string | undefined, userId: string) {
+	if (id) {
+		const taskDocRef = doc(db, 'users', userId, 'tasks', id);
+		await deleteDoc(taskDocRef);
+	}
+}
+
+const handleCreate: SubSubmitFunction<TaskIn> = ({ formData, data: task }) => {
+	formatDates(task, formData);
+
+	// dispatch('close');
+
+	return async ({ result }) => {
+		await applyAction(result);
+		if (result.type === 'success' && result.data?.created) {
+			updateTasks(result.data.created);
+		} else if (result.type === 'error') {
+			console.log(result.error || UnknownError);
+		}
+	};
+};
+
+const handleEdit: SubSubmitFunction<TaskIn> = async ({ formData, data: task }) => {
+	formatDates(task, formData);
+
+	if (task.isEvent) {
+		if (task.wasRecurring && task.isRecurring) {
+			const result = await createModal({
+				title: 'This is a repeating event',
+				message: 'Do you want to save the changes for ?',
+				confirmText: 'this event only',
+				cancelText: 'future events',
+			});
+
+			if (result === null) {
+				return () => {};
+			}
+
+			formData.set('isForThisEventOnly', result ? 'true' : '');
+		}
+	}
+	// dispatch('close');
+
+	return async ({ result }) => {
+		await applyAction(result);
+		if (result.type === 'success' && result.data?.updated) {
+			updateTasks(result.data.updated);
+		} else if (result.type === 'error') {
+			console.log(result.error || UnknownError);
+		}
+	};
+};

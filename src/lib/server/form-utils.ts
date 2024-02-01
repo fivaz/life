@@ -1,6 +1,6 @@
 import { fail } from '@sveltejs/kit';
 import prisma from '$lib/prisma';
-import type { OnlyEEvent, TTask } from '$lib/task/utils';
+import type { OnlyEEvent, Task } from '$lib/task/utils';
 import { set } from 'date-fns';
 
 export async function handleError(error: unknown) {
@@ -21,7 +21,7 @@ export async function splitEventFromRecurring(
 	event: OnlyEEvent,
 	targetDate: Date,
 	userId: string,
-): Promise<TTask[]> {
+): Promise<Task[]> {
 	// remove id from event
 	const { id, ...eventData } = event;
 
@@ -45,7 +45,7 @@ export async function splitEventFromRecurring(
 		where: { id, userId },
 	});
 
-	const events: TTask[] = [newEvent];
+	const events: Task[] = [newEvent];
 
 	if (recurringEvent && singleEvent.startDate) {
 		const existingEvent = await prisma.task.update({

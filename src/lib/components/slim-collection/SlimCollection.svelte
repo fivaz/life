@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Collection } from 'sveltefire';
 
-	export let ref: string;
+	export let ref: any;
 
 	export let parse: (data: any[]) => any[];
 </script>

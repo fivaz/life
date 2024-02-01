@@ -3,7 +3,7 @@ import { loginRoute, unauthorized } from '$lib/consts';
 import prisma from '$lib/prisma';
 import { handleError, splitEventFromRecurring } from '$lib/server/form-utils';
 import { getTask } from '$lib/task/utils';
-import type { OnlyEEvent, OnlyTTask, TTask } from '$lib/task/utils';
+import type { OnlyEEvent, OnlyTTask, Task } from '$lib/task/utils';
 import { parseISO } from 'date-fns';
 import type { Actions } from './$types';
 
@@ -32,7 +32,7 @@ export const actions = {
 			return { updated: events };
 		}
 
-		const event: TTask = await prisma.task.update({
+		const event: Task = await prisma.task.update({
 			where: {
 				id,
 				userId: session.user.userId,
@@ -108,7 +108,7 @@ export const actions = {
 			const data = await request.formData();
 			const id = Number(data.get('id'));
 
-			const event: TTask = await prisma.task.update({
+			const event: Task = await prisma.task.update({
 				where: {
 					id,
 					userId: session.user.userId,

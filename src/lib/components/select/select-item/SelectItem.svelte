@@ -7,7 +7,7 @@
 	let className = '';
 	export { className as class };
 
-	export let value: string | number | string[] | null | undefined;
+	export let value: any;
 </script>
 
 <ListboxOption {value} let:selected let:active>

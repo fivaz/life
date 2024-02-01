@@ -3,6 +3,7 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
 	import type { Goal } from '$lib/goal/utils';
+	import { parseGoals } from '$lib/goal/utils';
 	import { SignedIn } from 'sveltefire';
 	import GoalForm from './goal-form/GoalForm.svelte';
 	import GoalRow from './goal-row/GoalRow.svelte';
@@ -11,15 +12,6 @@
 	let editingGoal = buildEmptyGoal();
 
 	let showForm = false;
-
-	function parseGoals(goalsCollection: Array<Goal & Record<string, string>>): Goal[] {
-		return goalsCollection.map((datum) => ({
-			id: datum.id,
-			name: datum.name,
-			deadline: datum.deadline,
-			isDone: datum.isDone,
-		}));
-	}
 </script>
 
 <SignedIn let:user>

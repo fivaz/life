@@ -1,5 +1,5 @@
 import { fun, routine, sleep, work } from '$lib/category/seed';
-import type { TTask } from '$lib/task/utils';
+import type { Task } from '$lib/task/utils';
 import { addDays, set, startOfWeek } from 'date-fns';
 
 function getTodayAtTime(time: string): Date {
@@ -11,7 +11,7 @@ function getTodayAtTime(time: string): Date {
 }
 
 let id = 0;
-export const normalWithoutDescription: TTask = {
+export const normalWithoutDescription: Task = {
 	id: id++,
 	name: 'Breakfast',
 	description: null,
@@ -31,7 +31,7 @@ export const normalWithoutDescription: TTask = {
 	recurringExceptions: [],
 };
 
-export const shortWithoutDescription: TTask = {
+export const shortWithoutDescription: Task = {
 	id: id++,
 	name: 'Breakfast',
 	description: null,
@@ -51,7 +51,7 @@ export const shortWithoutDescription: TTask = {
 	recurringExceptions: [],
 };
 
-export const long: TTask = {
+export const long: Task = {
 	id: id++,
 	name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
 	description: null,
@@ -71,7 +71,7 @@ export const long: TTask = {
 	recurringExceptions: [],
 };
 
-export const done: TTask = {
+export const done: Task = {
 	id: id++,
 	name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
 	description: null,
@@ -91,7 +91,7 @@ export const done: TTask = {
 	recurringExceptions: [],
 };
 
-export const redEvent: TTask = {
+export const redEvent: Task = {
 	id: id++,
 	name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
 	description: null,
@@ -111,7 +111,7 @@ export const redEvent: TTask = {
 	recurringExceptions: [],
 };
 
-export const events: TTask[] = [
+export const events: Task[] = [
 	normalWithoutDescription,
 	shortWithoutDescription,
 	long,
@@ -119,7 +119,7 @@ export const events: TTask[] = [
 	redEvent,
 ];
 
-export const sleepEvent: TTask = {
+export const sleepEvent: Task = {
 	id: id++,
 	name: 'sleep',
 	description: null,
@@ -139,7 +139,7 @@ export const sleepEvent: TTask = {
 	recurringExceptions: [],
 };
 
-export const workEvent: TTask = {
+export const workEvent: Task = {
 	id: id++,
 	name: 'work',
 	description: null,
@@ -159,7 +159,7 @@ export const workEvent: TTask = {
 	recurringExceptions: [],
 };
 
-export const funEvent: TTask = {
+export const funEvent: Task = {
 	id: id++,
 	name: 'fun',
 	description: null,
@@ -179,4 +179,4 @@ export const funEvent: TTask = {
 	recurringExceptions: [],
 };
 
-export const tasks: TTask[] = [sleepEvent, workEvent, funEvent];
+export const tasks: Task[] = [sleepEvent, workEvent, funEvent];

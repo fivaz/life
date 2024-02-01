@@ -3,7 +3,7 @@ import { loginRoute, unauthorized } from '$lib/consts';
 import prisma from '$lib/prisma';
 import { handleError } from '$lib/server/form-utils';
 import { getTask } from '$lib/task/utils';
-import type { TTask } from '$lib/task/utils';
+import type { Task } from '$lib/task/utils';
 import { add, addMinutes, set } from 'date-fns';
 import type { Actions } from './$types';
 
@@ -33,7 +33,7 @@ export const actions = {
 
 		const tomorrowDate = getTomorrowDate(startDate);
 
-		const event: TTask = await prisma.task.update({
+		const event: Task = await prisma.task.update({
 			where: {
 				id,
 				userId: session.user.userId,
@@ -77,7 +77,7 @@ export const actions = {
 		try {
 			const { task } = await getTask(request);
 
-			const updatedTask: TTask = await prisma.task.update({
+			const updatedTask: Task = await prisma.task.update({
 				where: { id: task.id, userId: session.user.userId },
 				data: task,
 				include: { category: true, goal: true },
@@ -98,7 +98,7 @@ export const actions = {
 		const data = await request.formData();
 		const id = Number(data.get('id'));
 
-		const task: TTask = await prisma.task.update({
+		const task: Task = await prisma.task.update({
 			where: {
 				id,
 				userId: session.user.userId,

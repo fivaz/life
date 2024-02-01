@@ -6,12 +6,16 @@
 	import type { TaskIn } from '$lib/components/task-form/service';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import Flatpickr from 'svelte-flatpickr';
+	import 'flatpickr/dist/themes/airbnb.css';
+	import type { Task } from '$lib/task/utils';
 
-	export let task: TaskIn;
+	export let task: Task;
 
 	let isEventOpen = false;
 
 	let isRecurringOpen = false;
+
+	let isEvent = !task.deadline;
 </script>
 
 <Input
@@ -22,7 +26,7 @@
 	labelClass="w-1/5"
 	inputClass="flex-1"
 	bind:value={task.deadline}
-	disabled={task.isEvent}
+	disabled={isEvent}
 />
 
 <div class="bg-white rounded-lg p-2">
@@ -32,7 +36,7 @@
 		</button>
 		<Toggle
 			name="isEvent"
-			bind:value={task.isEvent}
+			bind:value={isEvent}
 			on:change={(e) => {
 				if (e.detail === true) {
 					isEventOpen = true;
@@ -48,7 +52,6 @@
 		leaveFrom="transform opacity-100 max-h-36"
 		leaveTo="transform opacity-0 max-h-0"
 		show={isEventOpen}
-		unmount={false}
 	>
 		<div class="flex gap-3 pt-2 overflow-hidden">
 			<Input class="w-1/2" label="Date" type="date" name="date" bind:value={task.date} required />
@@ -88,7 +91,7 @@
 	</Transition>
 </div>
 
-{#if task.isEvent}
+{#if isEvent}
 	<div class="bg-white rounded-lg p-2">
 		<div class="flex">
 			<button

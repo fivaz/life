@@ -1,18 +1,18 @@
-import { DATE_FR } from '$lib/consts';
-import type { EEvent, TTask } from '$lib/task/utils';
-import { format, isPast, isToday, isTomorrow, startOfWeek } from 'date-fns';
+import { DATE, DATE_FR } from '$lib/consts';
+import type { EEvent, Task } from '$lib/task/utils';
+import { format, isPast, isToday, isTomorrow, parse, parseISO, startOfWeek } from 'date-fns';
 import { derived, writable } from 'svelte/store';
 
-export const tasks = writable<TTask[]>([]);
+export const tasks = writable<Task[]>([]);
 
 function isCurrentWeek(date: Date) {
 	return startOfWeek(new Date()).getTime() === startOfWeek(date).getTime();
 }
 
-function getDateName(task: TTask): string {
-	const date = task.startDate || task.deadline;
+function getDateName(task: Task): string {
+	const date = parse('date' in task ? task.date : task.deadline, DATE, new Date());
 
-	if (task.isRecurring) {
+	if ('recurringStartAt' in task) {
 		return 'Recurring';
 	}
 
@@ -34,10 +34,10 @@ function getDateName(task: TTask): string {
 	return format(date, DATE_FR);
 }
 
-function sortToDos(todos: TTask[]) {
+function sortToDos(todos: Task[]) {
 	return todos.sort((a, b) => {
-		const dateA = a.startDate || a.deadline;
-		const dateB = b.startDate || b.deadline;
+		const dateA = parse('date' in a ? a.date : a.deadline, DATE, new Date());
+		const dateB = parse('date' in b ? b.date : b.deadline, DATE, new Date());
 		if (!dateA) {
 			return 1;
 		}
@@ -48,14 +48,13 @@ function sortToDos(todos: TTask[]) {
 	});
 }
 
-function getToDos(tasks: TTask[]): Record<string, TTask[]> {
-	const todos = tasks.filter((task) => task.isDone === false);
-	const sortedTodos = sortToDos(todos);
+export function getToDos(tasks: Task[]): Record<string, Task[]> {
+	const sortedTodos = sortToDos(tasks);
 	return groupToDosByDate(sortedTodos);
 }
 
-function groupToDosByDate(toDos: TTask[]): Record<string, TTask[]> {
-	return toDos.reduce<Record<string, TTask[]>>((groups, toDo) => {
+function groupToDosByDate(toDos: Task[]): Record<string, Task[]> {
+	return toDos.reduce<Record<string, Task[]>>((groups, toDo) => {
 		const date = getDateName(toDo);
 
 		if (!groups[date]) {
@@ -73,7 +72,7 @@ export const events = derived(
 
 export const groupedToDos = derived(tasks, ($tasks) => getToDos($tasks));
 
-export function updateTasks(savedTasks: TTask | TTask[]) {
+export function updateTasks(savedTasks: Task | Task[]) {
 	if (Array.isArray(savedTasks)) {
 		savedTasks.forEach((savedTask) => updateTask(savedTask));
 	} else {
@@ -81,7 +80,7 @@ export function updateTasks(savedTasks: TTask | TTask[]) {
 	}
 }
 
-export function updateTask(task: TTask) {
+export function updateTask(task: Task) {
 	tasks.update(($tasks) => {
 		const index = $tasks.findIndex((existingTask) => existingTask.id === task.id);
 		if (index !== -1) {
@@ -94,11 +93,11 @@ export function updateTask(task: TTask) {
 	});
 }
 
-export function removeTask(task: TTask) {
+export function removeTask(task: Task) {
 	tasks.update(($tasks) => $tasks.filter((existingTask) => existingTask.id !== task.id));
 }
 
-export function toggleEvent(task: TTask) {
+export function toggleEvent(task: Task) {
 	tasks.update(($tasks) => [
 		...$tasks.filter((existingTask) => existingTask.id !== task.id),
 		{ ...task, isDone: !task.isDone },
