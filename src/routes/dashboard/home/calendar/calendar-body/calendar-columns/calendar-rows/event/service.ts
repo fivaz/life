@@ -1,7 +1,6 @@
-import type { EEvent } from '$lib/task/utils';
-import { differenceInMinutes } from 'date-fns';
+import type { Event } from '$lib/task/utils';
+import { getDuration } from '$lib/task/utils';
 
-export function isShort(event: EEvent) {
-	const diff = differenceInMinutes(event.startDate, event.endDate);
-	return Math.abs(diff) <= 15;
+export function isShort(event: Event) {
+	return Math.abs(getDuration(event)) <= 15;
 }

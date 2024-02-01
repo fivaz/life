@@ -3,35 +3,35 @@ import type { Category } from '$lib/category/utils';
 let id = 0;
 
 export const work = {
-	id: id++,
+	id: `${id++}`,
 	name: 'Work',
 	isDefault: true,
 	color: 'green',
-	group: 'work',
+	type: 'work',
 };
 
 export const fun = {
-	id: id++,
+	id: `${id++}`,
 	name: 'Free time',
 	isDefault: false,
 	color: 'red',
-	group: 'fun',
+	type: 'fun',
 };
 
 export const routine = {
-	id: id++,
+	id: `${id++}`,
 	name: 'Routine',
 	isDefault: false,
 	color: 'yellow',
-	group: 'fun',
+	type: 'fun',
 };
 
 export const sleep = {
-	id: id++,
+	id: `${id++}`,
 	name: 'Sleep',
 	isDefault: false,
 	color: 'blue',
-	group: 'sleep',
+	type: 'sleep',
 };
 
 export const categories: Category[] = [work, fun, routine, sleep];

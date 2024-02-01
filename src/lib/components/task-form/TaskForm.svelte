@@ -8,7 +8,6 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import DaysCheckbox from '$lib/components/days-checkbox/DaysCheckbox.svelte';
 	import { weekDays } from '$lib/components/days-checkbox/service';
-	import { createModal } from '$lib/components/dialog/service';
 	import Input from '$lib/components/input/Input.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
@@ -16,7 +15,7 @@
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import { DATE, TIME } from '$lib/consts';
 	import { parseGoals } from '$lib/goal/utils';
-	import type { Task } from '$lib/task/utils';
+	import type { Task, ToDo, Event } from '$lib/task/utils';
 	import { addMinutes, endOfWeek, format } from 'date-fns';
 	import { createForm } from 'felte';
 	import { createEventDispatcher } from 'svelte';
@@ -27,7 +26,7 @@
 
 	export let userId: string;
 
-	export let task: Task;
+	export let task: ToDo | Event;
 
 	export let categories: Category[];
 
@@ -35,9 +34,9 @@
 
 	$: isEditing = !!task.id;
 
-	let isEvent = !!task.date;
+	let isEvent = !!('date' in task && task.date);
 
-	let isRecurring = !!task.recurringStartAt;
+	let isRecurring = !!('recurringStartAt' in task && task.recurringStartAt);
 
 	let isEventOpen = false;
 
@@ -49,7 +48,7 @@
 
 	const schema = object({});
 
-	const { form, data, errors, setFields, setData, unsetField } = createForm({
+	const { form, data, errors, setFields, unsetField } = createForm<Task>({
 		extend: [validator({ schema })],
 		validateSchema: schema,
 		initialValues: task,
@@ -93,7 +92,7 @@
 		}
 	}
 
-	$: formName = `${isEditing ? 'Edit' : 'Add'} ${task.deadline ? 'Event' : 'Task'}`;
+	$: formName = `${isEditing ? 'Edit' : 'Add'} ${'startTime' in task ? 'Event' : 'Task'}`;
 
 	$: parsedErrors = Object.values($errors)
 		.filter((value) => value)

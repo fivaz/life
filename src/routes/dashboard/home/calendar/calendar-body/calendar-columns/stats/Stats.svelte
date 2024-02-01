@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { EEvent } from '$lib/task/utils';
+	import type { Event } from '$lib/task/utils';
 	import classnames from 'classnames';
 	import { calculateGroupPercentages } from './service';
 
 	let className = '';
 	export { className as class };
-	export let events: EEvent[];
+	export let events: Event[];
 
 	$: groups = calculateGroupPercentages(events);
 </script>

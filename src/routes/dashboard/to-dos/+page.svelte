@@ -5,10 +5,11 @@
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import { auth, db } from '$lib/firebase';
 	import { getToDos } from '$lib/task/store';
+	import { parseTasks } from '$lib/task/utils';
 	import { collection, query, where } from 'firebase/firestore';
 	import { SignedIn, userStore } from 'sveltefire';
 	import { parseCategories } from '../categories/service';
-	import { buildEmptyToDo, getSumOfDurationsAsTime, parseTasks } from './service';
+	import { buildEmptyToDo, getSumOfDurationsAsTime } from './service';
 	import ToDoRow from './to-do-row/ToDoRow.svelte';
 
 	let editingToDo = buildEmptyToDo([]);
@@ -62,8 +63,8 @@
 				<Modal show={showForm} on:close={() => (showForm = false)}>
 					<TaskForm
 						userId={user.uid}
-						{categories}
 						task={editingToDo}
+						{categories}
 						on:close={() => (showForm = false)}
 					/>
 				</Modal>

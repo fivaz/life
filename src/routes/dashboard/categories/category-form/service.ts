@@ -3,8 +3,7 @@ import type { Category } from '$lib/category/utils';
 import { createModal } from '$lib/components/dialog/service';
 import { db } from '$lib/firebase';
 import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
-import { EventDispatcher } from 'svelte';
-import { string } from 'yup';
+import type { EventDispatcher } from 'svelte';
 
 export function buildEmptyCategory() {
 	return {

@@ -3,14 +3,11 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { tailwindColors } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
-	import { DATE, DATE_FR, TIME } from '$lib/consts';
+	import { DATE, DATE_FR } from '$lib/consts';
 	import type { Task } from '$lib/task/utils';
-	import { convertToTime } from '$lib/task/utils';
 	import classnames from 'classnames';
 	import { format, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
-	import type { ActionData } from '../../../../../.svelte-kit/types/src/routes/dashboard/to-dos/$types';
-	import RescheduleToTomorrowButton from './reschedule-to-tomorrow-button/RescheduleToTomorrowButton.svelte';
 
 	export let task: Task;
 

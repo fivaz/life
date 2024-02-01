@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { EEvent } from '$lib/task/utils';
+	import type { Event } from '$lib/task/utils';
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
-	import Event from './event/Event.svelte';
+	import Appointment from './event/Event.svelte';
 	import { halfHourInterval, getGridRowsStyle } from './service';
 
-	export let events: EEvent[];
+	export let events: Event[];
 
 	export let targetDate: Date;
 
@@ -29,7 +29,7 @@
 				class="relative w-full h-full rounded-lg pointer-events-auto min-w-0"
 				style={getGridRowsStyle(event)}
 			>
-				<Event {targetDate} {event} on:edit />
+				<Appointment {targetDate} {event} on:edit />
 			</li>
 		{/each}
 	</ol>

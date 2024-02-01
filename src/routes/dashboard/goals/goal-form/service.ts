@@ -1,11 +1,8 @@
 import { createModal } from '$lib/components/dialog/service';
-import { DATE } from '$lib/consts';
 import { db } from '$lib/firebase';
 import type { Goal } from '$lib/goal/utils';
-import { parse } from 'date-fns';
 import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
-import { EventDispatcher } from 'svelte';
-import { string } from 'yup';
+import type { EventDispatcher } from 'svelte';
 
 export function editGoal(id: string, data: Omit<Goal, 'id'>, userId: string) {
 	const goalDocRef = doc(db, 'users', userId, 'goals', id);

@@ -1,31 +1,16 @@
 <script lang="ts">
 	import { ArrowUturnUp } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import type { SubmitFunction } from '@sveltejs/kit';
-	import { applyAction, enhance } from '$app/forms';
 	import Button from '$lib/components/button/Button.svelte';
-	import { updateTasks } from '$lib/task/store';
 	import type { Task } from '$lib/task/utils';
-	import type { ActionData } from '../../../../../../.svelte-kit/types/src/routes/dashboard/to-dos/$types';
 
 	export let toDo: Task;
-
-	export let form: ActionData | null;
-	const submit: SubmitFunction = () => {
-		return async ({ result }) => {
-			await applyAction(result);
-			if (result.type === 'success') {
-				if (form?.updated) {
-					updateTasks(form.updated);
-				}
-			}
-		};
-	};
 </script>
 
-<form method="POST" action="?/rescheduleToTomorrow" use:enhance={submit}>
+<form method="POST" action="?/rescheduleToTomorrow">
 	<input type="hidden" name="id" value={toDo.id} />
-	<input type="hidden" name="startDate" value={toDo.startDate} />
+	<input type="hidden" name="date" value={toDo.date} />
+	<input type="hidden" name="startTime" value={toDo.startTime} />
 	<input type="hidden" name="duration" value={toDo.duration} />
 	<Button type="submit">
 		<Icon src={ArrowUturnUp} class="h-4 w-4" />

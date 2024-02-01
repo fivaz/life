@@ -1,13 +1,10 @@
-import { applyAction } from '$app/forms';
 import type { Category } from '$lib/category/utils';
 import { weekDays } from '$lib/components/days-checkbox/service';
 import { createModal } from '$lib/components/dialog/service';
-import { DATE, DATETIME, TIME, UnknownError } from '$lib/consts';
+import { DATE, DATETIME, TIME } from '$lib/consts';
 import { db } from '$lib/firebase';
 import type { Goal } from '$lib/goal/utils';
-import { updateTasks } from '$lib/task/store';
-import type { OnlyTTask, Task } from '$lib/task/utils';
-import { convertToTime } from '$lib/task/utils';
+import type { OnlyTTask, Task, ToDo, Event } from '$lib/task/utils';
 import {
 	add,
 	addMinutes,
@@ -21,45 +18,13 @@ import {
 } from 'date-fns';
 import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import type { EventDispatcher } from 'svelte';
-import { string } from 'yup';
 
 export type TaskIn = OnlyTTask & {
 	wasRecurring: boolean;
 	isEvent: boolean;
 };
 
-export const modalId = 'task-form';
-
-export function convertToTaskIn(task: Task): TaskIn {
-	return {
-		id: task.id,
-		name: task.name,
-		description: task.description,
-		isEvent: !!(task.startDate && task.endDate && task.duration),
-		date: format(task.startDate || new Date(), DATE),
-		startTime: format(task.startDate || new Date(), TIME),
-		endTime: format(task.endDate || addMinutes(new Date(), 15), TIME),
-		duration: convertToTime(task.duration || 15),
-		deadline: task.deadline ? format(task.deadline || new Date(), DATE) : '',
-		isDone: task.isDone,
-		categoryId: task.categoryId,
-		goalId: task.goalId,
-		isRecurring: task.isRecurring,
-		wasRecurring: task.isRecurring,
-		recurringStartAt: format(task.recurringStartAt || new Date(), DATE),
-		recurringEndAt: format(task.recurringEndAt || addMonths(new Date(), 1), DATE),
-		recurringDaysOfWeek: task.recurringDaysOfWeek.length
-			? task.recurringDaysOfWeek
-			: weekDays.slice(1, 6),
-		recurringExceptions: task.recurringExceptions,
-	};
-}
-
-export function buildEmptyTask(
-	categories: Category[],
-	goal: Goal | null = null,
-	isEvent: boolean = false,
-): Task {
+export function buildEmptyTask(categories: Category[], goal: Goal | null = null): Task {
 	return {
 		name: '',
 		description: '',
@@ -159,21 +124,24 @@ function buildDeadline(formData: FormData) {
 	formData.set('deadline', deadline);
 }
 
-export function isEventsDateInverted(task: Task) {
+export function isEventsDateInverted(task: Event | ToDo) {
 	return (
-		task.startTime &&
+		'startTime' in task &&
+		'endTime' in task &&
 		!isAfter(parse(task.endTime, TIME, new Date()), parse(task.startTime, TIME, new Date()))
 	);
 }
 
-export function editTask(id: string, data: Partial<Omit<Task, 'id'>>, userId: string) {
-	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
-	return updateDoc(taskDocRef, data);
+export function editTask(id: string | undefined, data: Partial<Omit<Task, 'id'>>, userId: string) {
+	if (id) {
+		const taskDocRef = doc(db, 'users', userId, 'tasks', id);
+		void updateDoc(taskDocRef, data);
+	}
 }
 
 export function addTask(data: Partial<Omit<Task, 'id'>>, userId: string) {
 	const tasksCollectionRef = collection(db, 'users', userId, 'tasks');
-	return addDoc(tasksCollectionRef, data);
+	void addDoc(tasksCollectionRef, data);
 }
 
 export async function deleteTask(

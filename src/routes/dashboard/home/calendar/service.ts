@@ -1,10 +1,14 @@
 import type { Category } from '$lib/category/utils';
-import type { TaskIn } from '$lib/components/task-form/service';
-import { DATE, homeRoute, TIME } from '$lib/consts';
-import type { EEvent, Task } from '$lib/task/utils';
-import { differenceInMinutes, format, setHours, setMinutes } from 'date-fns';
-import type { SerializedEvent } from '../api/service';
-import { deserializeEvent } from '../api/service';
+import { DATE, TIME } from '$lib/consts';
+import type { Goal } from '$lib/goal/utils';
+import type { Event } from '$lib/task/utils';
+import { getDuration } from '$lib/task/utils';
+import {
+	addMinutes,
+	format,
+	setHours,
+	setMinutes,
+} from 'date-fns';
 import { halfHourInterval } from './calendar-body/calendar-columns/calendar-rows/service';
 
 function buildDate(date: Date, timeInterval: number) {
@@ -21,45 +25,41 @@ export function buildEventWithTime(
 	categories: Category[],
 	date: Date,
 	quarterHourInterval: number,
-): TaskIn {
+): Event {
 	return {
-		id: 0,
 		name: '',
-		description: null,
-		isEvent: true,
+		description: '',
 		date: format(date, DATE),
 		startTime: buildDate(date, quarterHourInterval),
 		endTime: buildDate(date, quarterHourInterval + 0.5),
 		duration: '00:15',
-		deadline: format(date, DATE),
 		isDone: false,
-		categoryId: categories.find((category) => category.isDefault)?.id || categories[0]?.id || 0,
-		goalId: null,
-		isRecurring: false,
-		wasRecurring: false,
-		recurringStartAt: '',
-		recurringEndAt: '',
-		recurringDaysOfWeek: [],
-		recurringExceptions: [],
+		category: categories.find((category) => category.isDefault) || categories[0],
+		goal: null,
 	};
 }
 
-export function moveEvent(event: EEvent, date: Date, quarterHourInterval: number) {
-	const duration = differenceInMinutes(event.endDate, event.startDate);
+export function buildEmptyEvent(categories: Category[], goal: Goal | null = null): Event {
 	return {
-		...event,
-		startDate: setMinutes(setHours(date, 0), quarterHourInterval * 15),
-		endDate: setMinutes(setHours(date, 0), quarterHourInterval * 15 + duration),
-	} satisfies Task;
+		name: '',
+		description: '',
+		date: format(new Date(), DATE),
+		startTime: format(new Date(), TIME),
+		endTime: format(addMinutes(new Date(), 15), TIME),
+		duration: '00:15',
+		isDone: false,
+		category: categories.find((category) => category.isDefault) || categories[0],
+		goal,
+	};
 }
 
-export async function preserveEvent(event: Task): Promise<EEvent[]> {
-	const response = await fetch(`${homeRoute}/api`, {
-		method: 'POST',
-		body: JSON.stringify(event),
-	});
-
-	const serializedEvents: SerializedEvent[] = await response.json();
-
-	return serializedEvents.map((event) => deserializeEvent(event));
+export function moveEvent<E extends Event>(event: E, date: Date, quarterHourInterval: number) {
+	return {
+		...event,
+		startTime: format(setMinutes(setHours(date, 0), quarterHourInterval * 15), TIME),
+		endTime: format(
+			setMinutes(setHours(date, 0), quarterHourInterval * 15 + getDuration(event)),
+			TIME,
+		),
+	} satisfies E;
 }

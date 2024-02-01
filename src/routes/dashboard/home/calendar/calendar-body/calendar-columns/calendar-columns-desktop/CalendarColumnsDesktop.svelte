@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { events, tasks } from '$lib/task/store';
+	import type { Task } from '$lib/task/utils';
 	import classnames from 'classnames';
 	import { format, isToday } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
@@ -9,6 +9,8 @@
 	import Stats from '../stats/Stats.svelte';
 
 	export let dates: Date[];
+
+	export let tasks: Task[];
 
 	let className = '';
 	export { className as class };
@@ -25,10 +27,10 @@
 			<div class="flex flex-col divide-y">
 				<div class="text-xs text-center h-8">
 					<Stats
-						events={$events.filter((event) => isEventOnDay(event, date))}
+						events={tasks.filter((event) => isEventOnDay(event, date))}
 						class="justify-center"
 					/>
-					<DueToDos toDos={$tasks.filter((task) => isToDoOnDay(task, date))} />
+					<DueToDos toDos={tasks.filter((task) => isToDoOnDay(task, date))} />
 				</div>
 
 				<div class="flex items-center justify-center gap-1 flex-row py-3">
@@ -44,7 +46,7 @@
 				</div>
 				<CalendarRows
 					targetDate={date}
-					events={$events.filter((event) => isEventOnDay(event, date))}
+					events={tasks.filter((event) => isEventOnDay(event, date))}
 					on:edit
 					on:create={(e) => dispatch('create', { timeInterval: e.detail, date })}
 					on:move={(e) => dispatch('move', { timeInterval: e.detail, date })}

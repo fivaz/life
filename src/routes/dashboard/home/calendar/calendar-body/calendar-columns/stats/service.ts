@@ -1,10 +1,10 @@
 import type { types } from '$lib/category/utils';
-import type { EEvent } from '$lib/task/utils';
-import { differenceInMilliseconds } from 'date-fns';
+import type { Event } from '$lib/task/utils';
+import { getDuration } from '$lib/task/utils';
 
 type GroupType = (typeof types)[number];
 
-export function calculateGroupPercentages(events: EEvent[]): Record<GroupType, number> {
+export function calculateGroupPercentages(events: Event[]): Record<GroupType, number> {
 	const groupTimes = calculateGroupTimes(events);
 	const totalDayTime = 24 * 60 * 60 * 1000; // Total day time in milliseconds
 	const groupPercentage: Record<GroupType, number> = {
@@ -21,7 +21,7 @@ export function calculateGroupPercentages(events: EEvent[]): Record<GroupType, n
 	return groupPercentage;
 }
 
-function calculateGroupTimes(events: EEvent[]): Record<GroupType, number> {
+function calculateGroupTimes(events: Event[]): Record<GroupType, number> {
 	const groupTimes: Record<GroupType, number> = {
 		sleep: 0,
 		work: 0,
@@ -29,9 +29,9 @@ function calculateGroupTimes(events: EEvent[]): Record<GroupType, number> {
 	};
 
 	for (const event of events) {
-		const duration = differenceInMilliseconds(event.endDate, event.startDate);
-		const currentTotal = groupTimes[event.category.group as GroupType];
-		groupTimes[event.category.group as GroupType] = currentTotal + duration;
+		const duration = getDuration(event);
+		const currentTotal = groupTimes[event.category.type as GroupType];
+		groupTimes[event.category.type as GroupType] = currentTotal + duration;
 	}
 
 	return groupTimes;

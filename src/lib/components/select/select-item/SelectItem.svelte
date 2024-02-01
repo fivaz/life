@@ -7,6 +7,7 @@
 	let className = '';
 	export { className as class };
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	export let value: any;
 </script>
 

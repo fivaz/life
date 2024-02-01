@@ -1,16 +1,13 @@
 import { DATE, DATE_FR } from '$lib/consts';
-import type { EEvent, Task } from '$lib/task/utils';
-import { format, isPast, isToday, isTomorrow, parse, parseISO, startOfWeek } from 'date-fns';
-import { derived, writable } from 'svelte/store';
-
-export const tasks = writable<Task[]>([]);
+import type { Task } from '$lib/task/utils';
+import { format, isPast, isToday, isTomorrow, parse, startOfWeek } from 'date-fns';
 
 function isCurrentWeek(date: Date) {
 	return startOfWeek(new Date()).getTime() === startOfWeek(date).getTime();
 }
 
 function getDateName(task: Task): string {
-	const date = parse('date' in task ? task.date : task.deadline, DATE, new Date());
+	const date = parse('date' in task && task.date ? task.date : task.deadline, DATE, new Date());
 
 	if ('recurringStartAt' in task) {
 		return 'Recurring';
@@ -36,8 +33,8 @@ function getDateName(task: Task): string {
 
 function sortToDos(todos: Task[]) {
 	return todos.sort((a, b) => {
-		const dateA = parse('date' in a ? a.date : a.deadline, DATE, new Date());
-		const dateB = parse('date' in b ? b.date : b.deadline, DATE, new Date());
+		const dateA = parse('date' in a && a.date ? a.date : a.deadline, DATE, new Date());
+		const dateB = parse('date' in b && a.date ? b.date : b.deadline, DATE, new Date());
 		if (!dateA) {
 			return 1;
 		}
@@ -65,41 +62,9 @@ function groupToDosByDate(toDos: Task[]): Record<string, Task[]> {
 	}, {});
 }
 
-export const events = derived(
-	tasks,
-	($tasks) => $tasks.filter((task) => task.startDate && task.endDate) as EEvent[],
-);
-
-export const groupedToDos = derived(tasks, ($tasks) => getToDos($tasks));
-
-export function updateTasks(savedTasks: Task | Task[]) {
-	if (Array.isArray(savedTasks)) {
-		savedTasks.forEach((savedTask) => updateTask(savedTask));
-	} else {
-		updateTask(savedTasks);
-	}
-}
-
-export function updateTask(task: Task) {
-	tasks.update(($tasks) => {
-		const index = $tasks.findIndex((existingTask) => existingTask.id === task.id);
-		if (index !== -1) {
-			// Update existing task
-			return $tasks.map((existingTask) => (existingTask.id === task.id ? task : existingTask));
-		} else {
-			// Add new task
-			return [...$tasks, task];
-		}
-	});
-}
-
-export function removeTask(task: Task) {
-	tasks.update(($tasks) => $tasks.filter((existingTask) => existingTask.id !== task.id));
-}
-
-export function toggleEvent(task: Task) {
-	tasks.update(($tasks) => [
-		...$tasks.filter((existingTask) => existingTask.id !== task.id),
-		{ ...task, isDone: !task.isDone },
-	]);
-}
+// export function toggleEvent(task: Task) {
+// 	tasks.update(($tasks) => [
+// 		...$tasks.filter((existingTask) => existingTask.id !== task.id),
+// 		{ ...task, isDone: !task.isDone },
+// 	]);
+// }

@@ -1,18 +1,16 @@
 <script lang="ts">
-	import type { SubmitFunction } from '@sveltejs/kit';
-	import { enhance } from '$app/forms';
 	import { tailwindColors } from '$lib/category/utils';
 	import Loading from '$lib/components/loading/Loading.svelte';
+	import { DATE } from '$lib/consts';
 	import { removeDraggedEvent, setDraggedEvent } from '$lib/dragged/store';
-	import { updateTasks } from '$lib/task/store';
-	import type { EEvent } from '$lib/task/utils';
+	import type { Event } from '$lib/task/utils';
 	import classnames from 'classnames';
-	import { format } from 'date-fns';
+	import { format, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 	import EventName from './event-name/EventName.svelte';
 	import { isShort } from './service';
 
-	export let event: EEvent;
+	export let event: Event;
 
 	// the date this event is taking place, in case of a recurring Event
 	// this might not be the same day as the event.startDate
@@ -22,7 +20,7 @@
 
 	let formElement: HTMLFormElement | null = null;
 
-	const dispatch = createEventDispatcher<{ edit: { event: EEvent; targetDate: Date } }>();
+	const dispatch = createEventDispatcher<{ edit: { event: Event; targetDate: Date } }>();
 
 	function dragStart(e: DragEvent) {
 		if (e.currentTarget instanceof HTMLDivElement) {
@@ -37,16 +35,6 @@
 			removeDraggedEvent();
 		}
 	}
-
-	const submit: SubmitFunction = () => {
-		loading = true;
-		return async ({ result }) => {
-			if (result.type === 'success' && result.data?.updated) {
-				updateTasks(result.data.updated);
-			}
-			loading = false;
-		};
-	};
 </script>
 
 <div
@@ -69,13 +57,7 @@
 		tailwindColors[event.category.color].text,
 	)}
 >
-	<form
-		class="absolute right-0 flex pr-2"
-		method="POST"
-		action="?/toggle"
-		bind:this={formElement}
-		use:enhance={submit}
-	>
+	<form class="absolute right-0 flex pr-2" method="POST" action="?/toggle" bind:this={formElement}>
 		<input type="hidden" name="id" value={event.id} />
 		<input type="hidden" name="targetDate" value={targetDate.toISOString()} />
 		<input
@@ -90,7 +72,7 @@
 	</form>
 
 	<p class={classnames({ hidden: isShort(event) }, 'text-blue-500 group-hover:text-blue-700')}>
-		<time dateTime={event.startDate.toISOString()}>{format(event.startDate, 'p')}</time>
+		<time dateTime={event.date}>{format(parse(event.date, DATE, new Date()), 'p')}</time>
 	</p>
 
 	<EventName {event} />

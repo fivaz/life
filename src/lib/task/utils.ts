@@ -1,7 +1,7 @@
 import type { Category } from '$lib/category/utils';
-import { DATE, TIME } from '$lib/consts';
+import { TIME } from '$lib/consts';
 import type { Goal } from '$lib/goal/utils';
-import { format, parse, parseISO } from 'date-fns';
+import { differenceInMinutes, format, parse } from 'date-fns';
 
 export type TaskCommon = {
 	id?: string;
@@ -32,15 +32,9 @@ export type RecurringEvent = Event & {
 
 export type Task = ToDo & RecurringEvent;
 
-export type OnlyTTask = Omit<Task, 'category' | 'goal'>;
+export type OnlyTTask = Omit<ToDo, 'category' | 'goal'>;
 
-export type EEvent = Omit<Task, 'startDate' | 'endDate' | 'duration'> & {
-	startDate: string;
-	endDate: string;
-	duration: number;
-};
-
-export type OnlyEEvent = Omit<EEvent, 'category' | 'goal'>;
+export type OnlyEEvent = Omit<Event, 'category' | 'goal'>;
 
 export function convertToMinutes(duration: string) {
 	// to check if the duration string is HH:mm format
@@ -57,6 +51,36 @@ export function convertToTime(minutes: number | null): string {
 	}
 	const date = new Date(0, 0, 0, Math.floor(minutes / 60), minutes % 60);
 	return format(date, TIME);
+}
+
+export function parseTasks(tasksCollection: Array<Task & Record<string, string>>): Partial<Task>[] {
+	return tasksCollection.map((datum) => ({
+		id: datum.id,
+		name: datum.name,
+		isDone: datum.isDone,
+		category: datum.category,
+		description: datum.description,
+		goal: datum.goal,
+
+		deadline: datum.deadline,
+
+		date: datum.date,
+		startTime: datum.startTime,
+		endTime: datum.endTime,
+		duration: datum.duration,
+
+		recurringExceptions: datum.recurringExceptions,
+		recurringDaysOfWeek: datum.recurringDaysOfWeek,
+		recurringStartAt: datum.recurringStartAt,
+		recurringEndAt: datum.recurringEndAt,
+	}));
+}
+
+export function getDuration(event: Event): number {
+	const startDate = parse(event.startTime, TIME, new Date());
+	const endDate = parse(event.endTime, TIME, new Date());
+
+	return differenceInMinutes(startDate, endDate);
 }
 
 // export async function getTask(

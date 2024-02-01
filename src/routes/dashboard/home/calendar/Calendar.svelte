@@ -1,14 +1,17 @@
 <script lang="ts">
-	import type { TaskIn } from '$lib/components/task-form/service';
-	import { buildEmptyTask, convertToTaskIn } from '$lib/components/task-form/service';
+	import Modal from '$lib/components/modal/Modal.svelte';
+	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
+	import { editTask } from '$lib/components/task-form/service';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import { draggedEvent } from '$lib/dragged/store';
-	import { updateTasks } from '$lib/task/store';
+	import type { Event } from '$lib/task/utils';
 	import { startOfWeek } from 'date-fns';
 
+	import { SignedIn } from 'sveltefire';
+	import { parseCategories } from '../../categories/service';
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
-	import { buildEventWithTime, moveEvent, preserveEvent } from './service';
+	import { buildEmptyEvent, buildEventWithTime, moveEvent } from './service';
 
 	let currentDate = new Date();
 
@@ -16,38 +19,53 @@
 
 	let targetDate: Date | null = null;
 
-	let editingEvent: TaskIn = buildEmptyTask([], null, true);
+	let editingEvent: Event = buildEmptyEvent([]);
 
 	let showForm = false;
 </script>
 
-<div class="flex h-full flex-col divide-gray-200">
-	<CalendarHeader
-		bind:weekStart
-		{currentDate}
-		on:create={() => {
-			showForm = true;
-			editingEvent = buildEmptyTask([], null, true);
-		}}
-	/>
-	<CalendarBody
-		{weekStart}
-		on:edit={(e) => {
-			showForm = true;
-			targetDate = e.detail.targetDate;
-			editingEvent = convertToTaskIn(e.detail.event);
-		}}
-		on:create={(e) => {
-			showForm = true;
-			editingEvent = buildEventWithTime([], e.detail.date, e.detail.timeInterval);
-		}}
-		on:move={async (e) => {
-			if ($draggedEvent) {
-				const event = moveEvent($draggedEvent, e.detail.date, e.detail.timeInterval);
-				const events = await preserveEvent(event);
-				updateTasks(events);
-			}
-		}}
-	/>
-	<TaskForm show={showForm} task={editingEvent} {targetDate} on:close={() => (showForm = false)} />
-</div>
+<SignedIn let:user>
+	<SlimCollection
+		ref={`users/${user.uid}/categories`}
+		parse={parseCategories}
+		let:data={categories}
+	>
+		<div class="flex h-full flex-col divide-gray-200">
+			<CalendarHeader
+				bind:weekStart
+				{currentDate}
+				on:create={() => {
+					showForm = true;
+					editingEvent = buildEmptyEvent(categories);
+				}}
+			/>
+			<CalendarBody
+				{weekStart}
+				on:edit={(e) => {
+					showForm = true;
+					targetDate = e.detail.targetDate;
+					editingEvent = e.detail.event;
+				}}
+				on:create={(e) => {
+					showForm = true;
+					editingEvent = buildEventWithTime([], e.detail.date, e.detail.timeInterval);
+				}}
+				on:move={async (e) => {
+					if ($draggedEvent) {
+						const { id, ...data } = moveEvent($draggedEvent, e.detail.date, e.detail.timeInterval);
+						editTask(id, data, user.uid);
+					}
+				}}
+			/>
+			<Modal show={showForm} on:close={() => (showForm = false)}>
+				<TaskForm
+					userId={user.uid}
+					task={editingEvent}
+					{categories}
+					{targetDate}
+					on:close={() => (showForm = false)}
+				/>
+			</Modal>
+		</div>
+	</SlimCollection>
+</SignedIn>

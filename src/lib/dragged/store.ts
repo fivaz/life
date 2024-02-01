@@ -1,8 +1,8 @@
-import type { EEvent } from '$lib/task/utils';
+import type { Event } from '$lib/task/utils';
 import { writable } from 'svelte/store';
 
-export const draggedEvent = writable<EEvent | undefined>(undefined);
-export function setDraggedEvent(newEvent: EEvent) {
+export const draggedEvent = writable<Event | undefined>(undefined);
+export function setDraggedEvent(newEvent: Event) {
 	draggedEvent.update(() => newEvent);
 }
 

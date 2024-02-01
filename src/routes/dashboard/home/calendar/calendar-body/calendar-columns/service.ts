@@ -1,11 +1,12 @@
 import { weekDays } from '$lib/components/days-checkbox/service';
-import type { EEvent, Task } from '$lib/task/utils';
-import { endOfDay, getDay, isSameDay, isWithinInterval, startOfDay } from 'date-fns';
+import { DATE, DATETIME } from '$lib/consts';
+import type { Event, RecurringEvent, ToDo } from '$lib/task/utils';
+import { endOfDay, getDay, isSameDay, isWithinInterval, parse, startOfDay } from 'date-fns';
 
-function isRecurringOnDay(event: EEvent, day: Date): boolean {
+function isRecurringOnDay(event: RecurringEvent, day: Date): boolean {
 	if (
 		event.recurringExceptions.some((exceptionDate) => {
-			return isWithinInterval(exceptionDate, {
+			return isWithinInterval(parse(exceptionDate, DATE, new Date()), {
 				start: startOfDay(day),
 				end: endOfDay(day),
 			});
@@ -16,8 +17,8 @@ function isRecurringOnDay(event: EEvent, day: Date): boolean {
 	if (
 		// don't forget to always put this inside an if to check recurringStartAt and recurringEndAt
 		isWithinInterval(day, {
-			start: event.recurringStartAt as Date,
-			end: event.recurringEndAt as Date,
+			start: parse(event.recurringStartAt, DATE, new Date()),
+			end: parse(event.recurringEndAt, DATE, new Date()),
 		})
 	) {
 		// Check if today is one of the recurring days of the week
@@ -27,20 +28,28 @@ function isRecurringOnDay(event: EEvent, day: Date): boolean {
 	return false;
 }
 
-export function isToDoOnDay(task: Task, day: Date): boolean {
-	return !!task.deadline && isSameDay(task.deadline, day);
+export function isToDoOnDay(task: ToDo, day: Date): boolean {
+	return !!task.deadline && isSameDay(parse(task.deadline, DATE, new Date()), day);
 }
 
-export function isEventOnDay(event: EEvent, day: Date): boolean {
-	if (event.isRecurring && event.recurringStartAt && event.recurringEndAt) {
-		return isRecurringOnDay(event, day);
+export function isEventOnDay(event: Event | RecurringEvent, day: Date): boolean {
+	if ('recurringStartAt' in event && event.recurringStartAt) {
+		console.log(event);
+		return isRecurringOnDay(event as RecurringEvent, day);
 	}
+
+	const startDateString = `${event.date} ${event.startTime}`;
+	const endDateString = `${event.date} ${event.endTime}`;
+
+	const startDate = parse(startDateString, DATETIME, new Date());
+	const endDate = parse(endDateString, DATETIME, new Date());
+
 	return (
-		isWithinInterval(event.startDate, {
+		isWithinInterval(startDate, {
 			start: startOfDay(day),
 			end: endOfDay(day),
 		}) ||
-		isWithinInterval(event.endDate, {
+		isWithinInterval(endDate, {
 			start: startOfDay(day),
 			end: endOfDay(day),
 		})
