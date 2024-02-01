@@ -3,9 +3,9 @@ import { writable } from 'svelte/store';
 
 export const draggedEvent = writable<Event | undefined>(undefined);
 export function setDraggedEvent(newEvent: Event) {
-	draggedEvent.update(() => newEvent);
+	draggedEvent.set(newEvent);
 }
 
 export function removeDraggedEvent() {
-	draggedEvent.update(() => undefined);
+	draggedEvent.set(undefined);
 }

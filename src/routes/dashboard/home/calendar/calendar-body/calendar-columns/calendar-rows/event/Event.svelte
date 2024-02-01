@@ -3,14 +3,14 @@
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import { DATE } from '$lib/consts';
 	import { removeDraggedEvent, setDraggedEvent } from '$lib/dragged/store';
-	import type { Event } from '$lib/task/utils';
+	import type { Event, RecurringEvent } from '$lib/task/utils';
 	import classnames from 'classnames';
 	import { format, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 	import EventName from './event-name/EventName.svelte';
 	import { isShort } from './service';
 
-	export let event: Event;
+	export let event: Event | RecurringEvent;
 
 	// the date this event is taking place, in case of a recurring Event
 	// this might not be the same day as the event.startDate

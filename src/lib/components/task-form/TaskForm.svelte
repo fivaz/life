@@ -15,18 +15,18 @@
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import { DATE, TIME } from '$lib/consts';
 	import { parseGoals } from '$lib/goal/utils';
-	import type { Task, ToDo, Event } from '$lib/task/utils';
+	import type { Task, AnyTask } from '$lib/task/utils';
 	import { addMinutes, endOfWeek, format } from 'date-fns';
 	import { createForm } from 'felte';
 	import { createEventDispatcher } from 'svelte';
 	import Flatpickr from 'svelte-flatpickr';
 	import { object } from 'yup';
 	// eslint-disable-next-line import/max-dependencies
-	import { addTask, deleteTask, editTask, isEventsDateInverted } from './service';
+	import { addTask, editTask, isEventsDateInverted } from './service';
 
 	export let userId: string;
 
-	export let task: ToDo | Event;
+	export let task: AnyTask;
 
 	export let categories: Category[];
 
@@ -337,9 +337,7 @@
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
 		{#if isEditing}
-			<Button color="red" type="button" on:click={() => deleteTask(task.id, userId, dispatch)}>
-				Delete
-			</Button>
+			<Button color="red" type="button">Delete</Button>
 		{:else}
 			<div />
 		{/if}

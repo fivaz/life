@@ -51,6 +51,7 @@ export function buildEmptyEvent(categories: Category[], goal: Goal | null = null
 export function moveEvent<E extends Event>(event: E, date: Date, quarterHourInterval: number) {
 	return {
 		...event,
+		date: format(date, DATE),
 		startTime: format(setMinutes(setHours(date, 0), quarterHourInterval * 15), TIME),
 		endTime: format(
 			setMinutes(setHours(date, 0), quarterHourInterval * 15 + getDuration(event)),

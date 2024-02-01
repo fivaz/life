@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Task } from '$lib/task/utils';
+	import type { AnyTask, RecurringEvent, Event, ToDo } from '$lib/task/utils';
 	import classnames from 'classnames';
 	import { format, isToday } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
@@ -10,7 +10,7 @@
 
 	export let dates: Date[];
 
-	export let tasks: Task[];
+	export let tasks: AnyTask[];
 
 	let className = '';
 	export { className as class };
@@ -19,6 +19,14 @@
 		create: { timeInterval: number; date: Date };
 		move: { timeInterval: number; date: Date };
 	}>();
+
+	function getEvents(date: Date, tasks: AnyTask[]): Array<Event | RecurringEvent> {
+		return tasks.filter((task): task is Event | RecurringEvent => isEventOnDay(task, date));
+	}
+
+	function getToDos(date: Date, tasks: AnyTask[]): Array<ToDo> {
+		return tasks.filter((task): task is ToDo => isToDoOnDay(task, date));
+	}
 </script>
 
 <div class={className}>
@@ -26,11 +34,8 @@
 		{#each dates as date (date)}
 			<div class="flex flex-col divide-y">
 				<div class="text-xs text-center h-8">
-					<Stats
-						events={tasks.filter((event) => isEventOnDay(event, date))}
-						class="justify-center"
-					/>
-					<DueToDos toDos={tasks.filter((task) => isToDoOnDay(task, date))} />
+					<Stats events={getEvents(date, tasks)} class="justify-center" />
+					<DueToDos toDos={getToDos(date, tasks)} />
 				</div>
 
 				<div class="flex items-center justify-center gap-1 flex-row py-3">
@@ -46,7 +51,7 @@
 				</div>
 				<CalendarRows
 					targetDate={date}
-					events={tasks.filter((event) => isEventOnDay(event, date))}
+					events={getEvents(date, tasks)}
 					on:edit
 					on:create={(e) => dispatch('create', { timeInterval: e.detail, date })}
 					on:move={(e) => dispatch('move', { timeInterval: e.detail, date })}

@@ -16,7 +16,7 @@ import {
 	isValid,
 	parse,
 } from 'date-fns';
-import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import type { EventDispatcher } from 'svelte';
 
 export type TaskIn = OnlyTTask & {
@@ -135,7 +135,7 @@ export function isEventsDateInverted(task: Event | ToDo) {
 export function editTask(id: string | undefined, data: Partial<Omit<Task, 'id'>>, userId: string) {
 	if (id) {
 		const taskDocRef = doc(db, 'users', userId, 'tasks', id);
-		void updateDoc(taskDocRef, data);
+		void setDoc(taskDocRef, data);
 	}
 }
 

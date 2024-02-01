@@ -4,7 +4,7 @@
 	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import { auth, db } from '$lib/firebase';
-	import { getToDos } from '$lib/task/store';
+	import { getTasksByDate } from '$lib/task/store';
 	import { parseTasks } from '$lib/task/utils';
 	import { collection, query, where } from 'firebase/firestore';
 	import { SignedIn, userStore } from 'sveltefire';
@@ -42,7 +42,7 @@
 				</div>
 
 				<ul role="list" class="divide-y divide-gray-100">
-					{#each Object.entries(getToDos(tasks)) as [date, list] (date)}
+					{#each Object.entries(getTasksByDate(tasks)) as [date, list] (date)}
 						<div class="flex justify-between px-2">
 							<div>{date}</div>
 							<div>{getSumOfDurationsAsTime(list)}</div>
@@ -52,7 +52,6 @@
 								{task}
 								on:edit={(e) => {
 									showForm = true;
-									console.log(e.detail);
 									editingToDo = e.detail;
 								}}
 							/>

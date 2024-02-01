@@ -30,19 +30,19 @@ export type RecurringEvent = Event & {
 	recurringEndAt: string;
 };
 
-export type Task = ToDo & RecurringEvent;
+export type Task = ToDo & Event & RecurringEvent;
+
+export type AnyTask = ToDo | Event | RecurringEvent;
 
 export type OnlyTTask = Omit<ToDo, 'category' | 'goal'>;
 
-export type OnlyEEvent = Omit<Event, 'category' | 'goal'>;
-
-export function convertToMinutes(duration: string) {
+export function convertDurationToMinutes(task: AnyTask) {
 	// to check if the duration string is HH:mm format
-	if (!/^([01]\d|2[0-3]):([0-5]\d)$/.test(duration)) {
-		return 0;
+	if ('duration' in task && task.duration && /^([01]\d|2[0-3]):([0-5]\d)$/.test(task.duration)) {
+		const [hours, minutes] = task.duration.split(':').map(Number);
+		return hours * 60 + minutes;
 	}
-	const [hours, minutes] = duration.split(':').map(Number);
-	return hours * 60 + minutes;
+	return 0;
 }
 
 export function convertToTime(minutes: number | null): string {
@@ -53,26 +53,25 @@ export function convertToTime(minutes: number | null): string {
 	return format(date, TIME);
 }
 
-export function parseTasks(tasksCollection: Array<Task & Record<string, string>>): Partial<Task>[] {
+export function parseTasks(
+	tasksCollection: Array<(ToDo | Event | RecurringEvent) & Record<string, string>>,
+): Partial<ToDo | Event | RecurringEvent>[] {
 	return tasksCollection.map((datum) => ({
 		id: datum.id,
 		name: datum.name,
 		isDone: datum.isDone,
 		category: datum.category,
-		description: datum.description,
-		goal: datum.goal,
-
-		deadline: datum.deadline,
-
-		date: datum.date,
-		startTime: datum.startTime,
-		endTime: datum.endTime,
-		duration: datum.duration,
-
-		recurringExceptions: datum.recurringExceptions,
-		recurringDaysOfWeek: datum.recurringDaysOfWeek,
-		recurringStartAt: datum.recurringStartAt,
-		recurringEndAt: datum.recurringEndAt,
+		...(datum.description ? { description: datum.description } : {}),
+		...(datum.goal ? { goal: datum.goal } : {}),
+		...(datum.deadline ? { deadline: datum.deadline } : {}),
+		...(datum.date ? { date: datum.date } : {}),
+		...(datum.startTime ? { startTime: datum.startTime } : {}),
+		...(datum.endTime ? { endTime: datum.endTime } : {}),
+		...(datum.duration ? { duration: datum.duration } : {}),
+		...(datum.recurringExceptions ? { recurringExceptions: datum.recurringExceptions } : {}),
+		...(datum.recurringDaysOfWeek ? { recurringDaysOfWeek: datum.recurringDaysOfWeek } : {}),
+		...(datum.recurringStartAt ? { recurringStartAt: datum.recurringStartAt } : {}),
+		...(datum.recurringEndAt ? { recurringEndAt: datum.recurringEndAt } : {}),
 	}));
 }
 

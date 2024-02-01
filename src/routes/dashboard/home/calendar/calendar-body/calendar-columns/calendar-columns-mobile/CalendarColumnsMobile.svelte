@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Task } from '$lib/task/utils';
+	import type { AnyTask, Event, RecurringEvent, ToDo } from '$lib/task/utils';
 	import classnames from 'classnames';
 	import { format, getDate, isToday } from 'date-fns';
 
@@ -11,7 +11,7 @@
 
 	export let dates: Date[];
 
-	export let tasks: Task[];
+	export let tasks: AnyTask[];
 
 	let className = '';
 	export { className as class };
@@ -24,15 +24,20 @@
 		create: { timeInterval: number; date: Date };
 		move: { timeInterval: number; date: Date };
 	}>();
+
+	function getEvents(date: Date, tasks: AnyTask[]): Array<Event | RecurringEvent> {
+		return tasks.filter((task): task is Event | RecurringEvent => isEventOnDay(task, date));
+	}
+
+	function getToDos(date: Date, tasks: AnyTask[]): Array<ToDo> {
+		return tasks.filter((task): task is ToDo => isToDoOnDay(task, date));
+	}
 </script>
 
 <div class={classnames('h-full divide-y', className)}>
 	<div class="text-xs text-center h-8">
-		<Stats
-			class="justify-around"
-			events={tasks.filter((event) => isEventOnDay(event, selectedDate))}
-		/>
-		<DueToDos toDos={tasks.filter((task) => isToDoOnDay(task, selectedDate))} />
+		<Stats events={getEvents(selectedDate, tasks)} class="justify-around" />
+		<DueToDos toDos={getToDos(selectedDate, tasks)} />
 	</div>
 
 	<div class="grid grid-cols-7">
@@ -57,7 +62,7 @@
 
 	<CalendarRows
 		targetDate={selectedDate}
-		events={tasks.filter((event) => isEventOnDay(event, selectedDate))}
+		events={getEvents(selectedDate, tasks)}
 		on:edit
 		on:create={(e) => dispatch('create', { timeInterval: e.detail, date: selectedDate })}
 		on:move={(e) => dispatch('move', { timeInterval: e.detail, date: selectedDate })}

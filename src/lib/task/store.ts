@@ -31,7 +31,7 @@ function getDateName(task: Task): string {
 	return format(date, DATE_FR);
 }
 
-function sortToDos(todos: Task[]) {
+function sortTasks(todos: Task[]) {
 	return todos.sort((a, b) => {
 		const dateA = parse('date' in a && a.date ? a.date : a.deadline, DATE, new Date());
 		const dateB = parse('date' in b && a.date ? b.date : b.deadline, DATE, new Date());
@@ -45,12 +45,12 @@ function sortToDos(todos: Task[]) {
 	});
 }
 
-export function getToDos(tasks: Task[]): Record<string, Task[]> {
-	const sortedTodos = sortToDos(tasks);
-	return groupToDosByDate(sortedTodos);
+export function getTasksByDate(tasks: Task[]): Record<string, Task[]> {
+	const sortedTodos = sortTasks(tasks);
+	return groupTasksByDate(sortedTodos);
 }
 
-function groupToDosByDate(toDos: Task[]): Record<string, Task[]> {
+function groupTasksByDate(toDos: Task[]): Record<string, Task[]> {
 	return toDos.reduce<Record<string, Task[]>>((groups, toDo) => {
 		const date = getDateName(toDo);
 

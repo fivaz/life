@@ -1,7 +1,7 @@
 import type { Category } from '$lib/category/utils';
 import { DATE } from '$lib/consts';
-import type { Task, ToDo } from '$lib/task/utils';
-import { convertToMinutes } from '$lib/task/utils';
+import type { AnyTask, ToDo } from '$lib/task/utils';
+import { convertDurationToMinutes } from '$lib/task/utils';
 import { endOfWeek, format } from 'date-fns';
 
 export function buildEmptyToDo(categories: Category[]): ToDo {
@@ -15,9 +15,9 @@ export function buildEmptyToDo(categories: Category[]): ToDo {
 	};
 }
 
-export function getSumOfDurationsAsTime(tasks: Task[]): string {
+export function getSumOfDurationsAsTime(tasks: AnyTask[]): string {
 	const sumOfDurationsInMinutes = tasks.reduce(
-		(sum, task) => sum + convertToMinutes(task.duration),
+		(sum, task) => sum + convertDurationToMinutes(task),
 		0,
 	);
 	const hours = Math.floor(sumOfDurationsInMinutes / 60);
