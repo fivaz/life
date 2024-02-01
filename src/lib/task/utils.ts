@@ -20,7 +20,7 @@ export type Event = TaskCommon & {
 	date: string;
 	startTime: string;
 	endTime: string;
-	duration: number;
+	duration: string;
 };
 
 export type RecurringEvent = Event & {
@@ -30,7 +30,7 @@ export type RecurringEvent = Event & {
 	recurringEndAt: string;
 };
 
-export type Task = ToDo | RecurringEvent;
+export type Task = ToDo & RecurringEvent;
 
 export type OnlyTTask = Omit<Task, 'category' | 'goal'>;
 

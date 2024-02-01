@@ -5,7 +5,7 @@
 
 	export let value = false;
 
-	export let name: string;
+	export let name: string = '';
 
 	export let label: string = '';
 

@@ -54,7 +54,7 @@ export function convertToTaskIn(task: Task): TaskIn {
 	};
 }
 
-export function buildEmptyTaskIn(
+export function buildEmptyTask(
 	categories: Category[],
 	goal: Goal | null = null,
 	isEvent: boolean = false,
@@ -62,7 +62,6 @@ export function buildEmptyTaskIn(
 	return {
 		name: '',
 		description: '',
-		isEvent,
 		date: format(new Date(), DATE),
 		startTime: format(new Date(), TIME),
 		endTime: format(addMinutes(new Date(), 15), TIME),
@@ -71,8 +70,6 @@ export function buildEmptyTaskIn(
 		isDone: false,
 		category: categories.find((category) => category.isDefault) || categories[0],
 		goal,
-		isRecurring: false,
-		wasRecurring: false,
 		recurringStartAt: format(new Date(), DATE),
 		recurringEndAt: format(addMonths(new Date(), 1), DATE),
 		recurringDaysOfWeek: weekDays.slice(1, 6),
@@ -163,7 +160,7 @@ function buildDeadline(formData: FormData) {
 
 export function isEventsDateInverted(task: Task) {
 	return (
-		task.isEvent &&
+		task.startTime &&
 		!isAfter(parse(task.endTime, TIME, new Date()), parse(task.startTime, TIME, new Date()))
 	);
 }

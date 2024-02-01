@@ -2,7 +2,7 @@
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import type { Meta } from '@storybook/svelte';
 	import { categories } from '$lib/category/seed';
-	import { buildEmptyTaskIn, convertToTaskIn } from '$lib/components/task-form/service';
+	import { buildEmptyTask, convertToTaskIn } from '$lib/components/task-form/service';
 	import { redEvent } from '$lib/task/seed';
 	import TaskForm from './TaskForm.svelte';
 
@@ -25,7 +25,7 @@
 	args={{
 		categories,
 		form: null,
-		event: buildEmptyTaskIn(categories, null, true),
+		event: buildEmptyTask(categories, null, true),
 	}}
 />
 
@@ -34,7 +34,7 @@
 	args={{
 		categories,
 		form: null,
-		event: buildEmptyTaskIn(categories),
+		event: buildEmptyTask(categories),
 	}}
 />
 

@@ -3,7 +3,7 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
 	import type { TaskIn } from '$lib/components/task-form/service';
-	import { buildEmptyTaskIn, convertToTaskIn } from '$lib/components/task-form/service';
+	import { buildEmptyTask, convertToTaskIn } from '$lib/components/task-form/service';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import { auth, db } from '$lib/firebase';
 	import { getToDos, groupedToDos } from '$lib/task/store';
@@ -58,6 +58,7 @@
 								{task}
 								on:edit={(e) => {
 									showForm = true;
+									editingToDo = e.detail;
 								}}
 							/>
 						{/each}

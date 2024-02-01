@@ -29,14 +29,18 @@ export function parseTasks(tasksCollection: Array<Task & Record<string, string>>
 		isDone: datum.isDone,
 		category: datum.category,
 		description: datum.description,
+		goal: datum.goal,
+
 		deadline: datum.deadline,
-		startDate: datum.startDate,
-		endDate: datum.endDate,
+
+		date: datum.date,
+		startTime: datum.startTime,
+		endTime: datum.endTime,
 		duration: datum.duration,
+
 		recurringExceptions: datum.recurringExceptions,
 		recurringDaysOfWeek: datum.recurringDaysOfWeek,
 		recurringStartAt: datum.recurringStartAt,
 		recurringEndAt: datum.recurringEndAt,
-		goal: datum.goal,
 	}));
 }

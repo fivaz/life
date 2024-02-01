@@ -1,26 +1,37 @@
 <script lang="ts">
 	import { validator } from '@felte/validator-yup';
+	import { Transition } from '@rgossiaux/svelte-headlessui';
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { applyAction } from '$app/forms';
 	import type { Category } from '$lib/category/utils';
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
+	import DaysCheckbox from '$lib/components/days-checkbox/DaysCheckbox.svelte';
+	import { weekDays } from '$lib/components/days-checkbox/service';
 	import { createModal } from '$lib/components/dialog/service';
 	import Input from '$lib/components/input/Input.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
-	import EventSection from '$lib/components/task-form/event-section/EventSection.svelte';
-	import { UnknownError } from '$lib/consts';
+	import Toggle from '$lib/components/toggle/Toggle.svelte';
+	import { DATE, TIME } from '$lib/consts';
 	import { parseGoals } from '$lib/goal/utils';
 	import { updateTasks } from '$lib/task/store';
 	import type { Task } from '$lib/task/utils';
-	import type { SubSubmitFunction } from '$lib/types-utils';
-	import { createForm } from 'felte';
+	import { addMinutes, endOfWeek, format } from 'date-fns';
+	import { createForm, getValue } from 'felte';
 	import { createEventDispatcher } from 'svelte';
+	import Flatpickr from 'svelte-flatpickr';
 	import { object, string } from 'yup';
-	import { addTask, deleteTask, editTask, formatDates, isEventsDateInverted } from './service';
+	import {
+		addTask,
+		deleteTask,
+		editTask,
+		formatDates,
+		getDuration,
+		getEndTime,
+		isEventsDateInverted,
+	} from './service';
 
 	export let userId: string;
 
@@ -32,7 +43,53 @@
 
 	$: isEditing = !!task.id;
 
+	let isEventOpen = false;
+
+	let isRecurringOpen = false;
+
+	let isEvent = false;
+
+	let isRecurring = !!task.recurringStartAt;
+
 	let error = '';
+
+	const dispatch = createEventDispatcher<{ close: null }>();
+
+	const schema = object({});
+
+	const { form, data, errors, setFields, unsetField } = createForm({
+		extend: [validator({ schema })],
+		validateSchema: schema,
+		initialValues: task,
+		onSubmit: (values) => {
+			const slim = {
+				id: values.id,
+				name: values.name,
+				isDone: values.isDone,
+				category: values.category,
+				...(values.description ? { description: values.description } : {}),
+				...(values.deadline ? { deadline: values.deadline } : {}),
+				...(values.duration ? { duration: values.duration } : {}),
+				...(values.date ? { date: values.date } : {}),
+				...(values.startTime ? { startTime: values.startTime } : {}),
+				...(values.endTime ? { endTime: values.endTime } : {}),
+				...(values.recurringExceptions ? { recurringExceptions: values.recurringExceptions } : {}),
+				...(values.recurringDaysOfWeek ? { recurringDaysOfWeek: values.recurringDaysOfWeek } : {}),
+				...(values.recurringStartAt ? { recurringStartAt: values.recurringStartAt } : {}),
+				...(values.recurringEndAt ? { recurringEndAt: values.recurringEndAt } : {}),
+				...(values.goal ? { goal: values.goal } : {}),
+			};
+
+			const { id, ...data } = slim;
+
+			if (id) {
+				editTask(id, data, userId);
+			} else {
+				addTask(data, userId);
+			}
+			dispatch('close');
+		},
+	});
 
 	$: {
 		if (isEventsDateInverted(task)) {
@@ -46,51 +103,35 @@
 
 	$: formName = `${isEditing ? 'Edit' : 'Add'} ${task.deadline ? 'Event' : 'Task'}`;
 
-	const dispatch = createEventDispatcher<{ close: null }>();
-
-	const schema = object({});
-
-	const { form, data, errors } = createForm({
-		extend: [validator({ schema })],
-		validateSchema: schema,
-		initialValues: task,
-		onSubmit: (values) => {
-			const slim = {
-				id: values.id,
-				name: values.name,
-				isDone: values.isDone,
-				category: values.category,
-				...(values.description ? { description: values.description } : {}),
-				...(values.deadline ? { deadline: values.deadline } : {}),
-				...(values.date ? { date: values.date } : {}),
-				...(values.startTime ? { startTime: values.startTime } : {}),
-				...(values.endTime ? { endTime: values.endTime } : {}),
-				...(values.duration ? { duration: values.duration } : {}),
-				...(values.recurringExceptions ? { recurringExceptions: values.recurringExceptions } : {}),
-				...(values.recurringDaysOfWeek ? { recurringDaysOfWeek: values.recurringDaysOfWeek } : {}),
-				...(values.recurringStartAt ? { recurringStartAt: values.recurringStartAt } : {}),
-				...(values.recurringEndAt ? { recurringEndAt: values.recurringEndAt } : {}),
-				...(values.goal ? { goal: values.goal } : {}),
-			};
-
-			const { id, ...data } = slim;
-
-			console.log(data);
-
-			if (id) {
-				console.log('edit');
-				editTask(id, data, userId);
-			} else {
-				console.log('add');
-				addTask(data, userId).then((xxx) => console.log(xxx));
-			}
-			dispatch('close');
-		},
-	});
-
 	$: parsedErrors = Object.values($errors)
 		.filter((value) => value)
 		.join(', ');
+
+	// $: console.log($data);
+
+	$: {
+		if (isEvent) {
+			unsetField('deadline');
+			setFields('duration', '00:15');
+			setFields('date', format(new Date(), DATE));
+			setFields('startTime', format(new Date(), TIME));
+			setFields('endTime', format(addMinutes(new Date(), 15), TIME));
+		} else {
+			setFields('deadline', format(endOfWeek(new Date()), DATE));
+			unsetField('duration');
+			unsetField('date');
+			unsetField('startTime');
+			unsetField('endTime');
+		}
+	}
+
+	$: {
+		if (isRecurring) {
+			setFields('recurringDaysOfWeek', weekDays.slice(1, 6));
+		} else {
+			unsetField('recurringDaysOfWeek');
+		}
+	}
 </script>
 
 <form
@@ -164,7 +205,167 @@
 				</Select>
 			</SlimCollection>
 
-			<EventSection {task} />
+			<Input
+				type="date"
+				name="deadline"
+				label="Deadline"
+				class="flex items-center"
+				labelClass="w-1/5"
+				inputClass="flex-1"
+				disabled={isEvent}
+			/>
+
+			<div class="bg-white rounded-lg p-2">
+				<div class="flex">
+					<button
+						class="flex-1 text-start"
+						type="button"
+						on:click={() => {
+							if (isEvent) {
+								isEventOpen = !isEventOpen;
+							} else {
+								isEvent = true;
+							}
+						}}
+					>
+						Event
+					</button>
+					<Toggle
+						bind:value={isEvent}
+						on:change={(e) => {
+							isEventOpen = e.detail;
+							if (!e.detail) {
+								isRecurring = false;
+							}
+						}}
+					/>
+				</div>
+
+				{#if isEvent}
+					<Transition
+						class="transition-all duration-500 overflow-hidden"
+						enterFrom="transform opacity-0 max-h-0"
+						enterTo="transform opacity-100 max-h-36"
+						leaveFrom="transform opacity-100 max-h-36"
+						leaveTo="transform opacity-0 max-h-0"
+						unmount={false}
+						show={isEventOpen}
+					>
+						<div class="flex gap-3 pt-2 overflow-hidden">
+							<Input class="w-1/2" label="Date" type="date" name="date" required />
+
+							<Input
+								class="w-1/2"
+								label="Duration"
+								type="time"
+								name="duration"
+								required
+								on:input={(e) => setFields('endTime', getEndTime($data.startTime, e.detail))}
+							/>
+						</div>
+
+						<div class="flex gap-3">
+							<Input
+								class="w-1/2"
+								label="Start time"
+								type="time"
+								name="startTime"
+								required
+								on:input={(e) =>
+									setFields('endTime', getEndTime(e.detail, getValue($data, 'duration')))}
+							/>
+
+							<Input
+								class="w-1/2"
+								label="End time"
+								type="time"
+								name="endTime"
+								required
+								on:input={(e) =>
+									setFields('duration', getDuration(getValue($data, 'startTime'), e.detail))}
+							/>
+						</div>
+					</Transition>
+				{/if}
+			</div>
+
+			{#if isEvent}
+				<div class="bg-white rounded-lg p-2">
+					<div class="flex">
+						<button
+							class="flex-1 text-start"
+							type="button"
+							on:click={() => {
+								if (isRecurring) {
+									isRecurringOpen = !isRecurringOpen;
+								} else {
+									isRecurring = true;
+								}
+							}}
+						>
+							Recurring
+						</button>
+						<Toggle
+							bind:value={isRecurring}
+							on:change={(e) => {
+								if (e.detail === true) {
+									isRecurringOpen = true;
+								}
+							}}
+						/>
+					</div>
+
+					{#if isRecurring}
+						<Transition
+							class="transition-all duration-500 overflow-hidden"
+							enterFrom="transform opacity-0 max-h-0"
+							enterTo="transform opacity-100 max-h-36"
+							leaveFrom="transform opacity-100 max-h-36"
+							leaveTo="transform opacity-0 max-h-0"
+							unmount={false}
+							show={isRecurringOpen}
+						>
+							<div class="flex gap-3 pt-2">
+								<Input
+									class="w-1/2"
+									label="Start at"
+									type="date"
+									name="recurringStartAt"
+									required
+								/>
+
+								<Input class="w-1/2" label="End at" type="date" name="recurringEndAt" required />
+							</div>
+							<div>
+								<h3 class="block text-sm font-medium text-gray-700 mb-1">Repeat every</h3>
+								<DaysCheckbox
+									class="flex justify-around"
+									name="recurringDaysOfWeek"
+									bind:value={$data.recurringDaysOfWeek}
+								/>
+							</div>
+
+							<div>
+								<label
+									for="recurringExceptions"
+									class="block text-sm font-medium text-gray-700 mb-1"
+								>
+									Exclude on
+								</label>
+								<Flatpickr
+									id="recurringExceptions"
+									class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+									name="recurringExceptions"
+									options={{
+										mode: 'multiple',
+										dateFormat: 'Y-m-d',
+									}}
+								/>
+							</div>
+						</Transition>
+					{/if}
+				</div>
+			{/if}
 		</div>
 	</div>
 

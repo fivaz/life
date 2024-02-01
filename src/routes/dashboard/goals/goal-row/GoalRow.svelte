@@ -4,7 +4,7 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import GoalTasks from '$lib/components/goal-tasks/GoalTasks.svelte';
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
-	import { buildEmptyTaskIn } from '$lib/components/task-form/service';
+	import { buildEmptyTask } from '$lib/components/task-form/service';
 	import type { TaskIn } from '$lib/components/task-form/service';
 	import type { Goal, GoalWithTasks } from '$lib/goal/utils';
 	import classnames from 'classnames';
@@ -16,7 +16,7 @@
 
 	let dispatch = createEventDispatcher<{ edit: Goal; remove: Goal }>();
 
-	// let editingTask: TaskIn = buildEmptyTaskIn([], goal.id);
+	// let editingTask: TaskIn = buildEmptyTask([], goal.id);
 
 	let showForm = false;
 </script>
@@ -31,7 +31,7 @@
 			<!--			<Button-->
 			<!--				on:click={() => {-->
 			<!--					showForm = true;-->
-			<!--					editingTask = buildEmptyTaskIn($categories, goal.id);-->
+			<!--					editingTask = buildEmptyTask($categories, goal.id);-->
 			<!--				}}-->
 			<!--				type="button"-->
 			<!--			>-->
