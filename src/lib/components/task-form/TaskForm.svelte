@@ -338,16 +338,7 @@
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
 		{#if isEditing}
-			<Button
-				color="red"
-				on:click={async () => {
-					const result = await createModal({ title: 'Are you sure?' });
-					if (result) {
-						void deleteTask(task.id, userId);
-						dispatch('close');
-					}
-				}}
-			>
+			<Button color="red" type="button" on:click={() => deleteTask(task.id, userId, dispatch)}>
 				Delete
 			</Button>
 		{:else}

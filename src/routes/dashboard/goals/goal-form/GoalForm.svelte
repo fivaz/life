@@ -104,7 +104,9 @@
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
 		{#if isEditing}
-			<Button color="red" on:click={() => deleteGoal(goal.id, userId)}>Delete</Button>
+			<Button color="red" type="button" on:click={() => deleteGoal(goal.id, userId, dispatch)}>
+				Delete
+			</Button>
 		{:else}
 			<div />
 		{/if}

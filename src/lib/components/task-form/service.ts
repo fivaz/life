@@ -20,6 +20,7 @@ import {
 	parse,
 } from 'date-fns';
 import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import type { EventDispatcher } from 'svelte';
 import { string } from 'yup';
 
 export type TaskIn = OnlyTTask & {
@@ -175,55 +176,61 @@ export function addTask(data: Partial<Omit<Task, 'id'>>, userId: string) {
 	return addDoc(tasksCollectionRef, data);
 }
 
-export async function deleteTask(id: string | undefined, userId: string) {
-	if (id) {
+export async function deleteTask(
+	id: string | undefined,
+	userId: string,
+	dispatch: EventDispatcher<{ close: null }>,
+) {
+	const result = await createModal({ title: 'Are you sure?' });
+	if (result && id) {
 		const taskDocRef = doc(db, 'users', userId, 'tasks', id);
 		await deleteDoc(taskDocRef);
+		dispatch('close');
 	}
 }
-
-const handleCreate: SubSubmitFunction<TaskIn> = ({ formData, data: task }) => {
-	formatDates(task, formData);
-
-	// dispatch('close');
-
-	return async ({ result }) => {
-		await applyAction(result);
-		if (result.type === 'success' && result.data?.created) {
-			updateTasks(result.data.created);
-		} else if (result.type === 'error') {
-			console.log(result.error || UnknownError);
-		}
-	};
-};
-
-const handleEdit: SubSubmitFunction<TaskIn> = async ({ formData, data: task }) => {
-	formatDates(task, formData);
-
-	if (task.isEvent) {
-		if (task.wasRecurring && task.isRecurring) {
-			const result = await createModal({
-				title: 'This is a repeating event',
-				message: 'Do you want to save the changes for ?',
-				confirmText: 'this event only',
-				cancelText: 'future events',
-			});
-
-			if (result === null) {
-				return () => {};
-			}
-
-			formData.set('isForThisEventOnly', result ? 'true' : '');
-		}
-	}
-	// dispatch('close');
-
-	return async ({ result }) => {
-		await applyAction(result);
-		if (result.type === 'success' && result.data?.updated) {
-			updateTasks(result.data.updated);
-		} else if (result.type === 'error') {
-			console.log(result.error || UnknownError);
-		}
-	};
-};
+//
+// const handleCreate: SubSubmitFunction<TaskIn> = ({ formData, data: task }) => {
+// 	formatDates(task, formData);
+//
+// 	// dispatch('close');
+//
+// 	return async ({ result }) => {
+// 		await applyAction(result);
+// 		if (result.type === 'success' && result.data?.created) {
+// 			updateTasks(result.data.created);
+// 		} else if (result.type === 'error') {
+// 			console.log(result.error || UnknownError);
+// 		}
+// 	};
+// };
+//
+// const handleEdit: SubSubmitFunction<TaskIn> = async ({ formData, data: task }) => {
+// 	formatDates(task, formData);
+//
+// 	if (task.isEvent) {
+// 		if (task.wasRecurring && task.isRecurring) {
+// 			const result = await createModal({
+// 				title: 'This is a repeating event',
+// 				message: 'Do you want to save the changes for ?',
+// 				confirmText: 'this event only',
+// 				cancelText: 'future events',
+// 			});
+//
+// 			if (result === null) {
+// 				return () => {};
+// 			}
+//
+// 			formData.set('isForThisEventOnly', result ? 'true' : '');
+// 		}
+// 	}
+// 	// dispatch('close');
+//
+// 	return async ({ result }) => {
+// 		await applyAction(result);
+// 		if (result.type === 'success' && result.data?.updated) {
+// 			updateTasks(result.data.updated);
+// 		} else if (result.type === 'error') {
+// 			console.log(result.error || UnknownError);
+// 		}
+// 	};
+// };
