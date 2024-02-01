@@ -1,5 +1,5 @@
 import { tailwindColors, types } from '$lib/category/utils';
-import type { CCategory } from '$lib/category/utils';
+import type { Category } from '$lib/category/utils';
 import { db } from '$lib/firebase';
 import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { string } from 'yup';
@@ -15,12 +15,12 @@ export function buildEmptyCategory() {
 	};
 }
 
-export function editCategory(id: string, data: Omit<CCategory, 'id'>, userId: string) {
+export function editCategory(id: string, data: Omit<Category, 'id'>, userId: string) {
 	const categoryDocRef = doc(db, 'users', userId, 'categories', id);
 	return updateDoc(categoryDocRef, data);
 }
 
-export function addCategory(data: Omit<CCategory, 'id'>, userId: string) {
+export function addCategory(data: Omit<Category, 'id'>, userId: string) {
 	const categoriesCollectionRef = collection(db, 'users', userId, 'categories');
 	return addDoc(categoriesCollectionRef, data);
 }

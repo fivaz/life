@@ -2,15 +2,15 @@
 	import { CheckBadge } from '@steeze-ui/heroicons';
 	import { Settings } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import type { CCategory } from '$lib/category/utils';
+	import type { Category } from '$lib/category/utils';
 	import { tailwindColors } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import classnames from 'classnames';
 	import { createEventDispatcher } from 'svelte';
 
-	export let category: CCategory;
+	export let category: Category;
 
-	let dispatch = createEventDispatcher<{ edit: CCategory; remove: CCategory }>();
+	let dispatch = createEventDispatcher<{ edit: Category; remove: Category }>();
 </script>
 
 <li

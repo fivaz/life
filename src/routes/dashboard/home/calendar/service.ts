@@ -1,4 +1,4 @@
-import type { CCategory } from '$lib/category/utils';
+import type { Category } from '$lib/category/utils';
 import type { TaskIn } from '$lib/components/task-form/service';
 import { DATE, homeRoute, TIME } from '$lib/consts';
 import type { EEvent, TTask } from '$lib/task/utils';
@@ -18,7 +18,7 @@ function buildDate(date: Date, timeInterval: number) {
 }
 
 export function buildEventWithTime(
-	categories: CCategory[],
+	categories: Category[],
 	date: Date,
 	quarterHourInterval: number,
 ): TaskIn {

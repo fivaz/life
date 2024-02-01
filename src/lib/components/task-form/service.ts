@@ -1,4 +1,4 @@
-import type { CCategory } from '$lib/category/utils';
+import type { Category } from '$lib/category/utils';
 import { weekDays } from '$lib/components/days-checkbox/service';
 import { DATE, DATETIME, TIME } from '$lib/consts';
 import type { OnlyTTask, TTask } from '$lib/task/utils';
@@ -59,7 +59,7 @@ export function convertToTaskIn(task: TTask): TaskIn {
 }
 
 export function buildEmptyTaskIn(
-	categories: CCategory[],
+	categories: Category[],
 	goalId: number | null = null,
 	isEvent: boolean = false,
 ): TaskIn {

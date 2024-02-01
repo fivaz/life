@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { types, tailwindColors } from '$lib/category/utils';
-	import type { CCategory } from '$lib/category/utils';
+	import type { Category } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
@@ -19,8 +19,8 @@
 
 	let showForm = false;
 
-	function parseCategories(data: Array<Record<string, any>>) {
-		return data.map((datum: any) => ({
+	function parseCategories(categoriesCollection: Array<Record<string, any>>) {
+		return categoriesCollection.map((datum: any) => ({
 			id: datum.id,
 			name: datum.name,
 			color: datum.color,

@@ -1,11 +1,11 @@
 import type { Task } from '@prisma/client';
-import type { CCategory } from '$lib/category/utils';
+import type { Category } from '$lib/category/utils';
 import { DATE, TIME } from '$lib/consts';
 import type { GGoal } from '$lib/goal/utils';
 import { format, parse, parseISO } from 'date-fns';
 
 export type TTask = Omit<Task, 'deleted' | 'userId'> & {
-	category: CCategory;
+	category: Category;
 	goal: GGoal | null | undefined;
 };
 

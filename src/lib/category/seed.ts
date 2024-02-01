@@ -1,4 +1,4 @@
-import type { CCategory } from '$lib/category/utils';
+import type { Category } from '$lib/category/utils';
 
 let id = 0;
 
@@ -34,4 +34,4 @@ export const sleep = {
 	group: 'sleep',
 };
 
-export const categories: CCategory[] = [work, fun, routine, sleep];
+export const categories: Category[] = [work, fun, routine, sleep];

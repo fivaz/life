@@ -3,7 +3,7 @@
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { types, tailwindColors } from '$lib/category/utils';
-	import type { CCategory } from '$lib/category/utils';
+	import type { Category } from '$lib/category/utils';
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
@@ -22,7 +22,7 @@
 
 	export let userId: string;
 
-	export let category: CCategory = buildEmptyCategory();
+	export let category: Category = buildEmptyCategory();
 
 	$: isEditing = !!category.id;
 
