@@ -22,7 +22,7 @@ export const normalWithoutDescription: Event = {
 	duration: '00:45',
 	isDone: false,
 	category: routine,
-	goal: null,
+	goal: undefined,
 };
 
 export const shortWithoutDescription: ToDo = {
@@ -32,7 +32,7 @@ export const shortWithoutDescription: ToDo = {
 	deadline: format(startOfWeek(new Date()), DATE),
 	isDone: false,
 	category: routine,
-	goal: null,
+	goal: undefined,
 };
 
 export const long: RecurringEvent = {
@@ -45,11 +45,11 @@ export const long: RecurringEvent = {
 	duration: '02:15',
 	isDone: true,
 	category: work,
-	goal: null,
+	goal: undefined,
 	recurringStartAt: '',
 	recurringEndAt: '',
 	recurringDaysOfWeek: [],
-	recurringExceptions: [],
+	recurringExceptions: '',
 };
 
 export const done: Event = {
@@ -62,7 +62,7 @@ export const done: Event = {
 	duration: '01:15',
 	isDone: true,
 	category: work,
-	goal: null,
+	goal: undefined,
 };
 
 export const redEvent: ToDo = {
@@ -72,7 +72,7 @@ export const redEvent: ToDo = {
 	deadline: format(startOfWeek(new Date()), DATE),
 	isDone: false,
 	category: fun,
-	goal: null,
+	goal: undefined,
 };
 
 export const tasks: AnyTask[] = [
@@ -93,11 +93,11 @@ export const sleepRecurringEvent: RecurringEvent = {
 	duration: '08:00',
 	isDone: false,
 	category: sleep,
-	goal: null,
+	goal: undefined,
 	recurringStartAt: '',
 	recurringEndAt: '',
 	recurringDaysOfWeek: [],
-	recurringExceptions: [],
+	recurringExceptions: '',
 };
 
 export const workToDo: ToDo = {
@@ -107,7 +107,7 @@ export const workToDo: ToDo = {
 	deadline: format(startOfWeek(new Date()), DATE),
 	isDone: false,
 	category: work,
-	goal: null,
+	goal: undefined,
 };
 
 export const funEvent: Event = {
@@ -120,7 +120,7 @@ export const funEvent: Event = {
 	duration: '08:00',
 	isDone: false,
 	category: fun,
-	goal: null,
+	goal: undefined,
 };
 
 export const perfectDay: AnyTask[] = [sleepRecurringEvent, workToDo, funEvent];

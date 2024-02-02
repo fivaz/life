@@ -16,13 +16,14 @@
 	import { DATE, TIME } from '$lib/consts';
 	import { parseGoals } from '$lib/goal/utils';
 	import type { Task, AnyTask } from '$lib/task/utils';
-	import { addMinutes, endOfWeek, format } from 'date-fns';
+	import { addMinutes, addMonths, endOfWeek, format } from 'date-fns';
 	import { createForm } from 'felte';
 	import { createEventDispatcher } from 'svelte';
 	import Flatpickr from 'svelte-flatpickr';
 	import { object } from 'yup';
-	// eslint-disable-next-line import/max-dependencies
 	import { addTask, editTask, isEventsDateInverted } from './service';
+	// eslint-disable-next-line import/max-dependencies
+	import 'flatpickr/dist/themes/airbnb.css';
 
 	export let userId: string;
 
@@ -53,25 +54,7 @@
 		validateSchema: schema,
 		initialValues: task,
 		onSubmit: (values) => {
-			const slim = {
-				id: values.id,
-				name: values.name,
-				isDone: values.isDone,
-				category: values.category,
-				...(values.description ? { description: values.description } : {}),
-				...(values.deadline ? { deadline: values.deadline } : {}),
-				...(values.duration ? { duration: values.duration } : {}),
-				...(values.date ? { date: values.date } : {}),
-				...(values.startTime ? { startTime: values.startTime } : {}),
-				...(values.endTime ? { endTime: values.endTime } : {}),
-				...(values.recurringExceptions ? { recurringExceptions: values.recurringExceptions } : {}),
-				...(values.recurringDaysOfWeek ? { recurringDaysOfWeek: values.recurringDaysOfWeek } : {}),
-				...(values.recurringStartAt ? { recurringStartAt: values.recurringStartAt } : {}),
-				...(values.recurringEndAt ? { recurringEndAt: values.recurringEndAt } : {}),
-				...(values.goal ? { goal: values.goal } : {}),
-			};
-
-			const { id, ...data } = slim;
+			const { id, ...data } = values;
 
 			if (id) {
 				editTask(id, data, userId);
@@ -111,14 +94,25 @@
 			unsetField('date');
 			unsetField('startTime');
 			unsetField('endTime');
+
+			unsetField('recurringDaysOfWeek');
+			unsetField('recurringStartAt');
+			unsetField('recurringEndAt');
+			unsetField('recurringExceptions');
 		}
 	}
 
 	$: {
 		if (isRecurring) {
 			setFields('recurringDaysOfWeek', weekDays.slice(1, 6));
+			setFields('recurringStartAt', format(new Date(), DATE));
+			setFields('recurringEndAt', format(addMonths(new Date(), 1), DATE));
+			setFields('recurringExceptions', '');
 		} else {
 			unsetField('recurringDaysOfWeek');
+			unsetField('recurringStartAt');
+			unsetField('recurringEndAt');
+			unsetField('recurringExceptions');
 		}
 	}
 </script>
@@ -188,6 +182,7 @@
 					selectClass="flex-1"
 				>
 					<span slot="placeholder">{$data.goal?.name || 'no goal'}</span>
+					<SelectItem value={undefined}>no goal</SelectItem>
 					{#each goals as goal (goal)}
 						<SelectItem value={goal}>{goal.name}</SelectItem>
 					{/each}
@@ -326,6 +321,7 @@
 										mode: 'multiple',
 										dateFormat: 'Y-m-d',
 									}}
+									bind:value={$data.recurringExceptions}
 								/>
 							</div>
 						</Transition>

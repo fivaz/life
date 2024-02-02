@@ -5,7 +5,8 @@ import { endOfDay, getDay, isSameDay, isWithinInterval, parse, startOfDay } from
 
 function isRecurringOnDay(event: RecurringEvent, day: Date): boolean {
 	if (
-		event.recurringExceptions.some((exceptionDate) => {
+		event.recurringExceptions &&
+		event.recurringExceptions.split(', ').some((exceptionDate) => {
 			return isWithinInterval(parse(exceptionDate, DATE, new Date()), {
 				start: startOfDay(day),
 				end: endOfDay(day),

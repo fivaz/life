@@ -9,7 +9,7 @@ export type TaskCommon = {
 	description: string;
 	isDone: boolean;
 	category: Category;
-	goal: Goal | null | undefined;
+	goal: Goal | undefined;
 };
 
 export type ToDo = TaskCommon & {
@@ -24,7 +24,7 @@ export type Event = TaskCommon & {
 };
 
 export type RecurringEvent = Event & {
-	recurringExceptions: string[];
+	recurringExceptions: string;
 	recurringDaysOfWeek: string[];
 	recurringStartAt: string;
 	recurringEndAt: string;

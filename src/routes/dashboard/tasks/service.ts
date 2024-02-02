@@ -10,7 +10,7 @@ export function buildEmptyToDo(categories: Category[]): ToDo {
 		description: '',
 		isDone: false,
 		category: categories.find((category) => category.isDefault) || categories[0],
-		goal: null,
+		goal: undefined,
 		deadline: format(endOfWeek(new Date()), DATE),
 	};
 }

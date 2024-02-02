@@ -24,7 +24,7 @@ export type TaskIn = OnlyTTask & {
 	isEvent: boolean;
 };
 
-export function buildEmptyTask(categories: Category[], goal: Goal | null = null): Task {
+export function buildEmptyTask(categories: Category[], goal?: Goal): Task {
 	return {
 		name: '',
 		description: '',
@@ -39,7 +39,7 @@ export function buildEmptyTask(categories: Category[], goal: Goal | null = null)
 		recurringStartAt: format(new Date(), DATE),
 		recurringEndAt: format(addMonths(new Date(), 1), DATE),
 		recurringDaysOfWeek: weekDays.slice(1, 6),
-		recurringExceptions: [],
+		recurringExceptions: '',
 	};
 }
 

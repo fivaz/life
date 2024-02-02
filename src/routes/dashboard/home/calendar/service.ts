@@ -30,11 +30,11 @@ export function buildEventWithTime(
 		duration: '00:15',
 		isDone: false,
 		category: categories.find((category) => category.isDefault) || categories[0],
-		goal: null,
+		goal: undefined,
 	};
 }
 
-export function buildEmptyEvent(categories: Category[], goal: Goal | null = null): Event {
+export function buildEmptyEvent(categories: Category[], goal?: Goal): Event {
 	return {
 		name: '',
 		description: '',
