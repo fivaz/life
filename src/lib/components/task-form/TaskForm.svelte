@@ -14,6 +14,7 @@
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import { DATE, TIME } from '$lib/consts';
 	import { getErrors } from '$lib/form-utils';
+	import type { OptionalId } from '$lib/form-utils';
 	import { parseGoals } from '$lib/goal/utils';
 	import type { Task, AnyTask } from '$lib/task/utils';
 	import { addMinutes, addMonths, endOfWeek, format, isAfter, parse } from 'date-fns';
@@ -26,7 +27,7 @@
 
 	export let userId: string;
 
-	export let task: AnyTask;
+	export let task: OptionalId<AnyTask>;
 
 	export let categories: Category[];
 

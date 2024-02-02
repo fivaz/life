@@ -2,13 +2,13 @@
 	import { tailwindColors } from '$lib/category/utils';
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import { TIME } from '$lib/consts';
-	import { removeDraggedEvent, setDraggedEvent } from '$lib/dragged/store';
 	import type { Event, RecurringEvent } from '$lib/task/utils';
 	import classnames from 'classnames';
 	import { format, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
+	import { SignedIn } from 'sveltefire';
 	import EventName from './event-name/EventName.svelte';
-	import { isShort } from './service';
+	import { dragEnd, dragStart, isShort, toggleCompletion } from './service';
 
 	export let event: Event | RecurringEvent;
 
@@ -18,28 +18,12 @@
 
 	let loading = false;
 
-	let formElement: HTMLFormElement | null = null;
-
 	const dispatch = createEventDispatcher<{ edit: { event: Event; targetDate: Date } }>();
-
-	function dragStart(e: DragEvent) {
-		if (e.currentTarget instanceof HTMLDivElement) {
-			e.currentTarget.style.opacity = '0.5';
-			setDraggedEvent(event);
-		}
-	}
-
-	function dragEnd(e: DragEvent) {
-		if (e.currentTarget instanceof HTMLDivElement) {
-			e.currentTarget.style.opacity = '';
-			removeDraggedEvent();
-		}
-	}
 </script>
 
 <div
-	on:dragstart={dragStart}
-	on:dragend={dragEnd}
+	on:dragstart={(e) => dragStart(e, event)}
+	on:dragend={(e) => dragEnd(e)}
 	on:click={() => dispatch('edit', { event, targetDate })}
 	on:keydown={(e) => {
 		if (e.key === 'Enter') {
@@ -57,20 +41,16 @@
 		tailwindColors[event.category.color].text,
 	)}
 >
-	<form class="absolute right-0 flex pr-2" method="POST" action="?/toggle" bind:this={formElement}>
-		<input type="hidden" name="id" value={event.id} />
-		<input type="hidden" name="targetDate" value={targetDate.toISOString()} />
+	<SignedIn let:user>
 		<input
 			type="checkbox"
 			checked={event.isDone}
-			on:change={() => formElement?.requestSubmit()}
+			on:change={() => toggleCompletion(user.uid, event, targetDate)}
 			on:click|stopPropagation
-			name="isDone"
 			disabled={loading}
 			class="rounded border-gray-300 focus:ring-indigo-600"
 		/>
-	</form>
-
+	</SignedIn>
 	<p class={classnames({ hidden: isShort(event) }, 'text-blue-500 group-hover:text-blue-700')}>
 		<time dateTime={`${event.date} ${event.startTime}`}>
 			{format(parse(event.startTime, TIME, new Date()), 'p')}

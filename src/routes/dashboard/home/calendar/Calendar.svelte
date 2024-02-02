@@ -4,6 +4,7 @@
 	import { editTask } from '$lib/components/task-form/service';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import { draggedEvent } from '$lib/dragged/store';
+	import type { OptionalId } from '$lib/form-utils';
 	import type { Event } from '$lib/task/utils';
 	import { startOfWeek } from 'date-fns';
 
@@ -19,7 +20,7 @@
 
 	let targetDate: Date | null = null;
 
-	let editingEvent: Event = buildEmptyEvent([]);
+	let editingEvent: OptionalId<Event> = buildEmptyEvent([]);
 
 	let showForm = false;
 </script>

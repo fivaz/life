@@ -1,5 +1,6 @@
 import type { Category } from '$lib/category/utils';
 import { DATE, TIME } from '$lib/consts';
+import type { OptionalId } from '$lib/form-utils';
 import type { Goal } from '$lib/goal/utils';
 import type { Event } from '$lib/task/utils';
 import { getDuration } from '$lib/task/utils';
@@ -20,7 +21,7 @@ export function buildEventWithTime(
 	categories: Category[],
 	date: Date,
 	quarterHourInterval: number,
-): Event {
+): OptionalId<Event> {
 	return {
 		name: '',
 		description: '',
@@ -34,7 +35,7 @@ export function buildEventWithTime(
 	};
 }
 
-export function buildEmptyEvent(categories: Category[], goal?: Goal): Event {
+export function buildEmptyEvent(categories: Category[], goal?: Goal): OptionalId<Event> {
 	return {
 		name: '',
 		description: '',

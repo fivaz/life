@@ -4,15 +4,18 @@
 	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import { auth, db } from '$lib/firebase';
+	import type { OptionalId } from '$lib/form-utils';
 	import { getTasksByDate } from '$lib/task/store';
 	import { parseTasks } from '$lib/task/utils';
+	import type { ToDo } from '$lib/task/utils';
 	import { collection, query, where } from 'firebase/firestore';
 	import { SignedIn, userStore } from 'sveltefire';
 	import { parseCategories } from '../categories/service';
 	import { buildEmptyToDo, getSumOfDurationsAsTime } from './service';
+
 	import TaskRow from './task-row/TaskRow.svelte';
 
-	let editingTask = buildEmptyToDo([]);
+	let editingTask: OptionalId<ToDo> = buildEmptyToDo([]);
 
 	let showForm = false;
 

@@ -1,10 +1,11 @@
 import type { Category } from '$lib/category/utils';
 import { DATE } from '$lib/consts';
+import type { OptionalId } from '$lib/form-utils';
 import type { AnyTask, ToDo } from '$lib/task/utils';
 import { convertDurationToMinutes } from '$lib/task/utils';
 import { endOfWeek, format } from 'date-fns';
 
-export function buildEmptyToDo(categories: Category[]): ToDo {
+export function buildEmptyToDo(categories: Category[]): OptionalId<ToDo> {
 	return {
 		name: '',
 		description: '',

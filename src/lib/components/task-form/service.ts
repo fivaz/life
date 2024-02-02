@@ -3,6 +3,7 @@ import { weekDays } from '$lib/components/days-checkbox/service';
 import { createModal } from '$lib/components/dialog/service';
 import { DATE, DATETIME, TIME } from '$lib/consts';
 import { db } from '$lib/firebase';
+import type { OptionalId } from '$lib/form-utils';
 import type { Goal } from '$lib/goal/utils';
 import type { OnlyTTask, Task, AnyTask } from '$lib/task/utils';
 import {
@@ -24,7 +25,7 @@ export type TaskIn = OnlyTTask & {
 	isEvent: boolean;
 };
 
-export function buildEmptyTask(categories: Category[], goal?: Goal): Task {
+export function buildEmptyTask(categories: Category[], goal?: Goal): OptionalId<Task> {
 	return {
 		name: '',
 		description: '',

@@ -4,7 +4,7 @@ import type { Goal } from '$lib/goal/utils';
 import { differenceInMinutes, format, parse } from 'date-fns';
 
 export type TaskCommon = {
-	id?: string;
+	id: string;
 	name: string;
 	description: string;
 	isDone: boolean;

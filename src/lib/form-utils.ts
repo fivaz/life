@@ -1,3 +1,5 @@
+export type OptionalId<T extends { id: string }> = Omit<T, 'id'> & Partial<Pick<T, 'id'>>;
+
 function extractValues(obj: Record<string, unknown>): string[] {
 	let result: string[] = [];
 	for (const key in obj) {
