@@ -11,6 +11,7 @@
 	export let color: 'indigo' | 'red' = 'indigo';
 </script>
 
+<!--TODO implement this later-->
 <Button
 	on:click={async (e) => {
 		e.preventDefault();

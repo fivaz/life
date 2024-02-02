@@ -6,14 +6,14 @@
 	import { page } from '$app/stores';
 	import ProfileDropDown from '$lib/components/dashboard/profile-drop-down/ProfileDropDown.svelte';
 	import ProfileDropUp from '$lib/components/dashboard/profile-drop-up/ProfileDropUp.svelte';
-	import { categoriesRoute, homeRoute, toDosRoute, toGoalsRoute } from '$lib/consts';
+	import { categoriesRoute, homeRoute, tasksRoute, toGoalsRoute } from '$lib/consts';
 	import classnames from 'classnames';
 	import { SignedIn } from 'sveltefire';
 
 	const navigation = [
 		{ name: 'Calendar', href: homeRoute, icon: Calendar },
 		{ name: 'Categories', href: categoriesRoute, icon: DocumentDuplicate },
-		{ name: 'To Dos', href: toDosRoute, icon: List },
+		{ name: 'Tasks', href: tasksRoute, icon: List },
 		{ name: 'Goals', href: toGoalsRoute, icon: Target },
 	];
 

@@ -12,7 +12,7 @@ export const rootRoute = '/';
 export const dashboardRoute = '/dashboard';
 export const homeRoute = `${dashboardRoute}/home`;
 export const categoriesRoute = `${dashboardRoute}/categories`;
-export const toDosRoute = `${dashboardRoute}/to-dos`;
+export const tasksRoute = `${dashboardRoute}/tasks`;
 export const toGoalsRoute = `${dashboardRoute}/goals`;
 
 export const unauthorized = 'Unauthorized';

@@ -75,7 +75,7 @@ export const redEvent: ToDo = {
 	goal: null,
 };
 
-export const events: AnyTask[] = [
+export const tasks: AnyTask[] = [
 	normalWithoutDescription,
 	shortWithoutDescription,
 	long,
@@ -83,7 +83,7 @@ export const events: AnyTask[] = [
 	redEvent,
 ];
 
-export const sleepEvent: RecurringEvent = {
+export const sleepRecurringEvent: RecurringEvent = {
 	id: `${id++}`,
 	name: 'sleep',
 	description: '',
@@ -100,7 +100,7 @@ export const sleepEvent: RecurringEvent = {
 	recurringExceptions: [],
 };
 
-export const workEvent: ToDo = {
+export const workToDo: ToDo = {
 	id: `${id++}`,
 	name: 'work',
 	description: '',
@@ -123,4 +123,4 @@ export const funEvent: Event = {
 	goal: null,
 };
 
-export const tasks: AnyTask[] = [sleepEvent, workEvent, funEvent];
+export const perfectDay: AnyTask[] = [sleepRecurringEvent, workToDo, funEvent];

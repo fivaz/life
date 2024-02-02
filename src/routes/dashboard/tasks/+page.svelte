@@ -10,9 +10,9 @@
 	import { SignedIn, userStore } from 'sveltefire';
 	import { parseCategories } from '../categories/service';
 	import { buildEmptyToDo, getSumOfDurationsAsTime } from './service';
-	import ToDoRow from './to-do-row/ToDoRow.svelte';
+	import TaskRow from './task-row/TaskRow.svelte';
 
-	let editingToDo = buildEmptyToDo([]);
+	let editingTask = buildEmptyToDo([]);
 
 	let showForm = false;
 
@@ -34,7 +34,7 @@
 					<Button
 						on:click={() => {
 							showForm = true;
-							editingToDo = buildEmptyToDo(categories);
+							editingTask = buildEmptyToDo(categories);
 						}}
 					>
 						Create Task
@@ -48,11 +48,11 @@
 							<div>{getSumOfDurationsAsTime(list)}</div>
 						</div>
 						{#each list as task (task)}
-							<ToDoRow
+							<TaskRow
 								{task}
 								on:edit={(e) => {
 									showForm = true;
-									editingToDo = e.detail;
+									editingTask = e.detail;
 								}}
 							/>
 						{/each}
@@ -62,7 +62,7 @@
 				<Modal show={showForm} on:close={() => (showForm = false)}>
 					<TaskForm
 						userId={user.uid}
-						task={editingToDo}
+						task={editingTask}
 						{categories}
 						on:close={() => (showForm = false)}
 					/>

@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import type { Meta } from '@storybook/svelte';
-	import { events } from '$lib/task/seed';
+	import { tasks } from '$lib/task/seed';
 	import CalendarRows from './CalendarRows.svelte';
 
 	export const meta = {
@@ -23,6 +23,6 @@
 <Story
 	name="Primary"
 	args={{
-		events,
+		events: tasks,
 	}}
 />
