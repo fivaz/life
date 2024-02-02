@@ -27,7 +27,6 @@
 >
 	<div class="flex-1 flex gap-x-6 text-sm font-semibold leading-6 text-gray-50">
 		<div class="flex-1 flex gap-x-6">
-			<!--TODO check if it's right to have startDate twice instead of startDate and endDate-->
 			<div>{getDate(task)}</div>
 			<div>{task.name}</div>
 		</div>
@@ -39,6 +38,5 @@
 		<Button on:click={() => dispatch('edit', task)} type="button">
 			<Icon src={Settings} class="h-4 w-4" />
 		</Button>
-		<!--		<RescheduleToTomorrowButton {task} {form} />-->
 	</div>
 </li>
