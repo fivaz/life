@@ -1,7 +1,10 @@
 <script lang="ts">
 	import { Transition, Menu, MenuButton, MenuItems, MenuItem } from '@rgossiaux/svelte-headlessui';
-	import { profileRoute } from '$lib/consts';
+	import { goto } from '$app/navigation';
+	import { loginRoute, profileRoute } from '$lib/consts';
+	import { auth } from '$lib/firebase';
 	import classnames from 'classnames';
+	import { signOut } from 'firebase/auth';
 </script>
 
 <Menu as="div" class="relative inline-block text-left">
@@ -28,16 +31,18 @@
 				</a>
 			</MenuItem>
 			<MenuItem let:active>
-				<form method="POST" action={`${profileRoute}?/logout`}>
-					<button
-						class={classnames(
-							active ? 'bg-gray-50' : '',
-							'w-full text-left block px-3 py-1 text-sm leading-6 text-gray-900',
-						)}
-					>
-						Sign out
-					</button>
-				</form>
+				<button
+					class={classnames(
+						active ? 'bg-gray-50' : '',
+						'w-full text-left block px-3 py-1 text-sm leading-6 text-gray-900',
+					)}
+					on:click={async () => {
+						await signOut(auth);
+						void goto(loginRoute);
+					}}
+				>
+					Sign out
+				</button>
 			</MenuItem>
 		</MenuItems>
 	</Transition>

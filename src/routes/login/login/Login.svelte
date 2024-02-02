@@ -1,31 +1,52 @@
 <script lang="ts">
+	import { validator } from '@felte/validator-yup';
 	import { goto } from '$app/navigation';
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import { registerRoute, rootRoute } from '$lib/consts';
 	import { auth } from '$lib/firebase';
+	import { createForm } from 'felte';
+	import { FirebaseError } from 'firebase/app';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
-	import type { AuthError } from 'firebase/auth';
+	import { object, string } from 'yup';
 
 	let isLoading: boolean = false;
 
-	let email = '';
-	let password = '';
 	let errorMessage: string | unknown = '';
 
-	async function submit() {
-		isLoading = true;
-		try {
+	const schema = object({
+		email: string().email().required(),
+		password: string().required(),
+	});
+
+	const { form, errors } = createForm<{
+		email: string;
+		password: string;
+	}>({
+		extend: [validator({ schema })],
+		onSubmit: async ({ email, password }) => {
+			isLoading = true;
 			await signInWithEmailAndPassword(auth, email, password);
 			void goto(rootRoute);
-		} catch (error) {
-			if ((error as AuthError).code === 'auth/invalid-credential') {
-				errorMessage = 'login or password are incorrect';
+		},
+		onError: (error) => {
+			if (error instanceof FirebaseError) {
+				if (error.code === 'auth/invalid-credential') {
+					errorMessage = 'login or password are incorrect';
+				} else {
+					errorMessage = error.message;
+				}
 			} else {
 				errorMessage = error;
 			}
-		}
-		isLoading = false;
+			isLoading = false;
+		},
+	});
+
+	$: {
+		errorMessage = Object.values($errors)
+			.filter((value) => value)
+			.join(', ');
 	}
 </script>
 
@@ -56,7 +77,7 @@
 					{errorMessage}
 				</Alert>
 				<div class="mt-5">
-					<form class="space-y-6" method="POST" on:submit|preventDefault={submit}>
+					<form class="space-y-6" use:form>
 						<div>
 							<label for="email" class="block text-sm font-medium leading-6 text-gray-900">
 								Email address
@@ -68,7 +89,6 @@
 									type="email"
 									autocomplete="email"
 									class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-									bind:value={email}
 								/>
 							</div>
 						</div>
@@ -84,7 +104,6 @@
 									type="password"
 									autocomplete="current-password"
 									class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-									bind:value={password}
 								/>
 							</div>
 						</div>

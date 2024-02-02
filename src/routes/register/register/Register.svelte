@@ -1,42 +1,75 @@
 <script lang="ts">
+	import { validator } from '@felte/validator-yup';
 	import { goto } from '$app/navigation';
+	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import { loginRoute, rootRoute } from '$lib/consts';
 	import { auth, db } from '$lib/firebase';
+	import { createForm } from 'felte';
+	import { FirebaseError } from 'firebase/app';
 	import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-	import type { AuthError } from 'firebase/auth';
 	import { doc, setDoc } from 'firebase/firestore';
 	import { minidenticon } from 'minidenticons';
-
-	$: svgURI = 'data:image/svg+xml;utf8,' + encodeURIComponent(minidenticon(email, 95, 45));
+	import { object, string } from 'yup';
 
 	let isLoading: boolean = false;
 
-	let displayName = '';
 	let email = '';
-	let password = '';
+
 	let errorMessage: string | unknown = '';
 
-	async function submit() {
-		isLoading = true;
-		try {
-			const { user } = await createUserWithEmailAndPassword(auth, email, password);
-			await updateProfile(user, { displayName });
-			const userRef = doc(db, 'users', user.uid);
-			await setDoc(userRef, {
-				displayName,
-				email,
-			});
+	const schema = object({
+		displayName: string().required(),
+		email: string().email().required(),
+		password: string().required().min(6, 'Password should be at least 6 characters'),
+	});
 
+	type Account = {
+		photoURL: string;
+		displayName: string;
+		email: string;
+		password: string;
+	};
+
+	async function register({ email, password, displayName, photoURL }: Account) {
+		const { user } = await createUserWithEmailAndPassword(auth, email, password);
+		await updateProfile(user, { displayName });
+		const userRef = doc(db, 'users', user.uid);
+		await setDoc(userRef, {
+			photoURL,
+			displayName,
+			email,
+		});
+	}
+
+	const { form, errors } = createForm<Omit<Account, 'photoURL'>>({
+		extend: [validator({ schema })],
+		onSubmit: async (values) => {
+			console.log(values);
+			isLoading = true;
+			await register({ ...values, photoURL });
 			void goto(rootRoute);
-		} catch (error) {
-			if ((error as AuthError).code === 'auth/invalid-credential') {
-				errorMessage = 'login or password are incorrect';
+		},
+		onError: (error) => {
+			if (error instanceof FirebaseError) {
+				if (error.code === 'auth/email-already-in-use') {
+					errorMessage = 'This email is already in use';
+				} else {
+					errorMessage = error.message;
+				}
 			} else {
 				errorMessage = error;
 			}
-		}
-		isLoading = false;
+			isLoading = false;
+		},
+	});
+
+	$: photoURL = 'data:image/svg+xml;utf8,' + encodeURIComponent(minidenticon(email, 95, 45));
+
+	$: {
+		errorMessage = Object.values($errors)
+			.filter((value) => value)
+			.join(', ');
 	}
 </script>
 
@@ -54,15 +87,18 @@
 	</div>
 
 	<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+		<Alert type="error" isVisible={!!errorMessage} on:close={() => (errorMessage = '')}>
+			{errorMessage}
+		</Alert>
+
 		<div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-			<form class="space-y-6" method="POST" on:submit|preventDefault={submit}>
+			<form class="space-y-6" use:form>
 				{#if email}
 					<div class="flex flex-col justify-center">
-						<input type="hidden" name="avatar" value={svgURI} />
 						<h3 class="text-center block text-sm font-medium leading-6 text-gray-900">
 							Your Avatar
 						</h3>
-						<img class="h-10 w-auto" src={svgURI} alt="your avatar" />
+						<img class="h-10 w-auto" src={photoURL} alt="your avatar" />
 					</div>
 				{/if}
 				<div>
@@ -72,10 +108,8 @@
 					<div class="mt-2">
 						<input
 							id="name"
-							name="name"
+							name="displayName"
 							type="text"
-							required
-							bind:value={displayName}
 							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 						/>
 					</div>
@@ -90,7 +124,6 @@
 							name="email"
 							type="email"
 							autocomplete="email"
-							required
 							bind:value={email}
 							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 						/>
@@ -107,8 +140,6 @@
 							name="password"
 							type="password"
 							autocomplete="current-password"
-							required
-							bind:value={password}
 							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 						/>
 					</div>
