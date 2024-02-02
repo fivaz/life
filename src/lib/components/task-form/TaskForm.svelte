@@ -46,18 +46,20 @@
 
 	const { form, data, errors, setFields, unsetField } = createForm<Task>({
 		initialValues: task,
-		validate: (values) => {
-			if (values.startTime && values.endTime) {
-				if (
-					!isAfter(
-						parse(values.startTime, TIME, new Date()),
-						parse(values.endTime, TIME, new Date()),
-					)
-				) {
-					return { startTime: 'start time should be before end time' };
+		debounced: {
+			validate: (values) => {
+				if (values.startTime && values.endTime) {
+					if (
+						!isAfter(
+							parse(values.startTime, TIME, new Date()),
+							parse(values.endTime, TIME, new Date()),
+						)
+					) {
+						return { startTime: 'start time should be before end time' };
+					}
 				}
-			}
-			return {};
+				return {};
+			},
 		},
 		onSubmit: (values) => {
 			const { id, ...data } = values;
