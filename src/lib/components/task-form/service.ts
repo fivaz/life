@@ -4,7 +4,7 @@ import { createModal } from '$lib/components/dialog/service';
 import { DATE, DATETIME, TIME } from '$lib/consts';
 import { db } from '$lib/firebase';
 import type { Goal } from '$lib/goal/utils';
-import type { OnlyTTask, Task, ToDo, Event } from '$lib/task/utils';
+import type { OnlyTTask, Task, AnyTask } from '$lib/task/utils';
 import {
 	add,
 	addMinutes,
@@ -124,12 +124,15 @@ function buildDeadline(formData: FormData) {
 	formData.set('deadline', deadline);
 }
 
-export function isEventsDateInverted(task: Event | ToDo) {
-	return (
-		'startTime' in task &&
-		'endTime' in task &&
-		!isAfter(parse(task.endTime, TIME, new Date()), parse(task.startTime, TIME, new Date()))
-	);
+export function isEventsDateInverted(task: AnyTask) {
+	console.log(task);
+	if ('startTime' in task && task.startTime && 'endTime' in task && task.endTime) {
+		console.log('end', parse(task.endTime, TIME, new Date()));
+		console.log('start', parse(task.startTime, TIME, new Date()));
+		return !isAfter(parse(task.endTime, TIME, new Date()), parse(task.startTime, TIME, new Date()));
+	} else {
+		return false;
+	}
 }
 
 export function editTask(id: string | undefined, data: Partial<Omit<Task, 'id'>>, userId: string) {

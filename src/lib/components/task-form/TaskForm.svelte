@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { validator } from '@felte/validator-yup';
 	import { Transition } from '@rgossiaux/svelte-headlessui';
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -14,14 +13,14 @@
 	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import { DATE, TIME } from '$lib/consts';
+	import { getErrors } from '$lib/form-utils';
 	import { parseGoals } from '$lib/goal/utils';
 	import type { Task, AnyTask } from '$lib/task/utils';
-	import { addMinutes, addMonths, endOfWeek, format } from 'date-fns';
+	import { addMinutes, addMonths, endOfWeek, format, isAfter, parse } from 'date-fns';
 	import { createForm } from 'felte';
 	import { createEventDispatcher } from 'svelte';
 	import Flatpickr from 'svelte-flatpickr';
-	import { object } from 'yup';
-	import { addTask, editTask, isEventsDateInverted } from './service';
+	import { addTask, editTask } from './service';
 	// eslint-disable-next-line import/max-dependencies
 	import 'flatpickr/dist/themes/airbnb.css';
 
@@ -43,16 +42,23 @@
 
 	let isRecurringOpen = false;
 
-	let error = '';
-
 	const dispatch = createEventDispatcher<{ close: null }>();
 
-	const schema = object({});
-
 	const { form, data, errors, setFields, unsetField } = createForm<Task>({
-		extend: [validator({ schema })],
-		validateSchema: schema,
 		initialValues: task,
+		validate: (values) => {
+			if (values.startTime && values.endTime) {
+				if (
+					!isAfter(
+						parse(values.startTime, TIME, new Date()),
+						parse(values.endTime, TIME, new Date()),
+					)
+				) {
+					return { startTime: 'start time should be before end time' };
+				}
+			}
+			return {};
+		},
 		onSubmit: (values) => {
 			const { id, ...data } = values;
 
@@ -65,21 +71,7 @@
 		},
 	});
 
-	$: {
-		if (isEventsDateInverted(task)) {
-			error = 'start date should be before end date';
-		} else if (categories.length === 0) {
-			error = 'create a category first';
-		} else {
-			error = '';
-		}
-	}
-
 	$: formName = `${isEditing ? 'Edit' : 'Add'} ${'startTime' in task ? 'Event' : 'Task'}`;
-
-	$: parsedErrors = Object.values($errors)
-		.filter((value) => value)
-		.join(', ');
 
 	$: {
 		if (isEvent) {
@@ -135,7 +127,9 @@
 			</button>
 		</div>
 
-		<Alert type="error" isVisible={!!parsedErrors} hasCloseButton={false}>{parsedErrors}</Alert>
+		<Alert type="error" isVisible={!!getErrors($errors)} hasCloseButton={false}>
+			{getErrors($errors)}
+		</Alert>
 
 		<div class="flex flex-col gap-2 text-sm font-medium text-gray-700">
 			<div class="flex gap-3 items-center">
@@ -338,7 +332,7 @@
 			<div />
 		{/if}
 
-		<Button disabled={error} type="submit">
+		<Button type="submit">
 			{#if isEditing} Edit {:else} Add {/if}
 		</Button>
 	</div>
