@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { tailwindColors } from '$lib/category/utils';
 	import Loading from '$lib/components/loading/Loading.svelte';
-	import { DATE } from '$lib/consts';
+	import { TIME } from '$lib/consts';
 	import { removeDraggedEvent, setDraggedEvent } from '$lib/dragged/store';
 	import type { Event, RecurringEvent } from '$lib/task/utils';
 	import classnames from 'classnames';
@@ -72,7 +72,9 @@
 	</form>
 
 	<p class={classnames({ hidden: isShort(event) }, 'text-blue-500 group-hover:text-blue-700')}>
-		<time dateTime={event.date}>{format(parse(event.date, DATE, new Date()), 'p')}</time>
+		<time dateTime={`${event.date} ${event.startTime}`}>
+			{format(parse(event.startTime, TIME, new Date()), 'p')}
+		</time>
 	</p>
 
 	<EventName {event} />
