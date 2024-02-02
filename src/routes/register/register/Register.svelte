@@ -8,7 +8,7 @@
 	import { createForm } from 'felte';
 	import { FirebaseError } from 'firebase/app';
 	import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-	import { doc, setDoc } from 'firebase/firestore';
+	import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 	import { minidenticon } from 'minidenticons';
 	import { object, string } from 'yup';
 
@@ -31,6 +31,29 @@
 		password: string;
 	};
 
+	async function addDefaultCategories(userId: string) {
+		// TODO when one select a category as default, make all other non default
+		const categoriesCollectionRef = collection(db, 'users', userId, 'categories');
+		void addDoc(categoriesCollectionRef, {
+			name: 'work',
+			type: 'work',
+			color: 'green',
+			isDefault: true,
+		});
+		void addDoc(categoriesCollectionRef, {
+			name: 'sleep',
+			type: 'sleep',
+			color: 'blue',
+			isDefault: false,
+		});
+		void addDoc(categoriesCollectionRef, {
+			name: 'fun',
+			type: 'fun',
+			color: 'red',
+			isDefault: false,
+		});
+	}
+
 	async function register({ email, password, displayName, photoURL }: Account) {
 		const { user } = await createUserWithEmailAndPassword(auth, email, password);
 		await updateProfile(user, { displayName });
@@ -40,6 +63,7 @@
 			displayName,
 			email,
 		});
+		await addDefaultCategories(user.uid);
 	}
 
 	const { form, errors } = createForm<Omit<Account, 'photoURL'>>({

@@ -51,8 +51,8 @@
 				if (values.startTime && values.endTime) {
 					if (
 						!isAfter(
-							parse(values.startTime, TIME, new Date()),
 							parse(values.endTime, TIME, new Date()),
+							parse(values.startTime, TIME, new Date()),
 						)
 					) {
 						return { startTime: 'start time should be before end time' };
