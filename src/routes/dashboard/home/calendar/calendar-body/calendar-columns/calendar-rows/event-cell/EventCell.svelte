@@ -2,7 +2,7 @@
 	import { tailwindColors } from '$lib/category/utils';
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import { TIME } from '$lib/consts';
-	import type { Event, RecurringEvent } from '$lib/task/utils';
+	import type { AnyEvent, Event } from '$lib/task/utils';
 	import classnames from 'classnames';
 	import { format, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
@@ -10,7 +10,7 @@
 	import EventName from './event-name/EventName.svelte';
 	import { dragEnd, dragStart, isShort, toggleCompletion } from './service';
 
-	export let event: Event | RecurringEvent;
+	export let event: AnyEvent;
 
 	// the date this event is taking place, in case of a recurring Event
 	// this might not be the same day as the event.startDate

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { AnyTask, Event, RecurringEvent, ToDo } from '$lib/task/utils';
+	import type { AnyEvent, AnyTask, ToDo } from '$lib/task/utils';
 	import classnames from 'classnames';
 	import { format, getDate, isToday } from 'date-fns';
 
@@ -25,8 +25,8 @@
 		move: { timeInterval: number; date: Date };
 	}>();
 
-	function getEvents(date: Date, tasks: AnyTask[]): Array<Event | RecurringEvent> {
-		return tasks.filter((task): task is Event | RecurringEvent => isEventOnDay(task, date));
+	function getEvents(date: Date, tasks: AnyTask[]): Array<AnyEvent> {
+		return tasks.filter((task): task is AnyEvent => isEventOnDay(task, date));
 	}
 
 	function getToDos(date: Date, tasks: AnyTask[]): Array<ToDo> {

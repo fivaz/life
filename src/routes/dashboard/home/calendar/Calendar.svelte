@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
-	import { editTask } from '$lib/components/task-form/service';
+	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service.js';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import { draggedEvent } from '$lib/dragged/store';
 	import type { OptionalId } from '$lib/form-utils';
@@ -9,7 +9,6 @@
 	import { startOfWeek } from 'date-fns';
 
 	import { SignedIn } from 'sveltefire';
-	import { parseCategories } from '../../categories/service';
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
 	import { buildEmptyEvent, buildEventWithTime, moveEvent } from './service';
@@ -18,7 +17,7 @@
 
 	let weekStart = startOfWeek(currentDate);
 
-	let targetDate: Date | null = null;
+	let targetDate: Date;
 
 	let editingEvent: OptionalId<Event> = buildEmptyEvent([]);
 
@@ -26,11 +25,7 @@
 </script>
 
 <SignedIn let:user>
-	<SlimCollection
-		ref={`users/${user.uid}/categories`}
-		parse={parseCategories}
-		let:data={categories}
-	>
+	<SlimCollection ref={`users/${user.uid}/categories`} let:data={categories}>
 		<div class="flex h-full flex-col divide-gray-200">
 			<CalendarHeader
 				bind:weekStart
@@ -49,12 +44,12 @@
 				}}
 				on:create={(e) => {
 					showForm = true;
-					editingEvent = buildEventWithTime([], e.detail.date, e.detail.timeInterval);
+					editingEvent = buildEventWithTime(categories, e.detail.date, e.detail.timeInterval);
 				}}
 				on:move={async (e) => {
 					if ($draggedEvent) {
 						const { id, ...data } = moveEvent($draggedEvent, e.detail.date, e.detail.timeInterval);
-						editTask(id, data, user.uid);
+						editPossibleSingleRecurringEvent(id, data, user.uid, targetDate);
 					}
 				}}
 			/>

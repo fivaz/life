@@ -3,7 +3,7 @@ import { TIME } from '$lib/consts';
 import type { Goal } from '$lib/goal/utils';
 import { differenceInMinutes, format, parse } from 'date-fns';
 
-export type TaskCommon = {
+export type CoreTask = {
 	id: string;
 	name: string;
 	description: string;
@@ -12,11 +12,11 @@ export type TaskCommon = {
 	goal: Goal | undefined;
 };
 
-export type ToDo = TaskCommon & {
+export type ToDo = CoreTask & {
 	deadline: string;
 };
 
-export type Event = TaskCommon & {
+export type Event = CoreTask & {
 	date: string;
 	startTime: string;
 	endTime: string;
@@ -32,7 +32,9 @@ export type RecurringEvent = Event & {
 
 export type Task = ToDo & Event & RecurringEvent;
 
-export type AnyTask = ToDo | Event | RecurringEvent;
+export type AnyEvent = Event | RecurringEvent;
+
+export type AnyTask = ToDo | AnyEvent;
 
 export type OnlyTTask = Omit<ToDo, 'category' | 'goal'>;
 
@@ -53,26 +55,65 @@ export function convertToTime(minutes: number | null): string {
 	return format(date, TIME);
 }
 
-export function parseTasks(
-	tasksCollection: Array<(ToDo | Event | RecurringEvent) & Record<string, string>>,
-): Partial<ToDo | Event | RecurringEvent>[] {
-	return tasksCollection.map((datum) => ({
-		id: datum.id,
-		name: datum.name,
-		isDone: datum.isDone,
-		category: datum.category,
-		...(datum.description ? { description: datum.description } : {}),
-		...(datum.goal ? { goal: datum.goal } : {}),
-		...(datum.deadline ? { deadline: datum.deadline } : {}),
-		...(datum.date ? { date: datum.date } : {}),
-		...(datum.startTime ? { startTime: datum.startTime } : {}),
-		...(datum.endTime ? { endTime: datum.endTime } : {}),
-		...(datum.duration ? { duration: datum.duration } : {}),
-		...(datum.recurringExceptions ? { recurringExceptions: datum.recurringExceptions } : {}),
-		...(datum.recurringDaysOfWeek ? { recurringDaysOfWeek: datum.recurringDaysOfWeek } : {}),
-		...(datum.recurringStartAt ? { recurringStartAt: datum.recurringStartAt } : {}),
-		...(datum.recurringEndAt ? { recurringEndAt: datum.recurringEndAt } : {}),
-	}));
+function getToDo(data: ToDo & unknown): ToDo {
+	return {
+		id: data.id,
+		name: data.name,
+		isDone: data.isDone,
+		category: data.category,
+		description: data.description,
+		goal: data.goal,
+		deadline: data.deadline,
+	};
+}
+
+function getEvent(data: Event & unknown): Event {
+	return {
+		id: data.id,
+		name: data.name,
+		isDone: data.isDone,
+		category: data.category,
+		description: data.description,
+		goal: data.goal,
+		date: data.date,
+		startTime: data.startTime,
+		endTime: data.endTime,
+		duration: data.duration,
+	};
+}
+
+function getRecurringEvent(data: RecurringEvent & unknown): RecurringEvent {
+	return {
+		id: data.id,
+		name: data.name,
+		isDone: data.isDone,
+		category: data.category,
+		description: data.description,
+		goal: data.goal,
+		date: data.date,
+		startTime: data.startTime,
+		endTime: data.endTime,
+		duration: data.duration,
+		recurringExceptions: data.recurringExceptions,
+		recurringDaysOfWeek: data.recurringDaysOfWeek,
+		recurringStartAt: data.recurringStartAt,
+		recurringEndAt: data.recurringEndAt,
+	};
+}
+
+export function parseTasks(tasksCollection: Array<AnyTask & unknown>): AnyTask[] {
+	const x = tasksCollection.map((datum: AnyTask & unknown) => {
+		if ('deadline' in datum) {
+			return getToDo(datum as ToDo & unknown);
+		} else {
+			if ('recurringStartAt' in datum) {
+				return getRecurringEvent(datum as RecurringEvent & unknown);
+			} else {
+				return getEvent(datum as Event & unknown);
+			}
+		}
+	});
+	return x;
 }
 
 export function getDuration(event: Event): number {
@@ -81,93 +122,3 @@ export function getDuration(event: Event): number {
 
 	return differenceInMinutes(startDate, endDate);
 }
-
-// export async function getTask(
-// 	request: Request,
-// ): Promise<{ task: OnlyTTask; isForThisEventOnly: boolean; targetDate: Date | null }> {
-// 	const data = await request.formData();
-// 	const categoryId = Number(data.get('categoryId'));
-// 	const goalId = data.get('goalId') ? Number(data.get('goalId')) : null;
-// 	const categoryName = data.get('categoryName') as string;
-//
-// 	const id = Number(data.get('id'));
-// 	const isDone = !!data.get('isDone');
-// 	const name = data.get('name') as string;
-// 	const description = data.get('description') as string;
-// 	const isEvent = !!data.get('isEvent');
-//
-// 	const startDateString = data.get('startDate') as string;
-// 	const endDateString = data.get('endDate') as string;
-// 	const durationString = data.get('duration') as string;
-// 	const deadlineString = data.get('deadline') as string;
-//
-// 	const isRecurring = !!data.get('isRecurring');
-// 	const isForThisEventOnly = !!data.get('isForThisEventOnly');
-// 	const targetDateString = data.get('targetDate') as string;
-//
-// 	const recurringStartAtString = data.get('recurringStartAt') as string;
-// 	const recurringEndAtString = data.get('recurringEndAt') as string;
-// 	const recurringDaysOfWeekString = data.get('recurringDaysOfWeek') as string;
-// 	const recurringExceptionsString = data.get('recurringExceptions') as string;
-//
-// 	if (!categoryName || !categoryId) {
-// 		throw Error('internal error, please refresh the page');
-// 	}
-//
-// 	const deadline = deadlineString ? parseISO(deadlineString) : null;
-//
-// 	let startDate = null;
-// 	let endDate = null;
-// 	let duration = null;
-//
-// 	if (isEvent) {
-// 		startDate = parseISO(startDateString);
-// 		endDate = parseISO(endDateString);
-// 		duration = convertToMinutes(durationString);
-// 	}
-//
-// 	let recurringStartAt = null;
-// 	let recurringEndAt = null;
-// 	let recurringDaysOfWeek: string[] = [];
-// 	let recurringExceptions: Date[] = [];
-// 	let targetDate = null;
-//
-// 	if (isRecurring) {
-// 		recurringStartAt = parseISO(recurringStartAtString);
-// 		recurringEndAt = parseISO(recurringEndAtString);
-//
-// 		recurringDaysOfWeek = recurringDaysOfWeekString.split(',');
-//
-// 		recurringExceptions = recurringExceptionsString
-// 			? recurringExceptionsString.split(', ').map((date) => parse(date, DATE, new Date()))
-// 			: [];
-//
-// 		targetDate = parseISO(targetDateString);
-// 	}
-//
-// 	if (startDate && endDate && startDate > endDate) {
-// 		throw Error('startDate should be before endDate');
-// 	}
-//
-// 	return {
-// 		isForThisEventOnly,
-// 		targetDate,
-// 		task: {
-// 			id,
-// 			name: name || categoryName,
-// 			description,
-// 			startDate,
-// 			endDate,
-// 			duration,
-// 			deadline,
-// 			isDone,
-// 			categoryId,
-// 			goalId,
-// 			isRecurring,
-// 			recurringStartAt,
-// 			recurringEndAt,
-// 			recurringDaysOfWeek,
-// 			recurringExceptions,
-// 		},
-// 	};
-// }

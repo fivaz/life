@@ -8,16 +8,16 @@
 		shortWithoutDescription,
 		redEvent,
 	} from '$lib/task/seed';
-	import Event from './Event.svelte';
+	import EventCell from './EventCell.svelte';
 
 	export const meta = {
-		component: Event,
+		component: EventCell,
 		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
 		argTypes: {},
-	} satisfies Meta<Event>;
+	} satisfies Meta<EventCell>;
 </script>
 
 <script>
@@ -25,7 +25,7 @@
 
 <Template let:args>
 	<div class="w-40 h-40 relative">
-		<Event {...args} />
+		<EventCell {...args} />
 	</div>
 </Template>
 

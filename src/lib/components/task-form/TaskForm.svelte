@@ -15,13 +15,12 @@
 	import { DATE, TIME } from '$lib/consts';
 	import { getErrors } from '$lib/form-utils';
 	import type { OptionalId } from '$lib/form-utils';
-	import { parseGoals } from '$lib/goal/utils';
 	import type { Task, AnyTask } from '$lib/task/utils';
 	import { addMinutes, addMonths, endOfWeek, format, isAfter, parse } from 'date-fns';
 	import { createForm } from 'felte';
 	import { createEventDispatcher } from 'svelte';
 	import Flatpickr from 'svelte-flatpickr';
-	import { addTask, editTask } from './service';
+	import { addTask, deleteTask, editTask, editTaskWithPrompt } from './service';
 	// eslint-disable-next-line import/max-dependencies
 	import 'flatpickr/dist/themes/airbnb.css';
 
@@ -31,7 +30,7 @@
 
 	export let categories: Category[];
 
-	export let targetDate: Date | null = null;
+	export let targetDate: Date | undefined = undefined;
 
 	$: isEditing = !!task.id;
 
@@ -66,10 +65,15 @@
 			const { id, ...data } = values;
 
 			if (id) {
-				editTask(id, data, userId);
+				if (targetDate) {
+					editTaskWithPrompt(id, data, userId, targetDate);
+				} else {
+					editTask(id, data, userId);
+				}
 			} else {
 				addTask(data, userId);
 			}
+
 			dispatch('close');
 		},
 	});
@@ -169,7 +173,7 @@
 				{/each}
 			</Select>
 
-			<SlimCollection ref={`users/${userId}/goals`} parse={parseGoals} let:data={goals}>
+			<SlimCollection ref={`users/${userId}/goals`} let:data={goals}>
 				<Select
 					bind:value={$data.goal}
 					name="goal"
@@ -330,7 +334,9 @@
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
 		{#if isEditing}
-			<Button color="red" type="button">Delete</Button>
+			<Button color="red" type="button" on:click={() => deleteTask(task.id, userId, dispatch)}>
+				Delete
+			</Button>
 		{:else}
 			<div />
 		{/if}

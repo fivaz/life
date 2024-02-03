@@ -6,11 +6,9 @@
 	import { auth, db } from '$lib/firebase';
 	import type { OptionalId } from '$lib/form-utils';
 	import { getTasksByDate } from '$lib/task/store';
-	import { parseTasks } from '$lib/task/utils';
 	import type { ToDo } from '$lib/task/utils';
 	import { collection, query, where } from 'firebase/firestore';
 	import { SignedIn, userStore } from 'sveltefire';
-	import { parseCategories } from '../categories/service';
 	import { buildEmptyToDo, getSumOfDurationsAsTime } from './service';
 
 	import TaskRow from './task-row/TaskRow.svelte';
@@ -22,16 +20,13 @@
 	const user = userStore(auth);
 
 	const tasksRef = collection(db, `users/${$user?.uid}/tasks`);
+
 	$: q = query(tasksRef, where('isDone', '==', false));
 </script>
 
 <SignedIn let:user>
-	<SlimCollection
-		ref={`users/${user.uid}/categories`}
-		parse={parseCategories}
-		let:data={categories}
-	>
-		<SlimCollection ref={q} parse={parseTasks} let:data={tasks}>
+	<SlimCollection ref={`users/${user.uid}/categories`} let:data={categories}>
+		<SlimCollection ref={q} let:data={tasks}>
 			<div class="flex flex-col gap-5">
 				<div class="flex justify-end">
 					<Button

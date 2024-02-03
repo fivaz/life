@@ -1,19 +1,3 @@
-import { fail } from '@sveltejs/kit';
-import { set } from 'date-fns';
-
-export async function handleError(error: unknown) {
-	console.log('error', error);
-	return fail(422, {
-		error: error instanceof Error ? error.message : 'unknown error',
-	});
-}
-
-function updateTime(date: Date, time: Date) {
-	const hours = time.getHours();
-	const minutes = time.getMinutes();
-
-	return set(date, { hours, minutes });
-}
 
 // export async function splitEventFromRecurring(
 // 	event: OnlyEEvent,

@@ -1,11 +1,11 @@
 import type { Category } from '$lib/category/utils';
 import { weekDays } from '$lib/components/days-checkbox/service';
 import { createModal } from '$lib/components/dialog/service';
-import { DATE, DATETIME, TIME } from '$lib/consts';
+import { DATE, TIME } from '$lib/consts';
 import { db } from '$lib/firebase';
 import type { OptionalId } from '$lib/form-utils';
 import type { Goal } from '$lib/goal/utils';
-import type { OnlyTTask, Task, AnyTask } from '$lib/task/utils';
+import type { Task, AnyTask, RecurringEvent } from '$lib/task/utils';
 import {
 	add,
 	addMinutes,
@@ -13,17 +13,9 @@ import {
 	differenceInMinutes,
 	endOfWeek,
 	format,
-	isAfter,
-	isValid,
-	parse,
 } from 'date-fns';
-import { addDoc, collection, deleteDoc, doc, setDoc } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import type { EventDispatcher } from 'svelte';
-
-export type TaskIn = OnlyTTask & {
-	wasRecurring: boolean;
-	isEvent: boolean;
-};
 
 export function buildEmptyTask(categories: Category[], goal?: Goal): OptionalId<Task> {
 	return {
@@ -74,76 +66,80 @@ export function getDuration(startTime: string, endTime: string): string {
 	return format(new Date(0, 0, 0, totalHours, remainingMinutes), TIME);
 }
 
-export function formatDates(task: TaskIn, formData: FormData) {
-	if (task.isEvent) {
-		buildEventDates(formData);
+export function editPossibleSingleRecurringEvent(
+	id: string,
+	data: Omit<AnyTask, 'id'>,
+	userId: string,
+	targetDate: Date,
+) {
+	if ('recurringExceptions' in data) {
+		editSingleRecurringEvent(id, data as Omit<RecurringEvent, 'id'>, userId, targetDate);
 	} else {
-		buildDeadline(formData);
+		editTask(id, data, userId);
 	}
 }
 
-function buildEventDates(formData: FormData): void {
-	const date = formData.get('date') as string;
-	const startTime = formData.get('startTime') as string;
-	const endTime = formData.get('endTime') as string;
-	const isRecurring = !!formData.get('isRecurring');
+export function editSingleRecurringEvent(
+	id: string,
+	recurringData: Omit<RecurringEvent, 'id'>,
+	userId: string,
+	targetDate: Date,
+) {
+	const date = format(targetDate, DATE);
 
-	const startDateString = `${date} ${startTime}`;
-	const endDateString = `${date} ${endTime}`;
+	// remove te recurring attributes
+	const {
+		recurringStartAt,
+		recurringEndAt,
+		recurringDaysOfWeek,
+		recurringExceptions,
+		...eventData
+	} = recurringData;
 
-	// Parse the date and time string
-	const startDate = parse(startDateString, DATETIME, new Date());
-	const endDate = parse(endDateString, DATETIME, new Date());
+	const newEvent = { ...eventData, date };
 
-	if (!isValid(startDate) || !isValid(endDate)) {
-		throw Error('date, startTime and endTime should be valid date and time');
-	}
+	void addTask(newEvent, userId);
 
-	formData.set('startDate', startDate.toISOString());
-	formData.set('endDate', endDate.toISOString());
+	recurringData.recurringExceptions = recurringData.recurringExceptions + `, ` + date;
 
-	if (isRecurring) {
-		const recurringStartAtString = formData.get('recurringStartAt') as string;
-		const recurringEndAtString = formData.get('recurringEndAt') as string;
-		const recurringStartAt = parse(recurringStartAtString, DATE, new Date());
-		const recurringEndAt = parse(recurringEndAtString, DATE, new Date());
+	editTask(id, recurringData, userId);
+}
 
-		if (!isValid(recurringStartAt) || !isValid(recurringEndAt)) {
-			throw Error('date, recurringStartAt and recurringEndAt should be valid date and time');
+export async function editTaskWithPrompt(
+	id: string,
+	data: Omit<AnyTask, 'id'>,
+	userId: string,
+	targetDate: Date,
+) {
+	if ('recurringStartAt' in data) {
+		const recurringData = data as Omit<RecurringEvent, 'id'>;
+		const result = await createModal({
+			title: 'This is a repeating event',
+			message: 'Do you want to save the changes for ?',
+			confirmText: 'this event only',
+			cancelText: 'future events',
+		});
+
+		if (result === null) {
+			return;
 		}
 
-		formData.set('recurringStartAt', recurringStartAt.toISOString());
-		formData.set('recurringEndAt', recurringEndAt.toISOString());
-	}
-}
-
-function buildDeadline(formData: FormData) {
-	const deadlineString = formData.get('deadline') as string;
-
-	const deadline = deadlineString ? parse(deadlineString, DATE, new Date()).toISOString() : '';
-
-	formData.set('deadline', deadline);
-}
-
-export function isEventsDateInverted(task: AnyTask) {
-	console.log(task);
-	if ('startTime' in task && task.startTime && 'endTime' in task && task.endTime) {
-		console.log('end', parse(task.endTime, TIME, new Date()));
-		console.log('start', parse(task.startTime, TIME, new Date()));
-		return !isAfter(parse(task.endTime, TIME, new Date()), parse(task.startTime, TIME, new Date()));
+		if (result) {
+			editSingleRecurringEvent(id, recurringData, userId, targetDate);
+		} else {
+			editTask(id, recurringData, userId);
+		}
 	} else {
-		return false;
+		editTask(id, data, userId);
 	}
 }
 
-export function editTask(id: string | undefined, data: Partial<Omit<Task, 'id'>>, userId: string) {
-	if (id) {
-		const taskDocRef = doc(db, 'users', userId, 'tasks', id);
-		void setDoc(taskDocRef, data);
-	}
+export function editTask(id: string, data: Omit<AnyTask, 'id'>, userId: string) {
+	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
+	void updateDoc(taskDocRef, data);
 }
 
-export function addTask(data: Partial<Omit<Task, 'id'>>, userId: string) {
+export function addTask(data: Omit<AnyTask, 'id'>, userId: string) {
 	const tasksCollectionRef = collection(db, 'users', userId, 'tasks');
 	void addDoc(tasksCollectionRef, data);
 }
@@ -160,49 +156,3 @@ export async function deleteTask(
 		dispatch('close');
 	}
 }
-//
-// const handleCreate: SubSubmitFunction<TaskIn> = ({ formData, data: task }) => {
-// 	formatDates(task, formData);
-//
-// 	// dispatch('close');
-//
-// 	return async ({ result }) => {
-// 		await applyAction(result);
-// 		if (result.type === 'success' && result.data?.created) {
-// 			updateTasks(result.data.created);
-// 		} else if (result.type === 'error') {
-// 			console.log(result.error || UnknownError);
-// 		}
-// 	};
-// };
-//
-// const handleEdit: SubSubmitFunction<TaskIn> = async ({ formData, data: task }) => {
-// 	formatDates(task, formData);
-//
-// 	if (task.isEvent) {
-// 		if (task.wasRecurring && task.isRecurring) {
-// 			const result = await createModal({
-// 				title: 'This is a repeating event',
-// 				message: 'Do you want to save the changes for ?',
-// 				confirmText: 'this event only',
-// 				cancelText: 'future events',
-// 			});
-//
-// 			if (result === null) {
-// 				return () => {};
-// 			}
-//
-// 			formData.set('isForThisEventOnly', result ? 'true' : '');
-// 		}
-// 	}
-// 	// dispatch('close');
-//
-// 	return async ({ result }) => {
-// 		await applyAction(result);
-// 		if (result.type === 'success' && result.data?.updated) {
-// 			updateTasks(result.data.updated);
-// 		} else if (result.type === 'error') {
-// 			console.log(result.error || UnknownError);
-// 		}
-// 	};
-// };

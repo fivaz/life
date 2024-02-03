@@ -2,7 +2,6 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
-	import { parseGoals } from '$lib/goal/utils';
 	import { SignedIn } from 'sveltefire';
 	import GoalForm from './goal-form/GoalForm.svelte';
 	import GoalRow from './goal-row/GoalRow.svelte';
@@ -14,7 +13,7 @@
 </script>
 
 <SignedIn let:user>
-	<SlimCollection ref={`users/${user.uid}/goals`} parse={parseGoals} let:data={goals}>
+	<SlimCollection ref={`users/${user.uid}/goals`} let:data={goals}>
 		<div class="flex flex-col gap-5">
 			<div class="flex justify-end">
 				<Button

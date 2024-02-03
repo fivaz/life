@@ -1,18 +1,18 @@
+import {
+	editPossibleSingleRecurringEvent,
+} from '$lib/components/task-form/service';
 import { removeDraggedEvent, setDraggedEvent } from '$lib/dragged/store';
-import { db } from '$lib/firebase';
-import type { Event } from '$lib/task/utils';
+import type { AnyEvent, Event } from '$lib/task/utils';
 import { getDuration } from '$lib/task/utils';
-import { doc, updateDoc } from 'firebase/firestore';
 
 export function isShort(event: Event) {
 	return Math.abs(getDuration(event)) <= 15;
 }
 
-export function toggleCompletion(userId: string, event: Event, targetDate: Date) {
-	const taskDocRef = doc(db, 'users', userId, 'tasks', event.id);
-	return updateDoc(taskDocRef, {
-		isDone: !event.isDone,
-	});
+export function toggleCompletion(userId: string, event: AnyEvent, targetDate: Date) {
+	event.isDone = !event.isDone;
+	const { id, ...data } = event;
+	editPossibleSingleRecurringEvent(id, data, userId, targetDate);
 }
 
 export function dragStart(e: DragEvent, event: Event) {
