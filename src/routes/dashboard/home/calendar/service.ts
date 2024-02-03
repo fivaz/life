@@ -2,7 +2,7 @@ import type { Category } from '$lib/category/utils';
 import { DATE, TIME } from '$lib/consts';
 import type { OptionalId } from '$lib/form-utils';
 import type { Goal } from '$lib/goal/utils';
-import type { Event } from '$lib/task/utils';
+import type { AnyEvent, Event } from '$lib/task/utils';
 import { getDuration } from '$lib/task/utils';
 import { addMinutes, format, setHours, setMinutes } from 'date-fns';
 import { halfHourInterval } from './calendar-body/calendar-columns/calendar-rows/service';
@@ -49,7 +49,7 @@ export function buildEmptyEvent(categories: Category[], goal?: Goal): OptionalId
 	};
 }
 
-export function moveEvent<E extends Event>(event: E, date: Date, quarterHourInterval: number) {
+export function moveEvent(event: AnyEvent, date: Date, quarterHourInterval: number) {
 	return {
 		...event,
 		date: format(date, DATE),
@@ -58,5 +58,5 @@ export function moveEvent<E extends Event>(event: E, date: Date, quarterHourInte
 			setMinutes(setHours(date, 0), quarterHourInterval * 15 + getDuration(event)),
 			TIME,
 		),
-	} satisfies E;
+	} satisfies AnyEvent;
 }

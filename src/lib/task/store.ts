@@ -61,10 +61,3 @@ function groupTasksByDate(tasks: Task[]): Record<string, Task[]> {
 		return groups;
 	}, {});
 }
-
-// export function toggleEvent(task: Task) {
-// 	tasks.update(($tasks) => [
-// 		...$tasks.filter((existingTask) => existingTask.id !== task.id),
-// 		{ ...task, isDone: !task.isDone },
-// 	]);
-// }

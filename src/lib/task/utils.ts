@@ -102,7 +102,7 @@ function getRecurringEvent(data: RecurringEvent & unknown): RecurringEvent {
 }
 
 export function parseTasks(tasksCollection: Array<AnyTask & unknown>): AnyTask[] {
-	const x = tasksCollection.map((datum: AnyTask & unknown) => {
+	return tasksCollection.map((datum: AnyTask & unknown) => {
 		if ('deadline' in datum) {
 			return getToDo(datum as ToDo & unknown);
 		} else {
@@ -113,10 +113,9 @@ export function parseTasks(tasksCollection: Array<AnyTask & unknown>): AnyTask[]
 			}
 		}
 	});
-	return x;
 }
 
-export function getDuration(event: Event): number {
+export function getDuration(event: AnyEvent): number {
 	const startDate = parse(event.startTime, TIME, new Date());
 	const endDate = parse(event.endTime, TIME, new Date());
 

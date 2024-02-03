@@ -14,7 +14,3 @@ export const homeRoute = `${dashboardRoute}/home`;
 export const categoriesRoute = `${dashboardRoute}/categories`;
 export const tasksRoute = `${dashboardRoute}/tasks`;
 export const toGoalsRoute = `${dashboardRoute}/goals`;
-
-export const unauthorized = 'Unauthorized';
-
-export const UnknownError = 'Unknown error';

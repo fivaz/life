@@ -6,15 +6,8 @@ import { db } from '$lib/firebase';
 import type { OptionalId } from '$lib/form-utils';
 import type { Goal } from '$lib/goal/utils';
 import type { Task, AnyTask, RecurringEvent } from '$lib/task/utils';
-import {
-	add,
-	addMinutes,
-	addMonths,
-	differenceInMinutes,
-	endOfWeek,
-	format,
-} from 'date-fns';
-import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { add, addMinutes, addMonths, differenceInMinutes, endOfWeek, format } from 'date-fns';
+import { addDoc, collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore';
 import type { EventDispatcher } from 'svelte';
 
 export function buildEmptyTask(categories: Category[], goal?: Goal): OptionalId<Task> {
@@ -72,7 +65,7 @@ export function editPossibleSingleRecurringEvent(
 	userId: string,
 	targetDate: Date,
 ) {
-	if ('recurringExceptions' in data) {
+	if ('recurringStartAt' in data) {
 		editSingleRecurringEvent(id, data as Omit<RecurringEvent, 'id'>, userId, targetDate);
 	} else {
 		editTask(id, data, userId);
@@ -81,7 +74,7 @@ export function editPossibleSingleRecurringEvent(
 
 export function editSingleRecurringEvent(
 	id: string,
-	recurringData: Omit<RecurringEvent, 'id'>,
+	data: Omit<RecurringEvent, 'id'>,
 	userId: string,
 	targetDate: Date,
 ) {
@@ -94,24 +87,27 @@ export function editSingleRecurringEvent(
 		recurringDaysOfWeek,
 		recurringExceptions,
 		...eventData
-	} = recurringData;
+	} = data;
 
 	const newEvent = { ...eventData, date };
 
 	void addTask(newEvent, userId);
 
-	recurringData.recurringExceptions = recurringData.recurringExceptions + `, ` + date;
+	const exceptions = data.recurringExceptions.split(', ');
+	exceptions.push(date);
 
-	editTask(id, recurringData, userId);
+	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
+	void setDoc(taskDocRef, { recurringExceptions: exceptions.join(', ') }, { merge: true });
 }
 
 export async function editTaskWithPrompt(
 	id: string,
 	data: Omit<AnyTask, 'id'>,
 	userId: string,
-	targetDate: Date,
+	targetDate: Date | undefined,
+	wasRecurring: boolean,
 ) {
-	if ('recurringStartAt' in data) {
+	if ('recurringStartAt' in data && wasRecurring && targetDate) {
 		const recurringData = data as Omit<RecurringEvent, 'id'>;
 		const result = await createModal({
 			title: 'This is a repeating event',

@@ -20,7 +20,7 @@
 	import { createForm } from 'felte';
 	import { createEventDispatcher } from 'svelte';
 	import Flatpickr from 'svelte-flatpickr';
-	import { addTask, deleteTask, editTask, editTaskWithPrompt } from './service';
+	import { addTask, deleteTask, editTaskWithPrompt } from './service';
 	// eslint-disable-next-line import/max-dependencies
 	import 'flatpickr/dist/themes/airbnb.css';
 
@@ -34,9 +34,11 @@
 
 	$: isEditing = !!task.id;
 
-	let isEvent = !!('date' in task && task.date);
+	let isEvent = !!('date' in task);
 
-	let isRecurring = !!('recurringStartAt' in task && task.recurringStartAt);
+	let wasRecurring = !!('recurringStartAt' in task);
+
+	let isRecurring = !!('recurringStartAt' in task);
 
 	let isEventOpen = false;
 
@@ -65,11 +67,7 @@
 			const { id, ...data } = values;
 
 			if (id) {
-				if (targetDate) {
-					editTaskWithPrompt(id, data, userId, targetDate);
-				} else {
-					editTask(id, data, userId);
-				}
+				editTaskWithPrompt(id, data, userId, targetDate, wasRecurring);
 			} else {
 				addTask(data, userId);
 			}
@@ -83,12 +81,14 @@
 	$: {
 		if (isEvent) {
 			unsetField('deadline');
+
 			setFields('duration', '00:15');
 			setFields('date', format(new Date(), DATE));
 			setFields('startTime', format(new Date(), TIME));
 			setFields('endTime', format(addMinutes(new Date(), 15), TIME));
 		} else {
 			setFields('deadline', format(endOfWeek(new Date()), DATE));
+
 			unsetField('duration');
 			unsetField('date');
 			unsetField('startTime');

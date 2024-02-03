@@ -1,6 +1,4 @@
-import {
-	editPossibleSingleRecurringEvent,
-} from '$lib/components/task-form/service';
+import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
 import { removeDraggedEvent, setDraggedEvent } from '$lib/dragged/store';
 import type { AnyEvent, Event } from '$lib/task/utils';
 import { getDuration } from '$lib/task/utils';
@@ -10,8 +8,8 @@ export function isShort(event: Event) {
 }
 
 export function toggleCompletion(userId: string, event: AnyEvent, targetDate: Date) {
-	event.isDone = !event.isDone;
-	const { id, ...data } = event;
+	const newEvent = { ...event, isDone: !event.isDone };
+	const { id, ...data } = newEvent;
 	editPossibleSingleRecurringEvent(id, data, userId, targetDate);
 }
 
