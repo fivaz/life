@@ -9,7 +9,7 @@ export type CoreTask = {
 	description: string;
 	isDone: boolean;
 	category: Category;
-	goal: Goal | undefined;
+	goal: Goal | null;
 };
 
 export type ToDo = CoreTask & {
@@ -55,7 +55,7 @@ export function convertToTime(minutes: number | null): string {
 	return format(date, TIME);
 }
 
-function getToDo(data: ToDo & unknown): ToDo {
+export function getToDo(data: ToDo & unknown): ToDo {
 	return {
 		id: data.id,
 		name: data.name,
@@ -67,7 +67,7 @@ function getToDo(data: ToDo & unknown): ToDo {
 	};
 }
 
-function getEvent(data: Event & unknown): Event {
+export function getEvent(data: Event & unknown): Event {
 	return {
 		id: data.id,
 		name: data.name,
@@ -82,7 +82,7 @@ function getEvent(data: Event & unknown): Event {
 	};
 }
 
-function getRecurringEvent(data: RecurringEvent & unknown): RecurringEvent {
+export function getRecurringEvent(data: RecurringEvent & unknown): RecurringEvent {
 	return {
 		id: data.id,
 		name: data.name,

@@ -6,7 +6,7 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
-	import type { OptionalId } from '$lib/form-utils';
+	import { getErrors } from '$lib/form-utils';
 	import type { Goal } from '$lib/goal/utils';
 	import { createForm } from 'felte';
 	import { createEventDispatcher } from 'svelte';
@@ -16,7 +16,7 @@
 
 	export let userId: string;
 
-	export let goal: OptionalId<Goal>;
+	export let goal: Goal;
 
 	$: isEditing = !!goal.id;
 
@@ -40,10 +40,6 @@
 			dispatch('close');
 		},
 	});
-
-	$: parsedErrors = Object.values($errors)
-		.filter((value) => value)
-		.join(', ');
 </script>
 
 <form
@@ -70,7 +66,9 @@
 			</button>
 		</div>
 
-		<Alert type="error" isVisible={!!parsedErrors} hasCloseButton={false}>{parsedErrors}</Alert>
+		<Alert type="error" isVisible={!!getErrors($errors)} hasCloseButton={false}>
+			{getErrors($errors)}
+		</Alert>
 
 		<div class="flex flex-col gap-2 text-sm font-medium text-gray-700">
 			<Input class="flex" placeholder="Name" autocomplete="off" name="name" />

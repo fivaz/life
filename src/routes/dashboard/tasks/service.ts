@@ -1,17 +1,17 @@
 import type { Category } from '$lib/category/utils';
 import { DATE } from '$lib/consts';
-import type { OptionalId } from '$lib/form-utils';
 import type { AnyTask, ToDo } from '$lib/task/utils';
 import { convertDurationToMinutes } from '$lib/task/utils';
 import { endOfWeek, format } from 'date-fns';
 
-export function buildEmptyToDo(categories: Category[]): OptionalId<ToDo> {
+export function buildEmptyToDo(categories: Category[]): ToDo {
 	return {
+		id: '',
 		name: '',
 		description: '',
 		isDone: false,
 		category: categories.find((category) => category.isDefault) || categories[0],
-		goal: undefined,
+		goal: null,
 		deadline: format(endOfWeek(new Date()), DATE),
 	};
 }

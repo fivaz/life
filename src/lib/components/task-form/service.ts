@@ -3,25 +3,77 @@ import { weekDays } from '$lib/components/days-checkbox/service';
 import { createModal } from '$lib/components/dialog/service';
 import { DATE, TIME } from '$lib/consts';
 import { db } from '$lib/firebase';
-import type { OptionalId } from '$lib/form-utils';
 import type { Goal } from '$lib/goal/utils';
-import type { Task, AnyTask, RecurringEvent } from '$lib/task/utils';
+import type { Task, AnyTask, RecurringEvent, ToDo, Event } from '$lib/task/utils';
 import { add, addMinutes, addMonths, differenceInMinutes, endOfWeek, format } from 'date-fns';
 import { addDoc, collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore';
 import type { EventDispatcher } from 'svelte';
 
-export function buildEmptyTask(categories: Category[], goal?: Goal): OptionalId<Task> {
+export type TaskIn = Task & { isEvent: boolean; isRecurring: boolean };
+
+function convertToDo(todo: ToDo): TaskIn {
 	return {
-		name: '',
-		description: '',
+		isEvent: false,
+		isRecurring: false,
+		...todo,
 		date: format(new Date(), DATE),
 		startTime: format(new Date(), TIME),
 		endTime: format(addMinutes(new Date(), 15), TIME),
 		duration: '00:15',
+		recurringStartAt: format(new Date(), DATE),
+		recurringEndAt: format(addMonths(new Date(), 1), DATE),
+		recurringDaysOfWeek: weekDays.slice(1, 6),
+		recurringExceptions: '',
+	};
+}
+
+function convertRecurring(event: RecurringEvent): TaskIn {
+	return {
+		isEvent: true,
+		isRecurring: true,
+		...event,
 		deadline: format(endOfWeek(new Date()), DATE),
+	};
+}
+
+function convertEvent(event: Event): TaskIn {
+	return {
+		isEvent: true,
+		isRecurring: false,
+		...event,
+		deadline: format(endOfWeek(new Date()), DATE),
+		recurringStartAt: format(new Date(), DATE),
+		recurringEndAt: format(addMonths(new Date(), 1), DATE),
+		recurringDaysOfWeek: weekDays.slice(1, 6),
+		recurringExceptions: '',
+	};
+}
+
+export function convertToTaskIn(task: AnyTask): TaskIn {
+	if ('deadline' in task) {
+		return convertToDo(task);
+	} else {
+		if ('recurringStartAt' in task) {
+			return convertRecurring(task);
+		} else {
+			return convertEvent(task);
+		}
+	}
+}
+
+export function buildEmptyTask(categories: Category[], goal: Goal | null = null): Task {
+	return {
+		id: '',
+		name: '',
+		description: '',
+		date: format(new Date(), DATE),
 		isDone: false,
 		category: categories.find((category) => category.isDefault) || categories[0],
 		goal,
+		deadline: format(endOfWeek(new Date()), DATE),
+		startTime: format(new Date(), TIME),
+		endTime: format(addMinutes(new Date(), 15), TIME),
+		duration: '00:15',
 		recurringStartAt: format(new Date(), DATE),
 		recurringEndAt: format(addMonths(new Date(), 1), DATE),
 		recurringDaysOfWeek: weekDays.slice(1, 6),
@@ -97,7 +149,7 @@ export function editSingleRecurringEvent(
 	exceptions.push(date);
 
 	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
-	void setDoc(taskDocRef, { recurringExceptions: exceptions.join(', ') }, { merge: true });
+	void updateDoc(taskDocRef, { recurringExceptions: exceptions.join(', ') });
 }
 
 export async function editTaskWithPrompt(
@@ -132,7 +184,7 @@ export async function editTaskWithPrompt(
 
 export function editTask(id: string, data: Omit<AnyTask, 'id'>, userId: string) {
 	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
-	void updateDoc(taskDocRef, data);
+	void setDoc(taskDocRef, data);
 }
 
 export function addTask(data: Omit<AnyTask, 'id'>, userId: string) {

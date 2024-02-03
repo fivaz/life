@@ -69,7 +69,6 @@
 	const { form, errors } = createForm<Omit<Account, 'photoURL'>>({
 		extend: [validator({ schema })],
 		onSubmit: async (values) => {
-			console.log(values);
 			isLoading = true;
 			await register({ ...values, photoURL });
 			void goto(rootRoute);

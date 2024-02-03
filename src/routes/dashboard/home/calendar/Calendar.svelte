@@ -4,8 +4,7 @@
 	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service.js';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import { draggedEvent } from '$lib/dragged/store';
-	import type { OptionalId } from '$lib/form-utils';
-	import type { Event } from '$lib/task/utils';
+	import type { AnyEvent } from '$lib/task/utils';
 	import { startOfWeek } from 'date-fns';
 
 	import { SignedIn } from 'sveltefire';
@@ -19,7 +18,7 @@
 
 	let targetDate: Date | undefined = undefined;
 
-	let editingEvent: OptionalId<Event> = buildEmptyEvent([]);
+	let editingEvent: AnyEvent = buildEmptyEvent([]);
 
 	let showForm = false;
 </script>

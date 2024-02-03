@@ -7,6 +7,7 @@ import type { EventDispatcher } from 'svelte';
 
 export function buildEmptyCategory() {
 	return {
+		id: '',
 		name: '',
 		isDefault: false,
 		color: Object.keys(tailwindColors)[0],

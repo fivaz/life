@@ -10,7 +10,7 @@
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
-	import type { OptionalId } from '$lib/form-utils';
+	import { getErrors } from '$lib/form-utils';
 	import classnames from 'classnames';
 	import { createForm } from 'felte';
 	import { createEventDispatcher } from 'svelte';
@@ -19,7 +19,7 @@
 
 	export let userId: string;
 
-	export let category: OptionalId<Category>;
+	export let category: Category;
 
 	$: isEditing = !!category.id;
 
@@ -43,10 +43,6 @@
 			dispatch('close');
 		},
 	});
-
-	$: parsedErrors = Object.values($errors)
-		.filter((value) => value)
-		.join(', ');
 </script>
 
 <form use:form on:submit|preventDefault class="w-[355px] shadow rounded-md">
@@ -69,7 +65,9 @@
 			</button>
 		</div>
 
-		<Alert type="error" isVisible={!!parsedErrors} hasCloseButton={false}>{parsedErrors}</Alert>
+		<Alert type="error" isVisible={!!getErrors($errors)} hasCloseButton={false}>
+			{getErrors($errors)}
+		</Alert>
 
 		<div class="flex flex-col gap-2 text-sm font-medium text-gray-700">
 			<Input class="flex-1" inputClass="" placeholder="Name" autocomplete="off" name="name" />

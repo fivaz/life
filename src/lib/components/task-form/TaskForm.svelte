@@ -11,32 +11,32 @@
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
+	import { convertToTaskIn } from '$lib/components/task-form/service.js';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import { DATE, TIME } from '$lib/consts';
-	import { getErrors } from '$lib/form-utils';
-	import type { OptionalId } from '$lib/form-utils';
-	import type { Task, AnyTask } from '$lib/task/utils';
+	import type { AnyTask } from '$lib/task/utils';
+	import { getEvent, getRecurringEvent, getToDo } from '$lib/task/utils';
 	import { addMinutes, addMonths, endOfWeek, format, isAfter, parse } from 'date-fns';
-	import { createForm } from 'felte';
 	import { createEventDispatcher } from 'svelte';
 	import Flatpickr from 'svelte-flatpickr';
 	import { addTask, deleteTask, editTaskWithPrompt, getDuration, getEndTime } from './service';
+	import type { TaskIn } from './service';
 	// eslint-disable-next-line import/max-dependencies
 	import 'flatpickr/dist/themes/airbnb.css';
 
 	export let userId: string;
 
-	export let task: OptionalId<AnyTask>;
+	export let task: AnyTask;
 
 	export let categories: Category[];
 
 	export let targetDate: Date | undefined = undefined;
 
-	$: isEditing = !!task.id;
+	let taskIn: TaskIn = convertToTaskIn(task);
 
-	let isEvent = !!('date' in task);
+	let isEvent = taskIn.isEvent;
 
-	let isRecurring = !!('recurringStartAt' in task);
+	let isRecurring = taskIn.isRecurring;
 
 	let wasRecurring = isRecurring;
 
@@ -44,87 +44,57 @@
 
 	let isRecurringOpen = false;
 
-	let duration: string;
-
-	let endTime: string;
-
 	const dispatch = createEventDispatcher<{ close: null }>();
 
-	const { form, data, errors, setFields, unsetField } = createForm<Task>({
-		initialValues: task,
-		debounced: {
-			validate: (values) => {
-				if (values.startTime && values.endTime) {
-					if (
-						!isAfter(
-							parse(values.endTime, TIME, new Date()),
-							parse(values.startTime, TIME, new Date()),
-						)
-					) {
-						return { startTime: 'start time should be before end time' };
-					}
-				}
-				return {};
-			},
-		},
-		onSubmit: (values) => {
-			const { id, ...data } = values;
+	let errorMessage = '';
 
-			if (id) {
-				editTaskWithPrompt(id, data, userId, targetDate, wasRecurring);
-			} else {
-				addTask(data, userId);
-			}
-
-			dispatch('close');
-		},
-	});
+	$: isEditing = !!task.id;
 
 	$: formName = `${isEditing ? 'Edit' : 'Add'} ${'startTime' in task ? 'Event' : 'Task'}`;
 
-	$: {
+	function isValid() {
+		if (taskIn.startTime && taskIn.endTime) {
+			if (
+				!isAfter(parse(taskIn.endTime, TIME, new Date()), parse(taskIn.startTime, TIME, new Date()))
+			) {
+				errorMessage = 'start time should be before end time';
+				return false;
+			}
+		}
+		return true;
+	}
+
+	function onSubmit() {
+		if (!isValid()) {
+			return;
+		}
+
+		let anyTask: AnyTask | undefined = undefined;
+
 		if (isEvent) {
-			unsetField('deadline');
-
-			setFields('duration', '00:15');
-			setFields('date', format(new Date(), DATE));
-			setFields('startTime', format(new Date(), TIME));
-			setFields('endTime', format(addMinutes(new Date(), 15), TIME));
+			if (isRecurring) {
+				anyTask = getRecurringEvent(taskIn);
+			} else {
+				anyTask = getEvent(taskIn);
+			}
 		} else {
-			setFields('deadline', format(endOfWeek(new Date()), DATE));
-
-			unsetField('duration');
-			unsetField('date');
-			unsetField('startTime');
-			unsetField('endTime');
-
-			unsetField('recurringDaysOfWeek');
-			unsetField('recurringStartAt');
-			unsetField('recurringEndAt');
-			unsetField('recurringExceptions');
+			anyTask = getToDo(taskIn);
 		}
-	}
 
-	$: {
-		if (isRecurring) {
-			setFields('recurringDaysOfWeek', weekDays.slice(1, 6));
-			setFields('recurringStartAt', format(new Date(), DATE));
-			setFields('recurringEndAt', format(addMonths(new Date(), 1), DATE));
-			setFields('recurringExceptions', '');
+		const { id, ...data } = anyTask;
+
+		if (id) {
+			editTaskWithPrompt(id, data, userId, targetDate, wasRecurring);
 		} else {
-			unsetField('recurringDaysOfWeek');
-			unsetField('recurringStartAt');
-			unsetField('recurringEndAt');
-			unsetField('recurringExceptions');
+			addTask(data, userId);
 		}
-	}
 
-	$: console.log($data.recurringDaysOfWeek);
+		dispatch('close');
+	}
 </script>
 
 <form
-	use:form
-	on:submit|preventDefault
+	on:submit|preventDefault={onSubmit}
 	class="w-[355px] shadow rounded-md overflow-hidden relative"
 >
 	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
@@ -140,19 +110,26 @@
 			</button>
 		</div>
 
-		<Alert type="error" isVisible={!!getErrors($errors)} hasCloseButton={false}>
-			{getErrors($errors)}
+		<Alert type="error" isVisible={!!errorMessage} hasCloseButton={false}>
+			{errorMessage}
 		</Alert>
 
 		<div class="flex flex-col gap-2 text-sm font-medium text-gray-700">
 			<div class="flex gap-3 items-center">
-				<Input class="flex-1" placeholder="Name" autocomplete="off" name="name" />
+				<Input
+					class="flex-1"
+					placeholder="Name"
+					autocomplete="off"
+					name="name"
+					bind:value={taskIn.name}
+				/>
 
 				<label>
 					<input
 						name="isDone"
 						type="checkbox"
 						class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+						bind:value={taskIn.isDone}
 					/>
 				</label>
 			</div>
@@ -162,18 +139,19 @@
 					name="description"
 					placeholder="description"
 					class="p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+					bind:value={taskIn.description}
 				/>
 			</label>
 
 			<Select
-				bind:value={$data.category}
+				bind:value={taskIn.category}
 				name="category"
 				label="Category"
 				class="flex items-center"
 				labelClass="w-1/5"
 				selectClass="flex-1"
 			>
-				<span slot="placeholder">{$data.category.name}</span>
+				<span slot="placeholder">{taskIn.category.name}</span>
 				{#each categories as category (category)}
 					<SelectItem value={category}>{category.name}</SelectItem>
 				{/each}
@@ -181,15 +159,15 @@
 
 			<SlimCollection ref={`users/${userId}/goals`} let:data={goals}>
 				<Select
-					bind:value={$data.goal}
+					bind:value={taskIn.goal}
 					name="goal"
 					label="Goal"
 					class="flex items-center"
 					labelClass="w-1/5"
 					selectClass="flex-1"
 				>
-					<span slot="placeholder">{$data.goal?.name || 'no goal'}</span>
-					<SelectItem value={undefined}>no goal</SelectItem>
+					<span slot="placeholder">{taskIn.goal?.name || 'no goal'}</span>
+					<SelectItem value={null}>no goal</SelectItem>
 					{#each goals as goal (goal)}
 						<SelectItem value={goal}>{goal.name}</SelectItem>
 					{/each}
@@ -204,6 +182,7 @@
 				labelClass="w-1/5"
 				inputClass="flex-1"
 				disabled={isEvent}
+				bind:value={taskIn.deadline}
 			/>
 
 			<div class="bg-white rounded-lg p-2">
@@ -226,21 +205,21 @@
 						on:change={(e) => {
 							isEventOpen = e.detail;
 							if (e.detail) {
-								unsetField('deadline');
+								taskIn.deadline = '';
 
-								setFields('duration', '00:15');
-								setFields('startTime', format(new Date(), TIME));
-								setFields('endTime', format(addMinutes(new Date(), 15), TIME));
-								setFields('date', format(new Date(), DATE));
+								taskIn.duration = '00:15';
+								taskIn.startTime = format(new Date(), TIME);
+								taskIn.endTime = format(addMinutes(new Date(), 15), TIME);
+								taskIn.date = format(new Date(), DATE);
 							} else {
 								isRecurring = false;
 
-								setFields('deadline', format(endOfWeek(new Date()), DATE));
+								taskIn.deadline = format(endOfWeek(new Date()), DATE);
 
-								unsetField('duration');
-								unsetField('startTime');
-								unsetField('endTime');
-								unsetField('date');
+								taskIn.duration = '';
+								taskIn.startTime = '';
+								taskIn.endTime = '';
+								taskIn.date = '';
 							}
 						}}
 					/>
@@ -257,16 +236,23 @@
 						show={isEventOpen}
 					>
 						<div class="flex gap-3 pt-2 overflow-hidden">
-							<Input class="w-1/2" label="Date" type="date" name="date" required />
+							<Input
+								class="w-1/2"
+								label="Date"
+								type="date"
+								name="date"
+								bind:value={taskIn.date}
+								required
+							/>
 
 							<Input
 								class="w-1/2"
 								label="Duration"
 								type="time"
 								name="duration"
-								value={duration}
+								bind:value={taskIn.duration}
+								on:input={(e) => (taskIn.endTime = getEndTime(taskIn.startTime, e.detail))}
 								required
-								on:input={(e) => (endTime = getEndTime($data.startTime, e.detail))}
 							/>
 						</div>
 
@@ -276,7 +262,8 @@
 								label="Start time"
 								type="time"
 								name="startTime"
-								on:input={(e) => (endTime = getEndTime(e.detail, $data.duration))}
+								bind:value={taskIn.startTime}
+								on:input={(e) => (taskIn.endTime = getEndTime(e.detail, taskIn.duration))}
 								required
 							/>
 
@@ -285,9 +272,9 @@
 								label="End time"
 								type="time"
 								name="endTime"
-								value={endTime}
 								required
-								on:input={(e) => (duration = getDuration($data.startTime, e.detail))}
+								bind:value={taskIn.endTime}
+								on:input={(e) => (taskIn.duration = getDuration(taskIn.startTime, e.detail))}
 							/>
 						</div>
 					</Transition>
@@ -315,14 +302,14 @@
 							on:change={(e) => {
 								if (e.detail === true) {
 									isRecurringOpen = true;
-									setFields('recurringDaysOfWeek', weekDays.slice(1, 6));
-									setFields('recurringStartAt', format(new Date(), DATE));
-									setFields('recurringEndAt', format(addMonths(new Date(), 1), DATE));
-									setFields('recurringExceptions', '');
+									taskIn.recurringDaysOfWeek = weekDays.slice(1, 6);
+									taskIn.recurringStartAt = format(new Date(), DATE);
+									taskIn.recurringEndAt = format(addMonths(new Date(), 1), DATE);
+									taskIn.recurringExceptions = '';
 								} else {
-									unsetField('recurringStartAt');
-									unsetField('recurringEndAt');
-									unsetField('recurringExceptions');
+									taskIn.recurringStartAt = '';
+									taskIn.recurringEndAt = '';
+									taskIn.recurringExceptions = '';
 								}
 							}}
 						/>
@@ -345,16 +332,24 @@
 									type="date"
 									name="recurringStartAt"
 									required
+									bind:value={taskIn.recurringStartAt}
 								/>
 
-								<Input class="w-1/2" label="End at" type="date" name="recurringEndAt" required />
+								<Input
+									class="w-1/2"
+									label="End at"
+									type="date"
+									name="recurringEndAt"
+									required
+									bind:value={taskIn.recurringEndAt}
+								/>
 							</div>
 							<div>
 								<h3 class="block text-sm font-medium text-gray-700 mb-1">Repeat every</h3>
 								<DaysCheckbox
 									class="flex justify-around"
 									name="recurringDaysOfWeek"
-									bind:value={$data.recurringDaysOfWeek}
+									bind:value={taskIn.recurringDaysOfWeek}
 								/>
 							</div>
 
@@ -373,7 +368,7 @@
 										mode: 'multiple',
 										dateFormat: 'Y-m-d',
 									}}
-									bind:value={$data.recurringExceptions}
+									bind:value={taskIn.recurringExceptions}
 								/>
 							</div>
 						</Transition>

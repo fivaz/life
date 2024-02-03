@@ -4,7 +4,6 @@
 	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import { auth, db } from '$lib/firebase';
-	import type { OptionalId } from '$lib/form-utils';
 	import { getTasksByDate } from '$lib/task/store';
 	import type { ToDo } from '$lib/task/utils';
 	import { collection, query, where } from 'firebase/firestore';
@@ -13,7 +12,7 @@
 
 	import TaskRow from './task-row/TaskRow.svelte';
 
-	let editingTask: OptionalId<ToDo> = buildEmptyToDo([]);
+	let editingTask: ToDo = buildEmptyToDo([]);
 
 	let showForm = false;
 
