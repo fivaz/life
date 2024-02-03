@@ -20,7 +20,7 @@
 	import { createForm } from 'felte';
 	import { createEventDispatcher } from 'svelte';
 	import Flatpickr from 'svelte-flatpickr';
-	import { addTask, deleteTask, editTaskWithPrompt } from './service';
+	import { addTask, deleteTask, editTaskWithPrompt, getDuration, getEndTime } from './service';
 	// eslint-disable-next-line import/max-dependencies
 	import 'flatpickr/dist/themes/airbnb.css';
 
@@ -36,13 +36,17 @@
 
 	let isEvent = !!('date' in task);
 
-	let wasRecurring = !!('recurringStartAt' in task);
-
 	let isRecurring = !!('recurringStartAt' in task);
+
+	let wasRecurring = isRecurring;
 
 	let isEventOpen = false;
 
 	let isRecurringOpen = false;
+
+	let duration: string;
+
+	let endTime: string;
 
 	const dispatch = createEventDispatcher<{ close: null }>();
 
@@ -114,6 +118,8 @@
 			unsetField('recurringExceptions');
 		}
 	}
+
+	$: console.log($data.recurringDaysOfWeek);
 </script>
 
 <form
@@ -219,8 +225,22 @@
 						bind:value={isEvent}
 						on:change={(e) => {
 							isEventOpen = e.detail;
-							if (!e.detail) {
+							if (e.detail) {
+								unsetField('deadline');
+
+								setFields('duration', '00:15');
+								setFields('startTime', format(new Date(), TIME));
+								setFields('endTime', format(addMinutes(new Date(), 15), TIME));
+								setFields('date', format(new Date(), DATE));
+							} else {
 								isRecurring = false;
+
+								setFields('deadline', format(endOfWeek(new Date()), DATE));
+
+								unsetField('duration');
+								unsetField('startTime');
+								unsetField('endTime');
+								unsetField('date');
 							}
 						}}
 					/>
@@ -239,13 +259,36 @@
 						<div class="flex gap-3 pt-2 overflow-hidden">
 							<Input class="w-1/2" label="Date" type="date" name="date" required />
 
-							<Input class="w-1/2" label="Duration" type="time" name="duration" required />
+							<Input
+								class="w-1/2"
+								label="Duration"
+								type="time"
+								name="duration"
+								value={duration}
+								required
+								on:input={(e) => (endTime = getEndTime($data.startTime, e.detail))}
+							/>
 						</div>
 
 						<div class="flex gap-3">
-							<Input class="w-1/2" label="Start time" type="time" name="startTime" required />
+							<Input
+								class="w-1/2"
+								label="Start time"
+								type="time"
+								name="startTime"
+								on:input={(e) => (endTime = getEndTime(e.detail, $data.duration))}
+								required
+							/>
 
-							<Input class="w-1/2" label="End time" type="time" name="endTime" required />
+							<Input
+								class="w-1/2"
+								label="End time"
+								type="time"
+								name="endTime"
+								value={endTime}
+								required
+								on:input={(e) => (duration = getDuration($data.startTime, e.detail))}
+							/>
 						</div>
 					</Transition>
 				{/if}
@@ -272,6 +315,14 @@
 							on:change={(e) => {
 								if (e.detail === true) {
 									isRecurringOpen = true;
+									setFields('recurringDaysOfWeek', weekDays.slice(1, 6));
+									setFields('recurringStartAt', format(new Date(), DATE));
+									setFields('recurringEndAt', format(addMonths(new Date(), 1), DATE));
+									setFields('recurringExceptions', '');
+								} else {
+									unsetField('recurringStartAt');
+									unsetField('recurringEndAt');
+									unsetField('recurringExceptions');
 								}
 							}}
 						/>
