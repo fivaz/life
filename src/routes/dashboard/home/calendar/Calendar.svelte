@@ -17,7 +17,7 @@
 
 	let weekStart = startOfWeek(currentDate);
 
-	let targetDate: Date;
+	let targetDate: Date | undefined = undefined;
 
 	let editingEvent: OptionalId<Event> = buildEmptyEvent([]);
 
@@ -49,7 +49,7 @@
 				on:move={async (e) => {
 					if ($draggedEvent) {
 						const { id, ...data } = moveEvent($draggedEvent, e.detail.date, e.detail.timeInterval);
-						editPossibleSingleRecurringEvent(id, data, user.uid, targetDate);
+						editPossibleSingleRecurringEvent(id, data, user.uid, e.detail.date);
 					}
 				}}
 			/>
