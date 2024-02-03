@@ -1,7 +1,7 @@
 import type { OnlyTTask } from '$lib/task/utils';
 
 export type Goal = {
-	id?: string;
+	id: string;
 	name: string;
 	deadline: string;
 	isDone: boolean;

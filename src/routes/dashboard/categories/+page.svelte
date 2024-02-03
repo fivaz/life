@@ -1,14 +1,16 @@
 <script lang="ts">
+	import type { Category } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
+	import type { OptionalId } from '$lib/form-utils';
 	import { SignedIn } from 'sveltefire';
 	import CategoryForm from './category-form/CategoryForm.svelte';
 	import { buildEmptyCategory } from './category-form/service';
 	import CategoryRow from './category-row/CategoryRow.svelte';
 	import { parseCategories } from './service';
 
-	let editingCategory = buildEmptyCategory();
+	let editingCategory: OptionalId<Category> = buildEmptyCategory();
 
 	let showForm = false;
 </script>

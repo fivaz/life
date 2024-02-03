@@ -10,6 +10,7 @@
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
+	import type { OptionalId } from '$lib/form-utils';
 	import classnames from 'classnames';
 	import { createForm } from 'felte';
 	import { createEventDispatcher } from 'svelte';
@@ -18,7 +19,7 @@
 
 	export let userId: string;
 
-	export let category: Category;
+	export let category: OptionalId<Category>;
 
 	$: isEditing = !!category.id;
 

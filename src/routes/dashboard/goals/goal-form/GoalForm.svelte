@@ -6,6 +6,7 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
+	import type { OptionalId } from '$lib/form-utils';
 	import type { Goal } from '$lib/goal/utils';
 	import { createForm } from 'felte';
 	import { createEventDispatcher } from 'svelte';
@@ -15,7 +16,7 @@
 
 	export let userId: string;
 
-	export let goal: Goal;
+	export let goal: OptionalId<Goal>;
 
 	$: isEditing = !!goal.id;
 
