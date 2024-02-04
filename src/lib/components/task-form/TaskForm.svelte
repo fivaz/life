@@ -15,7 +15,7 @@
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import { DATE, TIME } from '$lib/consts';
 	import type { AnyTask } from '$lib/task/utils';
-	import { getEvent, getRecurringEvent, getToDo } from '$lib/task/utils';
+	import { convertToAnyTask } from '$lib/task/utils';
 	import { addMinutes, addMonths, endOfWeek, format, isAfter, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 	import Flatpickr from 'svelte-flatpickr';
@@ -34,11 +34,7 @@
 
 	let taskIn: TaskIn = convertToTaskIn(task);
 
-	let isEvent = taskIn.isEvent;
-
-	let isRecurring = taskIn.isRecurring;
-
-	let wasRecurring = isRecurring;
+	let wasRecurring = taskIn.isRecurring;
 
 	let isEventOpen = false;
 
@@ -69,19 +65,7 @@
 			return;
 		}
 
-		let anyTask: AnyTask | undefined = undefined;
-
-		if (isEvent) {
-			if (isRecurring) {
-				anyTask = getRecurringEvent(taskIn);
-			} else {
-				anyTask = getEvent(taskIn);
-			}
-		} else {
-			anyTask = getToDo(taskIn);
-		}
-
-		const { id, ...data } = anyTask;
+		const { id, ...data } = convertToAnyTask(taskIn);
 
 		if (id) {
 			editTaskWithPrompt(id, data, userId, targetDate, wasRecurring);
@@ -181,7 +165,7 @@
 				class="flex items-center"
 				labelClass="w-1/5"
 				inputClass="flex-1"
-				disabled={isEvent}
+				disabled={taskIn.isEvent}
 				bind:value={taskIn.deadline}
 			/>
 
@@ -191,17 +175,17 @@
 						class="flex-1 text-start"
 						type="button"
 						on:click={() => {
-							if (isEvent) {
+							if (taskIn.isEvent) {
 								isEventOpen = !isEventOpen;
 							} else {
-								isEvent = true;
+								taskIn.isEvent = true;
 							}
 						}}
 					>
 						Event
 					</button>
 					<Toggle
-						bind:value={isEvent}
+						bind:value={taskIn.isEvent}
 						on:change={(e) => {
 							isEventOpen = e.detail;
 							if (e.detail) {
@@ -212,7 +196,7 @@
 								taskIn.endTime = format(addMinutes(new Date(), 15), TIME);
 								taskIn.date = format(new Date(), DATE);
 							} else {
-								isRecurring = false;
+								taskIn.isRecurring = false;
 
 								taskIn.deadline = format(endOfWeek(new Date()), DATE);
 
@@ -225,7 +209,7 @@
 					/>
 				</div>
 
-				{#if isEvent}
+				{#if taskIn.isEvent}
 					<Transition
 						class="transition-all duration-500 overflow-hidden"
 						enterFrom="transform opacity-0 max-h-0"
@@ -281,24 +265,24 @@
 				{/if}
 			</div>
 
-			{#if isEvent}
+			{#if taskIn.isEvent}
 				<div class="bg-white rounded-lg p-2">
 					<div class="flex">
 						<button
 							class="flex-1 text-start"
 							type="button"
 							on:click={() => {
-								if (isRecurring) {
+								if (taskIn.isRecurring) {
 									isRecurringOpen = !isRecurringOpen;
 								} else {
-									isRecurring = true;
+									taskIn.isRecurring = true;
 								}
 							}}
 						>
 							Recurring
 						</button>
 						<Toggle
-							bind:value={isRecurring}
+							bind:value={taskIn.isRecurring}
 							on:change={(e) => {
 								if (e.detail === true) {
 									isRecurringOpen = true;
@@ -315,7 +299,7 @@
 						/>
 					</div>
 
-					{#if isRecurring}
+					{#if taskIn.isRecurring}
 						<Transition
 							class="transition-all duration-500 overflow-hidden"
 							enterFrom="transform opacity-0 max-h-0"

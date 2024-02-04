@@ -56,6 +56,18 @@ export function convertToTime(minutes: number | null): string {
 	return format(date, TIME);
 }
 
+export function convertToAnyTask(taskIn: TaskIn): AnyTask {
+	if (taskIn.isEvent) {
+		if (taskIn.isRecurring) {
+			return getRecurringEvent(taskIn);
+		} else {
+			return getEvent(taskIn);
+		}
+	} else {
+		return getToDo(taskIn);
+	}
+}
+
 export function getToDo(data: TaskIn): ToDo {
 	return {
 		id: data.id,
