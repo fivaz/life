@@ -305,11 +305,11 @@
 									taskIn.recurringDaysOfWeek = weekDays.slice(1, 6);
 									taskIn.recurringStartAt = format(new Date(), DATE);
 									taskIn.recurringEndAt = format(addMonths(new Date(), 1), DATE);
-									taskIn.recurringExceptions = '';
+									taskIn.recurringExceptions = [];
 								} else {
 									taskIn.recurringStartAt = '';
 									taskIn.recurringEndAt = '';
-									taskIn.recurringExceptions = '';
+									taskIn.recurringExceptions = [];
 								}
 							}}
 						/>

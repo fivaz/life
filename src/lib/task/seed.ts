@@ -49,7 +49,7 @@ export const long: RecurringEvent = {
 	recurringStartAt: '',
 	recurringEndAt: '',
 	recurringDaysOfWeek: [],
-	recurringExceptions: '',
+	recurringExceptions: [],
 };
 
 export const done: Event = {
@@ -97,7 +97,7 @@ export const sleepRecurringEvent: RecurringEvent = {
 	recurringStartAt: '',
 	recurringEndAt: '',
 	recurringDaysOfWeek: [],
-	recurringExceptions: '',
+	recurringExceptions: [],
 };
 
 export const workToDo: ToDo = {

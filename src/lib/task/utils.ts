@@ -1,5 +1,6 @@
 import type { Category } from '$lib/category/utils';
-import { TIME } from '$lib/consts';
+import type { TaskIn } from '$lib/components/task-form/service';
+import { DATE, TIME } from '$lib/consts';
 import type { Goal } from '$lib/goal/utils';
 import { differenceInMinutes, format, parse } from 'date-fns';
 
@@ -24,7 +25,7 @@ export type Event = CoreTask & {
 };
 
 export type RecurringEvent = Event & {
-	recurringExceptions: string;
+	recurringExceptions: string[];
 	recurringDaysOfWeek: string[];
 	recurringStartAt: string;
 	recurringEndAt: string;
@@ -55,7 +56,7 @@ export function convertToTime(minutes: number | null): string {
 	return format(date, TIME);
 }
 
-export function getToDo(data: ToDo & unknown): ToDo {
+export function getToDo(data: TaskIn): ToDo {
 	return {
 		id: data.id,
 		name: data.name,
@@ -67,7 +68,7 @@ export function getToDo(data: ToDo & unknown): ToDo {
 	};
 }
 
-export function getEvent(data: Event & unknown): Event {
+export function getEvent(data: TaskIn): Event {
 	return {
 		id: data.id,
 		name: data.name,
@@ -82,7 +83,7 @@ export function getEvent(data: Event & unknown): Event {
 	};
 }
 
-export function getRecurringEvent(data: RecurringEvent & unknown): RecurringEvent {
+export function getRecurringEvent(data: TaskIn): RecurringEvent {
 	return {
 		id: data.id,
 		name: data.name,
@@ -94,25 +95,11 @@ export function getRecurringEvent(data: RecurringEvent & unknown): RecurringEven
 		startTime: data.startTime,
 		endTime: data.endTime,
 		duration: data.duration,
-		recurringExceptions: data.recurringExceptions,
+		recurringExceptions: data.recurringExceptions.map((date) => format(date, DATE)),
 		recurringDaysOfWeek: data.recurringDaysOfWeek,
 		recurringStartAt: data.recurringStartAt,
 		recurringEndAt: data.recurringEndAt,
 	};
-}
-
-export function parseTasks(tasksCollection: Array<AnyTask & unknown>): AnyTask[] {
-	return tasksCollection.map((datum: AnyTask & unknown) => {
-		if ('deadline' in datum) {
-			return getToDo(datum as ToDo & unknown);
-		} else {
-			if ('recurringStartAt' in datum) {
-				return getRecurringEvent(datum as RecurringEvent & unknown);
-			} else {
-				return getEvent(datum as Event & unknown);
-			}
-		}
-	});
 }
 
 export function getDuration(event: AnyEvent): number {

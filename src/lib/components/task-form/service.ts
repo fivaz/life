@@ -5,11 +5,23 @@ import { DATE, TIME } from '$lib/consts';
 import { db } from '$lib/firebase';
 import type { Goal } from '$lib/goal/utils';
 import type { Task, AnyTask, RecurringEvent, ToDo, Event } from '$lib/task/utils';
-import { add, addMinutes, addMonths, differenceInMinutes, endOfWeek, format } from 'date-fns';
+import {
+	add,
+	addMinutes,
+	addMonths,
+	differenceInMinutes,
+	endOfWeek,
+	format,
+	parse,
+} from 'date-fns';
 import { addDoc, collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore';
 import type { EventDispatcher } from 'svelte';
 
-export type TaskIn = Task & { isEvent: boolean; isRecurring: boolean };
+export type TaskIn = Omit<Task, 'recurringExceptions'> & {
+	isEvent: boolean;
+	isRecurring: boolean;
+	recurringExceptions: Date[];
+};
 
 function convertToDo(todo: ToDo): TaskIn {
 	return {
@@ -23,7 +35,7 @@ function convertToDo(todo: ToDo): TaskIn {
 		recurringStartAt: format(new Date(), DATE),
 		recurringEndAt: format(addMonths(new Date(), 1), DATE),
 		recurringDaysOfWeek: weekDays.slice(1, 6),
-		recurringExceptions: '',
+		recurringExceptions: [],
 	};
 }
 
@@ -32,6 +44,7 @@ function convertRecurring(event: RecurringEvent): TaskIn {
 		isEvent: true,
 		isRecurring: true,
 		...event,
+		recurringExceptions: event.recurringExceptions.map((date) => parse(date, DATE, new Date())),
 		deadline: format(endOfWeek(new Date()), DATE),
 	};
 }
@@ -45,7 +58,7 @@ function convertEvent(event: Event): TaskIn {
 		recurringStartAt: format(new Date(), DATE),
 		recurringEndAt: format(addMonths(new Date(), 1), DATE),
 		recurringDaysOfWeek: weekDays.slice(1, 6),
-		recurringExceptions: '',
+		recurringExceptions: [],
 	};
 }
 
@@ -77,7 +90,7 @@ export function buildEmptyTask(categories: Category[], goal: Goal | null = null)
 		recurringStartAt: format(new Date(), DATE),
 		recurringEndAt: format(addMonths(new Date(), 1), DATE),
 		recurringDaysOfWeek: weekDays.slice(1, 6),
-		recurringExceptions: '',
+		recurringExceptions: [],
 	};
 }
 
@@ -145,11 +158,10 @@ export function editSingleRecurringEvent(
 
 	void addTask(newEvent, userId);
 
-	const exceptions = data.recurringExceptions.split(', ');
-	exceptions.push(date);
+	const exceptions = [...data.recurringExceptions, date];
 
 	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
-	void updateDoc(taskDocRef, { recurringExceptions: exceptions.join(', ') });
+	void updateDoc(taskDocRef, { recurringExceptions: exceptions });
 }
 
 export async function editTaskWithPrompt(
