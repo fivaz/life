@@ -6,12 +6,17 @@ import {
 	PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
 	PUBLIC_FIREBASE_STORAGE_BUCKET,
 } from '$env/static/public';
-import { deleteApp, getApp, getApps, initializeApp } from 'firebase/app';
+import { getApp, getApps, initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import {
+	getFirestore,
+	initializeFirestore,
+	persistentLocalCache,
+	persistentMultipleTabManager,
+} from 'firebase/firestore';
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
+const config = {
 	apiKey: PUBLIC_FIREBASE_API_KEY,
 	authDomain: PUBLIC_FIREBASE_AUTH_DOMAIN,
 	projectId: PUBLIC_FIREBASE_PROJECT_ID,
@@ -21,14 +26,15 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-let firebaseApp;
-if (!getApps().length) {
-	firebaseApp = initializeApp(firebaseConfig);
+let app;
+if (getApps().length) {
+	app = getApp();
 } else {
-	firebaseApp = getApp();
-	void deleteApp(firebaseApp);
-	firebaseApp = initializeApp(firebaseConfig);
+	app = initializeApp(config);
+	initializeFirestore(app, {
+		localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }),
+	});
 }
 
-export const db = getFirestore(firebaseApp);
-export const auth = getAuth(firebaseApp);
+export const db = getFirestore(app);
+export const auth = getAuth(app);

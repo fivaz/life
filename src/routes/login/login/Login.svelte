@@ -7,7 +7,9 @@
 	import { auth } from '$lib/firebase';
 	import { createForm } from 'felte';
 	import { FirebaseError } from 'firebase/app';
-	import { signInWithEmailAndPassword } from 'firebase/auth';
+	import {
+		signInWithEmailAndPassword,
+	} from 'firebase/auth';
 	import { object, string } from 'yup';
 
 	let isLoading: boolean = false;
@@ -33,6 +35,9 @@
 			if (error instanceof FirebaseError) {
 				if (error.code === 'auth/invalid-credential') {
 					errorMessage = 'login or password are incorrect';
+				}
+				if (error.code === 'auth/network-request-failed') {
+					errorMessage = "you can't login if you're not connected to the internet";
 				} else {
 					errorMessage = error.message;
 				}
