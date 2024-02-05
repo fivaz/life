@@ -1,7 +1,6 @@
 <script lang="ts">
 	import classnames from 'classnames';
 
-
 	// TODO implement this later
 	export let maxValue: number;
 
