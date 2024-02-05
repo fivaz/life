@@ -98,6 +98,9 @@ devDependencies:
   eslint-plugin-import:
     specifier: ^2.29.1
     version: 2.29.1(@typescript-eslint/parser@6.20.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.56.0)
+  eslint-plugin-import-no-duplicates-prefix-resolved-path:
+    specifier: ^2.0.0
+    version: 2.0.0(eslint@8.56.0)
   eslint-plugin-storybook:
     specifier: ^0.6.15
     version: 0.6.15(eslint@8.56.0)(typescript@5.3.3)
@@ -6481,6 +6484,14 @@ packages:
       eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.20.0)(eslint-plugin-import@2.29.1)(eslint@8.56.0)
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /eslint-plugin-import-no-duplicates-prefix-resolved-path@2.0.0(eslint@8.56.0):
+    resolution: {integrity: sha512-FRtQxcuUV+0W9KXfo2a2ZeAy6mXti8k6Nk/51zPTMyxOnTcPwbnNfcA3DVkG0g9z8Vk2UftSmQY1LGUz3darnA==}
+    peerDependencies:
+      eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8
+    dependencies:
+      eslint: 8.56.0
     dev: true
 
   /eslint-plugin-import@2.29.1(@typescript-eslint/parser@6.20.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.56.0):

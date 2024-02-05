@@ -11,7 +11,7 @@ module.exports = {
 		'plugin:import/typescript',
 	],
 	parser: '@typescript-eslint/parser',
-	plugins: ['@typescript-eslint'],
+	plugins: ['@typescript-eslint', 'import-no-duplicates-prefix-resolved-path'],
 	parserOptions: {
 		sourceType: 'module',
 		ecmaVersion: 2020,
@@ -43,6 +43,13 @@ module.exports = {
 			'error',
 			{
 				ignore: ['^\\$app/stores', '^\\$app/navigation', '^\\$env/static/public'],
+			},
+		],
+		'import/no-duplicates': 'off',
+		'import-no-duplicates-prefix-resolved-path/no-duplicates': [
+			'error',
+			{
+				prefixResolvedPathWithImportName: true,
 			},
 		],
 	},
