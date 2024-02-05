@@ -1,15 +1,17 @@
-<script lang="ts" context="module">
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
+
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+
 	import Modal from './Modal.svelte';
 
 	export const meta = {
+		argTypes: {},
 		component: Modal,
-		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
-		argTypes: {},
+		tags: ['autodocs'],
 	} satisfies Meta<Modal>;
 </script>
 
@@ -17,11 +19,11 @@
 	<Modal {...args} />
 </Template>
 
-<Story name="Modal" args={{ show: true }} let:args>
+<Story args={{ show: true }} let:args name="Modal">
 	<Modal {...args}><p class="p-5">Dialog</p></Modal>
 </Story>
 
-<Story name="Form" args={{ show: true }} let:args>
+<Story args={{ show: true }} let:args name="Form">
 	<Modal {...args}>
 		<div>Test</div>
 	</Modal>

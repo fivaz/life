@@ -11,7 +11,7 @@
 	export let value: any;
 </script>
 
-<ListboxOption {value} let:selected let:active>
+<ListboxOption let:active let:selected {value}>
 	<li
 		class={classnames(
 			active ? 'bg-indigo-600 text-white' : 'text-gray-900',
@@ -29,7 +29,7 @@
 					'absolute inset-y-0 right-0 flex items-center pr-4',
 				)}
 			>
-				<Icon src={Check} class="h-5 w-5" aria-hidden="true" />
+				<Icon aria-hidden="true" class="h-5 w-5" src={Check} />
 			</span>
 		{/if}
 	</li>

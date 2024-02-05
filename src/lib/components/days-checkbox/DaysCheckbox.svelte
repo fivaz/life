@@ -27,18 +27,18 @@
 	}
 </script>
 
-<input type="hidden" {name} {value} />
+<input {name} type="hidden" {value} />
 
 <div class={classnames(className)}>
 	{#each weekDays as day (day)}
 		<div class="flex flex-col items-center gap-1">
-			<label for={day} class="text-sm font-medium text-gray-700">{day}</label>
+			<label class="text-sm font-medium text-gray-700" for={day}>{day}</label>
 			<input
-				id={day}
-				type="checkbox"
 				checked={value.includes(day)}
-				on:change={() => handleCheckboxChange(day)}
 				class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+				id={day}
+				on:change={() => handleCheckboxChange(day)}
+				type="checkbox"
 			/>
 		</div>
 	{/each}

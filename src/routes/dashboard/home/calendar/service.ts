@@ -1,9 +1,11 @@
 import type { Category } from '$lib/category/utils';
-import { DATE, TIME } from '$lib/consts';
 import type { Goal } from '$lib/goal/utils';
 import type { AnyEvent, Event } from '$lib/task/utils';
+
+import { DATE, TIME } from '$lib/consts';
 import { getDuration } from '$lib/task/utils';
 import { addMinutes, format, setHours, setMinutes } from 'date-fns';
+
 import { halfHourInterval } from './calendar-body/calendar-columns/calendar-rows/service';
 
 function buildDate(date: Date, timeInterval: number) {
@@ -22,31 +24,31 @@ export function buildEventWithTime(
 	quarterHourInterval: number,
 ): Event {
 	return {
-		id: '',
-		name: '',
-		description: '',
-		date: format(date, DATE),
-		startTime: buildDate(date, quarterHourInterval),
-		endTime: buildDate(date, quarterHourInterval + 0.5),
-		duration: '00:15',
-		isDone: false,
 		category: categories.find((category) => category.isDefault) || categories[0],
+		date: format(date, DATE),
+		description: '',
+		duration: '00:15',
+		endTime: buildDate(date, quarterHourInterval + 0.5),
 		goal: null,
+		id: '',
+		isDone: false,
+		name: '',
+		startTime: buildDate(date, quarterHourInterval),
 	};
 }
 
 export function buildEmptyEvent(categories: Category[], goal: Goal | null = null): Event {
 	return {
-		id: '',
-		name: '',
-		description: '',
-		date: format(new Date(), DATE),
-		startTime: format(new Date(), TIME),
-		endTime: format(addMinutes(new Date(), 15), TIME),
-		duration: '00:15',
-		isDone: false,
 		category: categories.find((category) => category.isDefault) || categories[0],
+		date: format(new Date(), DATE),
+		description: '',
+		duration: '00:15',
+		endTime: format(addMinutes(new Date(), 15), TIME),
 		goal,
+		id: '',
+		isDone: false,
+		name: '',
+		startTime: format(new Date(), TIME),
 	};
 }
 
@@ -54,10 +56,10 @@ export function moveEvent(event: AnyEvent, date: Date, quarterHourInterval: numb
 	return {
 		...event,
 		date: format(date, DATE),
-		startTime: format(setMinutes(setHours(date, 0), quarterHourInterval * 15), TIME),
 		endTime: format(
 			setMinutes(setHours(date, 0), quarterHourInterval * 15 + getDuration(event)),
 			TIME,
 		),
+		startTime: format(setMinutes(setHours(date, 0), quarterHourInterval * 15), TIME),
 	} satisfies AnyEvent;
 }

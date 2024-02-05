@@ -1,6 +1,7 @@
+import type { AnyEvent, Event } from '$lib/task/utils';
+
 import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
 import { removeDraggedEvent, setDraggedEvent } from '$lib/dragged/store';
-import type { AnyEvent, Event } from '$lib/task/utils';
 import { getDuration } from '$lib/task/utils';
 
 export function isShort(event: Event) {

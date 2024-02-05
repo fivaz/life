@@ -1,15 +1,17 @@
-<script lang="ts" context="module">
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
+
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+
 	import Calendar from './Calendar.svelte';
 
 	export const meta = {
+		argTypes: {},
 		component: Calendar,
-		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
-		argTypes: {},
+		tags: ['autodocs'],
 	} satisfies Meta<Calendar>;
 </script>
 
@@ -19,4 +21,4 @@
 	</div>
 </Template>
 
-<Story name="Primary" args={{}} />
+<Story args={{}} name="Primary" />

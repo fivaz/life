@@ -1,15 +1,16 @@
 <script lang="ts">
+	import type { ToDo } from '$lib/task/utils';
+
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import { auth, db } from '$lib/firebase';
 	import { getTasksByDate } from '$lib/task/store';
-	import type { ToDo } from '$lib/task/utils';
 	import { collection, query, where } from 'firebase/firestore';
 	import { SignedIn, userStore } from 'sveltefire';
-	import { buildEmptyToDo, getSumOfDurationsAsTime } from './service';
 
+	import { buildEmptyToDo, getSumOfDurationsAsTime } from './service';
 	import TaskRow from './task-row/TaskRow.svelte';
 
 	let editingTask: ToDo = buildEmptyToDo([]);
@@ -24,8 +25,8 @@
 </script>
 
 <SignedIn let:user>
-	<SlimCollection ref={`users/${user.uid}/categories`} let:data={categories}>
-		<SlimCollection ref={q} let:data={tasks}>
+	<SlimCollection let:data={categories} ref={`users/${user.uid}/categories`}>
+		<SlimCollection let:data={tasks} ref={q}>
 			<div class="flex flex-col gap-5">
 				<div class="flex justify-end">
 					<Button
@@ -38,7 +39,7 @@
 					</Button>
 				</div>
 
-				<ul role="list" class="divide-y divide-gray-100">
+				<ul class="divide-y divide-gray-100" role="list">
 					{#each Object.entries(getTasksByDate(tasks)) as [date, list] (date)}
 						<div class="flex justify-between px-2">
 							<div>{date}</div>
@@ -46,22 +47,22 @@
 						</div>
 						{#each list as task (task)}
 							<TaskRow
-								{task}
 								on:edit={(e) => {
 									showForm = true;
 									editingTask = e.detail;
 								}}
+								{task}
 							/>
 						{/each}
 					{/each}
 				</ul>
 
-				<Modal show={showForm} on:close={() => (showForm = false)}>
+				<Modal on:close={() => (showForm = false)} show={showForm}>
 					<TaskForm
-						userId={user.uid}
-						task={editingTask}
 						{categories}
 						on:close={() => (showForm = false)}
+						task={editingTask}
+						userId={user.uid}
 					/>
 				</Modal>
 			</div>

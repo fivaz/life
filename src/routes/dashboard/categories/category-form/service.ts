@@ -1,16 +1,17 @@
-import { tailwindColors, types } from '$lib/category/utils';
 import type { Category } from '$lib/category/utils';
+import type { EventDispatcher } from 'svelte';
+
+import { tailwindColors, types } from '$lib/category/utils';
 import { createModal } from '$lib/components/dialog/service';
 import { db } from '$lib/firebase';
 import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
-import type { EventDispatcher } from 'svelte';
 
 export function buildEmptyCategory() {
 	return {
-		id: '',
-		name: '',
-		isDefault: false,
 		color: Object.keys(tailwindColors)[0],
+		id: '',
+		isDefault: false,
+		name: '',
 		type: types[0] as string,
 	};
 }

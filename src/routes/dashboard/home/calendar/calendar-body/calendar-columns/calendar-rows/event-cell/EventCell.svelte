@@ -1,12 +1,14 @@
 <script lang="ts">
+	import type { AnyEvent, Event } from '$lib/task/utils';
+
 	import { tailwindColors } from '$lib/category/utils';
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import { TIME } from '$lib/consts';
-	import type { AnyEvent, Event } from '$lib/task/utils';
 	import classnames from 'classnames';
 	import { format, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 	import { SignedIn } from 'sveltefire';
+
 	import EventName from './event-name/EventName.svelte';
 	import { dragEnd, dragStart, isShort, toggleCompletion } from './service';
 
@@ -23,17 +25,6 @@
 
 <SignedIn let:user>
 	<div
-		on:dragstart={(e) => dragStart(e, event)}
-		on:dragend={(e) => dragEnd(e)}
-		on:click={() => dispatch('edit', { event, targetDate })}
-		on:keydown={(e) => {
-			if (e.key === 'Enter') {
-				dispatch('edit', { event, targetDate });
-			}
-		}}
-		tabindex="0"
-		role="button"
-		draggable="true"
 		class={classnames(
 			{ 'py-2': !isShort(event) },
 			'cursor-move group w-full h-full flex flex-col rounded-lg py-1 px-2 text-xs leading-5',
@@ -41,15 +32,26 @@
 			tailwindColors[event.category.color].hoverBg,
 			tailwindColors[event.category.color].text,
 		)}
+		draggable="true"
+		on:click={() => dispatch('edit', { event, targetDate })}
+		on:dragend={(e) => dragEnd(e)}
+		on:dragstart={(e) => dragStart(e, event)}
+		on:keydown={(e) => {
+			if (e.key === 'Enter') {
+				dispatch('edit', { event, targetDate });
+			}
+		}}
+		role="button"
+		tabindex="0"
 	>
 		<div class="absolute right-0 pr-2">
 			<input
-				type="checkbox"
 				checked={event.isDone}
+				class="rounded border-gray-300 focus:ring-indigo-600"
+				disabled={loading}
 				on:change={() => toggleCompletion(user.uid, event, targetDate)}
 				on:click|stopPropagation
-				disabled={loading}
-				class="rounded border-gray-300 focus:ring-indigo-600"
+				type="checkbox"
 			/>
 		</div>
 		<p class={classnames({ hidden: isShort(event) }, 'text-blue-500 group-hover:text-blue-700')}>
@@ -71,4 +73,4 @@
 	</div>
 </SignedIn>
 
-<Loading {loading} class={classnames('h-4 w-4', tailwindColors[event.category.color].text)} />
+<Loading class={classnames('h-4 w-4', tailwindColors[event.category.color].text)} {loading} />

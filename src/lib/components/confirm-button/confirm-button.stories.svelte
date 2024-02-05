@@ -1,14 +1,16 @@
-<script lang="ts" context="module">
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
+
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+
 	import ConfirmButton from './ConfirmButton.svelte';
 
 	export const meta = {
 		component: ConfirmButton,
-		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
+		tags: ['autodocs'],
 	} satisfies Meta<ConfirmButton>;
 </script>
 
@@ -16,4 +18,4 @@
 	<ConfirmButton {...args} />
 </Template>
 
-<Story name="Primary" args={{}} />
+<Story args={{}} name="Primary" />

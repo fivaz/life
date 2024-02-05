@@ -1,6 +1,7 @@
+import type { AnyTask, RecurringEvent } from '$lib/task/utils';
+
 import { weekDays } from '$lib/components/days-checkbox/service';
 import { DATE, DATETIME } from '$lib/consts';
-import type { AnyTask, RecurringEvent } from '$lib/task/utils';
 import { endOfDay, getDay, isSameDay, isWithinInterval, parse, startOfDay } from 'date-fns';
 
 function isRecurringOnDay(event: RecurringEvent, day: Date): boolean {
@@ -8,8 +9,8 @@ function isRecurringOnDay(event: RecurringEvent, day: Date): boolean {
 		event.recurringExceptions &&
 		event.recurringExceptions.some((exceptionDate) => {
 			return isWithinInterval(parse(exceptionDate, DATE, new Date()), {
-				start: startOfDay(day),
 				end: endOfDay(day),
+				start: startOfDay(day),
 			});
 		})
 	) {
@@ -18,8 +19,8 @@ function isRecurringOnDay(event: RecurringEvent, day: Date): boolean {
 	if (
 		// don't forget to always put this inside an if to check recurringStartAt and recurringEndAt
 		isWithinInterval(day, {
-			start: parse(event.recurringStartAt, DATE, new Date()),
 			end: parse(event.recurringEndAt, DATE, new Date()),
+			start: parse(event.recurringStartAt, DATE, new Date()),
 		})
 	) {
 		// Check if today is one of the recurring days of the week
@@ -51,12 +52,12 @@ export function isEventOnDay(task: AnyTask, day: Date): boolean {
 
 		return (
 			isWithinInterval(startDate, {
-				start: startOfDay(day),
 				end: endOfDay(day),
+				start: startOfDay(day),
 			}) ||
 			isWithinInterval(endDate, {
-				start: startOfDay(day),
 				end: endOfDay(day),
+				start: startOfDay(day),
 			})
 		);
 	}

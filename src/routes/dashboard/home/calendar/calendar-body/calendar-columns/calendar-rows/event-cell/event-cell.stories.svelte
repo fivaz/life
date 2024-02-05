@@ -1,22 +1,24 @@
-<script lang="ts" context="module">
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
+
 	import {
 		done,
 		long,
 		normalWithoutDescription,
-		shortWithoutDescription,
 		redEvent,
+		shortWithoutDescription,
 	} from '$lib/task/seed';
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+
 	import EventCell from './EventCell.svelte';
 
 	export const meta = {
+		argTypes: {},
 		component: EventCell,
-		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
-		argTypes: {},
+		tags: ['autodocs'],
 	} satisfies Meta<EventCell>;
 </script>
 
@@ -29,12 +31,12 @@
 	</div>
 </Template>
 
-<Story name="normal Without a Description" args={{ event: normalWithoutDescription }} />
+<Story args={{ event: normalWithoutDescription }} name="normal Without a Description" />
 
-<Story name="short Without a Description" args={{ event: shortWithoutDescription }} />
+<Story args={{ event: shortWithoutDescription }} name="short Without a Description" />
 
-<Story name="Long" args={{ event: long }} />
+<Story args={{ event: long }} name="Long" />
 
-<Story name="Done" args={{ event: done }} />
+<Story args={{ event: done }} name="Done" />
 
-<Story name="Red event" args={{ event: redEvent }} />
+<Story args={{ event: redEvent }} name="Red event" />

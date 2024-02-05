@@ -1,8 +1,9 @@
 <script lang="ts">
 	import type { AnyEvent } from '$lib/task/utils';
+
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
 	import EventCell from './event-cell/EventCell.svelte';
-	import { halfHourInterval, getGridRowsStyle } from './service';
+	import { getGridRowsStyle, halfHourInterval } from './service';
 
 	export let events: AnyEvent[];
 
@@ -29,7 +30,7 @@
 				class="relative w-full h-full rounded-lg pointer-events-auto min-w-0"
 				style={getGridRowsStyle(event)}
 			>
-				<EventCell {targetDate} {event} on:edit />
+				<EventCell {event} on:edit {targetDate} />
 			</li>
 		{/each}
 	</ol>

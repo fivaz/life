@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { validator } from '@felte/validator-yup';
 	import { goto } from '$app/navigation';
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import { loginRoute, rootRoute } from '$lib/consts';
 	import { auth, db } from '$lib/firebase';
+	import { validator } from '@felte/validator-yup';
 	import { createForm } from 'felte';
 	import { FirebaseError } from 'firebase/app';
 	import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
@@ -25,54 +25,49 @@
 	});
 
 	type Account = {
-		photoURL: string;
 		displayName: string;
 		email: string;
 		password: string;
+		photoURL: string;
 	};
 
 	async function addDefaultCategories(userId: string) {
 		// TODO when one select a category as default, make all other non default
 		const categoriesCollectionRef = collection(db, 'users', userId, 'categories');
 		void addDoc(categoriesCollectionRef, {
-			name: 'work',
-			type: 'work',
 			color: 'green',
 			isDefault: true,
+			name: 'work',
+			type: 'work',
 		});
 		void addDoc(categoriesCollectionRef, {
-			name: 'sleep',
-			type: 'sleep',
 			color: 'blue',
 			isDefault: false,
+			name: 'sleep',
+			type: 'sleep',
 		});
 		void addDoc(categoriesCollectionRef, {
-			name: 'fun',
-			type: 'fun',
 			color: 'red',
 			isDefault: false,
+			name: 'fun',
+			type: 'fun',
 		});
 	}
 
-	async function register({ email, password, displayName, photoURL }: Account) {
+	async function register({ displayName, email, password, photoURL }: Account) {
 		const { user } = await createUserWithEmailAndPassword(auth, email, password);
 		await updateProfile(user, { displayName });
 		const userRef = doc(db, 'users', user.uid);
 		await setDoc(userRef, {
-			photoURL,
 			displayName,
 			email,
+			photoURL,
 		});
 		await addDefaultCategories(user.uid);
 	}
 
-	const { form, errors } = createForm<Omit<Account, 'photoURL'>>({
+	const { errors, form } = createForm<Omit<Account, 'photoURL'>>({
 		extend: [validator({ schema })],
-		onSubmit: async (values) => {
-			isLoading = true;
-			await register({ ...values, photoURL });
-			void goto(rootRoute);
-		},
 		onError: (error) => {
 			if (error instanceof FirebaseError) {
 				if (error.code === 'auth/email-already-in-use') {
@@ -84,6 +79,11 @@
 				errorMessage = error;
 			}
 			isLoading = false;
+		},
+		onSubmit: async (values) => {
+			isLoading = true;
+			await register({ ...values, photoURL });
+			void goto(rootRoute);
 		},
 	});
 
@@ -100,9 +100,9 @@
 <div class="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
 	<div class="sm:mx-auto sm:w-full sm:max-w-md">
 		<img
+			alt="Your Company"
 			class="mx-auto h-10 w-auto"
 			src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-			alt="Your Company"
 		/>
 		<h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
 			Create your account
@@ -110,7 +110,7 @@
 	</div>
 
 	<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-		<Alert type="error" isVisible={!!errorMessage} on:close={() => (errorMessage = '')}>
+		<Alert isVisible={!!errorMessage} on:close={() => (errorMessage = '')} type="error">
 			{errorMessage}
 		</Alert>
 
@@ -121,55 +121,55 @@
 						<h3 class="text-center block text-sm font-medium leading-6 text-gray-900">
 							Your Avatar
 						</h3>
-						<img class="h-10 w-auto" src={photoURL} alt="your avatar" />
+						<img alt="your avatar" class="h-10 w-auto" src={photoURL} />
 					</div>
 				{/if}
 				<div>
-					<label for="name" class="block text-sm font-medium leading-6 text-gray-900">
+					<label class="block text-sm font-medium leading-6 text-gray-900" for="name">
 						Full name
 					</label>
 					<div class="mt-2">
 						<input
+							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							id="name"
 							name="displayName"
 							type="text"
-							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 						/>
 					</div>
 				</div>
 				<div>
-					<label for="email" class="block text-sm font-medium leading-6 text-gray-900">
+					<label class="block text-sm font-medium leading-6 text-gray-900" for="email">
 						Email address
 					</label>
 					<div class="mt-2">
 						<input
-							id="email"
-							name="email"
-							type="email"
 							autocomplete="email"
 							bind:value={email}
 							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+							id="email"
+							name="email"
+							type="email"
 						/>
 					</div>
 				</div>
 
 				<div>
-					<label for="password" class="block text-sm font-medium leading-6 text-gray-900">
+					<label class="block text-sm font-medium leading-6 text-gray-900" for="password">
 						Password
 					</label>
 					<div class="mt-2">
 						<input
+							autocomplete="current-password"
+							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							id="password"
 							name="password"
 							type="password"
-							autocomplete="current-password"
-							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 						/>
 					</div>
 				</div>
 
 				<div>
-					<Button {isLoading} type="submit" class="w-full leading-6">Register</Button>
+					<Button class="w-full leading-6" {isLoading} type="submit">Register</Button>
 				</div>
 			</form>
 		</div>
@@ -177,7 +177,7 @@
 		<p class="mt-10 text-center text-sm text-gray-500">
 			Already a member?
 			{' '}
-			<a href={loginRoute} class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+			<a class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500" href={loginRoute}>
 				Log in
 			</a>
 		</p>

@@ -9,15 +9,15 @@
 {#if show}
 	<div class="fixed inset-0 flex items-center justify-center z-50">
 		<div
+			class="absolute inset-0 bg-black opacity-50"
+			on:click={() => dispatch('close')}
 			on:keydown={(e) => {
 				if (e.key === 'Esc') {
 					dispatch('close');
 				}
 			}}
-			tabindex="0"
 			role="button"
-			class="absolute inset-0 bg-black opacity-50"
-			on:click={() => dispatch('close')}
+			tabindex="0"
 		/>
 
 		<div class="relative">

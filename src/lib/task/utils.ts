@@ -1,16 +1,17 @@
 import type { Category } from '$lib/category/utils';
 import type { TaskIn } from '$lib/components/task-form/service';
-import { DATE, TIME } from '$lib/consts';
 import type { Goal } from '$lib/goal/utils';
+
+import { DATE, TIME } from '$lib/consts';
 import { differenceInMinutes, format, parse } from 'date-fns';
 
 export type CoreTask = {
-	id: string;
-	name: string;
-	description: string;
-	isDone: boolean;
 	category: Category;
+	description: string;
 	goal: Goal | null;
+	id: string;
+	isDone: boolean;
+	name: string;
 };
 
 export type ToDo = CoreTask & {
@@ -19,23 +20,23 @@ export type ToDo = CoreTask & {
 
 export type Event = CoreTask & {
 	date: string;
-	startTime: string;
-	endTime: string;
 	duration: string;
+	endTime: string;
+	startTime: string;
 };
 
 export type RecurringEvent = Event & {
-	recurringExceptions: string[];
 	recurringDaysOfWeek: string[];
-	recurringStartAt: string;
 	recurringEndAt: string;
+	recurringExceptions: string[];
+	recurringStartAt: string;
 };
 
 export type Task = ToDo & Event & RecurringEvent;
 
 export type AnyEvent = Event | RecurringEvent;
 
-export type AnyTask = ToDo | AnyEvent;
+export type AnyTask = AnyEvent | ToDo;
 
 export type OnlyTTask = Omit<ToDo, 'category' | 'goal'>;
 
@@ -48,7 +49,7 @@ export function convertDurationToMinutes(task: AnyTask) {
 	return 0;
 }
 
-export function convertToTime(minutes: number | null): string {
+export function convertToTime(minutes: null | number): string {
 	if (!minutes) {
 		return 'unset';
 	}
@@ -70,47 +71,47 @@ export function convertToAnyTask(taskIn: TaskIn): AnyTask {
 
 export function getToDo(data: TaskIn): ToDo {
 	return {
-		id: data.id,
-		name: data.name,
-		isDone: data.isDone,
 		category: data.category,
+		deadline: data.deadline,
 		description: data.description,
 		goal: data.goal,
-		deadline: data.deadline,
+		id: data.id,
+		isDone: data.isDone,
+		name: data.name,
 	};
 }
 
 export function getEvent(data: TaskIn): Event {
 	return {
-		id: data.id,
-		name: data.name,
-		isDone: data.isDone,
 		category: data.category,
-		description: data.description,
-		goal: data.goal,
 		date: data.date,
-		startTime: data.startTime,
-		endTime: data.endTime,
+		description: data.description,
 		duration: data.duration,
+		endTime: data.endTime,
+		goal: data.goal,
+		id: data.id,
+		isDone: data.isDone,
+		name: data.name,
+		startTime: data.startTime,
 	};
 }
 
 export function getRecurringEvent(data: TaskIn): RecurringEvent {
 	return {
-		id: data.id,
-		name: data.name,
-		isDone: data.isDone,
 		category: data.category,
-		description: data.description,
-		goal: data.goal,
 		date: data.date,
-		startTime: data.startTime,
-		endTime: data.endTime,
+		description: data.description,
 		duration: data.duration,
-		recurringExceptions: data.recurringExceptions.map((date) => format(date, DATE)),
+		endTime: data.endTime,
+		goal: data.goal,
+		id: data.id,
+		isDone: data.isDone,
+		name: data.name,
 		recurringDaysOfWeek: data.recurringDaysOfWeek,
-		recurringStartAt: data.recurringStartAt,
 		recurringEndAt: data.recurringEndAt,
+		recurringExceptions: data.recurringExceptions.map((date) => format(date, DATE)),
+		recurringStartAt: data.recurringStartAt,
+		startTime: data.startTime,
 	};
 }
 

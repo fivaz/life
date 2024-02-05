@@ -1,8 +1,9 @@
 <script lang="ts">
 	import type { CollectionReference, Query } from 'firebase/firestore';
+
 	import { Collection } from 'sveltefire';
 
-	export let ref: string | CollectionReference | Query;
+	export let ref: CollectionReference | Query | string;
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	function defaultParse(rawData: any[]): any[] {
@@ -16,6 +17,6 @@
 	export let parse: (data: any[]) => any[] = defaultParse;
 </script>
 
-<Collection {ref} let:data>
+<Collection let:data {ref}>
 	<slot data={parse(data)} />
 </Collection>

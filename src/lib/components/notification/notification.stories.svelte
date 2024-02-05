@@ -1,14 +1,16 @@
-<script lang="ts" context="module">
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
+
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+
 	import Notification from './Notification.svelte';
 
 	export const meta = {
 		component: Notification,
-		tags: ['autodocs'],
 		parameters: {
 			layout: 'fullscreen',
 		},
+		tags: ['autodocs'],
 	} satisfies Meta<Notification>;
 </script>
 
@@ -19,8 +21,8 @@
 </Template>
 
 <Story
-	name="Primary"
 	args={{
 		show: true,
 	}}
+	name="Primary"
 />

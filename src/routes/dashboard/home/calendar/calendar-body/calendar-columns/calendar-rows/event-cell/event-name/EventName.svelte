@@ -1,7 +1,9 @@
 <script lang="ts">
 	import type { Event } from '$lib/task/utils';
+
 	import classnames from 'classnames';
 	import { onMount } from 'svelte';
+
 	import { isShort } from '../service';
 
 	let eventContainer: HTMLDivElement | null = null;

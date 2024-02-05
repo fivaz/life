@@ -1,17 +1,19 @@
-<script lang="ts" context="module">
+<script context="module" lang="ts">
+	import type { Meta } from '@storybook/svelte';
+
 	import { Trash } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
-	import type { Meta } from '@storybook/svelte';
+
 	import Button from './Button.svelte';
 
 	export const meta = {
+		argTypes: {},
 		component: Button,
-		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
-		argTypes: {},
+		tags: ['autodocs'],
 	} satisfies Meta<Button>;
 </script>
 
@@ -22,18 +24,18 @@
 	<Button {...args}>Text</Button>
 </Template>
 
-<Story name="Normal" args={{}} />
+<Story args={{}} name="Normal" />
 
-<Story name="Loading" args={{ isLoading: true }} />
+<Story args={{ isLoading: true }} name="Loading" />
 
-<Story name="Label" args={{ isLoading: true, color: 'red' }} let:args>
+<Story args={{ color: 'red', isLoading: true }} let:args name="Label">
 	<Button {...args}>Label</Button>
 </Story>
 
-<Story name="Icon Loading" args={{ isLoading: true, color: 'red' }} let:args>
-	<Button {...args}><Icon src={Trash} class="h-4 w-4" /></Button>
+<Story args={{ color: 'red', isLoading: true }} let:args name="Icon Loading">
+	<Button {...args}><Icon class="h-4 w-4" src={Trash} /></Button>
 </Story>
 
-<Story name="Icon Normal" args={{ isLoading: false, color: 'red' }} let:args>
-	<Button {...args}><Icon src={Trash} class="h-4 w-4" /></Button>
+<Story args={{ color: 'red', isLoading: false }} let:args name="Icon Normal">
+	<Button {...args}><Icon class="h-4 w-4" src={Trash} /></Button>
 </Story>

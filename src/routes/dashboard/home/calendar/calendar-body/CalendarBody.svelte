@@ -9,6 +9,6 @@
 	<div class="flex h-full max-w-full flex-none sm:max-w-none md:max-w-full divide-x">
 		<CalendarTimeLabels />
 
-		<CalendarColumns {weekStart} on:edit on:create on:move />
+		<CalendarColumns on:create on:edit on:move {weekStart} />
 	</div>
 </div>

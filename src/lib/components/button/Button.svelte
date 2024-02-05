@@ -12,8 +12,8 @@
 	export let color: 'indigo' | 'red' = 'indigo';
 
 	const colors = {
-		red: 'focus-visible:outline-red-600 bg-red-600 hover:bg-red-500',
 		indigo: 'focus-visible:outline-indigo-600 bg-indigo-600 hover:bg-indigo-500',
+		red: 'focus-visible:outline-red-600 bg-red-600 hover:bg-red-500',
 	};
 
 	let className = '';
@@ -30,13 +30,13 @@
 		'inline-flex gap-2 justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
 		className,
 	)}
-	{type}
 	{formaction}
 	on:click
+	{type}
 	{...$$restProps}
 >
 	{#if isLoading}
-		<Icon src={ArrowPath} class="animate-spin h-5 w-5" />
+		<Icon class="animate-spin h-5 w-5" src={ArrowPath} />
 	{/if}
 	<!--hides the content of the button when showing the loading icon, if the content of the button
 	 is an icon without any text-->

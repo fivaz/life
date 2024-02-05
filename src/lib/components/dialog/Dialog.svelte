@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { ExclamationTriangle, XMark } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
 	import { closeModal } from '$lib/components/dialog/service';
 	import Modal from '$lib/components/modal/Modal.svelte';
+	import { ExclamationTriangle, XMark } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
 
 	export let show: boolean;
 	export let title: string;
@@ -27,26 +27,26 @@
 	}
 </script>
 
-<Modal {show} on:close={() => close()}>
+<Modal on:close={() => close()} {show}>
 	<div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
 		<div
 			class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6"
 		>
 			<div class="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
 				<button
-					type="button"
 					class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 					on:click={() => close()}
+					type="button"
 				>
 					<span class="sr-only">Close</span>
-					<Icon src={XMark} class="h-6 w-6" aria-hidden="true" />
+					<Icon aria-hidden="true" class="h-6 w-6" src={XMark} />
 				</button>
 			</div>
 			<div class="sm:flex sm:items-start">
 				<div
 					class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
 				>
-					<Icon src={ExclamationTriangle} class="h-6 w-6 text-red-600" aria-hidden="true" />
+					<Icon aria-hidden="true" class="h-6 w-6 text-red-600" src={ExclamationTriangle} />
 				</div>
 				<div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
 					<!--pr-6 to prevent the X button to cover the end of the title-->
@@ -60,16 +60,16 @@
 			</div>
 			<div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
 				<button
-					type="button"
 					class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
 					on:click={() => confirm()}
+					type="button"
 				>
 					{confirmText}
 				</button>
 				<button
-					type="button"
 					class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
 					on:click={() => cancel()}
+					type="button"
 				>
 					{cancelText}
 				</button>

@@ -2,7 +2,7 @@ import type { Event } from '$lib/task/utils';
 
 export const halfHourInterval = 24 * 2;
 
-function getGridRows(event: Event): { start: number; end: number } {
+function getGridRows(event: Event): { end: number; start: number } {
 	const [startHours, startMinutes] = event.startTime.split(':').map(Number);
 	const [endHours, endMinutes] = event.endTime.split(':').map(Number);
 
@@ -11,10 +11,10 @@ function getGridRows(event: Event): { start: number; end: number } {
 	const end = endHours * 4 + Math.ceil(endMinutes / 15) + 1;
 
 	// Return the grid-row-start and grid-row-end values
-	return { start, end };
+	return { end, start };
 }
 
 export function getGridRowsStyle(event: Event) {
-	const { start, end } = getGridRows(event);
+	const { end, start } = getGridRows(event);
 	return `grid-row: ${start} / ${end};`;
 }

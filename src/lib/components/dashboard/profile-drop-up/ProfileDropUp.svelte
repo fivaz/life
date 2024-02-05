@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Transition, Menu, MenuButton, MenuItems, MenuItem } from '@rgossiaux/svelte-headlessui';
 	import { goto } from '$app/navigation';
 	import { loginRoute, profileRoute } from '$lib/consts';
 	import { auth } from '$lib/firebase';
+	import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@rgossiaux/svelte-headlessui';
 	import classnames from 'classnames';
 	import { signOut } from 'firebase/auth';
 </script>
@@ -21,11 +21,11 @@
 		>
 			<MenuItem let:active>
 				<a
-					href={profileRoute}
 					class={classnames(
 						active ? 'bg-gray-50' : '',
 						'block px-3 py-1 text-sm leading-6 text-gray-900',
 					)}
+					href={profileRoute}
 				>
 					Profile
 				</a>

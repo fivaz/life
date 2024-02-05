@@ -1,5 +1,6 @@
-import { DATE, DATE_FR } from '$lib/consts';
 import type { Task } from '$lib/task/utils';
+
+import { DATE, DATE_FR } from '$lib/consts';
 import { format, isPast, isToday, isTomorrow, parse, startOfWeek } from 'date-fns';
 
 function isCurrentWeek(date: Date) {

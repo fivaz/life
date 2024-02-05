@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { Event } from '$lib/task/utils';
+
 	import classnames from 'classnames';
+
 	import { calculateGroupPercentages } from './service';
 
 	let className = '';

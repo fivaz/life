@@ -1,43 +1,45 @@
-<script lang="ts" context="module">
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
+
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+
 	import Dialog from './Dialog.svelte';
 
 	export const meta = {
 		component: Dialog,
-		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
+		tags: ['autodocs'],
 	} satisfies Meta<Dialog>;
 </script>
 
 <Template let:args>
 	<Dialog
 		{...args}
+		on:cancel={() => console.log('cancel')}
 		on:close={() => console.log('close')}
 		on:confirm={() => console.log('confirm')}
-		on:cancel={() => console.log('cancel')}
 	/>
 </Template>
 
 <Story
-	name="Primary"
 	args={{
+		cancelText: 'Cancel',
+		confirmText: 'Confirm',
+		message: 'Are you sure you want to delete this event ?',
 		show: true,
 		title: 'Delete event ?',
-		message: 'Are you sure you want to delete this event ?',
-		confirmText: 'Confirm',
-		cancelText: 'Cancel',
 	}}
+	name="Primary"
 />
 
 <Story
-	name="No Message"
 	args={{
+		cancelText: 'Cancel',
+		confirmText: 'Confirm',
 		show: true,
 		title: 'Delete?',
-		confirmText: 'Confirm',
-		cancelText: 'Cancel',
 	}}
+	name="No Message"
 />

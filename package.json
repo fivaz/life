@@ -1,23 +1,4 @@
 {
-	"name": "life",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"preview": "vite build && vite preview",
-		"test": "npm run test:integration && npm run test:unit",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write . && eslint . --fix",
-		"test:integration": "playwright test",
-		"test:unit": "vitest",
-		"create": "plop --plopfile generators/plopfile.mjs",
-		"storybook": "storybook dev -p 6006",
-		"build-storybook": "storybook build",
-		"prepare": "husky"
-	},
 	"devDependencies": {
 		"@felte/validator-yup": "^1.1.3",
 		"@playwright/test": "^1.28.1",
@@ -51,6 +32,8 @@
 		"eslint-import-resolver-typescript": "^3.6.1",
 		"eslint-plugin-import": "^2.29.1",
 		"eslint-plugin-import-no-duplicates-prefix-resolved-path": "^2.0.0",
+		"eslint-plugin-perfectionist": "^2.5.0",
+		"eslint-plugin-sonarjs": "^0.23.0",
 		"eslint-plugin-storybook": "^0.6.15",
 		"eslint-plugin-svelte": "^2.35.1",
 		"eslint-plugin-unused-imports": "^3.0.0",
@@ -79,5 +62,24 @@
 		"workbox-precaching": "^7.0.0",
 		"yup": "^1.3.3"
 	},
-	"type": "module"
+	"name": "life",
+	"private": true,
+	"scripts": {
+		"build": "vite build",
+		"build-storybook": "storybook build",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"create": "plop --plopfile generators/plopfile.mjs",
+		"dev": "vite dev",
+		"format": "prettier --write . && eslint . --fix",
+		"lint": "prettier --check . && eslint .",
+		"prepare": "husky",
+		"preview": "vite build && vite preview",
+		"storybook": "storybook dev -p 6006",
+		"test": "npm run test:integration && npm run test:unit",
+		"test:integration": "playwright test",
+		"test:unit": "vitest"
+	},
+	"type": "module",
+	"version": "0.0.1"
 }

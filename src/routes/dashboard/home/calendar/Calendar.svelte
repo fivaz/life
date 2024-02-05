@@ -1,13 +1,14 @@
 <script lang="ts">
+	import type { AnyEvent } from '$lib/task/utils';
+
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
-	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service.js';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
+	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service.js';
 	import { draggedEvent } from '$lib/dragged/store';
-	import type { AnyEvent } from '$lib/task/utils';
 	import { startOfWeek } from 'date-fns';
-
 	import { SignedIn } from 'sveltefire';
+
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
 	import { buildEmptyEvent, buildEventWithTime, moveEvent } from './service';
@@ -24,7 +25,7 @@
 </script>
 
 <SignedIn let:user>
-	<SlimCollection ref={`users/${user.uid}/categories`} let:data={categories}>
+	<SlimCollection let:data={categories} ref={`users/${user.uid}/categories`}>
 		<div class="flex h-full flex-col divide-gray-200">
 			<CalendarHeader
 				bind:weekStart
@@ -35,15 +36,14 @@
 				}}
 			/>
 			<CalendarBody
-				{weekStart}
+				on:create={(e) => {
+					showForm = true;
+					editingEvent = buildEventWithTime(categories, e.detail.date, e.detail.timeInterval);
+				}}
 				on:edit={(e) => {
 					showForm = true;
 					targetDate = e.detail.targetDate;
 					editingEvent = e.detail.event;
-				}}
-				on:create={(e) => {
-					showForm = true;
-					editingEvent = buildEventWithTime(categories, e.detail.date, e.detail.timeInterval);
 				}}
 				on:move={async (e) => {
 					if ($draggedEvent) {
@@ -51,14 +51,15 @@
 						editPossibleSingleRecurringEvent(id, data, user.uid, e.detail.date);
 					}
 				}}
+				{weekStart}
 			/>
-			<Modal show={showForm} on:close={() => (showForm = false)}>
+			<Modal on:close={() => (showForm = false)} show={showForm}>
 				<TaskForm
-					userId={user.uid}
-					task={editingEvent}
 					{categories}
-					{targetDate}
 					on:close={() => (showForm = false)}
+					{targetDate}
+					task={editingEvent}
+					userId={user.uid}
 				/>
 			</Modal>
 		</div>

@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { Settings } from '@steeze-ui/lucide-icons';
-	import { Icon } from '@steeze-ui/svelte-icon';
+	import type { Task } from '$lib/task/utils';
+
 	import { tailwindColors } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import { DATE, DATE_FR } from '$lib/consts';
-	import type { Task } from '$lib/task/utils';
+	import { Settings } from '@steeze-ui/lucide-icons';
+	import { Icon } from '@steeze-ui/svelte-icon';
 	import classnames from 'classnames';
 	import { format, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
@@ -36,7 +37,7 @@
 
 	<div class="flex gap-x-3">
 		<Button on:click={() => dispatch('edit', task)} type="button">
-			<Icon src={Settings} class="h-4 w-4" />
+			<Icon class="h-4 w-4" src={Settings} />
 		</Button>
 	</div>
 </li>

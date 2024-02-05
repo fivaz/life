@@ -1,15 +1,17 @@
-<script lang="ts" context="module">
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
+
 	import { categories } from '$lib/category/seed';
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+
 	import CategoryRow from './CategoryRow.svelte';
 
 	export const meta = {
 		component: CategoryRow,
-		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
+		tags: ['autodocs'],
 	} satisfies Meta<CategoryRow>;
 </script>
 
@@ -19,4 +21,4 @@
 	</div>
 </Template>
 
-<Story name="Primary" args={{ category: categories[0] }} />
+<Story args={{ category: categories[0] }} name="Primary" />

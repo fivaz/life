@@ -1,16 +1,18 @@
-<script lang="ts" context="module">
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
+
 	import { tasks } from '$lib/task/seed';
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+
 	import CalendarRows from './CalendarRows.svelte';
 
 	export const meta = {
+		argTypes: {},
 		component: CalendarRows,
-		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
-		argTypes: {},
+		tags: ['autodocs'],
 	} satisfies Meta<CalendarRows>;
 </script>
 
@@ -21,8 +23,8 @@
 </Template>
 
 <Story
-	name="Primary"
 	args={{
 		events: tasks,
 	}}
+	name="Primary"
 />

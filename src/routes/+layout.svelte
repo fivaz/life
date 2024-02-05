@@ -1,10 +1,11 @@
 <script lang="ts">
-	import '../app.css';
 	import { auth, db } from '$lib/firebase';
 	import { FirebaseApp } from 'sveltefire';
+
+	import '../app.css';
 </script>
 
-<html lang="en" class="h-full">
+<html class="h-full" lang="en">
 	<body class="h-full">
 		<FirebaseApp {auth} firestore={db}>
 			<slot />

@@ -27,12 +27,12 @@
 	{/if}
 	<input
 		{...$$props}
+		bind:value
 		class={classnames(
 			inputClass,
 			{ 'cursor-not-allowed': $$props.disabled },
 			'p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm',
 		)}
-		bind:value
 		on:input={(e) => dispatch('input', e.currentTarget.value)}
 	/>
 	<!--on:input needs to dispatch itself in order to its type be correctly typed, otherwise we can use

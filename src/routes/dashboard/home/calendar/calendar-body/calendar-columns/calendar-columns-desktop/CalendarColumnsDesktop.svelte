@@ -1,8 +1,10 @@
 <script lang="ts">
-	import type { AnyTask, ToDo, AnyEvent } from '$lib/task/utils';
+	import type { AnyEvent, AnyTask, ToDo } from '$lib/task/utils';
+
 	import classnames from 'classnames';
 	import { format, isToday } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
+
 	import CalendarRows from '../calendar-rows/CalendarRows.svelte';
 	import DueToDos from '../due-to-dos/DueToDos.svelte';
 	import { isEventOnDay, isToDoOnDay } from '../service';
@@ -16,8 +18,8 @@
 	export { className as class };
 
 	const dispatch = createEventDispatcher<{
-		create: { timeInterval: number; date: Date };
-		move: { timeInterval: number; date: Date };
+		create: { date: Date; timeInterval: number };
+		move: { date: Date; timeInterval: number };
 	}>();
 
 	function getEvents(date: Date, tasks: AnyTask[]): Array<AnyEvent> {
@@ -34,7 +36,7 @@
 		{#each dates as date (date)}
 			<div class="flex flex-col divide-y">
 				<div class="text-xs text-center h-8">
-					<Stats events={getEvents(date, tasks)} class="justify-center" />
+					<Stats class="justify-center" events={getEvents(date, tasks)} />
 					<DueToDos toDos={getToDos(date, tasks)} />
 				</div>
 
@@ -50,11 +52,11 @@
 					</span>
 				</div>
 				<CalendarRows
-					targetDate={date}
 					events={getEvents(date, tasks)}
+					on:create={(e) => dispatch('create', { date, timeInterval: e.detail })}
 					on:edit
-					on:create={(e) => dispatch('create', { timeInterval: e.detail, date })}
-					on:move={(e) => dispatch('move', { timeInterval: e.detail, date })}
+					on:move={(e) => dispatch('move', { date, timeInterval: e.detail })}
+					targetDate={date}
 				/>
 			</div>
 		{/each}

@@ -1,48 +1,48 @@
 export type Category = {
-	id: string;
-	name: string;
 	color: string;
-	type: string;
+	id: string;
 	isDefault: boolean;
+	name: string;
+	type: string;
 };
 
 export type TailwindColor = {
-	lightBg: string;
 	darkBg: string;
 	hoverBg: string;
+	lightBg: string;
 	text: string;
 };
 
 export const tailwindColors: Record<string, TailwindColor> = {
-	green: {
-		lightBg: 'bg-green-50',
-		darkBg: 'bg-green-500',
-		hoverBg: 'hover:bg-green-100',
-		text: 'text-green-700',
-	},
 	blue: {
-		lightBg: 'bg-blue-50',
 		darkBg: 'bg-blue-500',
 		hoverBg: 'hover:bg-blue-100',
+		lightBg: 'bg-blue-50',
 		text: 'text-blue-700',
 	},
+	green: {
+		darkBg: 'bg-green-500',
+		hoverBg: 'hover:bg-green-100',
+		lightBg: 'bg-green-50',
+		text: 'text-green-700',
+	},
+	purple: {
+		darkBg: 'bg-purple-500',
+		hoverBg: 'hover:bg-purple-100',
+		lightBg: 'bg-purple-50',
+		text: 'text-purple-700',
+	},
 	red: {
-		lightBg: 'bg-red-50',
 		darkBg: 'bg-red-500',
 		hoverBg: 'hover:bg-red-100',
+		lightBg: 'bg-red-50',
 		text: 'text-red-700',
 	},
 	yellow: {
-		lightBg: 'bg-yellow-50',
 		darkBg: 'bg-yellow-500',
 		hoverBg: 'hover:bg-yellow-100',
+		lightBg: 'bg-yellow-50',
 		text: 'text-yellow-700',
-	},
-	purple: {
-		lightBg: 'bg-purple-50',
-		darkBg: 'bg-purple-500',
-		hoverBg: 'hover:bg-purple-100',
-		text: 'text-purple-700',
 	},
 };
 

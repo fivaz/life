@@ -1,16 +1,18 @@
-<script lang="ts" context="module">
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
+
+	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import { startOfWeek } from 'date-fns';
+
 	import CalendarHeader from './CalendarHeader.svelte';
 
 	export const meta = {
+		argTypes: {},
 		component: CalendarHeader,
-		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
-		argTypes: {},
+		tags: ['autodocs'],
 	} satisfies Meta<CalendarHeader>;
 </script>
 
@@ -19,9 +21,9 @@
 </Template>
 
 <Story
-	name="Primary"
 	args={{
 		currentDate: new Date(),
 		weekStart: startOfWeek(new Date()),
 	}}
+	name="Primary"
 />

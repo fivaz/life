@@ -15,10 +15,10 @@
 </Dashboard>
 
 <Dialog
+	cancelText={$modal.cancelText}
+	confirmText={$modal.confirmText}
+	message={$modal.message}
+	resolve={$modal.resolve}
 	show={$modal.show}
 	title={$modal.title}
-	message={$modal.message}
-	confirmText={$modal.confirmText}
-	cancelText={$modal.cancelText}
-	resolve={$modal.resolve}
 />

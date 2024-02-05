@@ -1,14 +1,16 @@
-<script lang="ts" context="module">
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
+
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+
 	import Loading from './Loading.svelte';
 
 	export const meta = {
 		component: Loading,
-		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
+		tags: ['autodocs'],
 	} satisfies Meta<Loading>;
 </script>
 
@@ -21,4 +23,4 @@
 	</div>
 </Template>
 
-<Story name="Primary" args={{ loading: true }} />
+<Story args={{ loading: true }} name="Primary" />

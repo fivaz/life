@@ -1,4 +1,5 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
+
 import { homeRoute } from '../src/lib/consts';
 
 test('the user can navigate to the homepage', async ({ page }) => {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Switch, SwitchLabel, SwitchGroup } from '@rgossiaux/svelte-headlessui';
+	import { Switch, SwitchGroup, SwitchLabel } from '@rgossiaux/svelte-headlessui';
 	import classnames from 'classnames';
 	import { createEventDispatcher } from 'svelte';
 
@@ -17,7 +17,7 @@
 </script>
 
 <SwitchGroup>
-	<input {name} value={value ? 'true' : ''} type="hidden" />
+	<input {name} type="hidden" value={value ? 'true' : ''} />
 	<div class="flex items-center">
 		<SwitchLabel class="flex-1 text-start">{label}</SwitchLabel>
 		<Switch

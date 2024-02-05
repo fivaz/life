@@ -1,14 +1,16 @@
-<script lang="ts" context="module">
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
+
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+
 	import Profile from './Profile.svelte';
 
 	export const meta = {
 		component: Profile,
-		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
+		tags: ['autodocs'],
 	} satisfies Meta<Profile>;
 </script>
 
@@ -16,4 +18,4 @@
 	<Profile {...args} />
 </Template>
 
-<Story name="Primary" args={{ user: { id: 'test123', name: 'Test', username: 'test@test.com' } }} />
+<Story args={{ user: { id: 'test123', name: 'Test', username: 'test@test.com' } }} name="Primary" />

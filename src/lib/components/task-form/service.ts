@@ -1,10 +1,12 @@
 import type { Category } from '$lib/category/utils';
+import type { Goal } from '$lib/goal/utils';
+import type { AnyTask, Event, RecurringEvent, Task, ToDo } from '$lib/task/utils';
+import type { EventDispatcher } from 'svelte';
+
 import { weekDays } from '$lib/components/days-checkbox/service';
 import { createModal } from '$lib/components/dialog/service';
 import { DATE, TIME } from '$lib/consts';
 import { db } from '$lib/firebase';
-import type { Goal } from '$lib/goal/utils';
-import type { Task, AnyTask, RecurringEvent, ToDo, Event } from '$lib/task/utils';
 import {
 	add,
 	addMinutes,
@@ -15,7 +17,6 @@ import {
 	parse,
 } from 'date-fns';
 import { addDoc, collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore';
-import type { EventDispatcher } from 'svelte';
 
 export type TaskIn = Omit<Task, 'recurringExceptions'> & {
 	isEvent: boolean;
@@ -29,13 +30,13 @@ function convertToDo(todo: ToDo): TaskIn {
 		isRecurring: false,
 		...todo,
 		date: format(new Date(), DATE),
-		startTime: format(new Date(), TIME),
-		endTime: format(addMinutes(new Date(), 15), TIME),
 		duration: '00:15',
-		recurringStartAt: format(new Date(), DATE),
-		recurringEndAt: format(addMonths(new Date(), 1), DATE),
+		endTime: format(addMinutes(new Date(), 15), TIME),
 		recurringDaysOfWeek: weekDays.slice(1, 6),
+		recurringEndAt: format(addMonths(new Date(), 1), DATE),
 		recurringExceptions: [],
+		recurringStartAt: format(new Date(), DATE),
+		startTime: format(new Date(), TIME),
 	};
 }
 
@@ -44,8 +45,8 @@ function convertRecurring(event: RecurringEvent): TaskIn {
 		isEvent: true,
 		isRecurring: true,
 		...event,
-		recurringExceptions: event.recurringExceptions.map((date) => parse(date, DATE, new Date())),
 		deadline: format(endOfWeek(new Date()), DATE),
+		recurringExceptions: event.recurringExceptions.map((date) => parse(date, DATE, new Date())),
 	};
 }
 
@@ -55,10 +56,10 @@ function convertEvent(event: Event): TaskIn {
 		isRecurring: false,
 		...event,
 		deadline: format(endOfWeek(new Date()), DATE),
-		recurringStartAt: format(new Date(), DATE),
-		recurringEndAt: format(addMonths(new Date(), 1), DATE),
 		recurringDaysOfWeek: weekDays.slice(1, 6),
+		recurringEndAt: format(addMonths(new Date(), 1), DATE),
 		recurringExceptions: [],
+		recurringStartAt: format(new Date(), DATE),
 	};
 }
 
@@ -76,21 +77,21 @@ export function convertToTaskIn(task: AnyTask): TaskIn {
 
 export function buildEmptyTask(categories: Category[], goal: Goal | null = null): Task {
 	return {
-		id: '',
-		name: '',
-		description: '',
-		date: format(new Date(), DATE),
-		isDone: false,
 		category: categories.find((category) => category.isDefault) || categories[0],
-		goal,
+		date: format(new Date(), DATE),
 		deadline: format(endOfWeek(new Date()), DATE),
-		startTime: format(new Date(), TIME),
-		endTime: format(addMinutes(new Date(), 15), TIME),
+		description: '',
 		duration: '00:15',
-		recurringStartAt: format(new Date(), DATE),
-		recurringEndAt: format(addMonths(new Date(), 1), DATE),
+		endTime: format(addMinutes(new Date(), 15), TIME),
+		goal,
+		id: '',
+		isDone: false,
+		name: '',
 		recurringDaysOfWeek: weekDays.slice(1, 6),
+		recurringEndAt: format(addMonths(new Date(), 1), DATE),
 		recurringExceptions: [],
+		recurringStartAt: format(new Date(), DATE),
+		startTime: format(new Date(), TIME),
 	};
 }
 
@@ -147,10 +148,10 @@ export function editSingleRecurringEvent(
 
 	// remove te recurring attributes
 	const {
-		recurringStartAt,
-		recurringEndAt,
 		recurringDaysOfWeek,
+		recurringEndAt,
 		recurringExceptions,
+		recurringStartAt,
 		...eventData
 	} = data;
 
@@ -174,10 +175,10 @@ export async function editTaskWithPrompt(
 	if ('recurringStartAt' in data && wasRecurring && targetDate) {
 		const recurringData = data as Omit<RecurringEvent, 'id'>;
 		const result = await createModal({
-			title: 'This is a repeating event',
-			message: 'Do you want to save the changes for ?',
-			confirmText: 'this event only',
 			cancelText: 'future events',
+			confirmText: 'this event only',
+			message: 'Do you want to save the changes for ?',
+			title: 'This is a repeating event',
 		});
 
 		if (result === null) {

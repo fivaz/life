@@ -1,20 +1,22 @@
 <script lang="ts">
-	import { validator } from '@felte/validator-yup';
-	import { XMark } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
-	import { types, tailwindColors } from '$lib/category/utils';
 	import type { Category } from '$lib/category/utils';
+
+	import { tailwindColors, types } from '$lib/category/utils';
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
-	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
+	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import { getErrors } from '$lib/form-utils';
+	import { validator } from '@felte/validator-yup';
+	import { XMark } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
 	import classnames from 'classnames';
 	import { createForm } from 'felte';
 	import { createEventDispatcher } from 'svelte';
 	import { object, string } from 'yup';
+
 	import { addCategory, deleteCategory, editCategory } from './service';
 
 	export let userId: string;
@@ -29,9 +31,8 @@
 		name: string().required(),
 	});
 
-	const { form, data, errors } = createForm({
+	const { data, errors, form } = createForm({
 		extend: [validator({ schema })],
-		validateSchema: schema,
 		initialValues: category,
 		onSubmit: (values) => {
 			const { id, ...data } = values;
@@ -42,10 +43,11 @@
 			}
 			dispatch('close');
 		},
+		validateSchema: schema,
 	});
 </script>
 
-<form use:form on:submit|preventDefault class="w-[355px] shadow rounded-md">
+<form class="w-[355px] shadow rounded-md" on:submit|preventDefault use:form>
 	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
 		<div class="flex justify-between items-center pb-2">
 			<h2 class="text-lg font-medium text-gray-900">
@@ -56,31 +58,31 @@
 				{/if}
 			</h2>
 			<button
-				type="button"
 				class="pl-2 inline-flex rounded-md p-1.5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
 				on:click={() => dispatch('close')}
+				type="button"
 			>
 				<span class="sr-only">Dismiss</span>
-				<Icon src={XMark} class="h-5 w-5" aria-hidden="true" />
+				<Icon aria-hidden="true" class="h-5 w-5" src={XMark} />
 			</button>
 		</div>
 
-		<Alert type="error" isVisible={!!getErrors($errors)} hasCloseButton={false}>
+		<Alert hasCloseButton={false} isVisible={!!getErrors($errors)} type="error">
 			{getErrors($errors)}
 		</Alert>
 
 		<div class="flex flex-col gap-2 text-sm font-medium text-gray-700">
-			<Input class="flex-1" inputClass="" placeholder="Name" autocomplete="off" name="name" />
+			<Input autocomplete="off" class="flex-1" inputClass="" name="name" placeholder="Name" />
 
 			<Select
-				name="color"
 				bind:value={$data.color}
-				label="Category"
 				class="flex items-center"
+				label="Category"
 				labelClass="w-1/5"
+				name="color"
 				selectClass="flex-1"
 			>
-				<div slot="placeholder" class="flex gap-5 items-center">
+				<div class="flex gap-5 items-center" slot="placeholder">
 					<div class={classnames('h-5 w-5 rounded-md', tailwindColors[$data?.color]?.darkBg)} />
 					{$data.color}
 				</div>
@@ -96,22 +98,22 @@
 			</Select>
 
 			<Select
-				name="type"
 				bind:value={$data.type}
-				label="Type"
 				class="flex items-center"
+				label="Type"
 				labelClass="w-1/5"
+				name="type"
 				selectClass="flex-1"
 			>
-				<div slot="placeholder" class="flex gap-5 items-center">{$data.type}</div>
+				<div class="flex gap-5 items-center" slot="placeholder">{$data.type}</div>
 
 				{#each types as type (type)}
-					<SelectItem value={type} class="flex gap-5 items-center">{type}</SelectItem>
+					<SelectItem class="flex gap-5 items-center" value={type}>{type}</SelectItem>
 				{/each}
 			</Select>
 
 			<div class="bg-white rounded-lg p-2">
-				<Toggle label="Is default" name="isDefault" bind:value={$data.isDefault} />
+				<Toggle bind:value={$data.isDefault} label="Is default" name="isDefault" />
 			</div>
 		</div>
 	</div>
@@ -120,8 +122,8 @@
 		{#if isEditing}
 			<Button
 				color="red"
-				type="button"
 				on:click={() => deleteCategory(category.id, userId, dispatch)}
+				type="button"
 			>
 				Delete
 			</Button>

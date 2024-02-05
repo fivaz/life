@@ -1,15 +1,17 @@
-<script lang="ts" context="module">
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
+
 	import { tasks } from '$lib/task/seed.js';
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+
 	import Task from './+page.svelte';
 
 	export const meta = {
 		component: Task,
-		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
+		tags: ['autodocs'],
 	} satisfies Meta<Task>;
 </script>
 
@@ -19,4 +21,4 @@
 	</div>
 </Template>
 
-<Story name="Primary" args={{ data: { tasks, form: null } }} />
+<Story args={{ data: { form: null, tasks } }} name="Primary" />

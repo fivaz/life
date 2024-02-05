@@ -1,16 +1,18 @@
-<script lang="ts" context="module">
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
+
+	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import { addDays } from 'date-fns';
+
 	import CalendarColumnsMobile from './CalendarColumnsMobile.svelte';
 
 	export const meta = {
+		argTypes: {},
 		component: CalendarColumnsMobile,
-		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
-		argTypes: {},
+		tags: ['autodocs'],
 	} satisfies Meta<CalendarColumnsMobile>;
 </script>
 
@@ -21,8 +23,8 @@
 </Template>
 
 <Story
-	name="Primary"
 	args={{
 		dates: Array.from({ length: 7 }, (_, i) => addDays(new Date(), i)),
 	}}
+	name="Primary"
 />

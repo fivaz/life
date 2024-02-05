@@ -1,14 +1,16 @@
-<script lang="ts" context="module">
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
+
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+
 	import ProgressBar from './ProgressBar.svelte';
 
 	export const meta = {
 		component: ProgressBar,
-		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
+		tags: ['autodocs'],
 	} satisfies Meta<ProgressBar>;
 </script>
 
@@ -17,9 +19,9 @@
 </Template>
 
 <Story
-	name="Primary"
 	args={{
-		value: 75,
 		maxValue: 100,
+		value: 75,
 	}}
+	name="Primary"
 />

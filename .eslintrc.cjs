@@ -9,9 +9,17 @@ module.exports = {
 		'plugin:storybook/recommended',
 		'plugin:import/recommended',
 		'plugin:import/typescript',
+		'plugin:sonarjs/recommended',
+		'plugin:perfectionist/recommended-natural',
 	],
 	parser: '@typescript-eslint/parser',
-	plugins: ['@typescript-eslint', 'import-no-duplicates-prefix-resolved-path', 'unused-imports'],
+	plugins: [
+		'@typescript-eslint',
+		'import-no-duplicates-prefix-resolved-path',
+		'unused-imports',
+		'sonarjs',
+		'perfectionist',
+	],
 	parserOptions: {
 		sourceType: 'module',
 		ecmaVersion: 2020,
@@ -56,7 +64,13 @@ module.exports = {
 		'unused-imports/no-unused-imports': 'warn',
 		'unused-imports/no-unused-vars': [
 			'warn',
-			{ vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' },
+			{
+				vars: 'all',
+				varsIgnorePattern: '^_',
+				args: 'after-used',
+				argsIgnorePattern: '^_',
+				ignoreRestSiblings: true,
+			},
 		],
 	},
 };

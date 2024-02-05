@@ -22,14 +22,14 @@
 
 <div
 	class={className}
+	on:click={() => dispatch('create', quarterHour)}
 	on:dragover={dragOver}
 	on:drop={drop}
-	on:click={() => dispatch('create', quarterHour)}
 	on:keydown={(e) => {
 		if (e.key === 'Enter') {
 			dispatch('create', quarterHour);
 		}
 	}}
-	tabindex="0"
 	role="button"
+	tabindex="0"
 />

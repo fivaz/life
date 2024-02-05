@@ -1,8 +1,9 @@
 <script lang="ts">
+	import type { Goal, GoalWithTasks } from '$lib/goal/utils';
+
+	import Button from '$lib/components/button/Button.svelte';
 	import { Settings } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import Button from '$lib/components/button/Button.svelte';
-	import type { Goal, GoalWithTasks } from '$lib/goal/utils';
 	import classnames from 'classnames';
 	import { createEventDispatcher } from 'svelte';
 
@@ -34,7 +35,7 @@
 			<!--				<Icon src={Plus} class="h-4 w-4" />-->
 			<!--			</Button>-->
 			<Button on:click={() => dispatch('edit', goal)} type="button">
-				<Icon src={Settings} class="h-4 w-4" />
+				<Icon class="h-4 w-4" src={Settings} />
 			</Button>
 		</div>
 	</div>

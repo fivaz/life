@@ -1,15 +1,17 @@
-<script lang="ts" context="module">
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
+
 	import { categories } from '$lib/category/seed';
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+
 	import Select from './Select.svelte';
 
 	export const meta = {
 		component: Select,
-		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
+		tags: ['autodocs'],
 	} satisfies Meta<Select>;
 </script>
 
@@ -23,24 +25,24 @@
 			{...args}
 			bind:value={selectedCategory}
 			items={categories}
-			valueField="id"
 			nameField="name"
+			valueField="id"
 		/>
 	</div>
 </Template>
 
 <Story name="With Label" />
 
-<Story name="Without Label" args={{ label: 'Label' }} />
+<Story args={{ label: 'Label' }} name="Without Label" />
 
 <Story
-	name="With different key names"
 	args={{
 		items: categories.map((category) => ({
-			value: category.id,
 			label: category.name,
+			value: category.id,
 		})),
-		valueField: 'value',
 		nameField: 'label',
+		valueField: 'value',
 	}}
+	name="With different key names"
 />

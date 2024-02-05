@@ -1,16 +1,18 @@
-<script lang="ts" context="module">
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
+
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+
 	import Calendar from '../../../routes/dashboard/home/calendar/Calendar.svelte';
 	import Dashboard from './Dashboard.svelte';
 
 	export const meta = {
+		argTypes: {},
 		component: Dashboard,
-		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
-		argTypes: {},
+		tags: ['autodocs'],
 	} satisfies Meta<Dashboard>;
 </script>
 
@@ -18,13 +20,13 @@
 	<Dashboard {...args} />
 </Template>
 
-<Story name="With Calendar" args={{}}>
+<Story args={{}} name="With Calendar">
 	<Dashboard>
 		<Calendar />
 	</Dashboard>
 </Story>
 
-<Story name="Empty" args={{}}>
+<Story args={{}} name="Empty">
 	<Dashboard>
 		<div class="h-96 rounded-lg border-4 border-dashed border-gray-200" />
 	</Dashboard>

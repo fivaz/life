@@ -1,8 +1,10 @@
 <script lang="ts">
-	import { auth, db } from '$lib/firebase';
 	import type { AnyTask } from '$lib/task/utils';
+
+	import { auth, db } from '$lib/firebase';
 	import { addDays } from 'date-fns';
 	import { collectionStore, userStore } from 'sveltefire';
+
 	import CalendarColumnsDesktop from './calendar-columns-desktop/CalendarColumnsDesktop.svelte';
 	import CalendarColumnsMobile from './calendar-columns-mobile/CalendarColumnsMobile.svelte';
 
@@ -29,20 +31,20 @@
 <div class="h-full w-full bg-white text-sm leading-6 text-gray-500">
 	{#if $tasks}
 		<CalendarColumnsDesktop
-			tasks={defaultParse($tasks)}
-			{dates}
-			on:edit
-			on:create
-			on:move
 			class="hidden sm:block"
+			{dates}
+			on:create
+			on:edit
+			on:move
+			tasks={defaultParse($tasks)}
 		/>
 		<CalendarColumnsMobile
-			tasks={$tasks}
-			{dates}
-			on:edit
-			on:create
-			on:move
 			class="block sm:hidden"
+			{dates}
+			on:create
+			on:edit
+			on:move
+			tasks={$tasks}
 		/>
 	{/if}
 </div>

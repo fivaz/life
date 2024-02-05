@@ -2,8 +2,8 @@
 	import {
 		Listbox,
 		ListboxButton,
-		ListboxOptions,
 		ListboxLabel,
+		ListboxOptions,
 	} from '@rgossiaux/svelte-headlessui';
 	import { ChevronUpDown } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -25,7 +25,7 @@
 </script>
 
 <Listbox bind:value class={classnames(className, 'text-sm font-medium text-gray-700')}>
-	<input type="hidden" {name} {value} />
+	<input {name} type="hidden" {value} />
 	{#if label}
 		<ListboxLabel class={classnames(labelClass, 'block mb-1')}>
 			{label}
@@ -39,7 +39,7 @@
 				<slot name="placeholder" />
 			</span>
 			<span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-				<Icon src={ChevronUpDown} class="h-5 w-5 text-gray-400" aria-hidden="true" />
+				<Icon aria-hidden="true" class="h-5 w-5 text-gray-400" src={ChevronUpDown} />
 			</span>
 		</ListboxButton>
 		<ListboxOptions

@@ -1,15 +1,17 @@
-<script lang="ts" context="module">
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
+
+	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import { startOfWeek } from 'date-fns';
+
 	import CalendarColumns from './CalendarColumns.svelte';
 
 	export const meta = {
 		component: CalendarColumns,
-		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
+		tags: ['autodocs'],
 	} satisfies Meta<CalendarColumns>;
 </script>
 
@@ -20,8 +22,8 @@
 </Template>
 
 <Story
-	name="Desktop"
 	args={{
 		weekStart: startOfWeek(new Date()),
 	}}
+	name="Desktop"
 />

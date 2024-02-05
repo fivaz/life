@@ -1,14 +1,16 @@
-<script lang="ts" context="module">
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
+
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+
 	import Toggle from './Toggle.svelte';
 
 	export const meta = {
 		component: Toggle,
-		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
+		tags: ['autodocs'],
 	} satisfies Meta<Toggle>;
 </script>
 
@@ -17,18 +19,18 @@
 </Template>
 
 <Story
-	name="Enable"
 	args={{
 		name: 'toggle',
 		value: true,
 	}}
+	name="Enable"
 />
 
 <Story
-	name="Disabled"
 	args={{
-		name: 'toggle',
 		label: 'Toggle',
+		name: 'toggle',
 		value: false,
 	}}
+	name="Disabled"
 />

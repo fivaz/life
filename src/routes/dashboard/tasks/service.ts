@@ -1,18 +1,19 @@
 import type { Category } from '$lib/category/utils';
-import { DATE } from '$lib/consts';
 import type { AnyTask, ToDo } from '$lib/task/utils';
+
+import { DATE } from '$lib/consts';
 import { convertDurationToMinutes } from '$lib/task/utils';
 import { endOfWeek, format } from 'date-fns';
 
 export function buildEmptyToDo(categories: Category[]): ToDo {
 	return {
-		id: '',
-		name: '',
-		description: '',
-		isDone: false,
 		category: categories.find((category) => category.isDefault) || categories[0],
-		goal: null,
 		deadline: format(endOfWeek(new Date()), DATE),
+		description: '',
+		goal: null,
+		id: '',
+		isDone: false,
+		name: '',
 	};
 }
 

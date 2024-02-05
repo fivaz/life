@@ -28,24 +28,24 @@
 			</h2>
 		</div>
 		<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-			<Alert type="success" isVisible={!!success} on:close={() => (success = false)}>
+			<Alert isVisible={!!success} on:close={() => (success = false)} type="success">
 				Profile successfully edited
 			</Alert>
 			<div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-				<form class="space-y-6" method="POST" action="?/save" enctype="multipart/form-data">
+				<form action="?/save" class="space-y-6" enctype="multipart/form-data" method="POST">
 					<div class="col-span-full">
 						<h3 class="block text-sm font-medium leading-6 text-gray-900">Avatar</h3>
 						<div class="mt-2 flex items-center gap-x-3">
-							<img class="inline-block h-12 w-12" src={user.photoURL} alt="Your avatar" />
+							<img alt="Your avatar" class="inline-block h-12 w-12" src={user.photoURL} />
 							<label
 								class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
 							>
 								<input
-									type="file"
-									name="avatar"
-									class="hidden"
 									accept="image/*"
+									class="hidden"
+									name="avatar"
 									on:change={(e) => handleChange(e, user)}
+									type="file"
 								/>
 								Change
 							</label>
@@ -53,55 +53,55 @@
 					</div>
 
 					<div>
-						<label for="name" class="block text-sm font-medium leading-6 text-gray-900">
+						<label class="block text-sm font-medium leading-6 text-gray-900" for="name">
 							Full name
 						</label>
 						<div class="mt-2">
 							<input
+								class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 								id="name"
 								name="name"
-								type="text"
 								required
+								type="text"
 								value={user.displayName}
-								class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							/>
 						</div>
 					</div>
 					<div>
-						<label for="username" class="block text-sm font-medium leading-6 text-gray-900">
+						<label class="block text-sm font-medium leading-6 text-gray-900" for="username">
 							Email address
 						</label>
 						<div class="mt-2">
 							<input
+								class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 								id="username"
 								name="username"
-								type="email"
 								required
+								type="email"
 								value={user.email}
-								class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							/>
 						</div>
 					</div>
 
 					<div>
-						<label for="password" class="block text-sm font-medium leading-6 text-gray-900">
+						<label class="block text-sm font-medium leading-6 text-gray-900" for="password">
 							Password
 						</label>
 						<div class="mt-2">
 							<input
+								autocomplete="current-password"
+								class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 								id="password"
 								name="password"
 								type="password"
-								autocomplete="current-password"
-								class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							/>
 						</div>
 					</div>
 
 					<div>
 						<button
-							type="submit"
 							class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+							type="submit"
 						>
 							Edit profile
 						</button>

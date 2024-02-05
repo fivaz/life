@@ -13,8 +13,11 @@
 
 <!--TODO implement this later-->
 <Button
+	{color}
+	{formaction}
 	on:click={async (e) => {
 		e.preventDefault();
+		// eslint-disable-next-line sonarjs/no-collapsible-if
 		if (await createModal({ title })) {
 			if (form) {
 				if (formaction) {
@@ -24,8 +27,6 @@
 			}
 		}
 	}}
-	{formaction}
-	{color}
 >
 	<slot />
 </Button>

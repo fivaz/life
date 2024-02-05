@@ -1,15 +1,17 @@
-<script lang="ts" context="module">
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
+
 	import { normalWithoutDescription } from '$lib/task/seed';
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+
 	import EventName from './EventName.svelte';
 
 	export const meta = {
 		component: EventName,
-		tags: ['autodocs'],
 		parameters: {
 			layout: 'centered',
 		},
+		tags: ['autodocs'],
 	} satisfies Meta<EventName>;
 </script>
 
@@ -17,4 +19,4 @@
 	<EventName {...args} />
 </Template>
 
-<Story name="Primary" args={{ event: normalWithoutDescription }} />
+<Story args={{ event: normalWithoutDescription }} name="Primary" />

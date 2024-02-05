@@ -1,6 +1,7 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { config } from 'dotenv';
+
 import { homeRoute, loginRoute } from '../src/lib/consts';
 
 config();
@@ -15,7 +16,7 @@ test('authenticate', async ({ page }) => {
 
 	await page.getByLabel('email').fill(username);
 	await page.getByLabel('password').fill(password);
-	await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+	await page.getByRole('button', { exact: true, name: 'Sign in' }).click();
 
 	await page.waitForURL(`**${homeRoute}`);
 	await expect(page.getByRole('button', { name: 'Create event' })).toBeVisible();
