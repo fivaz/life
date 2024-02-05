@@ -2,17 +2,12 @@
 	import type { Category } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
-	import { collectionStore, SignedIn, userStore } from 'sveltefire';
+	import { collectionStore, userStore } from 'sveltefire';
 	import CategoryForm from './category-form/CategoryForm.svelte';
 	import { buildEmptyCategory } from './category-form/service';
 	import CategoryRow from './category-row/CategoryRow.svelte';
-	import { parseCategories } from './service';
 	import { auth, db } from '$lib/firebase';
-	import { collection, CollectionReference, Query } from 'firebase/firestore';
-	import type { Stores, Writable } from 'svelte/store';
-	import { Loader2 } from '@steeze-ui/lucide-icons';
-	import { Icon } from '@steeze-ui/svelte-icon';
+	import type { Stores } from 'svelte/store';
 	import { derived } from 'svelte/store';
 
 	let editingCategory: Category = buildEmptyCategory();

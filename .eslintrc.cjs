@@ -11,7 +11,7 @@ module.exports = {
 		'plugin:import/typescript',
 	],
 	parser: '@typescript-eslint/parser',
-	plugins: ['@typescript-eslint', 'import-no-duplicates-prefix-resolved-path'],
+	plugins: ['@typescript-eslint', 'import-no-duplicates-prefix-resolved-path', 'unused-imports'],
 	parserOptions: {
 		sourceType: 'module',
 		ecmaVersion: 2020,
@@ -51,6 +51,12 @@ module.exports = {
 			{
 				prefixResolvedPathWithImportName: true,
 			},
+		],
+		'no-unused-vars': 'off', // or "@typescript-eslint/no-unused-vars": "off",
+		'unused-imports/no-unused-imports': 'warn',
+		'unused-imports/no-unused-vars': [
+			'warn',
+			{ vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' },
 		],
 	},
 };
