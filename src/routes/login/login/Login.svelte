@@ -7,9 +7,7 @@
 	import { auth } from '$lib/firebase';
 	import { createForm } from 'felte';
 	import { FirebaseError } from 'firebase/app';
-	import {
-		signInWithEmailAndPassword,
-	} from 'firebase/auth';
+	import { signInWithEmailAndPassword } from 'firebase/auth';
 	import { object, string } from 'yup';
 
 	let isLoading: boolean = false;

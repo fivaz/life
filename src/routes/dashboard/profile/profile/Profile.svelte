@@ -1,6 +1,4 @@
 <script lang="ts">
-	import type { SubmitFunction } from '@sveltejs/kit';
-	import { applyAction, enhance } from '$app/forms';
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import { SignedIn } from 'sveltefire';
 
@@ -18,13 +16,9 @@
 			user.photoURL = URL.createObjectURL(file);
 		}
 	}
-
-	const submit: SubmitFunction = () => {
-		return async ({ result }) => {
-			await applyAction(result);
-		};
-	};
 </script>
+
+<!--TODO implement this form submit later-->
 
 <SignedIn let:user>
 	<div class="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -38,13 +32,7 @@
 				Profile successfully edited
 			</Alert>
 			<div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-				<form
-					class="space-y-6"
-					method="POST"
-					action="?/save"
-					enctype="multipart/form-data"
-					use:enhance={submit}
-				>
+				<form class="space-y-6" method="POST" action="?/save" enctype="multipart/form-data">
 					<div class="col-span-full">
 						<h3 class="block text-sm font-medium leading-6 text-gray-900">Avatar</h3>
 						<div class="mt-2 flex items-center gap-x-3">

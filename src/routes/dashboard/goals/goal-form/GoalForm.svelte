@@ -99,7 +99,11 @@
 		{/if}
 
 		<Button type="submit">
-			{#if isEditing} Edit {:else} Add {/if}
+			{#if isEditing}
+				Edit
+			{:else}
+				Add
+			{/if}
 		</Button>
 	</div>
 </form>

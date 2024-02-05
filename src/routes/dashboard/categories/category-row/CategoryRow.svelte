@@ -21,7 +21,9 @@
 >
 	<div class="flex items-center gap-x-2">
 		<div class="text-sm font-semibold leading-6 text-gray-50">{category.name}</div>
-		{#if category.isDefault} <Icon src={CheckBadge} class="h-6 w-6 text-white" /> {/if}
+		{#if category.isDefault}
+			<Icon src={CheckBadge} class="h-6 w-6 text-white" />
+		{/if}
 	</div>
 
 	<div>

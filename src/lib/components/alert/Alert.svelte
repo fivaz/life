@@ -8,8 +8,8 @@
 	} from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import classnames from 'classnames';
+	// import { createEventDispatcher, fade } from 'svelte';
 	import { createEventDispatcher } from 'svelte';
-	import { fade } from 'svelte/transition';
 
 	export let isVisible: boolean;
 
@@ -52,7 +52,9 @@
 </script>
 
 {#if isVisible}
-	<div transition:fade class={classnames(typeElements[type].background, 'rounded-md p-4')}>
+	<!--TODO fix this-->
+	<!--	<div transition:fade class={classnames(typeElements[type].background, 'rounded-md p-4')}>-->
+	<div class={classnames(typeElements[type].background, 'rounded-md p-4')}>
 		<div class="flex">
 			<div class="flex-shrink-0">
 				<Icon

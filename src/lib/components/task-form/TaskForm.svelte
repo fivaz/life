@@ -11,19 +11,26 @@
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
-	import { convertToTaskIn } from '$lib/components/task-form/service.js';
+	import {
+		convertToTaskIn,
+		addTask,
+		deleteTask,
+		editTaskWithPrompt,
+		getDuration,
+		getEndTime,
+	} from '$lib/components/task-form/service';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import { DATE, TIME } from '$lib/consts';
 	import type { AnyTask } from '$lib/task/utils';
 	import { convertToAnyTask } from '$lib/task/utils';
 	import { addMinutes, addMonths, endOfWeek, format, isAfter, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
+	// TODO check later how I should import a precompiled component https://github.com/sveltejs/svelte/issues/604
 	import Flatpickr from 'svelte-flatpickr';
-	import { addTask, deleteTask, editTaskWithPrompt, getDuration, getEndTime } from './service';
 	import type { TaskIn } from './service';
-	// eslint-disable-next-line import/max-dependencies
 	import 'flatpickr/dist/themes/airbnb.css';
 
+	// TODO add all things related to task like TaskForm in a task folder
 	export let userId: string;
 
 	export let task: AnyTask;
@@ -372,7 +379,11 @@
 		{/if}
 
 		<Button type="submit">
-			{#if isEditing} Edit {:else} Add {/if}
+			{#if isEditing}
+				Edit
+			{:else}
+				Add
+			{/if}
 		</Button>
 	</div>
 </form>

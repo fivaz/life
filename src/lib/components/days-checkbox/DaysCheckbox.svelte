@@ -2,6 +2,7 @@
 	import { weekDays } from '$lib/components/days-checkbox/service';
 	import classnames from 'classnames';
 
+	// TODO since this component will only be used inside a TaskForm I think I should move it there
 	export let value: string[];
 
 	export let name: string;

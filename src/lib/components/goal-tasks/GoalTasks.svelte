@@ -3,6 +3,8 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { GoalWithTasks } from '$lib/goal/utils';
 
+	// TODO implement this later
+
 	export let goal: GoalWithTasks;
 </script>
 
