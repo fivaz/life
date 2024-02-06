@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { updateUser } from '$lib/auth/store';
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
@@ -15,7 +16,7 @@ export let user: NonNullable<Auth['currentUser']>;
 
 	let displayName = user.displayName;
 
-	let file: File;
+	let file: File | null;
 
 	let photoURL = user.photoURL;
 
@@ -26,17 +27,30 @@ export let user: NonNullable<Auth['currentUser']>;
 		}
 	}
 
-	async function onSubmit() {
-		isLoading = true;
-
-		const avatarsRef = ref(storage, `avatars/${user.uid}`);
-		await uploadBytes(avatarsRef, file);
-		photoURL = await getDownloadURL(avatarsRef);
-
+	async function editProfile(
+		user: NonNullable<Auth['currentUser']>,
+		displayName: null | string,
+		photoURL: null | string,
+	) {
 		await updateProfile(user, { displayName, photoURL });
 		const userRef = doc(db, 'users', user.uid);
 		await updateDoc(userRef, { displayName, photoURL });
 
+		updateUser(displayName, photoURL);
+	}
+
+	async function onSubmit() {
+		isLoading = true;
+
+		if (file) {
+			const avatarsRef = ref(storage, `avatars/${user.uid}`);
+			await uploadBytes(avatarsRef, file);
+			photoURL = await getDownloadURL(avatarsRef);
+		}
+
+		await editProfile(user, displayName, photoURL);
+
+		success = true;
 		isLoading = false;
 	}
 </script>
@@ -75,12 +89,12 @@ export let user: NonNullable<Auth['currentUser']>;
 				<div>
 					<div class="mt-2">
 						<Input
+							bind:value={displayName}
 							id="name"
 							label="Full name"
 							name="name"
 							required
 							type="text"
-							value={displayName || ''}
 						/>
 					</div>
 				</div>
