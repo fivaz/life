@@ -1,16 +1,11 @@
 /// <reference types="@sveltejs/kit" />
-// eslint-disable-next-line import/no-unresolved
+import { routes } from '$lib/consts';
 import { build, files, prerendered, version } from '$service-worker';
 import { precacheAndRoute } from 'workbox-precaching';
 
-const precache_list = [
-	'/', // Attention: serves stale index, might not be ideal for your use case.
-	'/login',
-	'/register',
-	'/dashboard/home',
-	'/dashboard/categories',
-	'/dashboard/tasks',
-	'/dashboard/goals',
+const precacheList = [
+	// Attention: serves stale index, might not be ideal for your use case.
+	...routes,
 	...build,
 	...files,
 	...prerendered,
@@ -19,4 +14,4 @@ const precache_list = [
 	url: s,
 }));
 
-precacheAndRoute(precache_list);
+precacheAndRoute(precacheList);

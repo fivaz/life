@@ -55,6 +55,7 @@ module.exports = {
 					'^\\$app/navigation',
 					'^\\$app/environment',
 					'^\\$env/static/public',
+					'^\\$service-worker',
 				],
 			},
 		],

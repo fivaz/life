@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import ProfileDropDown from '$lib/components/dashboard/profile-drop-down/ProfileDropDown.svelte';
 	import ProfileDropUp from '$lib/components/dashboard/profile-drop-up/ProfileDropUp.svelte';
-	import { categoriesRoute, homeRoute, tasksRoute, toGoalsRoute } from '$lib/consts';
+	import { categoriesRoute, goalsRoute, homeRoute, tasksRoute } from '$lib/consts';
 	import { Dialog, TransitionChild, TransitionRoot } from '@rgossiaux/svelte-headlessui';
 	import { Bars3, Calendar, DocumentDuplicate, XMark } from '@steeze-ui/heroicons';
 	import { List, Target } from '@steeze-ui/lucide-icons';
@@ -14,7 +14,7 @@
 		{ href: homeRoute, icon: Calendar, name: 'Calendar' },
 		{ href: categoriesRoute, icon: DocumentDuplicate, name: 'Categories' },
 		{ href: tasksRoute, icon: List, name: 'Tasks' },
-		{ href: toGoalsRoute, icon: Target, name: 'Goals' },
+		{ href: goalsRoute, icon: Target, name: 'Goals' },
 	];
 
 	let sidebarOpen = false;

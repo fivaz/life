@@ -14,4 +14,14 @@ export const profileRoute = `${dashboardRoute}/profile`;
 export const homeRoute = `${dashboardRoute}/home`;
 export const categoriesRoute = `${dashboardRoute}/categories`;
 export const tasksRoute = `${dashboardRoute}/tasks`;
-export const toGoalsRoute = `${dashboardRoute}/goals`;
+export const goalsRoute = `${dashboardRoute}/goals`;
+export const routes = [
+	rootRoute,
+	loginRoute,
+	registerRoute,
+	homeRoute,
+	categoriesRoute,
+	tasksRoute,
+	goalsRoute,
+	profileRoute,
+];
