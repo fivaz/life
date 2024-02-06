@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ToDo } from '$lib/task/utils';
+	import type { AnyTask } from '$lib/task/utils';
 
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
@@ -13,7 +13,7 @@
 	import { buildEmptyToDo, getSumOfDurationsAsTime } from './service';
 	import TaskRow from './task-row/TaskRow.svelte';
 
-	let editingTask: ToDo = buildEmptyToDo([]);
+	let editingTask: AnyTask = buildEmptyToDo([]);
 
 	let showForm = false;
 

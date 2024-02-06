@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Task } from '$lib/task/utils';
+	import type { AnyTask } from '$lib/task/utils';
 
 	import { tailwindColors } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
@@ -10,12 +10,12 @@
 	import { format, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 
-	export let task: Task;
+	export let task: AnyTask;
 
-	let dispatch = createEventDispatcher<{ edit: Task; rescheduleToTomorrow: Task }>();
+	let dispatch = createEventDispatcher<{ edit: AnyTask; rescheduleToTomorrow: AnyTask }>();
 
-	function getDate(task: Task) {
-		const date = task.date || task.deadline;
+	function getDate(task: AnyTask) {
+		const date = 'date' in task ? task.date : task.deadline;
 		return format(parse(date, DATE, new Date()), DATE_FR);
 	}
 </script>
