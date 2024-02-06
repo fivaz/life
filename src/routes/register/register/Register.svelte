@@ -96,7 +96,6 @@
 	}
 </script>
 
-<!--TODO block the button submit so I can't submit the form twice-->
 <div class="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
 	<div class="sm:mx-auto sm:w-full sm:max-w-md">
 		<img
@@ -169,7 +168,9 @@
 				</div>
 
 				<div>
-					<Button class="w-full leading-6" {isLoading} type="submit">Register</Button>
+					<Button class="w-full leading-6" disabled={isLoading} {isLoading} type="submit">
+						Register
+					</Button>
 				</div>
 			</form>
 		</div>

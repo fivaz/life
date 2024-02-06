@@ -9,6 +9,8 @@
 
 	export let type: 'button' | 'submit' | undefined = undefined;
 
+	export let disabled = isLoading;
+
 	const colors = {
 		indigo: 'focus-visible:outline-indigo-600 bg-indigo-600 hover:bg-indigo-500',
 		red: 'focus-visible:outline-red-600 bg-red-600 hover:bg-red-500',
@@ -27,7 +29,9 @@
 		colors[color],
 		'inline-flex gap-2 justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
 		className,
+		{ 'opacity-70': disabled },
 	)}
+	{disabled}
 	on:click
 	{type}
 >

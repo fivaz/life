@@ -10,7 +10,7 @@
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 	import { object, string } from 'yup';
 
-	let isLoading: boolean = false;
+	let isLoading = false;
 
 	let errorMessage: string | unknown = '';
 
