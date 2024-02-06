@@ -1,32 +1,30 @@
 <script lang="ts">
 	import Button from '$lib/components/button/Button.svelte';
 	import { createModal } from '$lib/components/dialog/service';
+	import { createEventDispatcher } from 'svelte';
 
-	export let title: string;
-
-	export let form: HTMLFormElement;
-
-	export let formaction: string | undefined = undefined;
+	export let title: string = ' Are you sure?';
 
 	export let color: 'indigo' | 'red' = 'indigo';
+
+	export let type: 'button' | 'submit' | undefined = undefined;
+
+	let dispatch = createEventDispatcher<{ confirm: null }>();
+
+	let className = '';
+	export { className as class };
 </script>
 
-<!--TODO implement this later-->
 <Button
+	class={className}
 	{color}
-	{formaction}
 	on:click={async (e) => {
 		e.preventDefault();
-		// eslint-disable-next-line sonarjs/no-collapsible-if
 		if (await createModal({ title })) {
-			if (form) {
-				if (formaction) {
-					form.action = formaction;
-				}
-				form.requestSubmit();
-			}
+			dispatch('confirm');
 		}
 	}}
+	{type}
 >
 	<slot />
 </Button>

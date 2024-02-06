@@ -210,8 +210,7 @@ export async function deleteTask(
 	userId: string,
 	dispatch: EventDispatcher<{ close: null }>,
 ) {
-	const result = await createModal({ title: 'Are you sure?' });
-	if (result && id) {
+	if (id) {
 		const taskDocRef = doc(db, 'users', userId, 'tasks', id);
 		await deleteDoc(taskDocRef);
 		dispatch('close');

@@ -1,7 +1,6 @@
 import type { Goal } from '$lib/goal/utils';
 import type { EventDispatcher } from 'svelte';
 
-import { createModal } from '$lib/components/dialog/service';
 import { db } from '$lib/firebase';
 import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 
@@ -20,8 +19,7 @@ export async function deleteGoal(
 	userId: string,
 	dispatch: EventDispatcher<{ close: null }>,
 ) {
-	const result = await createModal({ title: 'Are you sure?' });
-	if (result && id) {
+	if (id) {
 		const goalDocRef = doc(db, 'users', userId, 'goals', id);
 		await deleteDoc(goalDocRef);
 		dispatch('close');

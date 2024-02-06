@@ -4,6 +4,7 @@
 	import { tailwindColors, types } from '$lib/category/utils';
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
+	import ConfirmButton from '$lib/components/confirm-button/ConfirmButton.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
@@ -120,13 +121,13 @@
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
 		{#if isEditing}
-			<Button
+			<ConfirmButton
 				color="red"
-				on:click={() => deleteCategory(category.id, userId, dispatch)}
+				on:confirm={() => deleteCategory(category.id, userId, dispatch)}
 				type="button"
 			>
 				Delete
-			</Button>
+			</ConfirmButton>
 		{:else}
 			<div />
 		{/if}

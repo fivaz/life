@@ -52,9 +52,7 @@
 </script>
 
 {#if isVisible}
-	<!--TODO fix this-->
 	<div class={classnames(typeElements[type].background, 'rounded-md p-4')} transition:fade>
-		<!--	<div class={classnames(typeElements[type].background, 'rounded-md p-4')}>-->
 		<div class="flex">
 			<div class="flex-shrink-0">
 				<Icon

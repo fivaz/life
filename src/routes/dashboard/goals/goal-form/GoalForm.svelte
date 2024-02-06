@@ -3,6 +3,7 @@
 
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
+	import ConfirmButton from '$lib/components/confirm-button/ConfirmButton.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import { getErrors } from '$lib/form-utils';
@@ -92,9 +93,13 @@
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
 		{#if isEditing}
-			<Button color="red" on:click={() => deleteGoal(goal.id, userId, dispatch)} type="button">
+			<ConfirmButton
+				color="red"
+				on:confirm={() => deleteGoal(goal.id, userId, dispatch)}
+				type="button"
+			>
 				Delete
-			</Button>
+			</ConfirmButton>
 		{:else}
 			<div />
 		{/if}

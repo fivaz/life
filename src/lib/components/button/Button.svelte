@@ -5,11 +5,9 @@
 
 	export let isLoading: boolean = false;
 
-	export let type: 'button' | 'submit' | undefined = undefined;
-
-	export let formaction: string | undefined = undefined;
-
 	export let color: 'indigo' | 'red' = 'indigo';
+
+	export let type: 'button' | 'submit' | undefined = undefined;
 
 	const colors = {
 		indigo: 'focus-visible:outline-indigo-600 bg-indigo-600 hover:bg-indigo-500',
@@ -30,10 +28,8 @@
 		'inline-flex gap-2 justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
 		className,
 	)}
-	{formaction}
 	on:click
 	{type}
-	{...$$restProps}
 >
 	{#if isLoading}
 		<Icon class="animate-spin h-5 w-5" src={ArrowPath} />

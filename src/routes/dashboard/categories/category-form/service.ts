@@ -2,7 +2,6 @@ import type { Category } from '$lib/category/utils';
 import type { EventDispatcher } from 'svelte';
 
 import { tailwindColors, types } from '$lib/category/utils';
-import { createModal } from '$lib/components/dialog/service';
 import { db } from '$lib/firebase';
 import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 
@@ -31,8 +30,7 @@ export async function deleteCategory(
 	userId: string,
 	dispatch: EventDispatcher<{ close: null }>,
 ) {
-	const result = await createModal({ title: 'Are you sure?' });
-	if (result && id) {
+	if (id) {
 		const categoryDocRef = doc(db, 'users', userId, 'categories', id);
 		await deleteDoc(categoryDocRef);
 		dispatch('close');

@@ -4,6 +4,7 @@
 
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
+	import ConfirmButton from '$lib/components/confirm-button/ConfirmButton.svelte';
 	import DaysCheckbox from '$lib/components/days-checkbox/DaysCheckbox.svelte';
 	import { weekDays } from '$lib/components/days-checkbox/service';
 	import Input from '$lib/components/input/Input.svelte';
@@ -26,8 +27,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { addMinutes, addMonths, endOfWeek, format, isAfter, parse } from 'date-fns';
 	import 'flatpickr/dist/themes/airbnb.css';
-	import { createEventDispatcher } from 'svelte';
-	// TODO check later how I should import a precompiled component https://github.com/sveltejs/svelte/issues/604
+	import { createEventDispatcher } from 'svelte'; // TODO check later how I should import a precompiled component https://github.com/sveltejs/svelte/issues/604
 	import Flatpickr from 'svelte-flatpickr';
 
 	import type { TaskIn } from './service';
@@ -373,9 +373,13 @@
 
 	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
 		{#if isEditing}
-			<Button color="red" on:click={() => deleteTask(task.id, userId, dispatch)} type="button">
+			<ConfirmButton
+				color="red"
+				on:confirm={() => deleteTask(task.id, userId, dispatch)}
+				type="button"
+			>
 				Delete
-			</Button>
+			</ConfirmButton>
 		{:else}
 			<div />
 		{/if}
