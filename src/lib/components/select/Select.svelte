@@ -11,8 +11,7 @@
 
 	export let label: string = '';
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	export let value: any = undefined;
+	export let value: unknown;
 
 	export let name: string;
 

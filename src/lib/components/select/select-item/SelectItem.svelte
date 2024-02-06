@@ -7,11 +7,12 @@
 	let className = '';
 	export { className as class };
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	export let value: any;
+	export let value: unknown;
+
+	let convertedValue: null | number | string | string[] | undefined = value as string;
 </script>
 
-<ListboxOption let:active let:selected {value}>
+<ListboxOption let:active let:selected value={convertedValue}>
 	<li
 		class={classnames(
 			active ? 'bg-indigo-600 text-white' : 'text-gray-900',
