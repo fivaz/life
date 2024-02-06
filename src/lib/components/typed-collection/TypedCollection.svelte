@@ -1,5 +1,4 @@
 <script generics="T" lang="ts">
-	import type { Collection } from '$lib/components/typed-collection/service';
 	import type { CollectionReference, Query } from 'firebase/firestore';
 
 	import { db } from '$lib/firebase';
@@ -10,7 +9,7 @@
 
 	export let ref: CollectionReference | Query | string;
 
-	const raw = collectionStore(db, ref) as Readable<Collection<typeof type>>;
+	const raw = collectionStore(db, ref) as Readable<Array<typeof type & { ref: never }>>;
 
 	const dataStore = derived(raw, (raw) => {
 		return raw.map(({ ref, ...data }) => data as typeof type);

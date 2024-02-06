@@ -32,7 +32,6 @@
 <SignedIn let:user>
 	<TypedCollection let:data={categories} ref={`users/${user.uid}/categories`} type={categoryType}>
 		<TypedCollection let:data={tasks} ref={q} type={taskType}>
-			{tasks}
 			<div class="flex flex-col gap-5">
 				<div class="flex justify-end">
 					<Button
