@@ -3,7 +3,7 @@ import type { TaskIn } from '$lib/components/task-form/service';
 import type { Goal } from '$lib/goal/utils';
 
 import { DATE, TIME } from '$lib/consts';
-import { differenceInMinutes, format, parse } from 'date-fns';
+import { differenceInMinutes, format, isAfter, parse } from 'date-fns';
 
 export type CoreTask = {
 	category: Category;
@@ -57,7 +57,24 @@ export function convertToTime(minutes: null | number): string {
 	return format(date, TIME);
 }
 
+export function hasErrors(taskIn: TaskIn, errorMessage: string): boolean {
+	errorMessage = checkIsInverted(taskIn);
+
+	return !!errorMessage;
+}
+function checkIsInverted(taskIn: TaskIn): string {
+	if (
+		taskIn.isEvent &&
+		!isAfter(parse(taskIn.endTime, TIME, new Date()), parse(taskIn.startTime, TIME, new Date()))
+	) {
+		return 'start time should be before end time';
+	}
+	return '';
+}
+
 export function convertToAnyTask(taskIn: TaskIn): AnyTask {
+	taskIn.name = taskIn.name || taskIn.category.name;
+
 	if (taskIn.isEvent) {
 		if (taskIn.isRecurring) {
 			return getRecurringEvent(taskIn);

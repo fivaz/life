@@ -21,13 +21,14 @@
 	} from '$lib/components/task-form/service';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import { DATE, TIME } from '$lib/consts';
-	import { convertToAnyTask } from '$lib/task/utils';
+	import { convertToAnyTask, hasErrors } from '$lib/task/utils';
 	import { Transition } from '@rgossiaux/svelte-headlessui';
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { addMinutes, addMonths, endOfWeek, format, isAfter, parse } from 'date-fns';
+	import { addMinutes, addMonths, endOfWeek, format } from 'date-fns';
 	import 'flatpickr/dist/themes/airbnb.css';
-	import { createEventDispatcher } from 'svelte'; // TODO check later how I should import a precompiled component https://github.com/sveltejs/svelte/issues/604
+	import { createEventDispatcher } from 'svelte';
+	// TODO check later how I should import a precompiled component https://github.com/sveltejs/svelte/issues/604
 	import Flatpickr from 'svelte-flatpickr';
 
 	import type { TaskIn } from './service';
@@ -57,20 +58,8 @@
 
 	$: formName = `${isEditing ? 'Edit' : 'Add'} ${'startTime' in task ? 'Event' : 'Task'}`;
 
-	function isValid() {
-		if (
-			taskIn.startTime &&
-			taskIn.endTime &&
-			!isAfter(parse(taskIn.endTime, TIME, new Date()), parse(taskIn.startTime, TIME, new Date()))
-		) {
-			errorMessage = 'start time should be before end time';
-			return false;
-		}
-		return true;
-	}
-
 	function onSubmit() {
-		if (!isValid()) {
+		if (hasErrors(taskIn, errorMessage)) {
 			return;
 		}
 
