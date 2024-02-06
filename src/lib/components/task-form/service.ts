@@ -140,29 +140,21 @@ export function editPossibleSingleRecurringEvent(
 
 export function editSingleRecurringEvent(
 	id: string,
-	data: Omit<RecurringEvent, 'id'>,
+	recurringEvent: Omit<RecurringEvent, 'id'>,
 	userId: string,
 	targetDate: Date,
 ) {
+	// create a clone event but on the new date
+	const { recurringDaysOfWeek, recurringEndAt, recurringExceptions, recurringStartAt, ...event } =
+		recurringEvent;
+
 	const date = format(targetDate, DATE);
 
-	// remove te recurring attributes
-	const {
-		recurringDaysOfWeek,
-		recurringEndAt,
-		recurringExceptions,
-		recurringStartAt,
-		...eventData
-	} = data;
+	const newEvent = { ...event, date };
 
-	const newEvent = { ...eventData, date };
+	addTask(newEvent, userId);
 
-	void addTask(newEvent, userId);
-
-	const exceptions = [...data.recurringExceptions, date];
-
-	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
-	void updateDoc(taskDocRef, { recurringExceptions: exceptions });
+	addExceptionToRecurring(id, recurringEvent, date, userId);
 }
 
 export async function editTaskWithPrompt(
@@ -205,14 +197,53 @@ export function addTask(data: Omit<AnyTask, 'id'>, userId: string) {
 	void addDoc(tasksCollectionRef, data);
 }
 
-export async function deleteTask(
-	id: string | undefined,
+function deleteTask(id: string, userId: string) {
+	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
+	void deleteDoc(taskDocRef);
+}
+
+function addExceptionToRecurring(
+	id: string,
+	task: Omit<RecurringEvent, 'id'>,
+	date: string,
 	userId: string,
+) {
+	const exceptions = [...task.recurringExceptions, date];
+
+	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
+	void updateDoc(taskDocRef, { recurringExceptions: exceptions });
+}
+
+export async function removeTask(
+	task: AnyTask,
+	userId: string,
+	targetDate: Date | undefined,
 	dispatch: EventDispatcher<{ close: null }>,
 ) {
-	if (id) {
-		const taskDocRef = doc(db, 'users', userId, 'tasks', id);
-		await deleteDoc(taskDocRef);
+	if (task.id) {
+		const { id, ...data } = task;
+
+		if ('recurringStartAt' in task && targetDate) {
+			const result = await createModal({
+				cancelText: 'all events',
+				confirmText: 'this event only',
+				message: 'Do you want to delete ?',
+				title: 'This is a repeating event',
+			});
+
+			if (result === null) {
+				return;
+			}
+
+			if (result) {
+				const date = format(targetDate, DATE);
+				addExceptionToRecurring(id, data as Omit<RecurringEvent, 'id'>, date, userId);
+			} else {
+				deleteTask(id, userId);
+			}
+		} else {
+			deleteTask(id, userId);
+		}
 		dispatch('close');
 	}
 }

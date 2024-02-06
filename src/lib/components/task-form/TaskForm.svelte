@@ -14,10 +14,10 @@
 	import {
 		addTask,
 		convertToTaskIn,
-		deleteTask,
 		editTaskWithPrompt,
 		getDuration,
 		getEndTime,
+		removeTask,
 	} from '$lib/components/task-form/service';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import { DATE, TIME } from '$lib/consts';
@@ -375,7 +375,7 @@
 		{#if isEditing}
 			<ConfirmButton
 				color="red"
-				on:confirm={() => deleteTask(task.id, userId, dispatch)}
+				on:confirm={() => removeTask(task, userId, targetDate, dispatch)}
 				type="button"
 			>
 				Delete
