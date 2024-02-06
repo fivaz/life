@@ -50,7 +50,12 @@ module.exports = {
 		'import/no-unresolved': [
 			'error',
 			{
-				ignore: ['^\\$app/stores', '^\\$app/navigation', '^\\$env/static/public'],
+				ignore: [
+					'^\\$app/stores',
+					'^\\$app/navigation',
+					'^\\$app/environment',
+					'^\\$env/static/public',
+				],
 			},
 		],
 		'import/no-duplicates': 'off',
