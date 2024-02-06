@@ -38,3 +38,5 @@ if (getApps().length) {
 
 export const db = getFirestore(app);
 export const auth = getAuth(app);
+
+export type Collection<T> = Array<T & { ref: never }>;

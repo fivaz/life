@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Category } from '$lib/category/utils';
+	import type { Goal } from '$lib/goal/utils';
 	import type { AnyTask } from '$lib/task/utils';
 
 	import Alert from '$lib/components/alert/Alert.svelte';
@@ -10,7 +11,6 @@
 	import Input from '$lib/components/input/Input.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
-	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
 	import {
 		addTask,
 		convertToTaskIn,
@@ -20,6 +20,7 @@
 		removeTask,
 	} from '$lib/components/task-form/service';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
+	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { DATE, TIME } from '$lib/consts';
 	import { convertToAnyTask, hasErrors } from '$lib/task/utils';
 	import { Transition } from '@rgossiaux/svelte-headlessui';
@@ -27,8 +28,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { addMinutes, addMonths, endOfWeek, format } from 'date-fns';
 	import 'flatpickr/dist/themes/airbnb.css';
-	import { createEventDispatcher } from 'svelte';
-	// TODO check later how I should import a precompiled component https://github.com/sveltejs/svelte/issues/604
+	import { createEventDispatcher } from 'svelte'; // TODO check later how I should import a precompiled component https://github.com/sveltejs/svelte/issues/604
 	import Flatpickr from 'svelte-flatpickr';
 
 	import type { TaskIn } from './service';
@@ -73,6 +73,8 @@
 
 		dispatch('close');
 	}
+
+	let goalType: Goal;
 </script>
 
 <form
@@ -139,7 +141,7 @@
 				{/each}
 			</Select>
 
-			<SlimCollection let:data={goals} ref={`users/${userId}/goals`}>
+			<TypedCollection let:data={goals} ref={`users/${userId}/goals`} type={goalType}>
 				<Select
 					bind:value={taskIn.goal}
 					class="flex items-center"
@@ -154,7 +156,7 @@
 						<SelectItem value={goal}>{goal.name}</SelectItem>
 					{/each}
 				</Select>
-			</SlimCollection>
+			</TypedCollection>
 
 			<Input
 				bind:value={taskIn.deadline}

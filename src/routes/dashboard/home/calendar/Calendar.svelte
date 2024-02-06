@@ -1,10 +1,11 @@
 <script lang="ts">
+	import type { Category } from '$lib/category/utils';
 	import type { AnyEvent } from '$lib/task/utils';
 
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service.js';
+	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { draggedEvent } from '$lib/dragged/store';
 	import { startOfWeek } from 'date-fns';
 	import { SignedIn } from 'sveltefire';
@@ -22,10 +23,12 @@
 	let editingEvent: AnyEvent = buildEmptyEvent([]);
 
 	let showForm = false;
+
+	let categoryType: Category;
 </script>
 
 <SignedIn let:user>
-	<SlimCollection let:data={categories} ref={`users/${user.uid}/categories`}>
+	<TypedCollection let:data={categories} ref={`users/${user.uid}/categories`} type={categoryType}>
 		<div class="flex h-full flex-col divide-gray-200">
 			<CalendarHeader
 				bind:weekStart
@@ -63,5 +66,5 @@
 				/>
 			</Modal>
 		</div>
-	</SlimCollection>
+	</TypedCollection>
 </SignedIn>

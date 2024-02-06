@@ -8,8 +8,8 @@
 	import { auth } from '$lib/firebase';
 	import { onAuthStateChanged } from 'firebase/auth';
 	import { onMount } from 'svelte';
-	
-onMount(() => {
+
+	onMount(() => {
 		onAuthStateChanged(auth, (user) => {
 			if (!user && $page.url.pathname.startsWith(dashboardRoute)) {
 				goto(loginRoute);

@@ -1,21 +1,21 @@
 <script context="module" lang="ts">
+	import type { Category } from '$lib/category/utils';
 	import type { Meta } from '@storybook/svelte';
 
+	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
-	import SlimCollection from './SlimCollection.svelte';
-
 	export const meta = {
-		component: SlimCollection,
+		component: TypedCollection,
 		parameters: {
 			layout: 'centered',
 		},
 		tags: ['autodocs'],
-	} satisfies Meta<SlimCollection>;
+	} satisfies Meta<TypedCollection<Category>>;
 </script>
 
 <Template let:args>
-	<SlimCollection {...args} />
+	<TypedCollection {...args}>button</TypedCollection>
 </Template>
 
 <Story args={{}} name="Primary" />

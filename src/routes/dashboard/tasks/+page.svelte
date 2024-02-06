@@ -1,10 +1,11 @@
 <script lang="ts">
+	import type { Category } from '$lib/category/utils';
 	import type { AnyTask } from '$lib/task/utils';
 
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
+	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { auth, db } from '$lib/firebase';
 	import { getTasksByDate } from '$lib/task/store';
 	import { collection, query, where } from 'firebase/firestore';
@@ -17,6 +18,10 @@
 
 	let showForm = false;
 
+	let categoryType: Category;
+
+	let taskType: AnyTask;
+
 	const user = userStore(auth);
 
 	const tasksRef = collection(db, `users/${$user?.uid}/tasks`);
@@ -25,8 +30,9 @@
 </script>
 
 <SignedIn let:user>
-	<SlimCollection let:data={categories} ref={`users/${user.uid}/categories`}>
-		<SlimCollection let:data={tasks} ref={q}>
+	<TypedCollection let:data={categories} ref={`users/${user.uid}/categories`} type={categoryType}>
+		<TypedCollection let:data={tasks} ref={q} type={taskType}>
+			{tasks}
 			<div class="flex flex-col gap-5">
 				<div class="flex justify-end">
 					<Button
@@ -66,6 +72,6 @@
 					/>
 				</Modal>
 			</div>
-		</SlimCollection>
-	</SlimCollection>
+		</TypedCollection>
+	</TypedCollection>
 </SignedIn>

@@ -1,7 +1,9 @@
 <script lang="ts">
+	import type { GoalWithTasks } from '$lib/goal/utils';
+
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import SlimCollection from '$lib/components/slim-collection/SlimCollection.svelte';
+	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { SignedIn } from 'sveltefire';
 
 	import GoalForm from './goal-form/GoalForm.svelte';
@@ -11,10 +13,12 @@
 	let editingGoal = buildEmptyGoal();
 
 	let showForm = false;
+
+	let goalType: GoalWithTasks;
 </script>
 
 <SignedIn let:user>
-	<SlimCollection let:data={goals} ref={`users/${user.uid}/goals`}>
+	<TypedCollection let:data={goals} ref={`users/${user.uid}/goals`} type={goalType}>
 		<div class="flex flex-col gap-5">
 			<div class="flex justify-end">
 				<Button
@@ -50,5 +54,5 @@
 				<GoalForm goal={editingGoal} on:close={() => (showForm = false)} userId={user.uid} />
 			</Modal>
 		</div>
-	</SlimCollection>
+	</TypedCollection>
 </SignedIn>
