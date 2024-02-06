@@ -14,6 +14,7 @@ import {
 	persistentLocalCache,
 	persistentMultipleTabManager,
 } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 // Your web app's Firebase configuration
 const config = {
@@ -39,4 +40,4 @@ if (getApps().length) {
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 
-export type Collection<T> = Array<T & { ref: never }>;
+export const storage = getStorage(app);

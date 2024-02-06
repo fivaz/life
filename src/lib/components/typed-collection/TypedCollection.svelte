@@ -1,7 +1,8 @@
 <script generics="T" lang="ts">
+	import type { Collection } from '$lib/components/typed-collection/service';
 	import type { CollectionReference, Query } from 'firebase/firestore';
 
-	import { type Collection, db } from '$lib/firebase';
+	import { db } from '$lib/firebase';
 	import { type Readable, derived } from 'svelte/store';
 	import { collectionStore } from 'sveltefire';
 	// eslint-disable-next-line no-undef

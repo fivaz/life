@@ -8,7 +8,7 @@
 
 	export let labelClass: string = '';
 
-	export let value = '';
+	export let value: null | string | undefined = undefined;
 
 	const dispatch = createEventDispatcher<{ input: string }>();
 </script>
