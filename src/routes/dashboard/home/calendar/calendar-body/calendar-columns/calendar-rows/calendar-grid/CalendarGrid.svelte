@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { draggedEvent } from '$lib/dragged/store';
+	import classnames from 'classnames';
+
 	import { halfHourInterval } from '../service';
 	import GridCell from './grid-cell/GridCell.svelte';
 </script>
@@ -9,7 +12,12 @@
 >
 	{#each Array.from({ length: halfHourInterval }, (_, i) => i * 2) as quarterHour (quarterHour)}
 		<div>
-			<GridCell class="h-1/2" on:create on:move {quarterHour} />
+			<GridCell
+				class={classnames('h-1/2', { 'border-b': $draggedEvent })}
+				on:create
+				on:move
+				{quarterHour}
+			/>
 			<GridCell class="h-1/2" on:create on:move quarterHour={quarterHour + 1} />
 		</div>
 	{/each}

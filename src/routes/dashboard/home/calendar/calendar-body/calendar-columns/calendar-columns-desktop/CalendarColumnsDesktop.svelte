@@ -1,14 +1,19 @@
 <script lang="ts">
 	import type { AnyEvent, AnyTask, ToDo } from '$lib/task/utils';
 
+	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
+	import { draggedEvent } from '$lib/dragged/store';
 	import classnames from 'classnames';
 	import { format, isToday } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 
+	import { moveEvent } from '../../../service';
 	import CalendarRows from '../calendar-rows/CalendarRows.svelte';
 	import DueToDos from '../due-to-dos/DueToDos.svelte';
 	import { isEventOnDay, isToDoOnDay } from '../service';
 	import Stats from '../stats/Stats.svelte';
+
+	export let userId: string;
 
 	export let dates: Date[];
 
@@ -55,7 +60,12 @@
 					events={getEvents(date, tasks)}
 					on:create={(e) => dispatch('create', { date, timeInterval: e.detail })}
 					on:edit
-					on:move={(e) => dispatch('move', { date, timeInterval: e.detail })}
+					on:move={async (e) => {
+						if ($draggedEvent) {
+							const { id, ...data } = moveEvent($draggedEvent, date, e.detail);
+							editPossibleSingleRecurringEvent(id, data, userId, date);
+						}
+					}}
 					targetDate={date}
 				/>
 			</div>

@@ -4,15 +4,13 @@
 
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
-	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service.js';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
-	import { draggedEvent } from '$lib/dragged/store';
 	import { startOfWeek } from 'date-fns';
 	import { SignedIn } from 'sveltefire';
 
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
-	import { buildEmptyEvent, buildEventWithTime, moveEvent } from './service';
+	import { buildEmptyEvent, buildEventWithTime } from './service';
 
 	let currentDate = new Date();
 
@@ -47,12 +45,6 @@
 					showForm = true;
 					targetDate = e.detail.targetDate;
 					editingEvent = e.detail.event;
-				}}
-				on:move={async (e) => {
-					if ($draggedEvent) {
-						const { id, ...data } = moveEvent($draggedEvent, e.detail.date, e.detail.timeInterval);
-						editPossibleSingleRecurringEvent(id, data, user.uid, e.detail.date);
-					}
 				}}
 				{weekStart}
 			/>

@@ -133,8 +133,9 @@ export function getRecurringEvent(data: TaskIn): RecurringEvent {
 }
 
 export function getDuration(event: AnyEvent): number {
-	const startDate = parse(event.startTime, TIME, new Date());
-	const endDate = parse(event.endTime, TIME, new Date());
+	const durationDate = parse(event.duration, TIME, new Date());
+	const midnight = new Date(durationDate);
+	midnight.setHours(0, 0, 0, 0);
 
-	return differenceInMinutes(startDate, endDate);
+	return differenceInMinutes(durationDate, midnight);
 }
