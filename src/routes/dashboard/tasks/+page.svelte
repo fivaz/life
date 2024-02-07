@@ -6,10 +6,10 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
-	import { auth, db } from '$lib/firebase';
+	import { db } from '$lib/firebase';
 	import { getTasksByDate } from '$lib/task/store';
 	import { collection, query, where } from 'firebase/firestore';
-	import { SignedIn, userStore } from 'sveltefire';
+	import { SignedIn } from 'sveltefire';
 
 	import { buildEmptyToDo, getSumOfDurationsAsTime } from './service';
 	import TaskRow from './task-row/TaskRow.svelte';
@@ -22,16 +22,15 @@
 
 	let taskType: AnyTask;
 
-	const user = userStore(auth);
-
-	const tasksRef = collection(db, `users/${$user?.uid}/tasks`);
-
-	$: q = query(tasksRef, where('isDone', '==', false));
+	function queryUncompletedTasks(userId: string) {
+		const tasksRef = collection(db, `users/${userId}/tasks`);
+		return query(tasksRef, where('isDone', '==', false));
+	}
 </script>
 
 <SignedIn let:user>
 	<TypedCollection let:data={categories} ref={`users/${user.uid}/categories`} type={categoryType}>
-		<TypedCollection let:data={tasks} ref={q} type={taskType}>
+		<TypedCollection let:data={tasks} ref={queryUncompletedTasks(user.uid)} type={taskType}>
 			<div class="flex flex-col gap-5">
 				<div class="flex justify-end">
 					<Button
