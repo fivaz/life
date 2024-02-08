@@ -129,7 +129,7 @@ export function editPossibleSingleRecurringEvent(
 	id: string,
 	data: Omit<AnyTask, 'id'>,
 	userId: string,
-	targetDate: Date,
+	targetDate: string,
 ) {
 	if ('recurringStartAt' in data) {
 		editSingleRecurringEvent(id, data as Omit<RecurringEvent, 'id'>, userId, targetDate);
@@ -142,26 +142,24 @@ export function editSingleRecurringEvent(
 	id: string,
 	recurringEvent: Omit<RecurringEvent, 'id'>,
 	userId: string,
-	targetDate: Date,
+	targetDate: string,
 ) {
 	// create a clone event but on the new date
 	const { recurringDaysOfWeek, recurringEndAt, recurringExceptions, recurringStartAt, ...event } =
 		recurringEvent;
 
-	const date = format(targetDate, DATE);
-
-	const newEvent = { ...event, date };
+	const newEvent = { ...event, date: targetDate };
 
 	addTask(newEvent, userId);
 
-	addExceptionToRecurring(id, recurringEvent, date, userId);
+	addExceptionToRecurring(id, recurringEvent, targetDate, userId);
 }
 
 export async function editTaskWithPrompt(
 	id: string,
 	data: Omit<AnyTask, 'id'>,
 	userId: string,
-	targetDate: Date | undefined,
+	targetDate: string | undefined,
 	wasRecurring: boolean,
 ) {
 	if ('recurringStartAt' in data && wasRecurring && targetDate) {
@@ -217,7 +215,7 @@ function addExceptionToRecurring(
 export async function removeTask(
 	task: AnyTask,
 	userId: string,
-	targetDate: Date | undefined,
+	targetDate: string | undefined,
 	dispatch: EventDispatcher<{ close: null }>,
 ) {
 	if (task.id) {
@@ -236,8 +234,7 @@ export async function removeTask(
 			}
 
 			if (result) {
-				const date = format(targetDate, DATE);
-				addExceptionToRecurring(id, data as Omit<RecurringEvent, 'id'>, date, userId);
+				addExceptionToRecurring(id, data as Omit<RecurringEvent, 'id'>, targetDate, userId);
 			} else {
 				deleteTask(id, userId);
 			}

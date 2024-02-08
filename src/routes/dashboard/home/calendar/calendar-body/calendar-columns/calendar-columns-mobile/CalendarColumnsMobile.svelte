@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { AnyEvent, AnyTask, ToDo } from '$lib/task/utils';
 
+	import { DATE } from '$lib/consts';
 	import classnames from 'classnames';
 	import { format, getDate, isToday } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
@@ -65,7 +66,6 @@
 		events={getEvents(selectedDate, tasks)}
 		on:create={(e) => dispatch('create', { date: selectedDate, timeInterval: e.detail })}
 		on:edit
-		on:move={(e) => dispatch('move', { date: selectedDate, timeInterval: e.detail })}
-		targetDate={selectedDate}
+		targetDate={format(selectedDate, DATE)}
 	/>
 </div>

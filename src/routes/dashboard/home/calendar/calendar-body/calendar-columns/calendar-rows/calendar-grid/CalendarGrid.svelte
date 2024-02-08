@@ -4,6 +4,8 @@
 
 	import { halfHourInterval } from '../service';
 	import GridCell from './grid-cell/GridCell.svelte';
+
+	export let targetDate: string;
 </script>
 
 <div
@@ -17,8 +19,9 @@
 				on:create
 				on:move
 				{quarterHour}
+				{targetDate}
 			/>
-			<GridCell class="h-1/2" on:create on:move quarterHour={quarterHour + 1} />
+			<GridCell class="h-1/2" on:create on:move quarterHour={quarterHour + 1} {targetDate} />
 		</div>
 	{/each}
 </div>

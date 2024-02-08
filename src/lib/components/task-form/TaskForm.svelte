@@ -40,7 +40,7 @@
 
 	export let categories: Category[];
 
-	export let targetDate: Date | undefined = undefined;
+	export let targetDate: string | undefined = undefined;
 
 	let taskIn: TaskIn = convertToTaskIn(task);
 

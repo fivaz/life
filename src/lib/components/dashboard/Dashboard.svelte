@@ -12,8 +12,8 @@
 	import classnames from 'classnames';
 	import { onAuthStateChanged } from 'firebase/auth';
 	import { onMount } from 'svelte';
-	
-const navigation = [
+
+	const navigation = [
 		{ href: homeRoute, icon: Calendar, name: 'Calendar' },
 		{ href: categoriesRoute, icon: DocumentDuplicate, name: 'Categories' },
 		{ href: tasksRoute, icon: List, name: 'Tasks' },

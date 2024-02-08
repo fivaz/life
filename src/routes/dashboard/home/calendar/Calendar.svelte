@@ -16,7 +16,7 @@
 
 	let weekStart = startOfWeek(currentDate);
 
-	let targetDate: Date | undefined = undefined;
+	let targetDate: string | undefined = undefined;
 
 	let editingEvent: AnyEvent = buildEmptyEvent([]);
 

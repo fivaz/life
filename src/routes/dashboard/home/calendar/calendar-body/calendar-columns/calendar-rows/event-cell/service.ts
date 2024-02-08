@@ -8,7 +8,7 @@ export function isShort(event: Event) {
 	return Math.abs(getDuration(event)) <= 15;
 }
 
-export function toggleCompletion(userId: string, event: AnyEvent, targetDate: Date) {
+export function toggleCompletion(userId: string, event: AnyEvent, targetDate: string) {
 	const newEvent = { ...event, isDone: !event.isDone };
 	const { id, ...data } = newEvent;
 	editPossibleSingleRecurringEvent(id, data, userId, targetDate);

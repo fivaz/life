@@ -7,8 +7,8 @@
 	import { type Auth, updateProfile } from 'firebase/auth';
 	import { doc, updateDoc } from 'firebase/firestore';
 	import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-	
-export let user: NonNullable<Auth['currentUser']>;
+
+	export let user: NonNullable<Auth['currentUser']>;
 
 	let success: boolean = false;
 
