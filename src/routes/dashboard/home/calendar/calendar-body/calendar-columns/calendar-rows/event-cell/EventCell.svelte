@@ -91,9 +91,8 @@
 <div
 	bind:this={draggedElement}
 	class={classnames(
-		'w-full h-full rounded-lg pointer-events-auto min-w-0',
-		'select-none absolute',
-		isThisDragging ? 'cursor-grabbing' : 'cursor-grab',
+		'w-full h-full rounded-lg pointer-events-auto min-w-0 select-none',
+		isThisDragging ? 'cursor-grabbing absolute' : 'cursor-grab',
 		{ 'py-2': !isShort(event), 'z-10': isThisDragging },
 		'group w-full h-full flex flex-col rounded-lg py-1 px-2 text-xs leading-5',
 		tailwindColors[event.category.color].lightBg,
