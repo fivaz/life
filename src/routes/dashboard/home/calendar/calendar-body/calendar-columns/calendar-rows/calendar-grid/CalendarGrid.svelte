@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { draggedEvent } from '$lib/dragged/store';
 	import classnames from 'classnames';
 
 	import { halfHourInterval } from '../service';
 	import GridCell from './grid-cell/GridCell.svelte';
+	import { isSomethingDragging } from './service';
 
 	export let targetDate: string;
 </script>
@@ -15,13 +15,12 @@
 	{#each Array.from({ length: halfHourInterval }, (_, i) => i * 2) as quarterHour (quarterHour)}
 		<div>
 			<GridCell
-				class={classnames('h-1/2', { 'border-b': $draggedEvent })}
+				class={classnames('h-1/2', { 'border-b': $isSomethingDragging })}
 				on:create
-				on:move
 				{quarterHour}
 				{targetDate}
 			/>
-			<GridCell class="h-1/2" on:create on:move quarterHour={quarterHour + 1} {targetDate} />
+			<GridCell class="h-1/2" on:create quarterHour={quarterHour + 1} {targetDate} />
 		</div>
 	{/each}
 </div>

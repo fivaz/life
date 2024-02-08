@@ -18,8 +18,8 @@
 <div class="h-full w-full bg-white text-sm leading-6 text-gray-500">
 	<SignedIn let:user>
 		<TypedCollection let:data={tasks} ref={`users/${user.uid}/tasks`} type={taskType}>
-			<CalendarColumnsDesktop class="hidden sm:block" {dates} on:create on:edit on:move {tasks} />
-			<CalendarColumnsMobile class="block sm:hidden" {dates} on:create on:edit on:move {tasks} />
+			<CalendarColumnsDesktop class="hidden sm:block" {dates} on:create on:edit {tasks} />
+			<CalendarColumnsMobile class="block sm:hidden" {dates} on:create on:edit {tasks} />
 		</TypedCollection>
 	</SignedIn>
 </div>

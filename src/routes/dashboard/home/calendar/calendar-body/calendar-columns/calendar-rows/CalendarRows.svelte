@@ -12,19 +12,16 @@
 	export let targetDate: string;
 
 	const quarterHourInterval = halfHourInterval * 2;
-
-	let container: HTMLDivElement | undefined = undefined;
 </script>
 
 <!--TODO make top and side sticky-->
 <!--TODO handle tasks that takes more than 1 day-->
 
 <div class="relative w-full h-full">
-	<CalendarGrid on:create on:move {targetDate} />
+	<CalendarGrid on:create {targetDate} />
 	<!--pointer-events-none will make the list container of events incapable of catching point events-->
 	<!--so we can catch the events emit by CalendarGrid behind it-->
 	<div
-		bind:this={container}
 		class="absolute inset-0 grid pointer-events-none"
 		style="grid-template-rows: repeat({quarterHourInterval}, minmax(1.75rem, 1fr)) auto"
 	>

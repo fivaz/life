@@ -10,6 +10,7 @@
 	import { createEventDispatcher } from 'svelte';
 
 	import { moveEvent } from '../../../../service';
+	import { isSomethingDragging } from '../calendar-grid/service';
 	import { getGridRowsStyle } from '../service';
 	import EventName from './event-name/EventName.svelte';
 	import { isShort, toggleCompletion } from './service';
@@ -22,45 +23,46 @@
 	// this might not be the same day as the event.startDate
 	export let targetDate: string;
 
-	let draggedElement: HTMLDivElement | null = null;
+	let draggedElement: HTMLDivElement | undefined = undefined;
 
-	let dragging = false;
 	let startX = 0;
 	let startY = 0;
 	let x = 0;
 	let y = 0;
 
 	let loading = false;
+	let isThisDragging = false;
 
 	const dispatch = createEventDispatcher<{ edit: { event: Event; targetDate: string } }>();
 
 	function startDrag(event: MouseEvent) {
-		dragging = true;
+		isThisDragging = true;
+		isSomethingDragging.set(true);
 		startX = event.clientX - x;
 		startY = event.clientY - y;
 	}
 
 	function drag(event: MouseEvent) {
-		if (dragging && draggedElement) {
+		if (isThisDragging && draggedElement) {
 			x = event.clientX - startX;
 			y = event.clientY - startY;
 		}
 	}
 
 	function getCellDateTime(draggedElement: HTMLDivElement): { date: string; time: string } | void {
-		const yPoint = draggedElement.getBoundingClientRect().top + 28 / 2;
-		const xPoint =
-			draggedElement.getBoundingClientRect().left -
-			(draggedElement.getBoundingClientRect().left - draggedElement.getBoundingClientRect().right) /
-				2;
+		const { left, top, width } = draggedElement.getBoundingClientRect();
+
+		const GRID_CELL_HEIGHT = 28;
+		const yPoint = top + GRID_CELL_HEIGHT / 2;
+		const xPoint = left + width / 2;
 
 		draggedElement.style.visibility = 'hidden';
-		const timeTab = document.elementFromPoint(xPoint, yPoint);
+		const gridCell = document.elementFromPoint(xPoint, yPoint);
 		draggedElement.style.visibility = '';
 
-		if (timeTab && timeTab instanceof HTMLElement) {
-			const date = timeTab.dataset['date'];
-			const time = timeTab.dataset['time'];
+		if (gridCell instanceof HTMLElement) {
+			const date = gridCell.dataset['date'];
+			const time = gridCell.dataset['time'];
 			if (date && time) {
 				return { date, time };
 			}
@@ -68,20 +70,20 @@
 	}
 
 	function endDrag() {
-		if (dragging && draggedElement) {
+		if (isThisDragging && draggedElement) {
 			const dateTime = getCellDateTime(draggedElement);
+
 			if (dateTime) {
 				const { id, ...data } = moveEvent(event, dateTime.date, dateTime.time);
 				editPossibleSingleRecurringEvent(id, data, userId, dateTime.date);
 			}
 		}
 		stopDrag();
-		dragging = false;
 	}
 
 	function stopDrag() {
-		x = 0;
-		y = 0;
+		isThisDragging = false;
+		isSomethingDragging.set(false);
 	}
 </script>
 
@@ -90,13 +92,12 @@
 	class={classnames(
 		'w-full h-full rounded-lg pointer-events-auto min-w-0',
 		'cursor-grab select-none absolute',
-		{ 'py-2': !isShort(event), 'z-10': dragging },
+		{ 'py-2': !isShort(event), 'z-10': isThisDragging },
 		'group w-full h-full flex flex-col rounded-lg py-1 px-2 text-xs leading-5',
 		tailwindColors[event.category.color].lightBg,
 		tailwindColors[event.category.color].hoverBg,
 		tailwindColors[event.category.color].text,
 	)}
-	on:click={() => dispatch('edit', { event, targetDate })}
 	on:keydown={(e) => {
 		if (e.key === 'Enter') {
 			dispatch('edit', { event, targetDate });
