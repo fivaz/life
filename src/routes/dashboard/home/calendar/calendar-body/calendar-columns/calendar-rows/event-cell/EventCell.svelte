@@ -61,10 +61,19 @@
 			const dateTime = getCellDateTime(draggedElement);
 
 			if (dateTime) {
-				const { id, ...data } = moveEvent(event, dateTime.date, dateTime.time);
+				event = moveEvent(event, dateTime.date, dateTime.time);
+				const { id, ...data } = event;
 				editPossibleSingleRecurringEvent(id, data, userId, dateTime.date);
 			}
 		}
+		stopDrag();
+	}
+
+	function stopDrag() {
+		setTimeout(() => {
+			x = 0;
+			y = 0;
+		}, 50);
 		isThisDragging = false;
 		isSomethingDragging.set(false);
 	}
