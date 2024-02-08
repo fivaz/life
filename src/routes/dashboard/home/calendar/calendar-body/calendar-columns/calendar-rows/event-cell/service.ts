@@ -12,3 +12,25 @@ export function toggleCompletion(userId: string, event: AnyEvent, targetDate: st
 	const { id, ...data } = newEvent;
 	editPossibleSingleRecurringEvent(id, data, userId, targetDate);
 }
+
+export function getCellDateTime(
+	draggedElement: HTMLDivElement,
+): { date: string; time: string } | void {
+	const { left, top, width } = draggedElement.getBoundingClientRect();
+
+	const GRID_CELL_HEIGHT = 28;
+	const yPoint = top + GRID_CELL_HEIGHT / 2;
+	const xPoint = left + width / 2;
+
+	draggedElement.style.visibility = 'hidden';
+	const gridCell = document.elementFromPoint(xPoint, yPoint);
+	draggedElement.style.visibility = '';
+
+	if (gridCell instanceof HTMLElement) {
+		const date = gridCell.dataset['date'];
+		const time = gridCell.dataset['time'];
+		if (date && time) {
+			return { date, time };
+		}
+	}
+}

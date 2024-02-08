@@ -2,7 +2,6 @@
 	import type { AnyEvent, Event } from '$lib/task/utils';
 
 	import { tailwindColors } from '$lib/category/utils';
-	import Loading from '$lib/components/loading/Loading.svelte';
 	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
 	import { TIME } from '$lib/consts';
 	import classnames from 'classnames';
@@ -13,7 +12,7 @@
 	import { isSomethingDragging } from '../calendar-grid/service';
 	import { getGridRowsStyle } from '../service';
 	import EventName from './event-name/EventName.svelte';
-	import { isShort, toggleCompletion } from './service';
+	import { getCellDateTime, isShort, toggleCompletion } from './service';
 
 	export let userId: string;
 
@@ -24,52 +23,40 @@
 	export let targetDate: string;
 
 	let draggedElement: HTMLDivElement | undefined = undefined;
-
 	let startX = 0;
 	let startY = 0;
 	let x = 0;
 	let y = 0;
 
-	let loading = false;
 	let isThisDragging = false;
+	let clickTimer: ReturnType<typeof setTimeout>;
 
 	const dispatch = createEventDispatcher<{ edit: { event: Event; targetDate: string } }>();
 
-	function startDrag(event: MouseEvent) {
-		isThisDragging = true;
-		isSomethingDragging.set(true);
-		startX = event.clientX - x;
-		startY = event.clientY - y;
+	function startDrag(event: MouseEvent | TouchEvent) {
+		clickTimer = setTimeout(() => {
+			isThisDragging = true;
+			isSomethingDragging.set(true);
+		}, 100);
+
+		const { clientX, clientY } = event instanceof MouseEvent ? event : event.touches[0];
+		startX = clientX - x;
+		startY = clientY - y;
 	}
 
-	function drag(event: MouseEvent) {
+	function drag(event: MouseEvent | TouchEvent) {
 		if (isThisDragging && draggedElement) {
-			x = event.clientX - startX;
-			y = event.clientY - startY;
+			const { clientX, clientY } = event instanceof MouseEvent ? event : event.touches[0];
+			x = clientX - startX;
+			y = clientY - startY;
 		}
 	}
 
-	function getCellDateTime(draggedElement: HTMLDivElement): { date: string; time: string } | void {
-		const { left, top, width } = draggedElement.getBoundingClientRect();
-
-		const GRID_CELL_HEIGHT = 28;
-		const yPoint = top + GRID_CELL_HEIGHT / 2;
-		const xPoint = left + width / 2;
-
-		draggedElement.style.visibility = 'hidden';
-		const gridCell = document.elementFromPoint(xPoint, yPoint);
-		draggedElement.style.visibility = '';
-
-		if (gridCell instanceof HTMLElement) {
-			const date = gridCell.dataset['date'];
-			const time = gridCell.dataset['time'];
-			if (date && time) {
-				return { date, time };
-			}
-		}
+	function click() {
+		dispatch('edit', { event, targetDate });
 	}
 
-	function endDrag() {
+	function endDrap() {
 		if (isThisDragging && draggedElement) {
 			const dateTime = getCellDateTime(draggedElement);
 
@@ -78,12 +65,17 @@
 				editPossibleSingleRecurringEvent(id, data, userId, dateTime.date);
 			}
 		}
-		stopDrag();
-	}
-
-	function stopDrag() {
 		isThisDragging = false;
 		isSomethingDragging.set(false);
+	}
+
+	function mouseUp() {
+		if (isThisDragging) {
+			endDrap();
+		} else {
+			click();
+		}
+		clearTimeout(clickTimer);
 	}
 </script>
 
@@ -98,15 +90,12 @@
 		tailwindColors[event.category.color].hoverBg,
 		tailwindColors[event.category.color].text,
 	)}
-	on:keydown={(e) => {
-		if (e.key === 'Enter') {
-			dispatch('edit', { event, targetDate });
-		}
-	}}
 	on:mousedown={startDrag}
-	on:mouseleave={endDrag}
 	on:mousemove={drag}
-	on:mouseup={endDrag}
+	on:mouseup={mouseUp}
+	on:touchend={mouseUp}
+	on:touchmove={drag}
+	on:touchstart={startDrag}
 	role="button"
 	style={`transform: translate(${x}px, ${y}px); ${getGridRowsStyle(event)}`}
 	tabindex="0"
@@ -116,7 +105,6 @@
 			<input
 				checked={event.isDone}
 				class="rounded border-gray-300 focus:ring-indigo-600"
-				disabled={loading}
 				on:change={() => toggleCompletion(userId, event, targetDate)}
 				on:click|stopPropagation
 				type="checkbox"
@@ -140,5 +128,3 @@
 		</p>
 	</div>
 </div>
-
-<Loading class={classnames('h-4 w-4', tailwindColors[event.category.color].text)} {loading} />
