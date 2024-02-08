@@ -3,7 +3,7 @@ import type { Goal } from '$lib/goal/utils';
 import type { AnyEvent, Event } from '$lib/task/utils';
 
 import { DATE, TIME } from '$lib/consts';
-import { addMinutes, format, setHours, setMinutes } from 'date-fns';
+import { add, addMinutes, format, parse, setHours, setMinutes } from 'date-fns';
 
 import { halfHourInterval } from './calendar-body/calendar-columns/calendar-rows/service';
 
@@ -52,17 +52,19 @@ export function buildEmptyEvent(categories: Category[], goal: Goal | null = null
 }
 
 function sumTime(startTime: string, duration: string) {
-	const date1 = new Date(`2000-01-01T${startTime}:00`);
-	const date2 = new Date(`2000-01-01T${duration}:00`);
+	const startTimeDate = parse(startTime, TIME, new Date());
+	const durationDate = parse(duration, TIME, new Date());
 
-	const sumDate = addMinutes(date1, date2.getMinutes());
+	const sum = add(startTimeDate, {
+		hours: durationDate.getHours(),
+		minutes: durationDate.getMinutes(),
+	});
 
-	return format(sumDate, TIME);
+	return format(sum, TIME);
 }
 
 export function moveEvent(event: AnyEvent, date: string, startTime: string): AnyEvent {
 	const endTime = sumTime(startTime, event.duration);
-
 	return {
 		...event,
 		date,
