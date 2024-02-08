@@ -103,9 +103,6 @@
 	on:mousedown={startDrag}
 	on:mousemove={drag}
 	on:mouseup={mouseUp}
-	on:touchend={mouseUp}
-	on:touchmove={drag}
-	on:touchstart={startDrag}
 	role="button"
 	style={`transform: translate(${x}px, ${y}px); ${getGridRowsStyle(event)}`}
 	tabindex="0"
