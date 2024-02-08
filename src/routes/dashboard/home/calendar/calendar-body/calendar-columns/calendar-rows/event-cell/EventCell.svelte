@@ -113,7 +113,7 @@
 				checked={event.isDone}
 				class="rounded border-gray-300 focus:ring-indigo-600"
 				on:change={() => toggleCompletion(userId, event, targetDate)}
-				on:click|stopPropagation
+				on:mouseup|stopPropagation
 				type="checkbox"
 			/>
 		</div>
