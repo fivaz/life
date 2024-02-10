@@ -7,7 +7,6 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import ConfirmButton from '$lib/components/confirm-button/ConfirmButton.svelte';
 	import DaysCheckbox from '$lib/components/days-checkbox/DaysCheckbox.svelte';
-	import { weekDays } from '$lib/components/days-checkbox/service';
 	import Input from '$lib/components/input/Input.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
@@ -21,12 +20,10 @@
 	} from '$lib/components/task-form/service';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
-	import { DATE, TIME } from '$lib/consts';
 	import { convertToAnyTask, hasErrors } from '$lib/task/utils';
 	import { Transition } from '@rgossiaux/svelte-headlessui';
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { addMinutes, addMonths, endOfWeek, format } from 'date-fns';
 	import 'flatpickr/dist/themes/airbnb.css';
 	import { createEventDispatcher } from 'svelte'; // TODO check later how I should import a precompiled component https://github.com/sveltejs/svelte/issues/604
 	import Flatpickr from 'svelte-flatpickr';
@@ -184,29 +181,7 @@
 					>
 						Event
 					</button>
-					<Toggle
-						bind:value={taskIn.isEvent}
-						on:change={(e) => {
-							isEventOpen = e.detail;
-							if (e.detail) {
-								taskIn.deadline = '';
-
-								taskIn.duration = '00:15';
-								taskIn.startTime = format(new Date(), TIME);
-								taskIn.endTime = format(addMinutes(new Date(), 15), TIME);
-								taskIn.date = format(new Date(), DATE);
-							} else {
-								taskIn.isRecurring = false;
-
-								taskIn.deadline = format(endOfWeek(new Date()), DATE);
-
-								taskIn.duration = '';
-								taskIn.startTime = '';
-								taskIn.endTime = '';
-								taskIn.date = '';
-							}
-						}}
-					/>
+					<Toggle bind:value={taskIn.isEvent} on:change={(e) => (isEventOpen = e.detail)} />
 				</div>
 
 				{#if taskIn.isEvent}
@@ -284,16 +259,8 @@
 						<Toggle
 							bind:value={taskIn.isRecurring}
 							on:change={(e) => {
-								if (e.detail === true) {
+								if (e.detail) {
 									isRecurringOpen = true;
-									taskIn.recurringDaysOfWeek = weekDays.slice(1, 6);
-									taskIn.recurringStartAt = format(new Date(), DATE);
-									taskIn.recurringEndAt = format(addMonths(new Date(), 1), DATE);
-									taskIn.recurringExceptions = [];
-								} else {
-									taskIn.recurringStartAt = '';
-									taskIn.recurringEndAt = '';
-									taskIn.recurringExceptions = [];
 								}
 							}}
 						/>
