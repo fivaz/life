@@ -27,22 +27,28 @@
 	let x = 0;
 	let y = 0;
 
+	let hasTouchMoved = false;
 	let isThisDragging = false;
 	let clickTimer: ReturnType<typeof setTimeout>;
 
 	const dispatch = createEventDispatcher<{ edit: { event: Event; targetDate: string } }>();
 
-	function startDrag(event: MouseEvent | TouchEvent) {
+	function mouseDown(event: MouseEvent | TouchEvent) {
 		clickTimer = setTimeout(() => {
-			isThisDragging = true;
-			isSomethingDragging.set(true);
-		}, 100);
+			startDrag(event);
+		}, 500);
+	}
+
+	function startDrag(event: MouseEvent | TouchEvent) {
+		isThisDragging = true;
+		isSomethingDragging.set(true);
 
 		const { clientX, clientY } = event instanceof MouseEvent ? event : event.touches[0];
 		startX = clientX - x;
 		startY = clientY - y;
 
 		document.addEventListener('mousemove', drag);
+		document.addEventListener('touchmove', drag);
 	}
 
 	function drag(event: MouseEvent | TouchEvent) {
@@ -51,18 +57,15 @@
 		y = clientY - startY;
 	}
 
-	function click() {
-		dispatch('edit', { event, targetDate });
-	}
-
 	function endDrap() {
 		if (!panel) return;
 		const dateTime = getCellDateTime(panel);
 		if (!dateTime) return;
 
-		event = moveEvent(event, dateTime.date, dateTime.time);
-		editPossibleSingleRecurringEvent(event, userId, dateTime.date);
-
+		if (dateTime.date !== event.date || dateTime.time !== event.startTime) {
+			event = moveEvent(event, dateTime.date, dateTime.time);
+			editPossibleSingleRecurringEvent(event, userId, dateTime.date);
+		}
 		stopDrag();
 	}
 
@@ -72,16 +75,24 @@
 			y = 0;
 		}, 100);
 		isThisDragging = false;
+		hasTouchMoved = false;
 		isSomethingDragging.set(false);
 	}
 
-	function mouseUp() {
+	function click() {
+		dispatch('edit', { event, targetDate });
+	}
+
+	function mouseUp(event: MouseEvent | TouchEvent) {
 		document.removeEventListener('mousemove', drag);
+		document.removeEventListener('touchmove', drag);
 
 		if (isThisDragging) {
 			endDrap();
 		} else {
-			click();
+			if (event instanceof MouseEvent || !hasTouchMoved) {
+				click();
+			}
 		}
 
 		clearTimeout(clickTimer);
@@ -99,8 +110,11 @@
 		tailwindColors[event.category.color].hoverBg,
 		tailwindColors[event.category.color].text,
 	)}
-	on:mousedown={startDrag}
+	on:mousedown={mouseDown}
 	on:mouseup={mouseUp}
+	on:touchend={mouseUp}
+	on:touchmove={() => (hasTouchMoved = true)}
+	on:touchstart={mouseDown}
 	role="button"
 	style={`transform: translate(${x}px, ${y}px); ${getGridRowsStyle(event)}`}
 	tabindex="0"
