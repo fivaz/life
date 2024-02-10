@@ -8,9 +8,7 @@ export function isShort(event: Event) {
 }
 
 export function toggleCompletion(userId: string, event: AnyEvent, targetDate: string) {
-	const newEvent = { ...event, isDone: !event.isDone };
-	const { id, ...data } = newEvent;
-	editPossibleSingleRecurringEvent(id, data, userId, targetDate);
+	editPossibleSingleRecurringEvent({ ...event, isDone: !event.isDone }, userId, targetDate);
 }
 
 export function getCellDateTime(
@@ -19,18 +17,20 @@ export function getCellDateTime(
 	const { left, top, width } = draggedElement.getBoundingClientRect();
 
 	const GRID_CELL_HEIGHT = 28;
-	const yPoint = top + GRID_CELL_HEIGHT / 2;
-	const xPoint = left + width / 2;
+	const gridCellY = top + GRID_CELL_HEIGHT / 2;
+	const gridCellX = left + width / 2;
 
 	draggedElement.style.visibility = 'hidden';
-	const gridCell = document.elementFromPoint(xPoint, yPoint);
+	const element = document.elementFromPoint(gridCellX, gridCellY);
 	draggedElement.style.visibility = '';
+	if (!element) return;
 
-	if (gridCell instanceof HTMLElement) {
-		const date = gridCell.dataset['date'];
-		const time = gridCell.dataset['time'];
-		if (date && time) {
-			return { date, time };
-		}
+	const gridCell: HTMLDivElement | null = element.closest<HTMLDivElement>('.grid-cell');
+	if (!gridCell) return;
+
+	const date = gridCell.dataset['date'];
+	const time = gridCell.dataset['time'];
+	if (date && time) {
+		return { date, time };
 	}
 }

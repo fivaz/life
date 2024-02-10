@@ -1,4 +1,5 @@
 <script lang="ts">
+	import classnames from 'classnames';
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher<{ create: number; move: number }>();
@@ -18,8 +19,9 @@
 	}
 </script>
 
+<!--the class grid-cell is used in EventCell to control droppable zones for its drag and drop-->
 <div
-	class={className}
+	class={classnames('grid-cell', className)}
 	data-date={targetDate}
 	data-time={getTime(quarterHour)}
 	on:click={() => dispatch('create', quarterHour)}

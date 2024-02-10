@@ -22,7 +22,8 @@
 	// this might not be the same day as the event.startDate
 	export let targetDate: string;
 
-	let draggedElement: HTMLDivElement | undefined = undefined;
+	let eventCell: HTMLDivElement | undefined = undefined;
+
 	let startX = 0;
 	let startY = 0;
 	let x = 0;
@@ -42,14 +43,14 @@
 		const { clientX, clientY } = event instanceof MouseEvent ? event : event.touches[0];
 		startX = clientX - x;
 		startY = clientY - y;
+
+		document.addEventListener('mousemove', drag);
 	}
 
 	function drag(event: MouseEvent | TouchEvent) {
-		if (isThisDragging && draggedElement) {
-			const { clientX, clientY } = event instanceof MouseEvent ? event : event.touches[0];
-			x = clientX - startX;
-			y = clientY - startY;
-		}
+		const { clientX, clientY } = event instanceof MouseEvent ? event : event.touches[0];
+		x = clientX - startX;
+		y = clientY - startY;
 	}
 
 	function click() {
@@ -57,15 +58,13 @@
 	}
 
 	function endDrap() {
-		if (isThisDragging && draggedElement) {
-			const dateTime = getCellDateTime(draggedElement);
+		if (!eventCell) return;
+		const dateTime = getCellDateTime(eventCell);
+		if (!dateTime) return;
 
-			if (dateTime) {
-				event = moveEvent(event, dateTime.date, dateTime.time);
-				const { id, ...data } = event;
-				editPossibleSingleRecurringEvent(id, data, userId, dateTime.date);
-			}
-		}
+		event = moveEvent(event, dateTime.date, dateTime.time);
+		editPossibleSingleRecurringEvent(event, userId, dateTime.date);
+
 		stopDrag();
 	}
 
@@ -73,34 +72,36 @@
 		setTimeout(() => {
 			x = 0;
 			y = 0;
-		}, 50);
+		}, 100);
 		isThisDragging = false;
 		isSomethingDragging.set(false);
 	}
 
 	function mouseUp() {
+		document.removeEventListener('mousemove', drag);
+
 		if (isThisDragging) {
 			endDrap();
 		} else {
 			click();
 		}
+
 		clearTimeout(clickTimer);
 	}
 </script>
 
 <div
-	bind:this={draggedElement}
+	bind:this={eventCell}
 	class={classnames(
 		'w-full h-full rounded-lg pointer-events-auto min-w-0 select-none',
-		isThisDragging ? 'cursor-grabbing absolute' : 'cursor-grab',
-		{ 'py-2': !isShort(event), 'z-10': isThisDragging },
+		isThisDragging ? 'cursor-grabbing' : 'cursor-grab',
+		{ 'py-2': !isShort(event), 'z-10 absolute': isThisDragging },
 		'group w-full h-full flex flex-col rounded-lg py-1 px-2 text-xs leading-5',
 		tailwindColors[event.category.color].lightBg,
 		tailwindColors[event.category.color].hoverBg,
 		tailwindColors[event.category.color].text,
 	)}
 	on:mousedown={startDrag}
-	on:mousemove={drag}
 	on:mouseup={mouseUp}
 	role="button"
 	style={`transform: translate(${x}px, ${y}px); ${getGridRowsStyle(event)}`}

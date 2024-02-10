@@ -126,13 +126,13 @@ export function getDuration(startTime: string, endTime: string): string {
 }
 
 export function editPossibleSingleRecurringEvent(
-	id: string,
-	data: Omit<AnyTask, 'id'>,
+	event: AnyTask,
 	userId: string,
 	targetDate: string,
 ) {
+	const { id, ...data } = event;
 	if ('recurringStartAt' in data) {
-		editSingleRecurringEvent(id, data as Omit<RecurringEvent, 'id'>, userId, targetDate);
+		editSingleRecurringEvent(id, data, userId, targetDate);
 	} else {
 		editTask(id, data, userId);
 	}
@@ -186,6 +186,7 @@ export async function editTaskWithPrompt(
 }
 
 export function editTask(id: string, data: Omit<AnyTask, 'id'>, userId: string) {
+	// TODO check if I can remove this id / data separation
 	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
 	void setDoc(taskDocRef, data);
 }
