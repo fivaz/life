@@ -4,7 +4,7 @@
 	import { SignedIn } from 'sveltefire';
 
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
-	import EventCell from './event-cell/EventCell.svelte';
+	import EventPanel from './event-panel/EventPanel.svelte';
 	import { halfHourInterval } from './service';
 
 	export let events: AnyEvent[];
@@ -30,7 +30,7 @@
 				<!--then we set each element of the list with pointer-events-auto so they can catch events to edit the TEvent-->
 				<!--the min-w-0 is necessary due to a issue with truncate text in a grid layout see: https://dev.to/timhecker/grid-cell-issue-with-white-space-nowrap--text-overflow-ellipsis-52g6-->
 
-				<EventCell {event} on:edit {targetDate} userId={user.uid} />
+				<EventPanel {event} on:edit {targetDate} userId={user.uid} />
 			{/each}
 		</SignedIn>
 	</div>

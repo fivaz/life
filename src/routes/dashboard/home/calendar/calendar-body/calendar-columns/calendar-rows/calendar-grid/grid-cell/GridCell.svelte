@@ -19,7 +19,7 @@
 	}
 </script>
 
-<!--the class grid-cell is used in EventCell to control droppable zones for its drag and drop-->
+<!--the class grid-cell is used in EventPanel to control droppable zones for its drag and drop-->
 <div
 	class={classnames('grid-cell', className)}
 	data-date={targetDate}

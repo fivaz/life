@@ -10,16 +10,16 @@
 	} from '$lib/task/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
-	import EventCell from './EventCell.svelte';
+	import EventPanel from './EventPanel.svelte';
 
 	export const meta = {
 		argTypes: {},
-		component: EventCell,
+		component: EventPanel,
 		parameters: {
 			layout: 'centered',
 		},
 		tags: ['autodocs'],
-	} satisfies Meta<EventCell>;
+	} satisfies Meta<EventPanel>;
 </script>
 
 <script>
@@ -27,7 +27,7 @@
 
 <Template let:args>
 	<div class="w-40 h-40 relative">
-		<EventCell {...args} />
+		<EventPanel {...args} />
 	</div>
 </Template>
 

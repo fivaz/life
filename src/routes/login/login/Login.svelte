@@ -28,8 +28,7 @@
 			if (error instanceof FirebaseError) {
 				if (error.code === 'auth/invalid-credential') {
 					errorMessage = 'login or password are incorrect';
-				}
-				if (error.code === 'auth/network-request-failed') {
+				} else if (error.code === 'auth/network-request-failed') {
 					errorMessage = "you can't login if you're not connected to the internet";
 				} else {
 					errorMessage = error.message;
