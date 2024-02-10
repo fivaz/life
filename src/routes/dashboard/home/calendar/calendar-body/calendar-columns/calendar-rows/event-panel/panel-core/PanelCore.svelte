@@ -2,8 +2,8 @@
 	import { TIME } from '$lib/consts.js';
 	import { type AnyEvent } from '$lib/task/utils.js';
 	import { format, parse } from 'date-fns';
-	
-import { isShort, toggleCompletion } from '../service.js';
+
+	import { isShort, toggleCompletion } from '../service.js';
 
 	export let event: AnyEvent;
 

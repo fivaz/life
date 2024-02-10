@@ -103,11 +103,11 @@
 	bind:this={panel}
 	class={classnames(
 		'w-full h-full rounded-lg pointer-events-auto min-w-0 select-none',
-		isThisDragging ? `cursor-grabbing` : `cursor-grab`,
+		isThisDragging
+			? `cursor-grabbing ${tailwindColors[event.category.color].normalBg}`
+			: `cursor-grab ${tailwindColors[event.category.color].lightBg} ${tailwindColors[event.category.color].hoverBg}`,
 		{ 'py-2': !isShort(event), 'z-10 absolute': isThisDragging },
 		'group w-full h-full flex flex-col rounded-lg py-1 px-2 text-xs leading-5',
-		tailwindColors[event.category.color].lightBg,
-		tailwindColors[event.category.color].hoverBg,
 		tailwindColors[event.category.color].text,
 	)}
 	on:mousedown={mouseDown}
