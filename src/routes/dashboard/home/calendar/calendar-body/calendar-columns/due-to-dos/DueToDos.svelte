@@ -10,8 +10,8 @@
 	import { SignedIn } from 'sveltefire';
 
 	import { buildEmptyToDo } from '../../../../../tasks/service';
-	
-export let toDos: ToDo[];
+
+	export let toDos: ToDo[];
 
 	let isOpen = false;
 
@@ -22,9 +22,7 @@ export let toDos: ToDo[];
 	let categoryType: Category;
 </script>
 
-{#if toDos.length}
-	<button on:click={() => (isOpen = true)}>{toDos.length} pending tasks</button>
-{/if}
+<button on:click={() => (isOpen = true)}>{toDos.length} tasks</button>
 
 <Modal on:close={() => (isOpen = false)} show={isOpen}>
 	<div class="p-3 shadow rounded-md overflow-hidden relative bg-white text-sm font-semibold w-96">

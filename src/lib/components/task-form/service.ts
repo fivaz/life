@@ -219,29 +219,27 @@ export async function removeTask(
 	targetDate: string | undefined,
 	dispatch: EventDispatcher<{ close: null }>,
 ) {
-	if (task.id) {
-		const { id, ...data } = task;
+	const { id, ...data } = task;
 
-		if ('recurringStartAt' in task && targetDate) {
-			const result = await createModal({
-				cancelText: 'all events',
-				confirmText: 'this event only',
-				message: 'Do you want to delete ?',
-				title: 'This is a repeating event',
-			});
+	if ('recurringStartAt' in task && targetDate) {
+		const result = await createModal({
+			cancelText: 'all events',
+			confirmText: 'this event only',
+			message: 'Do you want to delete ?',
+			title: 'This is a repeating event',
+		});
 
-			if (result === null) {
-				return;
-			}
+		if (result === null) {
+			return;
+		}
 
-			if (result) {
-				addExceptionToRecurring(id, data as Omit<RecurringEvent, 'id'>, targetDate, userId);
-			} else {
-				deleteTask(id, userId);
-			}
+		if (result) {
+			addExceptionToRecurring(id, data as Omit<RecurringEvent, 'id'>, targetDate, userId);
 		} else {
 			deleteTask(id, userId);
 		}
-		dispatch('close');
+	} else {
+		deleteTask(id, userId);
 	}
+	dispatch('close');
 }
