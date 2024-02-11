@@ -6,12 +6,14 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
-	import { db } from '$lib/firebase';
-	import { getTasksByDate } from '$lib/task/store';
-	import { collection, query, where } from 'firebase/firestore';
 	import { SignedIn } from 'sveltefire';
 
-	import { buildEmptyToDo, getSumOfDurationsAsTime } from './service';
+	import {
+		buildEmptyToDo,
+		getSumOfDurationsAsTime,
+		getTasksByDateOrdered,
+		queryUncompletedTasks,
+	} from './service';
 	import TaskRow from './task-row/TaskRow.svelte';
 
 	let editingTask: AnyTask = buildEmptyToDo([]);
@@ -21,11 +23,6 @@
 	let categoryType: Category;
 
 	let taskType: AnyTask;
-
-	function queryUncompletedTasks(userId: string) {
-		const tasksRef = collection(db, `users/${userId}/tasks`);
-		return query(tasksRef, where('isDone', '==', false));
-	}
 </script>
 
 <SignedIn let:user>
@@ -44,7 +41,7 @@
 				</div>
 
 				<ul class="divide-y divide-gray-100" role="list">
-					{#each Object.entries(getTasksByDate(tasks)) as [date, list] (date)}
+					{#each getTasksByDateOrdered(tasks) as [date, list] (date)}
 						<div class="flex justify-between px-2">
 							<div>{date}</div>
 							<div>{getSumOfDurationsAsTime(list)}</div>

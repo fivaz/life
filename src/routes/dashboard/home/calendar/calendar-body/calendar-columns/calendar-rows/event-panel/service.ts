@@ -1,10 +1,10 @@
-import type { AnyEvent, Event } from '$lib/task/utils';
+import type { AnyEvent } from '$lib/task/utils';
 
 import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
-import { getDurationInMinutes } from '$lib/task/utils';
+import { convertDurationToMinutes } from '$lib/task/utils';
 
-export function isShort(event: Event) {
-	return Math.abs(getDurationInMinutes(event)) <= 15;
+export function isShort(event: AnyEvent) {
+	return Math.abs(convertDurationToMinutes(event)) <= 15;
 }
 
 export function toggleCompletion(userId: string, event: AnyEvent, targetDate: string) {

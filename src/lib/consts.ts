@@ -2,6 +2,7 @@ export const DATE = 'yyyy-MM-dd';
 export const TIME = 'HH:mm';
 
 export const DATE_FR = 'dd.MM.yyyy';
+export const DATE_FR_SHORT = 'dd.MM';
 export const DATETIME = 'yyyy-MM-dd HH:mm';
 
 export const loginRoute = '/login';

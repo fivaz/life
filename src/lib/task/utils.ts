@@ -3,7 +3,7 @@ import type { TaskIn } from '$lib/components/task-form/service';
 import type { Goal } from '$lib/goal/utils';
 
 import { DATE, TIME } from '$lib/consts';
-import { differenceInMinutes, format, isAfter, parse } from 'date-fns';
+import { format, isAfter, parse } from 'date-fns';
 
 export type CoreTask = {
 	category: Category;
@@ -47,14 +47,6 @@ export function convertDurationToMinutes(task: AnyTask) {
 		return hours * 60 + minutes;
 	}
 	return 0;
-}
-
-export function convertToTime(minutes: null | number): string {
-	if (!minutes) {
-		return 'unset';
-	}
-	const date = new Date(0, 0, 0, Math.floor(minutes / 60), minutes % 60);
-	return format(date, TIME);
 }
 
 export function hasErrors(taskIn: TaskIn, errorMessage: string): boolean {
@@ -130,12 +122,4 @@ export function getRecurringEvent(data: TaskIn): RecurringEvent {
 		recurringStartAt: data.recurringStartAt,
 		startTime: data.startTime,
 	};
-}
-
-export function getDurationInMinutes(event: AnyEvent): number {
-	const durationDate = parse(event.duration, TIME, new Date());
-	const midnight = new Date(durationDate);
-	midnight.setHours(0, 0, 0, 0);
-
-	return differenceInMinutes(durationDate, midnight);
 }

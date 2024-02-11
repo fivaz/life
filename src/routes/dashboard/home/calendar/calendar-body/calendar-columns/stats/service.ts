@@ -1,7 +1,7 @@
 import type { GroupType } from '$lib/category/utils';
 import type { AnyEvent } from '$lib/task/utils';
 
-import { getDurationInMinutes } from '$lib/task/utils';
+import { convertDurationToMinutes } from '$lib/task/utils';
 
 export function calculateGroupPercentages(events: AnyEvent[]): Record<GroupType, number> {
 	const groupTime = calculateGroupTime(events);
@@ -28,7 +28,7 @@ function calculateGroupTime(events: AnyEvent[]): Record<GroupType, number> {
 	};
 
 	for (const event of events) {
-		const duration = getDurationInMinutes(event);
+		const duration = convertDurationToMinutes(event);
 		const currentTotal = groupTimes[event.category.type];
 		groupTimes[event.category.type] = currentTotal + duration;
 	}
