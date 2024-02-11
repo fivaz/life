@@ -2,16 +2,18 @@
 	import type { AnyEvent, Event } from '$lib/task/utils';
 
 	import { tailwindColors } from '$lib/category/utils';
-	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
 	import classnames from 'classnames';
-	import { addMinutes, format } from 'date-fns';
 	import interact from 'interactjs';
 	import { createEventDispatcher, onMount } from 'svelte';
 
-	import { GRID_CELL_HEIGHT, GRID_CELL_TIME, isSomethingDragging } from '../calendar-grid/service';
+	import { isSomethingDragging } from '../calendar-grid/service';
 	import { getGridRowsStyle } from '../service';
 	import PanelCore from './panel-core/PanelCore.svelte';
-	import { getCellDateTime, isShort } from './service';
+	import {
+		dragEnd,
+		isShort,
+		persisteNewSize,
+	} from './service';
 
 	export let userId: string;
 
@@ -35,13 +37,6 @@
 		interactivePanel?.styleCursor(isSelected);
 	}
 
-	function getDurationFromCellSize(height: number) {
-		const timeIntervals = height / GRID_CELL_HEIGHT;
-		const timeIntervalRounded = Math.round(timeIntervals);
-		const resultDate = addMinutes(new Date(0, 0, 0), timeIntervalRounded * GRID_CELL_TIME);
-		return format(resultDate, 'HH:mm');
-	}
-
 	function startDrag(e: { target: HTMLElement }) {
 		if (!isSelected) return;
 		isSomethingDragging.set(true);
@@ -58,20 +53,6 @@
 			transform: `translate(${position.x}px, ${position.y}px)`,
 			zIndex: '1',
 		});
-	}
-
-	function dragEnd(e: { target: HTMLDivElement }) {
-		if (!isSelected) return;
-		isSomethingDragging.set(false);
-		e.target.style.backgroundColor = '';
-
-		const dateTime = getCellDateTime(e.target);
-		if (!dateTime || (dateTime.startTime === event.startTime && dateTime.date === event.date))
-			return;
-
-		event = { ...event, date: dateTime.date, startTime: dateTime.startTime };
-		editPossibleSingleRecurringEvent(event, userId, dateTime.date);
-		isSelected = false;
 	}
 
 	function resizeEvent(e: {
@@ -92,15 +73,6 @@
 		});
 
 		Object.assign(e.target.dataset, { x, y });
-	}
-
-	function persisteNewSize(e: { rect: { height: number }; target: HTMLDivElement }) {
-		const dateTime = getCellDateTime(e.target);
-		const duration = getDurationFromCellSize(e.rect.height);
-		if (!dateTime || (dateTime.startTime === event.startTime && duration === event.duration))
-			return;
-		event = { ...event, duration, startTime: dateTime.startTime };
-		editPossibleSingleRecurringEvent(event, userId, targetDate);
 	}
 
 	function unSelect(e: MouseEvent) {
@@ -132,14 +104,14 @@
 			.draggable({ listeners: { move: onMove } })
 			.on('contextmenu', (e) => e.preventDefault())
 			.on('dragstart', startDrag)
-			.on('dragend', dragEnd);
+			.on('dragend', (e) => dragEnd(e, event, userId));
 
 		interactivePanel
 			.resizable({
 				edges: { bottom: true, top: true },
 				listeners: { move: resizeEvent },
 			})
-			.on('resizeend', persisteNewSize);
+			.on('resizeend', (e) => persisteNewSize(e, event, userId, targetDate));
 	});
 </script>
 
