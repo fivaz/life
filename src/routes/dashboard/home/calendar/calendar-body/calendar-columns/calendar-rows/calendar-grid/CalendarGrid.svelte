@@ -3,14 +3,14 @@
 
 	import { halfHourInterval } from '../service';
 	import GridCell from './grid-cell/GridCell.svelte';
-	import { isSomethingDragging } from './service';
+	import { GRID_CELL_HEIGHT, isSomethingDragging } from './service';
 
 	export let targetDate: string;
 </script>
 
 <div
 	class="h-full grid divide-y"
-	style="grid-template-rows: repeat({halfHourInterval}, minmax(3.5rem, 1fr))"
+	style="grid-template-rows: repeat({halfHourInterval}, minmax({GRID_CELL_HEIGHT * 2}px, 1fr))"
 >
 	{#each Array.from({ length: halfHourInterval }, (_, i) => i * 2) as quarterHour (quarterHour)}
 		<div>

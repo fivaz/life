@@ -4,6 +4,7 @@
 	import { SignedIn } from 'sveltefire';
 
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
+	import { GRID_CELL_HEIGHT } from './calendar-grid/service';
 	import EventPanel from './event-panel/EventPanel.svelte';
 	import { halfHourInterval } from './service';
 
@@ -23,7 +24,7 @@
 	<!--so we can catch the events emit by CalendarGrid behind it-->
 	<div
 		class="absolute inset-0 grid pointer-events-none"
-		style="grid-template-rows: repeat({quarterHourInterval}, minmax(1.75rem, 1fr)) auto"
+		style="grid-template-rows: repeat({quarterHourInterval}, minmax({GRID_CELL_HEIGHT}px, 1fr)) auto"
 	>
 		<SignedIn let:user>
 			{#each events as event (event)}
