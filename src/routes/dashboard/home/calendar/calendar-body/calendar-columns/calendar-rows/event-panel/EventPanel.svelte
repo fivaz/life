@@ -8,8 +8,7 @@
 	import interact from 'interactjs';
 	import { createEventDispatcher, onMount } from 'svelte';
 
-	import { moveEvent } from '../../../../service';
-	import { GRID_CELL_HEIGHT, GRID_CELL_TIME, isSomethingDragging } from '../calendar-grid/service';
+	import { GRID_CELL_HEIGHT, GRID_CELL_TIME } from '../calendar-grid/service';
 	import { getGridRowsStyle } from '../service';
 	import PanelCore from './panel-core/PanelCore.svelte';
 	import { getCellDateTime, isShort } from './service';
@@ -24,65 +23,11 @@
 
 	let panel: HTMLDivElement | undefined = undefined;
 
-	let startX = 0;
-	let startY = 0;
-	let x = 0;
-	let y = 0;
+	let position = { x: 0, y: 0 };
 
-	let hasTouchMoved = false;
 	let isThisDragging = false;
-	let clickTimer: ReturnType<typeof setTimeout>;
 
 	const dispatch = createEventDispatcher<{ edit: { event: Event; targetDate: string } }>();
-
-	function mouseDown(event: MouseEvent | TouchEvent) {
-		clickTimer = setTimeout(() => {
-			startDrag(event);
-		}, 500);
-	}
-
-	function startDrag(event: MouseEvent | TouchEvent) {
-		isThisDragging = true;
-		isSomethingDragging.set(true);
-
-		const { clientX, clientY } = event instanceof MouseEvent ? event : event.touches[0];
-		startX = clientX - x;
-		startY = clientY - y;
-
-		document.addEventListener('mousemove', drag);
-		document.addEventListener('touchmove', drag);
-	}
-
-	function drag(event: MouseEvent | TouchEvent) {
-		const { clientX, clientY } = event instanceof MouseEvent ? event : event.touches[0];
-		x = clientX - startX;
-		y = clientY - startY;
-	}
-
-	function endDrap() {
-		if (!panel) return;
-		const { date, startTime } = getCellDateTime(panel);
-
-		if (date !== event.date || startTime !== event.startTime) {
-			event = moveEvent(event, date, startTime);
-			editPossibleSingleRecurringEvent(event, userId, date);
-		}
-		stopDrag();
-	}
-
-	function stopDrag() {
-		setTimeout(() => {
-			x = 0;
-			y = 0;
-		}, 100);
-		isThisDragging = false;
-		hasTouchMoved = false;
-		isSomethingDragging.set(false);
-	}
-
-	function click() {
-		dispatch('edit', { event, targetDate });
-	}
 
 	function getDurationFromCellSize(height: number) {
 		const timeIntervals = height / GRID_CELL_HEIGHT;
@@ -91,23 +36,35 @@
 		return format(resultDate, 'HH:mm');
 	}
 
-	function mouseUp(event: MouseEvent | TouchEvent) {
-		document.removeEventListener('mousemove', drag);
-		document.removeEventListener('touchmove', drag);
-
-		if (isThisDragging) {
-			endDrap();
-		} else {
-			if (event instanceof MouseEvent || !hasTouchMoved) {
-				click();
-			}
-		}
-
-		clearTimeout(clickTimer);
-	}
-
 	onMount(() => {
 		if (!panel) return;
+
+		interact(panel).on('tap', () => {
+			dispatch('edit', { event, targetDate });
+		});
+
+		interact(panel)
+			.draggable({
+				listeners: {
+					move(event) {
+						position.x += event.dx;
+						position.y += event.dy;
+						Object.assign(event.target.style, {
+							transform: `translate(${position.x}px, ${position.y}px)`,
+							zIndex: '1',
+						});
+					},
+				},
+			})
+			.on('dragend', (e) => {
+				const dateTime = getCellDateTime(e.currentTarget);
+				if (!dateTime || (dateTime.startTime === event.startTime && dateTime.date === event.date))
+					return;
+
+				event = { ...event, date: dateTime.date, startTime: dateTime.startTime };
+				editPossibleSingleRecurringEvent(event, userId, dateTime.date);
+			});
+
 		interact(panel)
 			.resizable({
 				edges: {
@@ -132,14 +89,14 @@
 					},
 				},
 			})
-			.on(['resizeend'], (e) => {
+			.on('resizeend', (e) => {
 				// TODO remove attribute endTime it will be only startTime and duration
-				const { startTime } = getCellDateTime(e.currentTarget);
+				const dateTime = getCellDateTime(e.currentTarget);
 				const duration = getDurationFromCellSize(e.rect.height);
-				if (startTime !== event.startTime || duration !== event.duration) {
-					event = { ...event, duration, startTime };
-					editPossibleSingleRecurringEvent(event, userId, targetDate);
-				}
+				if (!dateTime || (dateTime.startTime === event.startTime && duration === event.duration))
+					return;
+				event = { ...event, duration, startTime: dateTime.startTime };
+				editPossibleSingleRecurringEvent(event, userId, targetDate);
 			});
 	});
 </script>
@@ -147,7 +104,7 @@
 <div
 	bind:this={panel}
 	class={classnames(
-		'w-full h-full rounded-lg pointer-events-auto min-w-0 select-none',
+		'w-full h-full rounded-lg pointer-events-auto min-w-0 select-none touch-none',
 		isThisDragging
 			? `cursor-grabbing ${tailwindColors[event.category.color].normalBg}`
 			: `cursor-grab ${tailwindColors[event.category.color].lightBg} ${tailwindColors[event.category.color].hoverBg}`,
@@ -156,7 +113,7 @@
 		tailwindColors[event.category.color].text,
 	)}
 	role="button"
-	style={`transform: translate(${x}px, ${y}px); ${getGridRowsStyle(event)}`}
+	style={getGridRowsStyle(event)}
 	tabindex="0"
 >
 	<PanelCore {event} {targetDate} {userId} />
