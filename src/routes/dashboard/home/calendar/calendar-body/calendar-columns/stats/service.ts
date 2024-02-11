@@ -13,8 +13,6 @@ export function calculateGroupPercentages(events: AnyEvent[]): Record<GroupType,
 	};
 
 	for (const group of Object.keys(groupTime) as GroupType[]) {
-		console.log(groupTime[group]);
-		console.log((groupTime[group] / totalDayTime) * 100);
 		const percentage = (groupTime[group] / totalDayTime) * 100;
 		groupPercentage[group] = Math.round(percentage);
 	}
