@@ -22,41 +22,51 @@
 	let categoryType: Category;
 </script>
 
-<button on:click={() => (isOpen = true)}>{toDos.length} tasks</button>
-
-<Modal on:close={() => (isOpen = false)} show={isOpen}>
-	<div class="p-3 shadow rounded-md overflow-hidden relative bg-white text-sm font-semibold w-96">
-		<h3 class="text-lg text-black">Pending Tasks</h3>
-		{#each toDos as toDo (toDo)}
-			<div class="flex gap-2 items-center justify-between">
-				<div class="flex gap-2">
-					<Icon class="h-5 w-5 text-indigo-500" src={toDo.isDone ? DocumentCheck : Document} />
-					<div class="truncate">{toDo.name}</div>
-				</div>
-				<div
-					on:click={() => {
-						editingTask = toDo;
-						showForm = true;
-					}}
-					on:keyup
-					role="button"
-					tabindex="0"
-				>
-					<Icon class="h-5 w-5 text-indigo-500" src={EllipsisHorizontal} />
-				</div>
-			</div>
-		{/each}
+<div>
+	<div class="h-4">
+		{#if toDos.length}
+			<button on:click={() => (isOpen = true)}>{toDos.length} tasks</button>
+		{/if}
 	</div>
-	<SignedIn let:user>
-		<TypedCollection let:data={categories} ref={`users/${user.uid}/categories`} type={categoryType}>
-			<Modal on:close={() => (showForm = false)} show={showForm}>
-				<TaskForm
-					{categories}
-					on:close={() => (showForm = false)}
-					task={editingTask}
-					userId={user.uid}
-				/>
-			</Modal>
-		</TypedCollection>
-	</SignedIn>
-</Modal>
+
+	<Modal on:close={() => (isOpen = false)} show={isOpen}>
+		<div class="p-3 shadow rounded-md overflow-hidden relative bg-white text-sm font-semibold w-96">
+			<h3 class="text-lg text-black">Pending Tasks</h3>
+			{#each toDos as toDo (toDo)}
+				<div class="flex gap-2 items-center justify-between">
+					<div class="flex gap-2">
+						<Icon class="h-5 w-5 text-indigo-500" src={toDo.isDone ? DocumentCheck : Document} />
+						<div class="truncate">{toDo.name}</div>
+					</div>
+					<div
+						on:click={() => {
+							editingTask = toDo;
+							showForm = true;
+						}}
+						on:keyup
+						role="button"
+						tabindex="0"
+					>
+						<Icon class="h-5 w-5 text-indigo-500" src={EllipsisHorizontal} />
+					</div>
+				</div>
+			{/each}
+		</div>
+		<SignedIn let:user>
+			<TypedCollection
+				let:data={categories}
+				ref={`users/${user.uid}/categories`}
+				type={categoryType}
+			>
+				<Modal on:close={() => (showForm = false)} show={showForm}>
+					<TaskForm
+						{categories}
+						on:close={() => (showForm = false)}
+						task={editingTask}
+						userId={user.uid}
+					/>
+				</Modal>
+			</TypedCollection>
+		</SignedIn>
+	</Modal>
+</div>

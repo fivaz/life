@@ -75,12 +75,12 @@
 </script>
 
 <form
-	class="w-[355px] shadow rounded-md overflow-hidden relative"
+	class="w-[355px] shadow rounded-md overflow-hidden relative text-start font-medium"
 	on:submit|preventDefault={onSubmit}
 >
 	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
 		<div class="flex justify-between items-center pb-2">
-			<h2 class="text-lg font-medium text-gray-900">{formName}</h2>
+			<h2 class="text-lg text-gray-900">{formName}</h2>
 			<button
 				class="pl-2 inline-flex rounded-md p-1.5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
 				on:click={() => dispatch('close')}
@@ -95,7 +95,7 @@
 			{errorMessage}
 		</Alert>
 
-		<div class="flex flex-col gap-2 text-sm font-medium text-gray-700">
+		<div class="flex flex-col gap-2 text-sm text-gray-700">
 			<div class="flex gap-3 items-center">
 				<Input
 					autocomplete="off"
@@ -115,7 +115,7 @@
 				</label>
 			</div>
 
-			<label class="block text-sm font-medium text-gray-700">
+			<label class="block text-sm text-gray-700">
 				<textarea
 					bind:value={taskIn.description}
 					class="p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -296,7 +296,7 @@
 								/>
 							</div>
 							<div>
-								<h3 class="block text-sm font-medium text-gray-700 mb-1">Repeat every</h3>
+								<h3 class="block text-sm text-gray-700 mb-1">Repeat every</h3>
 								<DaysCheckbox
 									bind:value={taskIn.recurringDaysOfWeek}
 									class="flex justify-around"
@@ -305,10 +305,7 @@
 							</div>
 
 							<div>
-								<label
-									class="block text-sm font-medium text-gray-700 mb-1"
-									for="recurringExceptions"
-								>
+								<label class="block text-sm text-gray-700 mb-1" for="recurringExceptions">
 									Exclude on
 								</label>
 								<Flatpickr
