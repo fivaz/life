@@ -12,7 +12,7 @@ export type TailwindColor = {
 	darkBg: string;
 	hoverBg: string;
 	lightBg: string;
-	normalBg: string;
+	normalBgCss: string;
 	text: string;
 };
 
@@ -21,35 +21,35 @@ export const tailwindColors: Record<string, TailwindColor> = {
 		darkBg: 'bg-blue-500',
 		hoverBg: 'hover:bg-blue-100',
 		lightBg: 'bg-blue-50',
-		normalBg: 'bg-blue-200',
+		normalBgCss: '#bfdbfe',
 		text: 'text-blue-700',
 	},
 	green: {
 		darkBg: 'bg-green-500',
 		hoverBg: 'hover:bg-green-100',
 		lightBg: 'bg-green-50',
-		normalBg: 'bg-green-200',
+		normalBgCss: '#bbf7d0',
 		text: 'text-green-700',
 	},
 	purple: {
 		darkBg: 'bg-purple-500',
 		hoverBg: 'hover:bg-purple-100',
 		lightBg: 'bg-purple-50',
-		normalBg: 'bg-purple-200',
+		normalBgCss: '#e9d5ff',
 		text: 'text-purple-700',
 	},
 	red: {
 		darkBg: 'bg-red-500',
 		hoverBg: 'hover:bg-red-100',
 		lightBg: 'bg-red-50',
-		normalBg: 'bg-red-200',
+		normalBgCss: '#fecaca',
 		text: 'text-red-700',
 	},
 	yellow: {
 		darkBg: 'bg-yellow-500',
 		hoverBg: 'hover:bg-yellow-100',
 		lightBg: 'bg-yellow-50',
-		normalBg: 'bg-yellow-200',
+		normalBgCss: '#fef08a',
 		text: 'text-yellow-700',
 	},
 };
