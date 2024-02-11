@@ -23,6 +23,8 @@
 
 	let panel: HTMLDivElement | undefined = undefined;
 
+	let isSelected = false;
+
 	let position = { x: 0, y: 0 };
 
 	const dispatch = createEventDispatcher<{ edit: { event: Event; targetDate: string } }>();
@@ -38,14 +40,21 @@
 		if (!panel) return;
 
 		interact(panel).on('tap', () => {
-			dispatch('edit', { event, targetDate });
+			if (!isSelected) {
+				dispatch('edit', { event, targetDate });
+			}
+		});
+
+		interact(panel).on('hold', () => {
+			isSelected = true;
 		});
 
 		interact(panel)
 			.draggable({
-				hold: 500,
 				listeners: {
 					move(e) {
+						console.log('move');
+						if (!isSelected) return;
 						position.x += e.dx;
 						position.y += e.dy;
 
@@ -61,20 +70,27 @@
 				e.preventDefault();
 			})
 			.on('dragstart', (e) => {
+				console.log('dragstart');
+				if (!isSelected) return;
 				isSomethingDragging.set(true);
 				e.target.style.backgroundColor = tailwindColors[event.category.color].normalBgCss;
 			})
-			.on('dragend', (e) => {
-				isSomethingDragging.set(false);
-				e.target.style.backgroundColor = '';
+			.on('dragend', (e) => dragEnd(e));
 
-				const dateTime = getCellDateTime(e.target);
-				if (!dateTime || (dateTime.startTime === event.startTime && dateTime.date === event.date))
-					return;
+		function dragEnd(e: { target: HTMLDivElement }) {
+			console.log('dragend');
+			if (!isSelected) return;
+			isSomethingDragging.set(false);
+			e.target.style.backgroundColor = '';
 
-				event = { ...event, date: dateTime.date, startTime: dateTime.startTime };
-				editPossibleSingleRecurringEvent(event, userId, dateTime.date);
-			});
+			const dateTime = getCellDateTime(e.target);
+			if (!dateTime || (dateTime.startTime === event.startTime && dateTime.date === event.date))
+				return;
+
+			event = { ...event, date: dateTime.date, startTime: dateTime.startTime };
+			editPossibleSingleRecurringEvent(event, userId, dateTime.date);
+			isSelected = false;
+		}
 
 		interact(panel)
 			.resizable({
@@ -82,32 +98,41 @@
 					bottom: true,
 					top: true,
 				},
+				hold: 500,
 				listeners: {
-					move: (e) => {
-						let { x, y } = e.target.dataset;
-
-						x = (parseFloat(x) || 0) + e.deltaRect.left;
-						y = (parseFloat(y) || 0) + e.deltaRect.top;
-
-						Object.assign(e.target.style, {
-							height: `${e.rect.height}px`,
-							transform: `translate(${x}px, ${y}px)`,
-							width: `${e.rect.width}px`,
-						});
-
-						Object.assign(e.target.dataset, { x, y });
-					},
+					move: (e) => resizeEvent(e),
 				},
 			})
-			.on('resizeend', (e) => {
-				const dateTime = getCellDateTime(e.currentTarget);
-				const duration = getDurationFromCellSize(e.rect.height);
-				if (!dateTime || (dateTime.startTime === event.startTime && duration === event.duration))
-					return;
-				event = { ...event, duration, startTime: dateTime.startTime };
-				editPossibleSingleRecurringEvent(event, userId, targetDate);
-			});
+			.on('resizeend', (e) => persisteNewSize(e));
 	});
+
+	function resizeEvent(e: {
+		deltaRect: { left: string; top: string };
+		rect: { height: number; width: number };
+		target: { dataset: { x: string; y: string }; style: Record<string, string> };
+	}) {
+		let { x, y } = e.target.dataset;
+
+		x = (parseFloat(x) || 0) + e.deltaRect.left;
+		y = (parseFloat(y) || 0) + e.deltaRect.top;
+
+		Object.assign(e.target.style, {
+			height: `${e.rect.height}px`,
+			transform: `translate(${x}px, ${y}px)`,
+			width: `${e.rect.width}px`,
+		});
+
+		Object.assign(e.target.dataset, { x, y });
+	}
+
+	function persisteNewSize(e: { rect: { height: number }; target: HTMLDivElement }) {
+		const dateTime = getCellDateTime(e.target);
+		const duration = getDurationFromCellSize(e.rect.height);
+		if (!dateTime || (dateTime.startTime === event.startTime && duration === event.duration))
+			return;
+		event = { ...event, duration, startTime: dateTime.startTime };
+		editPossibleSingleRecurringEvent(event, userId, targetDate);
+	}
 </script>
 
 <div
@@ -119,6 +144,7 @@
 		tailwindColors[event.category.color].text,
 		tailwindColors[event.category.color].lightBg,
 		tailwindColors[event.category.color].hoverBg,
+		{ 'border border-1 border-black': isSelected },
 	)}
 	style={getGridRowsStyle(event)}
 >
