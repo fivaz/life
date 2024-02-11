@@ -9,11 +9,7 @@
 	import { isSomethingDragging } from '../calendar-grid/service';
 	import { getGridRowsStyle } from '../service';
 	import PanelCore from './panel-core/PanelCore.svelte';
-	import {
-		dragEnd,
-		isShort,
-		persisteNewSize,
-	} from './service';
+	import { dragEnd, isShort, persisteNewSize } from './service';
 
 	export let userId: string;
 
@@ -87,10 +83,10 @@
 
 		interactivePanel = interact(panel);
 
-		interactivePanel.on('tap', () => {
-			if (!$isSomethingDragging) {
-				dispatch('edit', { event, targetDate });
-			}
+		interactivePanel.on('tap', (e) => {
+			if ($isSomethingDragging || e.target instanceof HTMLInputElement) return;
+
+			dispatch('edit', { event, targetDate });
 		});
 
 		interactivePanel.on('hold', () => {

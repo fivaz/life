@@ -25,7 +25,6 @@
 				checked={event.isDone}
 				class="rounded border-gray-300 focus:ring-indigo-600"
 				on:change={() => toggleCompletion(userId, event, targetDate)}
-				on:mouseup|stopPropagation
 				type="checkbox"
 			/>
 		</div>
@@ -42,7 +41,6 @@
 					checked={event.isDone}
 					class="rounded border-gray-300 focus:ring-indigo-600"
 					on:change={() => toggleCompletion(userId, event, targetDate)}
-					on:mouseup|stopPropagation
 					type="checkbox"
 				/>
 			</div>
