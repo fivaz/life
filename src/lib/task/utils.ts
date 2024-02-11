@@ -8,6 +8,7 @@ import { format, isAfter, parse } from 'date-fns';
 export type CoreTask = {
 	category: Category;
 	description: string;
+	duration: string;
 	goal: Goal | null;
 	id: string;
 	isDone: boolean;
@@ -20,8 +21,6 @@ export type ToDo = CoreTask & {
 
 export type Event = CoreTask & {
 	date: string;
-	duration: string;
-	endTime: string;
 	startTime: string;
 };
 
@@ -40,7 +39,7 @@ export type AnyTask = AnyEvent | ToDo;
 
 export type OnlyTTask = Omit<ToDo, 'category' | 'goal'>;
 
-export function convertDurationToMinutes(task: AnyTask) {
+export function getDurationInMinutes(task: AnyTask) {
 	// to check if the duration string is HH:mm format
 	if ('duration' in task && task.duration && /^([01]\d|2[0-3]):([0-5]\d)$/.test(task.duration)) {
 		const [hours, minutes] = task.duration.split(':').map(Number);
@@ -83,6 +82,7 @@ export function getToDo(data: TaskIn): ToDo {
 		category: data.category,
 		deadline: data.deadline,
 		description: data.description,
+		duration: data.duration,
 		goal: data.goal,
 		id: data.id,
 		isDone: data.isDone,
@@ -96,7 +96,6 @@ export function getEvent(data: TaskIn): Event {
 		date: data.date,
 		description: data.description,
 		duration: data.duration,
-		endTime: data.endTime,
 		goal: data.goal,
 		id: data.id,
 		isDone: data.isDone,
@@ -111,7 +110,6 @@ export function getRecurringEvent(data: TaskIn): RecurringEvent {
 		date: data.date,
 		description: data.description,
 		duration: data.duration,
-		endTime: data.endTime,
 		goal: data.goal,
 		id: data.id,
 		isDone: data.isDone,

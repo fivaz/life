@@ -1,9 +1,9 @@
 import type { Category } from '$lib/category/utils';
 import type { Goal } from '$lib/goal/utils';
-import type { AnyEvent, Event } from '$lib/task/utils';
+import type { Event } from '$lib/task/utils';
 
 import { DATE, TIME } from '$lib/consts';
-import { add, addMinutes, format, parse, setHours, setMinutes } from 'date-fns';
+import { format, setHours, setMinutes } from 'date-fns';
 
 import { halfHourInterval } from './calendar-body/calendar-columns/calendar-rows/service';
 
@@ -27,7 +27,6 @@ export function buildEventWithTime(
 		date: format(date, DATE),
 		description: '',
 		duration: '00:15',
-		endTime: buildDate(date, quarterHourInterval + 0.5),
 		goal: null,
 		id: '',
 		isDone: false,
@@ -42,33 +41,10 @@ export function buildEmptyEvent(categories: Category[], goal: Goal | null = null
 		date: format(new Date(), DATE),
 		description: '',
 		duration: '00:15',
-		endTime: format(addMinutes(new Date(), 15), TIME),
 		goal,
 		id: '',
 		isDone: false,
 		name: '',
 		startTime: format(new Date(), TIME),
-	};
-}
-
-function sumTime(startTime: string, duration: string) {
-	const startTimeDate = parse(startTime, TIME, new Date());
-	const durationDate = parse(duration, TIME, new Date());
-
-	const sum = add(startTimeDate, {
-		hours: durationDate.getHours(),
-		minutes: durationDate.getMinutes(),
-	});
-
-	return format(sum, TIME);
-}
-
-export function moveEvent(event: AnyEvent, date: string, startTime: string): AnyEvent {
-	const endTime = sumTime(startTime, event.duration);
-	return {
-		...event,
-		date,
-		endTime,
-		startTime,
 	};
 }

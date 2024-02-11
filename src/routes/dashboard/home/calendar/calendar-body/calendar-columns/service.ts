@@ -1,8 +1,16 @@
 import type { AnyTask, RecurringEvent } from '$lib/task/utils';
 
 import { weekDays } from '$lib/components/days-checkbox/service';
+import { getEndTime } from '$lib/components/task-form/service';
 import { DATE, DATETIME } from '$lib/consts';
-import { endOfDay, getDay, isSameDay, isWithinInterval, parse, startOfDay } from 'date-fns';
+import {
+	endOfDay,
+	getDay,
+	isSameDay,
+	isWithinInterval,
+	parse,
+	startOfDay,
+} from 'date-fns';
 
 function isRecurringOnDay(event: RecurringEvent, day: Date): boolean {
 	if (
@@ -45,7 +53,7 @@ export function isEventOnDay(task: AnyTask, day: Date): boolean {
 
 	if ('date' in task) {
 		const startDateString = `${task.date} ${task.startTime}`;
-		const endDateString = `${task.date} ${task.endTime}`;
+		const endDateString = `${task.date} ${getEndTime(task.startTime, task.duration)}`;
 
 		const startDate = parse(startDateString, DATETIME, new Date());
 		const endDate = parse(endDateString, DATETIME, new Date());

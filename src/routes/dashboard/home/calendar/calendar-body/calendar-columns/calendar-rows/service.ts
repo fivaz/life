@@ -1,10 +1,12 @@
 import type { Event } from '$lib/task/utils';
 
+import { getEndTime } from '$lib/components/task-form/service';
+
 export const halfHourInterval = 24 * 2;
 
 function getGridRows(event: Event): { end: number; start: number } {
 	const [startHours, startMinutes] = event.startTime.split(':').map(Number);
-	const [endHours, endMinutes] = event.endTime.split(':').map(Number);
+	const [endHours, endMinutes] = getEndTime(event.startTime, event.duration).split(':').map(Number);
 
 	// Calculate the number of 15-minute intervals from midnight for the start and end times
 	const start = startHours * 4 + Math.floor(startMinutes / 15) + 1;

@@ -50,6 +50,7 @@
 						position.y += e.dy;
 
 						Object.assign(e.target.style, {
+							touchAction: 'none',
 							transform: `translate(${position.x}px, ${position.y}px)`,
 							zIndex: '1',
 						});
@@ -78,12 +79,11 @@
 		interact(panel)
 			.resizable({
 				edges: {
-					bottom: true, // Disable resizing from left edge.
-					top: true, // Use pointer coords to check for resize.
+					bottom: true,
+					top: true,
 				},
 				listeners: {
 					move: (e) => {
-						console.log('event');
 						let { x, y } = e.target.dataset;
 
 						x = (parseFloat(x) || 0) + e.deltaRect.left;
@@ -100,7 +100,6 @@
 				},
 			})
 			.on('resizeend', (e) => {
-				// TODO remove attribute endTime it will be only startTime and duration
 				const dateTime = getCellDateTime(e.currentTarget);
 				const duration = getDurationFromCellSize(e.rect.height);
 				if (!dateTime || (dateTime.startTime === event.startTime && duration === event.duration))
@@ -115,7 +114,7 @@
 	bind:this={panel}
 	class={classnames(
 		{ 'py-2': !isShort(event) },
-		'w-full h-full rounded-lg pointer-events-auto min-w-0 select-none touch-none',
+		'w-full h-full rounded-lg pointer-events-auto min-w-0 select-none',
 		'group w-full h-full flex flex-col rounded-lg py-1 px-2 text-xs leading-5',
 		tailwindColors[event.category.color].text,
 		tailwindColors[event.category.color].lightBg,

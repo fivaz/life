@@ -13,6 +13,7 @@ export const learnToDrive: GoalWithTasks = {
 		{
 			deadline: format(endOfWeek(addWeeks(new Date(), 10)), DATE),
 			description: '',
+			duration: '',
 			id: '1',
 			isDone: true,
 			name: 'learn to drive',
@@ -29,6 +30,7 @@ export const cancelMyBankAccount: GoalWithTasks = {
 		{
 			deadline: format(endOfWeek(addWeeks(new Date(), 1)), DATE),
 			description: '',
+			duration: '',
 			id: '10',
 			isDone: false,
 			name: 'write the letter',
@@ -36,6 +38,7 @@ export const cancelMyBankAccount: GoalWithTasks = {
 		{
 			deadline: format(endOfWeek(addWeeks(new Date(), 1)), DATE),
 			description: '',
+			duration: '',
 			id: '11',
 			isDone: true,
 			name: 'print my documents',
@@ -43,6 +46,7 @@ export const cancelMyBankAccount: GoalWithTasks = {
 		{
 			deadline: format(endOfWeek(addWeeks(new Date(), 1)), DATE),
 			description: '',
+			duration: '',
 			id: '12',
 			isDone: false,
 			name: 'send a letter',
@@ -59,6 +63,7 @@ export const investMoney: GoalWithTasks = {
 		{
 			deadline: format(endOfWeek(addWeeks(new Date(), 5)), DATE),
 			description: '',
+			duration: '',
 			id: '40',
 			isDone: false,
 			name: 'read about the best investment',
@@ -66,6 +71,7 @@ export const investMoney: GoalWithTasks = {
 		{
 			deadline: format(endOfWeek(addWeeks(new Date(), 6)), DATE),
 			description: '',
+			duration: '',
 			id: '40',
 			isDone: false,
 			name: 'read about the best way to invest',
@@ -73,6 +79,7 @@ export const investMoney: GoalWithTasks = {
 		{
 			deadline: format(endOfWeek(addWeeks(new Date(), 7)), DATE),
 			description: '',
+			duration: '',
 			id: '40',
 			isDone: false,
 			name: 'invest',
@@ -89,6 +96,7 @@ export const readTheGospelOfJohn: GoalWithTasks = {
 		{
 			deadline: format(endOfWeek(new Date()), DATE),
 			description: '',
+			duration: '',
 			id: '40',
 			isDone: false,
 			name: 'read until the chapter 5',
@@ -96,6 +104,7 @@ export const readTheGospelOfJohn: GoalWithTasks = {
 		{
 			deadline: format(endOfWeek(addWeeks(new Date(), 1)), DATE),
 			description: '',
+			duration: '',
 			id: '41',
 			isDone: false,
 			name: 'read until the chapter 10',
@@ -103,6 +112,7 @@ export const readTheGospelOfJohn: GoalWithTasks = {
 		{
 			deadline: format(endOfWeek(addWeeks(new Date(), 2)), DATE),
 			description: '',
+			duration: '',
 			id: '42',
 			isDone: false,
 			name: 'read until the chapter 15',
@@ -110,6 +120,7 @@ export const readTheGospelOfJohn: GoalWithTasks = {
 		{
 			deadline: format(endOfWeek(addWeeks(new Date(), 3)), DATE),
 			description: '',
+			duration: '',
 			id: '43',
 			isDone: false,
 			name: 'read until the chapter 21',

@@ -1,7 +1,7 @@
 import type { GroupType } from '$lib/category/utils';
 import type { AnyEvent } from '$lib/task/utils';
 
-import { convertDurationToMinutes } from '$lib/task/utils';
+import { getDurationInMinutes } from '$lib/task/utils';
 
 function calculateRestOfDay(groupTime: Record<GroupType, number>): number {
 	const nonFunPercentage = groupTime.work + groupTime.sleep;
@@ -34,7 +34,7 @@ function calculateGroupTime(events: AnyEvent[]): Record<GroupType, number> {
 	};
 
 	for (const event of events) {
-		const duration = convertDurationToMinutes(event);
+		const duration = getDurationInMinutes(event);
 		const currentTotal = groupTimes[event.category.type];
 		groupTimes[event.category.type] = currentTotal + duration;
 	}

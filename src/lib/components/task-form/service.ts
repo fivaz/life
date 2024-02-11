@@ -19,6 +19,7 @@ import {
 import { addDoc, collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore';
 
 export type TaskIn = Omit<Task, 'recurringExceptions'> & {
+	endTime: string;
 	isEvent: boolean;
 	isRecurring: boolean;
 	recurringExceptions: Date[];
@@ -46,6 +47,7 @@ function convertRecurring(event: RecurringEvent): TaskIn {
 		isRecurring: true,
 		...event,
 		deadline: format(endOfWeek(new Date()), DATE),
+		endTime: getEndTime(event.startTime, event.duration),
 		recurringExceptions: event.recurringExceptions.map((date) => parse(date, DATE, new Date())),
 	};
 }
@@ -56,6 +58,7 @@ function convertEvent(event: Event): TaskIn {
 		isRecurring: false,
 		...event,
 		deadline: format(endOfWeek(new Date()), DATE),
+		endTime: getEndTime(event.startTime, event.duration),
 		recurringDaysOfWeek: weekDays.slice(1, 6),
 		recurringEndAt: format(addMonths(new Date(), 1), DATE),
 		recurringExceptions: [],
@@ -82,7 +85,6 @@ export function buildEmptyTask(categories: Category[], goal: Goal | null = null)
 		deadline: format(endOfWeek(new Date()), DATE),
 		description: '',
 		duration: '00:15',
-		endTime: format(addMinutes(new Date(), 15), TIME),
 		goal,
 		id: '',
 		isDone: false,
@@ -100,11 +102,11 @@ export function getEndTime(startTime: string, duration: string): string {
 		return '';
 	}
 	const [startTimeHours, startTimeMinutes] = startTime.split(':').map(Number);
-	const [DurationHours, durationMinutes] = duration.split(':').map(Number);
+	const [durationHours, durationMinutes] = duration.split(':').map(Number);
 
 	const startTimeDate = new Date(1, 0, 0, startTimeHours, startTimeMinutes);
 
-	const totalDate = add(startTimeDate, { hours: DurationHours, minutes: durationMinutes });
+	const totalDate = add(startTimeDate, { hours: durationHours, minutes: durationMinutes });
 	return format(totalDate, TIME);
 }
 
