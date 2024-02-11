@@ -2,6 +2,8 @@
 	import classnames from 'classnames';
 	import { createEventDispatcher } from 'svelte';
 
+	import { isSomethingDragging } from '../service';
+
 	const dispatch = createEventDispatcher<{ create: number; move: number }>();
 
 	let className = '';
@@ -24,7 +26,7 @@
 	class={classnames('grid-cell', className)}
 	data-date={targetDate}
 	data-time={getTime(quarterHour)}
-	on:click={() => dispatch('create', quarterHour)}
+	on:click={() => !$isSomethingDragging && dispatch('create', quarterHour)}
 	on:keydown={(e) => {
 		if (e.key === 'Enter') {
 			dispatch('create', quarterHour);

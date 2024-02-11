@@ -27,7 +27,13 @@
 
 	let position = { x: 0, y: 0 };
 
+	let interactivePanel: ReturnType<typeof interact> | null = null;
+
 	const dispatch = createEventDispatcher<{ edit: { event: Event; targetDate: string } }>();
+
+	$: {
+		interactivePanel?.styleCursor(isSelected);
+	}
 
 	function getDurationFromCellSize(height: number) {
 		const timeIntervals = height / GRID_CELL_HEIGHT;
@@ -36,85 +42,48 @@
 		return format(resultDate, 'HH:mm');
 	}
 
-	onMount(() => {
-		if (!panel) return;
+	function startDrag(e: { target: HTMLElement }) {
+		if (!isSelected) return;
+		isSomethingDragging.set(true);
+		e.target.style.backgroundColor = tailwindColors[event.category.color].normalBgCss;
+	}
 
-		interact(panel).on('tap', () => {
-			if (!isSelected) {
-				dispatch('edit', { event, targetDate });
-			}
+	function onMove(e: { dx: number; dy: number; target: HTMLElement }) {
+		if (!isSelected) return;
+		position.x += e.dx;
+		position.y += e.dy;
+
+		Object.assign(e.target.style, {
+			touchAction: 'none',
+			transform: `translate(${position.x}px, ${position.y}px)`,
+			zIndex: '1',
 		});
+	}
 
-		interact(panel).on('hold', () => {
-			isSelected = true;
-		});
+	function dragEnd(e: { target: HTMLDivElement }) {
+		if (!isSelected) return;
+		isSomethingDragging.set(false);
+		e.target.style.backgroundColor = '';
 
-		interact(panel)
-			.draggable({
-				listeners: {
-					move(e) {
-						console.log('move');
-						if (!isSelected) return;
-						position.x += e.dx;
-						position.y += e.dy;
+		const dateTime = getCellDateTime(e.target);
+		if (!dateTime || (dateTime.startTime === event.startTime && dateTime.date === event.date))
+			return;
 
-						Object.assign(e.target.style, {
-							touchAction: 'none',
-							transform: `translate(${position.x}px, ${position.y}px)`,
-							zIndex: '1',
-						});
-					},
-				},
-			})
-			.on('contextmenu', (e) => {
-				e.preventDefault();
-			})
-			.on('dragstart', (e) => {
-				console.log('dragstart');
-				if (!isSelected) return;
-				isSomethingDragging.set(true);
-				e.target.style.backgroundColor = tailwindColors[event.category.color].normalBgCss;
-			})
-			.on('dragend', (e) => dragEnd(e));
-
-		function dragEnd(e: { target: HTMLDivElement }) {
-			console.log('dragend');
-			if (!isSelected) return;
-			isSomethingDragging.set(false);
-			e.target.style.backgroundColor = '';
-
-			const dateTime = getCellDateTime(e.target);
-			if (!dateTime || (dateTime.startTime === event.startTime && dateTime.date === event.date))
-				return;
-
-			event = { ...event, date: dateTime.date, startTime: dateTime.startTime };
-			editPossibleSingleRecurringEvent(event, userId, dateTime.date);
-			isSelected = false;
-		}
-
-		interact(panel)
-			.resizable({
-				edges: {
-					bottom: true,
-					top: true,
-				},
-				hold: 500,
-				listeners: {
-					move: (e) => resizeEvent(e),
-				},
-			})
-			.on('resizeend', (e) => persisteNewSize(e));
-	});
+		event = { ...event, date: dateTime.date, startTime: dateTime.startTime };
+		editPossibleSingleRecurringEvent(event, userId, dateTime.date);
+		isSelected = false;
+	}
 
 	function resizeEvent(e: {
 		deltaRect: { left: string; top: string };
 		rect: { height: number; width: number };
-		target: { dataset: { x: string; y: string }; style: Record<string, string> };
+		target: HTMLElement;
 	}) {
+		if (!isSelected) return;
 		let { x, y } = e.target.dataset;
 
-		x = (parseFloat(x) || 0) + e.deltaRect.left;
-		y = (parseFloat(y) || 0) + e.deltaRect.top;
+		x = (parseFloat(x || '0') || 0) + e.deltaRect.left;
+		y = (parseFloat(y || '0') || 0) + e.deltaRect.top;
 
 		Object.assign(e.target.style, {
 			height: `${e.rect.height}px`,
@@ -133,6 +102,45 @@
 		event = { ...event, duration, startTime: dateTime.startTime };
 		editPossibleSingleRecurringEvent(event, userId, targetDate);
 	}
+
+	function unSelect(e: MouseEvent) {
+		if (!panel || panel.contains(e.target as Node)) return;
+		isSelected = false;
+		isSomethingDragging.set(false);
+		document.removeEventListener('click', unSelect);
+	}
+
+	onMount(() => {
+		if (!panel) return;
+
+		interactivePanel = interact(panel);
+
+		interactivePanel.on('tap', () => {
+			if (!$isSomethingDragging) {
+				dispatch('edit', { event, targetDate });
+			}
+		});
+
+		interactivePanel.on('hold', () => {
+			isSelected = true;
+			isSomethingDragging.set(true);
+
+			document.addEventListener('click', unSelect);
+		});
+
+		interactivePanel
+			.draggable({ listeners: { move: onMove } })
+			.on('contextmenu', (e) => e.preventDefault())
+			.on('dragstart', startDrag)
+			.on('dragend', dragEnd);
+
+		interactivePanel
+			.resizable({
+				edges: { bottom: true, top: true },
+				listeners: { move: resizeEvent },
+			})
+			.on('resizeend', persisteNewSize);
+	});
 </script>
 
 <div
@@ -144,7 +152,7 @@
 		tailwindColors[event.category.color].text,
 		tailwindColors[event.category.color].lightBg,
 		tailwindColors[event.category.color].hoverBg,
-		{ 'border border-1 border-black': isSelected },
+		{ 'border border-1 border-black touch-none': isSelected },
 	)}
 	style={getGridRowsStyle(event)}
 >
