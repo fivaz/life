@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Event } from '$lib/task/utils';
+	import type { AnyEvent } from '$lib/task/utils';
 
 	import classnames from 'classnames';
 
@@ -7,7 +7,7 @@
 
 	let className = '';
 	export { className as class };
-	export let events: Event[];
+	export let events: AnyEvent[];
 
 	$: groups = calculateGroupPercentages(events);
 </script>

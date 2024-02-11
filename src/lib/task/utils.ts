@@ -132,7 +132,7 @@ export function getRecurringEvent(data: TaskIn): RecurringEvent {
 	};
 }
 
-export function getDuration(event: AnyEvent): number {
+export function getDurationInMinutes(event: AnyEvent): number {
 	const durationDate = parse(event.duration, TIME, new Date());
 	const midnight = new Date(durationDate);
 	midnight.setHours(0, 0, 0, 0);

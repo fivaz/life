@@ -1,28 +1,28 @@
-import type { types } from '$lib/category/utils';
-import type { Event } from '$lib/task/utils';
+import type { GroupType } from '$lib/category/utils';
+import type { AnyEvent } from '$lib/task/utils';
 
-import { getDuration } from '$lib/task/utils';
+import { getDurationInMinutes } from '$lib/task/utils';
 
-type GroupType = (typeof types)[number];
-
-export function calculateGroupPercentages(events: Event[]): Record<GroupType, number> {
-	const groupTimes = calculateGroupTimes(events);
-	const totalDayTime = 24 * 60 * 60 * 1000; // Total day time in milliseconds
+export function calculateGroupPercentages(events: AnyEvent[]): Record<GroupType, number> {
+	const groupTime = calculateGroupTime(events);
+	const totalDayTime = 24 * 60; // Total day time in minutes
 	const groupPercentage: Record<GroupType, number> = {
 		fun: 0,
 		sleep: 0,
 		work: 0,
 	};
 
-	for (const group of Object.keys(groupTimes) as GroupType[]) {
-		const percentage = (groupTimes[group] / totalDayTime) * 100;
-		groupPercentage[group] = Number(percentage.toFixed(2));
+	for (const group of Object.keys(groupTime) as GroupType[]) {
+		console.log(groupTime[group]);
+		console.log((groupTime[group] / totalDayTime) * 100);
+		const percentage = (groupTime[group] / totalDayTime) * 100;
+		groupPercentage[group] = Math.round(percentage);
 	}
 
 	return groupPercentage;
 }
 
-function calculateGroupTimes(events: Event[]): Record<GroupType, number> {
+function calculateGroupTime(events: AnyEvent[]): Record<GroupType, number> {
 	const groupTimes: Record<GroupType, number> = {
 		fun: 0,
 		sleep: 0,
@@ -30,9 +30,9 @@ function calculateGroupTimes(events: Event[]): Record<GroupType, number> {
 	};
 
 	for (const event of events) {
-		const duration = getDuration(event);
-		const currentTotal = groupTimes[event.category.type as GroupType];
-		groupTimes[event.category.type as GroupType] = currentTotal + duration;
+		const duration = getDurationInMinutes(event);
+		const currentTotal = groupTimes[event.category.type];
+		groupTimes[event.category.type] = currentTotal + duration;
 	}
 
 	return groupTimes;

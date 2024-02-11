@@ -1,9 +1,11 @@
+export type GroupType = (typeof types)[number];
+
 export type Category = {
 	color: string;
 	id: string;
 	isDefault: boolean;
 	name: string;
-	type: string;
+	type: GroupType;
 };
 
 export type TailwindColor = {

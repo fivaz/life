@@ -2,7 +2,7 @@ import type { Category } from '$lib/category/utils';
 
 let id = 0;
 
-export const work = {
+export const work: Category = {
 	color: 'green',
 	id: `${id++}`,
 	isDefault: true,
@@ -10,7 +10,7 @@ export const work = {
 	type: 'work',
 };
 
-export const fun = {
+export const fun: Category = {
 	color: 'red',
 	id: `${id++}`,
 	isDefault: false,
@@ -18,7 +18,7 @@ export const fun = {
 	type: 'fun',
 };
 
-export const routine = {
+export const routine: Category = {
 	color: 'yellow',
 	id: `${id++}`,
 	isDefault: false,
@@ -26,7 +26,7 @@ export const routine = {
 	type: 'fun',
 };
 
-export const sleep = {
+export const sleep: Category = {
 	color: 'blue',
 	id: `${id++}`,
 	isDefault: false,

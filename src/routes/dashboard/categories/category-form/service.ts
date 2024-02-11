@@ -1,4 +1,4 @@
-import type { Category } from '$lib/category/utils';
+import type { Category, GroupType } from '$lib/category/utils';
 import type { EventDispatcher } from 'svelte';
 
 import { tailwindColors, types } from '$lib/category/utils';
@@ -11,7 +11,7 @@ export function buildEmptyCategory() {
 		id: '',
 		isDefault: false,
 		name: '',
-		type: types[0] as string,
+		type: types[0] as GroupType,
 	};
 }
 
