@@ -9,10 +9,7 @@
 	import { isSomethingDragging } from '../calendar-grid/service';
 	import { getGridRowsStyle } from '../service';
 	import PanelCore from './panel-core/PanelCore.svelte';
-	import {
-		isShort,
-		persistChange,
-	} from './service';
+	import { isShort, persistChange } from './service';
 
 	export let userId: string;
 
@@ -77,6 +74,7 @@
 
 	function unSelect(e: MouseEvent) {
 		if (!panel || panel.contains(e.target as Node)) return;
+		e.preventDefault();
 
 		isSelected = false;
 		isSomethingDragging.set(false);
@@ -105,7 +103,7 @@
 			dispatch('edit', { event, targetDate });
 		});
 
-		interactivePanel.on('hold', () => {
+		interactivePanel.pointerEvents({ holdDuration: 300 }).on('hold', () => {
 			isSelected = true;
 			isSomethingDragging.set(true);
 
