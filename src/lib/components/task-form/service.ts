@@ -14,6 +14,7 @@ import {
 	differenceInMinutes,
 	endOfWeek,
 	format,
+	isSameDay,
 	parse,
 } from 'date-fns';
 import { addDoc, collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore';
@@ -106,8 +107,13 @@ export function getEndTime(startTime: string, duration: string): string {
 
 	const startTimeDate = new Date(1, 0, 0, startTimeHours, startTimeMinutes);
 
-	const totalDate = add(startTimeDate, { hours: durationHours, minutes: durationMinutes });
-	return format(totalDate, TIME);
+	const endDate = add(startTimeDate, { hours: durationHours, minutes: durationMinutes });
+
+	if (isSameDay(startTimeDate, endDate)) {
+		return format(endDate, TIME);
+	}
+
+	return '23:59';
 }
 
 export function getDuration(startTime: string, endTime: string): string {
