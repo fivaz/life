@@ -16,9 +16,7 @@
 	{#if isShort(event)}
 		<div class="flex gap-3 justify-between items-center">
 			<div class="overflow-hidden">
-				<p class="truncate">
-					{event.name}
-				</p>
+				<p class="truncate">{event.name}</p>
 			</div>
 
 			<input
@@ -45,7 +43,7 @@
 				/>
 			</div>
 
-			<p>{event.name}</p>
+			<p class="truncate">{event.name}</p>
 
 			<div class="text-pink-500 group-hover:text-pink-700">
 				{event.description}
