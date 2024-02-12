@@ -9,7 +9,10 @@
 	import { isSomethingDragging } from '../calendar-grid/service';
 	import { getGridRowsStyle } from '../service';
 	import PanelCore from './panel-core/PanelCore.svelte';
-	import { dragEnd, isShort, persisteNewSize } from './service';
+	import {
+		isShort,
+		persistChange,
+	} from './service';
 
 	export let userId: string;
 
@@ -36,7 +39,11 @@
 	function startDrag(e: { target: HTMLElement }) {
 		if (!isSelected) return;
 		isSomethingDragging.set(true);
-		e.target.style.backgroundColor = tailwindColors[event.category.color].normalBgCss;
+		Object.assign(e.target.style, {
+			backgroundColor: tailwindColors[event.category.color].normalBgCss,
+			touchAction: 'none',
+			zIndex: '1',
+		});
 	}
 
 	function onMove(e: { dx: number; dy: number; target: HTMLElement }) {
@@ -44,11 +51,7 @@
 		position.x += e.dx;
 		position.y += e.dy;
 
-		Object.assign(e.target.style, {
-			touchAction: 'none',
-			transform: `translate(${position.x}px, ${position.y}px)`,
-			zIndex: '1',
-		});
+		e.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
 	}
 
 	function resizeEvent(e: {
@@ -57,6 +60,7 @@
 		target: HTMLElement;
 	}) {
 		if (!isSelected) return;
+
 		let { x, y } = e.target.dataset;
 
 		x = (parseFloat(x || '0') || 0) + e.deltaRect.left;
@@ -73,8 +77,19 @@
 
 	function unSelect(e: MouseEvent) {
 		if (!panel || panel.contains(e.target as Node)) return;
+
 		isSelected = false;
 		isSomethingDragging.set(false);
+		const hasChanged = persistChange(panel, event, userId, targetDate);
+
+		if (!hasChanged) {
+			Object.assign(panel.style, {
+				backgroundColor: '',
+				touchAction: '',
+				transform: '',
+				zIndex: '',
+			});
+		}
 		document.removeEventListener('click', unSelect);
 	}
 
@@ -84,6 +99,7 @@
 		interactivePanel = interact(panel);
 
 		interactivePanel.on('tap', (e) => {
+			//e.target instanceof HTMLInputElement is necessary so when clicking on the checkbox isDone doesn't open the form
 			if ($isSomethingDragging || e.target instanceof HTMLInputElement) return;
 
 			dispatch('edit', { event, targetDate });
@@ -99,15 +115,12 @@
 		interactivePanel
 			.draggable({ listeners: { move: onMove } })
 			.on('contextmenu', (e) => e.preventDefault())
-			.on('dragstart', startDrag)
-			.on('dragend', (e) => dragEnd(e, event, userId));
+			.on('dragstart', startDrag);
 
-		interactivePanel
-			.resizable({
-				edges: { bottom: true, top: true },
-				listeners: { move: resizeEvent },
-			})
-			.on('resizeend', (e) => persisteNewSize(e, event, userId, targetDate));
+		interactivePanel.resizable({
+			edges: { bottom: true, top: true },
+			listeners: { move: resizeEvent },
+		});
 	});
 </script>
 

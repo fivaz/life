@@ -10,6 +10,25 @@ export function isShort(event: AnyEvent) {
 	return Math.abs(getDurationInMinutes(event)) <= 15;
 }
 
+export function persistChange(
+	panel: HTMLDivElement,
+	event: AnyEvent,
+	userId: string,
+	oldDate: string,
+) {
+	const dateTime = getCellDateTime(panel);
+	if (!dateTime) return;
+	const duration = getDurationFromCellSize(panel.getBoundingClientRect().height);
+
+	const { date, startTime } = dateTime;
+	if (startTime === event.startTime && date === event.date && duration === event.duration)
+		return false;
+
+	event = { ...event, date, duration, startTime };
+	editPossibleSingleRecurringEvent(event, userId, oldDate);
+	return true;
+}
+
 export function toggleCompletion(userId: string, event: AnyEvent, targetDate: string) {
 	editPossibleSingleRecurringEvent({ ...event, isDone: !event.isDone }, userId, targetDate);
 }
@@ -31,6 +50,8 @@ export function persisteNewSize(
 	userId: string,
 	targetDate: string,
 ) {
+	console.log('e.rect.height', e.rect.height);
+	console.log('e.target', e.target.getBoundingClientRect().height);
 	const dateTime = getCellDateTime(e.target);
 	const duration = getDurationFromCellSize(e.rect.height);
 
