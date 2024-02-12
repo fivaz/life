@@ -126,7 +126,7 @@
 	bind:this={panel}
 	class={classnames(
 		{ 'py-2': !isShort(event) },
-		'w-full h-full rounded-lg pointer-events-auto min-w-0 select-none',
+		'w-full h-full rounded-lg pointer-events-auto min-w-0 select-none box-border',
 		'group w-full h-full flex flex-col rounded-lg py-1 px-2 text-xs leading-5',
 		tailwindColors[event.category.color].text,
 		tailwindColors[event.category.color].lightBg,

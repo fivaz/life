@@ -3,20 +3,21 @@
 
 	import { tailwindColors } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
-	import { DATE, DATE_FR, DATE_FR_SHORT } from '$lib/consts';
+	import { DATE_FR, DATE_FR_SHORT } from '$lib/consts';
+	import { getTaskDate } from '$lib/task/time-utils';
 	import { Settings } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import classnames from 'classnames';
-	import { format, parse } from 'date-fns';
+	import { format } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 
 	export let task: AnyTask;
 
 	let dispatch = createEventDispatcher<{ edit: AnyTask; rescheduleToTomorrow: AnyTask }>();
 
-	function getDate(task: AnyTask) {
-		const dateString = 'date' in task ? task.date : task.deadline;
-		return parse(dateString, DATE, new Date());
+	function formatDate(task: AnyTask, dateFormat: string) {
+		const date = getTaskDate(task);
+		return date ? format(date, dateFormat) : '';
 	}
 </script>
 
@@ -27,8 +28,8 @@
 	)}
 >
 	<div class="flex items-center gap-x-3 justify-between">
-		<div class="hidden sm:block">{format(getDate(task), DATE_FR)}</div>
-		<div class="sm:hidden block">{format(getDate(task), DATE_FR_SHORT)}</div>
+		<div class="hidden sm:block">{formatDate(task, DATE_FR)}</div>
+		<div class="sm:hidden block">{formatDate(task, DATE_FR_SHORT)}</div>
 		<div class="name">{task.name}</div>
 	</div>
 

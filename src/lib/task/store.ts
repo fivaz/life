@@ -1,6 +1,7 @@
 import type { AnyTask } from '$lib/task/utils';
 
 import { DATE, DATE_FR } from '$lib/consts';
+import { getTaskDate } from '$lib/task/time-utils';
 import { format, isPast, isToday, isTomorrow, parse, startOfWeek } from 'date-fns';
 
 function isCurrentWeek(date: Date) {
@@ -8,7 +9,7 @@ function isCurrentWeek(date: Date) {
 }
 
 function getDateName(task: AnyTask): string {
-	const date = parse('date' in task ? task.date : task.deadline, DATE, new Date());
+	const date = getTaskDate(task);
 
 	if ('recurringStartAt' in task) {
 		return 'Recurring';
@@ -34,8 +35,11 @@ function getDateName(task: AnyTask): string {
 
 function sortTasks(tasks: AnyTask[]) {
 	return tasks.sort((a, b) => {
-		const dateA = parse('date' in a ? a.date : a.deadline, DATE, new Date());
-		const dateB = parse('date' in b ? b.date : b.deadline, DATE, new Date());
+		const dateAString = 'date' in a ? a.date : a.deadline;
+		const dateBString = 'date' in b ? b.date : b.deadline;
+
+		const dateA = dateAString ? parse(dateAString, DATE, new Date()) : null;
+		const dateB = dateBString ? parse(dateBString, DATE, new Date()) : null;
 		if (!dateA) {
 			return 1;
 		}
@@ -46,9 +50,39 @@ function sortTasks(tasks: AnyTask[]) {
 	});
 }
 
-export function getTasksByDate(tasks: AnyTask[]): Record<string, AnyTask[]> {
+function getTaskByOrderedDate(tasksByDate: Record<string, AnyTask[]>) {
+	const priorityObject: Record<string, number> = {
+		Overdue: 1,
+		Recurring: 7,
+		Someday: 6,
+		'This week': 4,
+		// Rest : 5
+		Today: 2,
+		Tomorrow: 3,
+	};
+
+	function sorting(a: string, b: string) {
+		const priorityA = priorityObject[a] || 4;
+		const priorityB = priorityObject[b] || 4;
+
+		return priorityA - priorityB;
+	}
+
+	return {
+		[Symbol.iterator]: function* () {
+			const sortedKeys = Object.keys(this).sort(sorting);
+			for (const key of sortedKeys) {
+				yield key;
+			}
+		},
+		...tasksByDate,
+	};
+}
+
+export function getTasksByDate(tasks: AnyTask[]): Record<string, AnyTask[]> & Iterable<string> {
 	const sortedTasks = sortTasks(tasks);
-	return groupTasksByDate(sortedTasks);
+	const tasksByDate = groupTasksByDate(sortedTasks);
+	return getTaskByOrderedDate(tasksByDate);
 }
 
 function groupTasksByDate(tasks: AnyTask[]): Record<string, AnyTask[]> {
