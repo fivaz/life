@@ -74,7 +74,6 @@
 
 	function unSelect(e: MouseEvent) {
 		if (!panel || panel.contains(e.target as Node)) return;
-		console.log('unSelect');
 		e.preventDefault();
 
 		isSelected = false;
