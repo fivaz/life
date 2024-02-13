@@ -17,7 +17,16 @@ import {
 	isSameDay,
 	parse,
 } from 'date-fns';
-import { addDoc, collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore';
+import {
+	type DocumentReference,
+	addDoc,
+	collection,
+	deleteDoc,
+	doc,
+	getDoc,
+	setDoc,
+	updateDoc,
+} from 'firebase/firestore';
 
 export type TaskIn = Omit<Task, 'recurringExceptions'> & {
 	endTime: string;
@@ -193,20 +202,62 @@ export async function editTaskWithPrompt(
 	}
 }
 
+async function editTaskInGoal(
+	userId: string,
+	data: Omit<AnyTask, 'id'>,
+	taskRef: DocumentReference,
+) {
+	if (data.goal) {
+		const goalDocRef = doc(db, 'users', userId, 'goals', data.goal.id);
+		const goalTaskDocRef = doc(goalDocRef, 'tasks', taskRef.id);
+
+		void setDoc(goalTaskDocRef, data);
+	}
+}
+
 export function editTask(id: string, data: Omit<AnyTask, 'id'>, userId: string) {
 	// TODO check if I can remove this id / data separation
 	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
 	void setDoc(taskDocRef, data);
+	void editTaskInGoal(userId, data, taskDocRef);
 }
 
-export function addTask(data: Omit<AnyTask, 'id'>, userId: string) {
+async function addTaskToGoal(
+	userId: string,
+	data: Omit<AnyTask, 'id'>,
+	taskRef: DocumentReference,
+) {
+	if (data.goal) {
+		const goalDocRef = doc(db, 'users', userId, 'goals', data.goal.id);
+		const goalTaskCollectionRef = collection(goalDocRef, 'tasks');
+
+		const taskSnap = await getDoc(taskRef);
+		void addDoc(goalTaskCollectionRef, taskSnap.data());
+	}
+}
+
+export async function addTask(data: Omit<AnyTask, 'id'>, userId: string) {
 	const tasksCollectionRef = collection(db, 'users', userId, 'tasks');
-	void addDoc(tasksCollectionRef, data);
+	const taskRef = await addDoc(tasksCollectionRef, data);
+
+	await addTaskToGoal(userId, data, taskRef);
 }
 
-function deleteTask(id: string, userId: string) {
+async function deleteTaskFromGoal(userId: string, taskId: string, data: Omit<AnyTask, 'id'>) {
+	if (data.goal) {
+		const goalDocRef = doc(db, 'users', userId, 'goals', data.goal.id);
+		const goalTaskDocRef = doc(goalDocRef, 'tasks', taskId);
+
+		void deleteDoc(goalTaskDocRef);
+	}
+}
+
+async function deleteTask(id: string, data: Omit<AnyTask, 'id'>, userId: string) {
+	// TODO check if I can remove this id / data separation
 	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
 	void deleteDoc(taskDocRef);
+
+	void deleteTaskFromGoal(userId, id, data);
 }
 
 function addExceptionToRecurring(
@@ -244,10 +295,10 @@ export async function removeTask(
 		if (result) {
 			addExceptionToRecurring(id, data as Omit<RecurringEvent, 'id'>, targetDate, userId);
 		} else {
-			deleteTask(id, userId);
+			deleteTask(id, data, userId);
 		}
 	} else {
-		deleteTask(id, userId);
+		deleteTask(id, data, userId);
 	}
 	dispatch('close');
 }
