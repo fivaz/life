@@ -1,15 +1,19 @@
 <script lang="ts">
-	import type { Goal, GoalWithTasks } from '$lib/goal/utils';
+	import type { Goal } from '$lib/goal/utils';
+	import type { AnyTask } from '$lib/task/utils';
 
 	import Button from '$lib/components/button/Button.svelte';
+	import GoalTasks from '$lib/components/goal-tasks/GoalTasks.svelte';
+	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
 	import { Settings } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import classnames from 'classnames';
 	import { createEventDispatcher } from 'svelte';
 
-	export let goal: GoalWithTasks;
+	export let goal: Goal;
+	export let tasks: AnyTask[];
 
-	// $: tasksCompleted = goal.tasks.reduce((total, task) => total + Number(task.isDone), 0);
+	$: tasksCompleted = tasks.reduce((total, task) => total + Number(task.isDone), 0);
 
 	let dispatch = createEventDispatcher<{ edit: Goal; remove: Goal }>();
 
@@ -40,14 +44,14 @@
 		</div>
 	</div>
 
-	<!--	<div>-->
-	<!--		{#if goal.tasks.length}-->
-	<!--			<ProgressBar value={tasksCompleted} maxValue={goal.tasks.length} />-->
-	<!--			<GoalTasks {goal} />-->
-	<!--		{:else}-->
-	<!--			<div class="text-red-500">No tasks yet</div>-->
-	<!--		{/if}-->
-	<!--	</div>-->
+	<div>
+		{#if tasks.length}
+			<ProgressBar maxValue={tasks.length} value={tasksCompleted} />
+			<GoalTasks {tasks} />
+		{:else}
+			<div class="text-red-500">No tasks yet</div>
+		{/if}
+	</div>
 
 	<!--	<TaskForm show={showForm} task={editingTask} on:close={() => (showForm = false)} />-->
 </li>

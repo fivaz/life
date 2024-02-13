@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { GoalWithTasks } from '$lib/goal/utils';
+	import type { Goal } from '$lib/goal/utils';
+	import type { AnyTask } from '$lib/task/utils';
 
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
@@ -14,7 +15,9 @@
 
 	let showForm = false;
 
-	let goalType: GoalWithTasks;
+	let goalType: Goal;
+
+	let taskType: AnyTask;
 </script>
 
 <SignedIn let:user>
@@ -38,13 +41,20 @@
 					</div>
 					<div class="flex flex-col gap-2">
 						{#each list as goal (goal)}
-							<GoalRow
-								{goal}
-								on:edit={(e) => {
-									showForm = true;
-									editingGoal = e.detail;
-								}}
-							/>
+							<TypedCollection
+								let:data={tasks}
+								ref="users/{user.uid}/goals/{goal.id}/tasks"
+								type={taskType}
+							>
+								<GoalRow
+									{goal}
+									on:edit={(e) => {
+										showForm = true;
+										editingGoal = e.detail;
+									}}
+									{tasks}
+								/>
+							</TypedCollection>
 						{/each}
 					</div>
 				{/each}

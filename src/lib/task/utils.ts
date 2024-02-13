@@ -37,8 +37,6 @@ export type AnyEvent = Event | RecurringEvent;
 
 export type AnyTask = AnyEvent | ToDo;
 
-export type OnlyTTask = Omit<ToDo, 'category' | 'goal'>;
-
 export function getDurationInMinutes(task: AnyTask) {
 	// to check if the duration string is HH:mm format
 	if ('duration' in task && task.duration && /^([01]\d|2[0-3]):([0-5]\d)$/.test(task.duration)) {

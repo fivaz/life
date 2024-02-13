@@ -1,4 +1,4 @@
-import type { Goal, GoalWithTasks } from '$lib/goal/utils';
+import type { Goal } from '$lib/goal/utils';
 
 import { DATE, DATE_FR } from '$lib/consts';
 import { format, isSameDay, lastDayOfQuarter, parse } from 'date-fns';
@@ -20,8 +20,8 @@ function getDateName(dateString: string): string {
 	return format(date, DATE_FR);
 }
 
-export function groupGoalsByDate(goals: GoalWithTasks[]): Record<string, GoalWithTasks[]> {
-	return goals.reduce<Record<string, GoalWithTasks[]>>((groups, goal) => {
+export function groupGoalsByDate(goals: Goal[]): Record<string, Goal[]> {
+	return goals.reduce<Record<string, Goal[]>>((groups, goal) => {
 		const date = getDateName(goal.deadline);
 		if (!groups[date]) {
 			groups[date] = [];
