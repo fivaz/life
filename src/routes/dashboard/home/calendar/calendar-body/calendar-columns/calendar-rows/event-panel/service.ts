@@ -1,8 +1,9 @@
 import type { AnyEvent } from '$lib/task/utils';
 
 import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
+import { TIME } from '$lib/consts';
 import { getDurationInMinutes } from '$lib/task/utils';
-import { addMinutes, format } from 'date-fns';
+import { addMinutes, format, subMinutes } from 'date-fns';
 
 import { GRID_CELL_HEIGHT, GRID_CELL_TIME, isSomethingDragging } from '../calendar-grid/service';
 
@@ -16,9 +17,12 @@ export function persistChange(
 	userId: string,
 	oldDate: string,
 ) {
-	const dateTime = getCellDateTime(panel);
+	console.log('persistChange');
+	const dateTime = getGridCellDateTime(panel);
 	if (!dateTime) return;
+	console.log('dateTime', dateTime);
 	const duration = getDurationFromCellSize(panel.getBoundingClientRect().height);
+	console.log(duration);
 
 	const { date, startTime } = dateTime;
 	if (startTime === event.startTime && date === event.date && duration === event.duration)
@@ -34,7 +38,7 @@ export function toggleCompletion(userId: string, event: AnyEvent, targetDate: st
 }
 
 export function dragEnd(e: { target: HTMLDivElement }, event: AnyEvent, userId: string) {
-	const dateTime = getCellDateTime(e.target);
+	const dateTime = getGridCellDateTime(e.target);
 
 	if (!dateTime || (dateTime.startTime === event.startTime && dateTime.date === event.date)) return;
 
@@ -52,7 +56,7 @@ export function persisteNewSize(
 ) {
 	console.log('e.rect.height', e.rect.height);
 	console.log('e.target', e.target.getBoundingClientRect().height);
-	const dateTime = getCellDateTime(e.target);
+	const dateTime = getGridCellDateTime(e.target);
 	const duration = getDurationFromCellSize(e.rect.height);
 
 	if (!dateTime || (dateTime.startTime === event.startTime && duration === event.duration)) return;
@@ -70,13 +74,29 @@ export function getDurationFromCellSize(height: number) {
 	return format(resultDate, 'HH:mm');
 }
 
-export function getCellDateTime(
-	draggedElement: HTMLDivElement,
-): { date: string; startTime: string } | void {
+function getFirstGridCell(draggedElement: HTMLDivElement): HTMLDivElement | null {
 	const { left, top, width } = draggedElement.getBoundingClientRect();
 
 	const GRID_CELL_HEIGHT = 28;
 	const gridCellY = top + GRID_CELL_HEIGHT / 2;
+	const gridCellX = left + width / 2;
+
+	draggedElement.style.visibility = 'hidden';
+	const element = document.elementFromPoint(gridCellX, gridCellY);
+	draggedElement.style.visibility = '';
+	if (!element) return null;
+
+	const gridCell: HTMLDivElement | null = element.closest<HTMLDivElement>('.grid-cell');
+	if (!gridCell) return null;
+
+	return gridCell;
+}
+
+function getLastGridCell(draggedElement: HTMLDivElement): HTMLDivElement | void {
+	const { bottom, left, width } = draggedElement.getBoundingClientRect();
+
+	const GRID_CELL_HEIGHT = 28;
+	const gridCellY = bottom - GRID_CELL_HEIGHT / 2;
 	const gridCellX = left + width / 2;
 
 	draggedElement.style.visibility = 'hidden';
@@ -87,9 +107,38 @@ export function getCellDateTime(
 	const gridCell: HTMLDivElement | null = element.closest<HTMLDivElement>('.grid-cell');
 	if (!gridCell) return;
 
-	const date = gridCell.dataset['date'];
-	const startTime = gridCell.dataset['time'];
-	if (date && startTime) {
-		return { date, startTime: startTime };
+	return gridCell;
+}
+
+export function getGridCellDateTime(
+	draggedElement: HTMLDivElement,
+): { date: string; startTime: string } | void {
+	const firstCell = getFirstGridCell(draggedElement);
+
+	if (firstCell) {
+		const date = firstCell.dataset['date'];
+		const startTime = firstCell.dataset['time'];
+		if (date && startTime) {
+			return { date, startTime };
+		}
+	}
+
+	const lastCell = getLastGridCell(draggedElement);
+	const { height } = draggedElement.getBoundingClientRect();
+
+	if (lastCell) {
+		const date = lastCell.dataset['date'];
+		const endTime = lastCell.dataset['time'];
+		if (!date || !endTime) return;
+		const [endTimeHours, endTimeMinutes] = endTime.split(':').map(Number);
+		// + GRID_CELL_TIME, because the last grid contains the last slot of 15 minutes, so the slot itself contains 15 minutes
+		// that need to be added to find the real endTime. So if the event ends at 06:00, the last grid in it is the grid containing 05:45.
+		const endTimeDate = new Date(0, 0, 0, endTimeHours, endTimeMinutes + GRID_CELL_TIME);
+
+		const totalGrids = Math.round(height / GRID_CELL_HEIGHT);
+		const totalTime = totalGrids * GRID_CELL_TIME;
+
+		const startTimeDate = subMinutes(endTimeDate, totalTime);
+		return { date, startTime: format(startTimeDate, TIME) };
 	}
 }
