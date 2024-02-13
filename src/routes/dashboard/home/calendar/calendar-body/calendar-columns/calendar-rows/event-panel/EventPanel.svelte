@@ -111,7 +111,7 @@
 		});
 
 		interactivePanel
-			.draggable({ listeners: { move: onMove } })
+			.draggable({ autoScroll: true, listeners: { move: onMove } })
 			.on('contextmenu', (e) => e.preventDefault())
 			.on('dragstart', startDrag);
 

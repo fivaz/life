@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { Category } from '$lib/category/utils';
 	import type { AnyTask } from '$lib/task/utils';
-	
-import Button from '$lib/components/button/Button.svelte';
+
+	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';

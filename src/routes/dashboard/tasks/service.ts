@@ -5,12 +5,7 @@ import { DATE } from '$lib/consts';
 import { db } from '$lib/firebase';
 import { getDurationInMinutes } from '$lib/task/utils';
 import { endOfWeek, format } from 'date-fns';
-import {
-	type Query,
-	collection,
-	query,
-	where,
-} from 'firebase/firestore';
+import { type Query, collection, query, where } from 'firebase/firestore';
 
 export function buildEmptyToDo(categories: Category[]): ToDo {
 	return {
