@@ -12,9 +12,7 @@
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
 	import { buildEmptyEvent, buildEventWithTime } from './service';
 
-	let currentDate = new Date();
-
-	let weekStart = startOfWeek(currentDate);
+	let weekStart = startOfWeek(new Date());
 
 	let targetDate: string | undefined = undefined;
 
@@ -30,7 +28,6 @@
 		<div class="flex h-full flex-col divide-gray-200">
 			<CalendarHeader
 				bind:weekStart
-				{currentDate}
 				on:create={() => {
 					showForm = true;
 					editingEvent = buildEmptyEvent(categories);

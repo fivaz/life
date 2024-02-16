@@ -3,7 +3,7 @@
 
 	import { DATE } from '$lib/consts';
 	import classnames from 'classnames';
-	import { format, getDate, isToday } from 'date-fns';
+	import { format, isSameDay, isToday } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 
 	import CalendarRows from '../calendar-rows/CalendarRows.svelte';
@@ -11,16 +11,14 @@
 	import { isEventOnDay, isToDoOnDay } from '../service';
 	import Stats from '../stats/Stats.svelte';
 
+	let selectedDate = new Date();
+
 	export let dates: Date[];
 
 	export let tasks: AnyTask[];
 
 	let className = '';
 	export { className as class };
-
-	let selectedDate = new Date();
-
-	$: isSelectedDate = (date: Date) => getDate(selectedDate) === getDate(date);
 
 	const dispatch = createEventDispatcher<{
 		create: { date: Date; timeInterval: number };
@@ -51,8 +49,8 @@
 				{format(date, 'EEEEE')}
 				<span
 					class={classnames(
-						{ 'rounded-full bg-indigo-300 text-white': isSelectedDate(date) && !isToday(date) },
-						{ 'rounded-full bg-indigo-600 text-white': isToday(date) },
+						{ 'rounded-full bg-indigo-600 text-white': isSameDay(selectedDate, date) },
+						{ 'rounded-full bg-indigo-300 text-white': isToday(date) },
 						'flex items-center justify-center font-semibold h-8 w-8',
 					)}
 				>

@@ -7,8 +7,9 @@
 	import { addDays, format, startOfWeek } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 
-	export let currentDate: Date;
 	export let weekStart: Date;
+
+	let currentDate = new Date();
 
 	const dispatch = createEventDispatcher();
 
@@ -27,7 +28,7 @@
 
 <header class="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">
 	<h1 class="text-base font-semibold leading-6 text-gray-900">
-		<time datetime={format(currentDate, 'yyyy-MM')}>{format(currentDate, 'MMMM yyyy')}</time>
+		<time datetime={format(weekStart, 'yyyy-MM')}>{format(weekStart, 'MMMM yyyy')}</time>
 	</h1>
 	<div class="flex items-center">
 		<div class="relative flex items-center rounded-md bg-white shadow-sm md:items-stretch">
