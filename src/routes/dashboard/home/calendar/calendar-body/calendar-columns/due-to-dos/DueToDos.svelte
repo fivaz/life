@@ -33,22 +33,17 @@
 		<div class="p-3 shadow rounded-md overflow-hidden relative bg-white text-sm font-semibold w-96">
 			<h3 class="text-lg text-black">Pending Tasks</h3>
 			{#each toDos as toDo (toDo)}
-				<div class="flex gap-2 items-center justify-between">
-					<div class="flex gap-2">
-						<Icon class="h-5 w-5 text-indigo-500" src={toDo.isDone ? DocumentCheck : Document} />
-						<div class="truncate">{toDo.name}</div>
-					</div>
-					<div
+				<div class="flex gap-2 text-start">
+					<Icon class="h-5 w-5 text-indigo-500" src={toDo.isDone ? DocumentCheck : Document} />
+					<div class="flex-1 truncate">{toDo.name}</div>
+					<button
 						on:click={() => {
 							editingTask = toDo;
 							showForm = true;
 						}}
-						on:keyup
-						role="button"
-						tabindex="0"
 					>
 						<Icon class="h-5 w-5 text-indigo-500" src={EllipsisHorizontal} />
-					</div>
+					</button>
 				</div>
 			{/each}
 		</div>
