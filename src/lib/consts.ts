@@ -16,6 +16,12 @@ export const homeRoute = `${dashboardRoute}/home`;
 export const categoriesRoute = `${dashboardRoute}/categories`;
 export const tasksRoute = `${dashboardRoute}/tasks`;
 export const goalsRoute = `${dashboardRoute}/goals`;
+
+export const demoLogin = {
+	email: 'demo@demo.com',
+	password: '123456',
+};
+
 export const routes = [
 	rootRoute,
 	loginRoute,

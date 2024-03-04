@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from '$lib/components/button/Button.svelte';
 	import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@rgossiaux/svelte-headlessui';
-	import { ChevronDown, ChevronLeft, ChevronRight, EllipsisHorizontal } from '@steeze-ui/heroicons';
+	import { ChevronLeft, ChevronRight, EllipsisHorizontal } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import classnames from 'classnames';
 	import { addDays, format, startOfWeek } from 'date-fns';
@@ -57,15 +57,15 @@
 				<Icon aria-hidden="true" class="h-5 w-5" src={ChevronRight} />
 			</button>
 		</div>
-		<div class="hidden md:ml-4 md:flex md:items-center">
+		<div class="hidden md:flex md:items-center">
 			<Menu class="relative">
-				<MenuButton
-					class="flex items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-					type="button"
-				>
-					Week view
-					<Icon aria-hidden="true" class="-mr-1 h-5 w-5 text-gray-400" src={ChevronDown} />
-				</MenuButton>
+				<!--				<MenuButton-->
+				<!--					class="flex md:mr-4 items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"-->
+				<!--					type="button"-->
+				<!--				>-->
+				<!--					Week view-->
+				<!--					<Icon aria-hidden="true" class="-mr-1 h-5 w-5 text-gray-400" src={ChevronDown} />-->
+				<!--				</MenuButton>-->
 
 				<Transition
 					enter="transition ease-out duration-100"
@@ -174,48 +174,48 @@
 							</button>
 						</MenuItem>
 					</div>
-					<div class="py-1">
-						<MenuItem let:active>
-							<button
-								class={classnames(
-									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-									'block px-4 py-2 text-sm',
-								)}
-							>
-								Day view
-							</button>
-						</MenuItem>
-						<MenuItem let:active>
-							<button
-								class={classnames(
-									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-									'block px-4 py-2 text-sm',
-								)}
-							>
-								Week view
-							</button>
-						</MenuItem>
-						<MenuItem let:active>
-							<button
-								class={classnames(
-									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-									'block px-4 py-2 text-sm',
-								)}
-							>
-								Month view
-							</button>
-						</MenuItem>
-						<MenuItem let:active>
-							<button
-								class={classnames(
-									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-									'block px-4 py-2 text-sm',
-								)}
-							>
-								Year view
-							</button>
-						</MenuItem>
-					</div>
+					<!--					<div class="py-1">-->
+					<!--						<MenuItem let:active>-->
+					<!--							<button-->
+					<!--								class={classnames(-->
+					<!--									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',-->
+					<!--									'block px-4 py-2 text-sm',-->
+					<!--								)}-->
+					<!--							>-->
+					<!--								Day view-->
+					<!--							</button>-->
+					<!--						</MenuItem>-->
+					<!--						<MenuItem let:active>-->
+					<!--							<button-->
+					<!--								class={classnames(-->
+					<!--									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',-->
+					<!--									'block px-4 py-2 text-sm',-->
+					<!--								)}-->
+					<!--							>-->
+					<!--								Week view-->
+					<!--							</button>-->
+					<!--						</MenuItem>-->
+					<!--						<MenuItem let:active>-->
+					<!--							<button-->
+					<!--								class={classnames(-->
+					<!--									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',-->
+					<!--									'block px-4 py-2 text-sm',-->
+					<!--								)}-->
+					<!--							>-->
+					<!--								Month view-->
+					<!--							</button>-->
+					<!--						</MenuItem>-->
+					<!--						<MenuItem let:active>-->
+					<!--							<button-->
+					<!--								class={classnames(-->
+					<!--									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',-->
+					<!--									'block px-4 py-2 text-sm',-->
+					<!--								)}-->
+					<!--							>-->
+					<!--								Year view-->
+					<!--							</button>-->
+					<!--						</MenuItem>-->
+					<!--					</div>-->
 				</MenuItems>
 			</Transition>
 		</Menu>

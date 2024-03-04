@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { currentUser } from '$lib/auth/store';
+	import Banner from '$lib/components/banner/Banner.svelte';
 	import ProfileDropDown from '$lib/components/dashboard/profile-drop-down/ProfileDropDown.svelte';
 	import ProfileDropUp from '$lib/components/dashboard/profile-drop-up/ProfileDropUp.svelte';
-	import { categoriesRoute, goalsRoute, homeRoute, tasksRoute } from '$lib/consts';
+	import { categoriesRoute, demoLogin, goalsRoute, homeRoute, tasksRoute } from '$lib/consts';
 	import { auth } from '$lib/firebase';
 	import { Dialog, TransitionChild, TransitionRoot } from '@rgossiaux/svelte-headlessui';
 	import { Bars3, Calendar, DocumentDuplicate, XMark } from '@steeze-ui/heroicons';
@@ -119,6 +120,9 @@
 		</Dialog>
 	</TransitionRoot>
 
+	{#if $currentUser?.email === demoLogin.email}
+		<Banner />
+	{/if}
 	<!-- Static sidebar for desktop -->
 	<div class="hidden lg:fixed lg:inset-y-0 lg:z-20 lg:flex lg:w-72 lg:flex-col">
 		<!-- Sidebar component, swap this element with another sidebar if you like -->
