@@ -4,6 +4,7 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import { loginRoute, rootRoute } from '$lib/consts';
 	import { auth, db } from '$lib/firebase';
+	import { storageAvatar } from '$lib/user-utis';
 	import { validator } from '@felte/validator-yup';
 	import { createForm } from 'felte';
 	import { FirebaseError } from 'firebase/app';
@@ -54,15 +55,24 @@
 		});
 	}
 
-	async function register({ displayName, email, password, photoURL }: Account) {
+	async function register({ displayName, email, password }: Omit<Account, 'photoURL'>) {
 		const { user } = await createUserWithEmailAndPassword(auth, email, password);
-		await updateProfile(user, { displayName });
+
+		const photoURL = await storageAvatar(
+			user.uid,
+			new Blob([avatar], { type: 'image/svg+xml;charset=utf-8' }),
+		);
+
+		await updateProfile(user, { displayName, photoURL });
+
 		const userRef = doc(db, 'users', user.uid);
+
 		await setDoc(userRef, {
 			displayName,
 			email,
 			photoURL,
 		});
+
 		await addDefaultCategories(user.uid);
 	}
 
@@ -82,12 +92,14 @@
 		},
 		onSubmit: async (values) => {
 			isLoading = true;
-			await register({ ...values, photoURL });
+			await register({ ...values });
 			void goto(rootRoute);
 		},
 	});
 
-	$: photoURL = 'data:image/svg+xml;utf8,' + encodeURIComponent(minidenticon(email, 95, 45));
+	$: avatar = minidenticon(email, 95, 45);
+
+	$: photoURL = 'data:image/svg+xml;utf8,' + encodeURIComponent(avatar);
 
 	$: {
 		errorMessage = Object.values($errors)

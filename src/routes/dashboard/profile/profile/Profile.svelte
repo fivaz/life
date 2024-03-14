@@ -3,10 +3,10 @@
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
-	import { db, storage } from '$lib/firebase';
+	import { db } from '$lib/firebase';
+	import { storageAvatar } from '$lib/user-utis';
 	import { type Auth, updateProfile } from 'firebase/auth';
 	import { doc, updateDoc } from 'firebase/firestore';
-	import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 	import { minidenticon } from 'minidenticons';
 
 	export let user: NonNullable<Auth['currentUser']>;
@@ -44,9 +44,7 @@
 		isLoading = true;
 
 		if (file) {
-			const avatarsRef = ref(storage, `avatars/${user.uid}`);
-			await uploadBytes(avatarsRef, file);
-			photoURL = await getDownloadURL(avatarsRef);
+			photoURL = await storageAvatar(user.uid, file);
 		}
 
 		await editProfile(user, displayName, photoURL);
@@ -68,7 +66,6 @@
 	}
 </script>
 
-<pre>{JSON.stringify(user, null, 2)}</pre>
 <div class="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
 	<div class="sm:mx-auto sm:w-full sm:max-w-md">
 		<h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
