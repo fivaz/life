@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { registerRoute } from '$lib/consts';
 	import { XMark } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
-
-	XMark;
+	
+XMark;
 </script>
 
 <div
@@ -40,10 +39,5 @@
 			Register for privacy <span aria-hidden="true">&rarr;</span>
 		</a>
 	</div>
-	<div class="flex flex-1 justify-end">
-		<button class="-m-3 p-3 focus-visible:outline-offset-[-4px]" type="button">
-			<span class="sr-only">Dismiss</span>
-			<Icon aria-hidden="true" class="h-5 w-5 text-gray-900" src={XMark} />
-		</button>
-	</div>
+	<div class="flex flex-1 justify-end"></div>
 </div>
