@@ -7,6 +7,7 @@
 	import { type Auth, updateProfile } from 'firebase/auth';
 	import { doc, updateDoc } from 'firebase/firestore';
 	import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+	import { minidenticon } from 'minidenticons';
 
 	export let user: NonNullable<Auth['currentUser']>;
 
@@ -53,8 +54,21 @@
 		success = true;
 		isLoading = false;
 	}
+
+	async function resetImage() {
+		if (!user.email) {
+			return;
+		}
+		const defaultAvatarSvg = minidenticon(user.email, 95, 45);
+
+		file = new File([defaultAvatarSvg], 'defaultAvatar.svg', {
+			type: 'image/svg+xml;charset=utf-8',
+		});
+		photoURL = URL.createObjectURL(file);
+	}
 </script>
 
+<pre>{JSON.stringify(user, null, 2)}</pre>
 <div class="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
 	<div class="sm:mx-auto sm:w-full sm:max-w-md">
 		<h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -83,6 +97,7 @@
 							/>
 							Change
 						</label>
+						<Button on:click={resetImage} type="button">Reset image</Button>
 					</div>
 				</div>
 
@@ -98,6 +113,7 @@
 						/>
 					</div>
 				</div>
+
 				<div>
 					<div class="mt-2">
 						<Input
