@@ -1,8 +1,5 @@
 <script lang="ts">
 	import { registerRoute } from '$lib/consts';
-	import { XMark } from '@steeze-ui/heroicons';
-	
-XMark;
 </script>
 
 <div
