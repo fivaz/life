@@ -43,7 +43,7 @@
 
 	let wasRecurring = taskIn.isRecurring;
 
-	let isEventOpen = false;
+	let isEventOpen = true;
 
 	let isRecurringOpen = false;
 
