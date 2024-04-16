@@ -3,6 +3,7 @@
 
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
+	import { buildEmptyGoal } from '../service';
 	import GoalForm from './GoalForm.svelte';
 
 	export const meta = {
@@ -11,12 +12,7 @@
 </script>
 
 <Template let:args>
-	<GoalForm {...args} />
+	<GoalForm {...args} goal={buildEmptyGoal()} on:close={() => console.log('closed')} userId="0" />
 </Template>
 
-<Story
-	args={{
-		form: null,
-	}}
-	name="Primary"
-/>
+<Story name="Primary" />

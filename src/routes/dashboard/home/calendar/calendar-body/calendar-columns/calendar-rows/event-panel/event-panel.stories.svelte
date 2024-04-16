@@ -1,13 +1,7 @@
 <script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
 
-	import {
-		done,
-		long,
-		normalWithoutDescription,
-		redEvent,
-		shortWithoutDescription,
-	} from '$lib/task/seed';
+	import { done, long, normalWithoutDescription, shortWithoutDescription } from '$lib/task/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
 	import EventPanel from './EventPanel.svelte';
@@ -31,5 +25,3 @@
 <Story args={{ event: long }} name="Long" />
 
 <Story args={{ event: done }} name="Done" />
-
-<Story args={{ event: redEvent }} name="Red event" />

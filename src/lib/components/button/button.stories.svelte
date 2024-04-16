@@ -14,7 +14,7 @@
 </script>
 
 <Template let:args>
-	<Button {...args}>Text</Button>
+	<Button {...args} on:click={() => console.log('clicked')}>Text</Button>
 </Template>
 
 <Story args={{}} name="Normal" />

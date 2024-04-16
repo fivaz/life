@@ -2,45 +2,43 @@
 	import type { Meta } from '@storybook/svelte';
 
 	import { categories } from '$lib/category/seed';
-	import { buildEmptyTask } from '$lib/components/task-form/service';
-	import { redEvent } from '$lib/task/seed';
+	import { long } from '$lib/task/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
+	import { buildEmptyEvent } from '../../../routes/dashboard/home/calendar/service';
+	import { buildEmptyToDo } from '../../../routes/dashboard/tasks/service';
 	import TaskForm from './TaskForm.svelte';
 
 	export const meta = {
 		argTypes: {},
 		component: TaskForm,
 	} satisfies Meta<TaskForm>;
-</script>
+
+	</script>
 
 <Template let:args>
-	<TaskForm {...args} />
+	<TaskForm {...args} {categories} on:close={() => console.log('closed')} userId="0" />
 </Template>
 
 <Story
 	args={{
-		categories,
-		event: buildEmptyTask(categories),
-		form: null,
+		targetDate: new Date().toISOString(),
+		task: buildEmptyEvent(categories),
 	}}
 	name="Create Event"
 />
 
 <Story
 	args={{
-		categories,
-		event: buildEmptyTask(categories),
-		form: null,
+		targetDate: new Date().toISOString(),
+		task: long,
 	}}
-	name="Create ToDo"
+	name="Edit event"
 />
 
 <Story
 	args={{
-		categories,
-		event: redEvent,
-		form: null,
+		task: buildEmptyToDo(categories),
 	}}
-	name="Edit event"
+	name="Create ToDo"
 />

@@ -4,6 +4,7 @@
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
 	import CategoryForm from './CategoryForm.svelte';
+	import { buildEmptyCategory } from './service';
 
 	export const meta = {
 		component: CategoryForm,
@@ -11,12 +12,12 @@
 </script>
 
 <Template let:args>
-	<CategoryForm {...args} />
+	<CategoryForm
+		{...args}
+		category={buildEmptyCategory()}
+		on:close={() => console.log('closed')}
+		userId="0"
+	/>
 </Template>
 
-<Story
-	args={{
-		form: null,
-	}}
-	name="Primary"
-/>
+<Story name="Primary" />

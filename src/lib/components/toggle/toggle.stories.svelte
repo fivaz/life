@@ -11,12 +11,11 @@
 </script>
 
 <Template let:args>
-	<Toggle {...args} />
+	<Toggle {...args} name="toggle" />
 </Template>
 
 <Story
 	args={{
-		name: 'toggle',
 		value: true,
 	}}
 	name="Enable"
@@ -25,7 +24,6 @@
 <Story
 	args={{
 		label: 'Toggle',
-		name: 'toggle',
 		value: false,
 	}}
 	name="Disabled"

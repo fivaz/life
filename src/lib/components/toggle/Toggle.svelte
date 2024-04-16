@@ -18,7 +18,7 @@
 
 <SwitchGroup>
 	<input {name} type="hidden" value={value ? 'true' : ''} />
-	<div class="flex items-center">
+	<div class="flex items-center gap-2">
 		<SwitchLabel class="flex-1 text-start">{label}</SwitchLabel>
 		<Switch
 			bind:checked={value}
