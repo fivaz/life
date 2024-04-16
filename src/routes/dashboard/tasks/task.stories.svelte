@@ -8,10 +8,6 @@
 
 	export const meta = {
 		component: Task,
-		parameters: {
-			layout: 'centered',
-		},
-		tags: ['autodocs'],
 	} satisfies Meta<Task>;
 </script>
 

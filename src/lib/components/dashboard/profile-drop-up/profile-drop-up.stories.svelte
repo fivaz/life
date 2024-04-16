@@ -9,14 +9,7 @@
 
 	export const meta = {
 		component: ProfileDropUp,
-		parameters: {
-			layout: 'centered',
-		},
-		tags: ['autodocs'],
 	} satisfies Meta<ProfileDropUp>;
-</script>
-
-<script>
 </script>
 
 <Template let:args>

@@ -8,10 +8,6 @@
 
 	export const meta = {
 		component: Select,
-		parameters: {
-			layout: 'centered',
-		},
-		tags: ['autodocs'],
 	} satisfies Meta<Select>;
 </script>
 

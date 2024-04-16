@@ -7,10 +7,6 @@
 
 	export const meta = {
 		component: Input,
-		parameters: {
-			layout: 'centered',
-		},
-		tags: ['autodocs'],
 	} satisfies Meta<Input>;
 </script>
 

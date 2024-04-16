@@ -11,10 +11,6 @@
 	export const meta = {
 		argTypes: {},
 		component: TaskForm,
-		parameters: {
-			layout: 'centered',
-		},
-		tags: ['autodocs'],
 	} satisfies Meta<TaskForm>;
 </script>
 

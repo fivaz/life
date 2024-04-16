@@ -10,14 +10,7 @@
 	export const meta = {
 		argTypes: {},
 		component: Button,
-		parameters: {
-			layout: 'centered',
-		},
-		tags: ['autodocs'],
 	} satisfies Meta<Button>;
-</script>
-
-<script>
 </script>
 
 <Template let:args>

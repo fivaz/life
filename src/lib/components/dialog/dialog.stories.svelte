@@ -7,10 +7,6 @@
 
 	export const meta = {
 		component: Dialog,
-		parameters: {
-			layout: 'centered',
-		},
-		tags: ['autodocs'],
 	} satisfies Meta<Dialog>;
 </script>
 

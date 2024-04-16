@@ -8,10 +8,6 @@
 	export const meta = {
 		argTypes: {},
 		component: Modal,
-		parameters: {
-			layout: 'centered',
-		},
-		tags: ['autodocs'],
 	} satisfies Meta<Modal>;
 </script>
 

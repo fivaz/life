@@ -15,14 +15,7 @@
 	export const meta = {
 		argTypes: {},
 		component: EventPanel,
-		parameters: {
-			layout: 'centered',
-		},
-		tags: ['autodocs'],
 	} satisfies Meta<EventPanel>;
-</script>
-
-<script>
 </script>
 
 <Template let:args>

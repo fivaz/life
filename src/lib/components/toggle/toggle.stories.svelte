@@ -7,10 +7,6 @@
 
 	export const meta = {
 		component: Toggle,
-		parameters: {
-			layout: 'centered',
-		},
-		tags: ['autodocs'],
 	} satisfies Meta<Toggle>;
 </script>
 

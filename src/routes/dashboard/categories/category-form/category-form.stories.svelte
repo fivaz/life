@@ -7,10 +7,6 @@
 
 	export const meta = {
 		component: CategoryForm,
-		parameters: {
-			layout: 'centered',
-		},
-		tags: ['autodocs'],
 	} satisfies Meta<CategoryForm>;
 </script>
 

@@ -7,10 +7,6 @@
 
 	export const meta = {
 		component: GoalForm,
-		parameters: {
-			layout: 'centered',
-		},
-		tags: ['autodocs'],
 	} satisfies Meta<GoalForm>;
 </script>
 
