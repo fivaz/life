@@ -6,11 +6,11 @@ module.exports = {
 		'plugin:@typescript-eslint/recommended',
 		'plugin:svelte/recommended',
 		'prettier',
-		'plugin:storybook/recommended',
 		'plugin:import/recommended',
 		'plugin:import/typescript',
 		'plugin:sonarjs/recommended',
 		'plugin:perfectionist/recommended-natural',
+		'plugin:storybook/recommended',
 	],
 	parser: '@typescript-eslint/parser',
 	plugins: [
