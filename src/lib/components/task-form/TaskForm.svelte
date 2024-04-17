@@ -32,6 +32,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import 'flatpickr/dist/themes/airbnb.css';
 	import { createEventDispatcher } from 'svelte'; // TODO check later how I should import a precompiled component https://github.com/sveltejs/svelte/issues/604
+	import Modal from '$lib/components/modal/Modal.svelte';
 	import { storage } from '$lib/firebase';
 	import { FirebaseError } from 'firebase/app';
 	import { getDownloadURL, ref } from 'firebase/storage';
@@ -63,6 +64,8 @@
 	let file: File | null = null;
 
 	let image: null | string = null;
+
+	let isImageOpen = false;
 
 	$: isEditing = !!task.id;
 
@@ -174,11 +177,16 @@
 				>
 					<DisclosurePanel class="text-gray-500 pt-2 flex flex-col gap-2">
 						<div class="flex flex-col gap-2 w-full">
-							<div class="h-24 flex items-center justify-center">
+							<div class="h-24 flex items-center justify-center overflow-hidden">
 								{#if image}
-									<button on:click={() => console.log('test')} type="button">
-										<img alt="event description" class="" src={image} />
+									<button on:click={() => (isImageOpen = true)} type="button">
+										<img alt="event description" src={image} />
 									</button>
+									<Modal on:close={() => (isImageOpen = false)} show={isImageOpen}>
+										<div class="bg-white p-2 rounded-lg shadow">
+											<img alt="event description" src={image} />
+										</div>
+									</Modal>
 								{:else}
 									<Icon class="h-10 w-10 text-indigo-700" src={Photo} />
 								{/if}
@@ -194,7 +202,7 @@
 									on:change={handleChange}
 									type="file"
 								/>
-								Add image
+								{#if image}Change image{:else}Add image{/if}
 							</label>
 						</div>
 
