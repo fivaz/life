@@ -17,15 +17,24 @@
 		getDuration,
 		getEndTime,
 		removeTask,
+		storeImage,
 	} from '$lib/components/task-form/service';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { convertToAnyTask, hasErrors } from '$lib/task/utils';
-	import { Transition } from '@rgossiaux/svelte-headlessui';
-	import { XMark } from '@steeze-ui/heroicons';
+	import {
+		Disclosure,
+		DisclosureButton,
+		DisclosurePanel,
+		Transition,
+	} from '@rgossiaux/svelte-headlessui';
+	import { ChevronRight, Photo, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import 'flatpickr/dist/themes/airbnb.css';
 	import { createEventDispatcher } from 'svelte'; // TODO check later how I should import a precompiled component https://github.com/sveltejs/svelte/issues/604
+	import { storage } from '$lib/firebase';
+	import { FirebaseError } from 'firebase/app';
+	import { getDownloadURL, ref } from 'firebase/storage';
 	import Flatpickr from 'svelte-flatpickr';
 
 	import type { TaskIn } from './service';
@@ -51,24 +60,59 @@
 
 	let errorMessage = '';
 
+	let file: File | null = null;
+
+	let image: null | string = null;
+
 	$: isEditing = !!task.id;
 
 	$: formName = `${isEditing ? 'Edit' : 'Add'} ${'startTime' in task ? 'Event' : 'Task'}`;
 
-	function onSubmit() {
+	async function getImage() {
+		if (!task.id) {
+			return;
+		}
+
+		const imageRef = ref(storage, `users/${userId}/tasks/${task.id}`);
+		try {
+			const foundImage = await getDownloadURL(imageRef);
+			if (foundImage) {
+				image = foundImage;
+			}
+		} catch (error) {
+			if (error instanceof FirebaseError && error.code !== 'storage/object-not-found') {
+				return console.log('error', error);
+			}
+		}
+	}
+
+	getImage();
+
+	async function onSubmit() {
 		if (hasErrors(taskIn, errorMessage)) {
 			return;
 		}
 
 		const { id, ...data } = convertToAnyTask(taskIn);
+		let eventId = id;
 
 		if (id) {
-			editTaskWithPrompt(id, data, userId, targetDate, wasRecurring);
+			void editTaskWithPrompt(id, data, userId, targetDate, wasRecurring);
 		} else {
-			addTask(data, userId);
+			eventId = await addTask(data, userId);
+		}
+		if (file) {
+			void storeImage(userId, eventId, file);
 		}
 
 		dispatch('close');
+	}
+
+	function handleChange(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
+		if (event.currentTarget.files) {
+			[file] = event.currentTarget.files;
+			image = URL.createObjectURL(file);
+		}
 	}
 
 	let goalType: Goal;
@@ -115,14 +159,56 @@
 				</label>
 			</div>
 
-			<label class="block text-sm text-gray-700">
-				<textarea
-					bind:value={taskIn.description}
-					class="p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-					name="description"
-					placeholder="description"
-				/>
-			</label>
+			<Disclosure class="bg-white rounded-lg p-2" defaultOpen={true} let:open>
+				<DisclosureButton class="flex justify-between w-full">
+					<span>Description</span>
+					<Icon class="w-5 h-5 {open ? 'rotate-90 transform' : ''}" src={ChevronRight} />
+				</DisclosureButton>
+				<Transition
+					enter="transition duration-100 ease-out"
+					enterFrom="transform scale-95 opacity-0"
+					enterTo="transform scale-100 opacity-100"
+					leave="transition duration-75 ease-out"
+					leaveFrom="transform scale-100 opacity-100"
+					leaveTo="transform scale-95 opacity-0"
+				>
+					<DisclosurePanel class="text-gray-500 pt-2 flex flex-col gap-2">
+						<div class="flex flex-col gap-2 w-full">
+							<div class="h-24 flex items-center justify-center">
+								{#if image}
+									<button on:click={() => console.log('test')} type="button">
+										<img alt="event description" class="" src={image} />
+									</button>
+								{:else}
+									<Icon class="h-10 w-10 text-indigo-700" src={Photo} />
+								{/if}
+							</div>
+
+							<label
+								class="w-full focus-visible:outline-indigo-600 bg-indigo-600 hover:bg-indigo-500 inline-flex gap-2 justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+							>
+								<input
+									accept="image/*"
+									class="hidden"
+									name="avatar"
+									on:change={handleChange}
+									type="file"
+								/>
+								Add image
+							</label>
+						</div>
+
+						<label class="block text-sm text-gray-700">
+							<textarea
+								bind:value={taskIn.description}
+								class="p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+								name="description"
+								placeholder="description"
+							/>
+						</label>
+					</DisclosurePanel>
+				</Transition>
+			</Disclosure>
 
 			<Select
 				bind:value={taskIn.category}

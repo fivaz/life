@@ -4,7 +4,7 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import { db } from '$lib/firebase';
-	import { storageAvatar } from '$lib/user-utis';
+	import { storeAvatar } from '$lib/user-utis';
 	import { type Auth, updateProfile } from 'firebase/auth';
 	import { doc, updateDoc } from 'firebase/firestore';
 	import { minidenticon } from 'minidenticons';
@@ -44,7 +44,7 @@
 		isLoading = true;
 
 		if (file) {
-			photoURL = await storageAvatar(user.uid, file);
+			photoURL = await storeAvatar(user.uid, file);
 		}
 
 		await editProfile(user, displayName, photoURL);

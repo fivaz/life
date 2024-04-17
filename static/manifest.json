@@ -1,10 +1,6 @@
 {
-	"name": "Waser Life",
-	"short_name": "Waser Life",
-	"start_url": "/",
-	"display": "standalone",
-	"theme_color": "#ff3e00",
 	"background_color": "#ffffff",
+	"display": "standalone",
 	"icons": [
 		{
 			"sizes": "256x256",
@@ -17,18 +13,22 @@
 			"type": "image/png"
 		}
 	],
+	"name": "Life",
 	"screenshots": [
 		{
-			"src": "screenshot1.png",
-			"type": "image/png",
+			"form_factor": "narrow",
 			"sizes": "2560x1440",
-			"form_factor": "narrow"
+			"src": "screenshot1.png",
+			"type": "image/png"
 		},
 		{
-			"src": "screenshot2.png",
-			"type": "image/png",
+			"form_factor": "wide",
 			"sizes": "2560x1440",
-			"form_factor": "wide"
+			"src": "screenshot2.png",
+			"type": "image/png"
 		}
-	]
+	],
+	"short_name": "Life",
+	"start_url": "/",
+	"theme_color": "#ff3e00"
 }

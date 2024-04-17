@@ -13,8 +13,7 @@
 		argTypes: {},
 		component: TaskForm,
 	} satisfies Meta<TaskForm>;
-
-	</script>
+</script>
 
 <Template let:args>
 	<TaskForm {...args} {categories} on:close={() => console.log('closed')} userId="0" />

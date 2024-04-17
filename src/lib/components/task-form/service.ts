@@ -6,7 +6,7 @@ import type { EventDispatcher } from 'svelte';
 import { weekDays } from '$lib/components/days-checkbox/service';
 import { createModal } from '$lib/components/dialog/service';
 import { DATE, TIME } from '$lib/consts';
-import { db } from '$lib/firebase';
+import { db, storage } from '$lib/firebase';
 import {
 	add,
 	addMinutes,
@@ -26,6 +26,7 @@ import {
 	setDoc,
 	updateDoc,
 } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export type TaskIn = Omit<Task, 'recurringExceptions'> & {
 	endTime: string;
@@ -166,7 +167,7 @@ export function editSingleRecurringEvent(
 
 	const newEvent = { ...event, date: targetDate };
 
-	addTask(newEvent, userId);
+	void addTask(newEvent, userId);
 
 	addExceptionToRecurring(id, recurringEvent, targetDate, userId);
 }
@@ -240,6 +241,8 @@ export async function addTask(data: Omit<AnyTask, 'id'>, userId: string) {
 	const taskRef = await addDoc(tasksCollectionRef, data);
 
 	await addTaskToGoal(userId, data, taskRef);
+
+	return taskRef.id;
 }
 
 async function deleteTaskFromGoal(userId: string, taskId: string, data: Omit<AnyTask, 'id'>) {
@@ -294,10 +297,16 @@ export async function removeTask(
 		if (result) {
 			addExceptionToRecurring(id, data as Omit<RecurringEvent, 'id'>, targetDate, userId);
 		} else {
-			deleteTask(id, data, userId);
+			void deleteTask(id, data, userId);
 		}
 	} else {
-		deleteTask(id, data, userId);
+		void deleteTask(id, data, userId);
 	}
 	dispatch('close');
+}
+
+export async function storeImage(userId: string, taskId: string, file: Blob): Promise<string> {
+	const avatarsRef = ref(storage, `users/${userId}/tasks/${taskId}`);
+	await uploadBytes(avatarsRef, file);
+	return await getDownloadURL(avatarsRef);
 }

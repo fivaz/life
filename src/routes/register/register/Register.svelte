@@ -4,7 +4,7 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import { loginRoute, rootRoute } from '$lib/consts';
 	import { auth, db } from '$lib/firebase';
-	import { storageAvatar } from '$lib/user-utis';
+	import { storeAvatar } from '$lib/user-utis';
 	import { validator } from '@felte/validator-yup';
 	import { createForm } from 'felte';
 	import { FirebaseError } from 'firebase/app';
@@ -58,7 +58,7 @@
 	async function register({ displayName, email, password }: Omit<Account, 'photoURL'>) {
 		const { user } = await createUserWithEmailAndPassword(auth, email, password);
 
-		const photoURL = await storageAvatar(
+		const photoURL = await storeAvatar(
 			user.uid,
 			new Blob([avatar], { type: 'image/svg+xml;charset=utf-8' }),
 		);
