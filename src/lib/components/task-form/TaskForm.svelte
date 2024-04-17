@@ -162,18 +162,17 @@
 				</label>
 			</div>
 
-			<Disclosure class="bg-white rounded-lg p-2" defaultOpen={true} let:open>
+			<Disclosure class="bg-white rounded-lg p-2" let:open>
 				<DisclosureButton class="flex justify-between w-full">
 					<span>Description</span>
 					<Icon class="w-5 h-5 {open ? 'rotate-90 transform' : ''}" src={ChevronRight} />
 				</DisclosureButton>
 				<Transition
-					enter="transition duration-100 ease-out"
-					enterFrom="transform scale-95 opacity-0"
-					enterTo="transform scale-100 opacity-100"
-					leave="transition duration-75 ease-out"
-					leaveFrom="transform scale-100 opacity-100"
-					leaveTo="transform scale-95 opacity-0"
+					class="transition-all duration-500 overflow-hidden"
+					enterFrom="transform opacity-0 max-h-0"
+					enterTo="transform opacity-100 max-h-36"
+					leaveFrom="transform opacity-100 max-h-36"
+					leaveTo="transform opacity-0 max-h-0"
 				>
 					<DisclosurePanel class="text-gray-500 pt-2 flex flex-col gap-2">
 						<div class="flex flex-col gap-2 w-full">
