@@ -3,20 +3,20 @@
 
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
-	import CalendarBodyMobile from './CalendarBodyMobile.svelte';
+	import NewWeekView from './NewWeekView.svelte';
 
 	export const meta = {
-		component: CalendarBodyMobile,
+		argTypes: {},
+		component: NewWeekView,
 		parameters: {
-			layout: 'centered',
+			layout: 'fullscreen',
 		},
-		tags: ['autodocs'],
-	} satisfies Meta<CalendarBodyMobile>;
+	} satisfies Meta<NewWeekView>;
 </script>
 
 <Template let:args>
-	<div class="h-96">
-		<CalendarBodyMobile {...args}></CalendarBodyMobile>
+	<div class="h-screen">
+		<NewWeekView {...args} />
 	</div>
 </Template>
 
