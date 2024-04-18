@@ -14,8 +14,12 @@
 	} satisfies Meta<NewCalendarHeader>;
 </script>
 
+<script>
+	import { startOfWeek } from 'date-fns';
+</script>
+
 <Template let:args>
 	<NewCalendarHeader {...args}></NewCalendarHeader>
 </Template>
 
-<Story args={{}} name="Primary" />
+<Story args={{ weekStart: startOfWeek(new Date()) }} name="Primary" />

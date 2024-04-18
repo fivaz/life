@@ -2,21 +2,24 @@
 	import type { Meta } from '@storybook/svelte';
 
 	import { Story, Template } from '@storybook/addon-svelte-csf';
-	import { startOfWeek } from 'date-fns';
+	import { addDays, startOfWeek } from 'date-fns';
 
-	import NewCalendarBody from './NewCalendarBody.svelte';
+	import NewCalendarColumns from './NewCalendarColumns.svelte';
 
 	export const meta = {
 		argTypes: {},
-		component: NewCalendarBody,
+		component: NewCalendarColumns,
 		parameters: {
 			layout: 'fullscreen',
 		},
-	} satisfies Meta<NewCalendarBody>;
+	} satisfies Meta<NewCalendarColumns>;
 </script>
 
 <Template let:args>
-	<NewCalendarBody {...args} weekStart={startOfWeek(new Date())} />
+	<NewCalendarColumns
+		{...args}
+		dates={Array.from({ length: 7 }, (_, i) => addDays(new Date(), i))}
+	/>
 </Template>
 
 <Story args={{}} name="Primary" />

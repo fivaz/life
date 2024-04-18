@@ -2,18 +2,17 @@
 	import type { Meta } from '@storybook/svelte';
 
 	import { Story, Template } from '@storybook/addon-svelte-csf';
-	import { addDays } from 'date-fns';
 
-	import NewWeekList from './NewWeekList.svelte';
+	import NewHorizontalTime from './NewHorizontalTime.svelte';
 
 	export const meta = {
 		argTypes: {},
-		component: NewWeekList,
-	} satisfies Meta<NewWeekList>;
+		component: NewHorizontalTime,
+	} satisfies Meta<NewHorizontalTime>;
 </script>
 
 <Template let:args>
-	<NewWeekList {...args} dates={Array.from({ length: 7 }, (_, i) => addDays(new Date(), i))} />
+	<NewHorizontalTime {...args}><div /></NewHorizontalTime>
 </Template>
 
 <Story args={{}} name="Primary" />

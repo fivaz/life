@@ -3,8 +3,25 @@
 	import { ChevronDown, ChevronLeft, ChevronRight, EllipsisHorizontal } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
+	import { addDays, startOfWeek } from 'date-fns';
 
 	const viewControls = [{ text: 'Year view' }, { text: 'Week view' }, { text: 'Month view' }];
+
+	export let weekStart: Date;
+
+	let currentDate = new Date();
+
+	function goToToday() {
+		weekStart = startOfWeek(currentDate);
+	}
+
+	function goToNextWeek() {
+		weekStart = addDays(weekStart, 7);
+	}
+
+	function goToPreviousWeek() {
+		weekStart = addDays(weekStart, -7);
+	}
 </script>
 
 <header class="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">
@@ -20,13 +37,15 @@
 		<div class="relative flex items-center rounded-md bg-white shadow-sm md:items-stretch">
 			<button
 				class="flex h-9 w-12 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50"
+				on:click={goToPreviousWeek}
 				type="button"
 			>
-				<span class="sr-only">Previous day</span>
+				<span class="sr-only">Previous week</span>
 				<Icon aria-hidden="true" class="h-5 w-5" src={ChevronLeft} />
 			</button>
 			<button
 				class="hidden border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative md:block"
+				on:click={goToToday}
 				type="button"
 			>
 				Today
@@ -34,9 +53,10 @@
 			<span class="relative -mx-px h-5 w-px bg-gray-300 md:hidden" />
 			<button
 				class="flex h-9 w-12 items-center justify-center rounded-r-md border-y border-r border-gray-300 pl-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pl-0 md:hover:bg-gray-50"
+				on:click={goToNextWeek}
 				type="button"
 			>
-				<span class="sr-only">Next day</span>
+				<span class="sr-only">Next week</span>
 				<Icon aria-hidden="true" class="h-5 w-5" src={ChevronRight} />
 			</button>
 		</div>
