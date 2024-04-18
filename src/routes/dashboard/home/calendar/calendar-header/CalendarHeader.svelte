@@ -24,6 +24,19 @@
 	function goToPreviousWeek() {
 		weekStart = addDays(weekStart, -7);
 	}
+
+	// const viewControls = [{ text: 'Year view' }, { text: 'Week view' }, { text: 'Month view' }];
+
+	const directionControls = [
+		{
+			onClick: () => dispatch('create'),
+			text: 'Create event',
+		},
+		{
+			onClick: goToToday,
+			text: 'Go to today',
+		},
+	];
 </script>
 
 <header class="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">
@@ -58,76 +71,47 @@
 			</button>
 		</div>
 		<div class="hidden md:flex md:items-center">
-			<Menu class="relative">
-				<!--				<MenuButton-->
-				<!--					class="flex md:mr-4 items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"-->
-				<!--					type="button"-->
-				<!--				>-->
-				<!--					Week view-->
-				<!--					<Icon aria-hidden="true" class="-mr-1 h-5 w-5 text-gray-400" src={ChevronDown} />-->
-				<!--				</MenuButton>-->
+			<!--			<Menu class="relative">-->
+			<!--				<MenuButton-->
+			<!--					class="flex md:mr-4 items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"-->
+			<!--					type="button"-->
+			<!--				>-->
+			<!--					{viewControls[0].text}-->
+			<!--					<Icon aria-hidden="true" class="-mr-1 h-5 w-5 text-gray-400" src={ChevronDown} />-->
+			<!--				</MenuButton>-->
 
-				<Transition
-					enter="transition ease-out duration-100"
-					enterFrom="transform opacity-0 scale-95"
-					enterTo="transform opacity-100 scale-100"
-					leave="transition ease-in duration-75"
-					leaveFrom="transform opacity-100 scale-100"
-					leaveTo="transform opacity-0 scale-95"
-				>
-					<MenuItems
-						class="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-					>
-						<div class="py-1">
-							<MenuItem let:active>
-								<button
-									class={classnames(
-										// eslint-disable-next-line sonarjs/no-duplicate-string
-										active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-										// eslint-disable-next-line sonarjs/no-duplicate-string
-										'block px-4 py-2 text-sm',
-									)}
-								>
-									Day view
-								</button>
-							</MenuItem>
-							<MenuItem let:active>
-								<button
-									class={classnames(
-										active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-										'block px-4 py-2 text-sm',
-									)}
-								>
-									Week view
-								</button>
-							</MenuItem>
-							<MenuItem let:active>
-								<button
-									class={classnames(
-										active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-										'block px-4 py-2 text-sm',
-									)}
-								>
-									Month view
-								</button>
-							</MenuItem>
-							<MenuItem let:active>
-								<button
-									class={classnames(
-										active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-										'block px-4 py-2 text-sm',
-									)}
-								>
-									Year view
-								</button>
-							</MenuItem>
-						</div>
-					</MenuItems>
-				</Transition>
-			</Menu>
+			<!--				<Transition-->
+			<!--					enter="transition ease-out duration-100"-->
+			<!--					enterFrom="transform opacity-0 scale-95"-->
+			<!--					enterTo="transform opacity-100 scale-100"-->
+			<!--					leave="transition ease-in duration-75"-->
+			<!--					leaveFrom="transform opacity-100 scale-100"-->
+			<!--					leaveTo="transform opacity-0 scale-95"-->
+			<!--				>-->
+			<!--					<MenuItems-->
+			<!--						class="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"-->
+			<!--					>-->
+			<!--						{#each viewControls as viewControl (viewControl.text)}-->
+			<!--							<div class="py-1">-->
+			<!--								<MenuItem let:active>-->
+			<!--									<button-->
+			<!--										class={classnames(-->
+			<!--											active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',-->
+			<!--											'block px-4 py-2 text-sm w-full text-right',-->
+			<!--										)}-->
+			<!--									>-->
+			<!--										{viewControl.text}-->
+			<!--									</button>-->
+			<!--								</MenuItem>-->
+			<!--							</div>-->
+			<!--						{/each}-->
+			<!--					</MenuItems>-->
+			<!--				</Transition>-->
+			<!--			</Menu>-->
 			<div class="ml-6 h-6 w-px bg-gray-300" />
 			<Button class="ml-6" on:click={() => dispatch('create')} type="button">Create event</Button>
 		</div>
+
 		<!--Mobile-->
 		<Menu class="relative ml-6 md:hidden">
 			<MenuButton
@@ -148,74 +132,21 @@
 				<MenuItems
 					class="absolute right-0 z-10 mt-3 w-36 origin-top-right divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
 				>
-					<div class="py-1">
-						<MenuItem let:active>
-							<button
-								class={classnames(
-									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-									'block px-4 py-2 text-sm',
-								)}
-								on:click={() => dispatch('create')}
-							>
-								Create event
-							</button>
-						</MenuItem>
-					</div>
-					<div class="py-1">
-						<MenuItem let:active>
-							<button
-								class={classnames(
-									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-									'block px-4 py-2 text-sm',
-								)}
-								on:click={goToToday}
-							>
-								Go to today
-							</button>
-						</MenuItem>
-					</div>
-					<!--					<div class="py-1">-->
-					<!--						<MenuItem let:active>-->
-					<!--							<button-->
-					<!--								class={classnames(-->
-					<!--									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',-->
-					<!--									'block px-4 py-2 text-sm',-->
-					<!--								)}-->
-					<!--							>-->
-					<!--								Day view-->
-					<!--							</button>-->
-					<!--						</MenuItem>-->
-					<!--						<MenuItem let:active>-->
-					<!--							<button-->
-					<!--								class={classnames(-->
-					<!--									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',-->
-					<!--									'block px-4 py-2 text-sm',-->
-					<!--								)}-->
-					<!--							>-->
-					<!--								Week view-->
-					<!--							</button>-->
-					<!--						</MenuItem>-->
-					<!--						<MenuItem let:active>-->
-					<!--							<button-->
-					<!--								class={classnames(-->
-					<!--									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',-->
-					<!--									'block px-4 py-2 text-sm',-->
-					<!--								)}-->
-					<!--							>-->
-					<!--								Month view-->
-					<!--							</button>-->
-					<!--						</MenuItem>-->
-					<!--						<MenuItem let:active>-->
-					<!--							<button-->
-					<!--								class={classnames(-->
-					<!--									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',-->
-					<!--									'block px-4 py-2 text-sm',-->
-					<!--								)}-->
-					<!--							>-->
-					<!--								Year view-->
-					<!--							</button>-->
-					<!--						</MenuItem>-->
-					<!--					</div>-->
+					{#each directionControls as button (button.text)}
+						<div class="py-1">
+							<MenuItem let:active>
+								<button
+									class={classnames(
+										active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+										'block px-4 py-2 text-sm w-full text-left',
+									)}
+									on:click={button.onClick}
+								>
+									{button.text}
+								</button>
+							</MenuItem>
+						</div>
+					{/each}
 				</MenuItems>
 			</Transition>
 		</Menu>
