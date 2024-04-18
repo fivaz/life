@@ -1,8 +1,8 @@
 <script lang="ts">
 	import EventsList from '$lib/components/events-list/EventsList.svelte';
 	import NewDayViewSide from '$lib/components/new-calendar/new-calendar-body/new-day-view-side/NewDayViewSide.svelte';
-	import NewTimeLabs from '$lib/components/new-calendar/new-calendar-body/new-time-labs/NewTimeLabs.svelte';
 	import WeekListMobile from '$lib/components/new-calendar/new-calendar-body/week-list-mobile/WeekListMobile.svelte';
+	import HorizontalTime from '$lib/components/new-week-view/new-week-calendar-body/horizontal-time/HorizontalTime.svelte';
 	import { onMount } from 'svelte';
 
 	let container: HTMLDivElement | null = null;
@@ -35,9 +35,9 @@
 			<div class="w-14 flex-none bg-white ring-1 ring-gray-100" />
 			<div class="grid flex-auto grid-cols-1 grid-rows-1">
 				<!--{/* Horizontal lines */}-->
-				<NewTimeLabs {containerOffset}>
+				<HorizontalTime>
 					<div bind:this={containerOffset} />
-				</NewTimeLabs>
+				</HorizontalTime>
 
 				<!--{/* Events * /}-->
 				<EventsList />

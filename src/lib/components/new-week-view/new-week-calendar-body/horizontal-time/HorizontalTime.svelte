@@ -1,5 +1,4 @@
 <script lang="ts">
-	export let containerOffset: HTMLDivElement | null = null;
 	const timeLabels = [
 		'12AM',
 		'1AM',
@@ -36,7 +35,7 @@
 	{#each timeLabels as timeLabel (timeLabel)}
 		<div>
 			<div
-				class="sticky left-0 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400"
+				class="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400"
 			>
 				{timeLabel}
 			</div>
