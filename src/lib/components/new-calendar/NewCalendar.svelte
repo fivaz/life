@@ -1,10 +1,9 @@
 <script lang="ts">
-	import NewCalendarBody from './new-calendar-body/NewCalendarBody.svelte';
-	import NewCalendarHeader from './new-calendar-header/NewCalendarHeader.svelte';
+	import NewCalendarBody from '$lib/components/new-calendar/new-calendar-body/NewCalendarBody.svelte';
+	import NewCalendarHeader from '$lib/components/new-calendar/new-calendar-header/NewCalendarHeader.svelte';
 </script>
 
 <div class="flex h-full flex-col">
 	<NewCalendarHeader />
-
 	<NewCalendarBody />
 </div>

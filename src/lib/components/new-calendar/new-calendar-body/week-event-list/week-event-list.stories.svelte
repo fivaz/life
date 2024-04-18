@@ -3,19 +3,19 @@
 
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
-	import NewDayViewSide from './NewDayViewSide.svelte';
+	import WeekEventList from './WeekEventList.svelte';
 
 	export const meta = {
 		argTypes: {},
-		component: NewDayViewSide,
+		component: WeekEventList,
 		parameters: {
 			layout: 'fullscreen',
 		},
-	} satisfies Meta<NewDayViewSide>;
+	} satisfies Meta<WeekEventList>;
 </script>
 
 <Template let:args>
-	<NewDayViewSide {...args}></NewDayViewSide>
+	<WeekEventList {...args} />
 </Template>
 
 <Story args={{}} name="Primary" />

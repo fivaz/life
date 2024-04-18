@@ -3,21 +3,19 @@
 
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
-	import NewWeekView from './NewWeekView.svelte';
+	import HorizontalTime from './HorizontalTime.svelte';
 
 	export const meta = {
 		argTypes: {},
-		component: NewWeekView,
+		component: HorizontalTime,
 		parameters: {
 			layout: 'fullscreen',
 		},
-	} satisfies Meta<NewWeekView>;
+	} satisfies Meta<HorizontalTime>;
 </script>
 
 <Template let:args>
-	<div class="h-screen">
-		<NewWeekView {...args} />
-	</div>
+	<HorizontalTime {...args} />
 </Template>
 
 <Story args={{}} name="Primary" />

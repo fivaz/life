@@ -3,19 +3,19 @@
 
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
-	import WeekListMobile from './WeekListMobile.svelte';
+	import NewWeekList from './NewWeekList.svelte';
 
 	export const meta = {
 		argTypes: {},
-		component: WeekListMobile,
+		component: NewWeekList,
 		parameters: {
 			layout: 'fullscreen',
 		},
-	} satisfies Meta<WeekListMobile>;
+	} satisfies Meta<NewWeekList>;
 </script>
 
 <Template let:args>
-	<WeekListMobile {...args}></WeekListMobile>
+	<NewWeekList {...args} />
 </Template>
 
 <Story args={{}} name="Primary" />
