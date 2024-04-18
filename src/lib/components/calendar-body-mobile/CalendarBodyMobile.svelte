@@ -65,6 +65,8 @@
 				currentMinute) /
 			1440;
 	});
+
+	const viewControls = [{ text: 'Year view' }, { text: 'Week view' }, { text: 'Month view' }];
 </script>
 
 <div class="flex h-full flex-col">
@@ -123,54 +125,18 @@
 							class="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
 						>
 							<div class="py-1">
-								<MenuItem let:active>
-									<a
-										class={clsx(
-											active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-											'block px-4 py-2 text-sm',
-										)}
-										href="#"
-									>
-										Day view
-									</a>
-									)}
-								</MenuItem>
-								<MenuItem let:active>
-									<a
-										class={clsx(
-											active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-											'block px-4 py-2 text-sm',
-										)}
-										href="#"
-									>
-										Week view
-									</a>
-									)}
-								</MenuItem>
-								<MenuItem let:active>
-									<a
-										class={clsx(
-											active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-											'block px-4 py-2 text-sm',
-										)}
-										href="#"
-									>
-										Month view
-									</a>
-									)}
-								</MenuItem>
-								<MenuItem let:active>
-									<a
-										class={clsx(
-											active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-											'block px-4 py-2 text-sm',
-										)}
-										href="#"
-									>
-										Year view
-									</a>
-									)}
-								</MenuItem>
+								{#each viewControls as viewControl (viewControl.text)}
+									<MenuItem let:active>
+										<button
+											class={clsx(
+												active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+												'block px-4 py-2 text-sm',
+											)}
+										>
+											{viewControl.text}
+										</button>
+									</MenuItem>
+								{/each}
 							</div>
 						</MenuItems>
 					</Transition>
@@ -204,81 +170,43 @@
 					>
 						<div class="py-1">
 							<MenuItem let:active>
-								<a
+								<button
 									class={clsx(
 										active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
 										'block px-4 py-2 text-sm',
 									)}
-									href="#"
 								>
 									Create event
-								</a>
+								</button>
 								)}
 							</MenuItem>
 						</div>
 						<div class="py-1">
 							<MenuItem let:active>
-								<a
+								<button
 									class={clsx(
 										active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
 										'block px-4 py-2 text-sm',
 									)}
-									href="#"
 								>
 									Go to today
-								</a>
+								</button>
 								)}
 							</MenuItem>
 						</div>
 						<div class="py-1">
-							<MenuItem let:active>
-								<a
-									class={clsx(
-										active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-										'block px-4 py-2 text-sm',
-									)}
-									href="#"
-								>
-									Day view
-								</a>
-								)}
-							</MenuItem>
-							<MenuItem let:active>
-								<a
-									class={clsx(
-										active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-										'block px-4 py-2 text-sm',
-									)}
-									href="#"
-								>
-									Week view
-								</a>
-								)}
-							</MenuItem>
-							<MenuItem let:active>
-								<a
-									class={clsx(
-										active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-										'block px-4 py-2 text-sm',
-									)}
-									href="#"
-								>
-									Month view
-								</a>
-								)}
-							</MenuItem>
-							<MenuItem let:active>
-								<a
-									class={clsx(
-										active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-										'block px-4 py-2 text-sm',
-									)}
-									href="#"
-								>
-									Year view
-								</a>
-								)}
-							</MenuItem>
+							{#each viewControls as viewControl (viewControl.text)}
+								<MenuItem let:active>
+									<button
+										class={clsx(
+											active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+											'block px-4 py-2 text-sm',
+										)}
+									>
+										{viewControl.text}
+									</button>
+								</MenuItem>
+							{/each}
 						</div>
 					</MenuItems>
 				</Transition>
@@ -558,20 +486,18 @@
 						style="grid-template-rows: 1.75rem repeat(288, minmax(0, 1fr)) auto"
 					>
 						<li class="relative mt-px flex" style="grid-row: 74 / span 12">
-							<a
+							<button
 								class="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100"
-								href="#"
 							>
 								<p class="order-1 font-semibold text-blue-700">Breakfast</p>
 								<p class="text-blue-500 group-hover:text-blue-700">
 									<time dateTime="2022-01-22T06:00">6:00 AM</time>
 								</p>
-							</a>
+							</button>
 						</li>
 						<li class="relative mt-px flex" style="grid-row: 92 / span 30">
-							<a
+							<button
 								class="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-pink-50 p-2 text-xs leading-5 hover:bg-pink-100"
-								href="#"
 							>
 								<p class="order-1 font-semibold text-pink-700">Flight to Paris</p>
 								<p class="order-1 text-pink-500 group-hover:text-pink-700">
@@ -580,19 +506,18 @@
 								<p class="text-pink-500 group-hover:text-pink-700">
 									<time dateTime="2022-01-22T07:30">7:30 AM</time>
 								</p>
-							</a>
+							</button>
 						</li>
 						<li class="relative mt-px flex" style="grid-row: 134 / span 18">
-							<a
+							<button
 								class="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-indigo-50 p-2 text-xs leading-5 hover:bg-indigo-100"
-								href="#"
 							>
 								<p class="order-1 font-semibold text-indigo-700">Sightseeing</p>
 								<p class="order-1 text-indigo-500 group-hover:text-indigo-700">Eiffel Tower</p>
 								<p class="text-indigo-500 group-hover:text-indigo-700">
 									<time dateTime="2022-01-22T11:00">11:00 AM</time>
 								</p>
-							</a>
+							</button>
 						</li>
 					</ol>
 				</div>
