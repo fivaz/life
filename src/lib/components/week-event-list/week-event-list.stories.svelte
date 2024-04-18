@@ -1,19 +1,19 @@
 <script context="module" lang="ts">
   import { Story, Template } from '@storybook/addon-svelte-csf';
   import type { Meta } from '@storybook/svelte';
-  import {{pascalCase name}} from './{{pascalCase name}}.svelte';
+  import WeekEventList from './WeekEventList.svelte';
 
   export const meta = {
 		argTypes:{},
-    component: {{pascalCase name}},
+    component: WeekEventList,
     parameters: {
       layout: 'fullscreen'
     }
-  } satisfies Meta<{{pascalCase name}}>;
+  } satisfies Meta<WeekEventList>;
 </script>
 
 <Template let:args>
-  <{{pascalCase name}} {...args} />
+  <WeekEventList {...args} />
 </Template>
 
-<Story name="Primary" args=\{{}} />
+<Story name="Primary" args={{}} />

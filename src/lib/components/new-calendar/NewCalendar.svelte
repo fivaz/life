@@ -5,5 +5,6 @@
 
 <div class="flex h-full flex-col">
 	<NewCalendarHeader />
+
 	<NewCalendarBody />
 </div>
