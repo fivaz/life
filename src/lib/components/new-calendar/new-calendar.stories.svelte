@@ -1,19 +1,21 @@
-<script lang="ts" context="module">
-  import { Story, Template } from '@storybook/addon-svelte-csf';
-  import type { Meta } from '@storybook/svelte';
-  import NewCalendar from './NewCalendar.svelte';
+<script context="module" lang="ts">
+	import type { Meta } from '@storybook/svelte';
 
-  export const meta = {
-    component: NewCalendar,
-    tags: ['autodocs'],
-    parameters: {
-      layout: 'centered'
-    }
-  } satisfies Meta<NewCalendar>;
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+
+	import NewCalendar from './NewCalendar.svelte';
+
+	export const meta = {
+		argTypes: {},
+		component: NewCalendar,
+		parameters: {
+			layout: 'fullscreen',
+		},
+	} satisfies Meta<NewCalendar>;
 </script>
 
 <Template let:args>
-  <NewCalendar {...args}></NewCalendar>
+	<NewCalendar {...args}></NewCalendar>
 </Template>
 
-<Story name="Primary" args={{}} />
+<Story args={{}} name="Primary" />

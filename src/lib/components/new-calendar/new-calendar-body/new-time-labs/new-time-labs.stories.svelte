@@ -3,19 +3,16 @@
 
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
-	import NewCalendarBody from './NewCalendarBody.svelte';
+	import NewTimeLabs from './NewTimeLabs.svelte';
 
 	export const meta = {
 		argTypes: {},
-		component: NewCalendarBody,
-		parameters: {
-			layout: 'fullscreen',
-		},
-	} satisfies Meta<NewCalendarBody>;
+		component: NewTimeLabs,
+	} satisfies Meta<NewTimeLabs>;
 </script>
 
 <Template let:args>
-	<NewCalendarBody {...args}></NewCalendarBody>
+	<NewTimeLabs {...args}></NewTimeLabs>
 </Template>
 
 <Story args={{}} name="Primary" />
