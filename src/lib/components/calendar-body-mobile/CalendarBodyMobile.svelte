@@ -104,7 +104,7 @@
 				</button>
 			</div>
 			<div class="hidden md:ml-4 md:flex md:items-center">
-				<Menu as="div" class="relative">
+				<Menu class="relative">
 					<MenuButton
 						class="flex items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
 						type="button"
@@ -178,7 +178,6 @@
 								>
 									Create event
 								</button>
-								)}
 							</MenuItem>
 						</div>
 						<div class="py-1">
@@ -191,7 +190,6 @@
 								>
 									Go to today
 								</button>
-								)}
 							</MenuItem>
 						</div>
 						<div class="py-1">
@@ -213,6 +211,7 @@
 			</Menu>
 		</div>
 	</header>
+
 	<div class="isolate flex flex-auto overflow-hidden bg-white">
 		<div bind:this={container} class="flex flex-auto flex-col overflow-auto">
 			<div
