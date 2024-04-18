@@ -3,21 +3,19 @@
 
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
-	import NewCalendar from './NewCalendar.svelte';
+	import NewDayViewSide from './NewDayViewSide.svelte';
 
 	export const meta = {
 		argTypes: {},
-		component: NewCalendar,
+		component: NewDayViewSide,
 		parameters: {
 			layout: 'fullscreen',
 		},
-	} satisfies Meta<NewCalendar>;
+	} satisfies Meta<NewDayViewSide>;
 </script>
 
 <Template let:args>
-	<div class="h-screen">
-		<NewCalendar {...args} />
-	</div>
+	<NewDayViewSide {...args}></NewDayViewSide>
 </Template>
 
 <Story args={{}} name="Primary" />

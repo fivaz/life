@@ -2,8 +2,8 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import { ChevronLeft, ChevronRight } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	
-export let dateStart: string;
+
+	export let dateStart: string;
 	export let goToPreviousWeek: () => void;
 	export let goToToday: () => void;
 	export let goToNextWeek: () => void;

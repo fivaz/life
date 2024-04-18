@@ -3,9 +3,8 @@
 	import { ChevronDown, ChevronLeft, ChevronRight, EllipsisHorizontal } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
-	import { onMount } from 'svelte';
-
-	const viewControls = [{ text: 'Year view' }, { text: 'Week view' }, { text: 'Month view' }];
+	
+const viewControls = [{ text: 'Year view' }, { text: 'Week view' }, { text: 'Month view' }];
 </script>
 
 <header class="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">

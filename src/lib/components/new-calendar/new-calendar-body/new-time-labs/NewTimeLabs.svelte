@@ -32,7 +32,7 @@
 	class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100"
 	style="grid-template-rows: repeat(48, minmax(3.5rem, 1fr))"
 >
-	<div bind:this={containerOffset} class="row-end-1 h-7"></div>
+	<slot class="row-end-1 h-7" />
 	{#each timeLabels as timeLabel (timeLabel)}
 		<div>
 			<div

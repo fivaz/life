@@ -15,7 +15,7 @@
 </script>
 
 <Template let:args>
-	<NewCalendarBody {...args}></NewCalendarBody>
+	<NewCalendarBody {...args} />
 </Template>
 
 <Story args={{}} name="Primary" />
