@@ -1,19 +1,25 @@
 <script context="module" lang="ts">
-  import { Story, Template } from '@storybook/addon-svelte-csf';
-  import type { Meta } from '@storybook/svelte';
-  import NewCalendarRows from './NewCalendarRows.svelte';
+	import type { Meta } from '@storybook/svelte';
 
-  export const meta = {
-		argTypes:{},
-    component: NewCalendarRows,
-    parameters: {
-      layout: 'fullscreen'
-    }
-  } satisfies Meta<NewCalendarRows>;
+	import { events } from '$lib/task/seed';
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+
+	import NewCalendarRows from './NewCalendarRows.svelte';
+
+	export const meta = {
+		argTypes: {},
+		component: NewCalendarRows,
+		parameters: {
+			layout: 'fullscreen',
+		},
+	} satisfies Meta<NewCalendarRows>;
 </script>
 
+<script>
+	</script>
+
 <Template let:args>
-  <NewCalendarRows {...args} />
+	<NewCalendarRows {...args} {events} />
 </Template>
 
-<Story name="Primary" args={{}} />
+<Story args={{}} name="Primary" />

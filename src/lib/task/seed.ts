@@ -2,7 +2,7 @@ import type { AnyTask, Event, RecurringEvent, ToDo } from '$lib/task/utils';
 
 import { fun, routine, sleep, work } from '$lib/category/seed';
 import { DATE, TIME } from '$lib/consts';
-import { format, set, startOfWeek } from 'date-fns';
+import { format, set, startOfWeek, startOfYesterday } from 'date-fns';
 
 function getTodayAtTime(time: string): Date {
 	const [hours, minutes] = time.split(':').map(Number);
@@ -15,14 +15,14 @@ function getTodayAtTime(time: string): Date {
 let id = 0;
 export const normalWithoutDescription: Event = {
 	category: sleep,
-	date: format(getTodayAtTime('07:00'), DATE),
+	date: format(getTodayAtTime('00:00'), DATE),
 	description: '',
 	duration: '00:45',
 	goal: null,
 	id: `${id++}`,
 	isDone: false,
 	name: 'sleep',
-	startTime: format(getTodayAtTime('07:00'), TIME),
+	startTime: format(getTodayAtTime('00:00'), TIME),
 };
 
 export const shortWithoutDescription: Event = {
@@ -57,17 +57,17 @@ export const long: RecurringEvent = {
 
 export const done: Event = {
 	category: work,
-	date: format(getTodayAtTime('00:15'), DATE),
+	date: format(startOfYesterday(), DATE),
 	description: '',
 	duration: '01:15',
 	goal: null,
 	id: `${id++}`,
 	isDone: true,
 	name: longText,
-	startTime: format(getTodayAtTime('00:15'), TIME),
+	startTime: format(getTodayAtTime('15:15'), TIME),
 };
 
-export const tasks: AnyTask[] = [normalWithoutDescription, shortWithoutDescription, long, done];
+export const events: AnyTask[] = [normalWithoutDescription, shortWithoutDescription, long, done];
 
 export const sleepRecurringEvent: RecurringEvent = {
 	category: sleep,

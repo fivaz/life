@@ -1,10 +1,10 @@
 <script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
 
+	import { events } from '$lib/task/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
 	import NewCalendar from './NewCalendar.svelte';
-
 	export const meta = {
 		argTypes: {},
 		component: NewCalendar,
@@ -16,7 +16,7 @@
 
 <Template let:args>
 	<div class="h-screen">
-		<NewCalendar {...args} />
+		<NewCalendar {...args} {events} />
 	</div>
 </Template>
 

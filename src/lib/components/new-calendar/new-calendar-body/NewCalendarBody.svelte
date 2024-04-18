@@ -1,12 +1,13 @@
 <script lang="ts">
-	import HorizontalTime from '$lib/components/new-calendar/new-calendar-body/horizontal-time/HorizontalTime.svelte';
+	import type { AnyEvent } from '$lib/task/utils';
+
 	import NewCalendarColumns from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/NewCalendarColumns.svelte';
 	import NewHorizontalTime from '$lib/components/new-calendar/new-calendar-body/new-horizontal-time/NewHorizontalTime.svelte';
 	import NewWeekList from '$lib/components/new-calendar/new-calendar-body/new-week-list/NewWeekList.svelte';
 	import { addDays } from 'date-fns';
-	import { onMount } from 'svelte';
-
-	export let weekStart: Date;
+	
+export let weekStart: Date;
+	export let events: AnyEvent[];
 
 	let container: HTMLDivElement | null = null;
 	let containerNav: HTMLDivElement | null = null;
@@ -39,7 +40,7 @@
 
 		<div class="flex w-full h-full">
 			<NewHorizontalTime />
-			<NewCalendarColumns {dates} />
+			<NewCalendarColumns {dates} {events} />
 		</div>
 		<!--		<div class="flex flex-auto">-->
 		<!--			<div class="sticky left-0 z-10 w-14 flex-none bg-white ring-1 ring-gray-100" />-->

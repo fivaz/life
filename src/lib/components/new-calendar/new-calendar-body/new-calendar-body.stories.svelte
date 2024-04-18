@@ -1,6 +1,7 @@
 <script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
 
+	import { events } from '$lib/task/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 	import { startOfWeek } from 'date-fns';
 
@@ -16,7 +17,7 @@
 </script>
 
 <Template let:args>
-	<NewCalendarBody {...args} weekStart={startOfWeek(new Date())} />
+	<NewCalendarBody {...args} {events} weekStart={startOfWeek(new Date())} />
 </Template>
 
 <Story args={{}} name="Primary" />
