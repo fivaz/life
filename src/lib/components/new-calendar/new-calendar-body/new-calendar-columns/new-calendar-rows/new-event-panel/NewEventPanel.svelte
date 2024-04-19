@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { AnyEvent } from '$lib/task/utils';
+	import type { AnyEvent, Event } from '$lib/task/utils';
 
 	import { tailwindColors } from '$lib/category/utils';
 	import NewEventPanelCore from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/new-event-panel-core/NewEventPanelCore.svelte';
@@ -8,8 +8,13 @@
 	import { createEventDispatcher, onMount } from 'svelte';
 
 	import { isSomethingDragging } from '../../../../../../../routes/dashboard/home/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
+	import { persistChange } from '../../../../../../../routes/dashboard/home/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/service';
 
 	export let event: AnyEvent;
+
+	export let userId: string;
+
+	export let targetDate: string;
 
 	let container: HTMLDivElement | undefined = undefined;
 
@@ -23,7 +28,7 @@
 		interactivePanel?.styleCursor(isSelected);
 	}
 
-	const dispatch = createEventDispatcher<{ edit: AnyEvent }>();
+	const dispatch = createEventDispatcher<{ edit: { event: Event; targetDate: string } }>();
 
 	function startDrag(e: { target: HTMLElement }) {
 		if (!isSelected) return;
@@ -70,8 +75,7 @@
 
 		isSelected = false;
 		isSomethingDragging.set(false);
-		// const hasChanged = persistChange(container, event, userId, targetDate);
-		const hasChanged = true;
+		const hasChanged = persistChange(container, event, userId, targetDate);
 
 		if (!hasChanged) {
 			Object.assign(container.style, {
@@ -93,7 +97,7 @@
 			//e.target instanceof HTMLInputElement is necessary so when clicking on the checkbox isDone doesn't open the form
 			if ($isSomethingDragging || e.target instanceof HTMLInputElement) return;
 
-			dispatch('edit', event);
+			dispatch('edit', { event, targetDate });
 		});
 
 		interactivePanel.pointerEvents({ holdDuration: 300 }).on('hold', () => {

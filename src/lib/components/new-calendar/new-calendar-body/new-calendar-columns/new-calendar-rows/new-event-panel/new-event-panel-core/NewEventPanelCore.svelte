@@ -21,7 +21,7 @@
 <div class={clsx('flex', className)}>
 	<div
 		class={clsx(
-			'group absolute inset-1 flex flex-col overflow-y-auto rounded-lg px-2 py-1 text-xs leading-5',
+			'group absolute inset-px flex flex-col overflow-y-auto rounded-lg px-2 py-1 text-xs leading-5',
 			tailwindColors[event.category.color].text,
 			tailwindColors[event.category.color].lightBg,
 			tailwindColors[event.category.color].hoverBg,

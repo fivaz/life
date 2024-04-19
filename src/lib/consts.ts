@@ -13,6 +13,7 @@ export const dashboardRoute = '/dashboard';
 
 export const profileRoute = `${dashboardRoute}/profile`;
 export const homeRoute = `${dashboardRoute}/home`;
+export const home2Route = `${dashboardRoute}/home-2`;
 export const categoriesRoute = `${dashboardRoute}/categories`;
 export const tasksRoute = `${dashboardRoute}/tasks`;
 export const goalsRoute = `${dashboardRoute}/goals`;
@@ -27,6 +28,7 @@ export const routes = [
 	loginRoute,
 	registerRoute,
 	homeRoute,
+	home2Route,
 	categoriesRoute,
 	tasksRoute,
 	goalsRoute,

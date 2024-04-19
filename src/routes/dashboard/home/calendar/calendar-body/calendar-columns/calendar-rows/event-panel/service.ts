@@ -1,15 +1,18 @@
 import type { AnyEvent } from '$lib/task/utils';
 
+import { NEW_GRID_CELL_HEIGHT } from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/service';
 import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
 import { TIME } from '$lib/consts';
 import { getDurationInMinutes } from '$lib/task/utils';
 import { addMinutes, format, subMinutes } from 'date-fns';
 
-import { GRID_CELL_HEIGHT, GRID_CELL_TIME } from '../calendar-grid/service';
+import { GRID_CELL_TIME } from '../calendar-grid/service';
 
 export function isShort(event: AnyEvent) {
 	return Math.abs(getDurationInMinutes(event)) <= 15;
 }
+
+export const GRID_CLASS = 'grid-class';
 
 export function persistChange(
 	panel: HTMLDivElement,
@@ -35,7 +38,7 @@ export function toggleCompletion(userId: string, event: AnyEvent, targetDate: st
 }
 
 export function getDurationFromCellSize(height: number) {
-	const timeIntervals = height / GRID_CELL_HEIGHT;
+	const timeIntervals = height / NEW_GRID_CELL_HEIGHT;
 	const timeIntervalRounded = Math.round(timeIntervals);
 	const resultDate = addMinutes(new Date(0, 0, 0), timeIntervalRounded * GRID_CELL_TIME);
 	return format(resultDate, 'HH:mm');
@@ -51,7 +54,7 @@ function getDateTimeFromGridCell(
 	draggedElement.style.visibility = '';
 	if (!element) return;
 
-	const gridCell: HTMLDivElement | null = element.closest<HTMLDivElement>('.grid-cell');
+	const gridCell: HTMLDivElement | null = element.closest<HTMLDivElement>(`.${GRID_CLASS}`);
 	if (!gridCell) return;
 
 	const { date, time } = gridCell.dataset;
@@ -65,7 +68,7 @@ function getDateTimeFromFirstGridCell(
 ): { date: string; startTime: string } | void {
 	const { left, top, width } = draggedElement.getBoundingClientRect();
 
-	const gridCellY = top + GRID_CELL_HEIGHT / 2;
+	const gridCellY = top + NEW_GRID_CELL_HEIGHT / 2;
 	const gridCellX = left + width / 2;
 
 	const dateTime = getDateTimeFromGridCell(draggedElement, gridCellY, gridCellX);
@@ -79,7 +82,7 @@ function getDateTimeFromLastGridCell(
 ): { date: string; startTime: string } | void {
 	const { bottom, height, left, width } = draggedElement.getBoundingClientRect();
 
-	const gridCellY = bottom - GRID_CELL_HEIGHT / 2;
+	const gridCellY = bottom - NEW_GRID_CELL_HEIGHT / 2;
 	const gridCellX = left + width / 2;
 
 	const dateTime = getDateTimeFromGridCell(draggedElement, gridCellY, gridCellX);
@@ -91,7 +94,7 @@ function getDateTimeFromLastGridCell(
 	// So if the event ends at 06:00, the last grid has 05:45.
 	const endTimeDate = new Date(0, 0, 0, endTimeHours, endTimeMinutes + GRID_CELL_TIME);
 
-	const totalGrids = Math.round(height / GRID_CELL_HEIGHT);
+	const totalGrids = Math.round(height / NEW_GRID_CELL_HEIGHT);
 	const totalTime = totalGrids * GRID_CELL_TIME;
 
 	const startTimeDate = subMinutes(endTimeDate, totalTime);

@@ -1,0 +1,38 @@
+<script lang="ts">
+	import { clsx } from 'clsx';
+	import { createEventDispatcher } from 'svelte';
+
+	import { isSomethingDragging } from '../../../../../../../../routes/dashboard/home/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
+	import { GRID_CLASS } from '../../../../../../../../routes/dashboard/home/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/service';
+
+	const dispatch = createEventDispatcher<{ create: number; move: number }>();
+
+	let className = '';
+	export { className as class };
+	export let quarterHour: number;
+	export let targetDate: string;
+
+	function getTime(quarterHour: number) {
+		const totalMinutes = quarterHour * 15;
+
+		const hours = Math.floor(totalMinutes / 60);
+		const minutes = totalMinutes % 60;
+
+		return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+	}
+</script>
+
+<!--the class grid-cell is used in EventPanel to control droppable zones for its drag and drop-->
+<div
+	class={clsx(GRID_CLASS, className)}
+	data-date={targetDate}
+	data-time={getTime(quarterHour)}
+	on:click={() => !$isSomethingDragging && dispatch('create', quarterHour)}
+	on:keydown={(e) => {
+		if (e.key === 'Enter') {
+			dispatch('create', quarterHour);
+		}
+	}}
+	role="button"
+	tabindex="0"
+/>

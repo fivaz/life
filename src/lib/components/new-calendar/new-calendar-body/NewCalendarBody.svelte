@@ -1,6 +1,4 @@
 <script lang="ts">
-	import type { AnyEvent } from '$lib/task/utils';
-
 	import NewCalendarColumns from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/NewCalendarColumns.svelte';
 	import NewHorizontalTime from '$lib/components/new-calendar/new-calendar-body/new-horizontal-time/NewHorizontalTime.svelte';
 	import NewWeekList from '$lib/components/new-calendar/new-calendar-body/new-week-list/NewWeekList.svelte';
@@ -8,7 +6,6 @@
 	import { onMount } from 'svelte';
 
 	export let weekStart: Date;
-	export let events: AnyEvent[];
 
 	let container: HTMLDivElement | null = null;
 	let containerNav: HTMLDivElement | null = null;
@@ -43,7 +40,7 @@
 			<NewHorizontalTime>
 				<div bind:this={containerOffset} />
 			</NewHorizontalTime>
-			<NewCalendarColumns {dates} {events} on:create on:edit />
+			<NewCalendarColumns {dates} on:create on:edit />
 		</div>
 	</div>
 </div>
