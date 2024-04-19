@@ -2,15 +2,16 @@
 	import type { AnyEvent, Event } from '$lib/task/utils';
 
 	import { tailwindColors } from '$lib/category/utils';
-	import { isSomethingDragging } from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-calendar-grid/service';
-	import NewEventPanelCore from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/new-event-panel-core/NewEventPanelCore.svelte';
 	import {
 		NEW_GRID_CELL_HEIGHT,
+		isSomethingDragging,
 		persistChange,
 	} from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/service';
 	import { convertTimeToMinutes } from '$lib/task/utils';
 	import interact from 'interactjs';
 	import { createEventDispatcher, onMount } from 'svelte';
+
+	import NewEventPanelCore from './new-event-panel-core/NewEventPanelCore.svelte';
 
 	export let event: AnyEvent;
 

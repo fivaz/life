@@ -1,9 +1,10 @@
 <script lang="ts">
-	import NewCalendarColumns from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/NewCalendarColumns.svelte';
-	import NewHorizontalTime from '$lib/components/new-calendar/new-calendar-body/new-horizontal-time/NewHorizontalTime.svelte';
-	import NewWeekList from '$lib/components/new-calendar/new-calendar-body/new-week-list/NewWeekList.svelte';
 	import { addDays } from 'date-fns';
 	import { onMount } from 'svelte';
+
+	import NewCalendarColumns from './new-calendar-columns/NewCalendarColumns.svelte';
+	import NewHorizontalTime from './new-horizontal-time/NewHorizontalTime.svelte';
+	import NewWeekList from './new-week-list/NewWeekList.svelte';
 
 	export let weekStart: Date;
 

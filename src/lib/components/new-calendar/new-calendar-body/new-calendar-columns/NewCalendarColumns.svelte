@@ -1,10 +1,11 @@
 <script lang="ts">
 	import type { AnyTask } from '$lib/task/utils';
 
-	import NewCalendarRows from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/NewCalendarRows.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { SignedIn } from 'sveltefire';
+
+	import NewCalendarRows from './new-calendar-rows/NewCalendarRows.svelte';
 
 	export let dates: Date[];
 

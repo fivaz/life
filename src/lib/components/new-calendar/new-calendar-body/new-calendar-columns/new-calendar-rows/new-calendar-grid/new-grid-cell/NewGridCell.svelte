@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { isSomethingDragging } from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-calendar-grid/service';
-	import { GRID_CLASS } from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/service';
+	import {
+		GRID_CLASS,
+		isSomethingDragging,
+	} from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/service';
 	import { clsx } from 'clsx';
 	import { createEventDispatcher } from 'svelte';
 

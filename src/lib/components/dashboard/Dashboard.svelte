@@ -4,14 +4,7 @@
 	import Banner from '$lib/components/banner/Banner.svelte';
 	import ProfileDropDown from '$lib/components/dashboard/profile-drop-down/ProfileDropDown.svelte';
 	import ProfileDropUp from '$lib/components/dashboard/profile-drop-up/ProfileDropUp.svelte';
-	import {
-		categoriesRoute,
-		demoLogin,
-		goalsRoute,
-		home2Route,
-		homeRoute,
-		tasksRoute,
-	} from '$lib/consts';
+	import { categoriesRoute, demoLogin, goalsRoute, homeRoute, tasksRoute } from '$lib/consts';
 	import { auth } from '$lib/firebase';
 	import { Dialog, TransitionChild, TransitionRoot } from '@rgossiaux/svelte-headlessui';
 	import { Bars3, Calendar, DocumentDuplicate, XMark } from '@steeze-ui/heroicons';
@@ -23,7 +16,6 @@
 
 	const navigation = [
 		{ href: homeRoute, icon: Calendar, name: 'Calendar' },
-		{ href: home2Route, icon: Calendar, name: 'Calendar 2' },
 		{ href: categoriesRoute, icon: DocumentDuplicate, name: 'Categories' },
 		{ href: tasksRoute, icon: List, name: 'Tasks' },
 		{ href: goalsRoute, icon: Target, name: 'Goals' },

@@ -1,9 +1,8 @@
 <script lang="ts">
-	import NewGridCell from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-calendar-grid/new-grid-cell/NewGridCell.svelte';
-	import { NEW_GRID_CELL_HEIGHT } from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/service';
 	import { clsx } from 'clsx';
 
-	import { isSomethingDragging } from './service';
+	import { NEW_GRID_CELL_HEIGHT, isSomethingDragging } from '../new-event-panel/service';
+	import NewGridCell from './new-grid-cell/NewGridCell.svelte';
 
 	const interval = 24 * 2;
 

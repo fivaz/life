@@ -1,14 +1,14 @@
 <script lang="ts">
 	import type { AnyEvent, AnyTask, ToDo } from '$lib/task/utils';
 
-	import NewCalendarGrid from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-calendar-grid/NewCalendarGrid.svelte';
-	import NewEventPanel from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/NewEventPanel.svelte';
-	import { NEW_GRID_CELL_HEIGHT } from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/service';
-	import NewDueToDos from '$lib/components/new-due-to-dos/NewDueToDos.svelte';
 	import { DATE } from '$lib/consts';
 	import { format } from 'date-fns';
 	import { SignedIn } from 'sveltefire';
 
+	import NewCalendarGrid from './new-calendar-grid/NewCalendarGrid.svelte';
+	import NewDueToDos from './new-due-to-dos/NewDueToDos.svelte';
+	import NewEventPanel from './new-event-panel/NewEventPanel.svelte';
+	import { NEW_GRID_CELL_HEIGHT } from './new-event-panel/service';
 	import { isEventOnDay, isToDoOnDay } from './service';
 
 	export let tasks: AnyTask[];

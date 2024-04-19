@@ -3,13 +3,14 @@
 	import type { AnyEvent } from '$lib/task/utils';
 
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import NewCalendarBody from '$lib/components/new-calendar/new-calendar-body/NewCalendarBody.svelte';
-	import NewCalendarHeader from '$lib/components/new-calendar/new-calendar-header/NewCalendarHeader.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { buildEmptyEvent, buildEventWithTime } from '$lib/task/build-utils';
 	import { startOfWeek } from 'date-fns';
 	import { SignedIn } from 'sveltefire';
+
+	import NewCalendarBody from './new-calendar-body/NewCalendarBody.svelte';
+	import NewCalendarHeader from './new-calendar-header/NewCalendarHeader.svelte';
 
 	let targetDate: string | undefined = undefined;
 
