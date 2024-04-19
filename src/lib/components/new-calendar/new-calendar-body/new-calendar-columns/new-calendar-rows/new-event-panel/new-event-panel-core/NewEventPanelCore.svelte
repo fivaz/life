@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { tailwindColors } from '$lib/category/utils';
+	import { GRID_CELL_TIME } from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-calendar-grid/service';
 	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
 	import { TIME } from '$lib/consts';
 	import { type AnyEvent, getDurationInMinutes } from '$lib/task/utils';
@@ -14,7 +15,7 @@
 	export { className as class };
 
 	export function isLong(event: AnyEvent) {
-		return Math.abs(getDurationInMinutes(event)) > 15;
+		return Math.abs(getDurationInMinutes(event)) > GRID_CELL_TIME;
 	}
 
 	export function toggleCompletion(userId: string, event: AnyEvent, targetDate: string) {

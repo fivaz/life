@@ -2,7 +2,10 @@ import type { Category } from '$lib/category/utils';
 import type { Goal } from '$lib/goal/utils';
 import type { Event, ToDo } from '$lib/task/utils';
 
-import { NUMBER_OF_CELLS } from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-calendar-grid/service';
+import {
+	GRID_CELL_TIME,
+	NUMBER_OF_CELLS,
+} from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-calendar-grid/service';
 import { DATE, TIME } from '$lib/consts';
 import { endOfWeek, format, setHours, setMinutes } from 'date-fns';
 
@@ -38,7 +41,7 @@ function buildDate(date: Date, cellNumber: number) {
 		throw 'Invalid number. Please enter a number between 0 and 95.';
 	}
 
-	const datetime = setMinutes(setHours(date, 0), cellNumber * 15);
+	const datetime = setMinutes(setHours(date, 0), cellNumber * GRID_CELL_TIME);
 
 	return format(datetime, TIME);
 }

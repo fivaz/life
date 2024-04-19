@@ -3,6 +3,7 @@
 
 	import { tailwindColors } from '$lib/category/utils';
 	import {
+		GRID_CELL_TIME,
 		NEW_GRID_CELL_HEIGHT,
 		isSomethingDragging,
 	} from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-calendar-grid/service';
@@ -123,13 +124,13 @@
 
 	function getTop() {
 		const startTimeMinutes = convertTimeToMinutes(event.startTime);
-		return `${(startTimeMinutes / 15) * NEW_GRID_CELL_HEIGHT}px`;
+		return `${(startTimeMinutes / GRID_CELL_TIME) * NEW_GRID_CELL_HEIGHT}px`;
 	}
 
 	function getHeight() {
 		const durationMinutes = convertTimeToMinutes(event.duration);
 
-		return `${(durationMinutes / 15) * NEW_GRID_CELL_HEIGHT}px`;
+		return `${(durationMinutes / GRID_CELL_TIME) * NEW_GRID_CELL_HEIGHT}px`;
 	}
 </script>
 

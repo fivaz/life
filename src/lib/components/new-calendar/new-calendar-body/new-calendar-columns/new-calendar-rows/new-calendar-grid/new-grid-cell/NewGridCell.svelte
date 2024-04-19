@@ -11,8 +11,8 @@
 	export let cellNumber: number;
 	export let targetDate: string;
 
-	function getTime(quarterHour: number) {
-		const totalMinutes = quarterHour * 15;
+	function getTime(cellNumber: number) {
+		const totalMinutes = cellNumber * 15;
 
 		const hours = Math.floor(totalMinutes / 60);
 		const minutes = totalMinutes % 60;
