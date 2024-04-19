@@ -1,18 +1,118 @@
 <script lang="ts">
-	import type { AnyEvent } from '$lib/task/utils';
+	import type { AnyEvent, Event } from '$lib/task/utils';
 
 	import { tailwindColors } from '$lib/category/utils';
+	import NewEventPanelCore from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/new-event-panel-core/NewEventPanelCore.svelte';
 	import { NEW_GRID_CELL_HEIGHT } from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/service';
-	import { TIME } from '$lib/consts';
-	import { getDurationInMinutes } from '$lib/task/utils';
-	import { clsx } from 'clsx';
-	import { format, parse } from 'date-fns';
-	import { createEventDispatcher } from 'svelte';
+	import interact from 'interactjs';
+	import { createEventDispatcher, onMount } from 'svelte';
+
+	import { isSomethingDragging } from '../../../../../../../routes/dashboard/home/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 
 	export let event: AnyEvent;
 
-	let className = '';
-	export { className as class };
+	let container: HTMLDivElement | undefined = undefined;
+
+	let isSelected = false;
+
+	let position = { x: 0, y: 0 };
+
+	let interactivePanel: ReturnType<typeof interact> | null = null;
+
+	$: {
+		interactivePanel?.styleCursor(isSelected);
+	}
+
+	const dispatch = createEventDispatcher<{ edit: { event: Event } }>();
+
+	function startDrag(e: { target: HTMLElement }) {
+		if (!isSelected) return;
+		isSomethingDragging.set(true);
+		Object.assign(e.target.style, {
+			backgroundColor: tailwindColors[event.category.color].normalBgCss,
+			touchAction: 'none',
+			zIndex: '1',
+		});
+	}
+
+	function onMove(e: { dx: number; dy: number; target: HTMLElement }) {
+		if (!isSelected) return;
+		position.x += e.dx;
+		position.y += e.dy;
+
+		e.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
+	}
+
+	function resizeEvent(e: {
+		deltaRect: { left: string; top: string };
+		rect: { height: number; width: number };
+		target: HTMLElement;
+	}) {
+		if (!isSelected) return;
+
+		let { x, y } = e.target.dataset;
+
+		x = (parseFloat(x || '0') || 0) + e.deltaRect.left;
+		y = (parseFloat(y || '0') || 0) + e.deltaRect.top;
+
+		Object.assign(e.target.style, {
+			height: `${e.rect.height}px`,
+			transform: `translate(${x}px, ${y}px)`,
+			width: `${e.rect.width}px`,
+		});
+
+		Object.assign(e.target.dataset, { x, y });
+	}
+
+	function unSelect(e: MouseEvent) {
+		if (!container || container.contains(e.target as Node)) return;
+		e.preventDefault();
+
+		isSelected = false;
+		isSomethingDragging.set(false);
+		// const hasChanged = persistChange(container, event, userId, targetDate);
+		const hasChanged = true;
+
+		if (!hasChanged) {
+			Object.assign(container.style, {
+				backgroundColor: '',
+				touchAction: '',
+				transform: '',
+				zIndex: '',
+			});
+		}
+		document.removeEventListener('click', unSelect);
+	}
+
+	onMount(() => {
+		if (!container) return;
+
+		interactivePanel = interact(container);
+
+		interactivePanel.on('tap', (e) => {
+			//e.target instanceof HTMLInputElement is necessary so when clicking on the checkbox isDone doesn't open the form
+			if ($isSomethingDragging || e.target instanceof HTMLInputElement) return;
+
+			dispatch('edit', { event });
+		});
+
+		interactivePanel.pointerEvents({ holdDuration: 300 }).on('hold', () => {
+			isSelected = true;
+			isSomethingDragging.set(true);
+
+			document.addEventListener('click', unSelect);
+		});
+
+		interactivePanel
+			.draggable({ autoScroll: true, listeners: { move: onMove } })
+			.on('contextmenu', (e) => e.preventDefault())
+			.on('dragstart', startDrag);
+
+		interactivePanel.resizable({
+			edges: { bottom: true, top: true },
+			listeners: { move: resizeEvent },
+		});
+	});
 
 	function timeToMinutes(time: string) {
 		const [hours, minutes] = time.split(':').map(Number);
@@ -29,44 +129,8 @@
 
 		return `${(durationMinutes / 15) * NEW_GRID_CELL_HEIGHT}px`;
 	}
-
-	const dispatch = createEventDispatcher<{ toggle: AnyEvent }>();
-
-	export function isLong(event: AnyEvent) {
-		return Math.abs(getDurationInMinutes(event)) > 15;
-	}
 </script>
 
-<div class={clsx('absolute flex w-full', className)} style="height: {getHeight()}; top: {getTop()}">
-	<div
-		class={clsx(
-			'group absolute inset-1 flex flex-col overflow-y-auto rounded-lg px-2 py-1 text-xs leading-5',
-			tailwindColors[event.category.color].text,
-			tailwindColors[event.category.color].lightBg,
-			tailwindColors[event.category.color].hoverBg,
-		)}
-	>
-		<div class="flex gap-3 justify-between items-center">
-			<p class="font-semibold truncate">
-				{event.name}
-			</p>
-			<input
-				checked={event.isDone}
-				class="rounded border-gray-300 focus:ring-indigo-600"
-				on:change={() => dispatch('toggle', event)}
-				type="checkbox"
-			/>
-		</div>
-		{#if isLong(event)}
-			<time
-				class={tailwindColors[event.category.color].lightText}
-				dateTime={`${event.date}T${event.startTime}`}
-			>
-				{format(parse(event.startTime, TIME, new Date()), 'p')}
-			</time>
-			<p class="text-pink-500 group-hover:text-pink-700">
-				{event.description}
-			</p>
-		{/if}
-	</div>
+<div bind:this={container} class="absolute w-full" style="height: {getHeight()}; top: {getTop()}">
+	<NewEventPanelCore {event} />
 </div>

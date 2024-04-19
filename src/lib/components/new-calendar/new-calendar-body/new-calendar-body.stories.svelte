@@ -17,7 +17,13 @@
 </script>
 
 <Template let:args>
-	<NewCalendarBody {...args} {events} weekStart={startOfWeek(new Date())} />
+	<NewCalendarBody
+		{...args}
+		{events}
+		on:create={(args) => console.log('create', args)}
+		on:edit={(args) => console.log('edit', args)}
+		weekStart={startOfWeek(new Date())}
+	/>
 </Template>
 
 <Story args={{}} name="Primary" />

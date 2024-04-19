@@ -7,8 +7,7 @@
 	import { addDays } from 'date-fns';
 	import { onMount } from 'svelte';
 
-	
-export let weekStart: Date;
+	export let weekStart: Date;
 	export let events: AnyEvent[];
 
 	let container: HTMLDivElement | null = null;
