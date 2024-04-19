@@ -5,8 +5,8 @@
 	import NewHorizontalTime from '$lib/components/new-calendar/new-calendar-body/new-horizontal-time/NewHorizontalTime.svelte';
 	import NewWeekList from '$lib/components/new-calendar/new-calendar-body/new-week-list/NewWeekList.svelte';
 	import { addDays } from 'date-fns';
-	
-export let weekStart: Date;
+
+	export let weekStart: Date;
 	export let events: AnyEvent[];
 
 	let container: HTMLDivElement | null = null;

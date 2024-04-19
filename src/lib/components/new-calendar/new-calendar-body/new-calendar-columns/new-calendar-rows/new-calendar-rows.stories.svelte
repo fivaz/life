@@ -16,7 +16,7 @@
 </script>
 
 <script>
-	</script>
+</script>
 
 <Template let:args>
 	<NewCalendarRows {...args} {events} />

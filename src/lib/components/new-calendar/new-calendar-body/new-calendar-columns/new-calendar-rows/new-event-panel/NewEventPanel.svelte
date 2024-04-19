@@ -25,14 +25,20 @@
 	}
 </script>
 
-<div
-	class={clsx(
-		'absolute',
-		tailwindColors[event.category.color].text,
-		tailwindColors[event.category.color].lightBg,
-		tailwindColors[event.category.color].hoverBg,
-	)}
-	style="height: {getHeight()}; top: {getTop()}"
->
-	{event.name}
+<div class="absolute flex w-full" style="height: {getHeight()}; top: {getTop()}">
+	<div
+		class={clsx(
+			'group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5',
+			tailwindColors[event.category.color].text,
+			tailwindColors[event.category.color].lightBg,
+			tailwindColors[event.category.color].hoverBg,
+		)}
+	>
+		<p class="order-1 font-semibold">
+			{event.name}
+		</p>
+		<p class={tailwindColors[event.category.color].lightText}>
+			<time dateTime="2022-01-12T06:00">{event.startTime}</time>
+		</p>
+	</div>
 </div>
