@@ -1,16 +1,14 @@
 <script lang="ts">
-	import {
-		GRID_CLASS,
-		isSomethingDragging,
-	} from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/service';
 	import { clsx } from 'clsx';
 	import { createEventDispatcher } from 'svelte';
+
+	import { GRID_CLASS, NEW_GRID_CELL_HEIGHT, isSomethingDragging } from '../service';
 
 	const dispatch = createEventDispatcher<{ create: number; move: number }>();
 
 	let className = '';
 	export { className as class };
-	export let quarterHour: number;
+	export let cellNumber: number;
 	export let targetDate: string;
 
 	function getTime(quarterHour: number) {
@@ -25,15 +23,22 @@
 
 <!--the class grid-cell is used in EventPanel to control droppable zones for its drag and drop-->
 <div
-	class={clsx(GRID_CLASS, className)}
+	class={clsx(GRID_CLASS, className, { 'border-b': $isSomethingDragging })}
 	data-date={targetDate}
-	data-time={getTime(quarterHour)}
-	on:click={() => !$isSomethingDragging && dispatch('create', quarterHour)}
+	data-time={getTime(cellNumber)}
+	on:click={() => !$isSomethingDragging && dispatch('create', cellNumber)}
 	on:keydown={(e) => {
 		if (e.key === 'Enter') {
-			dispatch('create', quarterHour);
+			dispatch('create', cellNumber);
 		}
 	}}
 	role="button"
+	style="height: {NEW_GRID_CELL_HEIGHT}px"
 	tabindex="0"
 />
+
+<style>
+	.grid-class:nth-child(even) {
+		border-bottom-width: 1px;
+	}
+</style>

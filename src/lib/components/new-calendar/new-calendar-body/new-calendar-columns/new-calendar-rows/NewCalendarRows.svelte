@@ -6,9 +6,9 @@
 	import { SignedIn } from 'sveltefire';
 
 	import NewCalendarGrid from './new-calendar-grid/NewCalendarGrid.svelte';
+	import { NEW_GRID_CELL_HEIGHT } from './new-calendar-grid/service';
 	import NewDueToDos from './new-due-to-dos/NewDueToDos.svelte';
 	import NewEventPanel from './new-event-panel/NewEventPanel.svelte';
-	import { NEW_GRID_CELL_HEIGHT } from './new-event-panel/service';
 	import { isEventOnDay, isToDoOnDay } from './service';
 
 	export let tasks: AnyTask[];

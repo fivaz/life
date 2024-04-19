@@ -1,16 +1,13 @@
 import type { AnyEvent } from '$lib/task/utils';
 
+import {
+	GRID_CELL_TIME,
+	GRID_CLASS,
+	NEW_GRID_CELL_HEIGHT,
+} from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-calendar-grid/service';
 import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
 import { TIME } from '$lib/consts';
 import { addMinutes, format, subMinutes } from 'date-fns';
-import { writable } from 'svelte/store';
-
-export const GRID_CLASS = 'grid-class';
-export const GRID_CELL_TIME = 15;
-
-export const NEW_GRID_CELL_HEIGHT = 30;
-
-export const isSomethingDragging = writable<boolean>(false);
 
 function getDateTimeFromGridCell(
 	draggedElement: HTMLDivElement,

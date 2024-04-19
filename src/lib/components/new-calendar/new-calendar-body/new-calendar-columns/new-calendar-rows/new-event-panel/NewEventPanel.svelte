@@ -5,8 +5,8 @@
 	import {
 		NEW_GRID_CELL_HEIGHT,
 		isSomethingDragging,
-		persistChange,
-	} from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/service';
+	} from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-calendar-grid/service';
+	import { persistChange } from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/service';
 	import { convertTimeToMinutes } from '$lib/task/utils';
 	import interact from 'interactjs';
 	import { createEventDispatcher, onMount } from 'svelte';
