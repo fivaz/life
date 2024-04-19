@@ -5,7 +5,7 @@ import type { Event, ToDo } from '$lib/task/utils';
 import {
 	GRID_CELL_TIME,
 	NUMBER_OF_CELLS,
-} from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-calendar-grid/service';
+} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 import { DATE, TIME } from '$lib/consts';
 import { endOfWeek, format, setHours, setMinutes } from 'date-fns';
 
