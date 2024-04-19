@@ -136,5 +136,5 @@
 </script>
 
 <div bind:this={container} class="absolute w-full" style="height: {getHeight()}; top: {getTop()}">
-	<NewEventPanelCore {event} on:toggle />
+	<NewEventPanelCore {event} {targetDate} {userId} />
 </div>

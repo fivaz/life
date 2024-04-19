@@ -6,7 +6,11 @@
 	import { format, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 
+	import { toggleCompletion } from '../../../../../../../../routes/dashboard/home/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/service';
+
 	export let event: AnyEvent;
+	export let userId: string;
+	export let targetDate: string;
 
 	let className = '';
 	export { className as class };
@@ -34,7 +38,7 @@
 			<input
 				checked={event.isDone}
 				class="rounded border-gray-300 focus:ring-indigo-600"
-				on:change={() => dispatch('toggle', event)}
+				on:change={() => toggleCompletion(userId, event, targetDate)}
 				type="checkbox"
 			/>
 		</div>
