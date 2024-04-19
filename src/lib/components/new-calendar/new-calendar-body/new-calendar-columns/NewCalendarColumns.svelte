@@ -8,16 +8,24 @@
 	export let dates: Date[];
 	export let events: AnyEvent[];
 
+	let selectedDate = new Date();
+
 	function getEvents(date: Date, tasks: AnyTask[]): Array<AnyEvent> {
 		return tasks.filter((task): task is AnyEvent => isEventOnDay(task, date));
 	}
 </script>
 
-<div class="grow flex">
+<div class="hidden grow md:flex">
 	<div class="w-full grid grid-cols-7 border-x divide-x">
 		{#each dates as date (date)}
 			<NewCalendarRows events={getEvents(date, events)}></NewCalendarRows>
 		{/each}
 	</div>
 	<div class="w-8" />
+</div>
+
+<div class="md:hidden grow flex">
+	<div class="w-full divide-x border-x grow flex">
+		<NewCalendarRows events={getEvents(selectedDate, events)}></NewCalendarRows>
+	</div>
 </div>

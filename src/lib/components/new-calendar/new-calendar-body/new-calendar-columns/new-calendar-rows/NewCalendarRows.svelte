@@ -7,7 +7,7 @@
 	export let events: AnyEvent[];
 </script>
 
-<div class="">
+<div class="flex-grow">
 	<div class="h-7 border-b"></div>
 	<div class="relative">
 		<NewCalendarGrid></NewCalendarGrid>
