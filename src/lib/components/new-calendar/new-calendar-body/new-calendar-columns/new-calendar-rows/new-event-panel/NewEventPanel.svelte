@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { AnyEvent, Event } from '$lib/task/utils';
+	import type { AnyEvent } from '$lib/task/utils';
 
 	import { tailwindColors } from '$lib/category/utils';
 	import NewEventPanelCore from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/new-event-panel-core/NewEventPanelCore.svelte';
@@ -23,7 +23,7 @@
 		interactivePanel?.styleCursor(isSelected);
 	}
 
-	const dispatch = createEventDispatcher<{ edit: { event: Event } }>();
+	const dispatch = createEventDispatcher<{ edit: AnyEvent }>();
 
 	function startDrag(e: { target: HTMLElement }) {
 		if (!isSelected) return;
@@ -93,7 +93,7 @@
 			//e.target instanceof HTMLInputElement is necessary so when clicking on the checkbox isDone doesn't open the form
 			if ($isSomethingDragging || e.target instanceof HTMLInputElement) return;
 
-			dispatch('edit', { event });
+			dispatch('edit', event);
 		});
 
 		interactivePanel.pointerEvents({ holdDuration: 300 }).on('hold', () => {
@@ -132,5 +132,5 @@
 </script>
 
 <div bind:this={container} class="absolute w-full" style="height: {getHeight()}; top: {getTop()}">
-	<NewEventPanelCore {event} />
+	<NewEventPanelCore {event} on:toggle />
 </div>

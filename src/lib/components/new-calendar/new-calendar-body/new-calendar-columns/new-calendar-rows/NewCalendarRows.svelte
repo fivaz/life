@@ -13,7 +13,7 @@
 	<div class="relative">
 		<NewCalendarGrid></NewCalendarGrid>
 		{#each events as event (event)}
-			<NewEventPanel {event}></NewEventPanel>
+			<NewEventPanel {event} on:edit on:toggle />
 		{/each}
 	</div>
 </div>
