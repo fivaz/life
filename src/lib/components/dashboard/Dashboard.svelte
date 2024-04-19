@@ -1,16 +1,20 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { currentUser } from '$lib/auth/store';
 	import Banner from '$lib/components/banner/Banner.svelte';
 	import ProfileDropDown from '$lib/components/dashboard/profile-drop-down/ProfileDropDown.svelte';
 	import ProfileDropUp from '$lib/components/dashboard/profile-drop-up/ProfileDropUp.svelte';
 	import { categoriesRoute, demoLogin, goalsRoute, homeRoute, tasksRoute } from '$lib/consts';
+	import { auth } from '$lib/firebase';
 	import { Dialog, TransitionChild, TransitionRoot } from '@rgossiaux/svelte-headlessui';
 	import { Bars3, Calendar, DocumentDuplicate, XMark } from '@steeze-ui/heroicons';
 	import { List, Target } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import classnames from 'classnames';
-	
-const navigation = [
+	import { onAuthStateChanged } from 'firebase/auth';
+	import { onMount } from 'svelte';
+
+	const navigation = [
 		{ href: homeRoute, icon: Calendar, name: 'Calendar' },
 		{ href: categoriesRoute, icon: DocumentDuplicate, name: 'Categories' },
 		{ href: tasksRoute, icon: List, name: 'Tasks' },
@@ -19,11 +23,11 @@ const navigation = [
 
 	let sidebarOpen = false;
 
-	// onMount(() => {
-	// 	onAuthStateChanged(auth, (user) => {
-	// 		currentUser.set(user);
-	// 	});
-	// });
+	onMount(() => {
+		onAuthStateChanged(auth, (user) => {
+			currentUser.set(user);
+		});
+	});
 </script>
 
 <div>
@@ -84,13 +88,21 @@ const navigation = [
 												<li>
 													<a
 														class={classnames(
+															$page.url.pathname === item.href
+																? 'bg-gray-50 text-indigo-600'
+																: 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600',
 															'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
 														)}
 														href={item.href}
 													>
 														<Icon
 															aria-hidden="true"
-															class={classnames('h-6 w-6 shrink-0')}
+															class={classnames(
+																$page.url.pathname === item.href
+																	? 'text-indigo-600'
+																	: 'text-gray-400 group-hover:text-indigo-600',
+																'h-6 w-6 shrink-0',
+															)}
 															src={item.icon}
 														/>
 														{item.name}
@@ -130,13 +142,21 @@ const navigation = [
 								<li>
 									<a
 										class={classnames(
+											$page.url.pathname === item.href
+												? 'bg-gray-50 text-indigo-600'
+												: 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600',
 											'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
 										)}
 										href={item.href}
 									>
 										<Icon
 											aria-hidden="true"
-											class={classnames('h-6 w-6 shrink-0')}
+											class={classnames(
+												$page.url.pathname === item.href
+													? 'text-indigo-600'
+													: 'text-gray-400 group-hover:text-indigo-600',
+												'h-6 w-6 shrink-0',
+											)}
 											src={item.icon}
 										/>
 										{item.name}
@@ -186,7 +206,7 @@ const navigation = [
 		</ProfileDropDown>
 	</div>
 
-	<main class="lg:pl-72">
+	<main class="md:pb-5 lg:pl-72">
 		<div class="px-4 sm:px-6 lg:px-8">
 			<slot />
 		</div>
