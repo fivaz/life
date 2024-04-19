@@ -2,11 +2,18 @@
 	import type { AnyEvent } from '$lib/task/utils';
 
 	import { tailwindColors } from '$lib/category/utils';
+	import { TIME } from '$lib/consts';
+	import { getDurationInMinutes } from '$lib/task/utils';
 	import { clsx } from 'clsx';
+	import { format, parse } from 'date-fns';
+	import { createEventDispatcher } from 'svelte';
 
 	import { GRID_CELL_HEIGHT } from '../../../../../../../routes/dashboard/home/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 
 	export let event: AnyEvent;
+
+	let className = '';
+	export { className as class };
 
 	function timeToMinutes(time: string) {
 		const [hours, minutes] = time.split(':').map(Number);
@@ -23,22 +30,44 @@
 
 		return `${(durationMinutes / 15) * GRID_CELL_HEIGHT}px`;
 	}
+
+	const dispatch = createEventDispatcher<{ toggle: AnyEvent }>();
+
+	export function isLong(event: AnyEvent) {
+		return Math.abs(getDurationInMinutes(event)) > 15;
+	}
 </script>
 
-<div class="absolute flex w-full" style="height: {getHeight()}; top: {getTop()}">
+<div class={clsx('absolute flex w-full', className)} style="height: {getHeight()}; top: {getTop()}">
 	<div
 		class={clsx(
-			'group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5',
+			'group absolute inset-1 flex flex-col overflow-y-auto rounded-lg p-2 text-xs leading-5',
 			tailwindColors[event.category.color].text,
 			tailwindColors[event.category.color].lightBg,
 			tailwindColors[event.category.color].hoverBg,
 		)}
 	>
-		<p class="order-1 font-semibold">
-			{event.name}
-		</p>
-		<p class={tailwindColors[event.category.color].lightText}>
-			<time dateTime="2022-01-12T06:00">{event.startTime}</time>
-		</p>
+		<div class="flex gap-3 justify-between items-start">
+			<p class="font-semibold truncate">
+				{event.name}
+			</p>
+			<input
+				checked={event.isDone}
+				class="rounded border-gray-300 focus:ring-indigo-600"
+				on:change={() => dispatch('toggle', event)}
+				type="checkbox"
+			/>
+		</div>
+		{#if isLong(event)}
+			<time
+				class={tailwindColors[event.category.color].lightText}
+				dateTime={`${event.date}T${event.startTime}`}
+			>
+				{format(parse(event.startTime, TIME, new Date()), 'p')}
+			</time>
+			<p class="text-pink-500 group-hover:text-pink-700">
+				{event.description}
+			</p>
+		{/if}
 	</div>
 </div>

@@ -9,16 +9,13 @@
 	export const meta = {
 		argTypes: {},
 		component: NewEventPanel,
-		parameters: {
-			layout: 'fullscreen',
-		},
 	} satisfies Meta<NewEventPanel>;
 </script>
 
 <Template let:args>
-	<ol>
-		<NewEventPanel {...args} />
-	</ol>
+	<div class="w-52">
+		<NewEventPanel {...args} class="!static" />
+	</div>
 </Template>
 
 <Story args={{ event: normalWithoutDescription }} name="normal Without a Description" />

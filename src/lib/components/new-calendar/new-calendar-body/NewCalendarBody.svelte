@@ -7,7 +7,8 @@
 	import { addDays } from 'date-fns';
 	import { onMount } from 'svelte';
 
-	export let weekStart: Date;
+	
+export let weekStart: Date;
 	export let events: AnyEvent[];
 
 	let container: HTMLDivElement | null = null;
@@ -43,7 +44,7 @@
 			<NewHorizontalTime>
 				<div bind:this={containerOffset} />
 			</NewHorizontalTime>
-			<NewCalendarColumns {dates} {events} />
+			<NewCalendarColumns {dates} {events} on:create on:edit />
 		</div>
 	</div>
 </div>

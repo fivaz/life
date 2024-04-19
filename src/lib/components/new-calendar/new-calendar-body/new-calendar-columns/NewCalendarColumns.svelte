@@ -18,7 +18,7 @@
 <div class="hidden grow md:flex">
 	<div class="w-full grid grid-cols-7 border-x divide-x">
 		{#each dates as date (date)}
-			<NewCalendarRows events={getEvents(date, events)}></NewCalendarRows>
+			<NewCalendarRows events={getEvents(date, events)} on:create on:edit />
 		{/each}
 	</div>
 	<div class="w-8" />
@@ -26,6 +26,6 @@
 
 <div class="md:hidden grow flex">
 	<div class="w-full divide-x border-x grow flex">
-		<NewCalendarRows events={getEvents(selectedDate, events)}></NewCalendarRows>
+		<NewCalendarRows events={getEvents(selectedDate, events)} on:create on:edit />
 	</div>
 </div>
