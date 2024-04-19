@@ -28,7 +28,10 @@
 	$: dates = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
 </script>
 
-<div bind:this={container} class="isolate flex flex-auto flex-col overflow-auto bg-white">
+<div
+	bind:this={container}
+	class="isolate flex flex-auto flex-col overflow-auto border-b border-l bg-white"
+>
 	<div class="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full">
 		<div
 			bind:this={containerNav}

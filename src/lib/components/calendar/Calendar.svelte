@@ -25,7 +25,7 @@
 
 <SignedIn let:user>
 	<TypedCollection let:data={categories} ref={`users/${user.uid}/categories`} type={categoryType}>
-		<div class="flex h-full flex-col">
+		<div class="flex h-screen flex-col md:h-[calc(100vh-20px)]">
 			<CalendarHeader
 				bind:weekStart
 				on:create={() => {

@@ -38,7 +38,7 @@
 />
 
 <style>
-	.grid-class:nth-child(even) {
+	.grid-class:nth-child(even):not(:last-child) {
 		border-bottom-width: 1px;
 	}
 </style>
