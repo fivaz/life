@@ -12,8 +12,8 @@
 	let selectedDate = new Date();
 
 	const dispatch = createEventDispatcher<{
-		create: { date: Date; timeInterval: number };
-		move: { date: Date; timeInterval: number };
+		create: { cellNumber: number; date: Date };
+		move: { cellNumber: number; date: Date };
 	}>();
 
 	let taskType: AnyTask;
@@ -26,7 +26,7 @@
 				{#each dates as date (date)}
 					<NewCalendarRows
 						{date}
-						on:create={(e) => dispatch('create', { date, timeInterval: e.detail })}
+						on:create={(e) => dispatch('create', { cellNumber: e.detail, date })}
 						on:edit
 						{tasks}
 					/>
@@ -39,7 +39,7 @@
 			<div class="flex w-full grow divide-x border-x">
 				<NewCalendarRows
 					date={selectedDate}
-					on:create={(e) => dispatch('create', { date: selectedDate, timeInterval: e.detail })}
+					on:create={(e) => dispatch('create', { cellNumber: e.detail, date: selectedDate })}
 					on:edit
 					{tasks}
 				/>

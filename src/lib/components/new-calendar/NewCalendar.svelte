@@ -36,7 +36,7 @@
 			<NewCalendarBody
 				on:create={(e) => {
 					showForm = true;
-					editingEvent = buildEventWithTime(categories, e.detail.date, e.detail.timeInterval);
+					editingEvent = buildEventWithTime(categories, e.detail.date, e.detail.cellNumber);
 				}}
 				on:edit={(e) => {
 					showForm = true;

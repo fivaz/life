@@ -75,9 +75,9 @@ export function getDateTimeBeneath(
 }
 
 export function getDurationFromCellSize(height: number) {
-	const timeIntervals = height / NEW_GRID_CELL_HEIGHT;
-	const timeIntervalRounded = Math.round(timeIntervals);
-	const resultDate = addMinutes(new Date(0, 0, 0), timeIntervalRounded * GRID_CELL_TIME);
+	const numberOfFilledCells = height / NEW_GRID_CELL_HEIGHT;
+	const roundedNumberOfFilledCells = Math.round(numberOfFilledCells);
+	const resultDate = addMinutes(new Date(0, 0, 0), roundedNumberOfFilledCells * GRID_CELL_TIME);
 	return format(resultDate, 'HH:mm');
 }
 
