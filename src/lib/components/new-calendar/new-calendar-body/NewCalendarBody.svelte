@@ -36,7 +36,7 @@
 			<NewWeekList {dates} />
 		</div>
 
-		<div class="flex w-full h-full">
+		<div class="flex h-full w-full">
 			<NewHorizontalTime>
 				<div bind:this={containerOffset} />
 			</NewHorizontalTime>

@@ -27,7 +27,7 @@
 <button
 	class={classnames(
 		colors[color],
-		'inline-flex gap-2 justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
+		'inline-flex justify-center gap-2 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
 		className,
 		{ 'opacity-70': disabled },
 	)}
@@ -36,7 +36,7 @@
 	{type}
 >
 	{#if isLoading}
-		<Icon class="animate-spin h-5 w-5" src={ArrowPath} />
+		<Icon class="h-5 w-5 animate-spin" src={ArrowPath} />
 	{/if}
 	<!--hides the content of the button when showing the loading icon, if the content of the button
 	 is an icon without any text-->

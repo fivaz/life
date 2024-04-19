@@ -9,7 +9,7 @@
 </script>
 
 <div
-	class="h-full grid divide-y"
+	class="grid h-full divide-y"
 	style="grid-template-rows: repeat({halfHourInterval}, minmax({GRID_CELL_HEIGHT * 2}px, 1fr))"
 >
 	{#each Array.from({ length: halfHourInterval }, (_, i) => i * 2) as quarterHour (quarterHour)}

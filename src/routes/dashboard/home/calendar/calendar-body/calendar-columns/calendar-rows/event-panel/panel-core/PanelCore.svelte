@@ -12,9 +12,9 @@
 	export let targetDate: string;
 </script>
 
-<div class="relative font-semibold overflow-hidden">
+<div class="relative overflow-hidden font-semibold">
 	{#if isShort(event)}
-		<div class="flex gap-3 justify-between items-center">
+		<div class="flex items-center justify-between gap-3">
 			<div class="overflow-hidden">
 				<p class="truncate">{event.name}</p>
 			</div>
@@ -28,7 +28,7 @@
 		</div>
 	{:else}
 		<div>
-			<div class="flex gap-3 justify-between items-center">
+			<div class="flex items-center justify-between gap-3">
 				<p class="text-blue-500 group-hover:text-blue-700">
 					<time dateTime={`${event.date} ${event.startTime}`}>
 						{format(parse(event.startTime, TIME, new Date()), 'p')}

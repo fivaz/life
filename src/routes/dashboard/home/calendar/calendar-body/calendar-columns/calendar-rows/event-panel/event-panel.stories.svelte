@@ -13,7 +13,7 @@
 </script>
 
 <Template let:args>
-	<div class="w-40 h-40 relative">
+	<div class="relative h-40 w-40">
 		<EventPanel {...args} />
 	</div>
 </Template>

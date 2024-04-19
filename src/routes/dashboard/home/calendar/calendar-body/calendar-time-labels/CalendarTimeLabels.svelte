@@ -34,10 +34,10 @@
 		style="grid-template-rows: repeat({timeLabels.length * 2}, minmax(3.5rem, 1fr))"
 	>
 		{#each timeLabels as timeLabel (timeLabel)}
-			<div class="sm:block hidden w-14 pr-2 row-span-2">
+			<div class="row-span-2 hidden w-14 pr-2 sm:block">
 				{timeLabel}
 			</div>
-			<div class="block sm:hidden w-7 pr-2 row-span-2">
+			<div class="row-span-2 block w-7 pr-2 sm:hidden">
 				{timeLabel.replace(/\D/g, '')}
 			</div>
 		{/each}

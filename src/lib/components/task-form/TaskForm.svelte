@@ -122,14 +122,14 @@
 </script>
 
 <form
-	class="w-[355px] shadow rounded-md overflow-hidden relative text-start font-medium"
+	class="relative w-[355px] overflow-hidden rounded-md text-start font-medium shadow"
 	on:submit|preventDefault={onSubmit}
 >
 	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
-		<div class="flex justify-between items-center pb-2">
+		<div class="flex items-center justify-between pb-2">
 			<h2 class="text-lg text-gray-900">{formName}</h2>
 			<button
-				class="pl-2 inline-flex rounded-md p-1.5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
+				class="inline-flex rounded-md p-1.5 pl-2 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
 				on:click={() => dispatch('close')}
 				type="button"
 			>
@@ -143,7 +143,7 @@
 		</Alert>
 
 		<div class="flex flex-col gap-2 text-sm text-gray-700">
-			<div class="flex gap-3 items-center">
+			<div class="flex items-center gap-3">
 				<Input
 					autocomplete="off"
 					bind:value={taskIn.name}
@@ -162,27 +162,27 @@
 				</label>
 			</div>
 
-			<Disclosure class="bg-white rounded-lg p-2" let:open>
-				<DisclosureButton class="flex justify-between w-full">
+			<Disclosure class="rounded-lg bg-white p-2" let:open>
+				<DisclosureButton class="flex w-full justify-between">
 					<span>Description</span>
-					<Icon class="w-5 h-5 {open ? 'rotate-90 transform' : ''}" src={ChevronRight} />
+					<Icon class="h-5 w-5 {open ? 'rotate-90 transform' : ''}" src={ChevronRight} />
 				</DisclosureButton>
 				<Transition
-					class="transition-all duration-500 overflow-hidden"
+					class="overflow-hidden transition-all duration-500"
 					enterFrom="transform opacity-0 max-h-0"
 					enterTo="transform opacity-100 max-h-36"
 					leaveFrom="transform opacity-100 max-h-36"
 					leaveTo="transform opacity-0 max-h-0"
 				>
-					<DisclosurePanel class="text-gray-500 pt-2 flex flex-col gap-2">
-						<div class="flex flex-col gap-2 w-full">
-							<div class="h-24 flex items-center justify-center overflow-hidden">
+					<DisclosurePanel class="flex flex-col gap-2 pt-2 text-gray-500">
+						<div class="flex w-full flex-col gap-2">
+							<div class="flex h-24 items-center justify-center overflow-hidden">
 								{#if image}
 									<button on:click={() => (isImageOpen = true)} type="button">
 										<img alt="event description" src={image} />
 									</button>
 									<Modal on:close={() => (isImageOpen = false)} show={isImageOpen}>
-										<div class="bg-white p-2 rounded-lg shadow">
+										<div class="rounded-lg bg-white p-2 shadow">
 											<img alt="event description" src={image} />
 										</div>
 									</Modal>
@@ -192,7 +192,7 @@
 							</div>
 
 							<label
-								class="w-full focus-visible:outline-indigo-600 bg-indigo-600 hover:bg-indigo-500 inline-flex gap-2 justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+								class="inline-flex w-full justify-center gap-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 							>
 								<input
 									accept="image/*"
@@ -208,7 +208,7 @@
 						<label class="block text-sm text-gray-700">
 							<textarea
 								bind:value={taskIn.description}
-								class="p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+								class="block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 								name="description"
 								placeholder="description"
 							/>
@@ -259,7 +259,7 @@
 				type="date"
 			/>
 
-			<div class="bg-white rounded-lg p-2">
+			<div class="rounded-lg bg-white p-2">
 				<div class="flex">
 					<button
 						class="flex-1 text-start"
@@ -279,7 +279,7 @@
 
 				{#if taskIn.isEvent}
 					<Transition
-						class="transition-all duration-500 overflow-hidden"
+						class="overflow-hidden transition-all duration-500"
 						enterFrom="transform opacity-0 max-h-0"
 						enterTo="transform opacity-100 max-h-36"
 						leaveFrom="transform opacity-100 max-h-36"
@@ -287,7 +287,7 @@
 						show={isEventOpen}
 						unmount={false}
 					>
-						<div class="flex gap-3 pt-2 overflow-hidden">
+						<div class="flex gap-3 overflow-hidden pt-2">
 							<Input
 								bind:value={taskIn.date}
 								class="w-1/2"
@@ -334,7 +334,7 @@
 			</div>
 
 			{#if taskIn.isEvent}
-				<div class="bg-white rounded-lg p-2">
+				<div class="rounded-lg bg-white p-2">
 					<div class="flex">
 						<button
 							class="flex-1 text-start"
@@ -361,7 +361,7 @@
 
 					{#if taskIn.isRecurring}
 						<Transition
-							class="transition-all duration-500 overflow-hidden"
+							class="overflow-hidden transition-all duration-500"
 							enterFrom="transform opacity-0 max-h-0"
 							enterTo="transform opacity-100 max-h-36"
 							leaveFrom="transform opacity-100 max-h-36"
@@ -389,7 +389,7 @@
 								/>
 							</div>
 							<div>
-								<h3 class="block text-sm text-gray-700 mb-1">Repeat every</h3>
+								<h3 class="mb-1 block text-sm text-gray-700">Repeat every</h3>
 								<DaysCheckbox
 									bind:value={taskIn.recurringDaysOfWeek}
 									class="flex justify-around"
@@ -398,12 +398,12 @@
 							</div>
 
 							<div>
-								<label class="block text-sm text-gray-700 mb-1" for="recurringExceptions">
+								<label class="mb-1 block text-sm text-gray-700" for="recurringExceptions">
 									Exclude on
 								</label>
 								<Flatpickr
 									bind:value={taskIn.recurringExceptions}
-									class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+									class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 									id="recurringExceptions"
 									name="recurringExceptions"
 									options={{
@@ -419,7 +419,7 @@
 		</div>
 	</div>
 
-	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
+	<div class="flex justify-between bg-gray-50 px-4 py-3 text-right sm:px-6">
 		{#if isEditing}
 			<ConfirmButton
 				color="red"

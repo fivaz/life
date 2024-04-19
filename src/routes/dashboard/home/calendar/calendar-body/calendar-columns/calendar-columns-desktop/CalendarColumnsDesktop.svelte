@@ -33,20 +33,20 @@
 </script>
 
 <div class={className}>
-	<div class="h-full grid grid-cols-7 divide-x">
+	<div class="grid h-full grid-cols-7 divide-x">
 		{#each dates as date (date)}
 			<div class="flex flex-col divide-y">
-				<div class="text-xs text-center h-8">
+				<div class="h-8 text-center text-xs">
 					<Stats class="justify-center" events={getEvents(date, tasks)} />
 					<DueToDos toDos={getToDos(date, tasks)} />
 				</div>
 
-				<div class="flex items-center justify-center gap-1 flex-row py-3">
+				<div class="flex flex-row items-center justify-center gap-1 py-3">
 					{format(date, 'E')}
 					<span
 						class={classnames(
 							{ 'rounded-full bg-indigo-600 text-white': isToday(date) },
-							'flex items-center justify-center font-semibold h-8 w-8',
+							'flex h-8 w-8 items-center justify-center font-semibold',
 						)}
 					>
 						{format(date, 'dd')}

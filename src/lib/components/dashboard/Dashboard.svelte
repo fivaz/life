@@ -62,7 +62,7 @@
 					leaveFrom="translate-x-0"
 					leaveTo="-translate-x-full"
 				>
-					<div class="relative mr-16 flex w-full h-full max-w-xs flex-1">
+					<div class="relative mr-16 flex h-full w-full max-w-xs flex-1">
 						<TransitionChild
 							as="div"
 							enter="ease-in-out duration-300"
@@ -98,8 +98,8 @@
 														class={classnames(
 															$page.url.pathname === item.href
 																? 'bg-gray-50 text-indigo-600'
-																: 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50',
-															'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
+																: 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600',
+															'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
 														)}
 														href={item.href}
 													>
@@ -152,8 +152,8 @@
 										class={classnames(
 											$page.url.pathname === item.href
 												? 'bg-gray-50 text-indigo-600'
-												: 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50',
-											'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
+												: 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600',
+											'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
 										)}
 										href={item.href}
 									>

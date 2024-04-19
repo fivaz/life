@@ -129,7 +129,7 @@
 			<form class="space-y-6" use:form>
 				{#if email}
 					<div class="flex flex-col justify-center">
-						<h3 class="text-center block text-sm font-medium leading-6 text-gray-900">
+						<h3 class="block text-center text-sm font-medium leading-6 text-gray-900">
 							Your Avatar
 						</h3>
 						<img alt="your avatar" class="h-10 w-auto" src={photoURL} />

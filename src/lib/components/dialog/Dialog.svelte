@@ -42,13 +42,13 @@
 					<Icon aria-hidden="true" class="h-6 w-6" src={XMark} />
 				</button>
 			</div>
-			<div class="sm:flex sm:items-start items-center">
+			<div class="items-center sm:flex sm:items-start">
 				<div
 					class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
 				>
 					<Icon aria-hidden="true" class="h-6 w-6 text-red-600" src={ExclamationTriangle} />
 				</div>
-				<div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left flex flex-col gap-2">
+				<div class="mt-3 flex flex-col gap-2 text-center sm:ml-4 sm:mt-0 sm:text-left">
 					<!--pr-6 to prevent the X button to cover the end of the title-->
 					<h3 class="text-base font-semibold leading-6 text-gray-900 sm:pr-6">{title}</h3>
 					{#if message}

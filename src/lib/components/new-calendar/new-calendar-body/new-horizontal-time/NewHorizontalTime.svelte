@@ -33,7 +33,7 @@
 	<div style="height: {NEW_GRID_CELL_HEIGHT}px">
 		<slot />
 	</div>
-	<div class="flex flex-col text-right pr-2 text-xs leading-5 text-gray-400 w-14">
+	<div class="flex w-14 flex-col pr-2 text-right text-xs leading-5 text-gray-400">
 		{#each timeLabels as timeLabel (timeLabel)}
 			<div style="height: {NEW_GRID_CELL_HEIGHT * 4}px">
 				<div class="-translate-y-1/2">

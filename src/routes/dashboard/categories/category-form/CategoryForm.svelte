@@ -48,9 +48,9 @@
 	});
 </script>
 
-<form class="w-[355px] shadow rounded-md" on:submit|preventDefault use:form>
+<form class="w-[355px] rounded-md shadow" on:submit|preventDefault use:form>
 	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
-		<div class="flex justify-between items-center pb-2">
+		<div class="flex items-center justify-between pb-2">
 			<h2 class="text-lg font-medium text-gray-900">
 				{#if isEditing}
 					Edit Category
@@ -59,7 +59,7 @@
 				{/if}
 			</h2>
 			<button
-				class="pl-2 inline-flex rounded-md p-1.5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
+				class="inline-flex rounded-md p-1.5 pl-2 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
 				on:click={() => dispatch('close')}
 				type="button"
 			>
@@ -83,14 +83,14 @@
 				name="color"
 				selectClass="flex-1"
 			>
-				<div class="flex gap-5 items-center" slot="placeholder">
+				<div class="flex items-center gap-5" slot="placeholder">
 					<div class={classnames('h-5 w-5 rounded-md', tailwindColors[$data?.color]?.darkBg)} />
 					{$data.color}
 				</div>
 
 				{#each Object.keys(tailwindColors) as color (color)}
 					<SelectItem value={color}>
-						<div class="flex gap-5 items-center">
+						<div class="flex items-center gap-5">
 							<div class={classnames('h-5 w-5 rounded-md', tailwindColors[color]?.darkBg)} />
 							{color}
 						</div>
@@ -106,20 +106,20 @@
 				name="type"
 				selectClass="flex-1"
 			>
-				<div class="flex gap-5 items-center" slot="placeholder">{$data.type}</div>
+				<div class="flex items-center gap-5" slot="placeholder">{$data.type}</div>
 
 				{#each types as type (type)}
-					<SelectItem class="flex gap-5 items-center" value={type}>{type}</SelectItem>
+					<SelectItem class="flex items-center gap-5" value={type}>{type}</SelectItem>
 				{/each}
 			</Select>
 
-			<div class="bg-white rounded-lg p-2">
+			<div class="rounded-lg bg-white p-2">
 				<Toggle bind:value={$data.isDefault} label="Is default" name="isDefault" />
 			</div>
 		</div>
 	</div>
 
-	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
+	<div class="flex justify-between bg-gray-50 px-4 py-3 text-right sm:px-6">
 		{#if isEditing}
 			<ConfirmButton
 				color="red"

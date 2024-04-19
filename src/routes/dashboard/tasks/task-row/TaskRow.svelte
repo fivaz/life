@@ -24,12 +24,12 @@
 <li
 	class={classnames(
 		tailwindColors[task.category.color].darkBg,
-		'flex gap-x-3 rounded-lg p-3 justify-between leading-6 font-semibold text-gray-50 text-sm',
+		'flex justify-between gap-x-3 rounded-lg p-3 text-sm font-semibold leading-6 text-gray-50',
 	)}
 >
-	<div class="flex items-center gap-x-3 justify-between">
+	<div class="flex items-center justify-between gap-x-3">
 		<div class="hidden sm:block">{formatDate(task, DATE_FR)}</div>
-		<div class="sm:hidden block">{formatDate(task, DATE_FR_SHORT)}</div>
+		<div class="block sm:hidden">{formatDate(task, DATE_FR_SHORT)}</div>
 		<div class="name">{task.name}</div>
 	</div>
 

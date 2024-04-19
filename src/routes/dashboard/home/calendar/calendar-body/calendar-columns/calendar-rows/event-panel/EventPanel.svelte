@@ -126,12 +126,12 @@
 	bind:this={panel}
 	class={classnames(
 		{ 'py-2': !isShort(event) },
-		'w-full h-full rounded-lg pointer-events-auto min-w-0 select-none box-border',
-		'group w-full h-full flex flex-col rounded-lg py-1 px-2 text-xs leading-5',
+		'pointer-events-auto box-border h-full w-full min-w-0 select-none rounded-lg',
+		'group flex h-full w-full flex-col rounded-lg px-2 py-1 text-xs leading-5',
 		tailwindColors[event.category.color].text,
 		tailwindColors[event.category.color].lightBg,
 		tailwindColors[event.category.color].hoverBg,
-		{ 'border border-1 border-black touch-none': isSelected },
+		{ 'border-1 touch-none border border-black': isSelected },
 	)}
 	style={getGridRowsStyle(event)}
 >

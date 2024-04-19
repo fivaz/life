@@ -14,9 +14,9 @@
 	});
 </script>
 
-<div class="flex justify-center items-center h-screen">
+<div class="flex h-screen items-center justify-center">
 	<div class="flex gap-3">
-		<Icon class="animate-spin h-6 w-6" src={Loader2} />
+		<Icon class="h-6 w-6 animate-spin" src={Loader2} />
 		<p class="font-semibold">Loading...</p>
 	</div>
 </div>

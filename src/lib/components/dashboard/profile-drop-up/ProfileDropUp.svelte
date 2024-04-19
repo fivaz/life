@@ -17,7 +17,7 @@
 		leaveTo="transform opacity-0 scale-95"
 	>
 		<MenuItems
-			class="-top-2 transform -translate-y-full absolute left-0 w-32 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+			class="absolute -top-2 left-0 w-32 origin-top-right -translate-y-full transform divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
 		>
 			<MenuItem let:active>
 				<a
@@ -34,7 +34,7 @@
 				<button
 					class={classnames(
 						active ? 'bg-gray-50' : '',
-						'w-full text-left block px-3 py-1 text-sm leading-6 text-gray-900',
+						'block w-full px-3 py-1 text-left text-sm leading-6 text-gray-900',
 					)}
 					on:click={async () => {
 						await signOut(auth);

@@ -11,7 +11,7 @@
 
 {#if loading}
 	<div
-		class="absolute flex justify-center items-center w-full h-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
+		class="absolute left-1/2 top-1/2 z-10 flex h-full w-full -translate-x-1/2 -translate-y-1/2 transform items-center justify-center"
 	>
 		<Icon class={classnames(className, 'animate-spin')} src={Loader2} />
 	</div>

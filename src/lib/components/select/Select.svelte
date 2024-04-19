@@ -26,7 +26,7 @@
 <Listbox bind:value class={classnames(className, 'text-sm font-medium text-gray-700')}>
 	<input {name} type="hidden" {value} />
 	{#if label}
-		<ListboxLabel class={classnames(labelClass, 'block mb-1')}>
+		<ListboxLabel class={classnames(labelClass, 'mb-1 block')}>
 			{label}
 		</ListboxLabel>
 	{/if}

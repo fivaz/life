@@ -35,7 +35,7 @@
 			<label class="text-sm font-medium text-gray-700" for={day}>{day}</label>
 			<input
 				checked={value.includes(day)}
-				class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+				class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
 				id={day}
 				on:change={() => handleCheckboxChange(day)}
 				type="checkbox"

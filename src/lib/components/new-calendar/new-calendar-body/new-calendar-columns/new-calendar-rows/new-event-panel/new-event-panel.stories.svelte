@@ -16,7 +16,7 @@
 </script>
 
 <Template let:args>
-	<div class="w-52 !relative">
+	<div class="!relative w-52">
 		<NewEventPanel {...args} class="!static" />
 	</div>
 </Template>

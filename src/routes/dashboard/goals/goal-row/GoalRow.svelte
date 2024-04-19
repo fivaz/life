@@ -22,8 +22,8 @@
 	let showForm = false;
 </script>
 
-<li class="rounded-lg p-3 bg-neutral-100 text-blue-500 text-sm font-semibold leading-6">
-	<div class={'gap-x-6 flex items-center justify-between'}>
+<li class="rounded-lg bg-neutral-100 p-3 text-sm font-semibold leading-6 text-blue-500">
+	<div class={'flex items-center justify-between gap-x-6'}>
 		<div class={classnames({ 'line-through': goal.isDone })}>
 			{goal.name}
 		</div>

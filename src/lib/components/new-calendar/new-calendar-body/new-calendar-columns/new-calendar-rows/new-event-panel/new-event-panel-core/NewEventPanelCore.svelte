@@ -31,8 +31,8 @@
 			tailwindColors[event.category.color].hoverBg,
 		)}
 	>
-		<div class="flex gap-3 justify-between items-center">
-			<p class="font-semibold truncate">
+		<div class="flex items-center justify-between gap-3">
+			<p class="truncate font-semibold">
 				{event.name}
 			</p>
 			<input

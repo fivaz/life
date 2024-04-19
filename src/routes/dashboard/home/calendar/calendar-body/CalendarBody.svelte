@@ -6,7 +6,7 @@
 </script>
 
 <div class="isolate flex h-full flex-col overflow-auto bg-white">
-	<div class="flex h-full max-w-full flex-none sm:max-w-none md:max-w-full divide-x">
+	<div class="flex h-full max-w-full flex-none divide-x sm:max-w-none md:max-w-full">
 		<CalendarTimeLabels />
 
 		<CalendarColumns on:create on:edit {weekStart} />

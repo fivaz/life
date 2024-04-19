@@ -45,12 +45,12 @@
 </script>
 
 <form
-	class="w-[355px] shadow rounded-md overflow-hidden relative"
+	class="relative w-[355px] overflow-hidden rounded-md shadow"
 	on:submit|preventDefault
 	use:form
 >
 	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
-		<div class="flex justify-between items-center pb-2">
+		<div class="flex items-center justify-between pb-2">
 			<h2 class="text-lg font-medium text-gray-900">
 				{#if isEditing}
 					Edit Goal
@@ -59,7 +59,7 @@
 				{/if}
 			</h2>
 			<button
-				class="pl-2 inline-flex rounded-md p-1.5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
+				class="inline-flex rounded-md p-1.5 pl-2 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
 				on:click={() => dispatch('close')}
 				type="button"
 			>
@@ -85,13 +85,13 @@
 				type="date"
 			/>
 
-			<div class="border border-gray-200 rounded-lg p-2">
+			<div class="rounded-lg border border-gray-200 p-2">
 				<Toggle bind:value={$data.isDone} label="Is complete" name="isDone" />
 			</div>
 		</div>
 	</div>
 
-	<div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6">
+	<div class="flex justify-between bg-gray-50 px-4 py-3 text-right sm:px-6">
 		{#if isEditing}
 			<ConfirmButton
 				color="red"

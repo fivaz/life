@@ -2,7 +2,7 @@ import type { AnyTask, Event, RecurringEvent, ToDo } from '$lib/task/utils';
 
 import { fun, routine, sleep, work } from '$lib/category/seed';
 import { DATE, TIME } from '$lib/consts';
-import { format, set, startOfWeek, startOfYesterday } from 'date-fns';
+import { format, set, startOfTomorrow, startOfWeek, startOfYesterday } from 'date-fns';
 
 function getTodayAtTime(time: string): Date {
 	const [hours, minutes] = time.split(':').map(Number);
@@ -93,7 +93,7 @@ export const workToDo: ToDo = {
 	goal: null,
 	id: `${id++}`,
 	isDone: false,
-	name: 'work',
+	name: longText,
 };
 
 export const funEvent: Event = {
@@ -107,5 +107,18 @@ export const funEvent: Event = {
 	name: 'fun',
 	startTime: format(getTodayAtTime('16:00'), TIME),
 };
+
+export const birthdayToDo: ToDo = {
+	category: work,
+	deadline: format(startOfTomorrow(), DATE),
+	description: '',
+	duration: '01:15',
+	goal: null,
+	id: `${id++}`,
+	isDone: true,
+	name: "Friend's birthday",
+};
+
+export const toDos: ToDo[] = [workToDo, birthdayToDo];
 
 export const perfectDay: AnyTask[] = [sleepRecurringEvent, workToDo, funEvent];

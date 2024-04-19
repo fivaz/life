@@ -35,7 +35,7 @@
 </script>
 
 <div class={classnames('h-full divide-y', className)}>
-	<div class="text-xs text-center h-8">
+	<div class="h-8 text-center text-xs">
 		<Stats class="justify-around" events={getEvents(selectedDate, tasks)} />
 		<DueToDos toDos={getToDos(selectedDate, tasks)} />
 	</div>
@@ -43,7 +43,7 @@
 	<div class="grid grid-cols-7">
 		{#each dates as date (date)}
 			<button
-				class="flex items-center justify-center gap-1 flex-col pt-2 pb-3"
+				class="flex flex-col items-center justify-center gap-1 pb-3 pt-2"
 				on:click={() => (selectedDate = date)}
 			>
 				{format(date, 'EEEEE')}
@@ -51,7 +51,7 @@
 					class={classnames(
 						{ 'rounded-full bg-indigo-600 text-white': isSameDay(selectedDate, date) },
 						{ 'rounded-full bg-indigo-300 text-white': isToday(date) },
-						'flex items-center justify-center font-semibold h-8 w-8',
+						'flex h-8 w-8 items-center justify-center font-semibold',
 					)}
 				>
 					{format(date, 'dd')}

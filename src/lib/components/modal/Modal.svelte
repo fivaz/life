@@ -7,7 +7,7 @@
 </script>
 
 {#if show}
-	<div class="fixed inset-0 flex items-center justify-center z-50">
+	<div class="fixed inset-0 z-50 flex items-center justify-center">
 		<div
 			class="absolute inset-0 bg-black opacity-50"
 			on:click={() => dispatch('close')}

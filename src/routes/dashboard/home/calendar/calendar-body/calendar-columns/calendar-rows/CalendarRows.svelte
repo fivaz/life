@@ -18,12 +18,12 @@
 <!--TODO make top and side sticky-->
 <!--TODO handle tasks that takes more than 1 day-->
 
-<div class="relative w-full h-full">
+<div class="relative h-full w-full">
 	<CalendarGrid on:create {targetDate} />
 	<!--pointer-events-none will make the list container of events incapable of catching point events-->
 	<!--so we can catch the events emit by CalendarGrid behind it-->
 	<div
-		class="absolute inset-0 grid pointer-events-none"
+		class="pointer-events-none absolute inset-0 grid"
 		style="grid-template-rows: repeat({quarterHourInterval}, minmax({GRID_CELL_HEIGHT}px, 1fr)) auto"
 	>
 		<SignedIn let:user>

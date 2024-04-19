@@ -30,7 +30,7 @@
 	</div>
 
 	<Modal on:close={() => (isOpen = false)} show={isOpen}>
-		<div class="p-3 shadow rounded-md overflow-hidden relative bg-white text-sm font-semibold w-96">
+		<div class="relative w-96 overflow-hidden rounded-md bg-white p-3 text-sm font-semibold shadow">
 			<h3 class="text-lg text-black">Pending Tasks</h3>
 			{#each toDos as toDo (toDo)}
 				<div class="flex gap-2 text-start">
