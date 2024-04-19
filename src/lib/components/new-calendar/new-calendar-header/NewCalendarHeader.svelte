@@ -1,15 +1,19 @@
 <script lang="ts">
+	import { DATE } from '$lib/consts';
 	import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@rgossiaux/svelte-headlessui';
 	import { ChevronDown, ChevronLeft, ChevronRight, EllipsisHorizontal } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
-	import { addDays, startOfWeek } from 'date-fns';
-
-	const viewControls = [{ text: 'Year view' }, { text: 'Week view' }, { text: 'Month view' }];
+	import { addDays, format, startOfWeek } from 'date-fns';
+	import { createEventDispatcher } from 'svelte';
 
 	export let weekStart: Date;
 
 	let currentDate = new Date();
+
+	const viewControls = [{ text: 'Year view' }, { text: 'Week view' }, { text: 'Month view' }];
+
+	const dispatch = createEventDispatcher();
 
 	function goToToday() {
 		weekStart = startOfWeek(currentDate);
@@ -22,15 +26,21 @@
 	function goToPreviousWeek() {
 		weekStart = addDays(weekStart, -7);
 	}
+
+	$: createEvent = () => dispatch('create');
 </script>
 
 <header class="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">
 	<div>
 		<h1 class="text-base font-semibold leading-6 text-gray-900">
-			<time class="sm:hidden" dateTime="2022-01-22"> Jan 22, 2022 </time>
-			<time class="hidden sm:inline" dateTime="2022-01-22"> January 22, 2022 </time>
+			<time class="sm:hidden" dateTime={format(currentDate, DATE)}>
+				{format(currentDate, 'MMM dd, yyyy')}
+			</time>
+			<time class="hidden sm:inline" dateTime={format(currentDate, DATE)}>
+				{format(currentDate, 'MMMM dd, yyyy')}
+			</time>
 		</h1>
-		<p class="mt-1 text-sm text-gray-500">Saturday</p>
+		<p class="mt-1 text-sm text-gray-500">{format(currentDate, 'eeee')}</p>
 	</div>
 
 	<div class="flex items-center">
@@ -60,6 +70,7 @@
 				<Icon aria-hidden="true" class="h-5 w-5" src={ChevronRight} />
 			</button>
 		</div>
+
 		<div class="hidden md:ml-4 md:flex md:items-center">
 			<Menu class="relative">
 				<MenuButton
@@ -103,11 +114,13 @@
 			<div class="ml-6 h-6 w-px bg-gray-300" />
 			<button
 				class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+				on:click={createEvent}
 				type="button"
 			>
 				Add event
 			</button>
 		</div>
+
 		<Menu as="div" class="relative ml-6 md:hidden">
 			<MenuButton
 				class="-mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 hover:text-gray-500"
@@ -132,8 +145,9 @@
 							<button
 								class={clsx(
 									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-									'block px-4 py-2 text-sm',
+									'block px-4 py-2 text-sm w-full text-left',
 								)}
+								on:click={createEvent}
 							>
 								Create event
 							</button>
@@ -146,6 +160,7 @@
 									active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
 									'block px-4 py-2 text-sm',
 								)}
+								on:click={goToToday}
 							>
 								Go to today
 							</button>
