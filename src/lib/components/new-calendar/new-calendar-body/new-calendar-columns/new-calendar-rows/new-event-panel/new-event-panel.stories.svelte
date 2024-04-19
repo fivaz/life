@@ -9,11 +9,14 @@
 	export const meta = {
 		argTypes: {},
 		component: NewEventPanel,
+		parameters: {
+			layout: 'centered',
+		},
 	} satisfies Meta<NewEventPanel>;
 </script>
 
 <Template let:args>
-	<div class="w-52">
+	<div class="w-52 !relative">
 		<NewEventPanel {...args} class="!static" />
 	</div>
 </Template>

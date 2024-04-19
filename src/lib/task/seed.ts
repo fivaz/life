@@ -17,7 +17,7 @@ export const normalWithoutDescription: Event = {
 	category: sleep,
 	date: format(getTodayAtTime('00:00'), DATE),
 	description: '',
-	duration: '00:45',
+	duration: '07:00',
 	goal: null,
 	id: `${id++}`,
 	isDone: false,

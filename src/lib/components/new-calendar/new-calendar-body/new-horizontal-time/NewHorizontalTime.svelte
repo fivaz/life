@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { NEW_GRID_CELL_HEIGHT } from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/service';
+
 	const timeLabels = [
 		'12AM',
 		'1AM',
@@ -28,12 +30,12 @@
 </script>
 
 <div class="">
-	<div class="h-7">
+	<div style="height: {NEW_GRID_CELL_HEIGHT}px">
 		<slot />
 	</div>
 	<div class="flex flex-col text-right pr-2 text-xs leading-5 text-gray-400 w-14">
 		{#each timeLabels as timeLabel (timeLabel)}
-			<div class="h-28">
+			<div style="height: {NEW_GRID_CELL_HEIGHT * 4}px">
 				<div class="-translate-y-1/2">
 					{timeLabel}
 				</div>
