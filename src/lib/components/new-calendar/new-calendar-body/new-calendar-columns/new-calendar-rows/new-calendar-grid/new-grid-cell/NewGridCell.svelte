@@ -1,9 +1,8 @@
 <script lang="ts">
+	import { isSomethingDragging } from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-calendar-grid/service';
+	import { GRID_CLASS } from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/service';
 	import { clsx } from 'clsx';
 	import { createEventDispatcher } from 'svelte';
-
-	import { isSomethingDragging } from '../../../../../../../../routes/dashboard/home/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
-	import { GRID_CLASS } from '../../../../../../../../routes/dashboard/home/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/service';
 
 	const dispatch = createEventDispatcher<{ create: number; move: number }>();
 

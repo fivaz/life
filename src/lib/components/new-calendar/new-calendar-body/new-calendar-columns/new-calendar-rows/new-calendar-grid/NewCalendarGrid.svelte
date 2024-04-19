@@ -3,7 +3,7 @@
 	import { NEW_GRID_CELL_HEIGHT } from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/service';
 	import { clsx } from 'clsx';
 
-	import { isSomethingDragging } from '../../../../../../../routes/dashboard/home/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
+	import { isSomethingDragging } from './service';
 
 	const interval = 24 * 2;
 

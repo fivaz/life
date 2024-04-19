@@ -5,11 +5,10 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
+	import { buildEmptyToDo } from '$lib/task/build-utils';
 	import { Document, DocumentCheck, EllipsisHorizontal } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { SignedIn } from 'sveltefire';
-
-	import { buildEmptyToDo } from '../../../routes/dashboard/tasks/service';
 
 	export let toDos: ToDo[];
 

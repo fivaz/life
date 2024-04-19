@@ -37,11 +37,17 @@ export type AnyEvent = Event | RecurringEvent;
 
 export type AnyTask = AnyEvent | ToDo;
 
-export function getDurationInMinutes(task: AnyTask) {
-	// to check if the duration string is HH:mm format
-	if ('duration' in task && task.duration && /^([01]\d|2[0-3]):([0-5]\d)$/.test(task.duration)) {
-		const [hours, minutes] = task.duration.split(':').map(Number);
+export function convertTimeToMinutes(time: string) {
+	if (/^([01]\d|2[0-3]):([0-5]\d)$/.test(time)) {
+		const [hours, minutes] = time.split(':').map(Number);
 		return hours * 60 + minutes;
+	}
+	throw "Time isn't in the format hh:mm";
+}
+
+export function getDurationInMinutes(task: AnyTask) {
+	if ('duration' in task && task.duration) {
+		return convertTimeToMinutes(task.duration);
 	}
 	return 0;
 }

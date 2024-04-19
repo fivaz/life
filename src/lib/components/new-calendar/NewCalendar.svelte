@@ -7,13 +7,9 @@
 	import NewCalendarHeader from '$lib/components/new-calendar/new-calendar-header/NewCalendarHeader.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
+	import { buildEmptyEvent, buildEventWithTime } from '$lib/task/build-utils';
 	import { startOfWeek } from 'date-fns';
 	import { SignedIn } from 'sveltefire';
-
-	import {
-		buildEmptyEvent,
-		buildEventWithTime,
-	} from '../../../routes/dashboard/home/calendar/service';
 
 	let targetDate: string | undefined = undefined;
 

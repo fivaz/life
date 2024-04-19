@@ -7,10 +7,11 @@
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { auth, db } from '$lib/firebase';
+	import { buildEmptyToDo } from '$lib/task/build-utils';
 	import { getTasksByDate } from '$lib/task/store';
 	import { SignedIn, collectionStore, userStore } from 'sveltefire';
 
-	import { buildEmptyToDo, getSumOfDurationsAsTime, queryUncompletedTasks } from './service';
+	import { getSumOfDurationsAsTime, queryUncompletedTasks } from './service';
 	import TaskRow from './task-row/TaskRow.svelte';
 
 	let editingTask: AnyTask = buildEmptyToDo([]);

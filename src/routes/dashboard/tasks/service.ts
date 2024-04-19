@@ -1,24 +1,8 @@
-import type { Category } from '$lib/category/utils';
-import type { AnyTask, ToDo } from '$lib/task/utils';
+import type { AnyTask } from '$lib/task/utils';
 
-import { DATE } from '$lib/consts';
 import { db } from '$lib/firebase';
 import { getDurationInMinutes } from '$lib/task/utils';
-import { endOfWeek, format } from 'date-fns';
 import { type Query, collection, query, where } from 'firebase/firestore';
-
-export function buildEmptyToDo(categories: Category[]): ToDo {
-	return {
-		category: categories.find((category) => category.isDefault) || categories[0],
-		deadline: format(endOfWeek(new Date()), DATE),
-		description: '',
-		duration: '',
-		goal: null,
-		id: '',
-		isDone: false,
-		name: '',
-	};
-}
 
 export function getSumOfDurationsAsTime(tasks: AnyTask[]): string {
 	const sumOfDurationsInMinutes = tasks.reduce((sum, task) => sum + getDurationInMinutes(task), 0);

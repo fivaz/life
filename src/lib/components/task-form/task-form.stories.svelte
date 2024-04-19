@@ -2,11 +2,10 @@
 	import type { Meta } from '@storybook/svelte';
 
 	import { categories } from '$lib/category/seed';
+	import { buildEmptyEvent, buildEmptyToDo } from '$lib/task/build-utils';
 	import { long } from '$lib/task/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
-	import { buildEmptyEvent } from '../../../routes/dashboard/home/calendar/service';
-	import { buildEmptyToDo } from '../../../routes/dashboard/tasks/service';
 	import TaskForm from './TaskForm.svelte';
 
 	export const meta = {

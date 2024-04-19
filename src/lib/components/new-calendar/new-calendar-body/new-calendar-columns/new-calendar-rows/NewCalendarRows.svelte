@@ -9,10 +9,7 @@
 	import { format } from 'date-fns';
 	import { SignedIn } from 'sveltefire';
 
-	import {
-		isEventOnDay,
-		isToDoOnDay,
-	} from '../../../../../../routes/dashboard/home/calendar/calendar-body/calendar-columns/service';
+	import { isEventOnDay, isToDoOnDay } from './service';
 
 	export let tasks: AnyTask[];
 	export let date: Date;

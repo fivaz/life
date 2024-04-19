@@ -2,13 +2,15 @@
 	import type { AnyEvent, Event } from '$lib/task/utils';
 
 	import { tailwindColors } from '$lib/category/utils';
+	import { isSomethingDragging } from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-calendar-grid/service';
 	import NewEventPanelCore from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/new-event-panel-core/NewEventPanelCore.svelte';
-	import { NEW_GRID_CELL_HEIGHT } from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/service';
+	import {
+		NEW_GRID_CELL_HEIGHT,
+		persistChange,
+	} from '$lib/components/new-calendar/new-calendar-body/new-calendar-columns/new-calendar-rows/new-event-panel/service';
+	import { convertTimeToMinutes } from '$lib/task/utils';
 	import interact from 'interactjs';
 	import { createEventDispatcher, onMount } from 'svelte';
-
-	import { isSomethingDragging } from '../../../../../../../routes/dashboard/home/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
-	import { persistChange } from '../../../../../../../routes/dashboard/home/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/service';
 
 	export let event: AnyEvent;
 
@@ -118,18 +120,13 @@
 		});
 	});
 
-	function timeToMinutes(time: string) {
-		const [hours, minutes] = time.split(':').map(Number);
-		return hours * 60 + minutes;
-	}
-
 	function getTop() {
-		const startTimeMinutes = timeToMinutes(event.startTime);
+		const startTimeMinutes = convertTimeToMinutes(event.startTime);
 		return `${(startTimeMinutes / 15) * NEW_GRID_CELL_HEIGHT}px`;
 	}
 
 	function getHeight() {
-		const durationMinutes = timeToMinutes(event.duration);
+		const durationMinutes = convertTimeToMinutes(event.duration);
 
 		return `${(durationMinutes / 15) * NEW_GRID_CELL_HEIGHT}px`;
 	}

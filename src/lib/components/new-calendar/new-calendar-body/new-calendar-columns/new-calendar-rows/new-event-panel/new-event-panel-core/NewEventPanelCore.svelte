@@ -1,12 +1,10 @@
 <script lang="ts">
 	import { tailwindColors } from '$lib/category/utils';
+	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
 	import { TIME } from '$lib/consts';
 	import { type AnyEvent, getDurationInMinutes } from '$lib/task/utils';
 	import { clsx } from 'clsx';
 	import { format, parse } from 'date-fns';
-	import { createEventDispatcher } from 'svelte';
-
-	import { toggleCompletion } from '../../../../../../../../routes/dashboard/home/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/service';
 
 	export let event: AnyEvent;
 	export let userId: string;
@@ -15,10 +13,12 @@
 	let className = '';
 	export { className as class };
 
-	const dispatch = createEventDispatcher<{ toggle: AnyEvent }>();
-
 	export function isLong(event: AnyEvent) {
 		return Math.abs(getDurationInMinutes(event)) > 15;
+	}
+
+	export function toggleCompletion(userId: string, event: AnyEvent, targetDate: string) {
+		editPossibleSingleRecurringEvent({ ...event, isDone: !event.isDone }, userId, targetDate);
 	}
 </script>
 
