@@ -11,9 +11,7 @@
 	export let userId: string;
 	export let targetDate: string;
 
-	export function isLong(event: AnyEvent) {
-		return Math.abs(getDurationInMinutes(event)) > GRID_CELL_TIME;
-	}
+	$: isLong = Math.abs(getDurationInMinutes(event)) > GRID_CELL_TIME;
 
 	export function toggleCompletion(userId: string, event: AnyEvent, targetDate: string) {
 		editPossibleSingleRecurringEvent({ ...event, isDone: !event.isDone }, userId, targetDate);
@@ -22,7 +20,7 @@
 
 <div
 	class={clsx(
-		'group absolute inset-px flex flex-col overflow-y-auto rounded-lg px-2 py-1 text-xs leading-5',
+		'group pointer-events-auto absolute inset-px flex min-w-0 select-none flex-col overflow-y-auto rounded-lg px-2 py-1 text-xs leading-5',
 		tailwindColors[event.category.color].text,
 		tailwindColors[event.category.color].lightBg,
 		tailwindColors[event.category.color].hoverBg,
@@ -33,7 +31,10 @@
 	</p>
 
 	<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions-->
-	<label class="absolute right-0 top-0 flex p-[5px]" on:click|stopPropagation>
+	<label
+		class={clsx('absolute right-0 top-0 flex p-[5px] pl-3', { 'pb-3': isLong })}
+		on:click|stopPropagation
+	>
 		<input
 			checked={event.isDone}
 			class="rounded border-gray-300 focus:ring-indigo-600"
@@ -42,7 +43,7 @@
 		/>
 	</label>
 
-	{#if isLong(event)}
+	{#if isLong}
 		<time
 			class={tailwindColors[event.category.color].lightText}
 			dateTime={`${event.date}T${event.startTime}`}

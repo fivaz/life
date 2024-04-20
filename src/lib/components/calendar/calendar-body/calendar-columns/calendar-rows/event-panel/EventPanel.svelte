@@ -9,6 +9,7 @@
 	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 	import { persistChange } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/service';
 	import { convertTimeToMinutes } from '$lib/task/utils';
+	import { clsx } from 'clsx';
 	import interact from 'interactjs';
 	import { createEventDispatcher, onMount } from 'svelte';
 
@@ -134,6 +135,12 @@
 	}
 </script>
 
-<div bind:this={container} class="absolute w-full" style="height: {getHeight()}; top: {getTop()}">
+<div
+	bind:this={container}
+	class={clsx('absolute w-full rounded-lg', {
+		'border-1 touch-none border border-black': isSelected,
+	})}
+	style="height: {getHeight()}; top: {getTop()}"
+>
 	<EventPanelCore {event} {targetDate} {userId} />
 </div>
