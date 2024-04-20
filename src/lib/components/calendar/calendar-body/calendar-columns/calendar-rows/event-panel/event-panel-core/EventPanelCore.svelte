@@ -10,6 +10,7 @@
 	export let event: AnyEvent;
 	export let userId: string;
 	export let targetDate: string;
+	export let isSelected: boolean;
 
 	$: isLong = Math.abs(getDurationInMinutes(event)) > GRID_CELL_TIME;
 
@@ -20,7 +21,10 @@
 
 <div
 	class={clsx(
-		'group pointer-events-auto absolute inset-px flex min-w-0 select-none flex-col overflow-y-auto rounded-lg px-2 py-1 text-xs leading-5',
+		'group absolute inset-px flex select-none flex-col overflow-y-auto rounded-lg px-2 py-1 text-xs leading-5',
+		{
+			'border-1 touch-none border border-black': isSelected,
+		},
 		tailwindColors[event.category.color].text,
 		tailwindColors[event.category.color].lightBg,
 		tailwindColors[event.category.color].hoverBg,

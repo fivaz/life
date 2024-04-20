@@ -137,10 +137,8 @@
 
 <div
 	bind:this={container}
-	class={clsx('absolute w-full rounded-lg', {
-		'border-1 touch-none border border-black': isSelected,
-	})}
+	class={clsx('absolute w-full rounded-lg')}
 	style="height: {getHeight()}; top: {getTop()}"
 >
-	<EventPanelCore {event} {targetDate} {userId} />
+	<EventPanelCore {event} {isSelected} {targetDate} {userId} />
 </div>
