@@ -28,21 +28,21 @@
 		tailwindColors[event.category.color].hoverBg,
 	)}
 >
-	<div class="flex items-center justify-between gap-3">
-		<p class="truncate font-semibold">
-			{event.name}
-		</p>
-		<button class="absolute right-0 top-0" on:click|stopPropagation>
-			<label class="pb-3 pl-3 pr-1 pt-1">
-				<input
-					checked={event.isDone}
-					class="rounded border-gray-300 focus:ring-indigo-600"
-					on:change={() => toggleCompletion(userId, event, targetDate)}
-					type="checkbox"
-				/>
-			</label>
-		</button>
-	</div>
+	<p class="truncate pr-3 font-semibold">
+		{event.name}
+	</p>
+
+	<button class="absolute right-0 top-0" on:click|stopPropagation>
+		<label class="pb-3 pl-3 pr-1 pt-1">
+			<input
+				checked={event.isDone}
+				class="rounded border-gray-300 focus:ring-indigo-600"
+				on:change={() => toggleCompletion(userId, event, targetDate)}
+				type="checkbox"
+			/>
+		</label>
+	</button>
+
 	{#if isLong(event)}
 		<time
 			class={tailwindColors[event.category.color].lightText}
