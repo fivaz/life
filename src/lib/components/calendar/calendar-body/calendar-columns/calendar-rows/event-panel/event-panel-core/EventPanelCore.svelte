@@ -32,7 +32,7 @@
 		{event.name}
 	</p>
 
-	<button class="absolute right-0 top-0" on:click|stopPropagation>
+	<button class="absolute right-0 top-0" on:click|stopPropagation type="button">
 		<label class="pb-3 pl-3 pr-1 pt-1">
 			<input
 				checked={event.isDone}
