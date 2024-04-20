@@ -17,7 +17,6 @@
 		getDuration,
 		getEndTime,
 		removeTask,
-		storeImage,
 	} from '$lib/components/task-form/service';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
@@ -33,9 +32,6 @@
 	import 'flatpickr/dist/themes/airbnb.css';
 	import { createEventDispatcher } from 'svelte'; // TODO check later how I should import a precompiled component https://github.com/sveltejs/svelte/issues/604
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import { storage } from '$lib/firebase';
-	import { FirebaseError } from 'firebase/app';
-	import { getDownloadURL, ref } from 'firebase/storage';
 	import Flatpickr from 'svelte-flatpickr';
 
 	import type { TaskIn } from './service';
@@ -63,49 +59,23 @@
 
 	let file: File | null = null;
 
-	let image: null | string = null;
-
 	let isImageOpen = false;
 
 	$: isEditing = !!task.id;
 
 	$: formName = `${isEditing ? 'Edit' : 'Add'} ${'startTime' in task ? 'Event' : 'Task'}`;
 
-	async function getImage() {
-		if (!task.id) {
-			return;
-		}
-
-		const imageRef = ref(storage, `users/${userId}/tasks/${task.id}`);
-		try {
-			const foundImage = await getDownloadURL(imageRef);
-			if (foundImage) {
-				image = foundImage;
-			}
-		} catch (error) {
-			if (error instanceof FirebaseError && error.code !== 'storage/object-not-found') {
-				return console.log('error', error);
-			}
-		}
-	}
-
-	getImage();
-
-	async function onSubmit() {
+	function onSubmit() {
 		if (hasErrors(taskIn, errorMessage)) {
 			return;
 		}
 
 		const { id, ...data } = convertToAnyTask(taskIn);
-		let eventId = id;
 
 		if (id) {
-			void editTaskWithPrompt(id, data, userId, targetDate, wasRecurring);
+			editTaskWithPrompt(id, data, userId, targetDate, wasRecurring, file);
 		} else {
-			eventId = await addTask(data, userId);
-		}
-		if (file) {
-			void storeImage(userId, eventId, file);
+			addTask(data, userId, file);
 		}
 
 		dispatch('close');
@@ -114,7 +84,7 @@
 	function handleChange(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (event.currentTarget.files) {
 			[file] = event.currentTarget.files;
-			image = URL.createObjectURL(file);
+			taskIn.image = URL.createObjectURL(file);
 		}
 	}
 
@@ -177,13 +147,17 @@
 					<DisclosurePanel class="flex flex-col gap-2 pt-2 text-gray-500">
 						<div class="flex w-full flex-col gap-2">
 							<div class="flex h-24 items-center justify-center overflow-hidden">
-								{#if image}
+								{#if taskIn.image}
 									<button on:click={() => (isImageOpen = true)} type="button">
-										<img alt="event description" src={image} />
+										<img alt="event description" src={taskIn.image} />
 									</button>
 									<Modal on:close={() => (isImageOpen = false)} show={isImageOpen}>
 										<div class="rounded-lg bg-white p-2 shadow">
-											<img alt="event description" src={image} />
+											<img
+												alt="event description"
+												class="max-w-11/12 h-auto max-h-[90vh] w-auto object-contain"
+												src={taskIn.image}
+											/>
 										</div>
 									</Modal>
 								{:else}
@@ -201,7 +175,7 @@
 									on:change={handleChange}
 									type="file"
 								/>
-								{#if image}Change image{:else}Add image{/if}
+								{#if taskIn.image}Change image{:else}Add image{/if}
 							</label>
 						</div>
 

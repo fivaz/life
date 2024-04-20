@@ -22,7 +22,6 @@ import {
 	collection,
 	deleteDoc,
 	doc,
-	getDoc,
 	setDoc,
 	updateDoc,
 } from 'firebase/firestore';
@@ -37,12 +36,13 @@ export type TaskIn = Omit<Task, 'recurringExceptions'> & {
 
 function convertToDo(todo: ToDo): TaskIn {
 	return {
-		isEvent: false,
-		isRecurring: false,
 		...todo,
 		date: format(new Date(), DATE),
 		duration: '00:15',
 		endTime: format(addMinutes(new Date(), 15), TIME),
+		image: todo.image || null,
+		isEvent: false,
+		isRecurring: false,
 		recurringDaysOfWeek: weekDays.slice(1, 6),
 		recurringEndAt: format(addMonths(new Date(), 1), DATE),
 		recurringExceptions: [],
@@ -53,22 +53,24 @@ function convertToDo(todo: ToDo): TaskIn {
 
 function convertRecurring(event: RecurringEvent): TaskIn {
 	return {
-		isEvent: true,
-		isRecurring: true,
 		...event,
 		deadline: event.date,
 		endTime: getEndTime(event.startTime, event.duration),
+		image: event.image || null,
+		isEvent: true,
+		isRecurring: true,
 		recurringExceptions: event.recurringExceptions.map((date) => parse(date, DATE, new Date())),
 	};
 }
 
 function convertEvent(event: Event): TaskIn {
 	return {
-		isEvent: true,
-		isRecurring: false,
 		...event,
 		deadline: event.date,
 		endTime: getEndTime(event.startTime, event.duration),
+		image: event.image || null,
+		isEvent: true,
+		isRecurring: false,
 		recurringDaysOfWeek: weekDays.slice(1, 6),
 		recurringEndAt: format(addMonths(new Date(), 1), DATE),
 		recurringExceptions: [],
@@ -97,6 +99,7 @@ export function buildEmptyTask(categories: Category[], goal: Goal | null = null)
 		duration: '00:15',
 		goal,
 		id: '',
+		image: null,
 		isDone: false,
 		name: '',
 		recurringDaysOfWeek: weekDays.slice(1, 6),
@@ -149,25 +152,27 @@ export function editPossibleSingleRecurringEvent(
 ) {
 	const { id, ...data } = event;
 	if ('recurringStartAt' in data) {
-		editSingleRecurringEvent(id, data, userId, targetDate);
+		void editSingleRecurringEvent(id, data, userId, targetDate);
 	} else {
 		editTask(id, data, userId);
 	}
 }
 
-export function editSingleRecurringEvent(
+export async function editSingleRecurringEvent(
 	id: string,
 	recurringEvent: Omit<RecurringEvent, 'id'>,
 	userId: string,
 	targetDate: string,
+	file?: File | null,
 ) {
-	// create a clone event but on the new date
+	//remove all the recurring attributes from the event
 	const { recurringDaysOfWeek, recurringEndAt, recurringExceptions, recurringStartAt, ...event } =
 		recurringEvent;
 
+	// clone the event but with a new date
 	const newEvent = { ...event, date: targetDate };
 
-	void addTask(newEvent, userId);
+	void addTask(newEvent, userId, file);
 
 	addExceptionToRecurring(id, recurringEvent, targetDate, userId);
 }
@@ -178,6 +183,7 @@ export async function editTaskWithPrompt(
 	userId: string,
 	targetDate: string | undefined,
 	wasRecurring: boolean,
+	file: File | null,
 ) {
 	if ('recurringStartAt' in data && wasRecurring && targetDate) {
 		const recurringData = data as Omit<RecurringEvent, 'id'>;
@@ -191,14 +197,13 @@ export async function editTaskWithPrompt(
 		if (result === null) {
 			return;
 		}
-
 		if (result) {
-			editSingleRecurringEvent(id, recurringData, userId, targetDate);
+			void editSingleRecurringEvent(id, recurringData, userId, targetDate, file);
 		} else {
-			editTask(id, recurringData, userId);
+			void editTask(id, recurringData, userId, file);
 		}
 	} else {
-		editTask(id, data, userId);
+		void editTask(id, data, userId, file);
 	}
 }
 
@@ -215,34 +220,41 @@ async function editTaskInGoal(
 	}
 }
 
-export function editTask(id: string, data: Omit<AnyTask, 'id'>, userId: string) {
-	// TODO check if I can remove this id / data separation
+export async function editTask(
+	id: string,
+	data: Omit<AnyTask, 'id'>,
+	userId: string,
+	file?: File | null,
+) {
+	if (file) {
+		data.image = await storeImage(userId, id, file);
+	}
+
 	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
 	void setDoc(taskDocRef, data);
 	void editTaskInGoal(userId, data, taskDocRef);
 }
 
-async function addTaskToGoal(
-	userId: string,
-	data: Omit<AnyTask, 'id'>,
-	taskRef: DocumentReference,
-) {
+async function addTaskToGoal(userId: string, data: Omit<AnyTask, 'id'>) {
 	if (data.goal) {
 		const goalDocRef = doc(db, 'users', userId, 'goals', data.goal.id);
 		const goalTaskCollectionRef = collection(goalDocRef, 'tasks');
 
-		const taskSnap = await getDoc(taskRef);
-		void addDoc(goalTaskCollectionRef, taskSnap.data());
+		// const taskSnap = await getDoc(taskRef);
+		void addDoc(goalTaskCollectionRef, data);
 	}
 }
 
-export async function addTask(data: Omit<AnyTask, 'id'>, userId: string) {
-	const tasksCollectionRef = collection(db, 'users', userId, 'tasks');
-	const taskRef = await addDoc(tasksCollectionRef, data);
+export async function addTask(data: Omit<AnyTask, 'id'>, userId: string, file?: File | null) {
+	const newTaskRef = doc(collection(db, 'users', userId, 'tasks'));
 
-	await addTaskToGoal(userId, data, taskRef);
+	if (file) {
+		data.image = await storeImage(userId, newTaskRef.id, file);
+	}
 
-	return taskRef.id;
+	void setDoc(newTaskRef, data);
+
+	void addTaskToGoal(userId, data);
 }
 
 async function deleteTaskFromGoal(userId: string, taskId: string, data: Omit<AnyTask, 'id'>) {

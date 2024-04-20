@@ -11,6 +11,7 @@ export type CoreTask = {
 	duration: string;
 	goal: Goal | null;
 	id: string;
+	image: null | string;
 	isDone: boolean;
 	name: string;
 };
@@ -89,6 +90,7 @@ export function getToDo(data: TaskIn): ToDo {
 		duration: data.duration,
 		goal: data.goal,
 		id: data.id,
+		image: data.image,
 		isDone: data.isDone,
 		name: data.name,
 	};
@@ -102,6 +104,7 @@ export function getEvent(data: TaskIn): Event {
 		duration: data.duration,
 		goal: data.goal,
 		id: data.id,
+		image: data.image,
 		isDone: data.isDone,
 		name: data.name,
 		startTime: data.startTime,
@@ -116,6 +119,7 @@ export function getRecurringEvent(data: TaskIn): RecurringEvent {
 		duration: data.duration,
 		goal: data.goal,
 		id: data.id,
+		image: data.image,
 		isDone: data.isDone,
 		name: data.name,
 		recurringDaysOfWeek: data.recurringDaysOfWeek,
