@@ -226,13 +226,18 @@ export async function editTask(
 	userId: string,
 	file?: File | null,
 ) {
-	if (file) {
-		data.image = await storeImage(userId, id, file);
-	}
-
 	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
 	void setDoc(taskDocRef, data);
-	void editTaskInGoal(userId, data, taskDocRef);
+
+	if (file) {
+		const image = await storeImage(userId, id, file);
+
+		void updateDoc(taskDocRef, { image });
+
+		void editTaskInGoal(userId, { ...data, image }, taskDocRef);
+	} else {
+		void editTaskInGoal(userId, data, taskDocRef);
+	}
 }
 
 async function addTaskToGoal(userId: string, data: Omit<AnyTask, 'id'>) {
@@ -240,7 +245,6 @@ async function addTaskToGoal(userId: string, data: Omit<AnyTask, 'id'>) {
 		const goalDocRef = doc(db, 'users', userId, 'goals', data.goal.id);
 		const goalTaskCollectionRef = collection(goalDocRef, 'tasks');
 
-		// const taskSnap = await getDoc(taskRef);
 		void addDoc(goalTaskCollectionRef, data);
 	}
 }
@@ -248,13 +252,17 @@ async function addTaskToGoal(userId: string, data: Omit<AnyTask, 'id'>) {
 export async function addTask(data: Omit<AnyTask, 'id'>, userId: string, file?: File | null) {
 	const newTaskRef = doc(collection(db, 'users', userId, 'tasks'));
 
-	if (file) {
-		data.image = await storeImage(userId, newTaskRef.id, file);
-	}
-
 	void setDoc(newTaskRef, data);
 
-	void addTaskToGoal(userId, data);
+	if (file) {
+		const image = await storeImage(userId, newTaskRef.id, file);
+
+		await updateDoc(newTaskRef, { image });
+
+		void addTaskToGoal(userId, { ...data, image });
+	} else {
+		void addTaskToGoal(userId, data);
+	}
 }
 
 async function deleteTaskFromGoal(userId: string, taskId: string, data: Omit<AnyTask, 'id'>) {
