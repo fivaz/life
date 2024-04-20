@@ -21,18 +21,21 @@
 	let categoryType: Category;
 </script>
 
-{#if toDos.length}
-	<button
-		class="w-full truncate rounded-lg bg-orange-50 px-2 py-1 text-xs leading-5 text-orange-500 hover:bg-orange-100 hover:font-semibold"
-		on:click={() => (isOpen = true)}
-	>
-		{#if toDos.length > 1}
-			{toDos.length} tasks
-		{:else}
-			{toDos[0].name}
-		{/if}
-	</button>
-{/if}
+<!--there is a bug here that this truncate won't work if not inside a relative -> absolute div-->
+<div class="relative">
+	{#if toDos.length}
+		<button
+			class="absolute w-full truncate rounded-lg bg-orange-50 px-2 py-1 text-xs leading-5 text-orange-500 hover:bg-orange-100 hover:font-semibold"
+			on:click={() => (isOpen = true)}
+		>
+			{#if toDos.length > 1}
+				{toDos.length} tasks
+			{:else}
+				{toDos[0].name}
+			{/if}
+		</button>
+	{/if}
+</div>
 
 <Modal on:close={() => (isOpen = false)} show={isOpen}>
 	<div class="relative w-96 overflow-hidden rounded-md bg-white p-3 text-sm font-semibold shadow">

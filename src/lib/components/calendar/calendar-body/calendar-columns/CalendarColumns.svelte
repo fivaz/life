@@ -35,15 +35,13 @@
 			<div class="w-8" />
 		</div>
 
-		<div class="flex grow md:hidden">
-			<div class="flex w-full grow divide-x border-x">
-				<CalendarRows
-					date={selectedDate}
-					on:create={(e) => dispatch('create', { cellNumber: e.detail, date: selectedDate })}
-					on:edit
-					{tasks}
-				/>
-			</div>
+		<div class="block grow md:hidden">
+			<CalendarRows
+				date={selectedDate}
+				on:create={(e) => dispatch('create', { cellNumber: e.detail, date: selectedDate })}
+				on:edit
+				{tasks}
+			/>
 		</div>
 	</TypedCollection>
 </SignedIn>

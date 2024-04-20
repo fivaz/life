@@ -31,7 +31,6 @@
 </script>
 
 <div>
-	<!--    use svelte animations instead of transition-->
 	<TransitionRoot show={sidebarOpen}>
 		<Dialog class="relative z-20 lg:hidden" on:close={() => (sidebarOpen = false)}>
 			<TransitionChild

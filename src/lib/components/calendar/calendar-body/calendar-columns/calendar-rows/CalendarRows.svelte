@@ -22,7 +22,7 @@
 </script>
 
 <SignedIn let:user>
-	<div class="flex-grow">
+	<div>
 		<div class="border-b" style="height: {NEW_GRID_CELL_HEIGHT}px">
 			<DueToDos {toDos} />
 		</div>
