@@ -32,12 +32,16 @@
 		<p class="truncate font-semibold">
 			{event.name}
 		</p>
-		<input
-			checked={event.isDone}
-			class="rounded border-gray-300 focus:ring-indigo-600"
-			on:change={() => toggleCompletion(userId, event, targetDate)}
-			type="checkbox"
-		/>
+		<button class="absolute right-0 top-0" on:click|stopPropagation>
+			<label class="pb-3 pl-3 pr-1 pt-1">
+				<input
+					checked={event.isDone}
+					class="rounded border-gray-300 focus:ring-indigo-600"
+					on:change={() => toggleCompletion(userId, event, targetDate)}
+					type="checkbox"
+				/>
+			</label>
+		</button>
 	</div>
 	{#if isLong(event)}
 		<time
