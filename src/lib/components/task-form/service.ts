@@ -257,7 +257,7 @@ export async function addTask(data: Omit<AnyTask, 'id'>, userId: string, file?: 
 	if (file) {
 		const image = await storeImage(userId, newTaskRef.id, file);
 
-		await updateDoc(newTaskRef, { image });
+		void updateDoc(newTaskRef, { image });
 
 		void addTaskToGoal(userId, { ...data, image });
 	} else {
