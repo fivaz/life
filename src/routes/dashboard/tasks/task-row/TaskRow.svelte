@@ -7,7 +7,7 @@
 	import { getTaskDate } from '$lib/task/time-utils';
 	import { Settings } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import classnames from 'classnames';
+	import { clsx } from 'clsx';
 	import { format } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 
@@ -22,7 +22,7 @@
 </script>
 
 <li
-	class={classnames(
+	class={clsx(
 		tailwindColors[task.category.color].darkBg,
 		'flex justify-between gap-x-3 rounded-lg p-3 text-sm font-semibold leading-6 text-gray-50',
 	)}

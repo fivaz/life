@@ -7,7 +7,7 @@
 		XMark,
 	} from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import classnames from 'classnames';
+	import { clsx } from 'clsx';
 	import { createEventDispatcher } from 'svelte';
 	import { fade } from 'svelte/transition';
 
@@ -52,23 +52,23 @@
 </script>
 
 {#if isVisible}
-	<div class={classnames(typeElements[type].background, 'rounded-md p-4')} transition:fade>
+	<div class={clsx(typeElements[type].background, 'rounded-md p-4')} transition:fade>
 		<div class="flex">
 			<div class="flex-shrink-0">
 				<Icon
 					aria-hidden="true"
-					class={classnames(typeElements[type].button, 'h-5 w-5')}
+					class={clsx(typeElements[type].button, 'h-5 w-5')}
 					src={typeElements[type].icon}
 				/>
 			</div>
 			<div class="ml-3">
-				<p class={classnames(typeElements[type].button, 'text-sm font-medium')}><slot /></p>
+				<p class={clsx(typeElements[type].button, 'text-sm font-medium')}><slot /></p>
 			</div>
 			{#if hasCloseButton}
 				<div class="ml-auto pl-3">
 					<div class="-mx-1.5 -my-1.5">
 						<button
-							class={classnames(
+							class={clsx(
 								typeElements[type].button,
 								'inline-flex rounded-md p-1.5 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50',
 							)}

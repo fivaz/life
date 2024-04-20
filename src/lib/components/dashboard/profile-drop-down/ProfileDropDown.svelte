@@ -3,7 +3,7 @@
 	import { loginRoute, profileRoute } from '$lib/consts';
 	import { auth } from '$lib/firebase';
 	import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@rgossiaux/svelte-headlessui';
-	import classnames from 'classnames';
+	import { clsx } from 'clsx';
 	import { signOut } from 'firebase/auth';
 </script>
 
@@ -24,7 +24,7 @@
 		>
 			<MenuItem let:active>
 				<a
-					class={classnames(
+					class={clsx(
 						active ? 'bg-gray-50' : '',
 						'block px-3 py-1 text-sm leading-6 text-gray-900',
 					)}
@@ -35,7 +35,7 @@
 			</MenuItem>
 			<MenuItem let:active>
 				<button
-					class={classnames(
+					class={clsx(
 						active ? 'bg-gray-50' : '',
 						'block w-full px-3 py-1 text-left text-sm leading-6 text-gray-900',
 					)}

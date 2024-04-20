@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Loader2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import classnames from 'classnames';
+	import { clsx } from 'clsx';
 
 	export let loading: boolean;
 
@@ -13,6 +13,6 @@
 	<div
 		class="absolute left-1/2 top-1/2 z-10 flex h-full w-full -translate-x-1/2 -translate-y-1/2 transform items-center justify-center"
 	>
-		<Icon class={classnames(className, 'animate-spin')} src={Loader2} />
+		<Icon class={clsx(className, 'animate-spin')} src={Loader2} />
 	</div>
 {/if}

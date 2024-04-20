@@ -6,7 +6,7 @@
 	import { CheckBadge } from '@steeze-ui/heroicons';
 	import { Settings } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import classnames from 'classnames';
+	import { clsx } from 'clsx';
 	import { createEventDispatcher } from 'svelte';
 
 	export let category: Category;
@@ -15,7 +15,7 @@
 </script>
 
 <li
-	class={classnames(
+	class={clsx(
 		tailwindColors[category.color].darkBg,
 		'flex items-center justify-between gap-x-6 rounded-lg p-3',
 	)}

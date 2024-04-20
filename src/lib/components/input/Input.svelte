@@ -1,5 +1,5 @@
 <script lang="ts">
-	import classnames from 'classnames';
+	import { clsx } from 'clsx';
 	import { createEventDispatcher } from 'svelte';
 
 	export let label: string = '';
@@ -14,21 +14,21 @@
 </script>
 
 <label
-	class={classnames(
+	class={clsx(
 		$$props.class,
 		'block text-sm font-medium',
 		$$props.disabled ? 'text-gray-500' : 'text-gray-700',
 	)}
 >
 	{#if label}
-		<span class={classnames(labelClass)}>
+		<span class={clsx(labelClass)}>
 			{label}
 		</span>
 	{/if}
 	<input
 		{...$$props}
 		bind:value
-		class={classnames(
+		class={clsx(
 			inputClass,
 			{ 'cursor-not-allowed': $$props.disabled },
 			'block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm',

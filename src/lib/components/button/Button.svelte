@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ArrowPath } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import classnames from 'classnames';
+	import { clsx } from 'clsx';
 
 	export let isLoading: boolean = false;
 
@@ -25,7 +25,7 @@
 </script>
 
 <button
-	class={classnames(
+	class={clsx(
 		colors[color],
 		'inline-flex justify-center gap-2 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
 		className,
@@ -40,7 +40,7 @@
 	{/if}
 	<!--hides the content of the button when showing the loading icon, if the content of the button
 	 is an icon without any text-->
-	<span bind:this={slot} class={classnames({ hidden: isLoading && !slotText })}>
+	<span bind:this={slot} class={clsx({ hidden: isLoading && !slotText })}>
 		<slot />
 	</span>
 </button>

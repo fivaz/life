@@ -13,7 +13,7 @@
 	import { validator } from '@felte/validator-yup';
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import classnames from 'classnames';
+	import { clsx } from 'clsx';
 	import { createForm } from 'felte';
 	import { createEventDispatcher } from 'svelte';
 	import { object, string } from 'yup';
@@ -84,14 +84,14 @@
 				selectClass="flex-1"
 			>
 				<div class="flex items-center gap-5" slot="placeholder">
-					<div class={classnames('h-5 w-5 rounded-md', tailwindColors[$data?.color]?.darkBg)} />
+					<div class={clsx('h-5 w-5 rounded-md', tailwindColors[$data?.color]?.darkBg)} />
 					{$data.color}
 				</div>
 
 				{#each Object.keys(tailwindColors) as color (color)}
 					<SelectItem value={color}>
 						<div class="flex items-center gap-5">
-							<div class={classnames('h-5 w-5 rounded-md', tailwindColors[color]?.darkBg)} />
+							<div class={clsx('h-5 w-5 rounded-md', tailwindColors[color]?.darkBg)} />
 							{color}
 						</div>
 					</SelectItem>

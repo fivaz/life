@@ -10,7 +10,7 @@
 	import { Bars3, Calendar, DocumentDuplicate, XMark } from '@steeze-ui/heroicons';
 	import { List, Target } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import classnames from 'classnames';
+	import { clsx } from 'clsx';
 	import { onAuthStateChanged } from 'firebase/auth';
 	import { onMount } from 'svelte';
 
@@ -87,7 +87,7 @@
 											{#each navigation as item (item.name)}
 												<li>
 													<a
-														class={classnames(
+														class={clsx(
 															$page.url.pathname === item.href
 																? 'bg-gray-50 text-indigo-600'
 																: 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600',
@@ -97,7 +97,7 @@
 													>
 														<Icon
 															aria-hidden="true"
-															class={classnames(
+															class={clsx(
 																$page.url.pathname === item.href
 																	? 'text-indigo-600'
 																	: 'text-gray-400 group-hover:text-indigo-600',
@@ -141,7 +141,7 @@
 							{#each navigation as item (item.name)}
 								<li>
 									<a
-										class={classnames(
+										class={clsx(
 											$page.url.pathname === item.href
 												? 'bg-gray-50 text-indigo-600'
 												: 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600',
@@ -151,7 +151,7 @@
 									>
 										<Icon
 											aria-hidden="true"
-											class={classnames(
+											class={clsx(
 												$page.url.pathname === item.href
 													? 'text-indigo-600'
 													: 'text-gray-400 group-hover:text-indigo-600',

@@ -7,7 +7,7 @@
 	} from '@rgossiaux/svelte-headlessui';
 	import { ChevronUpDown } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import classnames from 'classnames';
+	import { clsx } from 'clsx';
 
 	export let label: string = '';
 
@@ -23,14 +23,14 @@
 	export let selectClass: string = '';
 </script>
 
-<Listbox bind:value class={classnames(className, 'text-sm font-medium text-gray-700')}>
+<Listbox bind:value class={clsx(className, 'text-sm font-medium text-gray-700')}>
 	<input {name} type="hidden" {value} />
 	{#if label}
-		<ListboxLabel class={classnames(labelClass, 'mb-1 block')}>
+		<ListboxLabel class={clsx(labelClass, 'mb-1 block')}>
 			{label}
 		</ListboxLabel>
 	{/if}
-	<div class={classnames(selectClass, 'relative')}>
+	<div class={clsx(selectClass, 'relative')}>
 		<ListboxButton
 			class="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
 		>

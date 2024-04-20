@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { weekDays } from '$lib/components/days-checkbox/service';
-	import classnames from 'classnames';
+	import { clsx } from 'clsx';
 
 	// TODO since this component will only be used inside a TaskForm I think I should move it there
 	export let value: string[];
@@ -29,7 +29,7 @@
 
 <input {name} type="hidden" {value} />
 
-<div class={classnames(className)}>
+<div class={clsx(className)}>
 	{#each weekDays as day (day)}
 		<div class="flex flex-col items-center gap-1">
 			<label class="text-sm font-medium text-gray-700" for={day}>{day}</label>

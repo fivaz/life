@@ -7,7 +7,7 @@
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
 	import { Settings } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import classnames from 'classnames';
+	import { clsx } from 'clsx';
 	import { createEventDispatcher } from 'svelte';
 
 	export let goal: Goal;
@@ -24,7 +24,7 @@
 
 <li class="rounded-lg bg-neutral-100 p-3 text-sm font-semibold leading-6 text-blue-500">
 	<div class={'flex items-center justify-between gap-x-6'}>
-		<div class={classnames({ 'line-through': goal.isDone })}>
+		<div class={clsx({ 'line-through': goal.isDone })}>
 			{goal.name}
 		</div>
 

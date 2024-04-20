@@ -1,5 +1,5 @@
 <script lang="ts">
-	import classnames from 'classnames';
+	import { clsx } from 'clsx';
 
 	// TODO implement this later
 	export let maxValue: number;
@@ -14,7 +14,7 @@
 
 <div class="flex items-center gap-2">
 	<div class="font-semibold">{percentage}%</div>
-	<div class={classnames(className, 'h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700')}>
+	<div class={clsx(className, 'h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700')}>
 		<div class="h-2.5 rounded-full bg-blue-600 dark:bg-blue-500" style={`width: ${percentage}%`} />
 	</div>
 </div>
