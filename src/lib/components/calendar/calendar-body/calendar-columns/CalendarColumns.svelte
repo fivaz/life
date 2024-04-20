@@ -9,7 +9,7 @@
 
 	export let dates: Date[];
 
-	let selectedDate = new Date();
+	export let selectedDate: Date;
 
 	const dispatch = createEventDispatcher<{
 		create: { cellNumber: number; date: Date };

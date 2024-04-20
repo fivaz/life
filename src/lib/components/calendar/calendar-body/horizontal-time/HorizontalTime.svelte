@@ -29,15 +29,16 @@
 	];
 </script>
 
-<div class="">
+<div>
 	<div style="height: {NEW_GRID_CELL_HEIGHT}px">
 		<slot />
 	</div>
-	<div class="flex w-14 flex-col pr-2 text-right text-xs leading-5 text-gray-400">
+	<div class="flex w-7 flex-col pr-2 text-right text-xs leading-5 text-gray-400 md:w-14">
 		{#each timeLabels as timeLabel (timeLabel)}
 			<div style="height: {NEW_GRID_CELL_HEIGHT * 4}px">
 				<div class="-translate-y-1/2">
-					{timeLabel}
+					<span class="hidden md:block">{timeLabel}</span>
+					<span class="block md:hidden">{timeLabel.replace(/AM|PM/g, '')}</span>
 				</div>
 			</div>
 		{/each}

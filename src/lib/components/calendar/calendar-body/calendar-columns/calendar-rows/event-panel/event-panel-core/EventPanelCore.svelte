@@ -32,16 +32,15 @@
 		{event.name}
 	</p>
 
-	<button class="absolute right-0 top-0" on:click|stopPropagation type="button">
-		<label class="pb-3 pl-3 pr-1 pt-1">
-			<input
-				checked={event.isDone}
-				class="rounded border-gray-300 focus:ring-indigo-600"
-				on:change={() => toggleCompletion(userId, event, targetDate)}
-				type="checkbox"
-			/>
-		</label>
-	</button>
+	<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions-->
+	<label class="absolute right-0 top-0 flex p-[5px]" on:click|stopPropagation>
+		<input
+			checked={event.isDone}
+			class="rounded border-gray-300 focus:ring-indigo-600"
+			on:change={() => toggleCompletion(userId, event, targetDate)}
+			type="checkbox"
+		/>
+	</label>
 
 	{#if isLong(event)}
 		<time

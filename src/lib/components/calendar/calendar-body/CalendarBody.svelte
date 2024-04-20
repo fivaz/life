@@ -8,6 +8,8 @@
 
 	export let weekStart: Date;
 
+	let selectedDate: Date = new Date();
+
 	let container: HTMLDivElement | null = null;
 	let containerNav: HTMLDivElement | null = null;
 	let containerOffset: HTMLDivElement | null = null;
@@ -37,14 +39,14 @@
 			bind:this={containerNav}
 			class="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 sm:pr-8"
 		>
-			<WeekList {dates} />
+			<WeekList bind:selectedDate {dates} />
 		</div>
 
 		<div class="flex h-full w-full">
 			<HorizontalTime>
 				<div bind:this={containerOffset} />
 			</HorizontalTime>
-			<CalendarColumns {dates} on:create on:edit />
+			<CalendarColumns {dates} on:create on:edit {selectedDate} />
 		</div>
 	</div>
 </div>
