@@ -21,9 +21,9 @@
 	</div>
 </Template>
 
-<Story args={{ event: normalWithoutDescription }} name="normal Without a Description" />
+<Story args={{ event: normalWithoutDescription }} name="Normal without a description" />
 
-<Story args={{ event: shortWithoutDescription }} name="short Without a Description" />
+<Story args={{ event: shortWithoutDescription }} name="Short without a description" />
 
 <Story args={{ event: long }} name="Long" />
 

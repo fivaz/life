@@ -17,6 +17,11 @@
 	export function toggleCompletion(userId: string, event: AnyEvent, targetDate: string) {
 		editPossibleSingleRecurringEvent({ ...event, isDone: !event.isDone }, userId, targetDate);
 	}
+
+	$: title =
+		!isLong && event.subTasks?.length
+			? `${event.name} + ${event.subTasks.length}`
+			: `${event.name}`;
 </script>
 
 <div
@@ -31,7 +36,7 @@
 	)}
 >
 	<p class="truncate pr-3 font-semibold">
-		{event.name}
+		<span>{title}</span>
 	</p>
 
 	<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions-->
@@ -54,8 +59,18 @@
 		>
 			{format(parse(event.startTime, TIME, new Date()), 'p')}
 		</time>
-		<p class="text-pink-500 group-hover:text-pink-700">
-			{event.description}
-		</p>
+		<div class="text-pink-500 group-hover:text-pink-700">
+			{#if event.subTasks?.length}
+				<ul>
+					{#each event.subTasks as subTask (subTask.id)}
+						<li class={clsx('flex items-center gap-1', { 'line-through': subTask.isDone })}>
+							<span>{subTask.name}</span>
+						</li>
+					{/each}
+				</ul>
+			{:else}
+				{event.description}
+			{/if}
+		</div>
 	{/if}
 </div>

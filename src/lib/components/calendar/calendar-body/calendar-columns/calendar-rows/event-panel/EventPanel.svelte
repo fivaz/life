@@ -29,6 +29,9 @@
 
 	let interactivePanel: ReturnType<typeof interact> | null = null;
 
+	let className = '';
+	export { className as class };
+
 	$: {
 		interactivePanel?.styleCursor(isSelected);
 	}
@@ -137,7 +140,7 @@
 
 <div
 	bind:this={container}
-	class={clsx('absolute w-full rounded-lg')}
+	class={clsx(className, 'absolute w-full rounded-lg')}
 	style="height: {getHeight()}; top: {getTop()}"
 >
 	<EventPanelCore {event} {isSelected} {targetDate} {userId} />
