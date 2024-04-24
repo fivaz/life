@@ -57,8 +57,6 @@
 
 	let isImageOpen = false;
 
-	let newSubTask = '';
-
 	$: isEditing = !!task.id;
 
 	$: formName = `${isEditing ? 'Edit' : 'Add'} ${'startTime' in task ? 'Event' : 'Task'}`;
@@ -178,39 +176,7 @@
 				</label>
 			</Collapsable>
 
-			<Collapsable title="Sub tasks">
-				<div class="flex flex-col gap-3">
-					{#if taskIn.subTasks.length}
-						<ul>
-							{#each taskIn.subTasks as subTask (subTask.name)}
-								<li class="flex gap-2 px-2">
-									<span class="grow">{subTask.name}</span>
-									<label>
-										<input
-											bind:checked={subTask.isDone}
-											class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-											name="isDone"
-											type="checkbox"
-										/>
-									</label>
-								</li>
-							{/each}
-						</ul>
-					{/if}
-					<input
-						bind:value={newSubTask}
-						class="block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-						on:keydown={(e) => {
-							if (e.key === 'Enter') {
-								taskIn.subTasks = [...taskIn.subTasks, { isDone: false, name: newSubTask }];
-								newSubTask = '';
-							}
-						}}
-						placeholder="add new Task"
-						type="text"
-					/>
-				</div>
-			</Collapsable>
+			<Collapsable title="Sub tasks"></Collapsable>
 
 			<Select
 				bind:value={taskIn.category}
