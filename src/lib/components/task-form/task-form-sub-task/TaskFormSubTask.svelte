@@ -48,9 +48,10 @@
 		on:keydown={(e) => {
 			if (e.key === 'Enter') {
 				addSubTask();
+				e.preventDefault();
 			}
 		}}
-		placeholder="add new Task"
+		placeholder="enter new task..."
 		type="text"
 	/>
 </div>
