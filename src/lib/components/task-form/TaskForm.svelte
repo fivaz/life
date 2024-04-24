@@ -16,17 +16,14 @@
 		editTaskWithPrompt,
 		removeTask,
 	} from '$lib/components/task-form/service';
-	import TaskFormEvent from '$lib/components/task-form-event/TaskFormEvent.svelte';
-	import TaskFormImage from '$lib/components/task-form-image/TaskFormImage.svelte';
-	import TaskFormRecurring from '$lib/components/task-form-recurring/TaskFormRecurring.svelte';
-	import TaskFormSubTask from '$lib/components/task-form-sub-task/TaskFormSubTask.svelte';
-	import Toggle from '$lib/components/toggle/Toggle.svelte';
+	import TaskFormEvent from '$lib/components/task-form/task-form-event/TaskFormEvent.svelte';
+	import TaskFormImage from '$lib/components/task-form/task-form-image/TaskFormImage.svelte';
+	import TaskFormRecurring from '$lib/components/task-form/task-form-recurring/TaskFormRecurring.svelte';
+	import TaskFormSubTask from '$lib/components/task-form/task-form-sub-task/TaskFormSubTask.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { convertToAnyTask, hasErrors } from '$lib/task/utils';
-	import { Transition } from '@rgossiaux/svelte-headlessui';
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import 'flatpickr/dist/themes/airbnb.css';
 	import { createEventDispatcher } from 'svelte';
 
 	import type { TaskIn } from './service';
@@ -43,15 +40,13 @@
 
 	let wasRecurring = taskIn.isRecurring;
 
-	let isEventOpen = true;
-
-	let isRecurringOpen = false;
-
 	const dispatch = createEventDispatcher<{ close: null }>();
 
 	let errorMessage = '';
 
 	let file: File | null = null;
+
+	let goalType: Goal;
 
 	$: isEditing = !!task.id;
 
@@ -72,8 +67,6 @@
 
 		dispatch('close');
 	}
-
-	let goalType: Goal;
 </script>
 
 <form
@@ -178,79 +171,10 @@
 				type="date"
 			/>
 
-			<div class="rounded-lg bg-white p-2">
-				<div class="flex">
-					<button
-						class="flex-1 text-start"
-						on:click={() => {
-							if (taskIn.isEvent) {
-								isEventOpen = !isEventOpen;
-							} else {
-								taskIn.isEvent = true;
-							}
-						}}
-						type="button"
-					>
-						Event
-					</button>
-					<Toggle bind:value={taskIn.isEvent} on:change={(e) => (isEventOpen = e.detail)} />
-				</div>
-
-				{#if taskIn.isEvent}
-					<Transition
-						class="overflow-hidden transition-all duration-500"
-						enterFrom="transform opacity-0 max-h-0"
-						enterTo="transform opacity-100 max-h-36"
-						leaveFrom="transform opacity-100 max-h-36"
-						leaveTo="transform opacity-0 max-h-0"
-						show={isEventOpen}
-						unmount={false}
-					>
-						<TaskFormEvent bind:taskIn />
-					</Transition>
-				{/if}
-			</div>
+			<TaskFormEvent bind:taskIn />
 
 			{#if taskIn.isEvent}
-				<div class="rounded-lg bg-white p-2">
-					<div class="flex">
-						<button
-							class="flex-1 text-start"
-							on:click={() => {
-								if (taskIn.isRecurring) {
-									isRecurringOpen = !isRecurringOpen;
-								} else {
-									taskIn.isRecurring = true;
-								}
-							}}
-							type="button"
-						>
-							Recurring
-						</button>
-						<Toggle
-							bind:value={taskIn.isRecurring}
-							on:change={(e) => {
-								if (e.detail) {
-									isRecurringOpen = true;
-								}
-							}}
-						/>
-					</div>
-
-					{#if taskIn.isRecurring}
-						<Transition
-							class="overflow-hidden transition-all duration-500"
-							enterFrom="transform opacity-0 max-h-0"
-							enterTo="transform opacity-100 max-h-36"
-							leaveFrom="transform opacity-100 max-h-36"
-							leaveTo="transform opacity-0 max-h-0"
-							show={isRecurringOpen}
-							unmount={false}
-						>
-							<TaskFormRecurring bind:taskIn />
-						</Transition>
-					{/if}
-				</div>
+				<TaskFormRecurring bind:taskIn />
 			{/if}
 		</div>
 	</div>

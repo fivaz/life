@@ -24,7 +24,9 @@
 		title={$modal.title}
 	/>
 
-	<TaskFormSubTask {...args} taskIn={convertToTaskIn(done)} />
+	<div class="w-72">
+		<TaskFormSubTask {...args} taskIn={convertToTaskIn(done)} />
+	</div>
 </Template>
 
 <Story args={{}} name="Primary" />
