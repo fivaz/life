@@ -5,8 +5,8 @@
 
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
+	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
 	import ConfirmButton from '$lib/components/confirm-button/ConfirmButton.svelte';
-	import DaysCheckbox from '$lib/components/days-checkbox/DaysCheckbox.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
@@ -14,10 +14,12 @@
 		addTask,
 		convertToTaskIn,
 		editTaskWithPrompt,
-		getDuration,
-		getEndTime,
 		removeTask,
 	} from '$lib/components/task-form/service';
+	import TaskFormEvent from '$lib/components/task-form-event/TaskFormEvent.svelte';
+	import TaskFormImage from '$lib/components/task-form-image/TaskFormImage.svelte';
+	import TaskFormRecurring from '$lib/components/task-form-recurring/TaskFormRecurring.svelte';
+	import TaskFormSubTask from '$lib/components/task-form-sub-task/TaskFormSubTask.svelte';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { convertToAnyTask, hasErrors } from '$lib/task/utils';
@@ -25,15 +27,10 @@
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import 'flatpickr/dist/themes/airbnb.css';
-	import { createEventDispatcher } from 'svelte'; // TODO check later how I should import a precompiled component https://github.com/sveltejs/svelte/issues/604
-	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
-	import TaskFormImage from '$lib/components/task-form-image/TaskFormImage.svelte';
-	import TaskFormSubTask from '$lib/components/task-form-sub-task/TaskFormSubTask.svelte';
-	import Flatpickr from 'svelte-flatpickr';
+	import { createEventDispatcher } from 'svelte';
 
 	import type { TaskIn } from './service';
 
-	// TODO add all things related to task like TaskForm in a task folder
 	export let userId: string;
 
 	export let task: AnyTask;
@@ -209,48 +206,7 @@
 						show={isEventOpen}
 						unmount={false}
 					>
-						<div class="flex gap-3 overflow-hidden pt-2">
-							<Input
-								bind:value={taskIn.date}
-								class="w-1/2"
-								label="Date"
-								name="date"
-								required
-								type="date"
-							/>
-
-							<Input
-								bind:value={taskIn.duration}
-								class="w-1/2"
-								label="Duration"
-								name="duration"
-								on:input={(e) => (taskIn.endTime = getEndTime(taskIn.startTime, e.detail))}
-								required
-								type="time"
-							/>
-						</div>
-
-						<div class="flex gap-3">
-							<Input
-								bind:value={taskIn.startTime}
-								class="w-1/2"
-								label="Start time"
-								name="startTime"
-								on:input={(e) => (taskIn.endTime = getEndTime(e.detail, taskIn.duration))}
-								required
-								type="time"
-							/>
-
-							<Input
-								bind:value={taskIn.endTime}
-								class="w-1/2"
-								label="End time"
-								name="endTime"
-								on:input={(e) => (taskIn.duration = getDuration(taskIn.startTime, e.detail))}
-								required
-								type="time"
-							/>
-						</div>
+						<TaskFormEvent bind:taskIn />
 					</Transition>
 				{/if}
 			</div>
@@ -291,49 +247,7 @@
 							show={isRecurringOpen}
 							unmount={false}
 						>
-							<div class="flex gap-3 pt-2">
-								<Input
-									bind:value={taskIn.recurringStartAt}
-									class="w-1/2"
-									label="Start at"
-									name="recurringStartAt"
-									required
-									type="date"
-								/>
-
-								<Input
-									bind:value={taskIn.recurringEndAt}
-									class="w-1/2"
-									label="End at"
-									name="recurringEndAt"
-									required
-									type="date"
-								/>
-							</div>
-							<div>
-								<h3 class="mb-1 block text-sm text-gray-700">Repeat every</h3>
-								<DaysCheckbox
-									bind:value={taskIn.recurringDaysOfWeek}
-									class="flex justify-around"
-									name="recurringDaysOfWeek"
-								/>
-							</div>
-
-							<div>
-								<label class="mb-1 block text-sm text-gray-700" for="recurringExceptions">
-									Exclude on
-								</label>
-								<Flatpickr
-									bind:value={taskIn.recurringExceptions}
-									class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-									id="recurringExceptions"
-									name="recurringExceptions"
-									options={{
-										dateFormat: 'Y-m-d',
-										mode: 'multiple',
-									}}
-								/>
-							</div>
+							<TaskFormRecurring bind:taskIn />
 						</Transition>
 					{/if}
 				</div>
