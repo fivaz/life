@@ -132,9 +132,9 @@
 				</label>
 			</div>
 
-			<Disclosure class="rounded-lg bg-white p-2" let:open>
+			<Disclosure class="rounded-lg bg-white p-2" defaultOpen let:open>
 				<DisclosureButton class="flex w-full justify-between">
-					<span>Description</span>
+					<span>More</span>
 					<Icon class="h-5 w-5 {open ? 'rotate-90 transform' : ''}" src={ChevronRight} />
 				</DisclosureButton>
 				<Transition
@@ -146,8 +146,8 @@
 				>
 					<DisclosurePanel class="flex flex-col gap-2 pt-2 text-gray-500">
 						<div class="flex w-full flex-col gap-2">
-							<div class="flex h-24 items-center justify-center overflow-hidden">
-								{#if taskIn.image}
+							{#if taskIn.image}
+								<div class="flex h-24 items-center justify-center overflow-hidden">
 									<button on:click={() => (isImageOpen = true)} type="button">
 										<img alt="event description" src={taskIn.image} />
 									</button>
@@ -160,10 +160,12 @@
 											/>
 										</div>
 									</Modal>
-								{:else}
+								</div>
+							{:else}
+								<div class="flex h-24 items-center justify-center rounded-lg bg-indigo-50">
 									<Icon class="h-10 w-10 text-indigo-700" src={Photo} />
-								{/if}
-							</div>
+								</div>
+							{/if}
 
 							<label
 								class="inline-flex w-full justify-center gap-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
