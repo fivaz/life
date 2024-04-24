@@ -22,12 +22,12 @@
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { convertToAnyTask, hasErrors } from '$lib/task/utils';
 	import { Transition } from '@rgossiaux/svelte-headlessui';
-	import { Photo, XMark } from '@steeze-ui/heroicons';
+	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import 'flatpickr/dist/themes/airbnb.css';
 	import { createEventDispatcher } from 'svelte'; // TODO check later how I should import a precompiled component https://github.com/sveltejs/svelte/issues/604
 	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
-	import Modal from '$lib/components/modal/Modal.svelte';
+	import TaskFormImage from '$lib/components/task-form-image/TaskFormImage.svelte';
 	import TaskFormSubTask from '$lib/components/task-form-sub-task/TaskFormSubTask.svelte';
 	import Flatpickr from 'svelte-flatpickr';
 
@@ -56,8 +56,6 @@
 
 	let file: File | null = null;
 
-	let isImageOpen = false;
-
 	$: isEditing = !!task.id;
 
 	$: formName = `${isEditing ? 'Edit' : 'Add'} ${'startTime' in task ? 'Event' : 'Task'}`;
@@ -76,13 +74,6 @@
 		}
 
 		dispatch('close');
-	}
-
-	function handleChange(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
-		if (event.currentTarget.files) {
-			[file] = event.currentTarget.files;
-			taskIn.image = URL.createObjectURL(file);
-		}
 	}
 
 	let goalType: Goal;
@@ -130,40 +121,7 @@
 			</div>
 
 			<Collapsable title="Image">
-				<div class="flex w-full flex-col gap-2">
-					{#if taskIn.image}
-						<div class="flex h-24 items-center justify-center overflow-hidden">
-							<button on:click={() => (isImageOpen = true)} type="button">
-								<img alt="event description" src={taskIn.image} />
-							</button>
-							<Modal on:close={() => (isImageOpen = false)} show={isImageOpen}>
-								<div class="rounded-lg bg-white p-2 shadow">
-									<img
-										alt="event description"
-										class="max-w-11/12 h-auto max-h-[90vh] w-auto object-contain"
-										src={taskIn.image}
-									/>
-								</div>
-							</Modal>
-						</div>
-					{:else}
-						<div class="flex h-24 items-center justify-center rounded-lg bg-indigo-50">
-							<Icon class="h-10 w-10 text-indigo-700" src={Photo} />
-						</div>
-					{/if}
-					<label
-						class="inline-flex w-full justify-center gap-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-					>
-						<input
-							accept="image/*"
-							class="hidden"
-							name="avatar"
-							on:change={handleChange}
-							type="file"
-						/>
-						{#if taskIn.image}Change image{:else}Add image{/if}
-					</label>
-				</div>
+				<TaskFormImage bind:file bind:taskIn />
 			</Collapsable>
 
 			<Collapsable title="Description">

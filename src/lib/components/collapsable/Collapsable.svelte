@@ -11,7 +11,7 @@
 	export let title: string;
 </script>
 
-<Disclosure class="rounded-lg bg-white p-2" defaultOpen let:open>
+<Disclosure class="rounded-lg bg-white p-2" let:open>
 	<DisclosureButton class="flex w-full justify-between">
 		<span>{title}</span>
 		<Icon class="h-5 w-5 {open ? 'rotate-90 transform' : ''}" src={ChevronRight} />
