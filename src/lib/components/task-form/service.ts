@@ -1,6 +1,6 @@
 import type { Category } from '$lib/category/utils';
 import type { Goal } from '$lib/goal/utils';
-import type { AnyTask, Event, RecurringEvent, Task, ToDo } from '$lib/task/utils';
+import type { AnyTask, Event, RecurringEvent, SubTask, Task, ToDo } from '$lib/task/utils';
 import type { EventDispatcher } from 'svelte';
 
 import { weekDays } from '$lib/components/days-checkbox/service';
@@ -29,9 +29,11 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export type TaskIn = Omit<Task, 'recurringExceptions'> & {
 	endTime: string;
+	image: string;
 	isEvent: boolean;
 	isRecurring: boolean;
 	recurringExceptions: Date[];
+	subTasks: SubTask[];
 };
 
 function convertToDo(todo: ToDo): TaskIn {
@@ -40,7 +42,7 @@ function convertToDo(todo: ToDo): TaskIn {
 		date: format(new Date(), DATE),
 		duration: '00:15',
 		endTime: format(addMinutes(new Date(), 15), TIME),
-		image: todo.image || null,
+		image: todo.image || '',
 		isEvent: false,
 		isRecurring: false,
 		recurringDaysOfWeek: weekDays.slice(1, 6),
@@ -48,6 +50,7 @@ function convertToDo(todo: ToDo): TaskIn {
 		recurringExceptions: [],
 		recurringStartAt: format(new Date(), DATE),
 		startTime: format(new Date(), TIME),
+		subTasks: todo.subTasks || [],
 	};
 }
 
@@ -56,10 +59,11 @@ function convertRecurring(event: RecurringEvent): TaskIn {
 		...event,
 		deadline: event.date,
 		endTime: getEndTime(event.startTime, event.duration),
-		image: event.image || null,
+		image: event.image || '',
 		isEvent: true,
 		isRecurring: true,
 		recurringExceptions: event.recurringExceptions.map((date) => parse(date, DATE, new Date())),
+		subTasks: event.subTasks || [],
 	};
 }
 
@@ -68,13 +72,14 @@ function convertEvent(event: Event): TaskIn {
 		...event,
 		deadline: event.date,
 		endTime: getEndTime(event.startTime, event.duration),
-		image: event.image || null,
+		image: event.image || '',
 		isEvent: true,
 		isRecurring: false,
 		recurringDaysOfWeek: weekDays.slice(1, 6),
 		recurringEndAt: format(addMonths(new Date(), 1), DATE),
 		recurringExceptions: [],
 		recurringStartAt: format(new Date(), DATE),
+		subTasks: event.subTasks || [],
 	};
 }
 
@@ -99,7 +104,6 @@ export function buildEmptyTask(categories: Category[], goal: Goal | null = null)
 		duration: '00:15',
 		goal,
 		id: '',
-		image: null,
 		isDone: false,
 		name: '',
 		recurringDaysOfWeek: weekDays.slice(1, 6),

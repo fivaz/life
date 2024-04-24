@@ -5,15 +5,18 @@ import type { Goal } from '$lib/goal/utils';
 import { DATE, TIME } from '$lib/consts';
 import { format, isAfter, parse } from 'date-fns';
 
+export type SubTask = { isDone: boolean; name: string };
+
 export type CoreTask = {
 	category: Category;
 	description: string;
 	duration: string;
 	goal: Goal | null;
 	id: string;
-	image: null | string;
+	image?: string;
 	isDone: boolean;
 	name: string;
+	subTasks?: SubTask[];
 };
 
 export type ToDo = CoreTask & {
@@ -93,6 +96,7 @@ export function getToDo(data: TaskIn): ToDo {
 		image: data.image,
 		isDone: data.isDone,
 		name: data.name,
+		subTasks: data.subTasks,
 	};
 }
 
@@ -108,6 +112,7 @@ export function getEvent(data: TaskIn): Event {
 		isDone: data.isDone,
 		name: data.name,
 		startTime: data.startTime,
+		subTasks: data.subTasks,
 	};
 }
 
@@ -127,5 +132,6 @@ export function getRecurringEvent(data: TaskIn): RecurringEvent {
 		recurringExceptions: data.recurringExceptions.map((date) => format(date, DATE)),
 		recurringStartAt: data.recurringStartAt,
 		startTime: data.startTime,
+		subTasks: data.subTasks,
 	};
 }

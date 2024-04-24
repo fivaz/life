@@ -17,7 +17,6 @@ export function buildEmptyToDo(categories: Category[]): ToDo {
 		duration: '',
 		goal: null,
 		id: '',
-		image: null,
 		isDone: false,
 		name: '',
 	};
@@ -31,7 +30,6 @@ export function buildEmptyEvent(categories: Category[], goal: Goal | null = null
 		duration: '00:15',
 		goal,
 		id: '',
-		image: null,
 		isDone: false,
 		name: '',
 		startTime: format(new Date(), TIME),
@@ -56,7 +54,6 @@ export function buildEventWithTime(categories: Category[], date: Date, cellNumbe
 		duration: '00:15',
 		goal: null,
 		id: '',
-		image: null,
 		isDone: false,
 		name: '',
 		startTime: buildDate(date, cellNumber),

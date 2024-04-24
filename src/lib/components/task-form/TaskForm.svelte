@@ -21,16 +21,12 @@
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { convertToAnyTask, hasErrors } from '$lib/task/utils';
-	import {
-		Disclosure,
-		DisclosureButton,
-		DisclosurePanel,
-		Transition,
-	} from '@rgossiaux/svelte-headlessui';
-	import { ChevronRight, Photo, XMark } from '@steeze-ui/heroicons';
+	import { Transition } from '@rgossiaux/svelte-headlessui';
+	import { Photo, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import 'flatpickr/dist/themes/airbnb.css';
 	import { createEventDispatcher } from 'svelte'; // TODO check later how I should import a precompiled component https://github.com/sveltejs/svelte/issues/604
+	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import Flatpickr from 'svelte-flatpickr';
 
@@ -60,6 +56,8 @@
 	let file: File | null = null;
 
 	let isImageOpen = false;
+
+	let newSubTask = '';
 
 	$: isEditing = !!task.id;
 
@@ -132,66 +130,87 @@
 				</label>
 			</div>
 
-			<Disclosure class="rounded-lg bg-white p-2" defaultOpen let:open>
-				<DisclosureButton class="flex w-full justify-between">
-					<span>More</span>
-					<Icon class="h-5 w-5 {open ? 'rotate-90 transform' : ''}" src={ChevronRight} />
-				</DisclosureButton>
-				<Transition
-					class="overflow-hidden transition-all duration-500"
-					enterFrom="transform opacity-0 max-h-0"
-					enterTo="transform opacity-100 max-h-36"
-					leaveFrom="transform opacity-100 max-h-36"
-					leaveTo="transform opacity-0 max-h-0"
-				>
-					<DisclosurePanel class="flex flex-col gap-2 pt-2 text-gray-500">
-						<div class="flex w-full flex-col gap-2">
-							{#if taskIn.image}
-								<div class="flex h-24 items-center justify-center overflow-hidden">
-									<button on:click={() => (isImageOpen = true)} type="button">
-										<img alt="event description" src={taskIn.image} />
-									</button>
-									<Modal on:close={() => (isImageOpen = false)} show={isImageOpen}>
-										<div class="rounded-lg bg-white p-2 shadow">
-											<img
-												alt="event description"
-												class="max-w-11/12 h-auto max-h-[90vh] w-auto object-contain"
-												src={taskIn.image}
-											/>
-										</div>
-									</Modal>
+			<Collapsable title="Image">
+				<div class="flex w-full flex-col gap-2">
+					{#if taskIn.image}
+						<div class="flex h-24 items-center justify-center overflow-hidden">
+							<button on:click={() => (isImageOpen = true)} type="button">
+								<img alt="event description" src={taskIn.image} />
+							</button>
+							<Modal on:close={() => (isImageOpen = false)} show={isImageOpen}>
+								<div class="rounded-lg bg-white p-2 shadow">
+									<img
+										alt="event description"
+										class="max-w-11/12 h-auto max-h-[90vh] w-auto object-contain"
+										src={taskIn.image}
+									/>
 								</div>
-							{:else}
-								<div class="flex h-24 items-center justify-center rounded-lg bg-indigo-50">
-									<Icon class="h-10 w-10 text-indigo-700" src={Photo} />
-								</div>
-							{/if}
-
-							<label
-								class="inline-flex w-full justify-center gap-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-							>
-								<input
-									accept="image/*"
-									class="hidden"
-									name="avatar"
-									on:change={handleChange}
-									type="file"
-								/>
-								{#if taskIn.image}Change image{:else}Add image{/if}
-							</label>
+							</Modal>
 						</div>
+					{:else}
+						<div class="flex h-24 items-center justify-center rounded-lg bg-indigo-50">
+							<Icon class="h-10 w-10 text-indigo-700" src={Photo} />
+						</div>
+					{/if}
+					<label
+						class="inline-flex w-full justify-center gap-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+					>
+						<input
+							accept="image/*"
+							class="hidden"
+							name="avatar"
+							on:change={handleChange}
+							type="file"
+						/>
+						{#if taskIn.image}Change image{:else}Add image{/if}
+					</label>
+				</div>
+			</Collapsable>
 
-						<label class="block text-sm text-gray-700">
-							<textarea
-								bind:value={taskIn.description}
-								class="block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-								name="description"
-								placeholder="description"
-							/>
-						</label>
-					</DisclosurePanel>
-				</Transition>
-			</Disclosure>
+			<Collapsable title="Description">
+				<label class="block text-sm text-gray-700">
+					<textarea
+						bind:value={taskIn.description}
+						class="block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+						name="description"
+						placeholder="description"
+					/>
+				</label>
+			</Collapsable>
+
+			<Collapsable title="Sub tasks">
+				<div class="flex flex-col gap-3">
+					{#if taskIn.subTasks.length}
+						<ul>
+							{#each taskIn.subTasks as subTask (subTask.name)}
+								<li class="flex gap-2 px-2">
+									<span class="grow">{subTask.name}</span>
+									<label>
+										<input
+											bind:checked={subTask.isDone}
+											class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+											name="isDone"
+											type="checkbox"
+										/>
+									</label>
+								</li>
+							{/each}
+						</ul>
+					{/if}
+					<input
+						bind:value={newSubTask}
+						class="block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+						on:keydown={(e) => {
+							if (e.key === 'Enter') {
+								taskIn.subTasks = [...taskIn.subTasks, { isDone: false, name: newSubTask }];
+								newSubTask = '';
+							}
+						}}
+						placeholder="add new Task"
+						type="text"
+					/>
+				</div>
+			</Collapsable>
 
 			<Select
 				bind:value={taskIn.category}
