@@ -42,7 +42,7 @@
 					<Icon aria-hidden="true" class="h-6 w-6" src={XMark} />
 				</button>
 			</div>
-			<div class="items-center sm:flex sm:items-start">
+			<div class="flex flex-col items-center sm:flex-row">
 				<div
 					class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
 				>

@@ -66,11 +66,11 @@ export const done: Event = {
 	name: 'Put away apartment',
 	startTime: format(getTodayAtTime('15:15'), TIME),
 	subTasks: [
-		{ isDone: true, name: 'Dusting a room' },
-		{ isDone: false, name: 'Emptying the trash' },
-		{ isDone: true, name: 'Wiping down countertops' },
-		{ isDone: false, name: 'Watering house plants' },
-		{ isDone: true, name: 'Sorting the mail' },
+		{ id: id++, isDone: true, name: 'Dusting a room' },
+		{ id: id++, isDone: false, name: 'Emptying the trash' },
+		{ id: id++, isDone: true, name: 'Wiping down countertops' },
+		{ id: id++, isDone: false, name: 'Watering house plants' },
+		{ id: id++, isDone: true, name: 'Sorting the mail' },
 	],
 };
 

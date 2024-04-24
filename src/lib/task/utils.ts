@@ -5,7 +5,7 @@ import type { Goal } from '$lib/goal/utils';
 import { DATE, TIME } from '$lib/consts';
 import { format, isAfter, parse } from 'date-fns';
 
-export type SubTask = { isDone: boolean; name: string };
+export type SubTask = { id: number; isDone: boolean; name: string };
 
 export type CoreTask = {
 	category: Category;

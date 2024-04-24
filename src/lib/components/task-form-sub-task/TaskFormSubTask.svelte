@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { TaskIn } from '$lib/components/task-form/service';
 
+	import ConfirmButton from '$lib/components/confirm-button/ConfirmButton.svelte';
 	import { XSquare } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
@@ -9,17 +10,24 @@
 	let newSubTask = '';
 
 	function addSubTask() {
-		taskIn.subTasks = [...taskIn.subTasks, { isDone: false, name: newSubTask }];
+		taskIn.subTasks = [
+			...taskIn.subTasks,
+			{ id: Math.floor(Math.random() * 1000), isDone: false, name: newSubTask },
+		];
 		newSubTask = '';
+	}
+
+	function removeSubTask(id: number) {
+		taskIn.subTasks = taskIn.subTasks.filter((subTask) => subTask.id !== id);
 	}
 </script>
 
 <div class="flex flex-col gap-3">
 	{#if taskIn.subTasks.length}
 		<ul>
-			{#each taskIn.subTasks as subTask (subTask.name)}
+			{#each taskIn.subTasks as subTask (subTask.id)}
 				<li class="flex items-center gap-2 px-2">
-					<span class={clsx('grow text-sm', { 'line-through': subTask.isDone })}>
+					<span class={clsx('grow text-sm text-gray-700', { 'line-through': subTask.isDone })}>
 						{subTask.name}
 					</span>
 					<input
@@ -27,9 +35,9 @@
 						class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
 						type="checkbox"
 					/>
-					<button type="button">
+					<ConfirmButton color="none" on:confirm={() => removeSubTask(subTask.id)} type="button">
 						<Icon class="h-4 w-4 text-red-600" src={XSquare} />
-					</button>
+					</ConfirmButton>
 				</li>
 			{/each}
 		</ul>

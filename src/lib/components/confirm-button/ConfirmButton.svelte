@@ -3,9 +3,10 @@
 	import { createModal } from '$lib/components/dialog/service';
 	import { createEventDispatcher } from 'svelte';
 
-	export let title: string = ' Are you sure?';
+	export let title = ' Are you sure?';
+	export let message = '';
 
-	export let color: 'indigo' | 'red' = 'indigo';
+	export let color: 'indigo' | 'none' | 'red' | undefined = undefined;
 
 	export let type: 'button' | 'submit' | undefined = undefined;
 
@@ -20,7 +21,7 @@
 	{color}
 	on:click={async (e) => {
 		e.preventDefault();
-		if (await createModal({ title })) {
+		if (await createModal({ message, title })) {
 			dispatch('confirm');
 		}
 	}}

@@ -28,6 +28,7 @@
 	import { createEventDispatcher } from 'svelte'; // TODO check later how I should import a precompiled component https://github.com/sveltejs/svelte/issues/604
 	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
+	import TaskFormSubTask from '$lib/components/task-form-sub-task/TaskFormSubTask.svelte';
 	import Flatpickr from 'svelte-flatpickr';
 
 	import type { TaskIn } from './service';
@@ -176,7 +177,9 @@
 				</label>
 			</Collapsable>
 
-			<Collapsable title="Sub tasks"></Collapsable>
+			<Collapsable title="Sub tasks">
+				<TaskFormSubTask bind:taskIn />
+			</Collapsable>
 
 			<Select
 				bind:value={taskIn.category}

@@ -5,7 +5,7 @@
 
 	export let isLoading: boolean = false;
 
-	export let color: 'indigo' | 'red' = 'indigo';
+	export let color: keyof typeof colors = 'indigo';
 
 	export let type: 'button' | 'submit' | undefined = undefined;
 
@@ -13,8 +13,9 @@
 
 	const colors = {
 		indigo: 'focus-visible:outline-indigo-600 bg-indigo-600 hover:bg-indigo-500',
+		none: '',
 		red: 'focus-visible:outline-red-600 bg-red-600 hover:bg-red-500',
-	};
+	} as const;
 
 	let className = '';
 	export { className as class };
@@ -27,9 +28,12 @@
 <button
 	class={clsx(
 		colors[color],
-		'inline-flex justify-center gap-2 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
+		{
+			'inline-flex justify-center gap-2 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2':
+				color !== 'none',
+			'opacity-70': disabled,
+		},
 		className,
-		{ 'opacity-70': disabled },
 	)}
 	{disabled}
 	on:click
