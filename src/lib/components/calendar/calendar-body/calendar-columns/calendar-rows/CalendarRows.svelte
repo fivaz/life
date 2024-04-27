@@ -3,16 +3,14 @@
 
 	import {
 		getEndSlot,
-		getSlot,
 		getStartSlot,
 	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
 	import { DATE } from '$lib/consts';
-	import { convertTimeToMinutes } from '$lib/task/utils';
 	import { format } from 'date-fns';
 	import { SignedIn } from 'sveltefire';
 
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
-	import { GRID_CELL_TIME, NEW_GRID_CELL_HEIGHT } from './calendar-grid/service';
+	import { NEW_GRID_CELL_HEIGHT } from './calendar-grid/service';
 	import DueToDos from './due-to-dos/DueToDos.svelte';
 	import EventPanel from './event-panel/EventPanel.svelte';
 	import { isEventOnDay, isToDoOnDay } from './service';

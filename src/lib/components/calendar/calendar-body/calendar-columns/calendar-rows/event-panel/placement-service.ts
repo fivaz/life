@@ -20,20 +20,6 @@ export function getDivision(timeSlots: string[][], event: AnyEvent) {
 	const startSlot = getStartSlot(event);
 	const endSlot = getEndSlot(event);
 
-	let biggestOverLapping = Number.NEGATIVE_INFINITY;
-	for (let i = startSlot; i < endSlot; i++) {
-		if (timeSlots[i].length > biggestOverLapping) {
-			biggestOverLapping = timeSlots[i].length;
-		}
-	}
-
-	return `width: ${100 / biggestOverLapping}%;`;
-}
-
-export function getLeft(timeSlots: string[][], event: AnyEvent) {
-	const startSlot = getStartSlot(event);
-	const endSlot = getEndSlot(event);
-
 	let biggestOverlapIndex = startSlot;
 	for (let i = startSlot; i < endSlot; i++) {
 		if (timeSlots[i].length > timeSlots[biggestOverlapIndex].length) {
@@ -42,9 +28,11 @@ export function getLeft(timeSlots: string[][], event: AnyEvent) {
 	}
 
 	const biggestOverlap = timeSlots[biggestOverlapIndex].length;
-	const position = (100 / biggestOverlap) * timeSlots[biggestOverlapIndex].indexOf(event.id);
+	const width = 100 / biggestOverlap;
 
-	return `left: ${position}%;`;
+	const left = width * timeSlots[biggestOverlapIndex].indexOf(event.id);
+
+	return `width: ${width}%; left: ${left}%;`;
 }
 
 export function getHeight(event: AnyEvent) {
@@ -54,7 +42,7 @@ export function getHeight(event: AnyEvent) {
 }
 
 export function getTop(event: AnyEvent): string {
-	const startTimeMinutes = convertTimeToMinutes(event.duration);
+	const startTimeMinutes = convertTimeToMinutes(event.startTime);
 
 	return `top: ${(startTimeMinutes / GRID_CELL_TIME) * NEW_GRID_CELL_HEIGHT}px;`;
 }

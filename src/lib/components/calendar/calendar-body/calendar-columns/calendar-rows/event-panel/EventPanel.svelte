@@ -3,18 +3,14 @@
 
 	import { tailwindColors } from '$lib/category/utils';
 	import {
-		GRID_CELL_TIME,
-		NEW_GRID_CELL_HEIGHT,
 		isSomethingDragging,
 	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 	import {
 		getDivision,
 		getHeight,
-		getLeft,
 		getTop,
 	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
 	import { persistChange } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/service';
-	import { convertTimeToMinutes } from '$lib/task/utils';
 	import { clsx } from 'clsx';
 	import interact from 'interactjs';
 	import { createEventDispatcher, onMount } from 'svelte';
@@ -137,10 +133,7 @@
 <div
 	bind:this={container}
 	class={clsx(className, 'absolute rounded-lg')}
-	style="{getHeight(event)} {getTop(event)} {getDivision(timeSlots, event)} {getLeft(
-		timeSlots,
-		event,
-	)}"
+	style="{getHeight(event)} {getTop(event)} {getDivision(timeSlots, event)}"
 >
 	<EventPanelCore {event} {isSelected} {targetDate} {userId} />
 </div>
