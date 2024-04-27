@@ -2,9 +2,7 @@
 	import type { AnyEvent, Event } from '$lib/task/utils';
 
 	import { tailwindColors } from '$lib/category/utils';
-	import {
-		isSomethingDragging,
-	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
+	import { isSomethingDragging } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 	import {
 		getDivision,
 		getHeight,
@@ -96,6 +94,9 @@
 				zIndex: '',
 			});
 		}
+
+		position = { x: 0, y: 0 };
+
 		document.removeEventListener('click', unSelect);
 	}
 
