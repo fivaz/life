@@ -4,6 +4,7 @@
 	import { tailwindColors } from '$lib/category/utils';
 	import { isSomethingDragging } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 	import {
+		EVENT_PANEL_CLASS,
 		getDivision,
 		getHeight,
 		getTop,
@@ -133,7 +134,7 @@
 
 <div
 	bind:this={container}
-	class={clsx(className, 'absolute rounded-lg')}
+	class={clsx(className, EVENT_PANEL_CLASS, 'absolute rounded-lg')}
 	style="{getHeight(event)} {getTop(event)} {getDivision(timeSlots, event)}"
 >
 	<EventPanelCore {event} {isSelected} {targetDate} {userId} />

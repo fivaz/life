@@ -5,21 +5,44 @@ import {
 	GRID_CLASS,
 	NEW_GRID_CELL_HEIGHT,
 } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
+import { EVENT_PANEL_CLASS } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
 import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
 import { TIME } from '$lib/consts';
 import { addMinutes, format, subMinutes } from 'date-fns';
+
+function getElementBeneath(draggedElement: HTMLElement, gridCellY: number, gridCellX: number) {
+	draggedElement.style.visibility = 'hidden';
+	const element = document.elementFromPoint(gridCellX, gridCellY);
+	draggedElement.style.visibility = '';
+	return element;
+}
+
+function getGridCellBeneath(draggedElement: HTMLDivElement, gridCellY: number, gridCellX: number) {
+	const element = getElementBeneath(draggedElement, gridCellY, gridCellX);
+	if (!element) return;
+
+	const gridCell = element.closest<HTMLDivElement>(`.${GRID_CLASS}`);
+	if (gridCell) return gridCell;
+
+	const eventPanel = element.closest<HTMLDivElement>(`.${EVENT_PANEL_CLASS}`);
+	if (!eventPanel) return;
+
+	// if I need to get the element beneath eventPanel I need to first hide the draggedElement, otherwise I'll retrieve it
+	draggedElement.style.visibility = 'hidden';
+	const elementBeneath = getElementBeneath(eventPanel, gridCellY, gridCellX);
+	draggedElement.style.visibility = '';
+
+	if (!elementBeneath) return;
+	return elementBeneath.closest<HTMLDivElement>(`.${GRID_CLASS}`);
+}
 
 function getDateTimeFromGridCell(
 	draggedElement: HTMLDivElement,
 	gridCellY: number,
 	gridCellX: number,
 ): { date: string; time: string } | void {
-	draggedElement.style.visibility = 'hidden';
-	const element = document.elementFromPoint(gridCellX, gridCellY);
-	draggedElement.style.visibility = '';
-	if (!element) return;
+	const gridCell = getGridCellBeneath(draggedElement, gridCellY, gridCellX);
 
-	const gridCell: HTMLDivElement | null = element.closest<HTMLDivElement>(`.${GRID_CLASS}`);
 	if (!gridCell) return;
 
 	const { date, time } = gridCell.dataset;
