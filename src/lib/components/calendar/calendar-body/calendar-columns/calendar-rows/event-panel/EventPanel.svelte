@@ -7,6 +7,12 @@
 		NEW_GRID_CELL_HEIGHT,
 		isSomethingDragging,
 	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
+	import {
+		getDivision,
+		getHeight,
+		getLeft,
+		getTop,
+	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
 	import { persistChange } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/service';
 	import { convertTimeToMinutes } from '$lib/task/utils';
 	import { clsx } from 'clsx';
@@ -20,6 +26,7 @@
 	export let userId: string;
 
 	export let targetDate: string;
+	export let timeSlots: string[][];
 
 	let container: HTMLDivElement | undefined = undefined;
 
@@ -125,23 +132,15 @@
 			listeners: { move: resizeEvent },
 		});
 	});
-
-	function getTop() {
-		const startTimeMinutes = convertTimeToMinutes(event.startTime);
-		return `${(startTimeMinutes / GRID_CELL_TIME) * NEW_GRID_CELL_HEIGHT}px`;
-	}
-
-	function getHeight() {
-		const durationMinutes = convertTimeToMinutes(event.duration);
-
-		return `${(durationMinutes / GRID_CELL_TIME) * NEW_GRID_CELL_HEIGHT}px`;
-	}
 </script>
 
 <div
 	bind:this={container}
-	class={clsx(className, 'absolute w-full rounded-lg')}
-	style="height: {getHeight()}; top: {getTop()}"
+	class={clsx(className, 'absolute rounded-lg')}
+	style="{getHeight(event)} {getTop(event)} {getDivision(timeSlots, event)} {getLeft(
+		timeSlots,
+		event,
+	)}"
 >
 	<EventPanelCore {event} {isSelected} {targetDate} {userId} />
 </div>
