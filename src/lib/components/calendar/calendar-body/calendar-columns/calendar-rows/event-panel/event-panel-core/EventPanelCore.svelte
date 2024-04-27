@@ -59,9 +59,9 @@
 		>
 			{format(parse(event.startTime, TIME, new Date()), 'p')}
 		</time>
-		<div class="text-pink-500 group-hover:text-pink-700">
+		<div class="test text-pink-500 group-hover:text-pink-700">
 			{#if event.subTasks?.length}
-				<ul>
+				<ul class="test">
 					{#each event.subTasks as subTask (subTask.id)}
 						<li class={clsx('flex items-center gap-1', { 'line-through': subTask.isDone })}>
 							<span>{subTask.name}</span>
@@ -74,3 +74,9 @@
 		</div>
 	{/if}
 </div>
+
+<style>
+	.group {
+		scrollbar-width: none;
+	}
+</style>

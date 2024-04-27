@@ -1,5 +1,9 @@
-import type { AnyTask, RecurringEvent } from '$lib/task/utils';
+import type { AnyEvent, AnyTask, RecurringEvent } from '$lib/task/utils';
 
+import {
+	getEndSlot,
+	getStartSlot,
+} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
 import { weekDays } from '$lib/components/days-checkbox/service';
 import { getEndTime } from '$lib/components/task-form/service';
 import { DATE, DATETIME } from '$lib/consts';
@@ -64,4 +68,24 @@ export function isEventOnDay(task: AnyTask, day: Date): boolean {
 	}
 
 	return false;
+}
+
+export function getEvents(tasks: AnyTask[], date: Date) {
+	return tasks.filter((task): task is AnyEvent => isEventOnDay(task, date));
+}
+
+export function getTimeSlots(tasks: AnyTask[], date: Date): string[][] {
+	const timeSlots = new Array(96).fill(null).map<string[]>(() => []);
+
+	const events = getEvents(tasks, date);
+
+	for (const event of events) {
+		const startSlot = getStartSlot(event);
+		const endSlot = getEndSlot(event);
+		for (let i = startSlot; i < endSlot; i++) {
+			timeSlots[i].push(event.id);
+		}
+	}
+
+	return timeSlots;
 }
