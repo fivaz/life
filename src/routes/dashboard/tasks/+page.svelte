@@ -1,11 +1,9 @@
 <script lang="ts">
 	import type { Category } from '$lib/category/utils';
-	import type { Goal } from '$lib/goal/utils';
 	import type { AnyTask } from '$lib/task/utils';
 
 	import Button from '$lib/components/button/Button.svelte';
-	import Modal from '$lib/components/modal/Modal.svelte';
-	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
+	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { auth, db } from '$lib/firebase';
 	import { buildEmptyToDo } from '$lib/task/build-utils';
@@ -37,8 +35,6 @@
 	}
 
 	let categoryType: Category;
-
-	let goalType: Goal;
 </script>
 
 <div class="py-4">
@@ -74,11 +70,7 @@
 					{/each}
 				</ul>
 
-				<TypedCollection let:data={goals} ref={`users/${user.uid}/goals`} type={goalType}>
-					<Modal on:close={() => (showForm = false)} show={showForm}>
-						<TaskForm {categories} {goals} on:close={() => (showForm = false)} task={editingTask} />
-					</Modal>
-				</TypedCollection>
+				<TaskFormWrapper bind:show={showForm} {categories} {editingTask} userId={user.uid} />
 			</div>
 		</TypedCollection>
 	</SignedIn>

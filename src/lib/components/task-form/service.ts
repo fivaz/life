@@ -161,7 +161,7 @@ export function editPossibleSingleRecurringEvent(
 	}
 }
 
-export async function editSingleRecurringEvent(
+export function editSingleRecurringEvent(
 	id: string,
 	recurringEvent: Omit<RecurringEvent, 'id'>,
 	userId: string,
@@ -187,7 +187,7 @@ export async function editTaskWithPrompt(
 	targetDate: string | undefined,
 	wasRecurring: boolean,
 	file: File | null,
-) {
+): Promise<boolean> {
 	if ('recurringStartAt' in data && wasRecurring && targetDate) {
 		const recurringData = data as Omit<RecurringEvent, 'id'>;
 		const result = await createModal({
@@ -198,16 +198,17 @@ export async function editTaskWithPrompt(
 		});
 
 		if (result === null) {
-			return;
+			return false;
 		}
 		if (result) {
-			void editSingleRecurringEvent(id, recurringData, userId, targetDate, file);
+			editSingleRecurringEvent(id, recurringData, userId, targetDate, file);
 		} else {
 			void editTask(id, recurringData, userId, file);
 		}
 	} else {
 		void editTask(id, data, userId, file);
 	}
+	return true;
 }
 
 async function editTaskInGoal(
@@ -268,7 +269,7 @@ export async function addTask(data: Omit<AnyTask, 'id'>, userId: string, file?: 
 	}
 }
 
-async function deleteTaskFromGoal(userId: string, taskId: string, data: Omit<AnyTask, 'id'>) {
+function deleteTaskFromGoal(userId: string, taskId: string, data: Omit<AnyTask, 'id'>) {
 	if (data.goal) {
 		const goalDocRef = doc(db, 'users', userId, 'goals', data.goal.id);
 		const goalTaskDocRef = doc(goalDocRef, 'tasks', taskId);
@@ -277,12 +278,12 @@ async function deleteTaskFromGoal(userId: string, taskId: string, data: Omit<Any
 	}
 }
 
-async function deleteTask(id: string, data: Omit<AnyTask, 'id'>, userId: string) {
+function deleteTask(id: string, data: Omit<AnyTask, 'id'>, userId: string) {
 	// TODO check if I can remove this id / data separation
 	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
 	void deleteDoc(taskDocRef);
 
-	void deleteTaskFromGoal(userId, id, data);
+	deleteTaskFromGoal(userId, id, data);
 }
 
 function addExceptionToRecurring(
@@ -301,7 +302,7 @@ export async function deletePossibleSingleRecurringEvent(
 	task: AnyTask,
 	userId: string,
 	targetDate: string | undefined,
-): Promise<void> {
+): Promise<boolean> {
 	const { id, ...data } = task;
 
 	if ('recurringStartAt' in task && targetDate) {
@@ -313,17 +314,19 @@ export async function deletePossibleSingleRecurringEvent(
 		});
 
 		if (result === null) {
-			return;
+			return false;
 		}
 
 		if (result) {
 			addExceptionToRecurring(id, data as Omit<RecurringEvent, 'id'>, targetDate, userId);
 		} else {
-			void deleteTask(id, data, userId);
+			deleteTask(id, data, userId);
 		}
 	} else {
-		void deleteTask(id, data, userId);
+		deleteTask(id, data, userId);
 	}
+
+	return true;
 }
 
 export async function storeImage(userId: string, taskId: string, file: Blob): Promise<string> {
