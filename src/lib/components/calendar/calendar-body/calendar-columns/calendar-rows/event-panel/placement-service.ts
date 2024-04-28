@@ -2,7 +2,8 @@ import {
 	GRID_CELL_TIME,
 	NEW_GRID_CELL_HEIGHT,
 } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
-import { type AnyEvent, convertTimeToMinutes } from '$lib/task/utils';
+import { convertTimeToMinutes } from '$lib/task/time-utils';
+import { type AnyEvent } from '$lib/task/utils';
 
 export const EVENT_PANEL_CLASS = 'event-panel-class';
 

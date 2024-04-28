@@ -2,14 +2,13 @@ import type { AnyTask, Event, RecurringEvent, ToDo } from '$lib/task/utils';
 
 import { fun, routine, sleep, work } from '$lib/category/seed';
 import { DATE, TIME } from '$lib/consts';
-import { format, set, startOfTomorrow, startOfWeek, startOfYesterday } from 'date-fns';
+import { buildDate } from '$lib/task/time-utils';
+import { format, startOfTomorrow, startOfWeek, startOfYesterday } from 'date-fns';
 
 function getTodayAtTime(time: string): Date {
-	const [hours, minutes] = time.split(':').map(Number);
-
 	const date = new Date();
 
-	return set(date, { hours, minutes });
+	return buildDate(date, time);
 }
 
 const longText =

@@ -4,14 +4,13 @@
 
 	import { GRID_CLASS, NEW_GRID_CELL_HEIGHT, isSomethingDragging } from '../service';
 
-	const dispatch = createEventDispatcher<{ click: number; move: number }>();
+	const dispatch = createEventDispatcher<{ click: string; move: number }>();
 
 	let className = '';
 	export { className as class };
 	export let cellNumber: number;
 	export let targetDate: string;
 
-	// TODO check if I can make this useless
 	function getTime(cellNumber: number) {
 		const totalMinutes = cellNumber * 15;
 
@@ -20,17 +19,19 @@
 
 		return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
 	}
+
+	$: time = getTime(cellNumber);
 </script>
 
 <!--the class grid-cell is used in EventPanel to control droppable zones for its drag and drop-->
 <div
 	class={clsx(GRID_CLASS, className, { 'border-b': $isSomethingDragging })}
 	data-date={targetDate}
-	data-time={getTime(cellNumber)}
-	on:click={() => !$isSomethingDragging && dispatch('click', cellNumber)}
+	data-time={time}
+	on:click={() => !$isSomethingDragging && dispatch('click', time)}
 	on:keydown={(e) => {
 		if (e.key === 'Enter') {
-			dispatch('click', cellNumber);
+			dispatch('click', time);
 		}
 	}}
 	role="button"

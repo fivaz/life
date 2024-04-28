@@ -4,8 +4,8 @@ import {
 	getEndSlot,
 	getStartSlot,
 } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
-import { weekDays } from '$lib/components/days-checkbox/service';
 import { getEndTime } from '$lib/components/task-form/service';
+import { weekDays } from '$lib/components/task-form/task-form-recurring/days-checkbox/service';
 import { DATE, DATETIME } from '$lib/consts';
 import { endOfDay, getDay, isSameDay, isWithinInterval, parse, startOfDay } from 'date-fns';
 

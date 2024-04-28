@@ -2,7 +2,6 @@ import type { Category } from '$lib/category/utils';
 import type { Goal } from '$lib/goal/utils';
 import type { AnyTask, Event, RecurringEvent, SubTask, Task, ToDo } from '$lib/task/utils';
 
-import { weekDays } from '$lib/components/days-checkbox/service';
 import { createModal } from '$lib/components/dialog/service';
 import { DATE, TIME } from '$lib/consts';
 import { db, storage } from '$lib/firebase';
@@ -25,6 +24,8 @@ import {
 	updateDoc,
 } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+
+import { weekDays } from './task-form-recurring/days-checkbox/service';
 
 export type TaskIn = Omit<Task, 'recurringExceptions'> & {
 	endTime: string;

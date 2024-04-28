@@ -3,9 +3,7 @@
 	import type { AnyEvent, AnyTask } from '$lib/task/utils';
 
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
-	import {
-		editPossibleSingleRecurringEvent,
-	} from '$lib/components/task-form/service';
+	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
 	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { buildEmptyEvent, buildEventWithTime } from '$lib/task/build-utils';

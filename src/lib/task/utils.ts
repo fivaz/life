@@ -3,6 +3,7 @@ import type { TaskIn } from '$lib/components/task-form/service';
 import type { Goal } from '$lib/goal/utils';
 
 import { DATE, TIME } from '$lib/consts';
+import { convertTimeToMinutes } from '$lib/task/time-utils';
 import { format, isAfter, parse } from 'date-fns';
 
 export type SubTask = { id: number; isDone: boolean; name: string };
@@ -40,14 +41,6 @@ export type Task = ToDo & Event & RecurringEvent;
 export type AnyEvent = Event | RecurringEvent;
 
 export type AnyTask = AnyEvent | ToDo;
-
-export function convertTimeToMinutes(time: string) {
-	if (/^([01]\d|2[0-3]):([0-5]\d)$/.test(time)) {
-		const [hours, minutes] = time.split(':').map(Number);
-		return hours * 60 + minutes;
-	}
-	throw "Time isn't in the format hh:mm";
-}
 
 export function getDurationInMinutes(task: AnyTask) {
 	if ('duration' in task && task.duration) {

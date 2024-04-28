@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { weekDays } from '$lib/components/days-checkbox/service';
 	import { clsx } from 'clsx';
 
-	// TODO since this component will only be used inside a TaskForm I think I should move it there
+	import { weekDays } from './service';
+
 	export let value: string[];
 
 	export let name: string;
