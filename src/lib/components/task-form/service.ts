@@ -1,7 +1,6 @@
 import type { Category } from '$lib/category/utils';
 import type { Goal } from '$lib/goal/utils';
 import type { AnyTask, Event, RecurringEvent, SubTask, Task, ToDo } from '$lib/task/utils';
-import type { EventDispatcher } from 'svelte';
 
 import { weekDays } from '$lib/components/days-checkbox/service';
 import { createModal } from '$lib/components/dialog/service';
@@ -298,12 +297,11 @@ function addExceptionToRecurring(
 	void updateDoc(taskDocRef, { recurringExceptions: exceptions });
 }
 
-export async function removeTask(
+export async function deletePossibleSingleRecurringEvent(
 	task: AnyTask,
 	userId: string,
 	targetDate: string | undefined,
-	dispatch: EventDispatcher<{ close: null }>,
-) {
+): Promise<boolean> {
 	const { id, ...data } = task;
 
 	if ('recurringStartAt' in task && targetDate) {
@@ -315,7 +313,7 @@ export async function removeTask(
 		});
 
 		if (result === null) {
-			return;
+			return false;
 		}
 
 		if (result) {
@@ -326,7 +324,7 @@ export async function removeTask(
 	} else {
 		void deleteTask(id, data, userId);
 	}
-	dispatch('close');
+	return true;
 }
 
 export async function storeImage(userId: string, taskId: string, file: Blob): Promise<string> {

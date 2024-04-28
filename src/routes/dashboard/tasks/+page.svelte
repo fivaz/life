@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Category } from '$lib/category/utils';
+	import type { Goal } from '$lib/goal/utils';
 	import type { AnyTask } from '$lib/task/utils';
 
 	import Button from '$lib/components/button/Button.svelte';
@@ -18,11 +19,10 @@
 
 	let showForm = false;
 
-	let categoryType: Category;
-
 	const user = userStore(auth);
 
 	let tasks: ReturnType<typeof collectionStore<AnyTask>>;
+
 	$: {
 		if ($user) {
 			tasks = collectionStore<AnyTask>(db, queryUncompletedTasks($user.uid));
@@ -35,6 +35,10 @@
 			sortedTasks = getTasksByDate($tasks);
 		}
 	}
+
+	let categoryType: Category;
+
+	let goalType: Goal;
 </script>
 
 <div class="py-4">
@@ -70,14 +74,11 @@
 					{/each}
 				</ul>
 
-				<Modal on:close={() => (showForm = false)} show={showForm}>
-					<TaskForm
-						{categories}
-						on:close={() => (showForm = false)}
-						task={editingTask}
-						userId={user.uid}
-					/>
-				</Modal>
+				<TypedCollection let:data={goals} ref={`users/${user.uid}/goals`} type={goalType}>
+					<Modal on:close={() => (showForm = false)} show={showForm}>
+						<TaskForm {categories} {goals} on:close={() => (showForm = false)} task={editingTask} />
+					</Modal>
+				</TypedCollection>
 			</div>
 		</TypedCollection>
 	</SignedIn>

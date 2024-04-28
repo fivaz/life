@@ -11,16 +11,12 @@
 	import Select from '$lib/components/select/Select.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import {
-		addTask,
 		convertToTaskIn,
-		editTaskWithPrompt,
-		removeTask,
 	} from '$lib/components/task-form/service';
 	import TaskFormEvent from '$lib/components/task-form/task-form-event/TaskFormEvent.svelte';
 	import TaskFormImage from '$lib/components/task-form/task-form-image/TaskFormImage.svelte';
 	import TaskFormRecurring from '$lib/components/task-form/task-form-recurring/TaskFormRecurring.svelte';
 	import TaskFormSubTask from '$lib/components/task-form/task-form-sub-task/TaskFormSubTask.svelte';
-	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { convertToAnyTask, hasErrors } from '$lib/task/utils';
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -28,9 +24,9 @@
 
 	import type { TaskIn } from './service';
 
-	export let userId: string;
-
 	export let task: AnyTask;
+
+	export let goals: Goal[];
 
 	export let categories: Category[];
 
@@ -40,13 +36,22 @@
 
 	let wasRecurring = taskIn.isRecurring;
 
-	const dispatch = createEventDispatcher<{ close: null }>();
+	const dispatch = createEventDispatcher<{
+		close: null;
+		createTask: { data: Omit<AnyTask, 'id'>; file: File | null };
+		editTask: {
+			data: Omit<AnyTask, 'id'>;
+			file: File | null;
+			id: string;
+			targetDate: string | undefined;
+			wasRecurring: boolean;
+		};
+		removeTask: { targetDate: string | undefined; task: AnyTask };
+	}>();
 
 	let errorMessage = '';
 
 	let file: File | null = null;
-
-	let goalType: Goal;
 
 	$: isEditing = !!task.id;
 
@@ -60,9 +65,9 @@
 		const { id, ...data } = convertToAnyTask(taskIn);
 
 		if (id) {
-			editTaskWithPrompt(id, data, userId, targetDate, wasRecurring, file);
+			dispatch('editTask', { data, file, id, targetDate, wasRecurring });
 		} else {
-			addTask(data, userId, file);
+			dispatch('createTask', { data, file });
 		}
 
 		dispatch('close');
@@ -143,22 +148,20 @@
 				{/each}
 			</Select>
 
-			<TypedCollection let:data={goals} ref={`users/${userId}/goals`} type={goalType}>
-				<Select
-					bind:value={taskIn.goal}
-					class="flex items-center"
-					label="Goal"
-					labelClass="w-1/5"
-					name="goal"
-					selectClass="flex-1"
-				>
-					<span slot="placeholder">{taskIn.goal?.name || 'no goal'}</span>
-					<SelectItem value={null}>no goal</SelectItem>
-					{#each goals as goal (goal)}
-						<SelectItem value={goal}>{goal.name}</SelectItem>
-					{/each}
-				</Select>
-			</TypedCollection>
+			<Select
+				bind:value={taskIn.goal}
+				class="flex items-center"
+				label="Goal"
+				labelClass="w-1/5"
+				name="goal"
+				selectClass="flex-1"
+			>
+				<span slot="placeholder">{taskIn.goal?.name || 'no goal'}</span>
+				<SelectItem value={null}>no goal</SelectItem>
+				{#each goals as goal (goal)}
+					<SelectItem value={goal}>{goal.name}</SelectItem>
+				{/each}
+			</Select>
 
 			<Input
 				bind:value={taskIn.deadline}
@@ -183,7 +186,11 @@
 		{#if isEditing}
 			<ConfirmButton
 				color="red"
-				on:confirm={() => removeTask(task, userId, targetDate, dispatch)}
+				on:confirm={() => {
+					if (dispatch('removeTask', { targetDate, task })) {
+						dispatch('close');
+					}
+				}}
 				type="button"
 			>
 				Delete
