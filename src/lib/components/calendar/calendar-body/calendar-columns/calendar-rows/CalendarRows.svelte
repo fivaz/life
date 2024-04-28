@@ -3,8 +3,8 @@
 
 	import { DATE } from '$lib/consts';
 	import { format } from 'date-fns';
-	
-import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
+
+	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
 	import { NEW_GRID_CELL_HEIGHT } from './calendar-grid/service';
 	import DueToDos from './due-to-dos/DueToDos.svelte';
 	import EventPanel from './event-panel/EventPanel.svelte';
@@ -21,7 +21,7 @@ import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
 
 <div>
 	<div class="border-b" style="height: {NEW_GRID_CELL_HEIGHT}px">
-		<DueToDos {toDos} />
+		<DueToDos on:editTask {toDos} />
 	</div>
 	<div class="relative">
 		<CalendarGrid on:click targetDate={formattedDate} />

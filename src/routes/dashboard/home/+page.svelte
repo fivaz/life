@@ -16,16 +16,27 @@
 
 	let showForm = false;
 
-	let editingEvent: AnyEvent = buildEmptyEvent([]);
+	let editingEvent: AnyTask = buildEmptyEvent([]);
 
 	let taskType: AnyTask;
 
-	export function toggleCompletion(userId: string, event: AnyEvent, targetDate: string) {
+	function createTask(categories: Category[], date: Date) {
+		showForm = true;
+		editingEvent = buildEventWithTime(categories, date);
+	}
+
+	function editTask(task: AnyTask, date: string) {
+		showForm = true;
+		targetDate = date;
+		editingEvent = task;
+	}
+
+	function toggleCompletion(userId: string, event: AnyEvent, targetDate: string) {
 		const newEvent = { ...event, isDone: !event.isDone };
 		editPossibleSingleRecurringEvent(newEvent, userId, targetDate);
 	}
 
-	export function moveEvent(
+	function moveEvent(
 		userId: string,
 		event: AnyEvent,
 		date: string,
@@ -42,15 +53,8 @@
 	<TypedCollection let:data={categories} ref={`users/${user.uid}/categories`} type={categoryType}>
 		<TypedCollection let:data={tasks} ref={`users/${user.uid}/tasks`} type={taskType}>
 			<Calendar
-				on:createTask={(e) => {
-					showForm = true;
-					editingEvent = buildEventWithTime(categories, e.detail);
-				}}
-				on:editTask={(e) => {
-					showForm = true;
-					targetDate = e.detail.targetDate;
-					editingEvent = e.detail.event;
-				}}
+				on:createTask={(e) => createTask(categories, e.detail)}
+				on:editTask={(e) => editTask(e.detail.task, e.detail.targetDate)}
 				on:moveEvent={(e) =>
 					moveEvent(
 						user.uid,

@@ -1,24 +1,18 @@
 <script lang="ts">
-	import type { Category } from '$lib/category/utils';
-	import type { ToDo } from '$lib/task/utils';
+	import type { AnyTask, ToDo } from '$lib/task/utils';
 
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
-	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
-	import { buildEmptyToDo } from '$lib/task/build-utils';
 	import { Document, DocumentCheck, EllipsisHorizontal } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { SignedIn } from 'sveltefire';
+	import { createEventDispatcher } from 'svelte';
 
 	export let toDos: ToDo[];
 
 	let isOpen = false;
 
-	let showForm = false;
-
-	let editingTask = buildEmptyToDo([]);
-
-	let categoryType: Category;
+	const dispatch = createEventDispatcher<{
+		editTask: { targetDate: string; task: AnyTask };
+	}>();
 </script>
 
 <!--there is a bug here that this truncate won't work if not inside a relative -> absolute div-->
@@ -44,28 +38,10 @@
 			<div class="flex gap-2 text-start">
 				<Icon class="h-5 w-5 text-indigo-500" src={toDo.isDone ? DocumentCheck : Document} />
 				<div class="flex-1 truncate">{toDo.name}</div>
-				<button
-					on:click={() => {
-						editingTask = toDo;
-						showForm = true;
-					}}
-				>
+				<button on:click={() => dispatch('editTask', { targetDate: '', task: toDo })}>
 					<Icon class="h-5 w-5 text-indigo-500" src={EllipsisHorizontal} />
 				</button>
 			</div>
 		{/each}
 	</div>
 </Modal>
-
-<SignedIn let:user>
-	<TypedCollection let:data={categories} ref={`users/${user.uid}/categories`} type={categoryType}>
-		<Modal on:close={() => (showForm = false)} show={showForm}>
-			<TaskForm
-				{categories}
-				on:close={() => (showForm = false)}
-				task={editingTask}
-				userId={user.uid}
-			/>
-		</Modal>
-	</TypedCollection>
-</SignedIn>

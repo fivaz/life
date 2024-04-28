@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { AnyEvent, Event } from '$lib/task/utils';
+	import type { AnyEvent, AnyTask, Event } from '$lib/task/utils';
 
 	import { tailwindColors } from '$lib/category/utils';
 	import { isSomethingDragging } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
@@ -37,7 +37,7 @@
 	}
 
 	const dispatch = createEventDispatcher<{
-		editTask: { event: Event; targetDate: string };
+		editTask: { targetDate: string; task: AnyTask };
 		moveEvent: {
 			event: Event;
 			newDate: string;
@@ -119,7 +119,7 @@
 			//e.target instanceof HTMLInputElement is necessary so when clicking on the checkbox isDone doesn't open the form
 			if ($isSomethingDragging || e.target instanceof HTMLInputElement) return;
 
-			dispatch('editTask', { event, targetDate });
+			dispatch('editTask', { targetDate, task: event });
 		});
 
 		interactivePanel.pointerEvents({ holdDuration: 300 }).on('hold', () => {
