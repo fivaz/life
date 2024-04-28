@@ -26,7 +26,7 @@
 			<DueToDos {toDos} />
 		</div>
 		<div class="relative">
-			<CalendarGrid on:create targetDate={formattedDate} />
+			<CalendarGrid on:click targetDate={formattedDate} />
 			{#each getEvents(tasks, date) as event (event)}
 				<EventPanel
 					{event}

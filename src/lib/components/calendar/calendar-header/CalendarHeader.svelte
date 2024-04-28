@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 	import { DATE } from '$lib/consts';
 	import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@rgossiaux/svelte-headlessui';
 	import { ChevronLeft, ChevronRight, EllipsisHorizontal } from '@steeze-ui/heroicons';
@@ -10,8 +11,6 @@
 	export let weekStart: Date;
 
 	let currentDate = new Date();
-
-	const dispatch = createEventDispatcher();
 
 	function goToToday() {
 		weekStart = startOfWeek(currentDate);
@@ -25,7 +24,14 @@
 		weekStart = addDays(weekStart, -7);
 	}
 
-	$: createEvent = () => dispatch('create');
+	const dispatch = createEventDispatcher<{ create: Date }>();
+
+	function getCurrentRoundedDate() {
+		const milliseconds = 1000 * 60 * GRID_CELL_TIME;
+		return new Date(Math.round(new Date().getTime() / milliseconds) * milliseconds);
+	}
+
+	$: createEvent = () => dispatch('create', getCurrentRoundedDate());
 </script>
 
 <header class="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">

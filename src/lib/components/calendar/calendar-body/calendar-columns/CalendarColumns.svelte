@@ -1,7 +1,12 @@
 <script lang="ts">
 	import type { AnyTask } from '$lib/task/utils';
 
+	import {
+		GRID_CELL_TIME,
+		NUMBER_OF_CELLS,
+	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
+	import { setHours, setMinutes } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 	import { SignedIn } from 'sveltefire';
 
@@ -12,11 +17,19 @@
 	export let selectedDate: Date;
 
 	const dispatch = createEventDispatcher<{
-		create: { cellNumber: number; date: Date };
+		create: Date;
 		move: { cellNumber: number; date: Date };
 	}>();
 
 	let taskType: AnyTask;
+
+	export function buildDate(date: Date, cellNumber: number): Date {
+		if (cellNumber < 0 || cellNumber > NUMBER_OF_CELLS) {
+			throw 'Invalid number. Please enter a number between 0 and 95.';
+		}
+
+		return setMinutes(setHours(date, 0), cellNumber * GRID_CELL_TIME);
+	}
 </script>
 
 <SignedIn let:user>
@@ -26,7 +39,7 @@
 				{#each dates as date (date)}
 					<CalendarRows
 						{date}
-						on:create={(e) => dispatch('create', { cellNumber: e.detail, date })}
+						on:click={(e) => dispatch('create', buildDate(date, e.detail))}
 						on:edit
 						{tasks}
 					/>
@@ -38,7 +51,7 @@
 		<div class="block grow md:hidden">
 			<CalendarRows
 				date={selectedDate}
-				on:create={(e) => dispatch('create', { cellNumber: e.detail, date: selectedDate })}
+				on:click={(e) => dispatch('create', buildDate(selectedDate, e.detail))}
 				on:edit
 				{tasks}
 			/>

@@ -4,13 +4,14 @@
 
 	import { GRID_CLASS, NEW_GRID_CELL_HEIGHT, isSomethingDragging } from '../service';
 
-	const dispatch = createEventDispatcher<{ create: number; move: number }>();
+	const dispatch = createEventDispatcher<{ click: number; move: number }>();
 
 	let className = '';
 	export { className as class };
 	export let cellNumber: number;
 	export let targetDate: string;
 
+	// TODO check if I can make this useless
 	function getTime(cellNumber: number) {
 		const totalMinutes = cellNumber * 15;
 
@@ -26,10 +27,10 @@
 	class={clsx(GRID_CLASS, className, { 'border-b': $isSomethingDragging })}
 	data-date={targetDate}
 	data-time={getTime(cellNumber)}
-	on:click={() => !$isSomethingDragging && dispatch('create', cellNumber)}
+	on:click={() => !$isSomethingDragging && dispatch('click', cellNumber)}
 	on:keydown={(e) => {
 		if (e.key === 'Enter') {
-			dispatch('create', cellNumber);
+			dispatch('click', cellNumber);
 		}
 	}}
 	role="button"

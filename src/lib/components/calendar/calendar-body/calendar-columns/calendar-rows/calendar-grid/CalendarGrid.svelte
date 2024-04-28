@@ -9,6 +9,6 @@
 
 <div class="h-full">
 	{#each Array.from({ length: NUMBER_OF_CELLS }, (_, i) => i) as cellNumber (cellNumber)}
-		<GridCell {cellNumber} class={clsx('h-1/2')} on:create {targetDate} />
+		<GridCell {cellNumber} class={clsx('h-1/2')} on:click {targetDate} />
 	{/each}
 </div>

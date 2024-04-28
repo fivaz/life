@@ -2,12 +2,8 @@ import type { Category } from '$lib/category/utils';
 import type { Goal } from '$lib/goal/utils';
 import type { Event, ToDo } from '$lib/task/utils';
 
-import {
-	GRID_CELL_TIME,
-	NUMBER_OF_CELLS,
-} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 import { DATE, TIME } from '$lib/consts';
-import { endOfWeek, format, setHours, setMinutes } from 'date-fns';
+import { endOfWeek, format } from 'date-fns';
 
 export function buildEmptyToDo(categories: Category[]): ToDo {
 	return {
@@ -36,17 +32,7 @@ export function buildEmptyEvent(categories: Category[], goal: Goal | null = null
 	};
 }
 
-function buildDate(date: Date, cellNumber: number) {
-	if (cellNumber < 0 || cellNumber > NUMBER_OF_CELLS) {
-		throw 'Invalid number. Please enter a number between 0 and 95.';
-	}
-
-	const datetime = setMinutes(setHours(date, 0), cellNumber * GRID_CELL_TIME);
-
-	return format(datetime, TIME);
-}
-
-export function buildEventWithTime(categories: Category[], date: Date, cellNumber: number): Event {
+export function buildEventWithTime(categories: Category[], date: Date): Event {
 	return {
 		category: categories.find((category) => category.isDefault) || categories[0],
 		date: format(date, DATE),
@@ -56,6 +42,6 @@ export function buildEventWithTime(categories: Category[], date: Date, cellNumbe
 		id: '',
 		isDone: false,
 		name: '',
-		startTime: buildDate(date, cellNumber),
+		startTime: format(date, TIME),
 	};
 }
