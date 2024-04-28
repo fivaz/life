@@ -30,7 +30,8 @@
 			{#each getEvents(tasks, date) as event (event)}
 				<EventPanel
 					{event}
-					on:edit
+					on:editTask
+					on:toggleEvent
 					targetDate={formattedDate}
 					timeSlots={getTimeSlots(tasks, date)}
 					userId={user.uid}

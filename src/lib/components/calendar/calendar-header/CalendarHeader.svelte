@@ -24,14 +24,14 @@
 		weekStart = addDays(weekStart, -7);
 	}
 
-	const dispatch = createEventDispatcher<{ create: Date }>();
+	const dispatch = createEventDispatcher<{ createTask: Date }>();
 
 	function getCurrentRoundedDate() {
 		const milliseconds = 1000 * 60 * GRID_CELL_TIME;
 		return new Date(Math.round(new Date().getTime() / milliseconds) * milliseconds);
 	}
 
-	$: createEvent = () => dispatch('create', getCurrentRoundedDate());
+	$: createEvent = () => dispatch('createTask', getCurrentRoundedDate());
 </script>
 
 <header class="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">

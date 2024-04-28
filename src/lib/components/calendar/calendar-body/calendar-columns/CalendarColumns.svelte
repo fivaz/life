@@ -7,8 +7,8 @@
 	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 	import { setHours, setMinutes } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
-	
-import CalendarRows from './calendar-rows/CalendarRows.svelte';
+
+	import CalendarRows from './calendar-rows/CalendarRows.svelte';
 
 	export let dates: Date[];
 	export let tasks: AnyTask[];
@@ -16,7 +16,7 @@ import CalendarRows from './calendar-rows/CalendarRows.svelte';
 	export let selectedDate: Date;
 
 	const dispatch = createEventDispatcher<{
-		create: Date;
+		createTask: Date;
 		move: { cellNumber: number; date: Date };
 	}>();
 
@@ -34,8 +34,9 @@ import CalendarRows from './calendar-rows/CalendarRows.svelte';
 		{#each dates as date (date)}
 			<CalendarRows
 				{date}
-				on:click={(e) => dispatch('create', buildDate(date, e.detail))}
-				on:edit
+				on:click={(e) => dispatch('createTask', buildDate(date, e.detail))}
+				on:editTask
+				on:toggleEvent
 				{tasks}
 			/>
 		{/each}
@@ -46,8 +47,9 @@ import CalendarRows from './calendar-rows/CalendarRows.svelte';
 <div class="block grow md:hidden">
 	<CalendarRows
 		date={selectedDate}
-		on:click={(e) => dispatch('create', buildDate(selectedDate, e.detail))}
-		on:edit
+		on:click={(e) => dispatch('createTask', buildDate(selectedDate, e.detail))}
+		on:editTask
+		on:toggleEvent
 		{tasks}
 	/>
 </div>

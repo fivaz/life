@@ -19,8 +19,8 @@
 <Template let:args>
 	<CalendarBody
 		{...args}
-		on:create={(args) => console.log('create', args)}
-		on:edit={(args) => console.log('edit', args)}
+		on:createTask={(args) => console.log('create', args)}
+		on:editTask={(args) => console.log('edit', args)}
 		{tasks}
 		weekStart={startOfWeek(new Date())}
 	/>

@@ -5,6 +5,7 @@
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
+	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { buildEmptyEvent, buildEventWithTime } from '$lib/task/build-utils';
 	import { SignedIn } from 'sveltefire';
@@ -18,21 +19,27 @@
 	let editingEvent: AnyEvent = buildEmptyEvent([]);
 
 	let taskType: AnyTask;
+
+	export function toggleCompletion(userId: string, event: AnyEvent, targetDate: string) {
+		console.log('x');
+		editPossibleSingleRecurringEvent({ ...event, isDone: !event.isDone }, userId, targetDate);
+	}
 </script>
 
 <SignedIn let:user>
 	<TypedCollection let:data={categories} ref={`users/${user.uid}/categories`} type={categoryType}>
 		<TypedCollection let:data={tasks} ref={`users/${user.uid}/tasks`} type={taskType}>
 			<Calendar
-				on:create={(e) => {
+				on:createTask={(e) => {
 					showForm = true;
 					editingEvent = buildEventWithTime(categories, e.detail);
 				}}
-				on:edit={(e) => {
+				on:editTask={(e) => {
 					showForm = true;
 					targetDate = e.detail.targetDate;
 					editingEvent = e.detail.event;
 				}}
+				on:toggleEvent={(e) => toggleCompletion(user.uid, e.detail.event, e.detail.targetDate)}
 				{tasks}
 			/>
 

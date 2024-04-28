@@ -38,7 +38,7 @@
 		interactivePanel?.styleCursor(isSelected);
 	}
 
-	const dispatch = createEventDispatcher<{ edit: { event: Event; targetDate: string } }>();
+	const dispatch = createEventDispatcher<{ editTask: { event: Event; targetDate: string } }>();
 
 	function startDrag(e: { target: HTMLElement }) {
 		if (!isSelected) return;
@@ -110,7 +110,7 @@
 			//e.target instanceof HTMLInputElement is necessary so when clicking on the checkbox isDone doesn't open the form
 			if ($isSomethingDragging || e.target instanceof HTMLInputElement) return;
 
-			dispatch('edit', { event, targetDate });
+			dispatch('editTask', { event, targetDate });
 		});
 
 		interactivePanel.pointerEvents({ holdDuration: 300 }).on('hold', () => {
@@ -137,5 +137,5 @@
 	class={clsx(className, EVENT_PANEL_CLASS, 'absolute rounded-lg')}
 	style="{getHeight(event)} {getTop(event)} {getDivision(timeSlots, event)}"
 >
-	<EventPanelCore {event} {isSelected} {targetDate} {userId} />
+	<EventPanelCore {event} {isSelected} on:toggleEvent {targetDate} />
 </div>

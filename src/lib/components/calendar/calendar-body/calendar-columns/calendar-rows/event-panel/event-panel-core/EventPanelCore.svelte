@@ -1,22 +1,21 @@
 <script lang="ts">
 	import { tailwindColors } from '$lib/category/utils';
 	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
-	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
 	import { TIME } from '$lib/consts';
 	import { type AnyEvent, getDurationInMinutes } from '$lib/task/utils';
 	import { clsx } from 'clsx';
 	import { format, parse } from 'date-fns';
+	import { createEventDispatcher } from 'svelte';
 
 	export let event: AnyEvent;
-	export let userId: string;
 	export let targetDate: string;
 	export let isSelected: boolean;
 
 	$: isLong = Math.abs(getDurationInMinutes(event)) > GRID_CELL_TIME;
 
-	export function toggleCompletion(userId: string, event: AnyEvent, targetDate: string) {
-		editPossibleSingleRecurringEvent({ ...event, isDone: !event.isDone }, userId, targetDate);
-	}
+	const dispatch = createEventDispatcher<{
+		toggleEvent: { event: AnyEvent; targetDate: string };
+	}>();
 
 	$: title =
 		!isLong && event.subTasks?.length
@@ -47,7 +46,7 @@
 		<input
 			checked={event.isDone}
 			class="rounded border-gray-300 focus:ring-indigo-600"
-			on:change={() => toggleCompletion(userId, event, targetDate)}
+			on:change={() => dispatch('toggleEvent', { event, targetDate })}
 			type="checkbox"
 		/>
 	</label>
