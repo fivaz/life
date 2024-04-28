@@ -56,10 +56,8 @@ export function getDurationInMinutes(task: AnyTask) {
 	return 0;
 }
 
-export function hasErrors(taskIn: TaskIn, errorMessage: string): boolean {
-	errorMessage = checkIsInverted(taskIn);
-
-	return !!errorMessage;
+export function checkErrors(taskIn: TaskIn): string {
+	return checkIsInverted(taskIn);
 }
 function checkIsInverted(taskIn: TaskIn): string {
 	if (

@@ -51,7 +51,7 @@
 	}
 
 	function removeTask(userId: string, task: AnyTask, targetDate: string | undefined) {
-		return deletePossibleSingleRecurringEvent(task, userId, targetDate);
+		deletePossibleSingleRecurringEvent(task, userId, targetDate);
 	}
 
 	function createTask(userId: string, data: Omit<AnyTask, 'id'>, file: File | null) {

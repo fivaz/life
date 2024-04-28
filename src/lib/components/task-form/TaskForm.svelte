@@ -10,14 +10,12 @@
 	import Input from '$lib/components/input/Input.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
-	import {
-		convertToTaskIn,
-	} from '$lib/components/task-form/service';
+	import { convertToTaskIn } from '$lib/components/task-form/service';
 	import TaskFormEvent from '$lib/components/task-form/task-form-event/TaskFormEvent.svelte';
 	import TaskFormImage from '$lib/components/task-form/task-form-image/TaskFormImage.svelte';
 	import TaskFormRecurring from '$lib/components/task-form/task-form-recurring/TaskFormRecurring.svelte';
 	import TaskFormSubTask from '$lib/components/task-form/task-form-sub-task/TaskFormSubTask.svelte';
-	import { convertToAnyTask, hasErrors } from '$lib/task/utils';
+	import { checkErrors, convertToAnyTask } from '$lib/task/utils';
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { createEventDispatcher } from 'svelte';
@@ -58,7 +56,8 @@
 	$: formName = `${isEditing ? 'Edit' : 'Add'} ${'startTime' in task ? 'Event' : 'Task'}`;
 
 	function onSubmit() {
-		if (hasErrors(taskIn, errorMessage)) {
+		errorMessage = checkErrors(taskIn);
+		if (errorMessage) {
 			return;
 		}
 
@@ -69,8 +68,6 @@
 		} else {
 			dispatch('createTask', { data, file });
 		}
-
-		dispatch('close');
 	}
 </script>
 
@@ -79,7 +76,7 @@
 	on:submit|preventDefault={onSubmit}
 >
 	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
-		<div class="flex items-center justify-between pb-2">
+		<div class="flex items-center justify-between">
 			<h2 class="text-lg text-gray-900">{formName}</h2>
 			<button
 				class="inline-flex rounded-md p-1.5 pl-2 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
@@ -91,11 +88,11 @@
 			</button>
 		</div>
 
-		<Alert hasCloseButton={false} isVisible={!!errorMessage} type="error">
-			{errorMessage}
-		</Alert>
-
 		<div class="flex flex-col gap-2 text-sm text-gray-700">
+			<Alert hasCloseButton={false} isVisible={!!errorMessage} type="error">
+				{errorMessage}
+			</Alert>
+
 			<div class="flex items-center gap-3">
 				<Input
 					autocomplete="off"
@@ -186,11 +183,7 @@
 		{#if isEditing}
 			<ConfirmButton
 				color="red"
-				on:confirm={() => {
-					if (dispatch('removeTask', { targetDate, task })) {
-						dispatch('close');
-					}
-				}}
+				on:confirm={() => dispatch('removeTask', { targetDate, task })}
 				type="button"
 			>
 				Delete

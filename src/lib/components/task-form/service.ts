@@ -301,7 +301,7 @@ export async function deletePossibleSingleRecurringEvent(
 	task: AnyTask,
 	userId: string,
 	targetDate: string | undefined,
-): Promise<boolean> {
+): Promise<void> {
 	const { id, ...data } = task;
 
 	if ('recurringStartAt' in task && targetDate) {
@@ -313,7 +313,7 @@ export async function deletePossibleSingleRecurringEvent(
 		});
 
 		if (result === null) {
-			return false;
+			return;
 		}
 
 		if (result) {
@@ -324,7 +324,6 @@ export async function deletePossibleSingleRecurringEvent(
 	} else {
 		void deleteTask(id, data, userId);
 	}
-	return true;
 }
 
 export async function storeImage(userId: string, taskId: string, file: Blob): Promise<string> {
