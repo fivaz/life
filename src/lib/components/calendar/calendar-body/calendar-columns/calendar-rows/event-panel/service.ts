@@ -6,7 +6,6 @@ import {
 	NEW_GRID_CELL_HEIGHT,
 } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 import { EVENT_PANEL_CLASS } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
-import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
 import { TIME } from '$lib/consts';
 import { addMinutes, format, subMinutes } from 'date-fns';
 
@@ -104,21 +103,14 @@ export function getDurationFromCellSize(height: number) {
 	return format(resultDate, 'HH:mm');
 }
 
-export function persistChange(
-	panel: HTMLDivElement,
-	event: AnyEvent,
-	userId: string,
-	oldDate: string,
-) {
+export function hasMoved(panel: HTMLDivElement, event: AnyEvent) {
 	const dateTime = getDateTimeBeneath(panel);
-	if (!dateTime) return;
+	if (!dateTime) return false;
 	const duration = getDurationFromCellSize(panel.getBoundingClientRect().height);
 
 	const { date, startTime } = dateTime;
 	if (startTime === event.startTime && date === event.date && duration === event.duration)
 		return false;
 
-	event = { ...event, date, duration, startTime };
-	editPossibleSingleRecurringEvent(event, userId, oldDate);
-	return true;
+	return { newDate: date, newDuration: duration, newStartTime: startTime };
 }

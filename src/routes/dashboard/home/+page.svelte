@@ -21,8 +21,20 @@
 	let taskType: AnyTask;
 
 	export function toggleCompletion(userId: string, event: AnyEvent, targetDate: string) {
-		console.log('x');
-		editPossibleSingleRecurringEvent({ ...event, isDone: !event.isDone }, userId, targetDate);
+		const newEvent = { ...event, isDone: !event.isDone };
+		editPossibleSingleRecurringEvent(newEvent, userId, targetDate);
+	}
+
+	export function moveEvent(
+		userId: string,
+		event: AnyEvent,
+		date: string,
+		duration: string,
+		startTime: string,
+		oldDate: string,
+	) {
+		const newEvent = { ...event, date, duration, startTime };
+		editPossibleSingleRecurringEvent(newEvent, userId, oldDate);
 	}
 </script>
 
@@ -39,6 +51,15 @@
 					targetDate = e.detail.targetDate;
 					editingEvent = e.detail.event;
 				}}
+				on:moveEvent={(e) =>
+					moveEvent(
+						user.uid,
+						e.detail.event,
+						e.detail.newDate,
+						e.detail.newDuration,
+						e.detail.newStartTime,
+						e.detail.oldDate,
+					)}
 				on:toggleEvent={(e) => toggleCompletion(user.uid, e.detail.event, e.detail.targetDate)}
 				{tasks}
 			/>

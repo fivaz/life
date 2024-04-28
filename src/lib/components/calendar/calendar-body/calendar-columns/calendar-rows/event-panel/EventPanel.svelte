@@ -9,7 +9,7 @@
 		getHeight,
 		getTop,
 	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
-	import { persistChange } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/service';
+	import { hasMoved } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/service';
 	import { clsx } from 'clsx';
 	import interact from 'interactjs';
 	import { createEventDispatcher, onMount } from 'svelte';
@@ -17,8 +17,6 @@
 	import EventPanelCore from './event-panel-core/EventPanelCore.svelte';
 
 	export let event: AnyEvent;
-
-	export let userId: string;
 
 	export let targetDate: string;
 	export let timeSlots: string[][];
@@ -38,7 +36,16 @@
 		interactivePanel?.styleCursor(isSelected);
 	}
 
-	const dispatch = createEventDispatcher<{ editTask: { event: Event; targetDate: string } }>();
+	const dispatch = createEventDispatcher<{
+		editTask: { event: Event; targetDate: string };
+		moveEvent: {
+			event: Event;
+			newDate: string;
+			newDuration: string;
+			newStartTime: string;
+			oldDate: string;
+		};
+	}>();
 
 	function startDrag(e: { target: HTMLElement }) {
 		if (!isSelected) return;
@@ -85,9 +92,11 @@
 
 		isSelected = false;
 		isSomethingDragging.set(false);
-		const hasChanged = persistChange(container, event, userId, targetDate);
+		const hasChanged = hasMoved(container, event);
 
-		if (!hasChanged) {
+		if (hasChanged) {
+			dispatch('moveEvent', { ...hasChanged, event, oldDate: targetDate });
+		} else {
 			Object.assign(container.style, {
 				backgroundColor: '',
 				touchAction: '',

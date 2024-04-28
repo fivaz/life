@@ -49,7 +49,15 @@
 			<HorizontalTime>
 				<div bind:this={containerOffset} />
 			</HorizontalTime>
-			<CalendarColumns {dates} on:createTask on:editTask on:toggleEvent {selectedDate} {tasks} />
+			<CalendarColumns
+				{dates}
+				on:createTask
+				on:editTask
+				on:moveEvent
+				on:toggleEvent
+				{selectedDate}
+				{tasks}
+			/>
 		</div>
 	</div>
 </div>

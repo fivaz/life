@@ -158,7 +158,7 @@ export function editPossibleSingleRecurringEvent(
 	if ('recurringStartAt' in data) {
 		void editSingleRecurringEvent(id, data, userId, targetDate);
 	} else {
-		editTask(id, data, userId);
+		void editTask(id, data, userId);
 	}
 }
 

@@ -12,5 +12,5 @@
 
 <div class="flex h-screen flex-col md:h-[calc(100vh-20px)]">
 	<CalendarHeader bind:weekStart on:createTask />
-	<CalendarBody on:createTask on:editTask on:toggleEvent {tasks} {weekStart} />
+	<CalendarBody on:createTask on:editTask on:moveEvent on:toggleEvent {tasks} {weekStart} />
 </div>
