@@ -8,7 +8,7 @@ import { type AnyEvent } from '$lib/task/utils';
 export const EVENT_PANEL_CLASS = 'event-panel-class';
 
 export function getSlot(date: string) {
-	return convertTimeToMinutes(date) / GRID_CELL_TIME;
+	return Math.round(convertTimeToMinutes(date) / GRID_CELL_TIME);
 }
 
 export function getStartSlot(event: AnyEvent) {
