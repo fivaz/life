@@ -20,6 +20,10 @@
 	<CalendarColumns
 		{...args}
 		dates={Array.from({ length: 7 }, (_, i) => addDays(new Date(), i))}
+		on:createTask={(args) => console.log('createTask', args.detail)}
+		on:editTask={(args) => console.log('editTask', args.detail)}
+		on:moveEvent={(args) => console.log('moveEvent', args.detail)}
+		on:toggleEvent={(args) => console.log('toggleEvent', args.detail)}
 		selectedDate={new Date()}
 		tasks={events}
 	/>

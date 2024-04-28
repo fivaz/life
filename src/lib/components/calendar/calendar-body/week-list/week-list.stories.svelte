@@ -13,7 +13,11 @@
 </script>
 
 <Template let:args>
-	<WeekList {...args} dates={Array.from({ length: 7 }, (_, i) => addDays(new Date(), i))} />
+	<WeekList
+		{...args}
+		dates={Array.from({ length: 7 }, (_, i) => addDays(new Date(), i))}
+		selectedDate={new Date()}
+	/>
 </Template>
 
 <Story args={{}} name="Primary" />

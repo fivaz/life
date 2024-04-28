@@ -36,6 +36,7 @@
 				{date}
 				on:click={(e) => dispatch('createTask', buildDate(date, e.detail))}
 				on:editTask
+				on:moveEvent
 				on:toggleEvent
 				{tasks}
 			/>
@@ -49,6 +50,7 @@
 		date={selectedDate}
 		on:click={(e) => dispatch('createTask', buildDate(selectedDate, e.detail))}
 		on:editTask
+		on:moveEvent
 		on:toggleEvent
 		{tasks}
 	/>
