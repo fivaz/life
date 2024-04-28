@@ -1,7 +1,6 @@
 <script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
 
-	import { events } from '$lib/task/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
 	import CalendarRows from './CalendarRows.svelte';
@@ -13,13 +12,12 @@
 			layout: 'fullscreen',
 		},
 	} satisfies Meta<CalendarRows>;
-</script>
 
-<script>
+	import { tasks } from '$lib/task/seed.js';
 </script>
 
 <Template let:args>
-	<CalendarRows {...args} {events} />
+	<CalendarRows {...args} date={new Date()} {tasks} />
 </Template>
 
 <Story args={{}} name="Primary" />

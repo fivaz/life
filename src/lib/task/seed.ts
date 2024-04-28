@@ -12,6 +12,9 @@ function getTodayAtTime(time: string): Date {
 	return set(date, { hours, minutes });
 }
 
+const longText =
+	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua';
+
 let id = 0;
 export const normalWithoutDescription: Event = {
 	category: sleep,
@@ -37,8 +40,6 @@ export const shortWithoutDescription: Event = {
 	startTime: format(getTodayAtTime('07:00'), TIME),
 };
 
-const longText =
-	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua';
 export const long: RecurringEvent = {
 	category: work,
 	date: format(getTodayAtTime('10:15'), DATE),
@@ -55,6 +56,21 @@ export const long: RecurringEvent = {
 	startTime: format(getTodayAtTime('10:15'), TIME),
 };
 
+export const sleepRecurringEvent: RecurringEvent = {
+	category: sleep,
+	date: format(getTodayAtTime('00:00'), DATE),
+	description: '',
+	duration: '08:00',
+	goal: null,
+	id: `${id++}`,
+	isDone: false,
+	name: 'sleep',
+	recurringDaysOfWeek: [],
+	recurringEndAt: '',
+	recurringExceptions: [],
+	recurringStartAt: '',
+	startTime: format(getTodayAtTime('00:00'), TIME),
+};
 export const done: Event = {
 	category: work,
 	date: format(startOfYesterday(), DATE),
@@ -74,35 +90,6 @@ export const done: Event = {
 	],
 };
 
-export const events: AnyTask[] = [normalWithoutDescription, shortWithoutDescription, long, done];
-
-export const sleepRecurringEvent: RecurringEvent = {
-	category: sleep,
-	date: format(getTodayAtTime('00:00'), DATE),
-	description: '',
-	duration: '08:00',
-	goal: null,
-	id: `${id++}`,
-	isDone: false,
-	name: 'sleep',
-	recurringDaysOfWeek: [],
-	recurringEndAt: '',
-	recurringExceptions: [],
-	recurringStartAt: '',
-	startTime: format(getTodayAtTime('00:00'), TIME),
-};
-
-export const workToDo: ToDo = {
-	category: work,
-	deadline: format(startOfWeek(new Date()), DATE),
-	description: '',
-	duration: '',
-	goal: null,
-	id: `${id++}`,
-	isDone: false,
-	name: longText,
-};
-
 export const funEvent: Event = {
 	category: fun,
 	date: format(getTodayAtTime('16:00'), DATE),
@@ -113,6 +100,26 @@ export const funEvent: Event = {
 	isDone: false,
 	name: 'fun',
 	startTime: format(getTodayAtTime('16:00'), TIME),
+};
+
+export const events: AnyTask[] = [
+	normalWithoutDescription,
+	shortWithoutDescription,
+	long,
+	sleepRecurringEvent,
+	done,
+	funEvent,
+];
+
+export const workToDo: ToDo = {
+	category: work,
+	deadline: format(startOfWeek(new Date()), DATE),
+	description: '',
+	duration: '',
+	goal: null,
+	id: `${id++}`,
+	isDone: false,
+	name: longText,
 };
 
 export const birthdayToDo: ToDo = {
@@ -128,4 +135,4 @@ export const birthdayToDo: ToDo = {
 
 export const toDos: ToDo[] = [workToDo, birthdayToDo];
 
-export const perfectDay: AnyTask[] = [sleepRecurringEvent, workToDo, funEvent];
+export const tasks: AnyTask[] = [...events, ...toDos];

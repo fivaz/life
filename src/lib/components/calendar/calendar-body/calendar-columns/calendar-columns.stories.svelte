@@ -20,7 +20,8 @@
 	<CalendarColumns
 		{...args}
 		dates={Array.from({ length: 7 }, (_, i) => addDays(new Date(), i))}
-		{events}
+		selectedDate={new Date()}
+		tasks={events}
 	/>
 </Template>
 

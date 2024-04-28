@@ -1,4 +1,6 @@
 <script lang="ts">
+	import type { AnyTask } from '$lib/task/utils';
+
 	import { addDays } from 'date-fns';
 	import { onMount } from 'svelte';
 
@@ -7,6 +9,7 @@
 	import WeekList from './week-list/WeekList.svelte';
 
 	export let weekStart: Date;
+	export let tasks: AnyTask[];
 
 	let selectedDate: Date = new Date();
 
@@ -46,7 +49,7 @@
 			<HorizontalTime>
 				<div bind:this={containerOffset} />
 			</HorizontalTime>
-			<CalendarColumns {dates} on:create on:edit {selectedDate} />
+			<CalendarColumns {dates} on:create on:edit {selectedDate} {tasks} />
 		</div>
 	</div>
 </div>
