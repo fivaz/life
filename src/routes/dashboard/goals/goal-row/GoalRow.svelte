@@ -3,12 +3,13 @@
 	import type { AnyTask } from '$lib/task/utils';
 
 	import Button from '$lib/components/button/Button.svelte';
-	import GoalTasks from '$lib/components/goal-tasks/GoalTasks.svelte';
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
 	import { Settings } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { createEventDispatcher } from 'svelte';
+
+	import GoalTasks from './goal-tasks/GoalTasks.svelte';
 
 	export let goal: Goal;
 	export let tasks: AnyTask[];
@@ -16,17 +17,18 @@
 	$: tasksCompleted = tasks.reduce((total, task) => total + Number(task.isDone), 0);
 
 	let dispatch = createEventDispatcher<{ edit: Goal; remove: Goal }>();
-
-	// let editingTask: TaskIn = buildEmptyTask([], goal.id);
-
-	let showForm = false;
 </script>
 
-<li class="rounded-lg bg-neutral-100 p-3 text-sm font-semibold leading-6 text-blue-500">
+<li class="rounded-lg border p-3 text-sm font-semibold leading-6 text-blue-500 shadow">
 	<div class={'flex items-center justify-between gap-x-6'}>
-		<div class={clsx({ 'line-through': goal.isDone })}>
+		<h3
+			class={clsx(
+				{ 'line-through': goal.isDone },
+				'text-base font-semibold leading-6 text-gray-900',
+			)}
+		>
 			{goal.name}
-		</div>
+		</h3>
 
 		<div>
 			<!--			<Button-->
@@ -47,11 +49,9 @@
 	<div>
 		{#if tasks.length}
 			<ProgressBar maxValue={tasks.length} value={tasksCompleted} />
-			<GoalTasks {tasks} />
+			<GoalTasks {goal} {tasks} />
 		{:else}
 			<div class="text-red-500">No tasks yet</div>
 		{/if}
 	</div>
-
-	<!--	<TaskForm show={showForm} task={editingTask} on:close={() => (showForm = false)} />-->
 </li>

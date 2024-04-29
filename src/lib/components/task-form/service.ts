@@ -217,6 +217,8 @@ async function editTaskInGoal(
 	data: Omit<AnyTask, 'id'>,
 	taskRef: DocumentReference,
 ) {
+	console.log('jere');
+	console.log(data);
 	if (data.goal) {
 		const goalDocRef = doc(db, 'users', userId, 'goals', data.goal.id);
 		const goalTaskDocRef = doc(goalDocRef, 'tasks', taskRef.id);

@@ -8,28 +8,28 @@ export const learnToDrive: Goal = {
 	deadline: format(lastDayOfQuarter(new Date()), DATE),
 	id: `${id++}`,
 	isDone: true,
-	name: 'learn to drive',
+	name: 'Learn to drive',
 };
 
 export const cancelMyBankAccount: Goal = {
 	deadline: format(lastDayOfQuarter(new Date()), DATE),
 	id: `${id++}`,
 	isDone: false,
-	name: 'cancel my bank account',
+	name: 'Cancel my bank account',
 };
 
 export const investMoney: Goal = {
 	deadline: format(lastDayOfYear(new Date()), DATE),
 	id: `${id++}`,
 	isDone: true,
-	name: 'invest Money',
+	name: 'Invest Money',
 };
 
 export const readTheGospelOfJohn: Goal = {
 	deadline: format(lastDayOfQuarter(new Date()), DATE),
 	id: `${id++}`,
 	isDone: false,
-	name: 'read the gospel of John',
+	name: 'Read the gospel of John',
 };
 
 export const goals = [learnToDrive, cancelMyBankAccount, investMoney, readTheGospelOfJohn];
