@@ -2,7 +2,7 @@
 	import type { Meta } from '@storybook/svelte';
 
 	import { convertToTaskIn } from '$lib/components/task-form/service';
-	import { done } from '$lib/task/seed';
+	import { normalWithSubTasks } from '$lib/task/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
 	import TaskFormEvent from './TaskFormEvent.svelte';
@@ -15,7 +15,7 @@
 
 <Template let:args>
 	<div class="w-72">
-		<TaskFormEvent {...args} taskIn={convertToTaskIn(done)} />
+		<TaskFormEvent {...args} taskIn={convertToTaskIn(normalWithSubTasks)} />
 	</div>
 </Template>
 

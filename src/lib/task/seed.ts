@@ -1,6 +1,6 @@
 import type { AnyTask, Event, RecurringEvent, ToDo } from '$lib/task/utils';
 
-import { fun, routine, sleep, work } from '$lib/category/seed';
+import { routine, sleep, work } from '$lib/category/seed';
 import { DATE, TIME } from '$lib/consts';
 import { buildDate } from '$lib/task/time-utils';
 import { format, startOfTomorrow, startOfWeek, startOfYesterday } from 'date-fns';
@@ -27,6 +27,37 @@ export const normalWithoutDescription: Event = {
 	startTime: format(getTodayAtTime('00:00'), TIME),
 };
 
+export const normalWithDescription: Event = {
+	category: work,
+	date: format(startOfYesterday(), DATE),
+	description: longText,
+	duration: '00:30',
+	goal: null,
+	id: `${id++}`,
+	isDone: true,
+	name: 'Put away apartment',
+	startTime: format(getTodayAtTime('15:15'), TIME),
+};
+
+export const normalWithSubTasks: Event = {
+	category: work,
+	date: format(startOfYesterday(), DATE),
+	description: '',
+	duration: '00:30',
+	goal: null,
+	id: `${id++}`,
+	isDone: true,
+	name: 'Put away apartment',
+	startTime: format(getTodayAtTime('15:15'), TIME),
+	subTasks: [
+		{ id: id++, isDone: true, name: 'Dusting a room' },
+		{ id: id++, isDone: false, name: 'Emptying the trash' },
+		{ id: id++, isDone: true, name: 'Wiping down countertops' },
+		{ id: id++, isDone: false, name: 'Watering house plants' },
+		{ id: id++, isDone: true, name: 'Sorting the mail' },
+	],
+};
+
 export const shortWithoutDescription: Event = {
 	category: routine,
 	date: format(getTodayAtTime('07:00'), DATE),
@@ -39,7 +70,38 @@ export const shortWithoutDescription: Event = {
 	startTime: format(getTodayAtTime('07:00'), TIME),
 };
 
-export const long: RecurringEvent = {
+export const shortWithDescription: Event = {
+	category: routine,
+	date: format(getTodayAtTime('07:00'), DATE),
+	description: longText,
+	duration: '00:15',
+	goal: null,
+	id: `${id++}`,
+	isDone: false,
+	name: 'Breakfast',
+	startTime: format(getTodayAtTime('07:00'), TIME),
+};
+
+export const shortWithSubTasks: Event = {
+	category: routine,
+	date: format(getTodayAtTime('07:00'), DATE),
+	description: longText,
+	duration: '00:15',
+	goal: null,
+	id: `${id++}`,
+	isDone: false,
+	name: 'Breakfast',
+	startTime: format(getTodayAtTime('07:00'), TIME),
+	subTasks: [
+		{ id: id++, isDone: true, name: 'Dusting a room' },
+		{ id: id++, isDone: false, name: 'Emptying the trash' },
+		{ id: id++, isDone: true, name: 'Wiping down countertops' },
+		{ id: id++, isDone: false, name: 'Watering house plants' },
+		{ id: id++, isDone: true, name: 'Sorting the mail' },
+	],
+};
+
+export const longRecurring: RecurringEvent = {
 	category: work,
 	date: format(getTodayAtTime('10:15'), DATE),
 	description: longText,
@@ -55,59 +117,14 @@ export const long: RecurringEvent = {
 	startTime: format(getTodayAtTime('10:15'), TIME),
 };
 
-export const sleepRecurringEvent: RecurringEvent = {
-	category: sleep,
-	date: format(getTodayAtTime('00:00'), DATE),
-	description: '',
-	duration: '08:00',
-	goal: null,
-	id: `${id++}`,
-	isDone: false,
-	name: 'sleep',
-	recurringDaysOfWeek: [],
-	recurringEndAt: '',
-	recurringExceptions: [],
-	recurringStartAt: '',
-	startTime: format(getTodayAtTime('00:00'), TIME),
-};
-export const done: Event = {
-	category: work,
-	date: format(startOfYesterday(), DATE),
-	description: '',
-	duration: '01:15',
-	goal: null,
-	id: `${id++}`,
-	isDone: true,
-	name: 'Put away apartment',
-	startTime: format(getTodayAtTime('15:15'), TIME),
-	subTasks: [
-		{ id: id++, isDone: true, name: 'Dusting a room' },
-		{ id: id++, isDone: false, name: 'Emptying the trash' },
-		{ id: id++, isDone: true, name: 'Wiping down countertops' },
-		{ id: id++, isDone: false, name: 'Watering house plants' },
-		{ id: id++, isDone: true, name: 'Sorting the mail' },
-	],
-};
-
-export const funEvent: Event = {
-	category: fun,
-	date: format(getTodayAtTime('16:00'), DATE),
-	description: '',
-	duration: '08:00',
-	goal: null,
-	id: `${id++}`,
-	isDone: false,
-	name: 'fun',
-	startTime: format(getTodayAtTime('16:00'), TIME),
-};
-
 export const events: AnyTask[] = [
 	normalWithoutDescription,
+	normalWithDescription,
+	normalWithSubTasks,
 	shortWithoutDescription,
-	long,
-	sleepRecurringEvent,
-	done,
-	funEvent,
+	shortWithDescription,
+	shortWithSubTasks,
+	longRecurring,
 ];
 
 export const workToDo: ToDo = {

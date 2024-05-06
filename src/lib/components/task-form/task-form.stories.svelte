@@ -5,7 +5,7 @@
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
 	import { modal } from '$lib/components/dialog/service';
 	import { buildEmptyEvent, buildEmptyToDo } from '$lib/task/build-utils';
-	import { long } from '$lib/task/seed';
+	import { normalWithSubTasks } from '$lib/task/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
 	import TaskForm from './TaskForm.svelte';
@@ -40,7 +40,7 @@
 <Story
 	args={{
 		targetDate: new Date().toISOString(),
-		task: long,
+		task: normalWithSubTasks,
 	}}
 	name="Edit event"
 />

@@ -13,12 +13,13 @@
 
 <script>
 	import {
-		done,
-		funEvent,
-		long,
+		longRecurring,
+		normalWithDescription,
+		normalWithSubTasks,
 		normalWithoutDescription,
+		shortWithDescription,
+		shortWithSubTasks,
 		shortWithoutDescription,
-		sleepRecurringEvent,
 	} from '$lib/task/seed';
 </script>
 
@@ -33,14 +34,16 @@
 	</div>
 </Template>
 
-<Story args={{ event: done }} name="Done" />
-
 <Story args={{ event: normalWithoutDescription }} name="Normal without description" />
 
-<Story args={{ event: shortWithoutDescription }} name="Short without a description" />
+<Story args={{ event: normalWithDescription }} name="Normal with a description" />
 
-<Story args={{ event: long }} name="Long" />
+<Story args={{ event: normalWithSubTasks }} name="Normal with sub tasks" />
 
-<Story args={{ event: sleepRecurringEvent }} name="Recurring" />
+<Story args={{ event: shortWithoutDescription }} name="Short without description" />
 
-<Story args={{ event: funEvent }} name="Fun" />
+<Story args={{ event: shortWithDescription }} name="Short with a description" />
+
+<Story args={{ event: shortWithSubTasks }} name="Short with sub tasks" />
+
+<Story args={{ event: longRecurring }} name="Long recurring" />

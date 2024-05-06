@@ -2,7 +2,7 @@
 	import type { Meta } from '@storybook/svelte';
 
 	import { getTimeSlots } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/service';
-	import { done, long, normalWithoutDescription, shortWithoutDescription } from '$lib/task/seed';
+	import { normalWithoutDescription, shortWithoutDescription } from '$lib/task/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
 	import EventPanel from './EventPanel.svelte';
@@ -17,7 +17,14 @@
 </script>
 
 <script>
-	import { tasks } from '$lib/task/seed';
+	import {
+		longRecurring,
+		normalWithDescription,
+		normalWithSubTasks,
+		shortWithDescription,
+		shortWithSubTasks,
+		tasks,
+	} from '$lib/task/seed';
 </script>
 
 <Template let:args>
@@ -34,10 +41,16 @@
 	</div>
 </Template>
 
-<Story args={{ event: normalWithoutDescription }} name="Normal without a description" />
+<Story args={{ event: normalWithoutDescription }} name="Normal without description" />
 
-<Story args={{ event: shortWithoutDescription }} name="Short without a description" />
+<Story args={{ event: normalWithDescription }} name="Normal with a description" />
 
-<Story args={{ event: long }} name="Long" />
+<Story args={{ event: normalWithSubTasks }} name="Normal with sub tasks" />
 
-<Story args={{ event: done }} name="Done" />
+<Story args={{ event: shortWithoutDescription }} name="Short without description" />
+
+<Story args={{ event: shortWithDescription }} name="Short with a description" />
+
+<Story args={{ event: shortWithSubTasks }} name="Short with sub tasks" />
+
+<Story args={{ event: longRecurring }} name="Long recurring" />

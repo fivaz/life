@@ -2,7 +2,7 @@
 	import type { Meta } from '@storybook/svelte';
 
 	import { convertToTaskIn } from '$lib/components/task-form/service';
-	import { done } from '$lib/task/seed';
+	import { normalWithSubTasks } from '$lib/task/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
 	import TaskFormRecurring from './TaskFormRecurring.svelte';
@@ -15,7 +15,7 @@
 
 <Template let:args>
 	<div class="w-72">
-		<TaskFormRecurring {...args} taskIn={convertToTaskIn(done)} />
+		<TaskFormRecurring {...args} taskIn={convertToTaskIn(normalWithSubTasks)} />
 	</div>
 </Template>
 

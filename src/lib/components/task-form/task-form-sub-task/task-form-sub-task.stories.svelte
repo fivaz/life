@@ -4,7 +4,7 @@
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
 	import { modal } from '$lib/components/dialog/service';
 	import { convertToTaskIn } from '$lib/components/task-form/service';
-	import { done } from '$lib/task/seed';
+	import { normalWithSubTasks } from '$lib/task/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
 	import TaskFormSubTask from './TaskFormSubTask.svelte';
@@ -25,7 +25,7 @@
 	/>
 
 	<div class="w-72">
-		<TaskFormSubTask {...args} taskIn={convertToTaskIn(done)} />
+		<TaskFormSubTask {...args} taskIn={convertToTaskIn(normalWithSubTasks)} />
 	</div>
 </Template>
 
