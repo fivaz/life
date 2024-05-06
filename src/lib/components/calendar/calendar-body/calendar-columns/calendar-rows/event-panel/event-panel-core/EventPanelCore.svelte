@@ -5,7 +5,6 @@
 	import { type AnyEvent, getDurationInMinutes } from '$lib/task/utils';
 	import { clsx } from 'clsx';
 	import { format, parse } from 'date-fns';
-	import DOMPurify from 'dompurify';
 	import { createEventDispatcher } from 'svelte';
 
 	export let event: AnyEvent;
@@ -32,19 +31,6 @@
 		}
 
 		return title;
-	}
-
-	function getContent() {
-		if (event.subTasks?.length) {
-			return event.subTasks
-				.map(
-					(task) =>
-						`<span class="${task.isDone ? 'line-through' : ''}">- ${DOMPurify.sanitize(task.name)}</span>`,
-				)
-				.join('<br>');
-		} else {
-			return event.description;
-		}
 	}
 </script>
 
@@ -84,9 +70,18 @@
 			>
 				{format(parse(event.startTime, TIME, new Date()), 'p')}
 			</time>
-			<div class="test text-pink-500 group-hover:text-pink-700">
-				<!-- eslint-disable-next-line svelte/no-at-html-tags-->
-				{@html getContent()}
+			<div class="text-pink-500 group-hover:text-pink-700">
+				{#if event.subTasks?.length}
+					<ul>
+						{#each event.subTasks as subTask (subTask.id)}
+							<li class={clsx({ 'line-through': subTask.isDone })}>
+								- {subTask.name}
+							</li>
+						{/each}
+					</ul>
+				{:else}
+					{event.description}
+				{/if}
 			</div>
 		</div>
 	{/if}
