@@ -37,26 +37,7 @@
 			show={isEventOpen}
 			unmount={false}
 		>
-			<div class="flex gap-3 overflow-hidden pt-2">
-				<Input
-					bind:value={taskIn.date}
-					class="w-1/2"
-					label="Date"
-					name="date"
-					required
-					type="date"
-				/>
-
-				<Input
-					bind:value={taskIn.duration}
-					class="w-1/2"
-					label="Duration"
-					name="duration"
-					on:input={(e) => (taskIn.endTime = getEndTime(taskIn.startTime, e.detail))}
-					required
-					type="time"
-				/>
-			</div>
+			<Input bind:value={taskIn.date} label="Date" name="date" required type="date" />
 
 			<div class="flex gap-3">
 				<Input

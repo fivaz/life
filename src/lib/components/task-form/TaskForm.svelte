@@ -10,7 +10,7 @@
 	import Input from '$lib/components/input/Input.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
-	import { convertToTaskIn } from '$lib/components/task-form/service';
+	import { convertToTaskIn, getEndTime } from '$lib/components/task-form/service';
 	import TaskFormEvent from '$lib/components/task-form/task-form-event/TaskFormEvent.svelte';
 	import TaskFormImage from '$lib/components/task-form/task-form-image/TaskFormImage.svelte';
 	import TaskFormRecurring from '$lib/components/task-form/task-form-recurring/TaskFormRecurring.svelte';
@@ -160,16 +160,26 @@
 				{/each}
 			</Select>
 
-			<Input
-				bind:value={taskIn.deadline}
-				class="flex items-center"
-				disabled={taskIn.isEvent}
-				inputClass="flex-1"
-				label="Deadline"
-				labelClass="w-1/5"
-				name="deadline"
-				type="date"
-			/>
+			<div class="flex gap-3">
+				<Input
+					bind:value={taskIn.deadline}
+					class="w-1/2"
+					disabled={taskIn.isEvent}
+					label="Deadline"
+					name="deadline"
+					type="date"
+				/>
+
+				<Input
+					bind:value={taskIn.duration}
+					class="w-1/2"
+					label="Duration"
+					name="duration"
+					on:input={(e) => (taskIn.endTime = getEndTime(taskIn.startTime, e.detail))}
+					required
+					type="time"
+				/>
+			</div>
 
 			<TaskFormEvent bind:taskIn />
 
