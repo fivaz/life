@@ -1,6 +1,7 @@
 import {
 	GRID_CELL_TIME,
 	NEW_GRID_CELL_HEIGHT,
+	NUMBER_OF_CELLS,
 } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 import { convertTimeToMinutes } from '$lib/task/time-utils';
 import { type AnyEvent } from '$lib/task/utils';
@@ -16,7 +17,12 @@ export function getStartSlot(event: AnyEvent) {
 }
 
 export function getEndSlot(event: AnyEvent) {
-	return getSlot(event.startTime) + getSlot(event.duration);
+	const endSlot = getSlot(event.startTime) + getSlot(event.duration);
+	if (endSlot > NUMBER_OF_CELLS) {
+		return NUMBER_OF_CELLS;
+	}
+
+	return endSlot;
 }
 
 export function getDivision(timeSlots: string[][], event: AnyEvent) {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { AnyTask, ToDo } from '$lib/task/utils';
+	import type { AnyTask } from '$lib/task/utils';
 
 	import { DATE } from '$lib/consts';
 	import { format } from 'date-fns';
@@ -8,7 +8,7 @@
 	import { NEW_GRID_CELL_HEIGHT } from './calendar-grid/service';
 	import DueToDos from './due-to-dos/DueToDos.svelte';
 	import EventPanel from './event-panel/EventPanel.svelte';
-	import { getEvents, getTimeSlots, isToDoOnDay } from './service';
+	import { getEvents, getTimeSlots, getToDos } from './service';
 
 	export let tasks: AnyTask[];
 
@@ -16,7 +16,11 @@
 
 	$: formattedDate = format(date, DATE);
 
-	$: toDos = tasks.filter((task): task is ToDo => isToDoOnDay(task, date));
+	$: toDos = getToDos(tasks, date);
+
+	$: events = getEvents(tasks, date);
+
+	$: timeSlots = getTimeSlots(events);
 </script>
 
 <div>
@@ -25,14 +29,14 @@
 	</div>
 	<div class="relative">
 		<CalendarGrid on:click targetDate={formattedDate} />
-		{#each getEvents(tasks, date) as event (event)}
+		{#each events as event (event)}
 			<EventPanel
 				{event}
 				on:editTask
 				on:moveEvent
 				on:toggleEvent
 				targetDate={formattedDate}
-				timeSlots={getTimeSlots(tasks, date)}
+				{timeSlots}
 			/>
 		{/each}
 	</div>

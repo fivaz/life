@@ -1,5 +1,6 @@
-import type { AnyEvent, AnyTask, RecurringEvent } from '$lib/task/utils';
+import type { AnyEvent, AnyTask, RecurringEvent, ToDo } from '$lib/task/utils';
 
+import { NUMBER_OF_CELLS } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 import {
 	getEndSlot,
 	getStartSlot,
@@ -70,14 +71,16 @@ export function isEventOnDay(task: AnyTask, day: Date): boolean {
 	return false;
 }
 
+export function getToDos(tasks: AnyTask[], date: Date) {
+	return tasks.filter((task): task is ToDo => isToDoOnDay(task, date));
+}
+
 export function getEvents(tasks: AnyTask[], date: Date) {
 	return tasks.filter((task): task is AnyEvent => isEventOnDay(task, date));
 }
 
-export function getTimeSlots(tasks: AnyTask[], date: Date): string[][] {
-	const timeSlots = new Array(96).fill(null).map<string[]>(() => []);
-
-	const events = getEvents(tasks, date);
+export function getTimeSlots(events: AnyEvent[]): string[][] {
+	const timeSlots = new Array(NUMBER_OF_CELLS).fill(null).map<string[]>(() => []);
 
 	for (const event of events) {
 		const startSlot = getStartSlot(event);

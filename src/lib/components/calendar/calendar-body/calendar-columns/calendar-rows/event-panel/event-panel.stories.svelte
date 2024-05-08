@@ -17,6 +17,7 @@
 </script>
 
 <script>
+	import { getEvents } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/service.js';
 	import {
 		longRecurring,
 		normalWithDescription,
@@ -36,7 +37,7 @@
 			on:moveEvent={(args) => console.log('moveEvent', args.detail)}
 			on:toggleEvent={(args) => console.log('toggleEvent', args.detail)}
 			targetDate={new Date()}
-			timeSlots={getTimeSlots(tasks, new Date())}
+			timeSlots={getTimeSlots(getEvents(tasks, new Date()))}
 		/>
 	</div>
 </Template>
