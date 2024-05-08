@@ -43,15 +43,23 @@ export type AnyEvent = Event | RecurringEvent;
 export type AnyTask = AnyEvent | ToDo;
 
 export function getDurationInMinutes(task: AnyTask) {
+	// this need to be done because there might be a task without duration in the db
 	if ('duration' in task && task.duration) {
 		return convertTimeToMinutes(task.duration);
 	}
 	return 0;
 }
 
-export function checkErrors(taskIn: TaskIn): string {
-	return checkIsInverted(taskIn);
+function checkDuration(taskIn: TaskIn): string {
+	if (
+		taskIn.isEvent &&
+		convertTimeToMinutes(taskIn.startTime) + convertTimeToMinutes(taskIn.duration) > 60 * 24
+	) {
+		return "event's duration shouldn't be more than a single day";
+	}
+	return '';
 }
+
 function checkIsInverted(taskIn: TaskIn): string {
 	if (
 		taskIn.isEvent &&
@@ -60,6 +68,10 @@ function checkIsInverted(taskIn: TaskIn): string {
 		return 'start time should be before end time';
 	}
 	return '';
+}
+
+export function checkErrors(taskIn: TaskIn): string {
+	return checkDuration(taskIn) || checkIsInverted(taskIn);
 }
 
 export function convertToAnyTask(taskIn: TaskIn): AnyTask {
