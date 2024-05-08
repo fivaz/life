@@ -45,9 +45,12 @@ export function getDivision(timeSlots: string[][], event: AnyEvent) {
 }
 
 export function getHeight(event: AnyEvent) {
-	const durationMinutes = convertTimeToMinutes(event.duration);
+	const startSlot = getStartSlot(event);
+	const endSlot = getEndSlot(event);
+	// the duration is calculated like this instead of just event.duration to sanitize the duration in case it overlaps 24h
+	const duration = endSlot - startSlot;
 
-	return `height: ${(durationMinutes / GRID_CELL_TIME) * NEW_GRID_CELL_HEIGHT}px;`;
+	return `height: ${duration * NEW_GRID_CELL_HEIGHT}px;`;
 }
 
 export function getTop(event: AnyEvent): string {
