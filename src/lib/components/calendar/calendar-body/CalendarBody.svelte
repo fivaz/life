@@ -11,7 +11,7 @@
 	export let weekStart: Date;
 	export let tasks: AnyTask[];
 
-	let selectedDate: Date = new Date();
+	export let selectedDate: Date;
 
 	let container: HTMLDivElement | null = null;
 	let containerNav: HTMLDivElement | null = null;

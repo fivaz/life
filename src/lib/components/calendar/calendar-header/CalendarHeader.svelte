@@ -5,23 +5,28 @@
 	import { ChevronLeft, ChevronRight, EllipsisHorizontal } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
-	import { addDays, format, startOfWeek } from 'date-fns';
+	import { addDays, format, isSameWeek, startOfWeek } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 
 	export let weekStart: Date;
 
+	export let selectedDate: Date;
+
 	let currentDate = new Date();
 
 	function goToToday() {
-		weekStart = startOfWeek(currentDate);
+		selectedDate = currentDate;
+		weekStart = startOfWeek(selectedDate);
 	}
 
 	function goToNextWeek() {
 		weekStart = addDays(weekStart, 7);
+		selectedDate = isSameWeek(currentDate, weekStart) ? currentDate : weekStart;
 	}
 
 	function goToPreviousWeek() {
 		weekStart = addDays(weekStart, -7);
+		selectedDate = isSameWeek(currentDate, weekStart) ? currentDate : weekStart;
 	}
 
 	const dispatch = createEventDispatcher<{ createTask: Date }>();
@@ -37,14 +42,14 @@
 <header class="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">
 	<div>
 		<h1 class="text-base font-semibold leading-6 text-gray-900">
-			<time class="sm:hidden" dateTime={format(currentDate, DATE)}>
-				{format(currentDate, 'MMM dd, yyyy')}
+			<time class="sm:hidden" dateTime={format(selectedDate, DATE)}>
+				{format(selectedDate, 'MMM dd, yyyy')}
 			</time>
-			<time class="hidden sm:inline" dateTime={format(currentDate, DATE)}>
-				{format(currentDate, 'MMMM dd, yyyy')}
+			<time class="hidden sm:inline" dateTime={format(selectedDate, DATE)}>
+				{format(selectedDate, 'MMMM dd, yyyy')}
 			</time>
 		</h1>
-		<p class="mt-1 text-sm text-gray-500">{format(currentDate, 'eeee')}</p>
+		<p class="mt-1 text-sm text-gray-500">{format(selectedDate, 'eeee')}</p>
 	</div>
 
 	<div class="flex items-center">
