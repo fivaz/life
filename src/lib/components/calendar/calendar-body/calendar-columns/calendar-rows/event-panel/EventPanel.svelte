@@ -115,7 +115,7 @@
 
 		interactivePanel = interact(container);
 
-		interactivePanel.on('tap', (e) => {
+		interactivePanel.on('click', (e) => {
 			//e.target instanceof HTMLInputElement is necessary so when clicking on the checkbox isDone doesn't open the form
 			if ($isSomethingDragging || e.target instanceof HTMLInputElement) return;
 
