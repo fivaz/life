@@ -20,9 +20,8 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { createEventDispatcher } from 'svelte';
 
-	import type { TaskIn } from './service';
-
-	export let task: AnyTask;
+	
+export let task: AnyTask;
 
 	export let goals: Goal[];
 
@@ -30,7 +29,7 @@
 
 	export let targetDate: string | undefined = undefined;
 
-	let taskIn: TaskIn = convertToTaskIn(task);
+	let taskIn = convertToTaskIn(task);
 
 	let wasRecurring = taskIn.isRecurring;
 
@@ -72,7 +71,7 @@
 </script>
 
 <form
-	class="relative w-[355px] overflow-hidden rounded-md text-start font-medium shadow"
+	class="w-[355px] overflow-hidden rounded-md text-start font-medium shadow"
 	on:submit|preventDefault={onSubmit}
 >
 	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
@@ -136,7 +135,6 @@
 				class="flex items-center"
 				label="Category"
 				labelClass="w-1/5"
-				name="category"
 				selectClass="flex-1"
 			>
 				<span slot="placeholder">{taskIn.category.name}</span>
@@ -150,7 +148,6 @@
 				class="flex items-center"
 				label="Goal"
 				labelClass="w-1/5"
-				name="goal"
 				selectClass="flex-1"
 			>
 				<span slot="placeholder">{taskIn.goal?.name || 'no goal'}</span>

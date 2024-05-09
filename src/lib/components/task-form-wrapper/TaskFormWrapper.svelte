@@ -20,13 +20,13 @@
 
 	async function removeTask(userId: string, task: AnyTask, targetDate: string | undefined) {
 		if (await deletePossibleSingleRecurringEvent(task, userId, targetDate)) {
-			show = false;
+			close();
 		}
 	}
 
 	function createTask(userId: string, data: Omit<AnyTask, 'id'>, file: File | null) {
 		addTask(data, userId, file);
-		show = false;
+		close();
 	}
 
 	async function editTask(
@@ -38,19 +38,23 @@
 		wasRecurring: boolean,
 	) {
 		if (await editTaskWithPrompt(id, data, userId, targetDate, wasRecurring, file)) {
-			show = false;
+			close();
 		}
+	}
+
+	function close() {
+		show = false;
 	}
 
 	let goalType: Goal;
 </script>
 
 <TypedCollection let:data={goals} ref={`users/${userId}/goals`} type={goalType}>
-	<Modal on:close={() => (show = false)} {show}>
+	<Modal on:close={() => close()} {show}>
 		<TaskForm
 			{categories}
 			{goals}
-			on:close={() => (show = false)}
+			on:close={() => close()}
 			on:createTask={(e) => createTask(userId, e.detail.data, e.detail.file)}
 			on:editTask={(e) =>
 				editTask(

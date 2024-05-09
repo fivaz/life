@@ -13,8 +13,6 @@
 
 	export let value: unknown;
 
-	export let name: string;
-
 	let className = '';
 	export { className as class };
 
@@ -24,9 +22,8 @@
 </script>
 
 <Listbox bind:value class={clsx(className, 'text-sm font-medium text-gray-700')}>
-	<input {name} type="hidden" {value} />
 	{#if label}
-		<ListboxLabel class={clsx(labelClass, 'mb-1 block')}>
+		<ListboxLabel class={labelClass}>
 			{label}
 		</ListboxLabel>
 	{/if}

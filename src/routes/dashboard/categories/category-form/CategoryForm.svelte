@@ -80,7 +80,6 @@
 				class="flex items-center"
 				label="Category"
 				labelClass="w-1/5"
-				name="color"
 				selectClass="flex-1"
 			>
 				<div class="flex items-center gap-5" slot="placeholder">
@@ -103,7 +102,6 @@
 				class="flex items-center"
 				label="Type"
 				labelClass="w-1/5"
-				name="type"
 				selectClass="flex-1"
 			>
 				<div class="flex items-center gap-5" slot="placeholder">{$data.type}</div>
