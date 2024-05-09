@@ -20,8 +20,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { createEventDispatcher } from 'svelte';
 
-	
-export let task: AnyTask;
+	export let task: AnyTask;
 
 	export let goals: Goal[];
 

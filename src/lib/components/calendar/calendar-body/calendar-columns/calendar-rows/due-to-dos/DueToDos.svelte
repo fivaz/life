@@ -4,6 +4,7 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { Document, DocumentCheck, EllipsisHorizontal } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { clsx } from 'clsx';
 	import { createEventDispatcher } from 'svelte';
 
 	export let toDos: ToDo[];
@@ -13,13 +14,20 @@
 	const dispatch = createEventDispatcher<{
 		editTask: { targetDate: string; task: AnyTask };
 	}>();
+
+	$: hasPendingToDos = toDos.some((toDo) => toDo.isDone === false);
 </script>
 
 <!--there is a bug here that this truncate won't work if not inside a relative -> absolute div-->
 <div class="relative">
 	{#if toDos.length}
 		<button
-			class="absolute w-full truncate rounded-lg bg-orange-50 px-2 py-1 text-xs leading-5 text-orange-500 hover:bg-orange-100 hover:font-semibold"
+			class={clsx(
+				hasPendingToDos
+					? 'bg-orange-50 text-orange-500 hover:bg-orange-100'
+					: 'bg-cyan-50 text-cyan-500 hover:bg-cyan-100',
+				'absolute w-full truncate rounded-lg px-2 py-1 text-xs leading-5 hover:font-semibold',
+			)}
 			on:click={() => (isOpen = true)}
 		>
 			{#if toDos.length > 1}
