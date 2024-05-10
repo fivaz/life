@@ -11,9 +11,7 @@
 
 	let isOpen = false;
 
-	const dispatch = createEventDispatcher<{
-		editTask: { targetDate: string; task: AnyTask };
-	}>();
+	const dispatch = createEventDispatcher<{ editTask: { targetDate: string; task: AnyTask } }>();
 
 	$: hasPendingToDos = toDos.some((toDo) => toDo.isDone === false);
 </script>

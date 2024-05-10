@@ -5,10 +5,6 @@
 	import '../app.css';
 </script>
 
-<html class="h-full" lang="en">
-	<body class="h-full">
-		<FirebaseApp {auth} firestore={db}>
-			<slot />
-		</FirebaseApp>
-	</body>
-</html>
+<FirebaseApp {auth} firestore={db}>
+	<slot />
+</FirebaseApp>
