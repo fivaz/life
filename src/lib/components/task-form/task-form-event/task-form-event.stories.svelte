@@ -1,7 +1,6 @@
 <script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
 
-	import { convertToTaskIn } from '$lib/components/task-form/service';
 	import { normalWithSubTasks } from '$lib/task/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
@@ -11,6 +10,10 @@
 		argTypes: {},
 		component: TaskFormEvent,
 	} satisfies Meta<TaskFormEvent>;
+</script>
+
+<script>
+	import { convertToTaskIn } from '$lib/task/task-in-utils';
 </script>
 
 <Template let:args>

@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
 
-	import { toDos, workToDo } from '$lib/task/seed';
+	import { birthdayToDo, toDos, workToDo } from '$lib/task/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
 	import DueToDos from './DueToDos.svelte';
@@ -18,6 +18,8 @@
 	</div>
 </Template>
 
-<Story args={{ toDos: [workToDo] }} name="OneToDo" />
+<Story args={{ toDos: [workToDo] }} name="OneDueToDo" />
+
+<Story args={{ toDos: [birthdayToDo] }} name="OneToDo" />
 
 <Story args={{ toDos }} name="ManyToDos" />

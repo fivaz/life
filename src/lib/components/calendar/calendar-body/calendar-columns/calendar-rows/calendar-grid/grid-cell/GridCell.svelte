@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { convertMinutesToTime } from '$lib/task/time-utils';
 	import { clsx } from 'clsx';
 	import { createEventDispatcher } from 'svelte';
 
@@ -11,16 +12,7 @@
 	export let cellNumber: number;
 	export let targetDate: string;
 
-	function getTime(cellNumber: number) {
-		const totalMinutes = cellNumber * 15;
-
-		const hours = Math.floor(totalMinutes / 60);
-		const minutes = totalMinutes % 60;
-
-		return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-	}
-
-	$: time = getTime(cellNumber);
+	$: time = convertMinutesToTime(cellNumber * 15);
 </script>
 
 <!--the class grid-cell is used in EventPanel to control droppable zones for its drag and drop-->

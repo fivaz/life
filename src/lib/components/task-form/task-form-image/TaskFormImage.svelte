@@ -1,6 +1,7 @@
 <script lang="ts">
+	import type { TaskIn } from '$lib/task/task-in-utils';
+
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import { type TaskIn } from '$lib/components/task-form/service';
 	import { Photo } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 

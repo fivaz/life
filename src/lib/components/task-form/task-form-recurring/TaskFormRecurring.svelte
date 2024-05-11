@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { TaskIn } from '$lib/components/task-form/service.js';
-
 	import Input from '$lib/components/input/Input.svelte';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import { Transition } from '@rgossiaux/svelte-headlessui';
 	import Flatpickr from 'svelte-flatpickr';
 
 	import DaysCheckbox from './days-checkbox/DaysCheckbox.svelte'; // TODO check later how I should import a precompiled component https://github.com/sveltejs/svelte/issues/604
+	import type { TaskIn } from '$lib/task/task-in-utils';
+
 	import 'flatpickr/dist/themes/airbnb.css';
 
 	export let taskIn: TaskIn;

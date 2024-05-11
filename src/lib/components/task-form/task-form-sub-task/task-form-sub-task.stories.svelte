@@ -3,7 +3,6 @@
 
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
 	import { modal } from '$lib/components/dialog/service';
-	import { convertToTaskIn } from '$lib/components/task-form/service';
 	import { normalWithSubTasks } from '$lib/task/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
@@ -12,6 +11,8 @@
 		argTypes: {},
 		component: TaskFormSubTask,
 	} satisfies Meta<TaskFormSubTask>;
+
+	import { convertToTaskIn } from '$lib/task/task-in-utils';
 </script>
 
 <Template let:args>

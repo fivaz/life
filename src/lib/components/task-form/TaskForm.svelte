@@ -10,12 +10,12 @@
 	import Input from '$lib/components/input/Input.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
-	import { convertToTaskIn, getEndTime } from '$lib/components/task-form/service';
+	import { getEndTime } from '$lib/components/task-form/service';
 	import TaskFormEvent from '$lib/components/task-form/task-form-event/TaskFormEvent.svelte';
 	import TaskFormImage from '$lib/components/task-form/task-form-image/TaskFormImage.svelte';
 	import TaskFormRecurring from '$lib/components/task-form/task-form-recurring/TaskFormRecurring.svelte';
 	import TaskFormSubTask from '$lib/components/task-form/task-form-sub-task/TaskFormSubTask.svelte';
-	import { checkErrors, convertToAnyTask } from '$lib/task/utils';
+	import { checkErrors, convertToAnyTask, convertToTaskIn } from '$lib/task/task-in-utils';
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { createEventDispatcher } from 'svelte';

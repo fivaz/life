@@ -27,74 +27,6 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 import { weekDays } from './task-form-recurring/days-checkbox/service';
 
-export type TaskIn = Omit<Task, 'recurringExceptions'> & {
-	endTime: string;
-	image: string;
-	isEvent: boolean;
-	isRecurring: boolean;
-	recurringExceptions: Date[];
-	subTasks: SubTask[];
-};
-
-function convertToDo(todo: ToDo): TaskIn {
-	return {
-		...todo,
-		date: format(new Date(), DATE),
-		duration: '00:15',
-		endTime: format(addMinutes(new Date(), 15), TIME),
-		image: todo.image || '',
-		isEvent: false,
-		isRecurring: false,
-		recurringDaysOfWeek: weekDays.slice(1, 6),
-		recurringEndAt: format(addMonths(new Date(), 1), DATE),
-		recurringExceptions: [],
-		recurringStartAt: format(new Date(), DATE),
-		startTime: format(new Date(), TIME),
-		subTasks: todo.subTasks || [],
-	};
-}
-
-function convertRecurring(event: RecurringEvent): TaskIn {
-	return {
-		...event,
-		deadline: event.date,
-		endTime: getEndTime(event.startTime, event.duration),
-		image: event.image || '',
-		isEvent: true,
-		isRecurring: true,
-		recurringExceptions: event.recurringExceptions.map((date) => parse(date, DATE, new Date())),
-		subTasks: event.subTasks || [],
-	};
-}
-
-function convertEvent(event: Event): TaskIn {
-	return {
-		...event,
-		deadline: event.date,
-		endTime: getEndTime(event.startTime, event.duration),
-		image: event.image || '',
-		isEvent: true,
-		isRecurring: false,
-		recurringDaysOfWeek: weekDays.slice(1, 6),
-		recurringEndAt: format(addMonths(new Date(), 1), DATE),
-		recurringExceptions: [],
-		recurringStartAt: format(new Date(), DATE),
-		subTasks: event.subTasks || [],
-	};
-}
-
-export function convertToTaskIn(task: AnyTask): TaskIn {
-	if ('deadline' in task) {
-		return convertToDo(task);
-	} else {
-		if ('recurringStartAt' in task) {
-			return convertRecurring(task);
-		} else {
-			return convertEvent(task);
-		}
-	}
-}
-
 export function buildEmptyTask(categories: Category[], goal: Goal | null = null): Task {
 	return {
 		category: categories.find((category) => category.isDefault) || categories[0],
@@ -254,6 +186,12 @@ async function addTaskToGoal(userId: string, data: Omit<AnyTask, 'id'>) {
 	}
 }
 
+export async function storeImage(userId: string, taskId: string, file: Blob): Promise<string> {
+	const avatarsRef = ref(storage, `users/${userId}/tasks/${taskId}`);
+	await uploadBytes(avatarsRef, file);
+	return await getDownloadURL(avatarsRef);
+}
+
 export async function addTask(data: Omit<AnyTask, 'id'>, userId: string, file?: File | null) {
 	const newTaskRef = doc(collection(db, 'users', userId, 'tasks'));
 
@@ -328,10 +266,4 @@ export async function deletePossibleSingleRecurringEvent(
 	}
 
 	return true;
-}
-
-export async function storeImage(userId: string, taskId: string, file: Blob): Promise<string> {
-	const avatarsRef = ref(storage, `users/${userId}/tasks/${taskId}`);
-	await uploadBytes(avatarsRef, file);
-	return await getDownloadURL(avatarsRef);
 }

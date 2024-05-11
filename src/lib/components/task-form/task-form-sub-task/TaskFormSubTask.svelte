@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { TaskIn } from '$lib/components/task-form/service';
+	import type { TaskIn } from '$lib/task/task-in-utils';
 
 	import ConfirmButton from '$lib/components/confirm-button/ConfirmButton.svelte';
 	import { XSquare } from '@steeze-ui/lucide-icons';

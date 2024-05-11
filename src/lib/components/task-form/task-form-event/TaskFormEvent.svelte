@@ -1,6 +1,8 @@
 <script lang="ts">
+	import type { TaskIn } from '$lib/task/task-in-utils';
+
 	import Input from '$lib/components/input/Input.svelte';
-	import { type TaskIn, getDuration, getEndTime } from '$lib/components/task-form/service';
+	import { getDuration, getEndTime } from '$lib/components/task-form/service';
 	import Toggle from '$lib/components/toggle/Toggle.svelte';
 	import { Transition } from '@rgossiaux/svelte-headlessui';
 

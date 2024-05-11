@@ -8,9 +8,10 @@
 	import { auth, db } from '$lib/firebase';
 	import { buildEmptyToDo } from '$lib/task/build-utils';
 	import { getTasksByDate } from '$lib/task/store';
+	import { getTotalDuration } from '$lib/task/time-utils';
 	import { SignedIn, collectionStore, userStore } from 'sveltefire';
 
-	import { getSumOfDurationsAsTime, queryUncompletedTasks } from './service';
+	import { queryUncompletedTasks } from './service';
 	import TaskRow from './task-row/TaskRow.svelte';
 
 	let editingTask: AnyTask = buildEmptyToDo([]);
@@ -56,7 +57,7 @@
 					{#each sortedTasks as date (date)}
 						<div class="flex justify-between px-2">
 							<div>{date}</div>
-							<div>{getSumOfDurationsAsTime(sortedTasks[date])}</div>
+							<div>{getTotalDuration(sortedTasks[date])}</div>
 						</div>
 						{#each sortedTasks[date] as task (task)}
 							<TaskRow
