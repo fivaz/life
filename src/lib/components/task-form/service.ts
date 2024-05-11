@@ -1,19 +1,11 @@
 import type { Category } from '$lib/category/utils';
 import type { Goal } from '$lib/goal/utils';
-import type { AnyTask, Event, RecurringEvent, SubTask, Task, ToDo } from '$lib/task/utils';
+import type { AnyTask, RecurringEvent, Task } from '$lib/task/utils';
 
 import { createModal } from '$lib/components/dialog/service';
 import { DATE, TIME } from '$lib/consts';
 import { db, storage } from '$lib/firebase';
-import {
-	add,
-	addMinutes,
-	addMonths,
-	differenceInMinutes,
-	format,
-	isSameDay,
-	parse,
-} from 'date-fns';
+import { add, addMonths, differenceInMinutes, format, isSameDay } from 'date-fns';
 import {
 	type DocumentReference,
 	addDoc,

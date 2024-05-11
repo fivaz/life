@@ -25,6 +25,7 @@
 				on:click={(e) => dispatch('createTask', buildDate(date, e.detail))}
 				on:editTask
 				on:moveEvent
+				on:persistToDos
 				on:toggleEvent
 				{tasks}
 			/>
@@ -39,6 +40,7 @@
 		on:click={(e) => dispatch('createTask', buildDate(selectedDate, e.detail))}
 		on:editTask
 		on:moveEvent
+		on:persistToDos
 		on:toggleEvent
 		{tasks}
 	/>

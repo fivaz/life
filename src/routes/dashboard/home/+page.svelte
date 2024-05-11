@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { Category } from '$lib/category/utils';
-	import type { AnyEvent, AnyTask } from '$lib/task/utils';
+	import type { AnyEvent, AnyTask, ToDo } from '$lib/task/utils';
 
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
-	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
+	import { editPossibleSingleRecurringEvent, editTask } from '$lib/components/task-form/service';
 	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { buildEmptyEvent, buildEventWithTime } from '$lib/task/build-utils';
@@ -43,6 +43,13 @@
 		editPossibleSingleRecurringEvent(newEvent, userId, oldDate);
 	}
 
+	function persistToDos(userId: string, toDos: ToDo[]) {
+		toDos.forEach((toDo) => {
+			const { id, ...data } = toDo;
+			void editTask(id, data, userId);
+		});
+	}
+
 	let taskType: AnyTask;
 
 	let categoryType: Category;
@@ -63,6 +70,7 @@
 						e.detail.newStartTime,
 						e.detail.oldDate,
 					)}
+				on:persistToDos={(e) => persistToDos(user.uid, e.detail)}
 				on:toggleEvent={(e) => toggleCompletion(user.uid, e.detail.event, e.detail.targetDate)}
 				{tasks}
 			/>

@@ -1,9 +1,7 @@
 import type { Category } from '$lib/category/utils';
 import type { Goal } from '$lib/goal/utils';
 
-import { DATE, TIME } from '$lib/consts';
 import { convertTimeToMinutes } from '$lib/task/time-utils';
-import { format, isAfter, parse } from 'date-fns';
 
 export type SubTask = { id: number; isDone: boolean; name: string };
 

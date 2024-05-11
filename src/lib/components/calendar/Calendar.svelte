@@ -19,6 +19,7 @@
 		on:createTask
 		on:editTask
 		on:moveEvent
+		on:persistToDos
 		on:toggleEvent
 		{tasks}
 		{weekStart}

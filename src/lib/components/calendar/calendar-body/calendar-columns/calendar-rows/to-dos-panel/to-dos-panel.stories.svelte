@@ -4,17 +4,17 @@
 	import { birthdayToDo, toDos, workToDo } from '$lib/task/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
-	import DueToDos from './DueToDos.svelte';
+	import ToDosPanel from './ToDosPanel.svelte';
 
 	export const meta = {
 		argTypes: {},
-		component: DueToDos,
-	} satisfies Meta<DueToDos>;
+		component: ToDosPanel,
+	} satisfies Meta<ToDosPanel>;
 </script>
 
 <Template let:args>
 	<div class="w-24">
-		<DueToDos {...args} />
+		<ToDosPanel {...args} />
 	</div>
 </Template>
 

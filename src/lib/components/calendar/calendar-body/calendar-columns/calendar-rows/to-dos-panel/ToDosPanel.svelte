@@ -3,8 +3,8 @@
 
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { clsx } from 'clsx';
-	
-import ToDoList from './to-do-list/ToDoList.svelte';
+
+	import ToDoList from './to-do-list/ToDoList.svelte';
 
 	export let toDos: ToDo[];
 
@@ -35,5 +35,5 @@ import ToDoList from './to-do-list/ToDoList.svelte';
 </div>
 
 <Modal on:close={() => (isOpen = false)} show={isOpen}>
-	<ToDoList {toDos} />
+	<ToDoList on:editTask on:persistToDos {toDos} />
 </Modal>
