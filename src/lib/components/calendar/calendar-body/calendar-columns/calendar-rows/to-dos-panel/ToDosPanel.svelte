@@ -35,5 +35,5 @@
 </div>
 
 <Modal on:close={() => (isOpen = false)} show={isOpen}>
-	<ToDoList on:editTask on:persistToDos {toDos} />
+	<ToDoList on:close={() => (isOpen = false)} on:editTask on:persistToDos {toDos} />
 </Modal>

@@ -13,6 +13,7 @@
 	export let toDos: ToDo[];
 
 	const dispatch = createEventDispatcher<{
+		close: null;
 		editTask: { targetDate: string; task: AnyTask };
 		persistToDos: ToDo[];
 	}>();
@@ -20,6 +21,12 @@
 	$: uncompletedToDos = toDos.filter((toDo) => toDo.isDone === false);
 
 	$: totalDuration = getTotalDuration(uncompletedToDos);
+
+	$: {
+		if (toDos.length === 0) {
+			dispatch('close');
+		}
+	}
 
 	function postponeToDos() {
 		const postponedToDos = uncompletedToDos.map((toDo) => ({
@@ -31,7 +38,7 @@
 	}
 </script>
 
-<div class="text-sm leading-6 text-gray-900 lg:col-start-3 lg:row-end-1">
+<div class="w-11/12 text-sm leading-6 text-gray-900 md:w-[543px]">
 	<h2 class="sr-only">To Dos</h2>
 	<div class="divide-y divide-gray-900/5 rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5">
 		<div class="p-6 font-semibold">
@@ -48,13 +55,11 @@
 					class="flex cursor-pointer justify-between gap-3 px-6 py-3 hover:bg-gray-100 hover:underline"
 					on:click={() => dispatch('editTask', { targetDate: '', task: toDo })}
 				>
-					<div class="flex grow gap-5">
-						<Icon class="h-6 w-5 text-gray-400" src={CalendarDays} theme="solid" />
-						<div
-							class={clsx({ 'line-through': toDo.isDone }, 'truncate font-medium text-gray-500')}
-						>
-							{toDo.name}
-						</div>
+					<Icon class="h-6 w-5 text-gray-400" src={CalendarDays} theme="solid" />
+					<div
+						class={clsx({ 'line-through': toDo.isDone }, 'grow truncate font-medium text-gray-500')}
+					>
+						{toDo.name}
 					</div>
 					<div>
 						{getDuration(toDo)}
