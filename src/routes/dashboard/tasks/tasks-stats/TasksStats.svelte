@@ -1,0 +1,54 @@
+<script lang="ts">
+	
+import { getTotalDuration } from '$lib/task/time-utils';
+	import { Grid, Table2 } from '@steeze-ui/lucide-icons';
+	import { Icon } from '@steeze-ui/svelte-icon';
+	
+import type { SortedTaskType } from '../service';
+
+	export let sortedTasks: SortedTaskType;
+
+	$: netSortedTasks = prepareSortedTasks(sortedTasks);
+
+	$: total = Object.values(netSortedTasks).flat();
+
+	function prepareSortedTasks(sortedTasks: SortedTaskType): SortedTaskType {
+		let copiedObject = { ...sortedTasks };
+		delete copiedObject.Recurring;
+		return copiedObject;
+	}
+</script>
+
+<div class="relative w-11/12 max-w-80 text-sm leading-6 text-gray-900">
+	<div class="divide-y divide-gray-900/5 rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5">
+		<div class="p-6 text-base font-semibold">Tasks stats</div>
+
+		<ul class="flex flex-col py-3">
+			<li
+				class="flex cursor-pointer justify-between gap-3 px-6 py-3 font-semibold hover:bg-gray-100"
+			>
+				<div class="grow">deadline</div>
+				<div class="w-16">quantity</div>
+				<div class="w-16 text-right">duration</div>
+			</li>
+			{#each netSortedTasks as date (date)}
+				<li class="flex cursor-pointer justify-between gap-3 px-6 py-3 hover:bg-gray-100">
+					<div class="flex grow gap-3">
+						<Icon class="h-6 w-6 text-gray-400" src={Table2} />
+						<div>{date}</div>
+					</div>
+					<div class="w-16 text-center">{sortedTasks[date].length}</div>
+					<div class="w-16 text-right">{getTotalDuration(sortedTasks[date])}</div>
+				</li>
+			{/each}
+			<li class="flex cursor-pointer justify-between gap-3 px-6 py-3 hover:bg-gray-100">
+				<div class="flex grow gap-3">
+					<Icon class="h-6 w-6 text-gray-400" src={Grid} />
+					<div>Total</div>
+				</div>
+				<div class="w-16 text-center">{total.length}</div>
+				<div class="w-16 text-right">{getTotalDuration(total)}</div>
+			</li>
+		</ul>
+	</div>
+</div>

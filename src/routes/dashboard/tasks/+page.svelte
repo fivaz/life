@@ -3,20 +3,26 @@
 	import type { AnyTask } from '$lib/task/utils';
 
 	import Button from '$lib/components/button/Button.svelte';
+	import Modal from '$lib/components/modal/Modal.svelte';
 	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { auth, db } from '$lib/firebase';
 	import { buildEmptyToDo } from '$lib/task/build-utils';
 	import { getTasksByDate } from '$lib/task/store';
 	import { getTotalDuration } from '$lib/task/time-utils';
+	import { BookOpenCheck } from '@steeze-ui/lucide-icons';
+	import { Icon } from '@steeze-ui/svelte-icon';
 	import { SignedIn, collectionStore, userStore } from 'sveltefire';
 
-	import { queryUncompletedTasks } from './service';
+	import { type SortedTaskType, queryUncompletedTasks } from './service';
 	import TaskRow from './task-row/TaskRow.svelte';
+	import TasksStats from './tasks-stats/TasksStats.svelte';
 
 	let editingTask: AnyTask = buildEmptyToDo([]);
 
 	let showForm = false;
+
+	let showStats = false;
 
 	const user = userStore(auth);
 
@@ -28,7 +34,8 @@
 		}
 	}
 
-	let sortedTasks: Record<string, AnyTask[]> & Iterable<string>;
+	let sortedTasks: SortedTaskType;
+
 	$: {
 		if ($tasks) {
 			sortedTasks = getTasksByDate($tasks);
@@ -42,7 +49,14 @@
 	<SignedIn let:user>
 		<TypedCollection let:data={categories} ref={`users/${user.uid}/categories`} type={categoryType}>
 			<div class="flex flex-col gap-5">
-				<div class="flex justify-end">
+				<div class="flex items-center justify-between">
+					<button
+						class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+						on:click={() => (showStats = true)}
+						type="button"
+					>
+						<Icon class="h-5 w-5" src={BookOpenCheck} />
+					</button>
 					<Button
 						on:click={() => {
 							showForm = true;
@@ -76,3 +90,7 @@
 		</TypedCollection>
 	</SignedIn>
 </div>
+
+<Modal on:close={() => (showStats = false)} show={showStats}>
+	<TasksStats on:close={() => (showStats = false)} {sortedTasks} />
+</Modal>
