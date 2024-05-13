@@ -1,3 +1,4 @@
+import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 import { DATE } from '$lib/consts';
 import { type AnyTask, getDurationInMinutes } from '$lib/task/utils';
 import { parse, set } from 'date-fns';
@@ -32,4 +33,9 @@ export function convertMinutesToTime(time: number): string {
 export function getTotalDuration(tasks: AnyTask[]): string {
 	const totalDurationInMinutes = tasks.reduce((sum, task) => sum + getDurationInMinutes(task), 0);
 	return convertMinutesToTime(totalDurationInMinutes);
+}
+
+export function getCurrentRoundedDate() {
+	const milliseconds = 1000 * 60 * GRID_CELL_TIME;
+	return new Date(Math.round(new Date().getTime() / milliseconds) * milliseconds);
 }

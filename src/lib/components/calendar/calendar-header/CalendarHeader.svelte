@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 	import { DATE } from '$lib/consts';
+	import { getCurrentRoundedDate } from '$lib/task/time-utils';
 	import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@rgossiaux/svelte-headlessui';
 	import { ChevronLeft, ChevronRight, EllipsisHorizontal } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -30,11 +30,6 @@
 	}
 
 	const dispatch = createEventDispatcher<{ createTask: Date }>();
-
-	function getCurrentRoundedDate() {
-		const milliseconds = 1000 * 60 * GRID_CELL_TIME;
-		return new Date(Math.round(new Date().getTime() / milliseconds) * milliseconds);
-	}
 
 	$: createEvent = () => dispatch('createTask', getCurrentRoundedDate());
 </script>

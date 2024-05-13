@@ -3,7 +3,7 @@ import type { AnyTask, Event, RecurringEvent, SubTask, Task, ToDo } from '$lib/t
 import { getEndTime } from '$lib/components/task-form/service';
 import { weekDays } from '$lib/components/task-form/task-form-recurring/days-checkbox/service';
 import { DATE, TIME } from '$lib/consts';
-import { convertTimeToMinutes } from '$lib/task/time-utils';
+import { convertTimeToMinutes, getCurrentRoundedDate } from '$lib/task/time-utils';
 import { addMinutes, addMonths, format, isAfter, parse } from 'date-fns';
 
 export type TaskIn = Omit<Task, 'recurringExceptions'> & {
@@ -121,7 +121,7 @@ function convertToDo(todo: ToDo): TaskIn {
 		...todo,
 		date: format(new Date(), DATE),
 		duration: todo.duration || '00:15',
-		endTime: format(addMinutes(new Date(), 15), TIME),
+		endTime: format(addMinutes(getCurrentRoundedDate(), 15), TIME),
 		image: todo.image || '',
 		isEvent: false,
 		isRecurring: false,
@@ -129,7 +129,7 @@ function convertToDo(todo: ToDo): TaskIn {
 		recurringEndAt: format(addMonths(new Date(), 1), DATE),
 		recurringExceptions: [],
 		recurringStartAt: format(new Date(), DATE),
-		startTime: format(new Date(), TIME),
+		startTime: format(getCurrentRoundedDate(), TIME),
 		subTasks: todo.subTasks || [],
 	};
 }
