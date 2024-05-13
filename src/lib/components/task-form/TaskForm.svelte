@@ -70,7 +70,7 @@
 </script>
 
 <form
-	class="w-[355px] overflow-hidden rounded-md text-start font-medium shadow"
+	class="relative w-11/12 max-w-[355px] overflow-hidden rounded-md text-start font-medium shadow"
 	on:submit|preventDefault={onSubmit}
 >
 	<div class="bg-neutral-100 px-4 py-5 sm:p-4">

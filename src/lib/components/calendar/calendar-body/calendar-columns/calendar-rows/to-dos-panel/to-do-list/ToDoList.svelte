@@ -38,7 +38,7 @@
 	}
 </script>
 
-<div class="w-11/12 text-sm leading-6 text-gray-900 md:w-[543px]">
+<div class="relative w-11/12 max-w-[543px] text-sm leading-6 text-gray-900">
 	<h2 class="sr-only">To Dos</h2>
 	<div class="divide-y divide-gray-900/5 rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5">
 		<div class="p-6 font-semibold">
@@ -55,25 +55,30 @@
 					class="flex cursor-pointer justify-between gap-3 px-6 py-3 hover:bg-gray-100 hover:underline"
 					on:click={() => dispatch('editTask', { targetDate: '', task: toDo })}
 				>
-					<Icon class="h-6 w-5 text-gray-400" src={CalendarDays} theme="solid" />
-					<div
-						class={clsx({ 'line-through': toDo.isDone }, 'grow truncate font-medium text-gray-500')}
-					>
-						{toDo.name}
-					</div>
-					<div>
-						{getDuration(toDo)}
-					</div>
-					<div class="w-16">
+					<div class="flex gap-3 truncate">
+						<Icon class="h-6 w-6 text-gray-400" src={CalendarDays} theme="solid" />
 						<div
 							class={clsx(
-								toDo.isDone
-									? 'bg-green-50 text-green-700 ring-green-600/20'
-									: 'bg-red-50 text-red-700 ring-red-600/20',
-								'm-auto w-max rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset',
+								{ 'line-through': toDo.isDone },
+								'w-[calc(100%-24px)] truncate font-medium text-gray-500',
 							)}
 						>
-							{toDo.isDone ? 'Done' : 'Undone'}
+							{toDo.name}
+						</div>
+					</div>
+					<div class="flex gap-3">
+						<div>{getDuration(toDo)}</div>
+						<div class="w-16">
+							<div
+								class={clsx(
+									toDo.isDone
+										? 'bg-green-50 text-green-700 ring-green-600/20'
+										: 'bg-red-50 text-red-700 ring-red-600/20',
+									'm-auto w-max rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset',
+								)}
+							>
+								{toDo.isDone ? 'Done' : 'Undone'}
+							</div>
 						</div>
 					</div>
 				</li>
