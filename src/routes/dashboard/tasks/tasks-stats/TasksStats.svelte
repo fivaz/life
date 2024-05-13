@@ -1,10 +1,9 @@
 <script lang="ts">
-	
-import { getTotalDuration } from '$lib/task/time-utils';
-	import { Grid, Table2 } from '@steeze-ui/lucide-icons';
+	import { getTotalDuration } from '$lib/task/time-utils';
+	import { Grid, LayoutGrid } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	
-import type { SortedTaskType } from '../service';
+
+	import type { SortedTaskType } from '../service';
 
 	export let sortedTasks: SortedTaskType;
 
@@ -34,7 +33,7 @@ import type { SortedTaskType } from '../service';
 			{#each netSortedTasks as date (date)}
 				<li class="flex cursor-pointer justify-between gap-3 px-6 py-3 hover:bg-gray-100">
 					<div class="flex grow gap-3">
-						<Icon class="h-6 w-6 text-gray-400" src={Table2} />
+						<Icon class="h-6 w-6 text-gray-400" src={LayoutGrid} />
 						<div>{date}</div>
 					</div>
 					<div class="w-16 text-center">{sortedTasks[date].length}</div>
