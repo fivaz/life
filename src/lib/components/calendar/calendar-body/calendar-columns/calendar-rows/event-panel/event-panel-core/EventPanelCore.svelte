@@ -2,6 +2,7 @@
 	import { tailwindColors } from '$lib/category/utils';
 	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 	import { TIME } from '$lib/consts';
+	import { roundTo15 } from '$lib/task/time-utils';
 	import { type AnyEvent, getDurationInMinutes } from '$lib/task/utils';
 	import { clsx } from 'clsx';
 	import { format, parse } from 'date-fns';
@@ -11,12 +12,19 @@
 	export let targetDate: string;
 	export let isSelected: boolean;
 
+	$: duration = format(roundTo15(parse(event.duration, TIME, new Date())), TIME);
+
 	const dispatch = createEventDispatcher<{
 		toggleEvent: { event: AnyEvent; targetDate: string };
 	}>();
 
 	function isLong() {
-		return Math.abs(getDurationInMinutes(event)) > GRID_CELL_TIME;
+		return getDurationInMinutes(event) > GRID_CELL_TIME;
+	}
+
+	function isMedium() {
+		const duration = getDurationInMinutes(event);
+		return duration >= GRID_CELL_TIME * 2 && duration < GRID_CELL_TIME * 3;
 	}
 
 	function getTitle() {
@@ -64,12 +72,17 @@
 
 	{#if isLong()}
 		<div class="overflow-hidden">
-			<time
-				class={tailwindColors[event.category.color].lightText}
-				dateTime={`${event.date}T${event.startTime}`}
-			>
-				{format(parse(event.startTime, TIME, new Date()), 'p')}
-			</time>
+			<div>
+				<time
+					class={tailwindColors[event.category.color].lightText}
+					dateTime={`${event.date}T${event.startTime}`}
+				>
+					{format(parse(event.startTime, TIME, new Date()), 'p')}
+				</time>
+				{#if !isMedium()}
+					<span> ({duration})</span>
+				{/if}
+			</div>
 			<div class="text-pink-500 group-hover:text-pink-700">
 				{#if event.subTasks?.length}
 					<ul>

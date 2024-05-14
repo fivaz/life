@@ -36,6 +36,10 @@ export function getTotalDuration(tasks: AnyTask[]): string {
 }
 
 export function getCurrentRoundedDate() {
+	return roundTo15(new Date());
+}
+
+export function roundTo15(date: Date) {
 	const milliseconds = 1000 * 60 * GRID_CELL_TIME;
-	return new Date(Math.round(new Date().getTime() / milliseconds) * milliseconds);
+	return new Date(Math.round(date.getTime() / milliseconds) * milliseconds);
 }
