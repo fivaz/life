@@ -5,7 +5,7 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import GoalTasks from '$lib/components/goal-tasks/GoalTasks.svelte';
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
-	import { Settings } from '@steeze-ui/lucide-icons';
+	import { Plus, Settings } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { createEventDispatcher } from 'svelte';
@@ -15,11 +15,7 @@
 
 	$: tasksCompleted = tasks.reduce((total, task) => total + Number(task.isDone), 0);
 
-	let dispatch = createEventDispatcher<{ edit: Goal; remove: Goal }>();
-
-	// let editingTask: TaskIn = buildEmptyTask([], goal.id);
-
-	let showForm = false;
+	let dispatch = createEventDispatcher<{ add: null; edit: Goal; remove: Goal }>();
 </script>
 
 <li class="rounded-lg bg-neutral-100 p-3 text-sm font-semibold leading-6 text-blue-500">
@@ -29,15 +25,9 @@
 		</div>
 
 		<div>
-			<!--			<Button-->
-			<!--				on:click={() => {-->
-			<!--					showForm = true;-->
-			<!--					editingTask = buildEmptyTask($categories, goal.id);-->
-			<!--				}}-->
-			<!--				type="button"-->
-			<!--			>-->
-			<!--				<Icon src={Plus} class="h-4 w-4" />-->
-			<!--			</Button>-->
+			<Button on:click={() => dispatch('add')} type="button">
+				<Icon class="h-4 w-4" src={Plus} />
+			</Button>
 			<Button on:click={() => dispatch('edit', goal)} type="button">
 				<Icon class="h-4 w-4" src={Settings} />
 			</Button>
@@ -52,6 +42,4 @@
 			<div class="text-red-500">No tasks yet</div>
 		{/if}
 	</div>
-
-	<!--	<TaskForm show={showForm} task={editingTask} on:close={() => (showForm = false)} />-->
 </li>

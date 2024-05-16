@@ -2,9 +2,12 @@
 	import type { Goal } from '$lib/goal/utils';
 	import type { AnyTask } from '$lib/task/utils';
 
+	import { type Category } from '$lib/category/utils';
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
+	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
+	import { buildEmptyEvent, buildEmptyToDo } from '$lib/task/build-utils';
 	import { SignedIn } from 'sveltefire';
 
 	import GoalForm from './goal-form/GoalForm.svelte';
@@ -13,58 +16,84 @@
 
 	let editingGoal = buildEmptyGoal();
 
+	let editingTask: AnyTask = buildEmptyToDo([]);
+
 	let showForm = false;
+
+	let showTaskForm = false;
 
 	let goalType: Goal;
 
 	let taskType: AnyTask;
+
+	let categoryType: Category;
+
+	function handleEditGoal(goal: Goal) {
+		showForm = true;
+		editingGoal = goal;
+	}
 </script>
 
 <div class="py-4">
 	<SignedIn let:user>
 		<TypedCollection let:data={goals} ref={`users/${user.uid}/goals`} type={goalType}>
-			<div class="flex flex-col gap-5">
-				<div class="flex justify-end">
-					<Button
-						on:click={() => {
-							showForm = true;
-							editingGoal = buildEmptyGoal();
-						}}
-					>
-						Create Goal
-					</Button>
+			<TypedCollection
+				let:data={categories}
+				ref={`users/${user.uid}/categories`}
+				type={categoryType}
+			>
+				<div class="flex flex-col gap-5">
+					<div class="flex justify-end">
+						<Button
+							on:click={() => {
+								showForm = true;
+								editingGoal = buildEmptyGoal();
+							}}
+						>
+							Create Goal
+						</Button>
+					</div>
+
+					<ul class="divide-y divide-gray-100" role="list">
+						{#each Object.entries(groupGoalsByDate(goals)) as [date, list] (date)}
+							<div class="flex justify-between px-2">
+								<div>{date}</div>
+							</div>
+							<div class="flex flex-col gap-2">
+								{#each list as goal (goal)}
+									<TypedCollection
+										let:data={tasks}
+										ref="users/{user.uid}/goals/{goal.id}/tasks"
+										type={taskType}
+									>
+										<GoalRow
+											{goal}
+											on:add={() => {
+												showTaskForm = true;
+												editingTask = buildEmptyEvent(categories, goal);
+											}}
+											on:edit={(e) => handleEditGoal(e.detail)}
+											{tasks}
+										/>
+									</TypedCollection>
+								{/each}
+							</div>
+						{/each}
+					</ul>
+
+					<Modal on:close={() => (showForm = false)} show={showForm}>
+						<GoalForm goal={editingGoal} on:close={() => (showForm = false)} userId={user.uid} />
+					</Modal>
+
+					<TaskFormWrapper
+						bind:show={showTaskForm}
+						{categories}
+						{editingTask}
+						{goals}
+						userId={user.uid}
+					/>
 				</div>
-
-				<ul class="divide-y divide-gray-100" role="list">
-					{#each Object.entries(groupGoalsByDate(goals)) as [date, list] (date)}
-						<div class="flex justify-between px-2">
-							<div>{date}</div>
-						</div>
-						<div class="flex flex-col gap-2">
-							{#each list as goal (goal)}
-								<TypedCollection
-									let:data={tasks}
-									ref="users/{user.uid}/goals/{goal.id}/tasks"
-									type={taskType}
-								>
-									<GoalRow
-										{goal}
-										on:edit={(e) => {
-											showForm = true;
-											editingGoal = e.detail;
-										}}
-										{tasks}
-									/>
-								</TypedCollection>
-							{/each}
-						</div>
-					{/each}
-				</ul>
-
-				<Modal on:close={() => (showForm = false)} show={showForm}>
-					<GoalForm goal={editingGoal} on:close={() => (showForm = false)} userId={user.uid} />
-				</Modal>
-			</div>
+			</TypedCollection>
 		</TypedCollection>
 	</SignedIn>
 </div>

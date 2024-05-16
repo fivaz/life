@@ -3,20 +3,30 @@
 	import type { Goal } from '$lib/goal/utils';
 	import type { AnyTask } from '$lib/task/utils';
 
-	import Modal from '$lib/components/modal/Modal.svelte';
+import Modal from '$lib/components/modal/Modal.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import {
 		addTask,
 		deletePossibleSingleRecurringEvent,
 		editTaskWithPrompt,
 	} from '$lib/components/task-form/service';
-	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
+	import { db } from '$lib/firebase';
+	import { type Writable, writable } from 'svelte/store';
+	import { collectionStore } from 'sveltefire';
 
 	export let userId: string;
 	export let categories: Category[];
+	export let goals: Goal[] = [];
 	export let targetDate: string | undefined = undefined;
 	export let editingTask: AnyTask;
 	export let show: boolean;
+
+	let goalsStore: ReturnType<typeof collectionStore<Goal>> | Writable<Goal[]> =
+		writable<Goal[]>(goals);
+
+	if (goals.length === 0) {
+		goalsStore = collectionStore<Goal>(db, `users/${userId}/goals`);
+	}
 
 	async function removeTask(userId: string, task: AnyTask, targetDate: string | undefined) {
 		if (await deletePossibleSingleRecurringEvent(task, userId, targetDate)) {
@@ -46,25 +56,17 @@
 	function close() {
 		show = false;
 	}
-
-	let goalType: Goal;
 </script>
 
-<TypedCollection let:data={goals} ref={`users/${userId}/goals`} type={goalType}>
-	<Modal on:close={() => close()} {show}>
-		<TaskForm
-			{categories}
-			{goals}
-			on:close={() => close()}
-			on:createTask={(e) => createTask(userId, e.detail.data, e.detail.file)}
-			on:editTask={(e) =>
-				editTask({
-					userId,
-					...e.detail,
-				})}
-			on:removeTask={(e) => removeTask(userId, e.detail.task, e.detail.targetDate)}
-			{targetDate}
-			task={editingTask}
-		/>
-	</Modal>
-</TypedCollection>
+<Modal on:close={() => close()} {show}>
+	<TaskForm
+		{categories}
+		goals={$goalsStore}
+		on:close={() => close()}
+		on:createTask={(e) => createTask(userId, e.detail.data, e.detail.file)}
+		on:editTask={(e) => editTask({ userId, ...e.detail })}
+		on:removeTask={(e) => removeTask(userId, e.detail.task, e.detail.targetDate)}
+		{targetDate}
+		task={editingTask}
+	/>
+</Modal>

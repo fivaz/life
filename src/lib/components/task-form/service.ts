@@ -1,11 +1,10 @@
-import type { Category } from '$lib/category/utils';
 import type { Goal } from '$lib/goal/utils';
-import type { AnyTask, RecurringEvent, Task } from '$lib/task/utils';
+import type { AnyTask, RecurringEvent } from '$lib/task/utils';
 
 import { createModal } from '$lib/components/dialog/service';
-import { DATE, TIME } from '$lib/consts';
+import { TIME } from '$lib/consts';
 import { db, storage } from '$lib/firebase';
-import { add, addMonths, differenceInMinutes, format, isSameDay } from 'date-fns';
+import { add, differenceInMinutes, format, isSameDay } from 'date-fns';
 import {
 	type DocumentReference,
 	addDoc,
@@ -17,26 +16,6 @@ import {
 } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
-import { weekDays } from './task-form-recurring/days-checkbox/service';
-
-export function buildEmptyTask(categories: Category[], goal: Goal | null = null): Task {
-	return {
-		category: categories.find((category) => category.isDefault) || categories[0],
-		date: format(new Date(), DATE),
-		deadline: format(new Date(), DATE),
-		description: '',
-		duration: '00:15',
-		goal,
-		id: '',
-		isDone: false,
-		name: '',
-		recurringDaysOfWeek: weekDays.slice(1, 6),
-		recurringEndAt: format(addMonths(new Date(), 1), DATE),
-		recurringExceptions: [],
-		recurringStartAt: format(new Date(), DATE),
-		startTime: format(new Date(), TIME),
-	};
-}
 
 export function getEndTime(startTime: string, duration: string): string {
 	if (!startTime || !duration) {
