@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button from '$lib/components/button/Button.svelte';
 	import { DATE } from '$lib/consts';
 	import { getCurrentRoundedDate } from '$lib/task/time-utils';
 	import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@rgossiaux/svelte-headlessui';
@@ -81,13 +82,7 @@
 		<div class="hidden md:ml-4 md:flex md:items-center">
 			<div class="ml-3 h-6 w-px bg-gray-300" />
 
-			<button
-				class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-				on:click={createEvent}
-				type="button"
-			>
-				Add event
-			</button>
+			<Button class="ml-6" on:click={createEvent} type="button">Add event</Button>
 		</div>
 
 		<Menu as="div" class="relative ml-6 md:hidden">

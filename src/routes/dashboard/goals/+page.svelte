@@ -68,11 +68,15 @@
 									>
 										<GoalRow
 											{goal}
-											on:add={() => {
+											on:addTask={() => {
 												showTaskForm = true;
 												editingTask = buildEmptyEvent(categories, goal);
 											}}
-											on:edit={(e) => handleEditGoal(e.detail)}
+											on:editGoal={(e) => handleEditGoal(e.detail)}
+											on:editTask={(e) => {
+												showTaskForm = true;
+												editingTask = e.detail;
+											}}
 											{tasks}
 										/>
 									</TypedCollection>

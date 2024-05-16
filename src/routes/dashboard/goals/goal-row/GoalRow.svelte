@@ -2,7 +2,6 @@
 	import type { Goal } from '$lib/goal/utils';
 	import type { AnyTask } from '$lib/task/utils';
 
-	import Button from '$lib/components/button/Button.svelte';
 	import GoalTasks from '$lib/components/goal-tasks/GoalTasks.svelte';
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
 	import { Plus, Settings } from '@steeze-ui/lucide-icons';
@@ -15,31 +14,39 @@
 
 	$: tasksCompleted = tasks.reduce((total, task) => total + Number(task.isDone), 0);
 
-	let dispatch = createEventDispatcher<{ add: null; edit: Goal; remove: Goal }>();
+	const dispatch = createEventDispatcher<{ addTask: null; editGoal: Goal }>();
 </script>
 
 <li
 	class="rounded-lg bg-gray-50 py-3 text-base leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/5"
 >
-	<div class={'flex items-center justify-between gap-x-6 px-3'}>
+	<div class={'flex items-center justify-between gap-x-6 px-3 pb-2'}>
 		<div class={clsx('truncate', { 'line-through': goal.isDone })}>
 			{goal.name}
 		</div>
 
 		<div>
-			<Button on:click={() => dispatch('add')} type="button">
+			<button
+				class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+				on:click={() => dispatch('addTask')}
+				type="button"
+			>
 				<Icon class="h-4 w-4" src={Plus} />
-			</Button>
-			<Button on:click={() => dispatch('edit', goal)} type="button">
-				<Icon class="h-4 w-4" src={Settings} />
-			</Button>
+			</button>
+			<button
+				class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+				on:click={() => dispatch('editGoal', goal)}
+				type="button"
+			>
+				<Icon class="h-4 w-4 text-black" src={Settings} />
+			</button>
 		</div>
 	</div>
 
 	<div class="text-sm">
 		{#if tasks.length}
 			<ProgressBar maxValue={tasks.length} value={tasksCompleted} />
-			<GoalTasks {tasks} />
+			<GoalTasks on:editTask {tasks} />
 		{:else}
 			<div class="px-3 text-red-500">No tasks yet</div>
 		{/if}

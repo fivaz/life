@@ -130,17 +130,19 @@ async function editTaskInGoal(
 	taskRef: DocumentReference,
 ) {
 	if (data.goal && !formerGoal) {
-		addTaskInGoal(userId, taskRef, data as Omit<AnyTask, 'id'> & { goal: Goal });
+		updateTaskInGoal(userId, taskRef, data as Omit<AnyTask, 'id'> & { goal: Goal });
 	} else if (!data.goal && formerGoal) {
 		removeTaskFromGoal(userId, taskRef, formerGoal);
 	} else if (data.goal && formerGoal && data.goal.id !== formerGoal.id) {
 		removeTaskFromGoal(userId, taskRef, formerGoal);
 
-		addTaskInGoal(userId, taskRef, data as Omit<AnyTask, 'id'> & { goal: Goal });
+		updateTaskInGoal(userId, taskRef, data as Omit<AnyTask, 'id'> & { goal: Goal });
+	} else {
+		updateTaskInGoal(userId, taskRef, data as Omit<AnyTask, 'id'> & { goal: Goal });
 	}
 }
 
-function addTaskInGoal(
+function updateTaskInGoal(
 	userId: string,
 	taskRef: DocumentReference,
 	taskData: Omit<AnyTask, 'id'> & { goal: Goal },
@@ -163,6 +165,7 @@ export async function editTask(
 	formerGoal: Goal | null,
 	file: File | null,
 ) {
+	console.log('editTask');
 	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
 	void setDoc(taskDocRef, data);
 
@@ -216,7 +219,6 @@ function deleteTaskFromGoal(userId: string, taskId: string, data: Omit<AnyTask, 
 }
 
 function deleteTask(id: string, data: Omit<AnyTask, 'id'>, userId: string) {
-	// TODO check if I can remove this id / data separation
 	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
 	void deleteDoc(taskDocRef);
 
