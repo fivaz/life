@@ -46,7 +46,7 @@
 	function persistToDos(userId: string, toDos: ToDo[]) {
 		toDos.forEach((toDo) => {
 			const { id, ...data } = toDo;
-			void editTask(id, data, userId);
+			void editTask(id, data, userId, null, null);
 		});
 	}
 

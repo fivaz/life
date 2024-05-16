@@ -29,15 +29,16 @@
 		close();
 	}
 
-	async function editTask(
-		userId: string,
-		data: Omit<AnyTask, 'id'>,
-		id: string,
-		targetDate: string | undefined,
-		file: File | null,
-		wasRecurring: boolean,
-	) {
-		if (await editTaskWithPrompt(id, data, userId, targetDate, wasRecurring, file)) {
+	async function editTask(args: {
+		data: Omit<AnyTask, 'id'>;
+		file: File | null;
+		formerGoal: Goal | null;
+		id: string;
+		targetDate: string | undefined;
+		userId: string;
+		wasRecurring: boolean;
+	}) {
+		if (await editTaskWithPrompt(args)) {
 			close();
 		}
 	}
@@ -57,14 +58,10 @@
 			on:close={() => close()}
 			on:createTask={(e) => createTask(userId, e.detail.data, e.detail.file)}
 			on:editTask={(e) =>
-				editTask(
+				editTask({
 					userId,
-					e.detail.data,
-					e.detail.id,
-					e.detail.targetDate,
-					e.detail.file,
-					e.detail.wasRecurring,
-				)}
+					...e.detail,
+				})}
 			on:removeTask={(e) => removeTask(userId, e.detail.task, e.detail.targetDate)}
 			{targetDate}
 			task={editingTask}

@@ -32,22 +32,25 @@
 
 	let wasRecurring = taskIn.isRecurring;
 
+	let formerGoal = taskIn.goal;
+
+	let errorMessage = '';
+
+	let file: File | null = null;
+
 	const dispatch = createEventDispatcher<{
 		close: null;
 		createTask: { data: Omit<AnyTask, 'id'>; file: File | null };
 		editTask: {
 			data: Omit<AnyTask, 'id'>;
 			file: File | null;
+			formerGoal: Goal | null;
 			id: string;
 			targetDate: string | undefined;
 			wasRecurring: boolean;
 		};
 		removeTask: { targetDate: string | undefined; task: AnyTask };
 	}>();
-
-	let errorMessage = '';
-
-	let file: File | null = null;
 
 	$: isEditing = !!task.id;
 
@@ -62,7 +65,7 @@
 		const { id, ...data } = convertToAnyTask(taskIn);
 
 		if (id) {
-			dispatch('editTask', { data, file, id, targetDate, wasRecurring });
+			dispatch('editTask', { data, file, formerGoal, id, targetDate, wasRecurring });
 		} else {
 			dispatch('createTask', { data, file });
 		}

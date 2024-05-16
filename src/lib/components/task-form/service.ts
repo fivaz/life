@@ -82,7 +82,7 @@ export function editPossibleSingleRecurringEvent(
 	if ('recurringStartAt' in data) {
 		void editSingleRecurringEvent(id, data, userId, targetDate);
 	} else {
-		void editTask(id, data, userId);
+		void editTask(id, data, userId, null, null);
 	}
 }
 
@@ -105,14 +105,23 @@ export function editSingleRecurringEvent(
 	addExceptionToRecurring(id, recurringEvent, targetDate, userId);
 }
 
-export async function editTaskWithPrompt(
-	id: string,
-	data: Omit<AnyTask, 'id'>,
-	userId: string,
-	targetDate: string | undefined,
-	wasRecurring: boolean,
-	file: File | null,
-): Promise<boolean> {
+export async function editTaskWithPrompt({
+	data,
+	file,
+	formerGoal,
+	id,
+	targetDate,
+	userId,
+	wasRecurring,
+}: {
+	data: Omit<AnyTask, 'id'>;
+	file: File | null;
+	formerGoal: Goal | null;
+	id: string;
+	targetDate: string | undefined;
+	userId: string;
+	wasRecurring: boolean;
+}): Promise<boolean> {
 	if ('recurringStartAt' in data && wasRecurring && targetDate) {
 		const recurringData = data as Omit<RecurringEvent, 'id'>;
 		const result = await createModal({
@@ -128,10 +137,10 @@ export async function editTaskWithPrompt(
 		if (result) {
 			editSingleRecurringEvent(id, recurringData, userId, targetDate, file);
 		} else {
-			void editTask(id, recurringData, userId, file);
+			void editTask(id, recurringData, userId, formerGoal, file);
 		}
 	} else {
-		void editTask(id, data, userId, file);
+		void editTask(id, data, userId, formerGoal, file);
 	}
 	return true;
 }
@@ -139,21 +148,42 @@ export async function editTaskWithPrompt(
 async function editTaskInGoal(
 	userId: string,
 	data: Omit<AnyTask, 'id'>,
+	formerGoal: Goal | null,
 	taskRef: DocumentReference,
 ) {
-	if (data.goal) {
-		const goalDocRef = doc(db, 'users', userId, 'goals', data.goal.id);
-		const goalTaskDocRef = doc(goalDocRef, 'tasks', taskRef.id);
+	if (data.goal && !formerGoal) {
+		addTaskInGoal(userId, taskRef, data as Omit<AnyTask, 'id'> & { goal: Goal });
+	} else if (!data.goal && formerGoal) {
+		removeTaskFromGoal(userId, taskRef, formerGoal);
+	} else if (data.goal && formerGoal && data.goal.id !== formerGoal.id) {
+		removeTaskFromGoal(userId, taskRef, formerGoal);
 
-		void setDoc(goalTaskDocRef, data);
+		addTaskInGoal(userId, taskRef, data as Omit<AnyTask, 'id'> & { goal: Goal });
 	}
+}
+
+function addTaskInGoal(
+	userId: string,
+	taskRef: DocumentReference,
+	taskData: Omit<AnyTask, 'id'> & { goal: Goal },
+) {
+	const goalDocRef = doc(db, 'users', userId, 'goals', taskData.goal.id);
+	const goalTaskDocRef = doc(goalDocRef, 'tasks', taskRef.id);
+	void setDoc(goalTaskDocRef, taskData);
+}
+
+function removeTaskFromGoal(userId: string, taskRef: DocumentReference, goal: Goal) {
+	const formerGoalDocRef = doc(db, 'users', userId, 'goals', goal.id);
+	const formerGoalTaskDocRef = doc(formerGoalDocRef, 'tasks', taskRef.id);
+	void deleteDoc(formerGoalTaskDocRef);
 }
 
 export async function editTask(
 	id: string,
 	data: Omit<AnyTask, 'id'>,
 	userId: string,
-	file?: File | null,
+	formerGoal: Goal | null,
+	file: File | null,
 ) {
 	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
 	void setDoc(taskDocRef, data);
@@ -162,11 +192,9 @@ export async function editTask(
 		const image = await storeImage(userId, id, file);
 
 		void updateDoc(taskDocRef, { image });
-
-		void editTaskInGoal(userId, { ...data, image }, taskDocRef);
-	} else {
-		void editTaskInGoal(userId, data, taskDocRef);
 	}
+
+	void editTaskInGoal(userId, data, formerGoal, taskDocRef);
 }
 
 async function addTaskToGoal(userId: string, data: Omit<AnyTask, 'id'>) {
