@@ -18,9 +18,11 @@
 	let dispatch = createEventDispatcher<{ add: null; edit: Goal; remove: Goal }>();
 </script>
 
-<li class="rounded-lg bg-neutral-100 p-3 text-sm font-semibold leading-6 text-blue-500">
-	<div class={'flex items-center justify-between gap-x-6'}>
-		<div class={clsx({ 'line-through': goal.isDone })}>
+<li
+	class="rounded-lg bg-gray-50 py-3 text-base leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/5"
+>
+	<div class={'flex items-center justify-between gap-x-6 px-3'}>
+		<div class={clsx('truncate', { 'line-through': goal.isDone })}>
 			{goal.name}
 		</div>
 
@@ -34,12 +36,12 @@
 		</div>
 	</div>
 
-	<div>
+	<div class="text-sm">
 		{#if tasks.length}
 			<ProgressBar maxValue={tasks.length} value={tasksCompleted} />
 			<GoalTasks {tasks} />
 		{:else}
-			<div class="text-red-500">No tasks yet</div>
+			<div class="px-3 text-red-500">No tasks yet</div>
 		{/if}
 	</div>
 </li>

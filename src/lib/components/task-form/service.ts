@@ -16,7 +16,6 @@ import {
 } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
-
 export function getEndTime(startTime: string, duration: string): string {
 	if (!startTime || !duration) {
 		return '';

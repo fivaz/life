@@ -56,7 +56,7 @@
 
 					<ul class="divide-y divide-gray-100" role="list">
 						{#each Object.entries(groupGoalsByDate(goals)) as [date, list] (date)}
-							<div class="flex justify-between px-2">
+							<div class="flex justify-between p-2 font-semibold">
 								<div>{date}</div>
 							</div>
 							<div class="flex flex-col gap-2">
