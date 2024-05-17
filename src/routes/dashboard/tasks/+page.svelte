@@ -8,7 +8,7 @@
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { auth, db } from '$lib/firebase';
 	import { buildEmptyToDo } from '$lib/task/build-utils';
-	import { getTasksByDate } from '$lib/task/store';
+	import { sortTasksByDate } from '$lib/task/store';
 	import { getTotalDuration } from '$lib/task/time-utils';
 	import { BookOpenCheck } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -38,7 +38,7 @@
 
 	$: {
 		if ($tasks) {
-			sortedTasks = getTasksByDate($tasks);
+			sortedTasks = sortTasksByDate($tasks);
 		}
 	}
 

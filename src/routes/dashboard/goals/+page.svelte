@@ -12,7 +12,7 @@
 
 	import GoalForm from './goal-form/GoalForm.svelte';
 	import GoalRow from './goal-row/GoalRow.svelte';
-	import { buildEmptyGoal, groupGoalsByDate } from './service';
+	import { buildEmptyGoal, sortGoalsByDate } from './service';
 
 	let editingGoal = buildEmptyGoal();
 
@@ -36,31 +36,27 @@
 
 <div class="py-4">
 	<SignedIn let:user>
-		<TypedCollection let:data={goals} ref={`users/${user.uid}/goals`} type={goalType}>
-			<TypedCollection
-				let:data={categories}
-				ref={`users/${user.uid}/categories`}
-				type={categoryType}
-			>
-				<div class="flex flex-col gap-5">
-					<div class="flex justify-end">
-						<Button
-							on:click={() => {
-								showForm = true;
-								editingGoal = buildEmptyGoal();
-							}}
-						>
-							Create Goal
-						</Button>
-					</div>
+		<TypedCollection let:data={categories} ref={`users/${user.uid}/categories`} type={categoryType}>
+			<div class="flex flex-col gap-5">
+				<div class="flex justify-end">
+					<Button
+						on:click={() => {
+							showForm = true;
+							editingGoal = buildEmptyGoal();
+						}}
+					>
+						Create Goal
+					</Button>
+				</div>
 
-					<ul class="divide-y divide-gray-100" role="list">
-						{#each Object.entries(groupGoalsByDate(goals)) as [date, list] (date)}
-							<div class="flex justify-between p-2 font-semibold">
-								<div>{date}</div>
-							</div>
+				<ul class="divide-y divide-gray-100" role="list">
+					<TypedCollection let:data={goals} ref={`users/${user.uid}/goals`} type={goalType}>
+						{@const goalsByDate = sortGoalsByDate(goals)}
+
+						{#each goalsByDate as date (date)}
+							<div class="flex justify-between p-2 font-semibold">{date}</div>
 							<div class="flex flex-col gap-2">
-								{#each list as goal (goal)}
+								{#each goalsByDate[date] as goal (goal)}
 									<TypedCollection
 										let:data={tasks}
 										ref="users/{user.uid}/goals/{goal.id}/tasks"
@@ -83,21 +79,20 @@
 								{/each}
 							</div>
 						{/each}
-					</ul>
+						<TaskFormWrapper
+							bind:show={showTaskForm}
+							{categories}
+							{editingTask}
+							{goals}
+							userId={user.uid}
+						/>
+					</TypedCollection>
+				</ul>
 
-					<Modal on:close={() => (showForm = false)} show={showForm}>
-						<GoalForm goal={editingGoal} on:close={() => (showForm = false)} userId={user.uid} />
-					</Modal>
-
-					<TaskFormWrapper
-						bind:show={showTaskForm}
-						{categories}
-						{editingTask}
-						{goals}
-						userId={user.uid}
-					/>
-				</div>
-			</TypedCollection>
+				<Modal on:close={() => (showForm = false)} show={showForm}>
+					<GoalForm goal={editingGoal} on:close={() => (showForm = false)} userId={user.uid} />
+				</Modal>
+			</div>
 		</TypedCollection>
 	</SignedIn>
 </div>

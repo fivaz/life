@@ -79,12 +79,6 @@ function getTaskByOrderedDate(tasksByDate: Record<string, AnyTask[]>) {
 	};
 }
 
-export function getTasksByDate(tasks: AnyTask[]): Record<string, AnyTask[]> & Iterable<string> {
-	const sortedTasks = sortTasks(tasks);
-	const tasksByDate = groupTasksByDate(sortedTasks);
-	return getTaskByOrderedDate(tasksByDate);
-}
-
 function groupTasksByDate(tasks: AnyTask[]): Record<string, AnyTask[]> {
 	return tasks.reduce<Record<string, AnyTask[]>>((groups, task) => {
 		const date = getDateName(task);
@@ -95,4 +89,10 @@ function groupTasksByDate(tasks: AnyTask[]): Record<string, AnyTask[]> {
 		groups[date].push(task);
 		return groups;
 	}, {});
+}
+
+export function sortTasksByDate(tasks: AnyTask[]): Record<string, AnyTask[]> & Iterable<string> {
+	const sortedTasks = sortTasks(tasks);
+	const tasksByDate = groupTasksByDate(sortedTasks);
+	return getTaskByOrderedDate(tasksByDate);
 }
