@@ -21,7 +21,7 @@
 	class="rounded-lg bg-gray-50 py-3 text-base leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/5"
 >
 	<div class={'flex items-center justify-between px-3 pb-2'}>
-		<div class={clsx('truncate', { 'line-through': goal.isDone })}>
+		<div class={clsx('w-[calc(100%-70px)] truncate', { 'line-through': goal.isDone })}>
 			{goal.name}
 		</div>
 

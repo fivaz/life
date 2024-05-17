@@ -26,13 +26,18 @@
 	{#each tasks as task (task)}
 		<li>
 			<button
-				class="flex w-full cursor-pointer items-center justify-between px-3 py-2 hover:bg-gray-100 hover:underline"
+				class="flex w-full cursor-pointer items-center justify-between gap-3 px-3 py-2 hover:bg-gray-100 hover:underline"
 				on:click={() => dispatch('editTask', task)}
 			>
-				<span class={clsx({ 'line-through': task.isDone }, 'flex items-center gap-3')}>
+				<span
+					class={clsx(
+						{ 'line-through': task.isDone },
+						'flex w-[calc(100%-64px)] items-center gap-3 truncate',
+					)}
+				>
 					<Icon class="h-6 w-6 text-gray-400" src={CalendarDays} theme="solid" />
-					<span class="w-20">{showDate(task)}</span>
-					<span class="truncate">{task.name}</span>
+					<span class="hidden w-20 md:block">{showDate(task)}</span>
+					<span class="w-[calc(100%-24px)] truncate text-left">{task.name}</span>
 				</span>
 				<span class="w-16">
 					<span
