@@ -8,27 +8,36 @@ function isCurrentWeek(date: Date) {
 	return startOfWeek(new Date()).getTime() === startOfWeek(date).getTime();
 }
 
-function getDateName(task: AnyTask): string {
+enum GROUPS {
+	Overdue = 'Overdue',
+	Recurring = 'Recurring',
+	Someday = 'Someday',
+	Today = 'Today',
+	Tomorrow = 'Tomorrow',
+	Week = 'This week',
+}
+
+function getDateName(task: AnyTask): GROUPS | string {
 	const date = getTaskDate(task);
 
 	if ('recurringStartAt' in task) {
-		return 'Recurring';
+		return GROUPS.Recurring;
 	}
 
 	if (!date) {
-		return 'Someday';
+		return GROUPS.Someday;
 	}
 	if (isToday(date)) {
-		return 'Today';
+		return GROUPS.Today;
 	}
 	if (isTomorrow(date)) {
-		return 'Tomorrow';
+		return GROUPS.Tomorrow;
 	}
 	if (isCurrentWeek(date)) {
-		return 'This week';
+		return GROUPS.Week;
 	}
 	if (isPast(date)) {
-		return 'Overdue';
+		return GROUPS.Overdue;
 	}
 	return format(date, DATE_FR);
 }
@@ -52,18 +61,19 @@ function sortTasks(tasks: AnyTask[]) {
 
 function getTaskByOrderedDate(tasksByDate: Record<string, AnyTask[]>) {
 	const priorityObject: Record<string, number> = {
-		Overdue: 1,
-		Recurring: 7,
-		Someday: 6,
-		'This week': 4,
+		[GROUPS.Overdue]: 1,
+		[GROUPS.Recurring]: 7,
 		// Rest : 5
-		Today: 2,
-		Tomorrow: 3,
+		[GROUPS.Someday]: 6,
+		[GROUPS.Today]: 2,
+		[GROUPS.Tomorrow]: 3,
+		[GROUPS.Week]: 4,
 	};
 
 	function sorting(a: string, b: string) {
-		const priorityA = priorityObject[a] || 4;
-		const priorityB = priorityObject[b] || 4;
+		// 5 is the Number representing the rest
+		const priorityA = priorityObject[a] || 5;
+		const priorityB = priorityObject[b] || 5;
 
 		return priorityA - priorityB;
 	}

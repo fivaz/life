@@ -69,7 +69,7 @@
 
 				<ul class="divide-y divide-gray-100" role="list">
 					{#each sortedTasks as date (date)}
-						<div class="flex justify-between px-2">
+						<div class="flex justify-between px-2 font-semibold">
 							<div>{date}</div>
 							<div>{getTotalDuration(sortedTasks[date])}</div>
 						</div>

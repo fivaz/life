@@ -55,7 +55,7 @@
 
 						{#each goalsByDate as date (date)}
 							<div class="flex justify-between p-2 font-semibold">{date}</div>
-							<div class="flex flex-col gap-2">
+							<div class="flex flex-col gap-3">
 								{#each goalsByDate[date] as goal (goal)}
 									<TypedCollection
 										let:data={tasks}
