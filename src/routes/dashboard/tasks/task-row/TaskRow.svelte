@@ -2,10 +2,9 @@
 	import type { AnyTask } from '$lib/task/utils';
 
 	import { tailwindColors } from '$lib/category/utils';
-	import Button from '$lib/components/button/Button.svelte';
 	import { DATE_FR, DATE_FR_SHORT } from '$lib/consts';
 	import { getTaskDate } from '$lib/task/time-utils';
-	import { Settings } from '@steeze-ui/lucide-icons';
+	import { EllipsisHorizontal } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { format } from 'date-fns';
@@ -24,7 +23,7 @@
 <li
 	class={clsx(
 		tailwindColors[task.category.color].darkBg,
-		'flex justify-between gap-x-3 rounded-lg p-3 text-sm font-semibold leading-6 text-gray-50',
+		'flex justify-between gap-x-3 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-50',
 	)}
 >
 	<div class="flex items-center justify-between gap-x-3">
@@ -35,9 +34,13 @@
 
 	<div class="flex items-center gap-x-3">
 		<div class="w-12 text-center">{'duration' in task ? task.duration : '-'}</div>
-		<Button on:click={() => dispatch('edit', task)} type="button">
-			<Icon class="h-4 w-4" src={Settings} />
-		</Button>
+		<button
+			class="rounded bg-white px-1.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+			on:click={() => dispatch('edit', task)}
+			type="button"
+		>
+			<Icon class="h-4 w-4" src={EllipsisHorizontal} />
+		</button>
 	</div>
 </li>
 
