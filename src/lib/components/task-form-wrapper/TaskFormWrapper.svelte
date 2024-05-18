@@ -11,6 +11,7 @@
 		editTaskWithPrompt,
 	} from '$lib/components/task-form/service';
 	import { db } from '$lib/firebase';
+	import { queryUncompletedGoals } from '$lib/goal/utils';
 	import { type Writable, writable } from 'svelte/store';
 	import { collectionStore } from 'sveltefire';
 
@@ -25,7 +26,7 @@
 		writable<Goal[]>(goals);
 
 	if (goals.length === 0) {
-		goalsStore = collectionStore<Goal>(db, `users/${userId}/goals`);
+		goalsStore = collectionStore<Goal>(db, queryUncompletedGoals(userId));
 	}
 
 	async function removeTask(userId: string, task: AnyTask, targetDate: string | undefined) {

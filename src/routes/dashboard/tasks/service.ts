@@ -36,6 +36,7 @@ enum GROUPS {
 function isCurrentWeek(date: Date) {
 	return startOfWeek(new Date()).getTime() === startOfWeek(date).getTime();
 }
+
 function isNextWeek(date: Date): boolean {
 	const now = new Date();
 	const start = addWeeks(startOfWeek(now, { weekStartsOn: 1 }), 1);
