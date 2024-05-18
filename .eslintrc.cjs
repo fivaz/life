@@ -37,6 +37,9 @@ module.exports = {
 			parserOptions: {
 				parser: '@typescript-eslint/parser',
 			},
+			rules: {
+				'no-console': 'off',
+			},
 		},
 	],
 	settings: {
@@ -46,6 +49,7 @@ module.exports = {
 		},
 	},
 	rules: {
+		'no-console': 'error',
 		'@typescript-eslint/no-unused-vars': 'off',
 		'import/no-unresolved': [
 			'error',
