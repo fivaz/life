@@ -8,13 +8,12 @@
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { auth, db } from '$lib/firebase';
 	import { buildEmptyToDo } from '$lib/task/build-utils';
-	import { sortTasksByDate } from '$lib/task/store';
 	import { getTotalDuration } from '$lib/task/time-utils';
 	import { BookOpenCheck } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { SignedIn, collectionStore, userStore } from 'sveltefire';
 
-	import { type SortedTaskType, queryUncompletedTasks } from './service';
+	import { type SortedTaskType, queryUncompletedTasks, sortTasksByDate } from './service';
 	import TaskRow from './task-row/TaskRow.svelte';
 	import TasksStats from './tasks-stats/TasksStats.svelte';
 

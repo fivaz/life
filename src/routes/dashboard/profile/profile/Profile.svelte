@@ -4,7 +4,7 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
 	import { db } from '$lib/firebase';
-	import { storeAvatar } from '$lib/user-utis';
+	import { storeAvatar } from '$lib/user-utils';
 	import { type Auth, updateProfile } from 'firebase/auth';
 	import { doc, updateDoc } from 'firebase/firestore';
 	import { minidenticon } from 'minidenticons';
