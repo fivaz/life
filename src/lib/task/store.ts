@@ -23,21 +23,20 @@ function getDateName(task: AnyTask): GROUPS | string {
 	if ('recurringStartAt' in task) {
 		return GROUPS.Recurring;
 	}
-
 	if (!date) {
 		return GROUPS.Someday;
 	}
 	if (isToday(date)) {
 		return GROUPS.Today;
 	}
+	if (isPast(date)) {
+		return GROUPS.Overdue;
+	}
 	if (isTomorrow(date)) {
 		return GROUPS.Tomorrow;
 	}
 	if (isCurrentWeek(date)) {
 		return GROUPS.Week;
-	}
-	if (isPast(date)) {
-		return GROUPS.Overdue;
 	}
 	return format(date, DATE_FR);
 }
