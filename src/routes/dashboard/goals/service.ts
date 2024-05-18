@@ -1,6 +1,7 @@
 import type { Goal } from '$lib/goal/utils';
 
 import { DATE, DATE_FR } from '$lib/consts';
+import { sortGoals } from '$lib/goal/utils';
 import { format, getQuarter, isPast, isThisYear, lastDayOfQuarter, parse } from 'date-fns';
 
 export function buildEmptyGoal(): Goal {
@@ -10,20 +11,6 @@ export function buildEmptyGoal(): Goal {
 		isDone: false,
 		name: '',
 	};
-}
-
-function sortGoals(goals: Goal[]) {
-	return goals.sort((a, b) => {
-		const dateA = a.deadline ? parse(a.deadline, DATE, new Date()) : null;
-		const dateB = b.deadline ? parse(b.deadline, DATE, new Date()) : null;
-		if (!dateA) {
-			return 1;
-		}
-		if (!dateB) {
-			return -1;
-		}
-		return dateA.getTime() - dateB.getTime();
-	});
 }
 
 enum GROUPS {

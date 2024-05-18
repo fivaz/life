@@ -11,7 +11,7 @@
 		editTaskWithPrompt,
 	} from '$lib/components/task-form/service';
 	import { db } from '$lib/firebase';
-	import { queryUncompletedGoals } from '$lib/goal/utils';
+	import { queryUncompletedGoals, sortGoals } from '$lib/goal/utils';
 	import { type Writable, writable } from 'svelte/store';
 	import { collectionStore } from 'sveltefire';
 
@@ -62,7 +62,7 @@
 <Modal on:close={() => close()} {show}>
 	<TaskForm
 		{categories}
-		goals={$goalsStore}
+		goals={sortGoals($goalsStore)}
 		on:close={() => close()}
 		on:createTask={(e) => createTask(userId, e.detail.data, e.detail.file)}
 		on:editTask={(e) => editTask({ userId, ...e.detail })}
