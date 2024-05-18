@@ -2,12 +2,13 @@
 	import type { Goal } from '$lib/goal/utils';
 	import type { AnyTask } from '$lib/task/utils';
 
-	import GoalTasks from '$lib/components/goal-tasks/GoalTasks.svelte';
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
 	import { Plus, Settings } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { createEventDispatcher } from 'svelte';
+
+	import GoalTasks from './goal-tasks/GoalTasks.svelte';
 
 	export let goal: Goal;
 	export let tasks: AnyTask[];

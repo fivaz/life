@@ -1,8 +1,9 @@
 import type { AnyTask } from '$lib/task/utils';
 
-import { DATE, DATE_FR } from '$lib/consts';
+import { DATE_FR } from '$lib/consts';
 import { db } from '$lib/firebase';
 import { getTaskDate } from '$lib/task/time-utils';
+import { sortTasks } from '$lib/task/utils';
 import {
 	addWeeks,
 	endOfWeek,
@@ -11,7 +12,6 @@ import {
 	isToday,
 	isTomorrow,
 	isWithinInterval,
-	parse,
 	startOfWeek,
 } from 'date-fns';
 import { type Query, collection, query, where } from 'firebase/firestore';
@@ -21,23 +21,6 @@ export type SortedTaskType = Record<string, AnyTask[]> & Iterable<string>;
 export function queryUncompletedTasks(userId: string) {
 	const tasksRef = collection(db, `users/${userId}/tasks`);
 	return query(tasksRef, where('isDone', '==', false)) as Query<AnyTask>;
-}
-
-function sortTasks(tasks: AnyTask[]) {
-	return tasks.sort((a, b) => {
-		const dateAString = 'date' in a ? a.date : a.deadline;
-		const dateBString = 'date' in b ? b.date : b.deadline;
-
-		const dateA = dateAString ? parse(dateAString, DATE, new Date()) : null;
-		const dateB = dateBString ? parse(dateBString, DATE, new Date()) : null;
-		if (!dateA) {
-			return 1;
-		}
-		if (!dateB) {
-			return -1;
-		}
-		return dateA.getTime() - dateB.getTime();
-	});
 }
 
 enum GROUPS {

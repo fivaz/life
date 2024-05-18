@@ -1,7 +1,9 @@
 import type { Category } from '$lib/category/utils';
 import type { Goal } from '$lib/goal/utils';
 
+import { DATE } from '$lib/consts';
 import { convertTimeToMinutes } from '$lib/task/time-utils';
+import { parse } from 'date-fns';
 
 export type SubTask = { id: number; isDone: boolean; name: string };
 
@@ -49,4 +51,21 @@ export function getDuration(task: AnyTask) {
 		return task.duration;
 	}
 	return '00:00';
+}
+
+export function sortTasks(tasks: AnyTask[]) {
+	return tasks.sort((a, b) => {
+		const dateAString = 'date' in a ? a.date : a.deadline;
+		const dateBString = 'date' in b ? b.date : b.deadline;
+
+		const dateA = dateAString ? parse(dateAString, DATE, new Date()) : null;
+		const dateB = dateBString ? parse(dateBString, DATE, new Date()) : null;
+		if (!dateA) {
+			return 1;
+		}
+		if (!dateB) {
+			return -1;
+		}
+		return dateA.getTime() - dateB.getTime();
+	});
 }
