@@ -129,15 +129,17 @@ async function editTaskInGoal(
 	formerGoal: Goal | null,
 	taskRef: DocumentReference,
 ) {
-	if (data.goal && !formerGoal) {
-		updateTaskInGoal(userId, taskRef, data as Omit<AnyTask, 'id'> & { goal: Goal });
-	} else if (!data.goal && formerGoal) {
-		removeTaskFromGoal(userId, taskRef, formerGoal);
-	} else if (data.goal && formerGoal && data.goal.id !== formerGoal.id) {
-		removeTaskFromGoal(userId, taskRef, formerGoal);
+	const hasNewGoal = data.goal !== null;
+	const hasFormerGoal = formerGoal !== null;
 
+	if (hasNewGoal && !hasFormerGoal) {
 		updateTaskInGoal(userId, taskRef, data as Omit<AnyTask, 'id'> & { goal: Goal });
-	} else {
+	} else if (!hasNewGoal && hasFormerGoal) {
+		removeTaskFromGoal(userId, taskRef, formerGoal);
+	} else if (hasNewGoal && hasFormerGoal) {
+		if (data.goal!.id !== formerGoal.id) {
+			removeTaskFromGoal(userId, taskRef, formerGoal);
+		}
 		updateTaskInGoal(userId, taskRef, data as Omit<AnyTask, 'id'> & { goal: Goal });
 	}
 }
@@ -165,7 +167,6 @@ export async function editTask(
 	formerGoal: Goal | null,
 	file: File | null,
 ) {
-	console.log('editTask');
 	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
 	void setDoc(taskDocRef, data);
 
