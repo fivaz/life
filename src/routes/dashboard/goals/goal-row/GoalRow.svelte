@@ -9,7 +9,6 @@
 	import { createEventDispatcher } from 'svelte';
 
 	import GoalIcon from '../goal-form/goal-icon/GoalIcon.svelte';
-	import { getIcon } from '../goal-form/goal-icon/service';
 	import GoalTasks from './goal-tasks/GoalTasks.svelte';
 
 	export let goal: Goal;
@@ -18,8 +17,6 @@
 	$: tasksCompleted = tasks.reduce((total, task) => total + Number(task.isDone), 0);
 
 	const dispatch = createEventDispatcher<{ addTask: null; editGoal: Goal }>();
-
-	$: icon = getIcon(goal.icon);
 </script>
 
 <li
@@ -31,7 +28,7 @@
 				'line-through': goal.isDone,
 			})}
 		>
-			<GoalIcon class="h-5 w-5 text-indigo-600" {icon} />
+			<GoalIcon class="h-5 w-5 text-indigo-600" name={goal.icon} />
 			<span>{goal.name}</span>
 		</div>
 

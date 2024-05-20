@@ -2,6 +2,7 @@ import type { AnyTask, Event, RecurringEvent, ToDo } from '$lib/task/utils';
 
 import { routine, sleep, work } from '$lib/category/seed';
 import { DATE, TIME } from '$lib/consts';
+import { sleepEarly } from '$lib/goal/seed';
 import { buildDate } from '$lib/task/time-utils';
 import { format, startOfTomorrow, startOfWeek, startOfYesterday } from 'date-fns';
 
@@ -15,7 +16,20 @@ const longText =
 	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua';
 
 let id = 0;
-export const normalWithoutDescription: Event = {
+
+export const normalWithoutDescriptionWithGoal: Event = {
+	category: sleep,
+	date: format(getTodayAtTime('00:00'), DATE),
+	description: '',
+	duration: '07:00',
+	goal: sleepEarly,
+	id: `${id++}`,
+	isDone: false,
+	name: 'sleep',
+	startTime: format(getTodayAtTime('00:00'), TIME),
+};
+
+export const normalWithoutDescriptionWithoutGoal: Event = {
 	category: sleep,
 	date: format(getTodayAtTime('00:00'), DATE),
 	description: '',
@@ -118,7 +132,8 @@ export const longRecurring: RecurringEvent = {
 };
 
 export const events: AnyTask[] = [
-	normalWithoutDescription,
+	normalWithoutDescriptionWithGoal,
+	normalWithoutDescriptionWithoutGoal,
 	normalWithDescription,
 	normalWithSubTasks,
 	shortWithoutDescription,

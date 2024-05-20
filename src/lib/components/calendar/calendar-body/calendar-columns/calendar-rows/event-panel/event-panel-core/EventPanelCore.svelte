@@ -8,6 +8,8 @@
 	import { format, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 
+	import GoalIcon from '../../../../../../../../routes/dashboard/goals/goal-form/goal-icon/GoalIcon.svelte';
+
 	export let event: AnyEvent;
 	export let targetDate: string;
 	export let isSelected: boolean;
@@ -53,9 +55,14 @@
 		tailwindColors[event.category.color].hoverBg,
 	)}
 >
-	<p class="truncate pr-3 font-semibold">
-		{getTitle()}
-	</p>
+	<div class="flex gap-1">
+		{#if event.goal?.icon}
+			<GoalIcon class="h-5 w-5" name={event.goal.icon} />
+		{/if}
+		<span class="truncate pr-3 font-semibold">
+			{getTitle()}
+		</span>
+	</div>
 
 	<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions-->
 	<label

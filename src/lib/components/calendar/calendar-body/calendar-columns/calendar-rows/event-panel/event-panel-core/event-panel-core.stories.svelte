@@ -16,7 +16,8 @@
 		longRecurring,
 		normalWithDescription,
 		normalWithSubTasks,
-		normalWithoutDescription,
+		normalWithoutDescriptionWithGoal,
+		normalWithoutDescriptionWithoutGoal,
 		shortWithDescription,
 		shortWithSubTasks,
 		shortWithoutDescription,
@@ -34,7 +35,15 @@
 	</div>
 </Template>
 
-<Story args={{ event: normalWithoutDescription }} name="Normal without description" />
+<Story
+	args={{ event: normalWithoutDescriptionWithGoal }}
+	name="Normal without description with goal"
+/>
+
+<Story
+	args={{ event: normalWithoutDescriptionWithoutGoal }}
+	name="Normal without description without goal"
+/>
 
 <Story args={{ event: normalWithDescription }} name="Normal with a description" />
 

@@ -6,23 +6,23 @@ import { format, lastDayOfQuarter, lastDayOfYear } from 'date-fns';
 let id = 0;
 export const learnToDrive: Goal = {
 	deadline: format(lastDayOfQuarter(new Date()), DATE),
-	icon: 'fa-car',
+	icon: 'Car',
 	id: `${id++}`,
 	isDone: true,
 	name: 'learn to drive',
 };
 
-export const cancelMyBankAccount: Goal = {
+export const sleepEarly: Goal = {
 	deadline: format(lastDayOfQuarter(new Date()), DATE),
-	icon: null,
+	icon: 'Bed',
 	id: `${id++}`,
 	isDone: false,
-	name: 'cancel my bank account',
+	name: 'sleep early',
 };
 
 export const investMoney: Goal = {
 	deadline: format(lastDayOfYear(new Date()), DATE),
-	icon: 'fa-money-bill-wave',
+	icon: 'MoneyBill1Wave',
 	id: `${id++}`,
 	isDone: true,
 	name: 'invest Money',
@@ -30,10 +30,10 @@ export const investMoney: Goal = {
 
 export const readTheGospelOfJohn: Goal = {
 	deadline: format(lastDayOfQuarter(new Date()), DATE),
-	icon: 'fa-cross',
+	icon: 'Cross',
 	id: `${id++}`,
 	isDone: false,
 	name: 'read the gospel of John',
 };
 
-export const goals = [learnToDrive, cancelMyBankAccount, investMoney, readTheGospelOfJohn];
+export const goals = [learnToDrive, sleepEarly, investMoney, readTheGospelOfJohn];
