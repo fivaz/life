@@ -20,6 +20,8 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { createEventDispatcher } from 'svelte';
 
+	import GoalIcon from '../../../routes/dashboard/goals/goal-form/goal-icon/GoalIcon.svelte';
+
 	export let task: AnyTask;
 
 	export let goals: Goal[];
@@ -155,7 +157,10 @@
 				<span slot="placeholder">{taskIn.goal?.name || 'no goal'}</span>
 				<SelectItem value={null}>no goal</SelectItem>
 				{#each goals as goal (goal)}
-					<SelectItem value={goal}>{goal.name}</SelectItem>
+					<SelectItem class="flex gap-2" value={goal}>
+						<GoalIcon class="h-5 w-5" name={goal.icon} />
+						<span class="w-[calc(100%-20px)] truncate">{goal.name}</span>
+					</SelectItem>
 				{/each}
 			</Select>
 

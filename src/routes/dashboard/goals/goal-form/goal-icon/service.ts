@@ -62,7 +62,6 @@ export const icons: GoalIconType[] = [
 	{ component: Dumbbell, name: 'Weightlifting Barbell' },
 	{ component: Paintbrush, name: 'Paintbrush' },
 	{ component: MoneyBill1Wave, name: 'Money' },
-	{ component: Globe, name: 'Globe' },
 	{ component: Book, name: 'Book' },
 	{ component: Stopwatch, name: 'Stopwatch' },
 	{ component: Lightbulb, name: 'Lightbulb', theme: 'default' },

@@ -55,9 +55,9 @@
 		tailwindColors[event.category.color].hoverBg,
 	)}
 >
-	<div class="flex gap-1">
+	<div class="flex items-center gap-1">
 		{#if event.goal?.icon}
-			<GoalIcon class="h-5 w-5" name={event.goal.icon} />
+			<GoalIcon class="h-4 w-4" name={event.goal.icon} />
 		{/if}
 		<span class="truncate pr-3 font-semibold">
 			{getTitle()}

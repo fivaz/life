@@ -19,7 +19,7 @@
 			'relative cursor-default select-none py-2 pl-3 pr-9',
 		)}
 	>
-		<span class={clsx(active ? 'font-semibold' : 'font-normal', 'block truncate', className)}>
+		<span class={clsx(active ? 'font-semibold' : 'font-normal', 'truncate', className)}>
 			<slot />
 		</span>
 
