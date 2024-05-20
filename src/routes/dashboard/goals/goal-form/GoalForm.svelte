@@ -14,6 +14,9 @@
 	import { createEventDispatcher } from 'svelte';
 	import { object, string } from 'yup';
 
+	import GoalIcon from './goal-icon/GoalIcon.svelte';
+	import { getIcon } from './goal-icon/service';
+	import IconSelector from './icon-selector/IconSelector.svelte';
 	import { addGoal, deleteGoal, editGoal } from './service';
 
 	export let userId: string;
@@ -45,13 +48,13 @@
 </script>
 
 <form
-	class="relative w-[355px] overflow-hidden rounded-md shadow"
+	class="relative w-[355px] overflow-hidden rounded-md text-sm font-medium shadow"
 	on:submit|preventDefault
 	use:form
 >
 	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
 		<div class="flex items-center justify-between pb-2">
-			<h2 class="text-lg font-medium text-gray-900">
+			<h2 class="text-lg text-gray-900">
 				{#if isEditing}
 					Edit Goal
 				{:else}
@@ -72,14 +75,19 @@
 			{getErrors($errors)}
 		</Alert>
 
-		<div class="flex flex-col gap-2 text-sm font-medium text-gray-700">
-			<Input autocomplete="off" class="flex" name="name" placeholder="Name" />
+		<div class="flex flex-col gap-2 text-gray-700">
+			<div class="relative">
+				<Input inputClass="" name="name" placeholder="Name" />
+				{#if goal.icon}
+					{@const icon = getIcon(goal.icon)}
+					<GoalIcon class="absolute h-6 w-6" src={icon.component} theme={icon.theme} />
+				{/if}
+			</div>
 
 			<Input
-				class="flex items-center"
+				class="flex items-center gap-2"
 				inputClass="flex-1"
 				label="Deadline"
-				labelClass="w-1/4"
 				name="deadline"
 				required
 				type="date"
@@ -87,6 +95,13 @@
 
 			<div class="rounded-lg border border-gray-200 p-2">
 				<Toggle bind:value={$data.isDone} label="Is complete" name="isDone" />
+			</div>
+
+			<div>
+				<div>
+					Icon
+					<IconSelector name="icon" />
+				</div>
 			</div>
 		</div>
 	</div>

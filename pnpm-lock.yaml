@@ -17,6 +17,9 @@ devDependencies:
   '@rgossiaux/svelte-headlessui':
     specifier: ^2.0.0
     version: 2.0.0(svelte@4.2.9)
+  '@steeze-ui/font-awesome':
+    specifier: ^1.0.1
+    version: 1.0.1
   '@steeze-ui/heroicons':
     specifier: ^2.3.0
     version: 2.3.0
@@ -2685,6 +2688,10 @@ packages:
 
   /@sinclair/typebox@0.27.8:
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
+    dev: true
+
+  /@steeze-ui/font-awesome@1.0.1:
+    resolution: {integrity: sha512-NTWmoyt8wk6NWWmi6/BV2rxfJoFKcaYyq5imla2bDtV+58lrvZ7bse3bUXxIAePco+6SB3JzBWcwgqdO37G7ug==}
     dev: true
 
   /@steeze-ui/heroicons@2.3.0:

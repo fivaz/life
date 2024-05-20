@@ -5,6 +5,7 @@ import { Query, collection, query, where } from 'firebase/firestore';
 
 export type Goal = {
 	deadline: string;
+	icon: null | string;
 	id: string;
 	isDone: boolean;
 	name: string;

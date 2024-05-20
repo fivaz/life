@@ -7,6 +7,7 @@ import { format, getQuarter, isPast, isThisYear, lastDayOfQuarter, parse } from 
 export function buildEmptyGoal(): Goal {
 	return {
 		deadline: format(lastDayOfQuarter(new Date()), DATE),
+		icon: 'Fire',
 		id: '',
 		isDone: false,
 		name: '',
