@@ -8,6 +8,8 @@
 	import { clsx } from 'clsx';
 	import { createEventDispatcher } from 'svelte';
 
+	import GoalIcon from '../goal-form/goal-icon/GoalIcon.svelte';
+	import { getIcon } from '../goal-form/goal-icon/service';
 	import GoalTasks from './goal-tasks/GoalTasks.svelte';
 
 	export let goal: Goal;
@@ -16,14 +18,21 @@
 	$: tasksCompleted = tasks.reduce((total, task) => total + Number(task.isDone), 0);
 
 	const dispatch = createEventDispatcher<{ addTask: null; editGoal: Goal }>();
+
+	$: icon = getIcon(goal.icon);
 </script>
 
 <li
 	class="rounded-lg bg-gray-50 py-3 text-base leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/5"
 >
 	<div class={'flex items-center justify-between px-3 pb-2'}>
-		<div class={clsx('w-[calc(100%-70px)] truncate', { 'line-through': goal.isDone })}>
-			{goal.name}
+		<div
+			class={clsx('flex w-[calc(100%-70px)] items-center gap-2 truncate', {
+				'line-through': goal.isDone,
+			})}
+		>
+			<GoalIcon class="h-5 w-5 text-indigo-600" {icon} />
+			<span>{goal.name}</span>
 		</div>
 
 		<div>

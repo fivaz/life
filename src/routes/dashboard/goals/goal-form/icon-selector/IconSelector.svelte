@@ -7,11 +7,11 @@
 
 	export let name: string;
 
+	export let value: null | string;
+
 	let filteredIcons = icons;
 
 	let searchQuery = '';
-
-	let selectedIcon = 'Fire';
 
 	$: filteredIcons = icons.filter(({ name }) =>
 		name.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -27,13 +27,13 @@
 		{#each filteredIcons as icon (icon.name)}
 			<button
 				class={clsx(
-					{ 'bg-red-200 text-red-500': selectedIcon === icon.name },
+					{ 'bg-indigo-200 text-indigo-700': value === icon.name },
 					'flex cursor-pointer items-center justify-center rounded p-1 text-2xl',
 				)}
-				on:click={() => (selectedIcon = icon.name)}
+				on:click={() => (value = icon.name)}
 				type="button"
 			>
-				<GoalIcon class="h-6" src={icon.component} theme={icon.theme} />
+				<GoalIcon class="h-6" {icon} />
 			</button>
 		{/each}
 	</div>

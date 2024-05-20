@@ -35,6 +35,7 @@
 		extend: [validator({ schema })],
 		initialValues: goal,
 		onSubmit: (values) => {
+			console.log(values);
 			const { id, ...data } = values;
 			if (id) {
 				editGoal(id, data, userId);
@@ -77,11 +78,10 @@
 
 		<div class="flex flex-col gap-2 text-gray-700">
 			<div class="relative">
-				<Input inputClass="" name="name" placeholder="Name" />
-				{#if goal.icon}
-					{@const icon = getIcon(goal.icon)}
-					<GoalIcon class="absolute h-6 w-6" src={icon.component} theme={icon.theme} />
-				{/if}
+				<Input inputClass="pr-10" name="name" placeholder="Name" />
+				<div class="absolute right-0 top-0 p-2.5">
+					<GoalIcon class="h-5" icon={getIcon($data.icon)} />
+				</div>
 			</div>
 
 			<Input
@@ -97,12 +97,7 @@
 				<Toggle bind:value={$data.isDone} label="Is complete" name="isDone" />
 			</div>
 
-			<div>
-				<div>
-					Icon
-					<IconSelector name="icon" />
-				</div>
-			</div>
+			<IconSelector bind:value={$data.icon} name="icon" />
 		</div>
 	</div>
 

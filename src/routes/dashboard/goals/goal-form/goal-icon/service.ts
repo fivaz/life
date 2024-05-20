@@ -1,5 +1,6 @@
 import {
 	ArrowUp,
+	Bed,
 	Book,
 	Briefcase,
 	Bullseye,
@@ -22,7 +23,6 @@ import {
 	Key,
 	Laptop,
 	Lightbulb,
-	Mobile,
 	MoneyBill1Wave,
 	Mountain,
 	Music,
@@ -44,14 +44,14 @@ import {
 } from '@steeze-ui/font-awesome';
 import { type IconSource } from '@steeze-ui/svelte-icon';
 
-const defaultIcon: Icon = { component: Fire, name: 'Fire' };
+const defaultIcon: GoalIconType = { component: Fire, name: 'Fire' };
 
-type Icon = {
+export type GoalIconType = {
 	component: IconSource;
 	name: string;
 	theme?: string | undefined;
 };
-export const icons: Icon[] = [
+export const icons: GoalIconType[] = [
 	defaultIcon,
 	{ component: Bullseye, name: 'Bullseye/Target' },
 	{ component: Trophy, name: 'Trophy' },
@@ -83,7 +83,6 @@ export const icons: Icon[] = [
 	{ component: Car, name: 'Car' },
 	{ component: House, name: 'House' },
 	{ component: Tree, name: 'Tree' },
-	{ component: Mobile, name: 'Smartphone' },
 	{ component: Laptop, name: 'Computer/Laptop' },
 	{ component: CartShopping, name: 'Shopping Cart' },
 	{ component: Globe, name: 'Globe/World Map' },
@@ -96,9 +95,10 @@ export const icons: Icon[] = [
 	{ component: Key, name: 'Lock/Key' },
 	{ component: Cross, name: 'Cross (Religion)' },
 	{ component: Toolbox, name: 'Toolbox' },
+	{ component: Bed, name: 'Bed' },
 ];
 
-export function getIcon(name: string) {
+export function getIcon(name: null | string) {
 	const icon = icons.find((icon) => icon.name === name);
 
 	return icon || defaultIcon;
