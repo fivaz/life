@@ -75,18 +75,22 @@
 	}) {
 		if (!isSelected) return;
 
-		let { x, y } = e.target.dataset;
+		let target = e.target;
+		let x = parseFloat(target.getAttribute('data-x') || '0');
+		let y = parseFloat(target.getAttribute('data-y') || '0');
 
-		x = (parseFloat(x || '0') || 0) + e.deltaRect.left;
-		y = (parseFloat(y || '0') || 0) + e.deltaRect.top;
+		// update the element's style
+		target.style.width = `${e.rect.width}px`;
+		target.style.height = `${e.rect.height}px`;
 
-		Object.assign(e.target.style, {
-			height: `${e.rect.height}px`,
-			transform: `translate(${x}px, ${y}px)`,
-			width: `${e.rect.width}px`,
-		});
+		// translate when resizing from top or left edges
+		x += parseFloat(e.deltaRect.left);
+		y += parseFloat(e.deltaRect.top);
 
-		Object.assign(e.target.dataset, { x, y });
+		target.style.transform = `translate(${x}px, ${y}px)`;
+
+		target.setAttribute('data-x', `${x}`);
+		target.setAttribute('data-y', `${y}`);
 	}
 
 	function unSelect(e: MouseEvent) {
