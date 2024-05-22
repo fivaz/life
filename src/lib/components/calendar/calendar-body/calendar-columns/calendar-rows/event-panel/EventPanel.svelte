@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { AnyEvent, AnyTask, Event } from '$lib/task/utils';
 
-	import { tailwindColors } from '$lib/category/utils';
 	import {
 		GRID_CELL_HEIGHT,
 		isSomethingDragging,
@@ -28,6 +27,8 @@
 
 	let isSelected = false;
 
+	let position = { x: 0, y: 0 };
+
 	let interactivePanel: ReturnType<typeof interact> | null = null;
 
 	let className = '';
@@ -52,7 +53,6 @@
 		if (!isSelected) return;
 		isSomethingDragging.set(true);
 		Object.assign(e.target.style, {
-			backgroundColor: tailwindColors[event.category.color].normalBgCss,
 			touchAction: 'none',
 			zIndex: '1',
 		});
@@ -61,16 +61,10 @@
 	function onMove({ dx, dy, target }: { dx: number; dy: number; target: HTMLElement }) {
 		if (!isSelected) return;
 
-		// keep the dragged position in the data-x/data-y attributes
-		const x = parseFloat(target.getAttribute('data-x') || '0') + dx;
-		const y = parseFloat(target.getAttribute('data-y') || '0') + dy;
+		position.x += dx;
+		position.y += dy;
 
-		// translate the element
-		target.style.transform = `translate(${x}px, ${y}px)`;
-
-		// update the position attributes
-		target.setAttribute('data-x', `${x}`);
-		target.setAttribute('data-y', `${y}`);
+		target.style.transform = `translate(${position.x}px, ${position.y}px)`;
 	}
 
 	function onResize({
@@ -84,16 +78,12 @@
 	}) {
 		if (!isSelected) return;
 
-		const x = parseFloat(target.getAttribute('data-x') || '0') + parseFloat(deltaRect.left);
-		const y = parseFloat(target.getAttribute('data-y') || '0') + parseFloat(deltaRect.top);
+		position.x += parseFloat(deltaRect.left);
+		position.y += parseFloat(deltaRect.top);
 
 		target.style.width = `${rect.width}px`;
 		target.style.height = `${rect.height}px`;
-
-		target.style.transform = `translate(${x}px, ${y}px)`;
-
-		target.setAttribute('data-x', `${x}`);
-		target.setAttribute('data-y', `${y}`);
+		target.style.transform = `translate(${position.x}px, ${position.y}px)`;
 	}
 
 	function unSelect(e: MouseEvent) {
