@@ -1,6 +1,6 @@
 import {
+	GRID_CELL_HEIGHT,
 	GRID_CELL_TIME,
-	NEW_GRID_CELL_HEIGHT,
 	NUMBER_OF_CELLS,
 } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 import { convertTimeToMinutes } from '$lib/task/time-utils';
@@ -50,11 +50,11 @@ export function getHeight(event: AnyEvent) {
 	// the duration is calculated like this instead of just event.duration to sanitize the duration in case it overlaps 24h
 	const duration = endSlot - startSlot;
 
-	return `height: ${duration * NEW_GRID_CELL_HEIGHT}px;`;
+	return `height: ${duration * GRID_CELL_HEIGHT}px;`;
 }
 
 export function getTop(event: AnyEvent): string {
 	const startTimeMinutes = convertTimeToMinutes(event.startTime);
 
-	return `top: ${(startTimeMinutes / GRID_CELL_TIME) * NEW_GRID_CELL_HEIGHT}px;`;
+	return `top: ${(startTimeMinutes / GRID_CELL_TIME) * GRID_CELL_HEIGHT}px;`;
 }

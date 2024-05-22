@@ -1,9 +1,9 @@
 import type { AnyEvent } from '$lib/task/utils';
 
 import {
+	GRID_CELL_HEIGHT,
 	GRID_CELL_TIME,
 	GRID_CLASS,
-	NEW_GRID_CELL_HEIGHT,
 } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 import { EVENT_PANEL_CLASS } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
 import { TIME } from '$lib/consts';
@@ -55,7 +55,7 @@ function getDateTimeFromLastGridCell(
 ): { date: string; startTime: string } | void {
 	const { bottom, height, left, width } = draggedElement.getBoundingClientRect();
 
-	const gridCellY = bottom - NEW_GRID_CELL_HEIGHT / 2;
+	const gridCellY = bottom - GRID_CELL_HEIGHT / 2;
 	const gridCellX = left + width / 2;
 
 	const dateTime = getDateTimeFromGridCell(draggedElement, gridCellY, gridCellX);
@@ -67,7 +67,7 @@ function getDateTimeFromLastGridCell(
 	// So if the event ends at 06:00, the last grid has 05:45.
 	const endTimeDate = new Date(0, 0, 0, endTimeHours, endTimeMinutes + GRID_CELL_TIME);
 
-	const totalGrids = Math.round(height / NEW_GRID_CELL_HEIGHT);
+	const totalGrids = Math.round(height / GRID_CELL_HEIGHT);
 	const totalTime = totalGrids * GRID_CELL_TIME;
 
 	const startTimeDate = subMinutes(endTimeDate, totalTime);
@@ -79,7 +79,7 @@ function getDateTimeFromFirstGridCell(
 ): { date: string; startTime: string } | void {
 	const { left, top, width } = draggedElement.getBoundingClientRect();
 
-	const gridCellY = top + NEW_GRID_CELL_HEIGHT / 2;
+	const gridCellY = top + GRID_CELL_HEIGHT / 2;
 	const gridCellX = left + width / 2;
 
 	const dateTime = getDateTimeFromGridCell(draggedElement, gridCellY, gridCellX);
@@ -97,7 +97,7 @@ export function getDateTimeBeneath(
 }
 
 export function getDurationFromCellSize(height: number) {
-	const numberOfFilledCells = height / NEW_GRID_CELL_HEIGHT;
+	const numberOfFilledCells = height / GRID_CELL_HEIGHT;
 	const roundedNumberOfFilledCells = Math.round(numberOfFilledCells);
 	const resultDate = addMinutes(new Date(0, 0, 0), roundedNumberOfFilledCells * GRID_CELL_TIME);
 	return format(resultDate, TIME);

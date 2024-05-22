@@ -2,7 +2,10 @@
 	import type { AnyEvent, AnyTask, Event } from '$lib/task/utils';
 
 	import { tailwindColors } from '$lib/category/utils';
-	import { isSomethingDragging } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
+	import {
+		GRID_CELL_HEIGHT,
+		isSomethingDragging,
+	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 	import {
 		EVENT_PANEL_CLASS,
 		getDivision,
@@ -137,6 +140,11 @@
 		interactivePanel.resizable({
 			edges: { bottom: true, top: true },
 			listeners: { move: resizeEvent },
+			modifiers: [
+				interact.modifiers.restrictSize({
+					min: { height: GRID_CELL_HEIGHT, width: 100 },
+				}),
+			],
 		});
 	});
 </script>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { NEW_GRID_CELL_HEIGHT } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
+	import { GRID_CELL_HEIGHT } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 
 	const timeLabels = [
 		'12AM',
@@ -30,12 +30,12 @@
 </script>
 
 <div>
-	<div style="height: {NEW_GRID_CELL_HEIGHT}px">
+	<div style="height: {GRID_CELL_HEIGHT}px">
 		<slot />
 	</div>
 	<div class="flex w-7 flex-col pr-2 text-right text-xs leading-5 text-gray-400 md:w-14">
 		{#each timeLabels as timeLabel (timeLabel)}
-			<div style="height: {NEW_GRID_CELL_HEIGHT * 4}px">
+			<div style="height: {GRID_CELL_HEIGHT * 4}px">
 				<div class="-translate-y-1/2">
 					<span class="hidden md:block">{timeLabel}</span>
 					<span class="block md:hidden">{timeLabel.replace(/AM|PM/g, '')}</span>

@@ -3,7 +3,7 @@
 	import { clsx } from 'clsx';
 	import { createEventDispatcher } from 'svelte';
 
-	import { GRID_CLASS, NEW_GRID_CELL_HEIGHT, isSomethingDragging } from '../service';
+	import { GRID_CELL_HEIGHT, GRID_CLASS, isSomethingDragging } from '../service';
 
 	const dispatch = createEventDispatcher<{ click: string; move: number }>();
 
@@ -27,7 +27,7 @@
 		}
 	}}
 	role="button"
-	style="height: {NEW_GRID_CELL_HEIGHT}px"
+	style="height: {GRID_CELL_HEIGHT}px"
 	tabindex="0"
 />
 
