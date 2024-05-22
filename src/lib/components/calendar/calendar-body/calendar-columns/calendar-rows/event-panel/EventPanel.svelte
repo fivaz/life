@@ -28,8 +28,6 @@
 
 	let isSelected = false;
 
-	let position = { x: 0, y: 0 };
-
 	let interactivePanel: ReturnType<typeof interact> | null = null;
 
 	let className = '';
@@ -60,32 +58,37 @@
 		});
 	}
 
-	function onMove(e: { dx: number; dy: number; target: HTMLElement }) {
+	function onMove({ dx, dy, target }: { dx: number; dy: number; target: HTMLElement }) {
 		if (!isSelected) return;
-		position.x += e.dx;
-		position.y += e.dy;
 
-		e.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
+		// keep the dragged position in the data-x/data-y attributes
+		const x = parseFloat(target.getAttribute('data-x') || '0') + dx;
+		const y = parseFloat(target.getAttribute('data-y') || '0') + dy;
+
+		// translate the element
+		target.style.transform = `translate(${x}px, ${y}px)`;
+
+		// update the position attributes
+		target.setAttribute('data-x', `${x}`);
+		target.setAttribute('data-y', `${y}`);
 	}
 
-	function resizeEvent(e: {
+	function onResize({
+		deltaRect,
+		rect,
+		target,
+	}: {
 		deltaRect: { left: string; top: string };
 		rect: { height: number; width: number };
 		target: HTMLElement;
 	}) {
 		if (!isSelected) return;
 
-		let target = e.target;
-		let x = parseFloat(target.getAttribute('data-x') || '0');
-		let y = parseFloat(target.getAttribute('data-y') || '0');
+		const x = parseFloat(target.getAttribute('data-x') || '0') + parseFloat(deltaRect.left);
+		const y = parseFloat(target.getAttribute('data-y') || '0') + parseFloat(deltaRect.top);
 
-		// update the element's style
-		target.style.width = `${e.rect.width}px`;
-		target.style.height = `${e.rect.height}px`;
-
-		// translate when resizing from top or left edges
-		x += parseFloat(e.deltaRect.left);
-		y += parseFloat(e.deltaRect.top);
+		target.style.width = `${rect.width}px`;
+		target.style.height = `${rect.height}px`;
 
 		target.style.transform = `translate(${x}px, ${y}px)`;
 
@@ -111,8 +114,6 @@
 				zIndex: '',
 			});
 		}
-
-		position = { x: 0, y: 0 };
 
 		document.removeEventListener('click', unSelect);
 	}
@@ -143,7 +144,7 @@
 
 		interactivePanel.resizable({
 			edges: { bottom: true, top: true },
-			listeners: { move: resizeEvent },
+			listeners: { move: onResize },
 			modifiers: [
 				interact.modifiers.restrictSize({
 					min: { height: GRID_CELL_HEIGHT, width: 100 },
