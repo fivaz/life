@@ -203,10 +203,10 @@ export async function addTask(data: Omit<AnyTask, 'id'>, userId: string, file?: 
 
 		void updateDoc(newTaskRef, { image });
 
-		void addTaskToGoal(userId, { ...data, image }, newTaskRef.id);
-	} else {
-		void addTaskToGoal(userId, { ...data }, newTaskRef.id);
+		data.image = image;
 	}
+
+	void addTaskToGoal(userId, data, newTaskRef.id);
 }
 
 function deleteTask(id: string, data: Omit<AnyTask, 'id'>, userId: string) {
