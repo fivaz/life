@@ -25,7 +25,8 @@
 				<img alt="event description" src={taskIn.image} />
 			</button>
 			<Modal on:close={() => (isImageOpen = false)} show={isImageOpen}>
-				<div class="rounded-lg bg-white p-2 shadow">
+				<!--normally I wouldn't need to restate the z-index of the Modal to its children, but due to an unknown bug I have to-->
+				<div class="z-20 rounded-lg bg-white p-2 shadow">
 					<img
 						alt="event description"
 						class="max-w-11/12 h-auto max-h-[90vh] w-auto object-contain"

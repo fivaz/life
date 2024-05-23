@@ -9,7 +9,7 @@
 
 {#if show}
 	<Portal target="body">
-		<div class="fixed inset-0 z-50 flex items-center justify-center">
+		<div class="fixed inset-0 z-20 flex items-center justify-center">
 			<!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events-->
 			<div class="absolute inset-0 bg-black opacity-50" on:click={() => dispatch('close')} />
 
