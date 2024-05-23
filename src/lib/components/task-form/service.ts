@@ -7,7 +7,6 @@ import { db, storage } from '$lib/firebase';
 import { add, differenceInMinutes, format, isSameDay } from 'date-fns';
 import {
 	type DocumentReference,
-	addDoc,
 	collection,
 	deleteDoc,
 	doc,
@@ -155,9 +154,10 @@ function updateTaskInGoal(
 }
 
 function removeTaskFromGoal(userId: string, taskRef: DocumentReference, goal: Goal) {
-	const formerGoalDocRef = doc(db, 'users', userId, 'goals', goal.id);
-	const formerGoalTaskDocRef = doc(formerGoalDocRef, 'tasks', taskRef.id);
-	void deleteDoc(formerGoalTaskDocRef);
+	const goalDocRef = doc(db, 'users', userId, 'goals', goal.id);
+	const goalTaskDocRef = doc(goalDocRef, 'tasks', taskRef.id);
+
+	void deleteDoc(goalTaskDocRef);
 }
 
 export async function editTask(
@@ -179,12 +179,11 @@ export async function editTask(
 	void editTaskInGoal(userId, data, formerGoal, taskDocRef);
 }
 
-async function addTaskToGoal(userId: string, data: Omit<AnyTask, 'id'>) {
+function addTaskToGoal(userId: string, data: Omit<AnyTask, 'id'>, id: string) {
 	if (data.goal) {
 		const goalDocRef = doc(db, 'users', userId, 'goals', data.goal.id);
-		const goalTaskCollectionRef = collection(goalDocRef, 'tasks');
-
-		void addDoc(goalTaskCollectionRef, data);
+		const goalTaskCollectionRef = doc(goalDocRef, 'tasks', id);
+		void setDoc(goalTaskCollectionRef, data);
 	}
 }
 
@@ -204,18 +203,9 @@ export async function addTask(data: Omit<AnyTask, 'id'>, userId: string, file?: 
 
 		void updateDoc(newTaskRef, { image });
 
-		void addTaskToGoal(userId, { ...data, image });
+		void addTaskToGoal(userId, { ...data, image }, newTaskRef.id);
 	} else {
-		void addTaskToGoal(userId, data);
-	}
-}
-
-function deleteTaskFromGoal(userId: string, taskId: string, data: Omit<AnyTask, 'id'>) {
-	if (data.goal) {
-		const goalDocRef = doc(db, 'users', userId, 'goals', data.goal.id);
-		const goalTaskDocRef = doc(goalDocRef, 'tasks', taskId);
-
-		void deleteDoc(goalTaskDocRef);
+		void addTaskToGoal(userId, { ...data }, newTaskRef.id);
 	}
 }
 
@@ -223,7 +213,9 @@ function deleteTask(id: string, data: Omit<AnyTask, 'id'>, userId: string) {
 	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
 	void deleteDoc(taskDocRef);
 
-	deleteTaskFromGoal(userId, id, data);
+	if (data.goal) {
+		removeTaskFromGoal(userId, taskDocRef, data.goal);
+	}
 }
 
 function addExceptionToRecurring(
