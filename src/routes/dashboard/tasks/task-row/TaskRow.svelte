@@ -35,7 +35,10 @@
 	<div class="flex items-center gap-x-3">
 		<div class="w-12 text-center">{'duration' in task ? task.duration : '-'}</div>
 		<button
-			class="rounded bg-white px-1.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+			class={clsx(
+				tailwindColors[task.category.color].hoverBg,
+				'rounded px-1.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300',
+			)}
 			on:click={() => dispatch('edit', task)}
 			type="button"
 		>
