@@ -42,7 +42,7 @@
 			on:click={() => dispatch('edit', task)}
 			type="button"
 		>
-			<Icon class="h-4 w-4" src={EllipsisHorizontal} />
+			<Icon class="h-4 w-4 text-white" src={EllipsisHorizontal} />
 		</button>
 	</div>
 </li>
