@@ -48,7 +48,11 @@
 	});
 </script>
 
-<form class="w-[355px] rounded-md shadow" on:submit|preventDefault use:form>
+<form
+	class="relative w-[355px] overflow-hidden rounded-md text-sm font-medium shadow"
+	on:submit|preventDefault
+	use:form
+>
 	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
 		<div class="flex items-center justify-between pb-2">
 			<h2 class="text-lg font-medium text-gray-900">
