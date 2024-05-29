@@ -4,9 +4,8 @@
 	import { tailwindColors } from '$lib/category/utils';
 	import { DATE_FR, DATE_FR_SHORT } from '$lib/consts';
 	import { getTaskDate } from '$lib/task/time-utils';
-	import { EllipsisHorizontal } from '@steeze-ui/heroicons';
+	import { Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { clsx } from 'clsx';
 	import { format } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 
@@ -21,10 +20,8 @@
 </script>
 
 <li
-	class={clsx(
-		tailwindColors[task.category.color].darkBg,
-		'flex justify-between gap-x-3 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-50',
-	)}
+	class="{tailwindColors[task.category.color].darkBg}
+		flex justify-between gap-x-3 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-50"
 >
 	<div class="flex items-center justify-between gap-x-3">
 		<div class="hidden sm:block">{formatDate(task, DATE_FR)}</div>
@@ -35,14 +32,13 @@
 	<div class="flex items-center gap-x-3">
 		<div class="w-12 text-center">{'duration' in task ? task.duration : '-'}</div>
 		<button
-			class={clsx(
-				tailwindColors[task.category.color].hoverBg,
-				'rounded px-1.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300',
-			)}
+			class="{tailwindColors[task.category.color].hoverBg} {tailwindColors[task.category.color]
+				.hoverText}
+				rounded px-1.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300"
 			on:click={() => dispatch('edit', task)}
 			type="button"
 		>
-			<Icon class="h-4 w-4 text-white" src={EllipsisHorizontal} />
+			<Icon class="h-4 w-4 text-white" src={Settings2} />
 		</button>
 	</div>
 </li>

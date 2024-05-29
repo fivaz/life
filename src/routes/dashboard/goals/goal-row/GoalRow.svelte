@@ -3,7 +3,7 @@
 	import type { AnyTask } from '$lib/task/utils';
 
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
-	import { Plus, Settings } from '@steeze-ui/lucide-icons';
+	import { Plus, Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { createEventDispatcher } from 'svelte';
@@ -45,7 +45,7 @@
 				on:click={() => dispatch('editGoal', goal)}
 				type="button"
 			>
-				<Icon class="h-4 w-4 text-black" src={Settings} />
+				<Icon class="h-4 w-4 text-black" src={Settings2} />
 			</button>
 		</div>
 	</div>

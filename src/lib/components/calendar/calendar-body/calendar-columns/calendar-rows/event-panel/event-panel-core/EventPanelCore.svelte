@@ -52,7 +52,7 @@
 		},
 		tailwindColors[event.category.color].text,
 		tailwindColors[event.category.color].lightBg,
-		tailwindColors[event.category.color].hoverBg,
+		tailwindColors[event.category.color].hoverLightBg,
 	)}
 >
 	<div class="flex items-center gap-1">
@@ -81,7 +81,9 @@
 		<div class="overflow-hidden">
 			<div>
 				<time
-					class={tailwindColors[event.category.color].lightText}
+					class="{tailwindColors[event.category.color].lightText} {tailwindColors[
+						event.category.color
+					].hoverText}"
 					dateTime={`${event.date}T${event.startTime}`}
 				>
 					{format(parse(event.startTime, TIME, new Date()), 'p')}

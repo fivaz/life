@@ -116,7 +116,7 @@
 			</Select>
 
 			<div class="rounded-lg bg-white p-2">
-				<Toggle bind:value={$data.isDefault} label="Is default" name="isDefault" />
+				<Toggle bind:value={$data.isDefault} label="default" name="isDefault" />
 			</div>
 		</div>
 	</div>
