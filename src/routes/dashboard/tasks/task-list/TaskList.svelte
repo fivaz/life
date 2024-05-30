@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { AnyTask } from '$lib/task/utils';
 
-	import { getTotalDuration } from '$lib/task/time-utils';
+	import { getNumberOfTasks, getTotalDuration } from '$lib/task/time-utils';
 	import { Clipboard, ClipboardCopy, ClipboardList } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
@@ -15,16 +15,6 @@
 	export let userId: string;
 
 	$: isDroppable = label !== GROUPS.Recurring && label !== GROUPS.Overdue;
-
-	function getNumberOfTasks() {
-		if (tasks.length === 0) {
-			return '';
-		}
-		if (tasks.length === 1) {
-			return '(1 task)';
-		}
-		return `(${tasks.length} tasks)`;
-	}
 </script>
 
 <!--recurring and overdue list shouldn't be droppable-->
@@ -37,7 +27,7 @@
 				<Icon class="h-5 w-5" src={Clipboard} />
 			{/if}
 			<div>{label}</div>
-			<div>{getNumberOfTasks()}</div>
+			<div>{getNumberOfTasks(tasks)}</div>
 		</div>
 		<div>{getTotalDuration(tasks)}</div>
 	</div>

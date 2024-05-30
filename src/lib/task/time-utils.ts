@@ -3,6 +3,20 @@ import { DATE } from '$lib/consts';
 import { type AnyTask, getDurationInMinutes } from '$lib/task/utils';
 import { parse, set } from 'date-fns';
 
+export function getNumberOfTasks(tasks: AnyTask[]) {
+	if (tasks.length === 0) {
+		return '';
+	}
+	if (tasks.length === 1) {
+		return '(1 task)';
+	}
+	return `(${tasks.length} tasks)`;
+}
+export function getTotalDuration(tasks: AnyTask[]): string {
+	const totalDurationInMinutes = tasks.reduce((sum, task) => sum + getDurationInMinutes(task), 0);
+	return convertMinutesToTime(totalDurationInMinutes);
+}
+
 export function getTaskDate(task: AnyTask) {
 	const dateString = 'date' in task ? task.date : task.deadline;
 
@@ -28,11 +42,6 @@ export function convertMinutesToTime(time: number): string {
 	const minutes = time % 60;
 
 	return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-}
-
-export function getTotalDuration(tasks: AnyTask[]): string {
-	const totalDurationInMinutes = tasks.reduce((sum, task) => sum + getDurationInMinutes(task), 0);
-	return convertMinutesToTime(totalDurationInMinutes);
 }
 
 export function getCurrentRoundedDate() {

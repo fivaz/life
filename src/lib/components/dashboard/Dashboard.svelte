@@ -8,12 +8,7 @@
 	import { auth } from '$lib/firebase';
 	import { Dialog, TransitionChild, TransitionRoot } from '@rgossiaux/svelte-headlessui';
 	import { Bars3, XMark } from '@steeze-ui/heroicons';
-	import {
-		CalendarDays,
-		Goal,
-		ListChecks,
-		Tags,
-	} from '@steeze-ui/lucide-icons';
+	import { CalendarDays, Goal, ListChecks, Tags } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { onAuthStateChanged } from 'firebase/auth';
