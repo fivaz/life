@@ -73,15 +73,25 @@ function getDateName(task: AnyTask): GROUPS | string {
 }
 
 function groupTasksByDate(tasks: AnyTask[]): Record<string, AnyTask[]> {
-	return tasks.reduce<Record<string, AnyTask[]>>((groups, task) => {
-		const date = getDateName(task);
+	return tasks.reduce<Record<string, AnyTask[]>>(
+		(groups, task) => {
+			const date = getDateName(task);
 
-		if (!groups[date]) {
-			groups[date] = [];
-		}
-		groups[date].push(task);
-		return groups;
-	}, {});
+			if (!groups[date]) {
+				groups[date] = [];
+			}
+			groups[date].push(task);
+			return groups;
+		},
+		{
+			[GROUPS.NextWeek]: [],
+			[GROUPS.Someday]: [],
+			[GROUPS.Today]: [],
+			[GROUPS.Tomorrow]: [],
+			[GROUPS.Week]: [],
+			['Test']: [],
+		},
+	);
 }
 
 function getTaskByOrderedDate(tasksByDate: Record<string, AnyTask[]>) {

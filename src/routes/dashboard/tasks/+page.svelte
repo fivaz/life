@@ -8,13 +8,12 @@
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { auth, db } from '$lib/firebase';
 	import { buildEmptyToDo } from '$lib/task/build-utils';
-	import { getTotalDuration } from '$lib/task/time-utils';
 	import { BookOpenCheck } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { SignedIn, collectionStore, userStore } from 'sveltefire';
 
 	import { type SortedTaskType, queryUncompletedTasks, sortTasksByDate } from './service';
-	import TaskRow from './task-row/TaskRow.svelte';
+	import TaskList from './task-list/TaskList.svelte';
 	import TasksStats from './tasks-stats/TasksStats.svelte';
 
 	let editingTask: AnyTask = buildEmptyToDo([]);
@@ -66,21 +65,16 @@
 					</Button>
 				</div>
 
-				<ul class="divide-y divide-gray-100" role="list">
+				<ul class="flex flex-col gap-3">
 					{#each sortedTasks as date (date)}
-						<div class="flex justify-between px-2 font-semibold">
-							<div>{date}</div>
-							<div>{getTotalDuration(sortedTasks[date])}</div>
-						</div>
-						{#each sortedTasks[date] as task (task)}
-							<TaskRow
-								on:edit={(e) => {
-									showForm = true;
-									editingTask = e.detail;
-								}}
-								{task}
-							/>
-						{/each}
+						<TaskList
+							{date}
+							on:edit={(e) => {
+								showForm = true;
+								editingTask = e.detail;
+							}}
+							tasks={sortedTasks[date]}
+						/>
 					{/each}
 				</ul>
 
