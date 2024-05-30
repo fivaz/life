@@ -3,6 +3,7 @@
 	import type { Goal } from '$lib/goal/utils';
 	import type { AnyTask } from '$lib/task/utils';
 
+	import { tailwindColors } from '$lib/category/utils';
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
@@ -18,6 +19,7 @@
 	import { checkErrors, convertToAnyTask, convertToTaskIn } from '$lib/task/task-in-utils';
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { clsx } from 'clsx';
 	import { createEventDispatcher } from 'svelte';
 
 	import GoalIcon from '../../../routes/dashboard/goals/goal-form/goal-icon/GoalIcon.svelte';
@@ -141,9 +143,18 @@
 				labelClass="w-1/5"
 				selectClass="flex-1"
 			>
-				<span slot="placeholder">{taskIn.category.name}</span>
+				<div class="flex items-center gap-3" slot="placeholder">
+					<div class={clsx('h-5 w-5 rounded-md', tailwindColors[taskIn.category.color]?.darkBg)} />
+					{taskIn.category.name}
+				</div>
+
 				{#each categories as category (category)}
-					<SelectItem value={category}>{category.name}</SelectItem>
+					<SelectItem value={category}>
+						<div class="flex items-center gap-3">
+							<div class={clsx('h-5 w-5 rounded-md', tailwindColors[category.color]?.darkBg)} />
+							{category.name}
+						</div>
+					</SelectItem>
 				{/each}
 			</Select>
 

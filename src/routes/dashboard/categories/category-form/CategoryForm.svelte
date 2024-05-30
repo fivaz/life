@@ -86,14 +86,14 @@
 				labelClass="w-1/5"
 				selectClass="flex-1"
 			>
-				<div class="flex items-center gap-5" slot="placeholder">
+				<div class="flex items-center gap-3" slot="placeholder">
 					<div class={clsx('h-5 w-5 rounded-md', tailwindColors[$data?.color]?.darkBg)} />
 					{$data.color}
 				</div>
 
 				{#each Object.keys(tailwindColors) as color (color)}
 					<SelectItem value={color}>
-						<div class="flex items-center gap-5">
+						<div class="flex items-center gap-3">
 							<div class={clsx('h-5 w-5 rounded-md', tailwindColors[color]?.darkBg)} />
 							{color}
 						</div>
