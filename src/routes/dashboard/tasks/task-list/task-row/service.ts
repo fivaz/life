@@ -7,6 +7,7 @@ import { addDays, addWeeks, format, lastDayOfWeek } from 'date-fns';
 import { GROUPS } from '../../service';
 
 export const TASK_LIST_CLASS = 'task-list-class';
+export const HANDLE = 'handle-class';
 
 export function formatDate(task: AnyTask, dateFormat: string) {
 	const date = getTaskDate(task);

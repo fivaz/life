@@ -3,12 +3,12 @@
 
 	import { tailwindColors } from '$lib/category/utils';
 	import { DATE_FR, DATE_FR_SHORT } from '$lib/consts';
-	import { Settings2 } from '@steeze-ui/lucide-icons';
+	import { GripVertical, Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import interact from 'interactjs';
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 
-	import { formatDate, hasMoved, startDrag } from './service';
+	import { HANDLE, formatDate, hasMoved, startDrag } from './service';
 
 	export let task: AnyTask;
 	export let userId: string;
@@ -45,28 +45,50 @@
 		}
 	}
 
+	let isSmallScreen: boolean;
+	const breakpoint = 640;
+
+	function updateScreenSize() {
+		isSmallScreen = window.innerWidth < breakpoint;
+	}
+
 	onMount(() => {
 		if (!container || !isDraggable) return;
+		updateScreenSize();
+		window.addEventListener('resize', updateScreenSize);
 
 		interactiveContainer = interact(container);
 
 		interactiveContainer
-			.draggable({ autoScroll: true, listeners: { move: onMove } })
+			.draggable({
+				...(isSmallScreen && { allowFrom: `.${HANDLE}` }),
+				autoScroll: true,
+				listeners: { move: onMove },
+			})
 			.on('contextmenu', (e) => e.preventDefault())
 			.on('dragstart', startDrag)
 			.on('dragend', endDrag);
 	});
+
+	onDestroy(() => window.removeEventListener('resize', updateScreenSize));
 </script>
 
 <li
 	bind:this={container}
 	class="{tailwindColors[task.category.color].darkBg}
-		flex select-none justify-between gap-x-3 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-50"
+		flex touch-none select-none justify-between gap-3 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-50"
 >
-	<div class="flex items-center justify-between gap-x-3">
-		<div class="hidden sm:block">{formatDate(task, DATE_FR)}</div>
-		<div class="block sm:hidden">{formatDate(task, DATE_FR_SHORT)}</div>
-		<div class="name">{task.name}</div>
+	<div class="flex gap-3">
+		<div class="flex items-center justify-between gap-3 sm:hidden">
+			<!--to avoid dragging during scroll on touch devices, it's only possible to drag a task if it's grabbed by the handle-->
+			<Icon class="{HANDLE} h-6 w-6" src={GripVertical} />
+			<div class="w-10">{formatDate(task, DATE_FR_SHORT)}</div>
+			<div class="name w-[calc(100%-64px)]">{task.name}</div>
+		</div>
+		<div class="hidden gap-3 sm:flex">
+			{formatDate(task, DATE_FR)}
+			<div class="name">{task.name}</div>
+		</div>
 	</div>
 
 	<div class="flex items-center gap-x-3">
