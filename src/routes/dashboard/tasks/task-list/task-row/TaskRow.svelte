@@ -46,6 +46,7 @@
 	}
 
 	let isSmallScreen: boolean;
+	// sm- breakpoint from tailwind
 	const breakpoint = 640;
 
 	function updateScreenSize() {
