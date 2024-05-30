@@ -23,7 +23,7 @@
 	export let targetDate: string;
 	export let timeSlots: string[][];
 
-	let container: HTMLDivElement | undefined = undefined;
+	let container: HTMLDivElement | undefined;
 
 	let isSelected = false;
 
@@ -49,15 +49,6 @@
 		};
 	}>();
 
-	function startDrag(e: { target: HTMLElement }) {
-		if (!isSelected) return;
-		isSomethingDragging.set(true);
-		Object.assign(e.target.style, {
-			touchAction: 'none',
-			zIndex: '1',
-		});
-	}
-
 	function onMove({ dx, dy, target }: { dx: number; dy: number; target: HTMLElement }) {
 		if (!isSelected) return;
 
@@ -65,6 +56,15 @@
 		position.y += dy;
 
 		target.style.transform = `translate(${position.x}px, ${position.y}px)`;
+	}
+
+	function startDrag(e: { target: HTMLElement }) {
+		if (!isSelected) return;
+		isSomethingDragging.set(true);
+		Object.assign(e.target.style, {
+			touchAction: 'none',
+			zIndex: '1',
+		});
 	}
 
 	function onResize({
