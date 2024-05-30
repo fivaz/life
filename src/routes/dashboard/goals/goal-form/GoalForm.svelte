@@ -35,7 +35,6 @@
 		extend: [validator({ schema })],
 		initialValues: goal,
 		onSubmit: (values) => {
-			console.log(values);
 			const { id, ...data } = values;
 			if (id) {
 				editGoal(id, data, userId);

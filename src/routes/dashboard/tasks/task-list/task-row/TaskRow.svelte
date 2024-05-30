@@ -2,16 +2,22 @@
 	import type { AnyTask } from '$lib/task/utils';
 
 	import { tailwindColors } from '$lib/category/utils';
-	import { isSomethingDragging } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
-	import { DATE_FR, DATE_FR_SHORT } from '$lib/consts';
+import { editTask } from '$lib/components/task-form/service';
+	import { DATE, DATE_FR, DATE_FR_SHORT } from '$lib/consts';
 	import { getTaskDate } from '$lib/task/time-utils';
+	import { isToDo } from '$lib/task/utils';
 	import { Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { format } from 'date-fns';
+	import { addDays, addWeeks, format, lastDayOfWeek } from 'date-fns';
 	import interact from 'interactjs';
 	import { createEventDispatcher, onMount } from 'svelte';
 
+	import { GROUPS } from '../../service';
+	import { TASK_LIST_CLASS } from '../service';
+
 	export let task: AnyTask;
+	export let userId: string;
+	export let isDraggable: boolean;
 
 	let dispatch = createEventDispatcher<{ edit: AnyTask; rescheduleToTomorrow: AnyTask }>();
 
@@ -34,22 +40,74 @@
 	}
 
 	function startDrag(e: { target: HTMLElement }) {
-		isSomethingDragging.set(true);
 		Object.assign(e.target.style, {
 			touchAction: 'none',
 			zIndex: '1',
 		});
 	}
 
-	onMount(() => {
+	function getDateBeneath(draggedElement: HTMLLIElement, x: number, y: number): string | void {
+		draggedElement.style.visibility = 'hidden';
+		const element = document.elementFromPoint(x, y);
+		draggedElement.style.visibility = '';
+		if (!element) return;
+
+		const list = element.closest<HTMLUListElement>(`.${TASK_LIST_CLASS}`);
+		if (!list) return;
+
+		const { date } = list.dataset;
+		return date;
+	}
+
+	function getLiteralDate(date: string): string {
+		if (date === GROUPS.Today) {
+			return format(new Date(), DATE);
+		}
+		if (date === GROUPS.Tomorrow) {
+			return format(addDays(new Date(), 1), DATE);
+		}
+		if (date === GROUPS.Week) {
+			return format(lastDayOfWeek(new Date()), DATE);
+		}
+		if (date === GROUPS.NextWeek) {
+			return format(lastDayOfWeek(addWeeks(new Date(), 1)), DATE);
+		}
+		if (date === GROUPS.Someday) {
+			return '';
+		}
+		return date;
+	}
+
+	function moveTask(task: AnyTask, userId: string, date: string) {
+		const newTask = {
+			...task,
+			...(isToDo(task) ? { deadline: date } : { date }),
+		};
+		const { id, ...data } = newTask;
+		void editTask(id, data, userId, null, null);
+	}
+
+	function endDrag(e: { client: { x: number; y: number } }) {
 		if (!container) return;
+
+		const date = getDateBeneath(container, e.client.x, e.client.y);
+		if (!date) return;
+
+		const literalDate = getLiteralDate(date);
+
+		moveTask(task, userId, literalDate);
+	}
+
+	onMount(() => {
+		if (!container || !isDraggable) return;
 
 		interactiveContainer = interact(container);
 
 		interactiveContainer
 			.draggable({ autoScroll: true, listeners: { move: onMove } })
 			.on('contextmenu', (e) => e.preventDefault())
-			.on('dragstart', startDrag);
+			.on('dragstart', startDrag)
+			.on('dragend', endDrag);
 	});
 </script>
 

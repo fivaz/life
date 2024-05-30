@@ -74,6 +74,7 @@
 								editingTask = e.detail;
 							}}
 							tasks={sortedTasks[date]}
+							userId={user.uid}
 						/>
 					{/each}
 				</ul>

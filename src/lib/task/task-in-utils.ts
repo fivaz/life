@@ -4,6 +4,7 @@ import { getEndTime } from '$lib/components/task-form/service';
 import { weekDays } from '$lib/components/task-form/task-form-recurring/days-checkbox/service';
 import { DATE, TIME } from '$lib/consts';
 import { convertTimeToMinutes, getCurrentRoundedDate } from '$lib/task/time-utils';
+import { isRecurring, isToDo } from '$lib/task/utils';
 import { addMinutes, addMonths, format, isAfter, parse } from 'date-fns';
 
 export type TaskIn = Omit<Task, 'recurringExceptions'> & {
@@ -105,10 +106,10 @@ export function getRecurringEvent(data: TaskIn): RecurringEvent {
 }
 
 export function convertToTaskIn(task: AnyTask): TaskIn {
-	if ('deadline' in task) {
+	if (isToDo(task)) {
 		return convertToDo(task);
 	} else {
-		if ('recurringStartAt' in task) {
+		if (isRecurring(task)) {
 			return convertRecurring(task);
 		} else {
 			return convertEvent(task);

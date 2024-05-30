@@ -5,6 +5,7 @@ import { DATE } from '$lib/consts';
 import { convertTimeToMinutes } from '$lib/task/time-utils';
 import { parse } from 'date-fns';
 
+
 export type SubTask = { id: number; isDone: boolean; name: string };
 
 export type CoreTask = {
@@ -68,4 +69,12 @@ export function sortTasks(tasks: AnyTask[]) {
 		}
 		return dateA.getTime() - dateB.getTime();
 	});
+}
+
+export function isRecurring(task: AnyTask | Omit<AnyTask, 'id'>): task is RecurringEvent {
+	return 'recurringStartAt' in task;
+}
+
+export function isToDo(task: AnyTask | Omit<AnyTask, 'id'>): task is ToDo {
+	return 'deadline' in task;
 }

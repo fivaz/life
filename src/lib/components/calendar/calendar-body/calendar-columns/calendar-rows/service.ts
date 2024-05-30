@@ -8,6 +8,7 @@ import {
 import { getEndTime } from '$lib/components/task-form/service';
 import { weekDays } from '$lib/components/task-form/task-form-recurring/days-checkbox/service';
 import { DATE, DATETIME } from '$lib/consts';
+import { isRecurring, isToDo } from '$lib/task/utils';
 import { endOfDay, getDay, isSameDay, isWithinInterval, parse, startOfDay } from 'date-fns';
 
 function isRecurringOnDay(event: RecurringEvent, day: Date): boolean {
@@ -37,19 +38,15 @@ function isRecurringOnDay(event: RecurringEvent, day: Date): boolean {
 }
 
 export function isToDoOnDay(task: AnyTask, day: Date): boolean {
-	return !!(
-		'deadline' in task &&
-		task.deadline &&
-		isSameDay(parse(task.deadline, DATE, new Date()), day)
-	);
+	return isToDo(task) && isSameDay(parse(task.deadline, DATE, new Date()), day);
 }
 
 export function isEventOnDay(task: AnyTask, day: Date): boolean {
-	if ('recurringStartAt' in task && task.recurringStartAt) {
-		return isRecurringOnDay(task as RecurringEvent, day);
+	if (isRecurring(task)) {
+		return isRecurringOnDay(task, day);
 	}
 
-	if ('date' in task) {
+	if (!isToDo(task)) {
 		const startDateString = `${task.date} ${task.startTime}`;
 		const endDateString = `${task.date} ${getEndTime(task.startTime, task.duration)}`;
 

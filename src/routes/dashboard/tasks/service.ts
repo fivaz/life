@@ -3,7 +3,7 @@ import type { AnyTask } from '$lib/task/utils';
 import { DATE_FR } from '$lib/consts';
 import { db } from '$lib/firebase';
 import { getTaskDate } from '$lib/task/time-utils';
-import { sortTasks } from '$lib/task/utils';
+import { isRecurring, sortTasks } from '$lib/task/utils';
 import {
 	addWeeks,
 	endOfWeek,
@@ -23,7 +23,7 @@ export function queryUncompletedTasks(userId: string) {
 	return query(tasksRef, where('isDone', '==', false)) as Query<AnyTask>;
 }
 
-enum GROUPS {
+export enum GROUPS {
 	NextWeek = 'Next week',
 	Overdue = 'Overdue',
 	Recurring = 'Recurring',
@@ -48,7 +48,7 @@ function isNextWeek(date: Date): boolean {
 function getDateName(task: AnyTask): GROUPS | string {
 	const date = getTaskDate(task);
 
-	if ('recurringStartAt' in task) {
+	if (isRecurring(task)) {
 		return GROUPS.Recurring;
 	}
 	if (!date) {

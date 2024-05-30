@@ -4,6 +4,7 @@ import type { AnyTask, RecurringEvent } from '$lib/task/utils';
 import { createModal } from '$lib/components/dialog/service';
 import { TIME } from '$lib/consts';
 import { db, storage } from '$lib/firebase';
+import { isRecurring } from '$lib/task/utils';
 import { add, differenceInMinutes, format, isSameDay } from 'date-fns';
 import {
 	type DocumentReference,
@@ -56,7 +57,7 @@ export function editPossibleSingleRecurringEvent(
 	targetDate: string,
 ) {
 	const { id, ...data } = event;
-	if ('recurringStartAt' in data) {
+	if (isRecurring(data)) {
 		void editSingleRecurringEvent(id, data, userId, targetDate);
 	} else {
 		void editTask(id, data, userId, null, null);
@@ -99,7 +100,7 @@ export async function editTaskWithPrompt({
 	userId: string;
 	wasRecurring: boolean;
 }): Promise<boolean> {
-	if ('recurringStartAt' in data && wasRecurring && targetDate) {
+	if (isRecurring(data) && wasRecurring && targetDate) {
 		const recurringData = data as Omit<RecurringEvent, 'id'>;
 		const result = await createModal({
 			cancelText: 'future events',
@@ -237,7 +238,7 @@ export async function deletePossibleSingleRecurringEvent(
 ): Promise<boolean> {
 	const { id, ...data } = task;
 
-	if ('recurringStartAt' in task && targetDate) {
+	if (isRecurring(task) && targetDate) {
 		const result = await createModal({
 			cancelText: 'all events',
 			confirmText: 'this event only',
