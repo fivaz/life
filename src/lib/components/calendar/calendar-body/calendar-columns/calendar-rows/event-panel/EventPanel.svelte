@@ -103,6 +103,7 @@
 				transform: '',
 				zIndex: '',
 			});
+			position = { x: 0, y: 0 };
 		}
 
 		document.removeEventListener('click', unSelect);

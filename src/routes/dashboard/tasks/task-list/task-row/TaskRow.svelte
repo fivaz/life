@@ -2,7 +2,7 @@
 	import type { AnyTask } from '$lib/task/utils';
 
 	import { tailwindColors } from '$lib/category/utils';
-import { editTask } from '$lib/components/task-form/service';
+	import { editTask } from '$lib/components/task-form/service';
 	import { DATE, DATE_FR, DATE_FR_SHORT } from '$lib/consts';
 	import { getTaskDate } from '$lib/task/time-utils';
 	import { isToDo } from '$lib/task/utils';
@@ -79,23 +79,45 @@ import { editTask } from '$lib/components/task-form/service';
 	}
 
 	function moveTask(task: AnyTask, userId: string, date: string) {
-		const newTask = {
-			...task,
-			...(isToDo(task) ? { deadline: date } : { date }),
-		};
-		const { id, ...data } = newTask;
+		if (isToDo(task)) {
+			if (task.deadline === date) return false;
+			task.deadline = date;
+		} else {
+			if (task.date === date) return false;
+			task.date = date;
+		}
+		const { id, ...data } = task;
 		void editTask(id, data, userId, null, null);
+		return true;
 	}
 
-	function endDrag(e: { client: { x: number; y: number } }) {
-		if (!container) return;
-
-		const date = getDateBeneath(container, e.client.x, e.client.y);
-		if (!date) return;
+	function hasMoved(
+		container: HTMLLIElement,
+		task: AnyTask,
+		{ x, y }: { x: number; y: number },
+	): boolean {
+		const date = getDateBeneath(container, x, y);
+		if (!date) return false;
 
 		const literalDate = getLiteralDate(date);
 
-		moveTask(task, userId, literalDate);
+		return moveTask(task, userId, literalDate);
+	}
+
+	function endDrag({ client }: { client: { x: number; y: number } }) {
+		if (!container) return;
+
+		const hasChanged = hasMoved(container, task, client);
+
+		if (!hasChanged) {
+			Object.assign(container.style, {
+				backgroundColor: '',
+				touchAction: '',
+				transform: '',
+				zIndex: '',
+			});
+			position = { x: 0, y: 0 };
+		}
 	}
 
 	onMount(() => {
