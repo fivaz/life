@@ -10,11 +10,21 @@
 	import TaskRow from './task-row/TaskRow.svelte';
 	import { TASK_LIST_CLASS } from './task-row/service';
 
-	export let date: string;
+	export let label: string;
 	export let tasks: AnyTask[];
 	export let userId: string;
 
-	$: isDroppable = date !== GROUPS.Recurring && date !== GROUPS.Overdue;
+	$: isDroppable = label !== GROUPS.Recurring && label !== GROUPS.Overdue;
+
+	function getNumberOfTasks() {
+		if (tasks.length === 0) {
+			return '';
+		}
+		if (tasks.length === 1) {
+			return '(1 task)';
+		}
+		return `(${tasks.length} tasks)`;
+	}
 </script>
 
 <!--recurring and overdue list shouldn't be droppable-->
@@ -26,14 +36,15 @@
 			{:else}
 				<Icon class="h-5 w-5" src={Clipboard} />
 			{/if}
-			<div>{date}</div>
+			<div>{label}</div>
+			<div>{getNumberOfTasks()}</div>
 		</div>
 		<div>{getTotalDuration(tasks)}</div>
 	</div>
-	<ul class={clsx('flex flex-col gap-1', { [TASK_LIST_CLASS]: isDroppable })} data-date={date}>
+	<ul class={clsx('flex flex-col gap-1', { [TASK_LIST_CLASS]: isDroppable })} data-date={label}>
 		{#each tasks as task (task.id)}
 			<!--recurring tasks shouldn't be draggable-->
-			<TaskRow isDraggable={date !== GROUPS.Recurring} on:edit {task} {userId} />
+			<TaskRow isDraggable={label !== GROUPS.Recurring} on:edit {task} {userId} />
 		{/each}
 		{#if isDroppable}
 			<li

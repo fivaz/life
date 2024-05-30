@@ -68,7 +68,7 @@
 				<ul class="flex flex-col gap-3">
 					{#each sortedTasks as date (date)}
 						<TaskList
-							{date}
+							label={date}
 							on:edit={(e) => {
 								showForm = true;
 								editingTask = e.detail;
