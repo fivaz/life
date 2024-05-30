@@ -5,7 +5,6 @@ import { DATE } from '$lib/consts';
 import { convertTimeToMinutes } from '$lib/task/time-utils';
 import { parse } from 'date-fns';
 
-
 export type SubTask = { id: number; isDone: boolean; name: string };
 
 export type CoreTask = {

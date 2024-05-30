@@ -7,18 +7,23 @@
 	import { categoriesRoute, demoLogin, goalsRoute, homeRoute, tasksRoute } from '$lib/consts';
 	import { auth } from '$lib/firebase';
 	import { Dialog, TransitionChild, TransitionRoot } from '@rgossiaux/svelte-headlessui';
-	import { Bars3, Calendar, DocumentDuplicate, XMark } from '@steeze-ui/heroicons';
-	import { List, Target } from '@steeze-ui/lucide-icons';
+	import { Bars3, XMark } from '@steeze-ui/heroicons';
+	import {
+		CalendarDays,
+		Goal,
+		ListChecks,
+		Tags,
+	} from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { onAuthStateChanged } from 'firebase/auth';
 	import { onMount } from 'svelte';
 
 	const navigation = [
-		{ href: homeRoute, icon: Calendar, name: 'Calendar' },
-		{ href: categoriesRoute, icon: DocumentDuplicate, name: 'Categories' },
-		{ href: tasksRoute, icon: List, name: 'Tasks' },
-		{ href: goalsRoute, icon: Target, name: 'Goals' },
+		{ href: homeRoute, icon: CalendarDays, name: 'Calendar' },
+		{ href: categoriesRoute, icon: Tags, name: 'Categories' },
+		{ href: tasksRoute, icon: ListChecks, name: 'Tasks' },
+		{ href: goalsRoute, icon: Goal, name: 'Goals' },
 	];
 
 	let sidebarOpen = false;

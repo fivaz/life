@@ -89,7 +89,6 @@ function groupTasksByDate(tasks: AnyTask[]): Record<string, AnyTask[]> {
 			[GROUPS.Today]: [],
 			[GROUPS.Tomorrow]: [],
 			[GROUPS.Week]: [],
-			['Test']: [],
 		},
 	);
 }
