@@ -1,9 +1,7 @@
 import type { Category } from '$lib/category/utils';
 import type { Goal } from '$lib/goal/utils';
 
-import { DATE } from '$lib/consts';
-import { convertTimeToMinutes } from '$lib/task/time-utils';
-import { parse } from 'date-fns';
+import { convertTimeToMinutes, getTaskDateTime } from '$lib/task/time-utils';
 
 export type SubTask = { id: number; isDone: boolean; name: string };
 
@@ -42,7 +40,7 @@ export type AnyEvent = Event | RecurringEvent;
 export type AnyTask = AnyEvent | ToDo;
 
 export function getDurationInMinutes(task: AnyTask) {
-	return convertTimeToMinutes(getDuration(task)) || 0;
+	return convertTimeToMinutes(getDuration(task));
 }
 
 export function getDuration(task: AnyTask) {
@@ -55,17 +53,17 @@ export function getDuration(task: AnyTask) {
 
 export function sortTasks(tasks: AnyTask[]) {
 	return tasks.sort((a, b) => {
-		const dateAString = 'date' in a ? a.date : a.deadline;
-		const dateBString = 'date' in b ? b.date : b.deadline;
+		const dateA = getTaskDateTime(a);
+		const dateB = getTaskDateTime(b);
 
-		const dateA = dateAString ? parse(dateAString, DATE, new Date()) : null;
-		const dateB = dateBString ? parse(dateBString, DATE, new Date()) : null;
 		if (!dateA) {
 			return 1;
 		}
+
 		if (!dateB) {
 			return -1;
 		}
+
 		return dateA.getTime() - dateB.getTime();
 	});
 }

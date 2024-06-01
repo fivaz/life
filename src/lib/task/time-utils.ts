@@ -1,5 +1,5 @@
 import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
-import { DATE } from '$lib/consts';
+import { DATE, TIME } from '$lib/consts';
 import { type AnyTask, getDurationInMinutes, isToDo } from '$lib/task/utils';
 import { parse, set } from 'date-fns';
 
@@ -12,6 +12,16 @@ export function getTaskDate(task: AnyTask): Date | null {
 	const dateString = isToDo(task) ? task.deadline : task.date;
 
 	return dateString ? parse(dateString, DATE, new Date()) : null;
+}
+
+export function getTaskDateTime(task: AnyTask): Date | null {
+	if (isToDo(task)) {
+		if (!task.deadline) return null;
+
+		return parse(task.deadline, DATE, new Date());
+	} else {
+		return parse(`${task.date} ${task.startTime}`, `${DATE} ${TIME}`, new Date());
+	}
 }
 
 export function buildDate(date: Date, time: string): Date {
