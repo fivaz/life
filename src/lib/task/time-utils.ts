@@ -1,24 +1,15 @@
 import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 import { DATE } from '$lib/consts';
-import { type AnyTask, getDurationInMinutes } from '$lib/task/utils';
+import { type AnyTask, getDurationInMinutes, isToDo } from '$lib/task/utils';
 import { parse, set } from 'date-fns';
 
-export function getNumberOfTasks(tasks: AnyTask[]) {
-	if (tasks.length === 0) {
-		return '';
-	}
-	if (tasks.length === 1) {
-		return '(1 task)';
-	}
-	return `(${tasks.length} tasks)`;
-}
 export function getTotalDuration(tasks: AnyTask[]): string {
 	const totalDurationInMinutes = tasks.reduce((sum, task) => sum + getDurationInMinutes(task), 0);
 	return convertMinutesToTime(totalDurationInMinutes);
 }
 
-export function getTaskDate(task: AnyTask) {
-	const dateString = 'date' in task ? task.date : task.deadline;
+export function getTaskDate(task: AnyTask): Date | null {
+	const dateString = isToDo(task) ? task.deadline : task.date;
 
 	return dateString ? parse(dateString, DATE, new Date()) : null;
 }

@@ -1,10 +1,12 @@
 <script lang="ts">
 	import type { AnyTask } from '$lib/task/utils';
 
-	import { getNumberOfTasks, getTotalDuration } from '$lib/task/time-utils';
+	import { DATE, DATE_FR } from '$lib/consts';
+	import { getTotalDuration } from '$lib/task/time-utils';
 	import { Clipboard, ClipboardCopy, ClipboardList } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
+	import { addDays, addWeeks, format, lastDayOfWeek, parse } from 'date-fns';
 
 	import { GROUPS } from '../service';
 	import TaskRow from './task-row/TaskRow.svelte';
@@ -15,6 +17,36 @@
 	export let userId: string;
 
 	$: isDroppable = label !== GROUPS.Recurring && label !== GROUPS.Overdue;
+
+	function getDate(label: string) {
+		if (label === GROUPS.Today) {
+			return format(new Date(), DATE);
+		}
+		if (label === GROUPS.Tomorrow) {
+			return format(addDays(new Date(), 1), DATE);
+		}
+		if (label === GROUPS.Week) {
+			return format(lastDayOfWeek(new Date()), DATE);
+		}
+		if (label === GROUPS.NextWeek) {
+			return format(lastDayOfWeek(addWeeks(new Date(), 1)), DATE);
+		}
+		if (label === GROUPS.Someday) {
+			return '';
+		}
+
+		return parse(label, DATE_FR, new Date());
+	}
+
+	export function getNumberOfTasks(tasks: AnyTask[]) {
+		if (tasks.length === 0) {
+			return '';
+		}
+		if (tasks.length === 1) {
+			return '(1 task)';
+		}
+		return `(${tasks.length} tasks)`;
+	}
 </script>
 
 <!--recurring and overdue list shouldn't be droppable-->
@@ -31,7 +63,10 @@
 		</div>
 		<div>{getTotalDuration(tasks)}</div>
 	</div>
-	<ul class={clsx('flex flex-col gap-1', { [TASK_LIST_CLASS]: isDroppable })} data-date={label}>
+	<ul
+		class={clsx('flex flex-col gap-1', { [TASK_LIST_CLASS]: isDroppable })}
+		data-date={getDate(label)}
+	>
 		{#each tasks as task (task.id)}
 			<!--recurring tasks shouldn't be draggable-->
 			<TaskRow isDraggable={label !== GROUPS.Recurring} on:edit {task} {userId} />
