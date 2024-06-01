@@ -8,7 +8,7 @@ import { endOfWeek, format } from 'date-fns';
 export function buildEmptyToDo(categories: Category[]): ToDo {
 	return {
 		category: categories.find((category) => category.isDefault) || categories[0],
-		deadline: format(endOfWeek(new Date()), DATE),
+		deadline: format(endOfWeek(new Date(), { weekStartsOn: 1 }), DATE),
 		description: '',
 		duration: '',
 		goal: null,

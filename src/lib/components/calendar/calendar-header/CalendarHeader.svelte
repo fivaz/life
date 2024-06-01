@@ -17,17 +17,21 @@
 
 	function goToToday() {
 		selectedDate = currentDate;
-		weekStart = startOfWeek(selectedDate);
+		weekStart = startOfWeek(selectedDate, { weekStartsOn: 1 });
 	}
 
 	function goToNextWeek() {
 		weekStart = addDays(weekStart, 7);
-		selectedDate = isSameWeek(currentDate, weekStart) ? currentDate : weekStart;
+		selectedDate = isSameWeek(currentDate, weekStart, { weekStartsOn: 1 })
+			? currentDate
+			: weekStart;
 	}
 
 	function goToPreviousWeek() {
 		weekStart = addDays(weekStart, -7);
-		selectedDate = isSameWeek(currentDate, weekStart) ? currentDate : weekStart;
+		selectedDate = isSameWeek(currentDate, weekStart, { weekStartsOn: 1 })
+			? currentDate
+			: weekStart;
 	}
 
 	const dispatch = createEventDispatcher<{ createTask: Date }>();

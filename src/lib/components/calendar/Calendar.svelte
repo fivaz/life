@@ -9,7 +9,7 @@
 
 	let selectedDate = new Date();
 
-	let weekStart = startOfWeek(new Date());
+	let weekStart = startOfWeek(new Date(), { weekStartsOn: 1 });
 </script>
 
 <div class="flex h-screen flex-col md:h-[calc(100vh-20px)]">

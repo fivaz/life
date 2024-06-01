@@ -26,10 +26,10 @@
 			return format(addDays(new Date(), 1), DATE);
 		}
 		if (label === GROUPS.Week) {
-			return format(lastDayOfWeek(new Date()), DATE);
+			return format(lastDayOfWeek(new Date(), { weekStartsOn: 1 }), DATE);
 		}
 		if (label === GROUPS.NextWeek) {
-			return format(lastDayOfWeek(addWeeks(new Date(), 1)), DATE);
+			return format(lastDayOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }), DATE);
 		}
 		if (label === GROUPS.Someday) {
 			return '';
