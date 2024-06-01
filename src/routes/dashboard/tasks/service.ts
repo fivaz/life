@@ -34,7 +34,10 @@ export enum GROUPS {
 }
 
 function isCurrentWeek(date: Date) {
-	return startOfWeek(new Date()).getTime() === startOfWeek(date).getTime();
+	return (
+		startOfWeek(new Date(), { weekStartsOn: 1 }).getTime() ===
+		startOfWeek(date, { weekStartsOn: 1 }).getTime()
+	);
 }
 
 function isNextWeek(date: Date): boolean {
@@ -88,7 +91,6 @@ function groupTasksByDate(tasks: AnyTask[]): Record<string, AnyTask[]> {
 			[GROUPS.Someday]: [],
 			[GROUPS.Today]: [],
 			[GROUPS.Tomorrow]: [],
-			[GROUPS.Week]: [],
 		},
 	);
 }
