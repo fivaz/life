@@ -7,7 +7,7 @@
 	import { CalendarDays } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
-	import { format, startOfTomorrow } from 'date-fns';
+	import { addDays, format, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 
 	export let toDos: ToDo[];
@@ -29,10 +29,10 @@
 	}
 
 	function postponeToDos() {
-		const postponedToDos = uncompletedToDos.map((toDo) => ({
-			...toDo,
-			deadline: format(startOfTomorrow(), DATE),
-		}));
+		const postponedToDos = uncompletedToDos.map((toDo) => {
+			const dayAfter = format(addDays(parse(toDo.deadline, DATE, new Date()), 1), DATE);
+			return { ...toDo, deadline: dayAfter };
+		});
 
 		dispatch('persistToDos', postponedToDos);
 	}
