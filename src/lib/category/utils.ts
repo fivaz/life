@@ -37,6 +37,15 @@ export const tailwindColors: Record<string, TailwindColor> = {
 		lightText: 'text-green-500',
 		text: 'text-green-700',
 	},
+	lime: {
+		darkBg: 'bg-lime-500',
+		hoverBg: 'hover:bg-lime-300',
+		hoverLightBg: 'hover:bg-lime-100',
+		hoverText: 'group-hover:text-lime-700',
+		lightBg: 'bg-lime-50',
+		lightText: 'text-lime-500',
+		text: 'text-lime-700',
+	},
 	purple: {
 		darkBg: 'bg-purple-500',
 		hoverBg: 'hover:bg-purple-300',
