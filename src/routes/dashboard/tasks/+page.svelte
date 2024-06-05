@@ -7,7 +7,7 @@
 	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { auth, db } from '$lib/firebase';
-	import { buildEmptyToDo } from '$lib/task/build-utils';
+	import { buildEmptyToDo, buildToDoWithDeadline } from '$lib/task/build-utils';
 	import { BookOpenCheck } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { SignedIn, collectionStore, userStore } from 'sveltefire';
@@ -69,6 +69,10 @@
 					{#each sortedTasks as date (date)}
 						<TaskList
 							label={date}
+							on:create={(e) => {
+								showForm = true;
+								editingTask = buildToDoWithDeadline(categories, e.detail);
+							}}
 							on:edit={(e) => {
 								showForm = true;
 								editingTask = e.detail;

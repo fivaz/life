@@ -32,6 +32,18 @@ export function buildEmptyEvent(categories: Category[], goal: Goal | null = null
 	};
 }
 
+export function buildToDoWithDeadline(categories: Category[], deadline: string): ToDo {
+	return {
+		category: categories.find((category) => category.isDefault) || categories[0],
+		deadline,
+		description: '',
+		duration: '00:15',
+		goal: null,
+		id: '',
+		isDone: false,
+		name: '',
+	};
+}
 export function buildEventWithTime(categories: Category[], date: Date): Event {
 	return {
 		category: categories.find((category) => category.isDefault) || categories[0],
