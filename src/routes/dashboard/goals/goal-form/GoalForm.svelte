@@ -77,7 +77,7 @@
 
 		<div class="flex flex-col gap-2 text-gray-700">
 			<div class="relative">
-				<Input inputClass="pr-10" name="name" placeholder="Name" />
+				<Input inputClass="pr-10 w-full" name="name" placeholder="Name" />
 				<div class="absolute right-0 top-0 p-2.5">
 					<GoalIcon class="h-5" icon={getIcon($data.icon)} />
 				</div>
