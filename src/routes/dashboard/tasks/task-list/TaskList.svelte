@@ -6,7 +6,7 @@
 	import { Clipboard, ClipboardCopy, ClipboardList, Plus } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
-	import { addDays, addWeeks, format, lastDayOfWeek, parse } from 'date-fns';
+	import { addDays, addWeeks, format, lastDayOfWeek, parse, subDays } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 
 	import { GROUPS } from '../service';
@@ -20,6 +20,9 @@
 	$: isDroppable = label !== GROUPS.Recurring && label !== GROUPS.Overdue;
 
 	function getDate(label: string): string {
+		if (label === GROUPS.Overdue) {
+			return format(subDays(new Date(), 1), DATE);
+		}
 		if (label === GROUPS.Today) {
 			return format(new Date(), DATE);
 		}
