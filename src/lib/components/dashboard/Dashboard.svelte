@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { currentUser } from '$lib/auth/store';
+	import Logo from '$lib/components/Logo.svelte';
 	import Banner from '$lib/components/banner/Banner.svelte';
 	import ProfileDropDown from '$lib/components/dashboard/profile-drop-down/ProfileDropDown.svelte';
 	import ProfileDropUp from '$lib/components/dashboard/profile-drop-up/ProfileDropUp.svelte';
@@ -73,11 +74,7 @@
 						<!-- Sidebar component, swap this element with another sidebar if you like -->
 						<div class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2">
 							<div class="flex h-16 shrink-0 items-center">
-								<img
-									alt="Your Company"
-									class="h-8 w-auto"
-									src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-								/>
+								<Logo class="h-8 w-auto text-indigo-600" />
 							</div>
 							<nav class="flex flex-1 flex-col">
 								<ul class="flex flex-1 flex-col gap-y-7" role="list">
@@ -127,11 +124,7 @@
 		<!-- Sidebar component, swap this element with another sidebar if you like -->
 		<div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
 			<div class="flex h-16 shrink-0 items-center">
-				<img
-					alt="Your Company"
-					class="h-8 w-auto"
-					src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-				/>
+				<Logo class="h-8 w-auto text-indigo-600" />
 			</div>
 			<nav class="flex flex-1 flex-col">
 				<ul class="flex flex-1 flex-col gap-y-7" role="list">

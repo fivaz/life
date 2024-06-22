@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import Logo from '$lib/components/Logo.svelte';
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import { loginRoute, rootRoute } from '$lib/consts';
@@ -110,11 +111,7 @@
 
 <div class="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
 	<div class="sm:mx-auto sm:w-full sm:max-w-md">
-		<img
-			alt="Your Company"
-			class="mx-auto h-10 w-auto"
-			src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-		/>
+		<Logo class="m-auto h-10 w-auto text-indigo-600" />
 		<h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
 			Create your account
 		</h2>
