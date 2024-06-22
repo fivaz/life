@@ -63,6 +63,8 @@ module.exports = {
 					'^\\$app/environment',
 					'^\\$env/static/public',
 					'^\\$service-worker',
+					'virtual:pwa-assets',
+					'virtual:pwa-info',
 				],
 			},
 		],
