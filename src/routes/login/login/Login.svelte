@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
-	import { registerRoute, rootRoute } from '$lib/consts';
+	import { homeRoute, registerRoute } from '$lib/consts';
 	import { auth } from '$lib/firebase';
 	import { validator } from '@felte/validator-yup';
 	import { createForm } from 'felte';
@@ -41,7 +41,7 @@
 		onSubmit: async ({ email, password }) => {
 			isLoading = true;
 			await signInWithEmailAndPassword(auth, email, password);
-			void goto(rootRoute);
+			void goto(homeRoute);
 		},
 	});
 
