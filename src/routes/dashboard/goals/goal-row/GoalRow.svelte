@@ -3,6 +3,7 @@
 	import type { AnyTask } from '$lib/task/utils';
 
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
+	import { getCompletedTasks } from '$lib/goal/utils';
 	import { Disclosure, DisclosureButton, DisclosurePanel } from '@rgossiaux/svelte-headlessui';
 	import { ChevronDown, ChevronUp, Plus, Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -14,8 +15,6 @@
 
 	export let goal: Goal;
 	export let tasks: AnyTask[];
-
-	$: tasksCompleted = tasks.reduce((total, task) => total + Number(task.isDone), 0);
 
 	const dispatch = createEventDispatcher<{ addTask: null; editGoal: Goal }>();
 
@@ -64,7 +63,7 @@
 			</div>
 
 			{#if tasks.length}
-				<ProgressBar maxValue={tasks.length} value={tasksCompleted} />
+				<ProgressBar maxValue={tasks.length} value={getCompletedTasks(tasks)} />
 
 				{#if !open}
 					<div class="flex w-full items-end justify-center gap-2 hover:bg-gray-100 hover:underline">
