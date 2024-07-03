@@ -3,6 +3,7 @@
 	import type { AnyTask } from '$lib/task/utils';
 
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
+	import { getCompletedTasks } from '$lib/goal/utils';
 	import { Plus, Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
@@ -13,8 +14,6 @@
 
 	export let goal: Goal;
 	export let tasks: AnyTask[];
-
-	$: tasksCompleted = tasks.reduce((total, task) => total + Number(task.isDone), 0);
 
 	const dispatch = createEventDispatcher<{ addTask: null; editGoal: Goal }>();
 </script>
@@ -52,7 +51,7 @@
 
 	<div class="text-sm">
 		{#if tasks.length}
-			<ProgressBar maxValue={tasks.length} value={tasksCompleted} />
+			<ProgressBar maxValue={tasks.length} value={getCompletedTasks(tasks)} />
 			<GoalTasks on:editTask {tasks} />
 		{:else}
 			<div class="px-3 text-red-500">No tasks yet</div>
