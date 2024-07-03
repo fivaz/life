@@ -1,10 +1,13 @@
 <script lang="ts">
+	import type { AnyTask } from '$lib/task/utils';
+
 	import TaskCompletedNotification from '$lib/components/task-completed-notification/TaskCompletedNotification.svelte';
-	import { notifications } from '$lib/components/task-completed-notification-stack/service';
 	import { SignedIn } from 'sveltefire';
 
+	export let completedTasks: AnyTask[] = [];
+
 	function removeNotification(index: number) {
-		notifications.update((tasks) => tasks.filter((_, i) => i !== index));
+		completedTasks = completedTasks.filter((_, i) => i !== index);
 	}
 </script>
 
@@ -14,7 +17,7 @@
 >
 	<div class="flex w-full flex-col items-center space-y-4 sm:items-end">
 		<SignedIn let:user>
-			{#each $notifications as task, index (task.id)}
+			{#each completedTasks as task, index (task.id)}
 				<TaskCompletedNotification
 					onRemove={() => removeNotification(index)}
 					{task}

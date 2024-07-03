@@ -4,7 +4,6 @@
 
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
 	import TaskCompletedNotificationStack from '$lib/components/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
-	import { addNotification } from '$lib/components/task-completed-notification-stack/service';
 	import { editPossibleSingleRecurringEvent, editTask } from '$lib/components/task-form/service';
 	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
@@ -17,6 +16,8 @@
 
 	let editingTask: AnyTask = buildEmptyEvent([]);
 
+	let completedTasks: AnyTask[] = [];
+
 	function openFormToCreateTask(categories: Category[], date: Date) {
 		showForm = true;
 		editingTask = buildEventWithTime(categories, date);
@@ -28,10 +29,18 @@
 		editingTask = task;
 	}
 
+	function updateNotification(task: AnyTask) {
+		if (task.isDone) {
+			completedTasks = [...completedTasks, task];
+		} else {
+			completedTasks = completedTasks.filter((completedTask) => completedTask.id !== task.id);
+		}
+	}
+
 	function toggleCompletion(userId: string, event: AnyEvent, targetDate: string) {
 		const newEvent = { ...event, isDone: !event.isDone };
 		editPossibleSingleRecurringEvent(newEvent, userId, targetDate);
-		if (newEvent.isDone) addNotification(newEvent);
+		updateNotification(newEvent);
 	}
 
 	function moveEvent(
@@ -86,5 +95,5 @@
 			/>
 		</TypedCollection>
 	</TypedCollection>
-	<TaskCompletedNotificationStack />
+	<TaskCompletedNotificationStack bind:completedTasks />
 </SignedIn>
