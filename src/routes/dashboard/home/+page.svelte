@@ -32,7 +32,7 @@
 	function toggleCompletion(userId: string, event: AnyEvent, targetDate: string) {
 		const newEvent = { ...event, isDone: !event.isDone };
 		editPossibleSingleRecurringEvent(newEvent, userId, targetDate);
-		taskCompleted = event;
+		taskCompleted = newEvent;
 	}
 
 	function moveEvent(
@@ -87,7 +87,5 @@
 			/>
 		</TypedCollection>
 	</TypedCollection>
-	{#if taskCompleted}
-		<TaskCompletedNotification task={taskCompleted} />
-	{/if}
+	<TaskCompletedNotification bind:task={taskCompleted} />
 </SignedIn>
