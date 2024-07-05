@@ -79,7 +79,7 @@
 			<div class="relative">
 				<Input inputClass="pr-10 w-full" name="name" placeholder="Name" />
 				<div class="absolute right-0 top-0 p-2.5">
-					<GoalIcon class="h-5" icon={getIcon($data.icon)} />
+					<GoalIcon class="h-5 w-5" icon={getIcon($data.icon)} />
 				</div>
 			</div>
 
