@@ -17,7 +17,7 @@
 	import TaskFormRecurring from '$lib/components/task-form/task-form-recurring/TaskFormRecurring.svelte';
 	import TaskFormSubTask from '$lib/components/task-form/task-form-sub-task/TaskFormSubTask.svelte';
 	import { checkErrors, convertToAnyTask, convertToTaskIn } from '$lib/task/task-in-utils';
-	import { XMark } from '@steeze-ui/heroicons';
+	import { EllipsisVertical, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { createEventDispatcher } from 'svelte';
@@ -80,20 +80,25 @@
 	class="relative w-11/12 max-w-[355px] overflow-hidden rounded-md text-start font-medium shadow"
 	on:submit|preventDefault={onSubmit}
 >
-	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
-		<div class="flex items-center justify-between">
-			<h2 class="text-lg text-gray-900">{formName}</h2>
-			<button
-				class="inline-flex rounded-md p-1.5 pl-2 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
-				on:click={() => dispatch('close')}
-				type="button"
-			>
-				<span class="sr-only">Dismiss</span>
-				<Icon aria-hidden="true" class="h-5 w-5" src={XMark} />
-			</button>
-		</div>
-
+	<div class="bg-neutral-100 p-4">
 		<div class="flex flex-col gap-2 text-sm text-gray-700">
+			<div class="flex items-center justify-between">
+				<h2 class="text-lg text-gray-900">{formName}</h2>
+				<div class="flex">
+					<button class="rounded-md p-1 hover:bg-gray-200" type="button">
+						<Icon class="h-5 w-auto" src={EllipsisVertical} />
+					</button>
+					<button
+						class="rounded-md p-1 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
+						on:click={() => dispatch('close')}
+						type="button"
+					>
+						<span class="sr-only">Dismiss</span>
+						<Icon aria-hidden="true" class="h-5 w-5" src={XMark} />
+					</button>
+				</div>
+			</div>
+
 			<Alert hasCloseButton={false} isVisible={!!errorMessage} type="error">
 				{errorMessage}
 			</Alert>
