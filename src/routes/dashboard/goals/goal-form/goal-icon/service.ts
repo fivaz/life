@@ -42,6 +42,7 @@ import {
 	Trophy,
 	Utensils,
 } from '@steeze-ui/font-awesome';
+import { CalendarCheck } from '@steeze-ui/lucide-icons';
 import { type IconSource } from '@steeze-ui/svelte-icon';
 
 const defaultIcon: GoalIconType = { component: Fire, name: 'Fire' };
@@ -95,6 +96,7 @@ export const icons: GoalIconType[] = [
 	{ component: Cross, name: 'Cross (Religion)' },
 	{ component: Toolbox, name: 'Toolbox' },
 	{ component: Bed, name: 'Bed' },
+	{ component: CalendarCheck, name: 'CalendarCheck' },
 ];
 
 export function getIcon(name: null | string) {
