@@ -58,3 +58,48 @@ export function getTop(event: AnyEvent): string {
 
 	return `top: ${(startTimeMinutes / GRID_CELL_TIME) * GRID_CELL_HEIGHT}px;`;
 }
+
+export function arrangeEvents(events: AnyEvent[]): { css: string; event: AnyEvent }[] {
+	// Sort events by start time
+	events.sort((a, b) => convertTimeToMinutes(a.startTime) - convertTimeToMinutes(b.startTime));
+
+	// Track the number of overlaps for each timeslot
+	const timeSlots = new Array(NUMBER_OF_CELLS).fill(0);
+	events.forEach((event) => {
+		const startSlot = getStartSlot(event);
+		const endSlot = getEndSlot(event);
+		for (let i = startSlot; i < endSlot; i++) {
+			timeSlots[i]++;
+		}
+	});
+
+	// Track the columns and their end times
+	const columnEndTimes: number[] = [];
+	const eventColumns: Record<string, number> = {};
+
+	for (const event of events) {
+		const startSlot = getStartSlot(event);
+		const endSlot = getEndSlot(event);
+
+		let column = 0;
+		while (column < columnEndTimes.length && columnEndTimes[column] > startSlot) {
+			column++;
+		}
+
+		eventColumns[event.id] = column;
+		columnEndTimes[column] = endSlot;
+	}
+
+	// Assign width and left styles
+	return events.map((event) => {
+		const column = eventColumns[event.id];
+		const startSlot = getStartSlot(event);
+		const maxOverlaps = Math.max(...timeSlots.slice(startSlot, getEndSlot(event)));
+		const totalColumns = maxOverlaps > 1 ? maxOverlaps : 1;
+		const width = totalColumns === 1 ? 100 : 100 / totalColumns;
+		const left = totalColumns === 1 ? 0 : width * column;
+
+		const css = `position: absolute; width: ${width}%; left: ${left}%; ${getHeight(event)}; ${getTop(event)};`;
+		return { css, event };
+	});
+}

@@ -5,12 +5,7 @@
 		GRID_CELL_HEIGHT,
 		isSomethingDragging,
 	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
-	import {
-		EVENT_PANEL_CLASS,
-		getDivision,
-		getHeight,
-		getTop,
-	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
+	import { EVENT_PANEL_CLASS } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
 	import { hasMoved } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/service';
 	import { clsx } from 'clsx';
 	import interact from 'interactjs';
@@ -21,7 +16,7 @@
 	export let event: AnyEvent;
 
 	export let targetDate: string;
-	export let timeSlots: string[][];
+	export let css: string;
 
 	let container: HTMLDivElement | undefined;
 
@@ -148,7 +143,7 @@
 <div
 	bind:this={container}
 	class={clsx(className, EVENT_PANEL_CLASS, 'absolute rounded-lg')}
-	style="{getHeight(event)} {getTop(event)} {getDivision(timeSlots, event)}"
+	style={css}
 >
 	<EventPanelCore {event} {isSelected} on:toggleEvent {targetDate} />
 </div>
