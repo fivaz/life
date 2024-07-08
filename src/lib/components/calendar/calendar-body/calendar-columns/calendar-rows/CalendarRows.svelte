@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { AnyTask } from '$lib/task/utils';
 
-	import { arrangeEvents } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
 	import ToDosPanel from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/to-dos-panel/ToDosPanel.svelte';
 	import { DATE } from '$lib/consts';
 	import { format } from 'date-fns';
@@ -9,7 +8,7 @@
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
 	import { GRID_CELL_HEIGHT } from './calendar-grid/service';
 	import EventPanel from './event-panel/EventPanel.svelte';
-	import { getEvents, getToDos } from './service';
+	import { getEvents, getToDos, splitEventsInColumns } from './service';
 
 	export let tasks: AnyTask[];
 
@@ -21,7 +20,7 @@
 
 	$: events = getEvents(tasks, date);
 
-	$: arrangedEvents = arrangeEvents(events);
+	$: eventColumnsAndTimeSlots = splitEventsInColumns(events);
 </script>
 
 <div>
@@ -30,14 +29,15 @@
 	</div>
 	<div class="relative">
 		<CalendarGrid on:click targetDate={formattedDate} />
-		{#each arrangedEvents as arrangedEvent (arrangedEvent)}
+		{#each events as event (event)}
 			<EventPanel
-				css={arrangedEvent.css}
-				event={arrangedEvent.event}
+				{event}
+				eventColumns={eventColumnsAndTimeSlots.eventColumns}
 				on:editTask
 				on:moveEvent
 				on:toggleEvent
 				targetDate={formattedDate}
+				timeSlots={eventColumnsAndTimeSlots.timeSlots}
 			/>
 		{/each}
 	</div>

@@ -1,13 +1,11 @@
 import type { AnyEvent, AnyTask, RecurringEvent, ToDo } from '$lib/task/utils';
 
 import { NUMBER_OF_CELLS } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
-import {
-	getEndSlot,
-	getStartSlot,
-} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
+import { getEventSlots } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
 import { getEndTime } from '$lib/components/task-form/service';
 import { weekDays } from '$lib/components/task-form/task-form-recurring/days-checkbox/service';
 import { DATE, DATETIME } from '$lib/consts';
+import { convertTimeToMinutes } from '$lib/task/time-utils';
 import { isRecurring, isToDo } from '$lib/task/utils';
 import { endOfDay, getDay, isSameDay, isWithinInterval, parse, startOfDay } from 'date-fns';
 
@@ -76,16 +74,43 @@ export function getEvents(tasks: AnyTask[], date: Date) {
 	return tasks.filter((task): task is AnyEvent => isEventOnDay(task, date));
 }
 
-export function getTimeSlots(events: AnyEvent[]): string[][] {
-	const timeSlots = new Array(NUMBER_OF_CELLS).fill(null).map<string[]>(() => []);
+export function trackOverlaps(events: AnyEvent[]): number[] {
+	const timeSlots = new Array(NUMBER_OF_CELLS).fill(0);
+	events.forEach((event) => {
+		const { endSlot, startSlot } = getEventSlots(event);
+		for (let i = startSlot; i < endSlot; i++) {
+			timeSlots[i]++;
+		}
+	});
+	return timeSlots;
+}
+
+export function splitEventsInColumns(events: AnyEvent[]): {
+	eventColumns: Record<string, number>;
+	timeSlots: number[];
+} {
+	events.sort((a, b) => convertTimeToMinutes(a.startTime) - convertTimeToMinutes(b.startTime));
+
+	const timeSlots = trackOverlaps(events);
+	const eventColumns = assignColumns(events);
+
+	return { eventColumns, timeSlots };
+}
+
+export function assignColumns(events: AnyEvent[]): Record<string, number> {
+	const columnEndTimes: number[] = [];
+	const eventColumns: Record<string, number> = {};
 
 	for (const event of events) {
-		const startSlot = getStartSlot(event);
-		const endSlot = getEndSlot(event);
-		for (let i = startSlot; i < endSlot; i++) {
-			timeSlots[i].push(event.id);
+		const { endSlot, startSlot } = getEventSlots(event);
+
+		let column = 0;
+		while (column < columnEndTimes.length && columnEndTimes[column] > startSlot) {
+			column++;
 		}
+		eventColumns[event.id] = column;
+		columnEndTimes[column] = endSlot;
 	}
 
-	return timeSlots;
+	return eventColumns;
 }
