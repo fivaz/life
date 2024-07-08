@@ -52,7 +52,7 @@ module.exports = {
 		},
 	},
 	rules: {
-		'no-console': 'error',
+		'no-console': ['error', { allow: ['warn', 'error'] }],
 		'@typescript-eslint/no-unused-vars': 'off',
 		'import/no-unresolved': [
 			'error',
