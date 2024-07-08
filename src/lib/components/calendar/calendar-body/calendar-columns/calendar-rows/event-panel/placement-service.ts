@@ -29,10 +29,14 @@ export function getDivision(
 ) {
 	const column = eventColumns[event.id];
 	const { endSlot, startSlot } = getEventSlots(event);
-	const maxOverlaps = Math.max(...timeSlots.slice(startSlot, endSlot));
-	const totalColumns = maxOverlaps > 1 ? maxOverlaps : 1;
-	const width = totalColumns === 1 ? 100 : 100 / totalColumns;
-	const left = totalColumns === 1 ? 0 : width * column;
+	const maxOverlap = Math.max(...timeSlots.slice(startSlot, endSlot));
+
+	if (maxOverlap <= 1) {
+		return 'width: 100%; left: 0%;';
+	}
+
+	const width = 100 / maxOverlap;
+	const left = width * column;
 
 	return `width: ${width}%; left: ${left}%;`;
 }
