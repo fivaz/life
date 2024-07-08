@@ -2,10 +2,6 @@
 	import type { Meta } from '@storybook/svelte';
 
 	import {
-		getEvents,
-		splitEventsInColumns,
-	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/service.js';
-	import {
 		longRecurring,
 		normalWithDescription,
 		normalWithSubTasks,
@@ -14,7 +10,6 @@
 		shortWithDescription,
 		shortWithSubTasks,
 		shortWithoutDescription,
-		tasks,
 	} from '$lib/task/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
@@ -30,17 +25,14 @@
 </script>
 
 <Template let:args>
-	{@const eventColumnsAndTimeSlots = splitEventsInColumns(getEvents(tasks, new Date()))}
 	<div class="!relative w-52">
 		<EventPanel
 			{...args}
 			class="!static"
-			eventColumns={eventColumnsAndTimeSlots.eventColumns}
 			on:editTask={(args) => console.log('editTask', args.detail)}
 			on:moveEvent={(args) => console.log('moveEvent', args.detail)}
 			on:toggleEvent={(args) => console.log('toggleEvent', args.detail)}
 			targetDate={new Date()}
-			timeSlots={eventColumnsAndTimeSlots.timeSlots}
 		/>
 	</div>
 </Template>

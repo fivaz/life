@@ -8,7 +8,7 @@
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
 	import { GRID_CELL_HEIGHT } from './calendar-grid/service';
 	import EventPanel from './event-panel/EventPanel.svelte';
-	import { getEvents, getToDos, splitEventsInColumns } from './service';
+	import { getEventGrid, getEvents, getToDos } from './service';
 
 	export let tasks: AnyTask[];
 
@@ -20,7 +20,7 @@
 
 	$: events = getEvents(tasks, date);
 
-	$: eventColumnsAndTimeSlots = splitEventsInColumns(events);
+	$: eventsGrid = getEventGrid(events);
 </script>
 
 <div>
@@ -32,12 +32,11 @@
 		{#each events as event (event)}
 			<EventPanel
 				{event}
-				eventColumns={eventColumnsAndTimeSlots.eventColumns}
+				{eventsGrid}
 				on:editTask
 				on:moveEvent
 				on:toggleEvent
 				targetDate={formattedDate}
-				timeSlots={eventColumnsAndTimeSlots.timeSlots}
 			/>
 		{/each}
 	</div>

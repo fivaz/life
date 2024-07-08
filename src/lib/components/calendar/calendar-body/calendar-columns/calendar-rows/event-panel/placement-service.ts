@@ -22,18 +22,34 @@ export function getEventSlots(event: AnyEvent): { endSlot: number; startSlot: nu
 	return { endSlot, startSlot };
 }
 
-export function getDivision(
-	event: AnyEvent,
-	eventColumns: Record<string, number>,
-	timeSlots: number[],
-) {
-	const column = eventColumns[event.id];
+export type EventsGrid = { [column: number]: string }[];
+
+function getMaxOverlap(eventGrid: EventsGrid) {
+	const overlapList = eventGrid.map((eventsObject) => Object.keys(eventsObject).length);
+	return Math.max(...overlapList);
+}
+
+function getColumn(eventIdToFind: string, eventGrid: EventsGrid[0]) {
+	// it gets the key in the object whose value is the eventIdToFind
+	const column = Object.keys(eventGrid).find((key) => eventGrid[Number(key)] === eventIdToFind);
+	if (!column) {
+		console.error(
+			`Internal Error, the eventId: ${eventIdToFind} can't be found in the eventGrid ${eventGrid}`,
+		);
+	}
+	return Number(column);
+}
+
+export function getDivision(event: AnyEvent, eventsGrid: EventsGrid) {
 	const { endSlot, startSlot } = getEventSlots(event);
-	const maxOverlap = Math.max(...timeSlots.slice(startSlot, endSlot));
+	const eventGrid = eventsGrid.slice(startSlot, endSlot);
+	const maxOverlap = getMaxOverlap(eventGrid);
 
 	if (maxOverlap <= 1) {
 		return 'width: 100%; left: 0%;';
 	}
+
+	const column = getColumn(event.id, eventGrid[0]);
 
 	const width = 100 / maxOverlap;
 	const left = width * column;

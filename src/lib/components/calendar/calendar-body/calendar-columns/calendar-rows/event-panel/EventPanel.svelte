@@ -7,6 +7,7 @@
 	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 	import {
 		EVENT_PANEL_CLASS,
+		type EventsGrid,
 		getDivision,
 		getHeight,
 		getTop,
@@ -19,12 +20,9 @@
 	import EventPanelCore from './event-panel-core/EventPanelCore.svelte';
 
 	export let event: AnyEvent;
+	export let eventsGrid: EventsGrid;
 
 	export let targetDate: string;
-
-	export let eventColumns: Record<string, number>;
-
-	export let timeSlots: number[];
 
 	let container: HTMLDivElement | undefined;
 
@@ -151,7 +149,7 @@
 <div
 	bind:this={container}
 	class={clsx(className, EVENT_PANEL_CLASS, 'absolute rounded-lg')}
-	style="{getHeight(event)} {getTop(event)} {getDivision(event, eventColumns, timeSlots)}"
+	style="{getHeight(event)} {getTop(event)} {getDivision(event, eventsGrid)}"
 >
 	<EventPanelCore {event} {isSelected} on:toggleEvent {targetDate} />
 </div>

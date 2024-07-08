@@ -1,7 +1,10 @@
 import type { AnyEvent, AnyTask, RecurringEvent, ToDo } from '$lib/task/utils';
 
 import { NUMBER_OF_CELLS } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
-import { getEventSlots } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
+import {
+	type EventsGrid,
+	getEventSlots,
+} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
 import { getEndTime } from '$lib/components/task-form/service';
 import { weekDays } from '$lib/components/task-form/task-form-recurring/days-checkbox/service';
 import { DATE, DATETIME } from '$lib/consts';
@@ -74,27 +77,17 @@ export function getEvents(tasks: AnyTask[], date: Date) {
 	return tasks.filter((task): task is AnyEvent => isEventOnDay(task, date));
 }
 
-export function trackOverlaps(events: AnyEvent[]): number[] {
-	const timeSlots = new Array(NUMBER_OF_CELLS).fill(0);
-	events.forEach((event) => {
+export function getTimeSlots(events: AnyEvent[]): string[][] {
+	const timeSlots = new Array(NUMBER_OF_CELLS).fill(null).map<string[]>(() => []);
+
+	for (const event of events) {
 		const { endSlot, startSlot } = getEventSlots(event);
 		for (let i = startSlot; i < endSlot; i++) {
-			timeSlots[i]++;
+			timeSlots[i].push(event.id);
 		}
-	});
+	}
+
 	return timeSlots;
-}
-
-export function splitEventsInColumns(events: AnyEvent[]): {
-	eventColumns: Record<string, number>;
-	timeSlots: number[];
-} {
-	events.sort((a, b) => convertTimeToMinutes(a.startTime) - convertTimeToMinutes(b.startTime));
-
-	const timeSlots = trackOverlaps(events);
-	const eventColumns = assignColumns(events);
-
-	return { eventColumns, timeSlots };
 }
 
 export function assignColumns(events: AnyEvent[]): Record<string, number> {
@@ -113,4 +106,20 @@ export function assignColumns(events: AnyEvent[]): Record<string, number> {
 	}
 
 	return eventColumns;
+}
+
+export function getEventGrid(events: AnyEvent[]): EventsGrid {
+	events.sort((a, b) => convertTimeToMinutes(a.startTime) - convertTimeToMinutes(b.startTime));
+
+	const arrayTimeSlots = getTimeSlots(events);
+	const eventColumns = assignColumns(events);
+	const objectTimeSlots: EventsGrid = Array.from({ length: 96 }, () => ({}));
+
+	arrayTimeSlots.forEach((timeSlotEvents, index) => {
+		timeSlotEvents.forEach((eventId) => {
+			objectTimeSlots[index][eventColumns[eventId]] = eventId;
+		});
+	});
+
+	return objectTimeSlots;
 }
