@@ -74,7 +74,9 @@ export function getToDos(tasks: AnyTask[], date: Date) {
 }
 
 export function getEvents(tasks: AnyTask[], date: Date) {
-	return tasks.filter((task): task is AnyEvent => isEventOnDay(task, date));
+	const events = tasks.filter((task): task is AnyEvent => isEventOnDay(task, date));
+	events.sort((a, b) => convertTimeToMinutes(a.startTime) - convertTimeToMinutes(b.startTime));
+	return events;
 }
 
 export function getTimeSlots(events: AnyEvent[]): string[][] {
@@ -109,8 +111,6 @@ export function assignColumns(events: AnyEvent[]): Record<string, number> {
 }
 
 export function getEventGrid(events: AnyEvent[]): EventsGrid {
-	events.sort((a, b) => convertTimeToMinutes(a.startTime) - convertTimeToMinutes(b.startTime));
-
 	const arrayTimeSlots = getTimeSlots(events);
 	const eventColumns = assignColumns(events);
 	const objectTimeSlots: EventsGrid = Array.from({ length: 96 }, () => ({}));
