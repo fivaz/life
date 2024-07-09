@@ -10,6 +10,8 @@
 	import { addDays, format, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 
+	import GoalIcon from '../../../../../../../../routes/dashboard/goals/goal-form/goal-icon/GoalIcon.svelte';
+
 	export let tasks: AnyTask[];
 
 	const dispatch = createEventDispatcher<{
@@ -72,6 +74,9 @@
 						{task.name}
 					</div>
 
+					{#if task.goal?.icon}
+						<GoalIcon class="h-4 w-8 pr-3 text-gray-400" name={task.goal.icon} />
+					{/if}
 					<div class="w-12">{getDuration(task)}</div>
 					<div class="w-16">
 						<div
