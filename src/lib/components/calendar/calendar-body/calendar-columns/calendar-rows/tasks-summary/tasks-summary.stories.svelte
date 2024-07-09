@@ -4,7 +4,7 @@
 	import { birthdayToDo, toDos, workToDo } from '$lib/task/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
-	import ToDosPanel from './ToDosPanel.svelte';
+	import ToDosPanel from './TasksSummary.svelte';
 
 	export const meta = {
 		argTypes: {},

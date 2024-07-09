@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { AnyTask } from '$lib/task/utils';
 
-	import ToDosPanel from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/to-dos-panel/ToDosPanel.svelte';
+	import TasksSummary from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/tasks-summary/TasksSummary.svelte';
 	import { DATE } from '$lib/consts';
 	import { format } from 'date-fns';
 
@@ -25,7 +25,7 @@
 
 <div>
 	<div class="border-b" style="height: {GRID_CELL_HEIGHT}px">
-		<ToDosPanel on:editTask on:persistToDos {toDos} />
+		<TasksSummary on:editTask on:persistToDos tasks={[...toDos, ...events]} />
 	</div>
 	<div class="relative">
 		<CalendarGrid on:click targetDate={formattedDate} />

@@ -3,7 +3,7 @@
 
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
-	import ToDoList from './ToDoList.svelte';
+	import ToDoList from './DayTasksList.svelte';
 
 	export const meta = {
 		argTypes: {},
