@@ -40,7 +40,7 @@
 	<div class="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full">
 		<div
 			bind:this={containerNav}
-			class="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 sm:pr-8"
+			class="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 md:pr-8"
 		>
 			<WeekList bind:selectedDate {dates} />
 		</div>
