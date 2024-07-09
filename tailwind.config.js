@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
-	// eslint-disable-next-line import/no-extraneous-dependencies
+	// eslint-disable-next-line @typescript-eslint/no-require-imports
 	plugins: [require('@tailwindcss/forms')],
 	theme: {
 		extend: {},

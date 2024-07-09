@@ -3,10 +3,6 @@ import ts from 'typescript-eslint';
 import svelte from 'eslint-plugin-svelte';
 import prettier from 'eslint-config-prettier';
 import globals from 'globals';
-import perfectionist from 'eslint-plugin-perfectionist';
-import sonarjs from 'eslint-plugin-sonarjs';
-import storybook from 'eslint-plugin-storybook';
-import unusedImports from 'eslint-plugin-sonarjs';
 
 /** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
@@ -35,22 +31,8 @@ export default [
 		ignores: ['build/', '.svelte-kit/', 'dist/'],
 	},
 	{
-		plugins: {
-			perfectionist,
-			sonarjs,
-			'unused-imports': unusedImports,
-			storybook,
-		},
-	},
-	{
-		files: ['*.stories.svelte'],
 		rules: {
-			'no-console': 'off',
-		},
-	},
-	{
-		rules: {
-			'no-console': ['error', { allow: ['warn', 'error'] }],
+			'@typescript-eslint/no-unused-vars': 'off',
 		},
 	},
 ];
