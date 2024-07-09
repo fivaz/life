@@ -2,7 +2,7 @@
 	import type { TaskIn } from '$lib/task/task-in-utils';
 
 	import ConfirmButton from '$lib/components/confirm-button/ConfirmButton.svelte';
-	import { XSquare } from '@steeze-ui/lucide-icons';
+	import { SquareX } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	export let taskIn: TaskIn;
@@ -36,7 +36,7 @@
 						type="checkbox"
 					/>
 					<ConfirmButton color="none" on:confirm={() => removeSubTask(subTask.id)} type="button">
-						<Icon class="h-4 w-4 text-red-600" src={XSquare} />
+						<Icon class="h-4 w-4 text-red-600" src={SquareX} />
 					</ConfirmButton>
 				</li>
 			{/each}

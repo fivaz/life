@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getTotalDuration } from '$lib/task/time-utils';
-	import { Grid, LayoutGrid } from '@steeze-ui/lucide-icons';
+	import { Grid3x3, LayoutGrid } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
 	import type { SortedTaskType } from '../service';
@@ -42,7 +42,7 @@
 			{/each}
 			<li class="flex cursor-pointer justify-between gap-3 px-6 py-3 hover:bg-gray-100">
 				<div class="flex grow gap-3">
-					<Icon class="h-6 w-6 text-gray-400" src={Grid} />
+					<Icon class="h-6 w-6 text-gray-400" src={Grid3x3} />
 					<div>Total</div>
 				</div>
 				<div class="w-16 text-center">{total.length}</div>

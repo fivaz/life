@@ -9,38 +9,34 @@ export default defineConfig({
 	plugins: [
 		sveltekit(),
 		SvelteKitPWA({
-			devOptions: {
-				enabled: false,
-				navigateFallback: '/',
-				navigateFallbackAllowlist: [/^\/$/],
-				suppressWarnings: true,
-				type: 'module',
-			},
+			registerType: 'autoUpdate',
 			injectRegister: false,
 
+			pwaAssets: {
+				disabled: false,
+				config: true,
+			},
+
 			manifest: {
-				description: 'life',
 				name: 'life',
 				short_name: 'life',
+				description: 'life',
 				theme_color: '#ffffff',
 			},
 
-			pwaAssets: {
-				config: true,
-				disabled: false,
+			workbox: {
+				globPatterns: ['client/**/*.{js,css,ico,png,svg,webp,woff,woff2}'],
+				cleanupOutdatedCaches: true,
+				clientsClaim: true,
 			},
 
-			registerType: 'autoUpdate',
-
-			workbox: {
-				cleanupOutdatedCaches: true,
-
-				clientsClaim: true,
-				globPatterns: ['client/**/*.{js,css,ico,png,svg,webp,woff,woff2}'],
+			devOptions: {
+				enabled: false,
+				suppressWarnings: true,
+				navigateFallback: '/',
+				navigateFallbackAllowlist: [/^\/$/],
+				type: 'module',
 			},
 		}),
 	],
-	test: {
-		include: ['src/**/*.{test,spec}.{js,ts}'],
-	},
 });

@@ -1,45 +1,38 @@
-# Life - Day Planner
+# create-svelte
 
-Life is a sophisticated Day Planner web application, meticulously crafted with Svelte, Typescript, Tailwind, Firebase, and Storybook.
+Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
 
-## Features
+## Creating a project
 
-### Beautifully Designed Calendar
+If you're seeing this, you've probably already done this step. Congrats!
 
-Featuring an aesthetically pleasing calendar design, Life provides an intuitive and visually appealing user experience.
+```bash
+# create a new project in the current directory
+npm create svelte@latest
 
-### TODO List Integration
+# create a new project in my-app
+npm create svelte@latest my-app
+```
 
-Seamlessly integrates a TODO list for effective task management within the planner.
+## Developing
 
-### Goal Management
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-Allows users to set and track goals, with the flexibility to create events or tasks attached to those goals.
+```bash
+npm run dev
 
-### Task and Event Flexibility
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
 
-Enables users to convert tasks (ToDo List) to events (Calendar) and vice-versa, offering a dynamic and adaptable planning experience.
+## Building
 
-### Color-Coded Event Categories
+To create a production version of your app:
 
-Categorize events with distinct colors for efficient organization and visual clarity in the calendar.
+```bash
+npm run build
+```
 
-### Recurring Events
+You can preview the production build with `npm run preview`.
 
-Supports the scheduling of recurring events, offering a comprehensive solution for repetitive activities.
-
-### Progressive Web App (PWA)
-
-Ensures an offline-first approach for data access and updates, providing users with uninterrupted functionality even in offline mode.
-
-### Highly Interactive Calendar
-
-Incorporates a highly interactive interface with features such as resizable and drag-and-dropable events, facilitating a user-friendly and customizable experience.
-
-## Showcase of Skills
-
-This project exemplifies my proficiency in frontend development, user interface design, and seamless integration with cloud services. Leveraging modern frameworks and libraries ensures a polished and responsive user experience.
-
-## Live Demo
-
-[life.sfivaz.com](https://life.sfivaz.com)
+> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
