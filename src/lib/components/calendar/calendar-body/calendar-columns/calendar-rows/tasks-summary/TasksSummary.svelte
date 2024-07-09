@@ -9,7 +9,9 @@
 
 	let isOpen = false;
 
-	$: hasPendingToDos = tasks.some((task) => task.isDone === false);
+	$: workTasks = tasks.filter((task) => task.category.type === 'work');
+
+	$: hasPendingToDos = workTasks.some((task) => task.isDone === false);
 
 	function getLabel(tasks: AnyTask[]): string {
 		if (tasks.length === 0) {
@@ -25,7 +27,7 @@
 
 <!--there is a bug here that this truncate won't work if not inside a relative -> absolute hierarchy-->
 <div class="relative">
-	{#if tasks.length}
+	{#if workTasks.length}
 		<button
 			class={clsx(
 				hasPendingToDos
@@ -35,11 +37,11 @@
 			)}
 			on:click={() => (isOpen = true)}
 		>
-			{getLabel(tasks)}
+			{getLabel(workTasks)}
 		</button>
 	{/if}
 </div>
 
 <Modal on:close={() => (isOpen = false)} show={isOpen}>
-	<DayTasksList on:close={() => (isOpen = false)} on:editTask on:persistToDos {tasks} />
+	<DayTasksList on:close={() => (isOpen = false)} on:editTask on:persistToDos tasks={workTasks} />
 </Modal>
