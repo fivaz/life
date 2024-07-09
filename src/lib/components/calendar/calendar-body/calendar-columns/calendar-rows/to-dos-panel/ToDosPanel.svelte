@@ -11,6 +11,20 @@
 	let isOpen = false;
 
 	$: hasPendingToDos = toDos.some((toDo) => toDo.isDone === false);
+
+	function getToDosName(toDos: ToDo[]): string {
+		if (toDos.length === 0) {
+			return '';
+		}
+		if (toDos.length === 1) {
+			return toDos[0].name;
+		}
+		if (toDos.every((toDo) => toDo.isDone === true)) {
+			return `${toDos.length} tasks`;
+		}
+		const pendingToDos = toDos.filter((toDo) => toDo.isDone === false).length;
+		return `${pendingToDos} / ${toDos.length} tasks`;
+	}
 </script>
 
 <!--there is a bug here that this truncate won't work if not inside a relative -> absolute hierarchy-->
@@ -25,11 +39,7 @@
 			)}
 			on:click={() => (isOpen = true)}
 		>
-			{#if toDos.length > 1}
-				{toDos.length} tasks
-			{:else}
-				{toDos[0].name}
-			{/if}
+			{getToDosName(toDos)}
 		</button>
 	{/if}
 </div>

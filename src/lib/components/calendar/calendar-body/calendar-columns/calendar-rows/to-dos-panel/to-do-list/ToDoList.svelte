@@ -49,23 +49,27 @@
 		</div>
 
 		<ul class="flex flex-col py-3">
-			{#each toDos as toDo (toDo)}
+			{#each toDos as toDo, index (toDo)}
 				<!-- svelte-ignore a11y-no-noninteractive-element-interactions a11y-click-events-have-key-events -->
 				<li
 					class="flex cursor-pointer justify-between gap-3 px-6 py-3 hover:bg-gray-100 hover:underline"
 					on:click={() => dispatch('editTask', { targetDate: '', task: toDo })}
 				>
-					<div class="flex gap-3 truncate">
-						<Icon class="h-6 w-6 text-gray-400" src={CalendarDays} theme="solid" />
-						<div
-							class={clsx(
-								{ 'line-through': toDo.isDone },
-								'w-[calc(100%-24px)] truncate font-medium text-gray-500',
-							)}
-						>
-							{toDo.name}
+					<div class="flex gap-3">
+						<span class="font-medium text-gray-500">{index + 1}</span>
+						<div class="flex gap-3 truncate">
+							<Icon class="h-6 w-6 text-gray-400" src={CalendarDays} theme="solid" />
+							<div
+								class={clsx(
+									{ 'line-through': toDo.isDone },
+									'w-[calc(100%-24px)] truncate font-medium text-gray-500',
+								)}
+							>
+								{toDo.name}
+							</div>
 						</div>
 					</div>
+
 					<div class="flex gap-3">
 						<div>{getDuration(toDo)}</div>
 						<div class="w-16">
