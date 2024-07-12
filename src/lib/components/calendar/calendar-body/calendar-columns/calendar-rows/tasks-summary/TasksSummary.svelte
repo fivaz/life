@@ -4,14 +4,23 @@
 	import DayTasksList from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/tasks-summary/day-tasks-list/DayTasksList.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { clsx } from 'clsx';
+	import { work } from '$lib/category/seed';
+	import { isRecurring } from '$lib/task/utils.js';
 
 	export let tasks: AnyTask[];
 
 	let isOpen = false;
 
-	$: workTasks = tasks.filter((task) => task.category.type === 'work');
+	$: workTasks = getValidWorks(tasks);
 
 	$: hasPendingToDos = workTasks.some((task) => task.isDone === false);
+
+	function getValidWorks(tasks: AnyTask[]): AnyTask[] {
+		// accept only category work tasks
+		const workTasks = tasks.filter((task) => task.category.type === 'work');
+		// accept only non-recurring tasks
+		return workTasks.filter((workTask) => !isRecurring(workTask));
+	}
 
 	function getLabel(tasks: AnyTask[]): string {
 		if (tasks.length === 0) {
