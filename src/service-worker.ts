@@ -14,8 +14,8 @@ const precache_list = [
 	...files,
 	...prerendered,
 ].map((s) => ({
-	url: s,
 	revision: version,
+	url: s,
 }));
 
 precacheAndRoute(precache_list);
