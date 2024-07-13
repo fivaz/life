@@ -104,6 +104,9 @@ importers:
       eslint-plugin-svelte:
         specifier: ^2.36.0
         version: 2.41.0(eslint@9.6.0)(svelte@4.2.18)
+      eslint-plugin-unused-imports:
+        specifier: ^4.0.0
+        version: 4.0.0(eslint@9.6.0)
       felte:
         specifier: ^1.2.14
         version: 1.2.14(svelte@4.2.18)
@@ -3155,6 +3158,20 @@ packages:
     peerDependenciesMeta:
       svelte:
         optional: true
+
+  eslint-plugin-unused-imports@4.0.0:
+    resolution: {integrity: sha512-mzM+y2B7XYpQryVa1usT+Y/BdNAtAZiXzwpSyDCboFoJN/LZRN67TNvQxKtuTK/Aplya3sLNQforiubzPPaIcQ==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+    peerDependencies:
+      '@typescript-eslint/eslint-plugin': '8'
+      eslint: '9'
+    peerDependenciesMeta:
+      '@typescript-eslint/eslint-plugin':
+        optional: true
+
+  eslint-rule-composer@0.3.0:
+    resolution: {integrity: sha512-bt+Sh8CtDmn2OajxvNO+BX7Wn4CIWMpTRm3MaiKPCQcnnlm0CS2mhui6QaoeQugs+3Kj2ESKEEGJUdVafwhiCg==}
+    engines: {node: '>=4.0.0'}
 
   eslint-scope@5.1.1:
     resolution: {integrity: sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw==}
@@ -9537,6 +9554,13 @@ snapshots:
       svelte: 4.2.18
     transitivePeerDependencies:
       - ts-node
+
+  eslint-plugin-unused-imports@4.0.0(eslint@9.6.0):
+    dependencies:
+      eslint: 9.6.0
+      eslint-rule-composer: 0.3.0
+
+  eslint-rule-composer@0.3.0: {}
 
   eslint-scope@5.1.1:
     dependencies:

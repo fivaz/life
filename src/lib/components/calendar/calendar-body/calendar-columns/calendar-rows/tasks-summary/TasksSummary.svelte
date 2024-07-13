@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { AnyTask } from '$lib/task/utils';
 
-	import { work } from '$lib/category/seed';
 	import DayTasksList from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/tasks-summary/day-tasks-list/DayTasksList.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { isRecurring } from '$lib/task/utils.js';

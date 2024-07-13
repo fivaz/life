@@ -49,6 +49,7 @@
 		"eslint-plugin-sonarjs": "^1.0.3",
 		"eslint-plugin-storybook": "^0.8.0",
 		"eslint-plugin-svelte": "^2.36.0",
+		"eslint-plugin-unused-imports": "^4.0.0",
 		"felte": "^1.2.14",
 		"firebase": "^10.12.3",
 		"flatpickr": "^4.6.13",

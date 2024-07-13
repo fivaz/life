@@ -4,6 +4,7 @@ import perfectionist from 'eslint-plugin-perfectionist';
 import perfectionistNatural from 'eslint-plugin-perfectionist/configs/recommended-natural';
 import sonarjs from 'eslint-plugin-sonarjs';
 import svelte from 'eslint-plugin-svelte';
+import unusedImports from 'eslint-plugin-unused-imports';
 import globals from 'globals';
 import ts from 'typescript-eslint';
 
@@ -43,6 +44,7 @@ export default [
 	{
 		plugins: {
 			perfectionist,
+			'unused-imports': unusedImports,
 		},
 	},
 	sonarjsRecommended,
@@ -50,6 +52,22 @@ export default [
 	{
 		rules: {
 			'perfectionist/sort-intersection-types': 'off',
+		},
+	},
+	{
+		rules: {
+			'no-unused-vars': 'off', // or "@typescript-eslint/no-unused-vars": "off",
+			'unused-imports/no-unused-imports': 'error',
+			'unused-imports/no-unused-vars': [
+				'warn',
+				{
+					args: 'after-used',
+					argsIgnorePattern: '^_',
+					ignoreRestSiblings: true,
+					vars: 'all',
+					varsIgnorePattern: '^_',
+				},
+			],
 		},
 	},
 ];
