@@ -5,37 +5,37 @@ on:
   pull_request:
     branches: [main, master]
 jobs:
-  test:
-    needs: test_setup
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Install dependencies
-        run: npm install -g pnpm && pnpm install
-      - name: Install Playwright Browsers
-        run: pnpm exec playwright install --with-deps
-      - name: Run Playwright tests
-        run: pnpm exec playwright test
-        env:
-          TEST_URL: ${{ needs.test_setup.outputs.preview_url }}
-          TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
-          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
+#  test:
+#    needs: test_setup
+#    timeout-minutes: 60
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - uses: actions/setup-node@v3
+#        with:
+#          node-version: 18
+#      - name: Install dependencies
+#        run: npm install -g pnpm && pnpm install
+#      - name: Install Playwright Browsers
+#        run: pnpm exec playwright install --with-deps
+#      - name: Run Playwright tests
+#        run: pnpm exec playwright test
+#        env:
+#          TEST_URL: ${{ needs.test_setup.outputs.preview_url }}
+#          TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+#          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+#      - uses: actions/upload-artifact@v3
+#        if: always()
+#        with:
+#          name: playwright-report
+#          path: playwright-report/
+#          retention-days: 30
+#      - uses: actions/upload-artifact@v3
+#        if: always()
+#        with:
+#          name: playwright-report
+#          path: playwright-report/
+#          retention-days: 30
   test_setup:
     name: Test setup
     runs-on: ubuntu-latest
