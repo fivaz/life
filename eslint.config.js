@@ -2,9 +2,12 @@ import js from '@eslint/js';
 import prettier from 'eslint-config-prettier';
 import perfectionist from 'eslint-plugin-perfectionist';
 import perfectionistNatural from 'eslint-plugin-perfectionist/configs/recommended-natural';
+import sonarjs from 'eslint-plugin-sonarjs';
 import svelte from 'eslint-plugin-svelte';
 import globals from 'globals';
 import ts from 'typescript-eslint';
+
+const sonarjsRecommended = sonarjs.configs.recommended;
 
 /** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
@@ -42,6 +45,7 @@ export default [
 			perfectionist,
 		},
 	},
+	sonarjsRecommended,
 	perfectionistNatural,
 	{
 		rules: {
