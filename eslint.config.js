@@ -70,4 +70,10 @@ export default [
 			],
 		},
 	},
+	{
+		ignores: ['**/*.stories.svelte'],
+		rules: {
+			'no-console': ['error', { allow: ['warn', 'error'] }],
+		},
+	},
 ];
