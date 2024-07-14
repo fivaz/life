@@ -1,7 +1,7 @@
 {
 	"name": "Life",
 	"short_name": "Life",
-	"start_url": "/",
+	"start_url": "/dashboard/home",
 	"theme_color": "#4f46e5",
 	"background_color": "#ffffff",
 	"display": "standalone",
