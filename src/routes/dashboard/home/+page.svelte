@@ -30,7 +30,7 @@
 	}
 
 	function updateNotification(task: AnyTask) {
-		if (task.isDone) {
+		if (task.category.type === 'work' && task.isDone) {
 			completedTasks = [...completedTasks, task];
 		} else {
 			completedTasks = completedTasks.filter((completedTask) => completedTask.id !== task.id);
