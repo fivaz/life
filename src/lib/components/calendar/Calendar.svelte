@@ -12,6 +12,7 @@
 	let weekStart = startOfWeek(new Date(), { weekStartsOn: 1 });
 
 	function updateDateAtMidnight() {
+		console.warn('updateDateAtMidnight');
 		const now = new Date();
 		const timeUntilMidnight = differenceInMilliseconds(endOfToday(), now);
 
