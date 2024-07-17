@@ -22,7 +22,9 @@
 
 	$: uncompletedTasks = tasks.filter((toDo) => toDo.isDone === false);
 
-	$: totalDuration = getTotalDuration(uncompletedTasks);
+	$: uncompletedDuration = getTotalDuration(uncompletedTasks);
+
+	$: doneDuration = getTotalDuration(tasks.filter((toDo) => toDo.isDone === true));
 
 	$: {
 		if (tasks.length === 0) {
@@ -47,9 +49,12 @@
 >
 	<div class="flex-none p-6 font-semibold">
 		<div>Pending Tasks</div>
-		{#if uncompletedTasks.length}
-			<div class="mt-1"><span class="text-base">{totalDuration}</span> to complete</div>
-		{/if}
+		<div class="mt-1 flex justify-between">
+			<div><span class="text-green-500">{doneDuration}</span> done</div>
+			{#if uncompletedTasks.length}
+				<div><span class="text-red-500">{uncompletedDuration}</span> to complete</div>
+			{/if}
+		</div>
 	</div>
 
 	<ul class="flex flex-grow flex-col overflow-y-auto py-3">
@@ -94,11 +99,11 @@
 		{/each}
 	</ul>
 
-	{#if uncompletedTasks.length}
-		<div class="flex-none p-6">
+	<div class="flex-none p-6">
+		{#if uncompletedTasks.length}
 			<button class="font-semibold hover:underline" on:click={postponeToDos}>
 				Postpone remaining unset tasks <span aria-hidden="true">&rarr;</span>
 			</button>
-		</div>
-	{/if}
+		{/if}
+	</div>
 </div>
