@@ -122,7 +122,7 @@ function convertToDo(todo: ToDo): TaskIn {
 		...todo,
 		date: format(new Date(), DATE),
 		duration: todo.duration || '00:15',
-		endTime: format(addMinutes(getCurrentRoundedDate(), 15), TIME),
+		endTime: format(addMinutes(getCurrentRoundedDate(), convertTimeToMinutes(todo.duration)), TIME),
 		image: todo.image || '',
 		isEvent: false,
 		isRecurring: false,
