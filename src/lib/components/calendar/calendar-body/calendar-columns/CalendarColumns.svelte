@@ -34,7 +34,7 @@
 	<div class="w-8" />
 </div>
 
-<div class="block grow md:hidden">
+<div class="mb-5 block grow border border-b md:hidden">
 	<CalendarRows
 		date={selectedDate}
 		on:click={(e) => dispatch('createTask', buildDate(selectedDate, e.detail))}
