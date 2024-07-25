@@ -197,7 +197,7 @@ export async function storeImage(userId: string, taskId: string, file: Blob): Pr
 export async function addTask(data: Omit<AnyTask, 'id'>, userId: string, file?: File | null) {
 	const newTaskRef = doc(collection(db, 'users', userId, 'tasks'));
 
-	void setDoc(newTaskRef, { ...data, createdAt: new Date().toISOString() });
+	void setDoc(newTaskRef, data);
 
 	if (file) {
 		const image = await storeImage(userId, newTaskRef.id, file);

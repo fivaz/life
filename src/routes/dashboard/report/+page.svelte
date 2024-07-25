@@ -1,18 +1,25 @@
 <script lang="ts">
 	import { auth, db } from '$lib/firebase';
-	import { type AnyTask, queryUncompletedTasks } from '$lib/task/utils';
+	import { type AnyTask } from '$lib/task/utils';
+import { type Writable, writable } from 'svelte/store';
 	import { collectionStore, userStore } from 'sveltefire';
-	const user = userStore(auth);
 
-	let tasks: ReturnType<typeof collectionStore<AnyTask>>;
+	import ReportTasksByTime from './ReportTasksByTime.svelte';
+
+	let tasksStore: ReturnType<typeof collectionStore<AnyTask>> | Writable<AnyTask[]> = writable<
+		AnyTask[]
+	>([]);
+
+	const user = userStore(auth);
 
 	$: {
 		if ($user) {
-			tasks = collectionStore<AnyTask>(db, queryUncompletedTasks($user.uid));
+			tasksStore = collectionStore<AnyTask>(db, `users/${$user.uid}/tasks`);
 		}
 	}
 </script>
 
 <div class="py-4">
-	<!--	<Line data={...} />-->
+	<pre>{$tasksStore.length}</pre>
+	<ReportTasksByTime tasks={$tasksStore} />
 </div>

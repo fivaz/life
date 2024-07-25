@@ -19,6 +19,7 @@ let id = 0;
 
 export const normalWithoutDescriptionWithGoal: Event = {
 	category: sleep,
+	createdAt: startOfTomorrow().toISOString(),
 	date: format(getTodayAtTime('00:00'), DATE),
 	description: '',
 	duration: '07:00',
@@ -31,6 +32,7 @@ export const normalWithoutDescriptionWithGoal: Event = {
 
 export const normalWithoutDescriptionWithoutGoal: Event = {
 	category: sleep,
+	createdAt: startOfTomorrow().toISOString(),
 	date: format(getTodayAtTime('00:00'), DATE),
 	description: '',
 	duration: '07:00',
@@ -43,6 +45,7 @@ export const normalWithoutDescriptionWithoutGoal: Event = {
 
 export const normalWithDescription: Event = {
 	category: work,
+	createdAt: startOfTomorrow().toISOString(),
 	date: format(startOfYesterday(), DATE),
 	description: longText,
 	duration: '00:30',
@@ -55,6 +58,7 @@ export const normalWithDescription: Event = {
 
 export const normalWithSubTasks: Event = {
 	category: work,
+	createdAt: startOfTomorrow().toISOString(),
 	date: format(startOfYesterday(), DATE),
 	description: '',
 	duration: '00:30',
@@ -74,6 +78,7 @@ export const normalWithSubTasks: Event = {
 
 export const shortWithoutDescription: Event = {
 	category: routine,
+	createdAt: startOfTomorrow().toISOString(),
 	date: format(getTodayAtTime('07:00'), DATE),
 	description: '',
 	duration: '00:15',
@@ -86,6 +91,7 @@ export const shortWithoutDescription: Event = {
 
 export const shortWithDescription: Event = {
 	category: routine,
+	createdAt: startOfTomorrow().toISOString(),
 	date: format(getTodayAtTime('07:00'), DATE),
 	description: longText,
 	duration: '00:15',
@@ -98,6 +104,7 @@ export const shortWithDescription: Event = {
 
 export const shortWithSubTasks: Event = {
 	category: routine,
+	createdAt: startOfTomorrow().toISOString(),
 	date: format(getTodayAtTime('07:00'), DATE),
 	description: longText,
 	duration: '00:15',
@@ -117,6 +124,7 @@ export const shortWithSubTasks: Event = {
 
 export const longRecurring: RecurringEvent = {
 	category: work,
+	createdAt: startOfTomorrow().toISOString(),
 	date: format(getTodayAtTime('10:15'), DATE),
 	description: longText,
 	duration: '02:15',
@@ -144,6 +152,7 @@ export const events: AnyTask[] = [
 
 export const workToDo: ToDo = {
 	category: work,
+	createdAt: startOfTomorrow().toISOString(),
 	deadline: format(startOfWeek(new Date()), DATE),
 	description: '',
 	duration: '',
@@ -155,6 +164,7 @@ export const workToDo: ToDo = {
 
 export const birthdayToDo: ToDo = {
 	category: work,
+	createdAt: startOfTomorrow().toISOString(),
 	deadline: format(startOfTomorrow(), DATE),
 	description: '',
 	duration: '01:15',

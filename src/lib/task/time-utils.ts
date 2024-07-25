@@ -14,10 +14,8 @@ export function getTaskDate(task: AnyTask): Date | null {
 	return dateString ? parse(dateString, DATE, new Date()) : null;
 }
 
-export function getTaskDateTime(task: AnyTask): Date | null {
+export function getTaskDateTime(task: AnyTask): Date {
 	if (isToDo(task)) {
-		if (!task.deadline) return null;
-
 		return parse(task.deadline, DATE, new Date());
 	} else {
 		return parse(`${task.date} ${task.startTime}`, `${DATE} ${TIME}`, new Date());

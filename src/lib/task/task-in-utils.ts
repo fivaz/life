@@ -57,6 +57,7 @@ export function convertToAnyTask(taskIn: TaskIn): AnyTask {
 export function getToDo(data: TaskIn): ToDo {
 	return {
 		category: data.category,
+		createdAt: data.createdAt,
 		deadline: data.deadline,
 		description: data.description,
 		duration: data.duration,
@@ -72,6 +73,7 @@ export function getToDo(data: TaskIn): ToDo {
 export function getEvent(data: TaskIn): Event {
 	return {
 		category: data.category,
+		createdAt: data.createdAt,
 		date: data.date,
 		description: data.description,
 		duration: data.duration,
@@ -88,6 +90,7 @@ export function getEvent(data: TaskIn): Event {
 export function getRecurringEvent(data: TaskIn): RecurringEvent {
 	return {
 		category: data.category,
+		createdAt: data.createdAt,
 		date: data.date,
 		description: data.description,
 		duration: data.duration,

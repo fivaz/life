@@ -9,6 +9,7 @@ export type SubTask = { id: number; isDone: boolean; name: string };
 
 export type CoreTask = {
 	category: Category;
+	createdAt: string;
 	description: string;
 	duration: string;
 	goal: Goal | null;

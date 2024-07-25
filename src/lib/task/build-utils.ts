@@ -8,6 +8,7 @@ import { endOfWeek, format } from 'date-fns';
 export function buildEmptyToDo(categories: Category[]): ToDo {
 	return {
 		category: categories.find((category) => category.isDefault) || categories[0],
+		createdAt: new Date().toISOString(),
 		deadline: format(endOfWeek(new Date(), { weekStartsOn: 1 }), DATE),
 		description: '',
 		duration: '',
@@ -21,6 +22,7 @@ export function buildEmptyToDo(categories: Category[]): ToDo {
 export function buildEmptyEvent(categories: Category[], goal: Goal | null = null): Event {
 	return {
 		category: categories.find((category) => category.isDefault) || categories[0],
+		createdAt: new Date().toISOString(),
 		date: format(new Date(), DATE),
 		description: '',
 		duration: '00:15',
@@ -35,6 +37,7 @@ export function buildEmptyEvent(categories: Category[], goal: Goal | null = null
 export function buildToDoWithDeadline(categories: Category[], deadline: string): ToDo {
 	return {
 		category: categories.find((category) => category.isDefault) || categories[0],
+		createdAt: new Date().toISOString(),
 		deadline,
 		description: '',
 		duration: '00:15',
@@ -47,6 +50,7 @@ export function buildToDoWithDeadline(categories: Category[], deadline: string):
 export function buildEventWithTime(categories: Category[], date: Date): Event {
 	return {
 		category: categories.find((category) => category.isDefault) || categories[0],
+		createdAt: new Date().toISOString(),
 		date: format(date, DATE),
 		description: '',
 		duration: '00:15',
