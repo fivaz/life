@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { Category } from '$lib/category/utils';
-	import type { AnyTask } from '$lib/task/utils';
 
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
@@ -8,11 +7,12 @@
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { auth, db } from '$lib/firebase';
 	import { buildEmptyToDo, buildToDoWithDeadline } from '$lib/task/build-utils';
+	import { type AnyTask, queryUncompletedTasks } from '$lib/task/utils';
 	import { BookOpenCheck } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { SignedIn, collectionStore, userStore } from 'sveltefire';
 
-	import { type SortedTaskType, queryUncompletedTasks, sortTasksByDate } from './service';
+	import { type SortedTaskType, sortTasksByDate } from './service';
 	import TaskList from './task-list/TaskList.svelte';
 	import TasksStats from './tasks-stats/TasksStats.svelte';
 

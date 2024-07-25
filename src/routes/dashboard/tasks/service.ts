@@ -1,7 +1,6 @@
 import type { AnyTask } from '$lib/task/utils';
 
 import { DATE_FR } from '$lib/consts';
-import { db } from '$lib/firebase';
 import { getTaskDate } from '$lib/task/time-utils';
 import { isRecurring, sortTasks } from '$lib/task/utils';
 import {
@@ -14,14 +13,8 @@ import {
 	isWithinInterval,
 	startOfWeek,
 } from 'date-fns';
-import { type Query, collection, query, where } from 'firebase/firestore';
 
 export type SortedTaskType = Record<string, AnyTask[]> & Iterable<string>;
-
-export function queryUncompletedTasks(userId: string) {
-	const tasksRef = collection(db, `users/${userId}/tasks`);
-	return query(tasksRef, where('isDone', '==', false)) as Query<AnyTask>;
-}
 
 export enum GROUPS {
 	NextWeek = 'Next week',

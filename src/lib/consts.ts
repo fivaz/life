@@ -16,6 +16,7 @@ export const homeRoute = `${dashboardRoute}/home`;
 export const categoriesRoute = `${dashboardRoute}/categories`;
 export const tasksRoute = `${dashboardRoute}/tasks`;
 export const goalsRoute = `${dashboardRoute}/goals`;
+export const reportRoute = `${dashboardRoute}/report`;
 
 export const demoLogin = {
 	email: 'demo@demo.com',
