@@ -182,7 +182,7 @@ export async function editTask(
 
 function addTaskToGoal(userId: string, data: Omit<AnyTask, 'id'>, id: string) {
 	if (data.goal) {
-		const goalDocRef = doc(db, DbPaTH.USERS, userId, 'goals', data.goal.id);
+		const goalDocRef = doc(db, DbPaTH.USERS, userId, DbPaTH.GOALS, data.goal.id);
 		const goalTaskCollectionRef = doc(goalDocRef, DbPaTH.TASKS, id);
 		void setDoc(goalTaskCollectionRef, data);
 	}

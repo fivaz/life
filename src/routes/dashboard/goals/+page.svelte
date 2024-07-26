@@ -57,7 +57,7 @@
 				<ul class="divide-y divide-gray-100" role="list">
 					<TypedCollection
 						let:data={goals}
-						ref={`${DbPaTH.USERS}/${user.uid}/goals`}
+						ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.GOALS}`}
 						type={goalType}
 					>
 						{@const goalsByDate = sortGoalsByDate(goals)}

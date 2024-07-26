@@ -13,7 +13,7 @@ export type Goal = {
 };
 
 export function queryUncompletedGoals(userId: string) {
-	const goalsRef = collection(db, `${DbPaTH.USERS}/${userId}/goals`);
+	const goalsRef = collection(db, `${DbPaTH.USERS}/${userId}/${DbPaTH.GOALS}`);
 	return query(goalsRef, where('isDone', '==', false)) as Query<Goal>;
 }
 

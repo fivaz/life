@@ -22,7 +22,7 @@
 	}
 
 	async function fetchPercentageComplete(task: AnyTask & { goal: Goal }) {
-		const tasksRef = collection(db, DbPaTH.USERS, userId, 'goals', task.goal.id, DbPaTH.TASKS);
+		const tasksRef = collection(db, DbPaTH.USERS, userId, DbPaTH.GOALS, task.goal.id, DbPaTH.TASKS);
 		const tasksSnapshot = await getDocs(tasksRef);
 		const tasks = tasksSnapshot.docs.map((doc) => doc.data()) as AnyTask[];
 		return getCompletedPercentage(tasks);

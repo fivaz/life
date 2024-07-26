@@ -6,12 +6,12 @@ import { db } from '$lib/firebase';
 import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 
 export function editGoal(id: string, data: Omit<Goal, 'id'>, userId: string) {
-	const goalDocRef = doc(db, DbPaTH.USERS, userId, 'goals', id);
+	const goalDocRef = doc(db, DbPaTH.USERS, userId, DbPaTH.GOALS, id);
 	return updateDoc(goalDocRef, data);
 }
 
 export function addGoal(data: Omit<Goal, 'id'>, userId: string) {
-	const goalsCollectionRef = collection(db, DbPaTH.USERS, userId, 'goals');
+	const goalsCollectionRef = collection(db, DbPaTH.USERS, userId, DbPaTH.GOALS);
 	return addDoc(goalsCollectionRef, data);
 }
 
@@ -21,7 +21,7 @@ export async function deleteGoal(
 	dispatch: EventDispatcher<{ close: null }>,
 ) {
 	if (id) {
-		const goalDocRef = doc(db, DbPaTH.USERS, userId, 'goals', id);
+		const goalDocRef = doc(db, DbPaTH.USERS, userId, DbPaTH.GOALS, id);
 		await deleteDoc(goalDocRef);
 		dispatch('close');
 	}
