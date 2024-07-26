@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { demoLogin, rootRoute } from '$lib/consts';
+	import { Routes, demoLogin } from '$lib/consts';
 	import { auth } from '$lib/firebase';
 	import { LoaderCircle } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -9,7 +9,7 @@
 
 	onMount(async () => {
 		await signInWithEmailAndPassword(auth, demoLogin.email, demoLogin.password);
-		void goto(rootRoute);
+		void goto(Routes.ROOT);
 	});
 </script>
 

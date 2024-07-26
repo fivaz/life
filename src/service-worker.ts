@@ -10,6 +10,7 @@ const precache_list = [
 	'/dashboard/categories',
 	'/dashboard/tasks',
 	'/dashboard/goals',
+	'/dashboard/report',
 	...build,
 	...files,
 	...prerendered,

@@ -3,7 +3,7 @@
 	import Logo from '$lib/components/Logo.svelte';
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
-	import { loginRoute, rootRoute } from '$lib/consts';
+	import { DbPaTH, Routes } from '$lib/consts';
 	import { auth, db } from '$lib/firebase';
 	import { storeAvatar } from '$lib/user-utils';
 	import { validator } from '@felte/validator-yup';
@@ -35,7 +35,7 @@
 
 	async function addDefaultCategories(userId: string) {
 		// TODO when one select a category as default, make all other non default
-		const categoriesCollectionRef = collection(db, 'users', userId, 'categories');
+		const categoriesCollectionRef = collection(db, DbPaTH.USERS, userId, DbPaTH.CATEGORIES);
 		void addDoc(categoriesCollectionRef, {
 			color: 'green',
 			isDefault: true,
@@ -66,7 +66,7 @@
 
 		await updateProfile(user, { displayName, photoURL });
 
-		const userRef = doc(db, 'users', user.uid);
+		const userRef = doc(db, DbPaTH.USERS, user.uid);
 
 		await setDoc(userRef, {
 			displayName,
@@ -94,7 +94,7 @@
 		onSubmit: async (values) => {
 			isLoading = true;
 			await register({ ...values });
-			void goto(rootRoute);
+			void goto(Routes.ROOT);
 		},
 	});
 
@@ -187,7 +187,7 @@
 		<p class="mt-10 text-center text-sm text-gray-500">
 			Already a member?
 			{' '}
-			<a class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500" href={loginRoute}>
+			<a class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500" href={Routes.LOGIN}>
 				Log in
 			</a>
 		</p>

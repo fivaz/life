@@ -3,7 +3,7 @@
 	import Logo from '$lib/components/Logo.svelte';
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
-	import { homeRoute, registerRoute } from '$lib/consts';
+	import { Routes } from '$lib/consts';
 	import { auth } from '$lib/firebase';
 	import { validator } from '@felte/validator-yup';
 	import { createForm } from 'felte';
@@ -42,7 +42,7 @@
 		onSubmit: async ({ email, password }) => {
 			isLoading = true;
 			await signInWithEmailAndPassword(auth, email, password);
-			void goto(homeRoute);
+			void goto(Routes.HOME);
 		},
 	});
 
@@ -65,7 +65,7 @@
 				</h2>
 				<p class="mt-2 text-sm leading-6 text-gray-500">
 					Not a member?{' '}
-					<a class="font-semibold text-indigo-600 hover:text-indigo-500" href={registerRoute}>
+					<a class="font-semibold text-indigo-600 hover:text-indigo-500" href={Routes.REGISTER}>
 						Register
 					</a>
 				</p>
