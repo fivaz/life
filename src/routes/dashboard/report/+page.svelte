@@ -29,5 +29,10 @@
 </script>
 
 <div class="py-4">
-	<ReportTasksByTime tasks={$tasksStore} />
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
+
+		<h1 class="text-lg font-semibold leading-7 text-gray-900">Report</h1>
+		<ReportTasksByTime tasks={$tasksStore} />
+	</div>
 </div>

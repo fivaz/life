@@ -6,6 +6,7 @@
 	import {
 		CategoryScale,
 		Chart as ChartJS,
+		Filler,
 		Legend,
 		LineElement,
 		LinearScale,
@@ -22,7 +23,16 @@
 		getUncompletedTasksByDate,
 	} from './service';
 
-	ChartJS.register(Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale);
+	ChartJS.register(
+		Title,
+		Filler,
+		Tooltip,
+		Legend,
+		LineElement,
+		LinearScale,
+		PointElement,
+		CategoryScale,
+	);
 
 	export let tasks: AnyTask[];
 
@@ -40,31 +50,40 @@
 	$: data = {
 		datasets: [
 			{
-				borderColor: '#10b981',
+				backgroundColor: '#a78bfa',
+				borderColor: '#7c3aed',
 				borderWidth: 1,
 				data: dataset[1],
-				fill: false,
-				label: `Tasks by ${intervalKey}`,
-				tension: 0.1,
+				fill: true,
+				tension: 0.3,
 			},
 		],
 		labels: dataset[0],
-		options: {
-			scales: {
-				x: {
-					time: {
-						unit: interval.toLowerCase(),
-					},
-					type: 'time',
-				},
+	};
+
+	$: options = {
+		elements: {
+			point: {
+				radius: interval === ReportIntervals.DAY ? 0 : 3,
+			},
+		},
+		plugins: {
+			legend: {
+				display: false,
 			},
 		},
 	};
 </script>
 
 <div>
-	<div class="flex justify-end">
-		<Select bind:value={interval} label="Interval" selectClass="w-40">
+	<div class="flex items-center justify-between">
+		<h2 class="text-base font-semibold leading-5 text-gray-600">Tasks by {intervalKey}</h2>
+		<Select
+			bind:value={interval}
+			class="flex w-40 items-center gap-2"
+			label="Interval"
+			selectClass="grow"
+		>
 			<span class="lowercase" slot="placeholder">
 				{intervalKey}
 			</span>
@@ -75,5 +94,5 @@
 			{/each}
 		</Select>
 	</div>
-	<Line {data} options={{ responsive: true }} />
+	<Line {data} {options} />
 </div>

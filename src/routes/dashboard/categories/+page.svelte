@@ -19,44 +19,47 @@
 </script>
 
 <div class="py-4">
-	<SignedIn let:user>
-		<TypedCollection
-			let:data={categories}
-			ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.CATEGORIES}`}
-			type={categoryType}
-		>
-			<div class="flex flex-col gap-5">
-				<div class="flex justify-end">
-					<Button
-						on:click={() => {
-							showForm = true;
-							editingCategory = buildEmptyCategory();
-						}}
-					>
-						Create Category
-					</Button>
-				</div>
-
-				<ul class="divide-y divide-gray-100" role="list">
-					{#each categories as category (category)}
-						<CategoryRow
-							{category}
-							on:edit={(e) => {
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<SignedIn let:user>
+			<TypedCollection
+				let:data={categories}
+				ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.CATEGORIES}`}
+				type={categoryType}
+			>
+				<div class="flex flex-col gap-5">
+					<div class="flex items-center justify-between">
+						<h1 class="text-lg font-semibold leading-7 text-gray-900">Categories</h1>
+						<Button
+							on:click={() => {
 								showForm = true;
-								editingCategory = e.detail;
+								editingCategory = buildEmptyCategory();
 							}}
-						/>
-					{/each}
-				</ul>
+						>
+							Create Category
+						</Button>
+					</div>
 
-				<Modal on:close={() => (showForm = false)} show={showForm}>
-					<CategoryForm
-						category={editingCategory}
-						on:close={() => (showForm = false)}
-						userId={user.uid}
-					/>
-				</Modal>
-			</div>
-		</TypedCollection>
-	</SignedIn>
+					<ul class="divide-y divide-gray-100" role="list">
+						{#each categories as category (category)}
+							<CategoryRow
+								{category}
+								on:edit={(e) => {
+									showForm = true;
+									editingCategory = e.detail;
+								}}
+							/>
+						{/each}
+					</ul>
+
+					<Modal on:close={() => (showForm = false)} show={showForm}>
+						<CategoryForm
+							category={editingCategory}
+							on:close={() => (showForm = false)}
+							userId={user.uid}
+						/>
+					</Modal>
+				</div>
+			</TypedCollection>
+		</SignedIn>
+	</div>
 </div>

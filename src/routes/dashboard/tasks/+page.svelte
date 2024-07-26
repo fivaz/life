@@ -9,7 +9,7 @@
 	import { auth, db } from '$lib/firebase';
 	import { buildEmptyToDo, buildToDoWithDeadline } from '$lib/task/build-utils';
 	import { type AnyTask, queryUncompletedTasks } from '$lib/task/utils';
-	import { BookOpenCheck } from '@steeze-ui/lucide-icons';
+	import { DocumentText } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { SignedIn, collectionStore, userStore } from 'sveltefire';
 
@@ -45,53 +45,58 @@
 </script>
 
 <div class="py-4">
-	<SignedIn let:user>
-		<TypedCollection
-			let:data={categories}
-			ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.CATEGORIES}`}
-			type={categoryType}
-		>
-			<div class="flex flex-col gap-5">
-				<div class="flex items-center justify-between">
-					<button
-						class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-						on:click={() => (showStats = true)}
-						type="button"
-					>
-						<Icon class="h-5 w-5" src={BookOpenCheck} />
-					</button>
-					<Button
-						on:click={() => {
-							showForm = true;
-							editingTask = buildEmptyToDo(categories);
-						}}
-					>
-						Create Task
-					</Button>
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<SignedIn let:user>
+			<TypedCollection
+				let:data={categories}
+				ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.CATEGORIES}`}
+				type={categoryType}
+			>
+				<div class="flex flex-col gap-5">
+					<div class="flex items-center justify-between">
+						<h1 class="text-lg font-semibold leading-7 text-gray-900">Tasks</h1>
+						<div class="flex items-center gap-2">
+							<button
+								class="rounded bg-white p-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+								on:click={() => (showStats = true)}
+								type="button"
+							>
+								<Icon class="h-5 w-5" src={DocumentText} />
+							</button>
+							<Button
+								on:click={() => {
+									showForm = true;
+									editingTask = buildEmptyToDo(categories);
+								}}
+							>
+								Create Task
+							</Button>
+						</div>
+					</div>
+
+					<ul class="flex flex-col gap-3">
+						{#each sortedTasks as date (date)}
+							<TaskList
+								label={date}
+								on:create={(e) => {
+									showForm = true;
+									editingTask = buildToDoWithDeadline(categories, e.detail);
+								}}
+								on:edit={(e) => {
+									showForm = true;
+									editingTask = e.detail;
+								}}
+								tasks={sortedTasks[date]}
+								userId={user.uid}
+							/>
+						{/each}
+					</ul>
+
+					<TaskFormWrapper bind:show={showForm} {categories} {editingTask} userId={user.uid} />
 				</div>
-
-				<ul class="flex flex-col gap-3">
-					{#each sortedTasks as date (date)}
-						<TaskList
-							label={date}
-							on:create={(e) => {
-								showForm = true;
-								editingTask = buildToDoWithDeadline(categories, e.detail);
-							}}
-							on:edit={(e) => {
-								showForm = true;
-								editingTask = e.detail;
-							}}
-							tasks={sortedTasks[date]}
-							userId={user.uid}
-						/>
-					{/each}
-				</ul>
-
-				<TaskFormWrapper bind:show={showForm} {categories} {editingTask} userId={user.uid} />
-			</div>
-		</TypedCollection>
-	</SignedIn>
+			</TypedCollection>
+		</SignedIn>
+	</div>
 </div>
 
 <Modal on:close={() => (showStats = false)} show={showStats}>

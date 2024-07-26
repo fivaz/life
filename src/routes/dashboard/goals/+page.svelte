@@ -36,72 +36,75 @@
 </script>
 
 <div class="py-4">
-	<SignedIn let:user>
-		<TypedCollection
-			let:data={categories}
-			ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.CATEGORIES}`}
-			type={categoryType}
-		>
-			<div class="flex flex-col gap-5">
-				<div class="flex justify-end">
-					<Button
-						on:click={() => {
-							showForm = true;
-							editingGoal = buildEmptyGoal();
-						}}
-					>
-						Create Goal
-					</Button>
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<SignedIn let:user>
+			<TypedCollection
+				let:data={categories}
+				ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.CATEGORIES}`}
+				type={categoryType}
+			>
+				<div class="flex flex-col gap-5">
+					<div class="flex items-center justify-between">
+						<h1 class="text-lg font-semibold leading-7 text-gray-900">Goals</h1>
+						<Button
+							on:click={() => {
+								showForm = true;
+								editingGoal = buildEmptyGoal();
+							}}
+						>
+							Create Goal
+						</Button>
+					</div>
+
+					<ul class="divide-y divide-gray-100" role="list">
+						<TypedCollection
+							let:data={goals}
+							ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.GOALS}`}
+							type={goalType}
+						>
+							{@const goalsByDate = sortGoalsByDate(goals)}
+
+							{#each goalsByDate as date (date)}
+								<div class="flex justify-between p-2 font-semibold">{date}</div>
+								<div class="flex flex-col gap-3">
+									{#each goalsByDate[date] as goal (goal)}
+										<TypedCollection
+											let:data={tasks}
+											ref="{DbPaTH.USERS}/{user.uid}/{DbPaTH.GOALS}/{goal.id}/{DbPaTH.TASKS}"
+											type={taskType}
+										>
+											<GoalRow
+												{goal}
+												on:addTask={() => {
+													showTaskForm = true;
+													editingTask = buildEmptyEvent(categories, goal);
+												}}
+												on:editGoal={(e) => handleEditGoal(e.detail)}
+												on:editTask={(e) => {
+													showTaskForm = true;
+													editingTask = e.detail;
+												}}
+												{tasks}
+											/>
+										</TypedCollection>
+									{/each}
+								</div>
+							{/each}
+							<TaskFormWrapper
+								bind:show={showTaskForm}
+								{categories}
+								{editingTask}
+								{goals}
+								userId={user.uid}
+							/>
+						</TypedCollection>
+					</ul>
+
+					<Modal on:close={() => (showForm = false)} show={showForm}>
+						<GoalForm goal={editingGoal} on:close={() => (showForm = false)} userId={user.uid} />
+					</Modal>
 				</div>
-
-				<ul class="divide-y divide-gray-100" role="list">
-					<TypedCollection
-						let:data={goals}
-						ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.GOALS}`}
-						type={goalType}
-					>
-						{@const goalsByDate = sortGoalsByDate(goals)}
-
-						{#each goalsByDate as date (date)}
-							<div class="flex justify-between p-2 font-semibold">{date}</div>
-							<div class="flex flex-col gap-3">
-								{#each goalsByDate[date] as goal (goal)}
-									<TypedCollection
-										let:data={tasks}
-										ref="{DbPaTH.USERS}/{user.uid}/{DbPaTH.GOALS}/{goal.id}/{DbPaTH.TASKS}"
-										type={taskType}
-									>
-										<GoalRow
-											{goal}
-											on:addTask={() => {
-												showTaskForm = true;
-												editingTask = buildEmptyEvent(categories, goal);
-											}}
-											on:editGoal={(e) => handleEditGoal(e.detail)}
-											on:editTask={(e) => {
-												showTaskForm = true;
-												editingTask = e.detail;
-											}}
-											{tasks}
-										/>
-									</TypedCollection>
-								{/each}
-							</div>
-						{/each}
-						<TaskFormWrapper
-							bind:show={showTaskForm}
-							{categories}
-							{editingTask}
-							{goals}
-							userId={user.uid}
-						/>
-					</TypedCollection>
-				</ul>
-
-				<Modal on:close={() => (showForm = false)} show={showForm}>
-					<GoalForm goal={editingGoal} on:close={() => (showForm = false)} userId={user.uid} />
-				</Modal>
-			</div>
-		</TypedCollection>
-	</SignedIn>
+			</TypedCollection>
+		</SignedIn>
+	</div>
 </div>
