@@ -1,6 +1,7 @@
 import type { Category } from '$lib/category/utils';
 import type { Goal } from '$lib/goal/utils';
 
+import { DbPaTH } from '$lib/consts';
 import { db } from '$lib/firebase';
 import { convertTimeToMinutes, getTaskDateTime } from '$lib/task/time-utils';
 import { type Query, collection, query, where } from 'firebase/firestore';
@@ -73,6 +74,6 @@ export function isToDo(task: AnyTask | Omit<AnyTask, 'id'>): task is ToDo {
 }
 
 export function queryUncompletedTasks(userId: string) {
-	const tasksRef = collection(db, `users/${userId}/tasks`);
+	const tasksRef = collection(db, `${DbPaTH.USERS}/${userId}/${DbPaTH.TASKS}`);
 	return query(tasksRef, where('isDone', '==', false)) as Query<AnyTask>;
 }

@@ -1,4 +1,4 @@
-import { DATE } from '$lib/consts';
+import { DATE, DbPaTH } from '$lib/consts';
 import { db } from '$lib/firebase';
 import { type AnyTask } from '$lib/task/utils';
 import { parse } from 'date-fns';
@@ -13,7 +13,7 @@ export type Goal = {
 };
 
 export function queryUncompletedGoals(userId: string) {
-	const goalsRef = collection(db, `users/${userId}/goals`);
+	const goalsRef = collection(db, `${DbPaTH.USERS}/${userId}/goals`);
 	return query(goalsRef, where('isDone', '==', false)) as Query<Goal>;
 }
 

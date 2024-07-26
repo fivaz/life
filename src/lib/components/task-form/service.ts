@@ -2,7 +2,7 @@ import type { Goal } from '$lib/goal/utils';
 import type { AnyTask, RecurringEvent } from '$lib/task/utils';
 
 import { createModal } from '$lib/components/dialog/service';
-import { TIME } from '$lib/consts';
+import { DbPaTH, TIME } from '$lib/consts';
 import { db, storage } from '$lib/firebase';
 import { isRecurring } from '$lib/task/utils';
 import { add, differenceInMinutes, format, isSameDay } from 'date-fns';
@@ -149,14 +149,14 @@ function updateTaskInGoal(
 	taskRef: DocumentReference,
 	taskData: Omit<AnyTask, 'id'> & { goal: Goal },
 ) {
-	const goalDocRef = doc(db, 'users', userId, 'goals', taskData.goal.id);
-	const goalTaskDocRef = doc(goalDocRef, 'tasks', taskRef.id);
+	const goalDocRef = doc(db, DbPaTH.USERS, userId, DbPaTH.GOALS, taskData.goal.id);
+	const goalTaskDocRef = doc(goalDocRef, DbPaTH.TASKS, taskRef.id);
 	void setDoc(goalTaskDocRef, taskData);
 }
 
 function removeTaskFromGoal(userId: string, taskRef: DocumentReference, goal: Goal) {
-	const goalDocRef = doc(db, 'users', userId, 'goals', goal.id);
-	const goalTaskDocRef = doc(goalDocRef, 'tasks', taskRef.id);
+	const goalDocRef = doc(db, DbPaTH.USERS, userId, DbPaTH.GOALS, goal.id);
+	const goalTaskDocRef = doc(goalDocRef, DbPaTH.TASKS, taskRef.id);
 
 	void deleteDoc(goalTaskDocRef);
 }
@@ -168,7 +168,7 @@ export async function editTask(
 	formerGoal: Goal | null,
 	file: File | null,
 ) {
-	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
+	const taskDocRef = doc(db, DbPaTH.USERS, userId, DbPaTH.TASKS, id);
 	void setDoc(taskDocRef, data);
 
 	if (file) {
@@ -182,20 +182,20 @@ export async function editTask(
 
 function addTaskToGoal(userId: string, data: Omit<AnyTask, 'id'>, id: string) {
 	if (data.goal) {
-		const goalDocRef = doc(db, 'users', userId, 'goals', data.goal.id);
-		const goalTaskCollectionRef = doc(goalDocRef, 'tasks', id);
+		const goalDocRef = doc(db, DbPaTH.USERS, userId, 'goals', data.goal.id);
+		const goalTaskCollectionRef = doc(goalDocRef, DbPaTH.TASKS, id);
 		void setDoc(goalTaskCollectionRef, data);
 	}
 }
 
 export async function storeImage(userId: string, taskId: string, file: Blob): Promise<string> {
-	const avatarsRef = ref(storage, `users/${userId}/tasks/${taskId}`);
+	const avatarsRef = ref(storage, `${DbPaTH.USERS}/${userId}/tasks/${taskId}`);
 	await uploadBytes(avatarsRef, file);
 	return await getDownloadURL(avatarsRef);
 }
 
 export async function addTask(data: Omit<AnyTask, 'id'>, userId: string, file?: File | null) {
-	const newTaskRef = doc(collection(db, 'users', userId, 'tasks'));
+	const newTaskRef = doc(collection(db, DbPaTH.USERS, userId, DbPaTH.TASKS));
 
 	void setDoc(newTaskRef, data);
 
@@ -211,7 +211,7 @@ export async function addTask(data: Omit<AnyTask, 'id'>, userId: string, file?: 
 }
 
 function deleteTask(id: string, data: Omit<AnyTask, 'id'>, userId: string) {
-	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
+	const taskDocRef = doc(db, DbPaTH.USERS, userId, DbPaTH.TASKS, id);
 	void deleteDoc(taskDocRef);
 
 	if (data.goal) {
@@ -227,7 +227,7 @@ function addExceptionToRecurring(
 ) {
 	const exceptions = [...task.recurringExceptions, date];
 
-	const taskDocRef = doc(db, 'users', userId, 'tasks', id);
+	const taskDocRef = doc(db, DbPaTH.USERS, userId, DbPaTH.TASKS, id);
 	void updateDoc(taskDocRef, { recurringExceptions: exceptions });
 }
 
