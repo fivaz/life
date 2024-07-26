@@ -23,8 +23,10 @@ export type UncompletedTasksByDate = {
 export const ReportIntervals: Record<string, string> = {
 	// 1 - DAY
 	DAY: 'yyyy-MM-dd',
+
 	// 2 - WEEK
 	WEEK: "yyyy-'W'II",
+
 	// 3 - REST
 	MONTH: 'yyyy-MM',
 	QUARTER: "yyyy-'Q'Q",

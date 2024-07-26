@@ -1,11 +1,9 @@
 <script lang="ts">
 	import type { AnyTask } from '$lib/task/utils.js';
 
-	import { categories } from '$lib/category/seed';
 	import Select from '$lib/components/select/Select.svelte';
 	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
 	import { DATE } from '$lib/consts.js';
-	import { getTaskDateTime } from '$lib/task/time-utils.js';
 	import {
 		CategoryScale,
 		Chart as ChartJS,
@@ -16,14 +14,11 @@
 		Title,
 		Tooltip,
 	} from 'chart.js';
-	import { eachDayOfInterval, format, isBefore, isEqual, parse, parseISO, subDays } from 'date-fns';
-	import { report } from 'eslint-plugin-sonarjs/lib/src/utils/locations';
 	import { Line } from 'svelte-chartjs';
 
 	import {
 		type ReportInterval,
 		ReportIntervals,
-		type UncompletedTasksByDate,
 		getDayBeforeFirstDay,
 		getUncompletedTasksByDate,
 	} from './service';

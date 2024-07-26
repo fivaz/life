@@ -2,7 +2,7 @@ export const CategoryTypes = {
 	FUN: 'fun',
 	SLEEP: 'sleep',
 	WORK: 'work',
-} as const;
+};
 
 export type CategoryType = (typeof CategoryTypes)[keyof typeof CategoryTypes];
 

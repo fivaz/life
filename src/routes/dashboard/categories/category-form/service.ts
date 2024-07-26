@@ -1,7 +1,7 @@
-import type { Category, GroupType } from '$lib/category/utils';
 import type { EventDispatcher } from 'svelte';
 
-import { tailwindColors, types } from '$lib/category/utils';
+import { type Category, type CategoryType, CategoryTypes } from '$lib/category/utils';
+import { tailwindColors } from '$lib/category/utils';
 import { db } from '$lib/firebase';
 import {
 	addDoc,
@@ -21,7 +21,7 @@ export function buildEmptyCategory() {
 		id: '',
 		isDefault: false,
 		name: '',
-		type: types[0] as GroupType,
+		type: Object.values(CategoryTypes)[0] as CategoryType,
 	};
 }
 
