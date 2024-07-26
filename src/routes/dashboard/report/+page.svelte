@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { CategoryTypes } from '$lib/category/utils';
+	import { DbPaTH } from '$lib/consts';
 	import { auth, db } from '$lib/firebase';
 	import { type AnyTask } from '$lib/task/utils';
 	import { type Query, collection, query, where } from 'firebase/firestore';
@@ -19,7 +20,7 @@
 			tasksStore = collectionStore<AnyTask>(
 				db,
 				query(
-					collection(db, `users/${$user.uid}/tasks`),
+					collection(db, `${DbPaTH.USERS}/${$user.uid}/${DbPaTH.TASKS}`),
 					where('category.type', '==', CategoryTypes.WORK),
 				) as Query<AnyTask>,
 			);

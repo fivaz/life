@@ -5,32 +5,30 @@ export const DATE_FR = 'dd.MM.yyyy';
 export const DATE_FR_SHORT = 'dd.MM';
 export const DATETIME = 'yyyy-MM-dd HH:mm';
 
-export const loginRoute = '/login';
-export const registerRoute = '/register';
-
-export const rootRoute = '/';
 export const dashboardRoute = '/dashboard';
 
-export const profileRoute = `${dashboardRoute}/profile`;
-export const homeRoute = `${dashboardRoute}/home`;
-export const categoriesRoute = `${dashboardRoute}/categories`;
-export const tasksRoute = `${dashboardRoute}/tasks`;
-export const goalsRoute = `${dashboardRoute}/goals`;
-export const reportRoute = `${dashboardRoute}/report`;
+export const Routes = {
+	CATEGORIES: `${dashboardRoute}/categories`,
+	GOALS: `${dashboardRoute}/goals`,
+	HOME: `${dashboardRoute}/home`,
+	LOGIN: '/login',
+	PROFILE: `${dashboardRoute}/profile`,
+	REGISTER: '/register',
+	REPORT: `${dashboardRoute}/report`,
+	ROOT: '/',
+	TASKS: `${dashboardRoute}/DbPaTH.TASKS`,
+};
+
+// firebase paths
+export const DbPaTH = {
+	AVATARS: 'avatars',
+	CATEGORIES: 'categories',
+	GOALS: 'goals',
+	TASKS: 'tasks',
+	USERS: 'users',
+};
 
 export const demoLogin = {
 	email: 'demo@demo.com',
 	password: '123456',
 };
-
-// TODO use const like DateFormats
-export const routes = [
-	rootRoute,
-	loginRoute,
-	registerRoute,
-	homeRoute,
-	categoriesRoute,
-	tasksRoute,
-	goalsRoute,
-	profileRoute,
-];

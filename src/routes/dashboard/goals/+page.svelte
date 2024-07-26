@@ -7,6 +7,7 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
+	import { DbPaTH } from '$lib/consts';
 	import { buildEmptyEvent, buildEmptyToDo } from '$lib/task/build-utils';
 	import { SignedIn } from 'sveltefire';
 
@@ -36,7 +37,11 @@
 
 <div class="py-4">
 	<SignedIn let:user>
-		<TypedCollection let:data={categories} ref={`users/${user.uid}/categories`} type={categoryType}>
+		<TypedCollection
+			let:data={categories}
+			ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.CATEGORIES}`}
+			type={categoryType}
+		>
 			<div class="flex flex-col gap-5">
 				<div class="flex justify-end">
 					<Button
@@ -50,7 +55,11 @@
 				</div>
 
 				<ul class="divide-y divide-gray-100" role="list">
-					<TypedCollection let:data={goals} ref={`users/${user.uid}/goals`} type={goalType}>
+					<TypedCollection
+						let:data={goals}
+						ref={`${DbPaTH.USERS}/${user.uid}/goals`}
+						type={goalType}
+					>
 						{@const goalsByDate = sortGoalsByDate(goals)}
 
 						{#each goalsByDate as date (date)}
@@ -59,7 +68,7 @@
 								{#each goalsByDate[date] as goal (goal)}
 									<TypedCollection
 										let:data={tasks}
-										ref="users/{user.uid}/goals/{goal.id}/tasks"
+										ref="${DbPaTH.USERS}/{user.uid}/${DbPaTH.GOALS}/{goal.id}/${DbPaTH.TASKS}"
 										type={taskType}
 									>
 										<GoalRow

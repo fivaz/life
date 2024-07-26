@@ -7,6 +7,7 @@
 	import { editPossibleSingleRecurringEvent, editTask } from '$lib/components/task-form/service';
 	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
+	import { DbPaTH } from '$lib/consts';
 	import { buildEmptyEvent, buildEventWithTime } from '$lib/task/build-utils';
 	import { SignedIn } from 'sveltefire';
 
@@ -68,8 +69,16 @@
 </script>
 
 <SignedIn let:user>
-	<TypedCollection let:data={categories} ref={`users/${user.uid}/categories`} type={categoryType}>
-		<TypedCollection let:data={tasks} ref={`users/${user.uid}/tasks`} type={taskType}>
+	<TypedCollection
+		let:data={categories}
+		ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.CATEGORIES}`}
+		type={categoryType}
+	>
+		<TypedCollection
+			let:data={tasks}
+			ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.TASKS}`}
+			type={taskType}
+		>
 			<Calendar
 				on:createTask={(e) => openFormToCreateTask(categories, e.detail)}
 				on:editTask={(e) => openFormToEditTask(e.detail.task, e.detail.targetDate)}

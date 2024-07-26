@@ -3,6 +3,7 @@
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import Input from '$lib/components/input/Input.svelte';
+	import { DbPaTH } from '$lib/consts';
 	import { db } from '$lib/firebase';
 	import { storeAvatar } from '$lib/user-utils';
 	import { type Auth, updateProfile } from 'firebase/auth';
@@ -34,7 +35,7 @@
 		photoURL: null | string,
 	) {
 		await updateProfile(user, { displayName, photoURL });
-		const userRef = doc(db, 'users', user.uid);
+		const userRef = doc(db, DbPaTH.USERS, user.uid);
 		await updateDoc(userRef, { displayName, photoURL });
 
 		updateUser(displayName, photoURL);

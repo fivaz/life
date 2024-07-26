@@ -4,6 +4,7 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
+	import { DbPaTH } from '$lib/consts';
 	import { SignedIn } from 'sveltefire';
 
 	import CategoryForm from './category-form/CategoryForm.svelte';
@@ -19,7 +20,11 @@
 
 <div class="py-4">
 	<SignedIn let:user>
-		<TypedCollection let:data={categories} ref={`users/${user.uid}/categories`} type={categoryType}>
+		<TypedCollection
+			let:data={categories}
+			ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.CATEGORIES}`}
+			type={categoryType}
+		>
 			<div class="flex flex-col gap-5">
 				<div class="flex justify-end">
 					<Button

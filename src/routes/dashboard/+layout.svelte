@@ -4,7 +4,7 @@
 	import Dashboard from '$lib/components/dashboard/Dashboard.svelte';
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
 	import { modal } from '$lib/components/dialog/service';
-	import { dashboardRoute, loginRoute } from '$lib/consts';
+	import { Routes, dashboardRoute } from '$lib/consts';
 	import { auth } from '$lib/firebase';
 	import { onAuthStateChanged } from 'firebase/auth';
 	import { onMount } from 'svelte';
@@ -12,7 +12,7 @@
 	onMount(() => {
 		onAuthStateChanged(auth, (user) => {
 			if (!user && $page.url.pathname.startsWith(dashboardRoute)) {
-				goto(loginRoute);
+				goto(Routes.LOGIN);
 			}
 		});
 	});
