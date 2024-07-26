@@ -3,7 +3,7 @@
 
 	import { DATE } from '$lib/consts';
 	import { getTotalDuration } from '$lib/task/time-utils';
-	import { getDuration, isToDo } from '$lib/task/utils';
+	import { isToDo } from '$lib/task/utils';
 	import { CalendarClock, CalendarDays } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
@@ -82,7 +82,7 @@
 				{#if task.goal?.icon}
 					<GoalIcon class="h-4 w-8 pr-3 text-gray-400" name={task.goal.icon} />
 				{/if}
-				<div class="w-12">{getDuration(task)}</div>
+				<div class="w-12">{task.duration}</div>
 				<div class="w-16">
 					<div
 						class={clsx(

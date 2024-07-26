@@ -26,7 +26,7 @@
 
 	export let tasks: AnyTask[];
 
-	let interval: ReportInterval = ReportIntervals.QUARTER;
+	let interval: ReportInterval = ReportIntervals.DAY;
 
 	$: uncompletedTasksByDate = getUncompletedTasksByDate(tasks, interval);
 

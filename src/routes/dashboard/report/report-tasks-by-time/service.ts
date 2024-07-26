@@ -1,7 +1,6 @@
-import type { AnyTask } from '$lib/task/utils';
-
 import { DATE } from '$lib/consts';
 import { getTaskDateTime } from '$lib/task/time-utils';
+import { type AnyTask, sortTasks } from '$lib/task/utils';
 import {
 	eachDayOfInterval,
 	eachMonthOfInterval,
@@ -54,6 +53,19 @@ function getDatesInRange(interval: ReportInterval, startDate: Date, endDate: Dat
 	}
 }
 
+function getStartAt(tasks: AnyTask[]) {
+	const tasksSortedByCreatedAt = tasks.sort(
+		(a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+	);
+
+	return new Date(tasksSortedByCreatedAt[0].createdAt);
+}
+
+function getEndAt(tasks: AnyTask[]) {
+	const sortedTasks = sortTasks(tasks);
+	return getTaskDateTime(sortedTasks[sortedTasks.length - 1]);
+}
+
 export function getUncompletedTasksByDate(
 	tasks: AnyTask[],
 	interval: ReportInterval,
@@ -67,9 +79,15 @@ export function getUncompletedTasksByDate(
 		},
 	};
 
-	tasks.forEach((task) => {
+	if (!tasks.length) {
+		return { ...uncompletedTasksByDate, [format(new Date(), DATE)]: 0 };
+	}
+
+	const listEndAt = getEndAt(tasks);
+
+	tasks.forEach((task, index) => {
 		const createdAt = parseISO(task.createdAt);
-		const endAt = task.isDone ? getTaskDateTime(task) : new Date();
+		const endAt = task.isDone ? getTaskDateTime(task) : listEndAt;
 
 		const dateRange = getDatesInRange(interval, createdAt, endAt);
 

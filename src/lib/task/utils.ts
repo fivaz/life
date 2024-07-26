@@ -43,21 +43,13 @@ export type AnyEvent = Event | RecurringEvent;
 export type AnyTask = AnyEvent | ToDo;
 
 export function getDurationInMinutes(task: AnyTask) {
-	return convertTimeToMinutes(getDuration(task));
-}
-
-export function getDuration(task: AnyTask) {
-	// TODO add duration through batch later
-	// this need to be done because there might be a task without duration in the db
-	if ('duration' in task && task.duration) {
-		return task.duration;
-	}
-	return '00:00';
+	return convertTimeToMinutes(task.duration);
 }
 
 export function sortTasks(tasks: AnyTask[]) {
 	return tasks.sort((a, b) => {
 		const dateA = getTaskDateTime(a);
+
 		const dateB = getTaskDateTime(b);
 
 		if (!dateA) {
