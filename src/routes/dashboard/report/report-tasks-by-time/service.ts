@@ -17,6 +17,7 @@ import {
 } from 'date-fns';
 
 export type UncompletedTasksByDate = {
+	[Symbol.iterator](): IterableIterator<[string, number]>;
 	[key: string]: number;
 };
 
@@ -57,7 +58,14 @@ export function getUncompletedTasksByDate(
 	tasks: AnyTask[],
 	interval: ReportInterval,
 ): UncompletedTasksByDate {
-	const uncompletedTasksByDate: UncompletedTasksByDate = {};
+	const uncompletedTasksByDate: UncompletedTasksByDate = {
+		[Symbol.iterator]() {
+			const entries = Object.entries(this)
+				.filter(([key]) => key !== Symbol.iterator.toString())
+				.sort(([a], [b]) => a.localeCompare(b));
+			return entries[Symbol.iterator]();
+		},
+	};
 
 	tasks.forEach((task) => {
 		const createdAt = parseISO(task.createdAt);
@@ -82,11 +90,24 @@ export function getUncompletedTasksByDate(
 	return uncompletedTasksByDate;
 }
 
-export function getDayBeforeFirstDay(uncompletedTasksByDate: UncompletedTasksByDate) {
-	const dates = Object.keys(uncompletedTasksByDate);
-	if (!dates.length) {
-		return '';
+export function getDataSet(
+	uncompletedTasksByDate: UncompletedTasksByDate,
+): [labels: string[], values: number[]] {
+	const labels = [];
+	const values = [];
+
+	for (const [date, value] of uncompletedTasksByDate) {
+		labels.push(date);
+		values.push(value);
 	}
-	const firstDayDate = parse(dates[0], DATE, new Date());
-	return format(subDays(firstDayDate, 1), DATE);
+
+	//add initial values
+	if (labels.length) {
+		const firstDayDate = parse(labels[0], DATE, new Date());
+		const beforeFirstDateString = format(subDays(firstDayDate, 1), DATE);
+		labels.unshift(beforeFirstDateString);
+		values.unshift(0);
+	}
+
+	return [labels, values];
 }
