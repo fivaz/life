@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { loginRoute, profileRoute } from '$lib/consts';
+	import { Routes } from '$lib/consts';
 	import { auth } from '$lib/firebase';
 	import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@rgossiaux/svelte-headlessui';
 	import { clsx } from 'clsx';
@@ -28,7 +28,7 @@
 						active ? 'bg-gray-50' : '',
 						'block px-3 py-1 text-sm leading-6 text-gray-900',
 					)}
-					href={profileRoute}
+					href={Routes.PROFILE}
 				>
 					Profile
 				</a>
@@ -41,7 +41,7 @@
 					)}
 					on:click={async () => {
 						await signOut(auth);
-						void goto(loginRoute);
+						void goto(Routes.LOGIN);
 					}}
 				>
 					Sign out

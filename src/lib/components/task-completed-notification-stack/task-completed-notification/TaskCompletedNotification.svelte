@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { AnyTask } from '$lib/task/utils';
 
+	import { DbPaTH } from '$lib/consts';
 	import { db } from '$lib/firebase';
 	import { type Goal, getCompletedTasks } from '$lib/goal/utils';
 	import { CheckCircle, XMark } from '@steeze-ui/heroicons';

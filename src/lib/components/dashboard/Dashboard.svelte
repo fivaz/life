@@ -5,14 +5,7 @@
 	import Banner from '$lib/components/banner/Banner.svelte';
 	import ProfileDropDown from '$lib/components/dashboard/profile-drop-down/ProfileDropDown.svelte';
 	import ProfileDropUp from '$lib/components/dashboard/profile-drop-up/ProfileDropUp.svelte';
-	import {
-		categoriesRoute,
-		demoLogin,
-		goalsRoute,
-		homeRoute,
-		reportRoute,
-		tasksRoute,
-	} from '$lib/consts';
+	import { Routes, demoLogin } from '$lib/consts';
 	import { auth } from '$lib/firebase';
 	import { Dialog, TransitionChild, TransitionRoot } from '@rgossiaux/svelte-headlessui';
 	import { Bars3, XMark } from '@steeze-ui/heroicons';
@@ -23,11 +16,11 @@
 	import { onMount } from 'svelte';
 
 	const navigation = [
-		{ href: homeRoute, icon: CalendarDays, name: 'Calendar' },
-		{ href: categoriesRoute, icon: Tags, name: 'Categories' },
-		{ href: tasksRoute, icon: ListChecks, name: 'Tasks' },
-		{ href: goalsRoute, icon: Goal, name: 'Goals' },
-		{ href: reportRoute, icon: CandlestickChart, name: 'Report' },
+		{ href: Routes.HOME, icon: CalendarDays, name: 'Calendar' },
+		{ href: Routes.CATEGORIES, icon: Tags, name: 'Categories' },
+		{ href: Routes.TASKS, icon: ListChecks, name: 'Tasks' },
+		{ href: Routes.GOALS, icon: Goal, name: 'Goals' },
+		{ href: Routes.REPORT, icon: CandlestickChart, name: 'Report' },
 	];
 
 	let sidebarOpen = false;
