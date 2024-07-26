@@ -23,6 +23,7 @@ export const demoLogin = {
 	password: '123456',
 };
 
+// TODO use const like DateFormats
 export const routes = [
 	rootRoute,
 	loginRoute,

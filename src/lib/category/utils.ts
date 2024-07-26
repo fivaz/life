@@ -1,11 +1,17 @@
-export type GroupType = (typeof types)[number];
+export const CategoryTypes = {
+	FUN: 'fun',
+	SLEEP: 'sleep',
+	WORK: 'work',
+} as const;
+
+export type CategoryType = (typeof CategoryTypes)[keyof typeof CategoryTypes];
 
 export type Category = {
 	color: string;
 	id: string;
 	isDefault: boolean;
 	name: string;
-	type: GroupType;
+	type: CategoryType;
 };
 
 export type TailwindColor = {
@@ -74,5 +80,3 @@ export const tailwindColors: Record<string, TailwindColor> = {
 		text: 'text-yellow-700',
 	},
 };
-
-export const types = ['sleep', 'work', 'fun'] as const;
