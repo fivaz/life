@@ -15,4 +15,4 @@
 	<GoalForm {...args} goal={buildEmptyGoal()} on:close={() => console.log('closed')} userId="0" />
 </Template>
 
-<Story name="Primary" />
+<Story args={{}} name="Primary" />

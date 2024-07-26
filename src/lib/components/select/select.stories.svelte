@@ -25,6 +25,6 @@
 	</div>
 </Template>
 
-<Story name="With Label" />
+<Story args={{}} name="With Label" />
 
 <Story args={{ label: 'Label' }} name="Without Label" />

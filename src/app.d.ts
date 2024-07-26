@@ -15,3 +15,11 @@ declare global {
 }
 
 export {};
+
+import '@storybook/addon-svelte-csf';
+
+declare module '@storybook/addon-svelte-csf' {
+	interface StoryProps {
+		args: Record<string, unknown>;
+	}
+}

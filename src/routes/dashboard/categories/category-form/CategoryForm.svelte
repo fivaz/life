@@ -1,7 +1,6 @@
 <script lang="ts">
-	import type { Category } from '$lib/category/utils';
-
-	import { tailwindColors, types } from '$lib/category/utils';
+	import { type Category, CategoryTypes } from '$lib/category/utils';
+	import { tailwindColors } from '$lib/category/utils';
 	import Alert from '$lib/components/alert/Alert.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import ConfirmButton from '$lib/components/confirm-button/ConfirmButton.svelte';
@@ -110,8 +109,10 @@
 			>
 				<div class="flex items-center gap-5" slot="placeholder">{$data.type}</div>
 
-				{#each types as type (type)}
-					<SelectItem class="flex items-center gap-5" value={type}>{type}</SelectItem>
+				{#each Object.values(CategoryTypes) as categoryType (categoryType)}
+					<SelectItem class="flex items-center gap-5" value={categoryType}>
+						{categoryType}
+					</SelectItem>
 				{/each}
 			</Select>
 

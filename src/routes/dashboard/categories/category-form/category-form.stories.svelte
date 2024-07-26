@@ -20,4 +20,4 @@
 	/>
 </Template>
 
-<Story name="Primary" />
+<Story args={{}} name="Primary" />
