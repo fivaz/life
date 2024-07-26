@@ -68,7 +68,7 @@
 								{#each goalsByDate[date] as goal (goal)}
 									<TypedCollection
 										let:data={tasks}
-										ref="${DbPaTH.USERS}/{user.uid}/${DbPaTH.GOALS}/{goal.id}/${DbPaTH.TASKS}"
+										ref="{DbPaTH.USERS}/{user.uid}/{DbPaTH.GOALS}/{goal.id}/{DbPaTH.TASKS}"
 										type={taskType}
 									>
 										<GoalRow

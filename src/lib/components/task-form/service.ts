@@ -189,7 +189,7 @@ function addTaskToGoal(userId: string, data: Omit<AnyTask, 'id'>, id: string) {
 }
 
 export async function storeImage(userId: string, taskId: string, file: Blob): Promise<string> {
-	const avatarsRef = ref(storage, `${DbPaTH.USERS}/${userId}/tasks/${taskId}`);
+	const avatarsRef = ref(storage, `${DbPaTH.USERS}/${userId}/${DbPaTH.TASKS}/${taskId}`);
 	await uploadBytes(avatarsRef, file);
 	return await getDownloadURL(avatarsRef);
 }

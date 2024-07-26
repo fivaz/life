@@ -16,7 +16,7 @@ export const Routes = {
 	REGISTER: '/register',
 	REPORT: `${dashboardRoute}/report`,
 	ROOT: '/',
-	TASKS: `${dashboardRoute}/DbPaTH.TASKS`,
+	TASKS: `${dashboardRoute}/tasks`,
 };
 
 // firebase paths

@@ -71,12 +71,12 @@
 <SignedIn let:user>
 	<TypedCollection
 		let:data={categories}
-		ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.CATEGORIES}`}
+		ref="{DbPaTH.USERS}/{user.uid}/{DbPaTH.CATEGORIES}"
 		type={categoryType}
 	>
 		<TypedCollection
 			let:data={tasks}
-			ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.TASKS}`}
+			ref="{DbPaTH.USERS}/{user.uid}/{DbPaTH.TASKS}"
 			type={taskType}
 		>
 			<Calendar
