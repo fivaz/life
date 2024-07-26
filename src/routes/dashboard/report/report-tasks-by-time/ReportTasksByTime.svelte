@@ -28,21 +28,37 @@
 
 	let interval: ReportInterval = ReportIntervals.DAY;
 
+	$: intervalKey =
+		Object.keys(ReportIntervals)
+			.find((key) => ReportIntervals[key] === interval)
+			?.toLowerCase() || 'day';
+
 	$: uncompletedTasksByDate = getUncompletedTasksByDate(tasks, interval);
 
-	$: dataset = getDataSet(uncompletedTasksByDate);
+	$: dataset = getDataSet(uncompletedTasksByDate, interval);
 
 	$: data = {
 		datasets: [
 			{
 				borderColor: '#10b981',
+				borderWidth: 1,
 				data: dataset[1],
 				fill: false,
-				label: 'Tasks by time',
+				label: `Tasks by ${intervalKey}`,
 				tension: 0.1,
 			},
 		],
 		labels: dataset[0],
+		options: {
+			scales: {
+				x: {
+					time: {
+						unit: interval.toLowerCase(),
+					},
+					type: 'time',
+				},
+			},
+		},
 	};
 </script>
 
@@ -50,8 +66,7 @@
 	<div class="flex justify-end">
 		<Select bind:value={interval} label="Interval" selectClass="w-40">
 			<span class="lowercase" slot="placeholder">
-				{Object.keys(ReportIntervals).find((key) => ReportIntervals[key] === interval) ||
-					ReportIntervals.DAY}
+				{intervalKey}
 			</span>
 			{#each Object.keys(ReportIntervals) as reportIntervalKey (reportIntervalKey)}
 				<SelectItem class="lowercase" value={ReportIntervals[reportIntervalKey]}>

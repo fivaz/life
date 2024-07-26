@@ -13,6 +13,10 @@ import {
 	parse,
 	parseISO,
 	subDays,
+	subMonths,
+	subQuarters,
+	subWeeks,
+	subYears,
 } from 'date-fns';
 
 export type UncompletedTasksByDate = {
@@ -22,14 +26,14 @@ export type UncompletedTasksByDate = {
 
 export const ReportIntervals: Record<string, string> = {
 	// 1 - DAY
-	DAY: 'yyyy-MM-dd',
+	DAY: 'dd.MM.yy',
 
 	// 2 - WEEK
-	WEEK: "yyyy-'W'II",
+	WEEK: "YY-'W'w",
 
 	// 3 - REST
-	MONTH: 'yyyy-MM',
-	QUARTER: "yyyy-'Q'Q",
+	MONTH: 'MMM yy',
+	QUARTER: "'Q'Q yy",
 	YEAR: 'yyyy',
 };
 
@@ -51,14 +55,6 @@ function getDatesInRange(interval: ReportInterval, startDate: Date, endDate: Dat
 			console.error('Invalid interval:', interval);
 			return eachDayOfInterval({ end: endDate, start: startDate });
 	}
-}
-
-function getStartAt(tasks: AnyTask[]) {
-	const tasksSortedByCreatedAt = tasks.sort(
-		(a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-	);
-
-	return new Date(tasksSortedByCreatedAt[0].createdAt);
 }
 
 function getEndAt(tasks: AnyTask[]) {
@@ -85,7 +81,7 @@ export function getUncompletedTasksByDate(
 
 	const listEndAt = getEndAt(tasks);
 
-	tasks.forEach((task, index) => {
+	tasks.forEach((task) => {
 		const createdAt = parseISO(task.createdAt);
 		const endAt = task.isDone ? getTaskDateTime(task) : listEndAt;
 
@@ -99,7 +95,7 @@ export function getUncompletedTasksByDate(
 			}
 
 			// Increment the count for the specific date
-			if (!task.isDone || isBefore(date, endAt) || isEqual(date, endAt)) {
+			if (isBefore(date, endAt) || isEqual(date, endAt)) {
 				uncompletedTasksByDate[dateString]++;
 			}
 		});
@@ -108,22 +104,55 @@ export function getUncompletedTasksByDate(
 	return uncompletedTasksByDate;
 }
 
+function getBeforeFirstDate(labels: string[], interval: ReportInterval) {
+	const firstDate = parse(labels[0], interval, new Date(), {
+		useAdditionalWeekYearTokens: true,
+	});
+
+	switch (interval) {
+		case ReportIntervals.DAY:
+			return format(subDays(firstDate, 1), interval);
+		case ReportIntervals.WEEK:
+			return format(subWeeks(firstDate, 1), interval, {
+				useAdditionalWeekYearTokens: true,
+			});
+		case ReportIntervals.MONTH:
+			return format(subMonths(firstDate, 1), interval);
+		case ReportIntervals.QUARTER:
+			return format(subQuarters(firstDate, 1), interval);
+		case ReportIntervals.YEAR:
+			return format(subYears(firstDate, 1), interval);
+		default:
+			console.error('Invalid interval:', interval);
+			return format(subDays(firstDate, 1), DATE);
+	}
+}
+
 export function getDataSet(
 	uncompletedTasksByDate: UncompletedTasksByDate,
+	interval: ReportInterval,
 ): [labels: string[], values: number[]] {
 	const labels = [];
 	const values = [];
 
 	for (const [date, value] of uncompletedTasksByDate) {
-		labels.push(date);
+		const formattedDate = format(
+			parse(date, DATE, new Date(), {
+				useAdditionalWeekYearTokens: true,
+			}),
+			interval,
+			{
+				useAdditionalWeekYearTokens: true,
+			},
+		);
+		labels.push(formattedDate);
 		values.push(value);
 	}
 
 	//add initial values
 	if (labels.length) {
-		const firstDayDate = parse(labels[0], DATE, new Date());
-		const beforeFirstDateString = format(subDays(firstDayDate, 1), DATE);
-		labels.unshift(beforeFirstDateString);
+		const beforeFirstDate = getBeforeFirstDate(labels, interval);
+		labels.unshift(beforeFirstDate);
 		values.unshift(0);
 	}
 
