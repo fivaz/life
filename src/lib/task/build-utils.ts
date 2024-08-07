@@ -11,7 +11,7 @@ export function buildEmptyToDo(categories: Category[]): ToDo {
 		createdAt: new Date().toISOString(),
 		deadline: format(endOfWeek(new Date(), { weekStartsOn: 1 }), DATE),
 		description: '',
-		duration: '',
+		duration: '00:15',
 		goal: null,
 		id: '',
 		isDone: false,
