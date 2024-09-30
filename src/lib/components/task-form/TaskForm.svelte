@@ -213,6 +213,7 @@
 		{#if isEditing}
 			<ConfirmButton
 				color="red"
+				confirmByKey="Delete"
 				on:confirm={() => dispatch('removeTask', { targetDate, task })}
 				type="button"
 			>

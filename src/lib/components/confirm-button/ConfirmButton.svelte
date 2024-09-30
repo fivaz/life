@@ -5,6 +5,7 @@
 
 	export let title = ' Are you sure?';
 	export let message = '';
+	export let confirmByKey: string | undefined;
 
 	export let color: 'indigo' | 'none' | 'red' | undefined = undefined;
 
@@ -14,16 +15,28 @@
 
 	let className = '';
 	export { className as class };
+
+	async function submit() {
+		if (await createModal({ message, title })) {
+			dispatch('confirm');
+		}
+	}
 </script>
+
+<svelte:window
+	on:keydown={async (e) => {
+		if (confirmByKey && e.key === confirmByKey) {
+			await submit();
+		}
+	}}
+/>
 
 <Button
 	class={className}
 	{color}
 	on:click={async (e) => {
 		e.preventDefault();
-		if (await createModal({ message, title })) {
-			dispatch('confirm');
-		}
+		await submit();
 	}}
 	{type}
 >
