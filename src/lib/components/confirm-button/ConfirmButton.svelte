@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Button from '$lib/components/button/Button.svelte';
-	import { createModal } from '$lib/components/dialog/service';
+	import { createDialog } from '$lib/components/dialog/service';
 	import { createEventDispatcher } from 'svelte';
 
 	export let title = ' Are you sure?';
@@ -17,7 +17,7 @@
 	export { className as class };
 
 	async function submit() {
-		if (await createModal({ message, title })) {
+		if (await createDialog({ message, title })) {
 			dispatch('confirm');
 		}
 	}

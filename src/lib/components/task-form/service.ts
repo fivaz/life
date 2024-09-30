@@ -1,7 +1,7 @@
 import type { Goal } from '$lib/goal/utils';
 import type { AnyTask, RecurringEvent } from '$lib/task/utils';
 
-import { createModal } from '$lib/components/dialog/service';
+import { createDialog } from '$lib/components/dialog/service';
 import { DbPaTH, TIME } from '$lib/consts';
 import { db, storage } from '$lib/firebase';
 import { isRecurring } from '$lib/task/utils';
@@ -102,7 +102,7 @@ export async function editTaskWithPrompt({
 }): Promise<boolean> {
 	if (isRecurring(data) && wasRecurring && targetDate) {
 		const recurringData = data as Omit<RecurringEvent, 'id'>;
-		const result = await createModal({
+		const result = await createDialog({
 			cancelText: 'future events',
 			confirmText: 'this event only',
 			message: 'Do you want to save the changes for ?',
@@ -239,7 +239,7 @@ export async function deletePossibleSingleRecurringEvent(
 	const { id, ...data } = task;
 
 	if (isRecurring(task) && targetDate) {
-		const result = await createModal({
+		const result = await createDialog({
 			cancelText: 'all events',
 			confirmText: 'this event only',
 			message: 'Do you want to delete ?',

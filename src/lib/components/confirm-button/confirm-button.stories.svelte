@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
 
-	import { modal } from '$lib/components/dialog/service';
+	import { dialog } from '$lib/components/dialog/service';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
 	import ConfirmButton from './ConfirmButton.svelte';
@@ -17,12 +17,12 @@
 
 <Template let:args>
 	<Dialog
-		cancelText={$modal.cancelText}
-		confirmText={$modal.confirmText}
-		message={$modal.message}
-		resolve={$modal.resolve}
-		show={$modal.show}
-		title={$modal.title}
+		cancelText={$dialog.cancelText}
+		confirmText={$dialog.confirmText}
+		message={$dialog.message}
+		resolve={$dialog.resolve}
+		show={$dialog.show}
+		title={$dialog.title}
 	/>
 
 	<ConfirmButton {...args} on:confirm={() => console.log('confirmed')}>button</ConfirmButton>

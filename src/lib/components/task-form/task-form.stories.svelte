@@ -3,7 +3,7 @@
 
 	import { categories } from '$lib/category/seed';
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
-	import { modal } from '$lib/components/dialog/service';
+	import { dialog } from '$lib/components/dialog/service';
 	import { buildEmptyEvent, buildEmptyToDo } from '$lib/task/build-utils';
 	import { normalWithSubTasks } from '$lib/task/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
@@ -18,12 +18,12 @@
 
 <Template let:args>
 	<Dialog
-		cancelText={$modal.cancelText}
-		confirmText={$modal.confirmText}
-		message={$modal.message}
-		resolve={$modal.resolve}
-		show={$modal.show}
-		title={$modal.title}
+		cancelText={$dialog.cancelText}
+		confirmText={$dialog.confirmText}
+		message={$dialog.message}
+		resolve={$dialog.resolve}
+		show={$dialog.show}
+		title={$dialog.title}
 	/>
 
 	<TaskForm {...args} {categories} on:close={() => console.log('closed')} userId="0" />

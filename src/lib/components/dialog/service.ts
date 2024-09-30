@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-const closedModal = {
+const closedDialog = {
 	cancelText: '',
 	confirmText: '',
 	message: '',
@@ -9,16 +9,16 @@ const closedModal = {
 	title: '',
 };
 
-export const modal = writable<{
+export const dialog = writable<{
 	cancelText: string;
 	confirmText: string;
 	message: string;
 	resolve: (value: boolean | null) => void;
 	show: boolean;
 	title: string;
-}>(closedModal);
+}>(closedDialog);
 
-export function createModal({
+export function createDialog({
 	cancelText = 'cancel',
 	confirmText = 'confirm',
 	message = '',
@@ -30,7 +30,7 @@ export function createModal({
 	title: string;
 }) {
 	return new Promise<boolean | null>((resolve) => {
-		modal.update(() => ({
+		dialog.update(() => ({
 			cancelText,
 			confirmText,
 			message,
@@ -41,6 +41,6 @@ export function createModal({
 	});
 }
 
-export function closeModal() {
-	modal.update(() => closedModal);
+export function closeDialog() {
+	dialog.update(() => closedDialog);
 }

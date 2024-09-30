@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { closeModal } from '$lib/components/dialog/service';
+	import { closeDialog } from '$lib/components/dialog/service';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { ExclamationTriangle, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -13,17 +13,17 @@
 
 	function confirm() {
 		resolve(true);
-		closeModal();
+		closeDialog();
 	}
 
 	function cancel() {
 		resolve(false);
-		closeModal();
+		closeDialog();
 	}
 
 	function close() {
 		resolve(null);
-		closeModal();
+		closeDialog();
 	}
 </script>
 

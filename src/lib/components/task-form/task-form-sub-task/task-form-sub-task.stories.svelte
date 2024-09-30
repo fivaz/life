@@ -2,7 +2,7 @@
 	import type { Meta } from '@storybook/svelte';
 
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
-	import { modal } from '$lib/components/dialog/service';
+	import { dialog } from '$lib/components/dialog/service';
 	import { normalWithSubTasks } from '$lib/task/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
@@ -17,12 +17,12 @@
 
 <Template let:args>
 	<Dialog
-		cancelText={$modal.cancelText}
-		confirmText={$modal.confirmText}
-		message={$modal.message}
-		resolve={$modal.resolve}
-		show={$modal.show}
-		title={$modal.title}
+		cancelText={$dialog.cancelText}
+		confirmText={$dialog.confirmText}
+		message={$dialog.message}
+		resolve={$dialog.resolve}
+		show={$dialog.show}
+		title={$dialog.title}
 	/>
 
 	<div class="w-72">
