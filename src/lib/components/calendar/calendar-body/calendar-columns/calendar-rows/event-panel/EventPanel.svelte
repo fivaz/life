@@ -12,7 +12,10 @@
 		getHeight,
 		getTop,
 	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
-	import { hasMoved } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/service';
+	import {
+		getCellSizeFromDuration,
+		hasMoved,
+	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/service';
 	import { clsx } from 'clsx';
 	import interact from 'interactjs';
 	import { createEventDispatcher, onMount } from 'svelte';
@@ -100,6 +103,7 @@
 		} else {
 			Object.assign(container.style, {
 				backgroundColor: '',
+				height: `${getCellSizeFromDuration(event)}px`,
 				touchAction: '',
 				transform: '',
 				zIndex: '',
