@@ -1,5 +1,8 @@
 <script lang="ts">
-	import { GRID_CELL_HEIGHT } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
+	import {
+		GRID_CELL_HEIGHT,
+		SUMMARY_GRID_CELL_HEIGHT,
+	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 
 	const timeLabels = [
 		'12AM',
@@ -30,7 +33,7 @@
 </script>
 
 <div>
-	<div style="height: {GRID_CELL_HEIGHT}px">
+	<div style="height: {SUMMARY_GRID_CELL_HEIGHT}px">
 		<slot />
 	</div>
 	<div class="flex w-7 flex-col pr-2 text-right text-xs leading-5 text-gray-400 md:w-14">

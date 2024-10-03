@@ -6,7 +6,7 @@
 	import { format } from 'date-fns';
 
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
-	import { GRID_CELL_HEIGHT } from './calendar-grid/service';
+	import { SUMMARY_GRID_CELL_HEIGHT } from './calendar-grid/service';
 	import EventPanel from './event-panel/EventPanel.svelte';
 	import { getEventGrid, getEvents, getToDos } from './service';
 
@@ -24,7 +24,7 @@
 </script>
 
 <div>
-	<div class="border-b" style="height: {GRID_CELL_HEIGHT}px">
+	<div class="border-b" style="height: {SUMMARY_GRID_CELL_HEIGHT}px">
 		<TasksSummary on:editTask on:persistToDos tasks={[...toDos, ...events]} />
 	</div>
 	<div class="relative">
