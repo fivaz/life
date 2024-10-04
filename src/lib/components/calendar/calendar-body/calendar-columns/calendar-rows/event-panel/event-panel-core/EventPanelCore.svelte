@@ -3,12 +3,17 @@
 	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 	import { TIME } from '$lib/consts';
 	import { roundTo15 } from '$lib/task/time-utils';
-	import { type AnyEvent, getDurationInMinutes, getSubTasks } from '$lib/task/utils';
+	import {
+		type AnyEvent,
+		getCompletedTasks,
+		getDurationInMinutes,
+		getSubTasks,
+	} from '$lib/task/utils';
 	import { clsx } from 'clsx';
 	import { format, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
-	
-import GoalIcon from '../../../../../../../../routes/dashboard/goals/goal-form/goal-icon/GoalIcon.svelte';
+
+	import GoalIcon from '../../../../../../../../routes/dashboard/goals/goal-form/goal-icon/GoalIcon.svelte';
 
 	export let event: AnyEvent;
 	export let targetDate: string;
@@ -45,8 +50,12 @@ import GoalIcon from '../../../../../../../../routes/dashboard/goals/goal-form/g
 	function getTitle() {
 		let title = event.name;
 
-		if (getSubTasks(event)?.length) {
-			title += ` + ${getSubTasks(event).length}`;
+		const subtasks = getSubTasks(event);
+
+		if (subtasks?.length) {
+			const completedTasks = getCompletedTasks(subtasks);
+
+			title += ` + ${completedTasks}/${subtasks.length}`;
 		} else if (event.description) {
 			title += '...';
 		}

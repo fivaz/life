@@ -75,7 +75,9 @@ export function queryUncompletedTasks(userId: string) {
 	return query(tasksRef, where('isDone', '==', false)) as Query<AnyTask>;
 }
 
-export function getSubTasks(task: CoreTask) {
+export type SubTask = { isDone: boolean; title: string };
+
+export function getSubTasks(task: CoreTask): SubTask[] {
 	// \[\s?(x| )\s?\] matches either [x] or [ ] (with optional spaces inside).
 	// \s-\s matches the separator - (a space, dash, space).
 	// (.+) captures the message part (anything after the separator).
@@ -92,4 +94,8 @@ export function getSubTasks(task: CoreTask) {
 	}
 
 	return subTasks;
+}
+
+export function getCompletedTasks(subtasks: SubTask[]): number {
+	return subtasks.filter((subtask) => subtask.isDone).length;
 }
