@@ -14,7 +14,25 @@
 	export let targetDate: string;
 	export let isSelected: boolean;
 
-	$: duration = format(roundTo15(parse(event.duration, TIME, new Date())), TIME);
+	// format date from this format '01:15' to this format '1h15min'
+	function durationText() {
+		const date = roundTo15(parse(event.duration, TIME, new Date()));
+
+		const hours = format(date, 'H');
+		const minutes = format(date, 'mm');
+
+		let formattedTime = '';
+
+		if (hours !== '0') {
+			formattedTime += `${hours}h`;
+		}
+
+		if (minutes !== '00') {
+			formattedTime += `${minutes}min`;
+		}
+
+		return formattedTime;
+	}
 
 	const dispatch = createEventDispatcher<{
 		toggleEvent: { event: AnyEvent; targetDate: string };
@@ -22,11 +40,6 @@
 
 	function isLong() {
 		return getDurationInMinutes(event) > GRID_CELL_TIME;
-	}
-
-	function isMedium() {
-		const duration = getDurationInMinutes(event);
-		return duration >= GRID_CELL_TIME * 2 && duration < GRID_CELL_TIME * 3;
 	}
 
 	function getTitle() {
@@ -77,36 +90,32 @@
 		/>
 	</label>
 
-	{#if isLong()}
-		<div class="overflow-hidden">
-			<div>
-				<time
-					class="{tailwindColors[event.category.color].lightText} {tailwindColors[
-						event.category.color
-					].hoverText}"
-					dateTime={`${event.date}T${event.startTime}`}
-				>
-					{format(parse(event.startTime, TIME, new Date()), 'p')}
-				</time>
-				{#if !isMedium()}
-					<span> ({duration})</span>
-				{/if}
-			</div>
-			<div class="text-pink-500 group-hover:text-pink-700">
-				{#if event.subTasks?.length}
-					<ul>
-						{#each event.subTasks as subTask (subTask.id)}
-							<li class={clsx({ 'line-through': subTask.isDone })}>
-								- {subTask.name}
-							</li>
-						{/each}
-					</ul>
-				{:else}
-					{event.description}
-				{/if}
-			</div>
+	<div class="overflow-hidden">
+		<div>
+			<time
+				class="{tailwindColors[event.category.color].lightText} {tailwindColors[
+					event.category.color
+				].hoverText}"
+				dateTime={`${event.date}T${event.startTime}`}
+			>
+				{format(parse(event.startTime, TIME, new Date()), 'p')}
+			</time>
+			<span> ({durationText()})</span>
 		</div>
-	{/if}
+		<div class="text-pink-500 group-hover:text-pink-700">
+			{#if event.subTasks?.length}
+				<ul>
+					{#each event.subTasks as subTask (subTask.id)}
+						<li class={clsx({ 'line-through': subTask.isDone })}>
+							- {subTask.name}
+						</li>
+					{/each}
+				</ul>
+			{:else}
+				{event.description}
+			{/if}
+		</div>
+	</div>
 </div>
 
 <style>
