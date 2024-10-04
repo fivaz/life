@@ -73,6 +73,13 @@
 			dispatch('createTask', { data, file });
 		}
 	}
+
+	// this ensures that whenever the user types - text, it converts to [ ] - text
+	function formatSubTasks(description: string) {
+		const regex = /(^|(?<=\n))-\s(.*?)\n/g;
+
+		return description.replace(regex, '[ ] - $2\n');
+	}
 </script>
 
 <form
@@ -131,7 +138,8 @@
 						bind:value={taskIn.description}
 						class="block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 						name="description"
-						placeholder="add a description with `[x] - sub task` to make it as a subtask of this task"
+						on:input={(e) => (taskIn.description = formatSubTasks(e.currentTarget.value))}
+						placeholder="Create subtasks for this task using bullet points with `-`. Fill in the boxes to mark them as completed."
 					/>
 				</label>
 			</Collapsable>
