@@ -60,20 +60,19 @@ export const normalWithSubTasks: Event = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(startOfYesterday(), DATE),
-	description: '',
+	description: `
+		[x] - Dusting a room \n' },
+		[ ] - Emptying the trash \n' },
+		[x] - Wiping down countertops \n' },
+		[ ] - Watering house plants \n' },
+		[x] - Sorting the mail \n' },
+	`,
 	duration: '00:30',
 	goal: null,
 	id: `${id++}`,
 	isDone: true,
 	name: 'Put away apartment',
 	startTime: format(getTodayAtTime('15:15'), TIME),
-	subTasks: [
-		{ id: id++, isDone: true, name: 'Dusting a room' },
-		{ id: id++, isDone: false, name: 'Emptying the trash' },
-		{ id: id++, isDone: true, name: 'Wiping down countertops' },
-		{ id: id++, isDone: false, name: 'Watering house plants' },
-		{ id: id++, isDone: true, name: 'Sorting the mail' },
-	],
 };
 
 export const shortWithoutDescription: Event = {
@@ -106,20 +105,19 @@ export const shortWithSubTasks: Event = {
 	category: routine,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(getTodayAtTime('07:00'), DATE),
-	description: longText,
+	description: `
+		[x] - Dusting a room \n' },
+		[ ] - Emptying the trash \n' },
+		[x] - Wiping down countertops \n' },
+		[ ] - Watering house plants \n' },
+		[x] - Sorting the mail \n' },
+	`,
 	duration: '00:15',
 	goal: null,
 	id: `${id++}`,
 	isDone: false,
 	name: 'Breakfast',
 	startTime: format(getTodayAtTime('07:00'), TIME),
-	subTasks: [
-		{ id: id++, isDone: true, name: 'Dusting a room' },
-		{ id: id++, isDone: false, name: 'Emptying the trash' },
-		{ id: id++, isDone: true, name: 'Wiping down countertops' },
-		{ id: id++, isDone: false, name: 'Watering house plants' },
-		{ id: id++, isDone: true, name: 'Sorting the mail' },
-	],
 };
 
 export const longRecurring: RecurringEvent = {

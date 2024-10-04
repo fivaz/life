@@ -6,8 +6,6 @@ import { db } from '$lib/firebase';
 import { convertTimeToMinutes, getTaskDateTime } from '$lib/task/time-utils';
 import { type Query, collection, query, where } from 'firebase/firestore';
 
-export type SubTask = { id: number; isDone: boolean; name: string };
-
 export type CoreTask = {
 	category: Category;
 	createdAt: string;
@@ -18,7 +16,6 @@ export type CoreTask = {
 	image?: string;
 	isDone: boolean;
 	name: string;
-	subTasks?: SubTask[];
 };
 
 export type ToDo = CoreTask & {
@@ -76,4 +73,23 @@ export function isToDo(task: AnyTask | Omit<AnyTask, 'id'>): task is ToDo {
 export function queryUncompletedTasks(userId: string) {
 	const tasksRef = collection(db, `${DbPaTH.USERS}/${userId}/${DbPaTH.TASKS}`);
 	return query(tasksRef, where('isDone', '==', false)) as Query<AnyTask>;
+}
+
+export function getSubTasks(task: CoreTask) {
+	// \[\s?(x| )\s?\] matches either [x] or [ ] (with optional spaces inside).
+	// \s-\s matches the separator - (a space, dash, space).
+	// (.+) captures the message part (anything after the separator).
+	const regex = /\[\s?(x| )\s?\]\s-\s(.+)/g;
+
+	let match: RegExpExecArray | null;
+	const subTasks: { isDone: boolean; title: string }[] = [];
+
+	while ((match = regex.exec(task.description)) !== null) {
+		subTasks.push({
+			isDone: match[1].toLowerCase() === 'x',
+			title: match[2].trim(),
+		});
+	}
+
+	return subTasks;
 }

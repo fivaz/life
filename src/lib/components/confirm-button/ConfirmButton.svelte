@@ -5,7 +5,7 @@
 
 	export let title = ' Are you sure?';
 	export let message = '';
-	export let confirmByKey: string | undefined;
+	export let confirmByKey: string | undefined = undefined;
 
 	export let color: 'indigo' | 'none' | 'red' | undefined = undefined;
 

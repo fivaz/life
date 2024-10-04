@@ -3,19 +3,19 @@
 	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 	import { TIME } from '$lib/consts';
 	import { roundTo15 } from '$lib/task/time-utils';
-	import { type AnyEvent, getDurationInMinutes } from '$lib/task/utils';
+	import { type AnyEvent, getDurationInMinutes, getSubTasks } from '$lib/task/utils';
 	import { clsx } from 'clsx';
 	import { format, parse } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
-
-	import GoalIcon from '../../../../../../../../routes/dashboard/goals/goal-form/goal-icon/GoalIcon.svelte';
+	
+import GoalIcon from '../../../../../../../../routes/dashboard/goals/goal-form/goal-icon/GoalIcon.svelte';
 
 	export let event: AnyEvent;
 	export let targetDate: string;
 	export let isSelected: boolean;
 
 	// format date from this format '01:15' to this format '1h15min'
-	function durationText() {
+	function formattedDuration() {
 		const date = roundTo15(parse(event.duration, TIME, new Date()));
 
 		const hours = format(date, 'H');
@@ -45,12 +45,10 @@
 	function getTitle() {
 		let title = event.name;
 
-		if (!isLong()) {
-			if (event.subTasks?.length) {
-				title += ` + ${event.subTasks.length}`;
-			} else if (event.description) {
-				title += '...';
-			}
+		if (getSubTasks(event)?.length) {
+			title += ` + ${getSubTasks(event).length}`;
+		} else if (event.description) {
+			title += '...';
 		}
 
 		return title;
@@ -100,20 +98,10 @@
 			>
 				{format(parse(event.startTime, TIME, new Date()), 'p')}
 			</time>
-			<span> ({durationText()})</span>
+			<span> ({formattedDuration()})</span>
 		</div>
-		<div class="text-pink-500 group-hover:text-pink-700">
-			{#if event.subTasks?.length}
-				<ul>
-					{#each event.subTasks as subTask (subTask.id)}
-						<li class={clsx({ 'line-through': subTask.isDone })}>
-							- {subTask.name}
-						</li>
-					{/each}
-				</ul>
-			{:else}
-				{event.description}
-			{/if}
+		<div class="whitespace-pre text-pink-500 group-hover:text-pink-700">
+			{event.description}
 		</div>
 	</div>
 </div>

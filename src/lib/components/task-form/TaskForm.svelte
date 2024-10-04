@@ -15,7 +15,6 @@
 	import TaskFormEvent from '$lib/components/task-form/task-form-event/TaskFormEvent.svelte';
 	import TaskFormImage from '$lib/components/task-form/task-form-image/TaskFormImage.svelte';
 	import TaskFormRecurring from '$lib/components/task-form/task-form-recurring/TaskFormRecurring.svelte';
-	import TaskFormSubTask from '$lib/components/task-form/task-form-sub-task/TaskFormSubTask.svelte';
 	import { checkErrors, convertToAnyTask, convertToTaskIn } from '$lib/task/task-in-utils';
 	import { EllipsisVertical, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -132,13 +131,9 @@
 						bind:value={taskIn.description}
 						class="block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 						name="description"
-						placeholder="description"
+						placeholder="add a description with `[x] - sub task` to make it as a subtask of this task"
 					/>
 				</label>
-			</Collapsable>
-
-			<Collapsable title="Sub tasks">
-				<TaskFormSubTask bind:taskIn />
 			</Collapsable>
 
 			<Select

@@ -1,4 +1,4 @@
-import type { AnyTask, Event, RecurringEvent, SubTask, Task, ToDo } from '$lib/task/utils';
+import type { AnyTask, Event, RecurringEvent, Task, ToDo } from '$lib/task/utils';
 
 import { getEndTime } from '$lib/components/task-form/service';
 import { weekDays } from '$lib/components/task-form/task-form-recurring/days-checkbox/service';
@@ -13,7 +13,6 @@ export type TaskIn = Omit<Task, 'recurringExceptions'> & {
 	isEvent: boolean;
 	isRecurring: boolean;
 	recurringExceptions: Date[];
-	subTasks: SubTask[];
 };
 
 function checkDuration(taskIn: TaskIn): string {
@@ -66,7 +65,6 @@ export function getToDo(data: TaskIn): ToDo {
 		image: data.image,
 		isDone: data.isDone,
 		name: data.name,
-		subTasks: data.subTasks,
 	};
 }
 
@@ -83,7 +81,6 @@ export function getEvent(data: TaskIn): Event {
 		isDone: data.isDone,
 		name: data.name,
 		startTime: data.startTime,
-		subTasks: data.subTasks,
 	};
 }
 
@@ -104,7 +101,6 @@ export function getRecurringEvent(data: TaskIn): RecurringEvent {
 		recurringExceptions: data.recurringExceptions.map((date) => format(date, DATE)),
 		recurringStartAt: data.recurringStartAt,
 		startTime: data.startTime,
-		subTasks: data.subTasks,
 	};
 }
 
@@ -134,7 +130,6 @@ function convertToDo(todo: ToDo): TaskIn {
 		recurringExceptions: [],
 		recurringStartAt: format(new Date(), DATE),
 		startTime: format(getCurrentRoundedDate(), TIME),
-		subTasks: todo.subTasks || [],
 	};
 }
 
@@ -147,7 +142,6 @@ function convertRecurring(event: RecurringEvent): TaskIn {
 		isEvent: true,
 		isRecurring: true,
 		recurringExceptions: event.recurringExceptions.map((date) => parse(date, DATE, new Date())),
-		subTasks: event.subTasks || [],
 	};
 }
 
@@ -163,6 +157,5 @@ function convertEvent(event: Event): TaskIn {
 		recurringEndAt: format(addMonths(new Date(), 1), DATE),
 		recurringExceptions: [],
 		recurringStartAt: format(new Date(), DATE),
-		subTasks: event.subTasks || [],
 	};
 }
