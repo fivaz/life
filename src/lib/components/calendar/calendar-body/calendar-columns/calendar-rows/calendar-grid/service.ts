@@ -8,7 +8,7 @@ export const GRID_CELL_TIME = 15;
 // 60 - minutes
 export const NUMBER_OF_CELLS = (24 * 60) / GRID_CELL_TIME;
 
-export const GRID_CELL_HEIGHT = 60;
-export const SUMMARY_GRID_CELL_HEIGHT = GRID_CELL_HEIGHT / 2;
+export const GRID_CELL_HEIGHT = 50;
+export const SUMMARY_GRID_CELL_HEIGHT = 30;
 
 export const isSomethingDragging = writable<boolean>(false);
