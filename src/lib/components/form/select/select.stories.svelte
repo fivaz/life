@@ -2,7 +2,7 @@
 	import type { Meta } from '@storybook/svelte';
 
 	import { categories } from '$lib/category/seed';
-	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
+	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
 	import Select from './Select.svelte';

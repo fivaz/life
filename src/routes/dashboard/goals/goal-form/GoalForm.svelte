@@ -1,11 +1,11 @@
 <script lang="ts">
 	import type { Goal } from '$lib/goal/utils';
 
-	import Alert from '$lib/components/alert/Alert.svelte';
-	import Button from '$lib/components/button/Button.svelte';
-	import ConfirmButton from '$lib/components/confirm-button/ConfirmButton.svelte';
-	import Input from '$lib/components/input/Input.svelte';
-	import Toggle from '$lib/components/toggle/Toggle.svelte';
+	import Alert from '$lib/components/form/alert/Alert.svelte';
+	import Button from '$lib/components/form/button/Button.svelte';
+	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';
+	import Input from '$lib/components/form/input/Input.svelte';
+	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import { getErrors } from '$lib/form-utils';
 	import { validator } from '@felte/validator-yup';
 	import { XMark } from '@steeze-ui/heroicons';

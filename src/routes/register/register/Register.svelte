@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import Logo from '$lib/components/Logo.svelte';
-	import Alert from '$lib/components/alert/Alert.svelte';
-	import Button from '$lib/components/button/Button.svelte';
+	import Alert from '$lib/components/form/alert/Alert.svelte';
+	import Button from '$lib/components/form/button/Button.svelte';
 	import { DbPaTH, Routes } from '$lib/consts';
 	import { auth, db } from '$lib/firebase';
 	import { storeAvatar } from '$lib/user-utils';

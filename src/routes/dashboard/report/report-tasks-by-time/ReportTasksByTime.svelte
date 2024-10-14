@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { AnyTask } from '$lib/task/utils.js';
 
-	import Select from '$lib/components/select/Select.svelte';
-	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
+	import Select from '$lib/components/form/select/Select.svelte';
+	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import {
 		CategoryScale,
 		Chart as ChartJS,

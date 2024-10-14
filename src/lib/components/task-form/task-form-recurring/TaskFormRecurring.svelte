@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Input from '$lib/components/input/Input.svelte';
-	import Toggle from '$lib/components/toggle/Toggle.svelte';
+	import Input from '$lib/components/form/input/Input.svelte';
+	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import { Transition } from '@rgossiaux/svelte-headlessui';
 	import Flatpickr from 'svelte-flatpickr';
 

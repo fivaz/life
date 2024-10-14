@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Button from '$lib/components/button/Button.svelte';
+	import Button from '$lib/components/form/button/Button.svelte';
 	import { DATE } from '$lib/consts';
 	import { getCurrentRoundedDate } from '$lib/task/time-utils';
 	import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@rgossiaux/svelte-headlessui';

@@ -3,7 +3,7 @@
 	import type { AnyTask } from '$lib/task/utils';
 
 	import { type Category } from '$lib/category/utils';
-	import Button from '$lib/components/button/Button.svelte';
+	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';

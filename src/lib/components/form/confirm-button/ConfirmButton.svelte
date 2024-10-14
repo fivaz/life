@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Button from '$lib/components/button/Button.svelte';
 	import { createDialog } from '$lib/components/dialog/service';
+	import Button from '$lib/components/form/button/Button.svelte';
 	import { createEventDispatcher } from 'svelte';
 
 	export let title = ' Are you sure?';

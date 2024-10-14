@@ -4,13 +4,13 @@
 	import type { AnyTask } from '$lib/task/utils';
 
 	import { tailwindColors } from '$lib/category/utils';
-	import Alert from '$lib/components/alert/Alert.svelte';
-	import Button from '$lib/components/button/Button.svelte';
 	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
-	import ConfirmButton from '$lib/components/confirm-button/ConfirmButton.svelte';
-	import Input from '$lib/components/input/Input.svelte';
-	import Select from '$lib/components/select/Select.svelte';
-	import SelectItem from '$lib/components/select/select-item/SelectItem.svelte';
+	import Alert from '$lib/components/form/alert/Alert.svelte';
+	import Button from '$lib/components/form/button/Button.svelte';
+	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';
+	import Input from '$lib/components/form/input/Input.svelte';
+	import Select from '$lib/components/form/select/Select.svelte';
+	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import { getEndTime } from '$lib/components/task-form/service';
 	import TaskFormEvent from '$lib/components/task-form/task-form-event/TaskFormEvent.svelte';
 	import TaskFormImage from '$lib/components/task-form/task-form-image/TaskFormImage.svelte';
