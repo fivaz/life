@@ -1,10 +1,9 @@
 <script lang="ts">
 	import SideMenu from '$lib/components/side-menu/SideMenu.svelte';
+	let className = '';
+	export { className as class };
 </script>
 
-<div class="flex h-screen">
-	<header>
-		<SideMenu />
-	</header>
-	<main class="flex-1 bg-red-500">main</main>
-</div>
+<header class={className}>
+	<SideMenu />
+</header>
