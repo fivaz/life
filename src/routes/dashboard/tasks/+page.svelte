@@ -48,7 +48,7 @@
 	title.set('Tasks');
 </script>
 
-<div class="mx-auto flex max-w-7xl flex-col gap-3 p-4 sm:px-6 lg:px-8">
+<div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
 	<SignedIn let:user>
 		<TypedCollection
 			let:data={categories}
@@ -59,7 +59,7 @@
 				<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{$title}</h1>
 				<span />
 
-				<div class="flex items-center gap-3">
+				<div class="flex items-center gap-5">
 					<button
 						class="rounded bg-white p-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
 						on:click={() => (showStats = true)}
@@ -67,6 +67,9 @@
 					>
 						<Icon class="h-5 w-5" src={DocumentText} />
 					</button>
+
+					<div class="hidden h-7 border-r border-gray-300 md:block"></div>
+
 					<Button
 						on:click={() => {
 							showForm = true;

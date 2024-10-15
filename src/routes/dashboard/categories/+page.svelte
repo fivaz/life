@@ -22,7 +22,7 @@
 	title.set('Categories');
 </script>
 
-<div class="mx-auto flex max-w-7xl flex-col gap-3 p-4 sm:px-6 lg:px-8">
+<div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
 	<div class="flex items-center justify-between">
 		<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{$title}</h1>
 		<span />
