@@ -21,5 +21,5 @@
 
 	<DashboardMobile class="block md:hidden" {currentUser} />
 
-	<main class="flex-1"><slot /></main>
+	<main class="mt-14 flex-1 md:mt-0"><slot /></main>
 </div>

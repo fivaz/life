@@ -53,27 +53,6 @@
 				type={categoryType}
 			>
 				<div class="flex flex-col gap-5">
-					<div class="flex items-center justify-between">
-						<h1 class="text-lg font-semibold leading-7 text-gray-900">Tasks</h1>
-						<div class="flex items-center gap-2">
-							<button
-								class="rounded bg-white p-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-								on:click={() => (showStats = true)}
-								type="button"
-							>
-								<Icon class="h-5 w-5" src={DocumentText} />
-							</button>
-							<Button
-								on:click={() => {
-									showForm = true;
-									editingTask = buildEmptyToDo(categories);
-								}}
-							>
-								Create Task
-							</Button>
-						</div>
-					</div>
-
 					<ul class="flex flex-col gap-3">
 						{#each sortedTasks as date (date)}
 							<TaskList
@@ -91,6 +70,27 @@
 							/>
 						{/each}
 					</ul>
+
+					<!--to prevent the floating button from hiding any task-->
+					<div class="h-8" />
+
+					<div class="fixed bottom-4 right-4 flex items-center gap-2">
+						<button
+							class="rounded bg-white p-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+							on:click={() => (showStats = true)}
+							type="button"
+						>
+							<Icon class="h-5 w-5" src={DocumentText} />
+						</button>
+						<Button
+							on:click={() => {
+								showForm = true;
+								editingTask = buildEmptyToDo(categories);
+							}}
+						>
+							Create Task
+						</Button>
+					</div>
 
 					<TaskFormWrapper bind:show={showForm} {categories} {editingTask} userId={user.uid} />
 				</div>

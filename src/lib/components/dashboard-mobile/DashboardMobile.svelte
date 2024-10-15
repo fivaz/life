@@ -12,7 +12,7 @@
 
 <div class={className}>
 	<!--header-->
-	<header class="flex justify-between gap-3 border-b p-4">
+	<header class="fixed z-10 flex h-14 w-full justify-between gap-3 border-b bg-white p-4">
 		<h1 class="text-lg font-semibold text-gray-900">{$title}</h1>
 		<button on:click={() => (showMenu = true)}>
 			<Menu />
