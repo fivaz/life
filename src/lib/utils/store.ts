@@ -9,3 +9,5 @@ export function updateUser(displayName: null | string, photoURL: null | string) 
 }
 
 export type User = Pick<UserInfo, 'displayName' | 'photoURL'> | null;
+
+export const title = writable<string>('Dashboard');

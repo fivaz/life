@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { updateUser } from '$lib/auth/store';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Input from '$lib/components/form/input/Input.svelte';
 	import { DbPaTH } from '$lib/consts';
 	import { db } from '$lib/firebase';
 	import { storeAvatar } from '$lib/user-utils';
+	import { updateUser } from '$lib/utils/store';
 	import { type Auth, updateProfile } from 'firebase/auth';
 	import { doc, updateDoc } from 'firebase/firestore';
 	import { minidenticon } from 'minidenticons';

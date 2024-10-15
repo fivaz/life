@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { User } from '$lib/auth/store';
+	import type { User } from '$lib/utils/store';
 
 	import SideMenu from '$lib/components/side-menu/SideMenu.svelte';
 	let className = '';

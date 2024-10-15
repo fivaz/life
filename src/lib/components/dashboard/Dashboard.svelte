@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { currentUser } from '$lib/auth/store';
 	import Logo from '$lib/components/Logo.svelte';
 	import Banner from '$lib/components/banner/Banner.svelte';
 	import ProfileDropDown from '$lib/components/dashboard/profile-drop-down/ProfileDropDown.svelte';
 	import ProfileDropUp from '$lib/components/dashboard/profile-drop-up/ProfileDropUp.svelte';
 	import { Routes, demoLogin } from '$lib/consts';
 	import { auth } from '$lib/firebase';
+	import { currentUser } from '$lib/utils/store';
 	import { Dialog, TransitionChild, TransitionRoot } from '@rgossiaux/svelte-headlessui';
 	import { Bars3, XMark } from '@steeze-ui/heroicons';
 	import {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { User } from '$lib/auth/store';
+	import type { User } from '$lib/utils/store';
 
 	import DashboardDesktop from '$lib/components/dashboard-desktop/DashboardDesktop.svelte';
 	import DashboardMobile from '$lib/components/dashboard-mobile/DashboardMobile.svelte';
@@ -21,5 +21,5 @@
 
 	<DashboardMobile class="block md:hidden" {currentUser} />
 
-	<main class="flex-1 bg-red-500"><slot /></main>
+	<main class="flex-1"><slot /></main>
 </div>

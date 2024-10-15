@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { User } from '$lib/auth/store';
+	import type { User } from '$lib/utils/store';
 
 	import Logo from '$lib/components/Logo.svelte';
 	import ProfileDropUp from '$lib/components/dashboard/profile-drop-up/ProfileDropUp.svelte';
