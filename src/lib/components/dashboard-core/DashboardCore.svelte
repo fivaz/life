@@ -17,9 +17,9 @@
 </script>
 
 <div class="flex h-screen flex-col overflow-hidden md:flex-row">
-	<DashboardDesktop class="hidden md:block" {currentUser} />
+	<DashboardDesktop class="hidden md:flex" {currentUser} />
 
-	<DashboardMobile class="block md:hidden" {currentUser} />
+	<DashboardMobile class="flex md:hidden" {currentUser} />
 
 	<main class="mt-14 flex-1 overflow-y-auto md:mt-0"><slot /></main>
 </div>

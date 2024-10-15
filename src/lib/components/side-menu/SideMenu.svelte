@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { User } from '$lib/utils/store';
 
+	import { page } from '$app/stores';
 	import Logo from '$lib/components/Logo.svelte';
 	import ProfileDropUp from '$lib/components/dashboard/profile-drop-up/ProfileDropUp.svelte';
 	import { Routes } from '$lib/consts';
@@ -28,23 +29,23 @@
 	];
 </script>
 
-<div class="h-full w-64 bg-white {className} flex flex-col gap-3 p-6">
-	<div class="p-2">
-		<Logo class="h-8 w-auto text-indigo-600" />
-	</div>
+<div class="h-full w-64 bg-white {className} flex flex-col items-stretch gap-5 p-3">
+	<Logo class="h-8 w-auto self-start text-indigo-600" />
 
 	<nav class="flex-1">
 		<ul>
 			{#each navigation as item (item.name)}
 				<li>
-					<a class="group flex items-center gap-3 rounded-lg p-2 hover:bg-gray-50" href={item.href}>
+					<a
+						class=" flex items-center gap-3 rounded-lg p-2 {$page.url.pathname === item.href
+							? 'bg-gray-50 text-indigo-600'
+							: 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600'}"
+						href={item.href}
+					>
 						<!-- eslint-disable perfectionist/sort-svelte-attributes -->
-						<svelte:component
-							this={item.icon}
-							class="h-6 w-6 text-gray-400 group-hover:text-indigo-600"
-						/>
+						<svelte:component this={item.icon} class="h-6 w-6" />
 						<!-- eslint-enable perfectionist/sort-svelte-attributes -->
-						<span class="text-sm font-semibold text-gray-700 group-hover:text-indigo-600">
+						<span class="text-sm font-semibold">
 							{item.name}
 						</span>
 					</a>
