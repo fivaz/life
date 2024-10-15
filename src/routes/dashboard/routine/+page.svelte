@@ -36,14 +36,14 @@
 <div class="py-4">
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<div class="flex h-full flex-col">
-			<WeekListSelector bind:selectedDate {dates} />
-
 			<SignedIn let:user>
 				<TypedCollection
 					let:data={routines}
 					ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.ROUTINES}`}
 					type={routinesType}
 				>
+					<WeekListSelector bind:selectedDate {dates} {routines} />
+
 					{#each routines as routine (routine.id)}
 						<RoutineRow
 							on:edit={(e) => {
