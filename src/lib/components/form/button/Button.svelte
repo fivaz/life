@@ -44,7 +44,10 @@
 	{/if}
 	<!--hides the content of the button when showing the loading icon, if the content of the button
 	 is an icon without any text-->
-	<span bind:this={slot} class={clsx({ hidden: isLoading && !slotText })}>
+	<span
+		bind:this={slot}
+		class={clsx('flex items-center gap-2', { hidden: isLoading && !slotText })}
+	>
 		<slot />
 	</span>
 </button>

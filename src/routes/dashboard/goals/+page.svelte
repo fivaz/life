@@ -91,18 +91,18 @@
 						</TypedCollection>
 					</ul>
 
-					<PlusButton
-						on:click={() => {
-							showForm = true;
-							editingGoal = buildEmptyGoal();
-						}}
-					/>
-
 					<Modal on:close={() => (showForm = false)} show={showForm}>
 						<GoalForm goal={editingGoal} on:close={() => (showForm = false)} userId={user.uid} />
 					</Modal>
 				</div>
 			</TypedCollection>
 		</SignedIn>
+
+		<PlusButton
+			on:click={() => {
+				showForm = true;
+				editingGoal = buildEmptyGoal();
+			}}
+		/>
 	</div>
 </div>
