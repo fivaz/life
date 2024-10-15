@@ -1,0 +1,21 @@
+<script context="module" lang="ts">
+	import type { Meta } from '@storybook/svelte';
+
+	import { Story, Template } from '@storybook/addon-svelte-csf';
+
+	import DashboardMobile from './DashboardMobile.svelte';
+
+	export const meta = {
+		argTypes: {},
+		component: DashboardMobile,
+		parameters: {
+			layout: 'fullscreen',
+		},
+	} satisfies Meta<DashboardMobile>;
+</script>
+
+<Template let:args>
+	<DashboardMobile {...args} />
+</Template>
+
+<Story args={{}} name="Primary" />
