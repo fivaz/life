@@ -13,6 +13,7 @@ const config: StorybookConfig = {
 		name: '@storybook/sveltekit',
 		options: {},
 	},
+	staticDirs: ['../static'],
 	stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx|svelte)'],
 };
 export default config;
