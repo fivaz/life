@@ -46,7 +46,7 @@
 			</MenuItem>
 		</MenuItems>
 	</Transition>
-	<MenuButton>
+	<MenuButton class="w-full">
 		<slot />
 	</MenuButton>
 </Menu>

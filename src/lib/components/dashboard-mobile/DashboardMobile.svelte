@@ -1,10 +1,14 @@
 <script lang="ts">
+	import type { User } from '$lib/auth/store';
+
 	import SideMenu from '$lib/components/side-menu/SideMenu.svelte';
 	import { Menu } from 'lucide-svelte';
 
 	let showMenu = false;
 	let className = '';
 	export { className as class };
+
+	export let currentUser: User;
 </script>
 
 <div class={className}>
@@ -21,6 +25,7 @@
 		class="fixed left-0 top-0 z-20 transform transition-transform duration-300 {showMenu
 			? 'translate-x-0'
 			: '-translate-x-full'}"
+		{currentUser}
 	/>
 
 	<!--background-->

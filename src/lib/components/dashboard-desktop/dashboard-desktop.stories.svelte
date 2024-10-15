@@ -1,6 +1,7 @@
 <script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
 
+	import { user } from '$lib/auth/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
 	import DashboardDesktop from './DashboardDesktop.svelte';
@@ -18,4 +19,4 @@
 	<DashboardDesktop {...args} />
 </Template>
 
-<Story args={{}} name="Primary" />
+<Story args={{ currentUser: user }} name="Primary" />
