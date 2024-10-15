@@ -9,7 +9,14 @@
 	import { auth } from '$lib/firebase';
 	import { Dialog, TransitionChild, TransitionRoot } from '@rgossiaux/svelte-headlessui';
 	import { Bars3, XMark } from '@steeze-ui/heroicons';
-	import { CalendarDays, CandlestickChart, Goal, ListChecks, Tags } from '@steeze-ui/lucide-icons';
+	import {
+		CalendarDays,
+		CandlestickChart,
+		ClipboardList,
+		Goal,
+		ListTodo,
+		Tags,
+	} from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { onAuthStateChanged } from 'firebase/auth';
@@ -18,9 +25,10 @@
 	const navigation = [
 		{ href: Routes.HOME, icon: CalendarDays, name: 'Calendar' },
 		{ href: Routes.CATEGORIES, icon: Tags, name: 'Categories' },
-		{ href: Routes.TASKS, icon: ListChecks, name: 'Tasks' },
+		{ href: Routes.TASKS, icon: ClipboardList, name: 'Tasks' },
 		{ href: Routes.GOALS, icon: Goal, name: 'Goals' },
 		{ href: Routes.REPORT, icon: CandlestickChart, name: 'Report' },
+		{ href: Routes.ROUTINE, icon: ListTodo, name: 'Daily' },
 	];
 
 	let sidebarOpen = false;

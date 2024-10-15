@@ -16,6 +16,7 @@ export const Routes = {
 	REGISTER: '/register',
 	REPORT: `${dashboardRoute}/report`,
 	ROOT: '/',
+	ROUTINE: `${dashboardRoute}/routine`,
 	TASKS: `${dashboardRoute}/tasks`,
 };
 
@@ -24,6 +25,7 @@ export const DbPaTH = {
 	AVATARS: 'avatars',
 	CATEGORIES: 'categories',
 	GOALS: 'goals',
+	ROUTINES: 'routines',
 	TASKS: 'tasks',
 	USERS: 'users',
 };
