@@ -4,6 +4,7 @@
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import PlusButton from '$lib/components/plus-button/PlusButton.svelte';
+	import Streak from '$lib/components/streak/Streak.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import WeekListSelector from '$lib/components/week-list-selector/WeekListSelector.svelte';
 	import { DATE, DbPaTH } from '$lib/consts';
@@ -42,6 +43,8 @@
 					ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.ROUTINES}`}
 					type={routinesType}
 				>
+					<Streak {routines} />
+
 					<WeekListSelector bind:selectedDate {dates} {routines} />
 
 					{#each routines as routine (routine.id)}
