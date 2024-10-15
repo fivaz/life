@@ -3,11 +3,11 @@
 
 	import { Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { Check } from 'lucide-svelte';
+	import { Check, Undo2 } from 'lucide-svelte';
 	import { createEventDispatcher } from 'svelte';
 
 	import GoalIcon from '../../goals/goal-form/goal-icon/GoalIcon.svelte';
-	import { completeRoutine } from '../routine-form/service';
+	import { toggleRoutineCompletion } from '../routine-form/service';
 
 	export let routine: Routine;
 
@@ -34,10 +34,14 @@
 	<div>
 		<button
 			class="rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
-			on:click={() => completeRoutine(routine, selectedDate, userId)}
+			on:click={() => toggleRoutineCompletion(routine, selectedDate, userId)}
 			type="button"
 		>
-			<Check class="h-4 w-4" />
+			{#if isDone}
+				<Undo2 class="h-4 w-4" />
+			{:else}
+				<Check class="h-4 w-4" />
+			{/if}
 		</button>
 		<button
 			class="rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"

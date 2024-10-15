@@ -25,11 +25,19 @@ export function buildEmptyRoutine(): Routine {
 	};
 }
 
-export function completeRoutine(routine: Routine, date: string, userId: string): void {
-	routine.completeHistory.push({
-		date,
-		isCompleted: true,
-	});
+export function toggleRoutineCompletion(
+	routine: Routine,
+	selectedDate: string,
+	userId: string,
+): void {
+	const item = routine.completeHistory.find(({ date }) => date === selectedDate);
+
+	if (item) {
+		item.isCompleted = !item.isCompleted;
+	} else {
+		routine.completeHistory.push({ date: selectedDate, isCompleted: true });
+	}
+
 	const { id, ...data } = routine;
 
 	const routineDocRef = doc(db, DbPaTH.USERS, userId, DbPaTH.ROUTINES, id);
