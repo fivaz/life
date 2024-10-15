@@ -40,7 +40,9 @@
 </script>
 
 <div class="flex items-center font-semibold text-red-500">
-	<Flame class="h-7 w-auto" />
-	{streak}
-	{streak > 1 ? 'days' : 'day'} streak!
+	<Flame class="h-6" />
+	<div class="flex gap-1">
+		<span>{streak}</span>
+		<span class="hidden md:block">{streak > 1 ? 'days' : 'day'} streak!</span>
+	</div>
 </div>

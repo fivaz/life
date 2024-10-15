@@ -2,6 +2,7 @@
 	import { ChevronLeft, ChevronRight } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { addDays, isSameWeek, startOfWeek } from 'date-fns';
+	import { CalendarCheck } from 'lucide-svelte';
 
 	export let weekStart: Date;
 
@@ -32,7 +33,7 @@
 <div class="flex items-center">
 	<div class="relative flex items-stretch rounded-md bg-white shadow-sm">
 		<button
-			class="flex h-9 w-9 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-0 text-gray-400 hover:bg-gray-50 hover:text-gray-500 focus:relative"
+			class="hmd:h-9 -8 flex w-9 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-0 text-gray-400 hover:bg-gray-50 hover:text-gray-500 focus:relative"
 			on:click={goToPreviousWeek}
 			type="button"
 		>
@@ -45,13 +46,14 @@
 			on:click={goToToday}
 			type="button"
 		>
-			Today
+			<span class="hidden md:block">Today</span>
+			<span class="block md:hidden"><CalendarCheck class="h-5 w-5 text-gray-400" /></span>
 		</button>
 
 		<span class="relative -mx-px hidden h-5 w-px bg-gray-300" />
 
 		<button
-			class="flex h-9 w-9 items-center justify-center rounded-r-md border-y border-r border-gray-300 pl-0 text-gray-400 hover:bg-gray-50 hover:text-gray-500 focus:relative"
+			class="flex h-8 w-9 items-center justify-center rounded-r-md border-y border-r border-gray-300 pl-0 text-gray-400 hover:bg-gray-50 hover:text-gray-500 focus:relative md:h-9"
 			on:click={goToNextWeek}
 			type="button"
 		>

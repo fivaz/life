@@ -3,7 +3,6 @@
 
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import PlusButton from '$lib/components/plus-button/PlusButton.svelte';
 	import Streak from '$lib/components/streak/Streak.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
@@ -46,9 +45,31 @@
 				>
 					<div class="flex items-center justify-between">
 						<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{$title}</h1>
-						<div class="flex flex-grow justify-between gap-5 md:flex-grow-0 md:justify-start">
-							<WeekChanger bind:selectedDate bind:weekStart />
+						<div
+							class="flex flex-grow items-center justify-between gap-5 md:flex-grow-0 md:justify-start"
+						>
 							<Streak {routines} />
+							<WeekChanger bind:selectedDate bind:weekStart />
+							<button
+								class="flex rounded p-1.5 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 md:hidden"
+								on:click={() => {
+									showForm = true;
+									editingRoutine = buildEmptyRoutine();
+								}}
+								type="button"
+							>
+								<Plus class="h-4 w-auto" />
+							</button>
+							<Button
+								class="hidden md:flex"
+								on:click={() => {
+									showForm = true;
+									editingRoutine = buildEmptyRoutine();
+								}}
+							>
+								<Plus class="h-4 w-auto" />
+								<span class="hidden md:block">New Routine</span>
+							</Button>
 						</div>
 					</div>
 
@@ -98,13 +119,6 @@
 					</Modal>
 				</TypedCollection>
 			</SignedIn>
-
-			<PlusButton
-				on:click={() => {
-					showForm = true;
-					editingRoutine = buildEmptyRoutine();
-				}}
-			/>
 		</div>
 	</div>
 </div>
