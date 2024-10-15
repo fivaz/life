@@ -1,7 +1,6 @@
 <script lang="ts">
-	import type { User } from '$lib/auth/store';
-
 	import SideMenu from '$lib/components/side-menu/SideMenu.svelte';
+	import { type User, title } from '$lib/utils/store';
 	import { Menu } from 'lucide-svelte';
 
 	let showMenu = false;
@@ -13,11 +12,11 @@
 
 <div class={className}>
 	<!--header-->
-	<header class="flex gap-3 bg-blue-500">
+	<header class="flex justify-between gap-3 border-b p-4">
+		<h1 class="text-lg font-semibold text-gray-900">{$title}</h1>
 		<button on:click={() => (showMenu = true)}>
 			<Menu />
 		</button>
-		header
 	</header>
 
 	<!--side menu-->
