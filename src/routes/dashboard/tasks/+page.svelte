@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Category } from '$lib/category/utils';
 
+	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
@@ -47,62 +48,60 @@
 	title.set('Tasks');
 </script>
 
-<div class="py-4">
-	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-		<SignedIn let:user>
-			<TypedCollection
-				let:data={categories}
-				ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.CATEGORIES}`}
-				type={categoryType}
-			>
-				<div class="flex flex-col gap-5">
-					<ul class="flex flex-col gap-3">
-						{#each sortedTasks as date (date)}
-							<TaskList
-								label={date}
-								on:create={(e) => {
-									showForm = true;
-									editingTask = buildToDoWithDeadline(categories, e.detail);
-								}}
-								on:edit={(e) => {
-									showForm = true;
-									editingTask = e.detail;
-								}}
-								tasks={sortedTasks[date]}
-								userId={user.uid}
-							/>
-						{/each}
-					</ul>
+<div class="mx-auto flex max-w-7xl flex-col gap-3 p-4 sm:px-6 lg:px-8">
+	<SignedIn let:user>
+		<TypedCollection
+			let:data={categories}
+			ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.CATEGORIES}`}
+			type={categoryType}
+		>
+			<div class="flex items-center justify-between">
+				<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{$title}</h1>
+				<span />
 
-					<!--to prevent the floating button from hiding any task-->
-					<div class="h-20" />
-
-					<div class="fixed bottom-4 right-8 flex flex-col items-center gap-3">
-						<button
-							class="rounded bg-white p-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-							on:click={() => (showStats = true)}
-							type="button"
-						>
-							<Icon class="h-5 w-5" src={DocumentText} />
-						</button>
-
-						<button
-							class="flex items-center gap-2 rounded-full bg-indigo-600 p-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
-							on:click={() => {
-								showForm = true;
-								editingTask = buildEmptyToDo(categories);
-							}}
-							type="button"
-						>
-							<Plus class="h-4 w-4" />
-						</button>
-					</div>
-
-					<TaskFormWrapper bind:show={showForm} {categories} {editingTask} userId={user.uid} />
+				<div class="flex items-center gap-3">
+					<button
+						class="rounded bg-white p-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+						on:click={() => (showStats = true)}
+						type="button"
+					>
+						<Icon class="h-5 w-5" src={DocumentText} />
+					</button>
+					<Button
+						on:click={() => {
+							showForm = true;
+							editingTask = buildEmptyToDo(categories);
+						}}
+					>
+						<Plus class="h-4 w-auto" />
+						New Category
+					</Button>
 				</div>
-			</TypedCollection>
-		</SignedIn>
-	</div>
+			</div>
+
+			<div class="flex flex-col gap-5">
+				<ul class="flex flex-col gap-3">
+					{#each sortedTasks as date (date)}
+						<TaskList
+							label={date}
+							on:create={(e) => {
+								showForm = true;
+								editingTask = buildToDoWithDeadline(categories, e.detail);
+							}}
+							on:edit={(e) => {
+								showForm = true;
+								editingTask = e.detail;
+							}}
+							tasks={sortedTasks[date]}
+							userId={user.uid}
+						/>
+					{/each}
+				</ul>
+
+				<TaskFormWrapper bind:show={showForm} {categories} {editingTask} userId={user.uid} />
+			</div>
+		</TypedCollection>
+	</SignedIn>
 </div>
 
 <Modal on:close={() => (showStats = false)} show={showStats}>

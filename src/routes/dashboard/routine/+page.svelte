@@ -50,18 +50,7 @@
 						>
 							<Streak {routines} />
 							<WeekChanger bind:selectedDate bind:weekStart />
-							<button
-								class="flex rounded p-1.5 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 md:hidden"
-								on:click={() => {
-									showForm = true;
-									editingRoutine = buildEmptyRoutine();
-								}}
-								type="button"
-							>
-								<Plus class="h-4 w-auto" />
-							</button>
 							<Button
-								class="hidden md:flex"
 								on:click={() => {
 									showForm = true;
 									editingRoutine = buildEmptyRoutine();
