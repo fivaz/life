@@ -25,6 +25,17 @@ export function buildEmptyRoutine(): Routine {
 	};
 }
 
+export function completeRoutine(routine: Routine, date: string, userId: string): void {
+	routine.completeHistory.push({
+		date,
+		isCompleted: true,
+	});
+	const { id, ...data } = routine;
+
+	const routineDocRef = doc(db, DbPaTH.USERS, userId, DbPaTH.ROUTINES, id);
+	void updateDoc(routineDocRef, data);
+}
+
 export function editRoutine(id: string, data: Omit<Routine, 'id'>, userId: string) {
 	const routineDocRef = doc(db, DbPaTH.USERS, userId, DbPaTH.ROUTINES, id);
 	void updateDoc(routineDocRef, data);
