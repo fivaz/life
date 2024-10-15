@@ -5,7 +5,7 @@
 	import Button from '$lib/components/form/button/Button.svelte';
 	import { DbPaTH, Routes } from '$lib/consts';
 	import { auth, db } from '$lib/firebase';
-	import { storeAvatar } from '$lib/user-utils';
+	import { storeAvatar } from '$lib/user/utils';
 	import { validator } from '@felte/validator-yup';
 	import { createForm } from 'felte';
 	import { FirebaseError } from 'firebase/app';

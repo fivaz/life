@@ -8,7 +8,7 @@
 	import { auth, db } from '$lib/firebase';
 	import { buildEmptyToDo, buildToDoWithDeadline } from '$lib/task/build-utils';
 	import { type AnyTask, queryUncompletedTasks } from '$lib/task/utils';
-	import { title } from '$lib/utils/store';
+	import { title } from '$lib/utils';
 	import { DocumentText } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Plus } from 'lucide-svelte';

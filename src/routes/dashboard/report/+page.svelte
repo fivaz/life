@@ -3,7 +3,7 @@
 	import { DbPaTH } from '$lib/consts';
 	import { auth, db } from '$lib/firebase';
 	import { type AnyTask } from '$lib/task/utils';
-	import { title } from '$lib/utils/store';
+	import { title } from '$lib/utils';
 	import { type Query, collection, query, where } from 'firebase/firestore';
 	import { type Writable, writable } from 'svelte/store';
 	import { collectionStore, userStore } from 'sveltefire';

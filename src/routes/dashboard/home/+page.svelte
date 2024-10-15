@@ -9,7 +9,7 @@
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { DbPaTH } from '$lib/consts';
 	import { buildEmptyEvent, buildEventWithTime } from '$lib/task/build-utils';
-	import { title } from '$lib/utils/store';
+	import { title } from '$lib/utils';
 	import { SignedIn } from 'sveltefire';
 
 	let targetDate: string | undefined = undefined;

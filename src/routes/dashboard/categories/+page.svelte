@@ -5,7 +5,7 @@
 	import PlusButton from '$lib/components/plus-button/PlusButton.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { DbPaTH } from '$lib/consts';
-	import { title } from '$lib/utils/store';
+	import { title } from '$lib/utils';
 	import { SignedIn } from 'sveltefire';
 
 	import CategoryForm from './category-form/CategoryForm.svelte';

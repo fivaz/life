@@ -1,14 +1,12 @@
 <script lang="ts">
 	import Logo from '$lib/components/Logo.svelte';
 	import SideMenu from '$lib/components/dashboard/side-menu/SideMenu.svelte';
-	import { type User, title } from '$lib/utils/store';
+	import { title } from '$lib/utils';
 	import { Menu } from 'lucide-svelte';
 
 	let showMenu = false;
 	let className = '';
 	export { className as class };
-
-	export let currentUser: User;
 </script>
 
 <div class={className}>
@@ -28,7 +26,6 @@
 		class="fixed left-0 top-0 z-20 transform transition-transform duration-500 {showMenu
 			? 'translate-x-0'
 			: '-translate-x-full'}"
-		{currentUser}
 		on:click={() => (showMenu = false)}
 	/>
 

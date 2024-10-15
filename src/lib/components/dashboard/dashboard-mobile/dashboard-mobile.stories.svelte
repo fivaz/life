@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
 
-	import { user } from '$lib/utils/seed';
+	import { user } from '$lib/user/seed';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
 	import DashboardMobile from './DashboardMobile.svelte';
