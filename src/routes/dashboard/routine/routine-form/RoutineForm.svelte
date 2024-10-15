@@ -28,6 +28,7 @@
 		} else {
 			addRoutine(data, userId);
 		}
+		dispatch('close');
 	}
 </script>
 

@@ -45,7 +45,15 @@
 					type={routinesType}
 				>
 					{#each routines as routine (routine.id)}
-						<RoutineRow {routine} selectedDate={dateString} userId={user.uid} />
+						<RoutineRow
+							on:edit={(e) => {
+								showForm = true;
+								editingRoutine = e.detail;
+							}}
+							{routine}
+							selectedDate={dateString}
+							userId={user.uid}
+						/>
 					{/each}
 
 					{#if routines.length === 0}
