@@ -1,11 +1,11 @@
 <script lang="ts">
 	import type { Routine } from '$lib/routine/utils';
 
-	import WeekList from '$lib/components/calendar/calendar-body/week-list/WeekList.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import PlusButton from '$lib/components/plus-button/PlusButton.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
+	import WeekListSelector from '$lib/components/week-list-selector/WeekListSelector.svelte';
 	import { DATE, DbPaTH } from '$lib/consts';
 	import { title } from '$lib/utils';
 	import { addDays, format, startOfWeek } from 'date-fns';
@@ -36,7 +36,7 @@
 <div class="py-4">
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<div class="flex h-full flex-col">
-			<WeekList bind:selectedDate {dates} />
+			<WeekListSelector bind:selectedDate {dates} />
 
 			<SignedIn let:user>
 				<TypedCollection
