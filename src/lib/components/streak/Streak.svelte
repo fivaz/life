@@ -4,8 +4,8 @@
 	import { DATE } from '$lib/consts';
 	import { format } from 'date-fns';
 	import { Flame } from 'lucide-svelte';
-	
-export let routines: Routine[];
+
+	export let routines: Routine[];
 
 	function allRoutinesHaveEntryForDate(routines: Routine[], date: string): boolean {
 		// otherwise the loop doesn't end cause .every returns true in case the list is empty
@@ -39,8 +39,8 @@ export let routines: Routine[];
 	$: streak = getRoutineStreak(routines);
 </script>
 
-<div class="m-auto flex items-center gap-3 text-2xl font-bold">
+<div class="flex items-center font-semibold text-red-500">
+	<Flame class="h-7 w-auto" />
 	{streak}
 	{streak > 1 ? 'days' : 'day'} streak!
-	<Flame class="h-7 w-auto text-red-500" />
 </div>

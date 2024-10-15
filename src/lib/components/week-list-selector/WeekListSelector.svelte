@@ -19,31 +19,32 @@
 </script>
 
 <div
-	class="grid grid-cols-7 divide-x divide-gray-100 border-x border-gray-100 text-sm leading-6 text-gray-500"
+	class="grid grid-cols-7 divide-gray-100 border border-gray-100 text-sm leading-6 text-gray-500 md:divide-x"
 >
 	{#each dates as date (date)}
 		<button
-			class="flex items-center justify-center py-3"
+			class="flex flex-col items-center justify-center gap-1 pb-3 pt-2 md:flex-row"
 			on:click={() => (selectedDate = date)}
 			type="button"
 		>
-			<span class="flex items-baseline gap-1">
+			<span class="hidden md:block">
 				{#if isCompleted(date, routines)}
 					<CheckCheck class="h-5 w-auto self-center text-red-500" />
 				{/if}
-				{format(date, 'E')}
-				<span
-					class={clsx(
-						{
-							'h-8 w-8 rounded-full bg-indigo-300 text-white':
-								isToday(date) && !isSameDay(selectedDate, date),
-							'h-8 w-8 rounded-full bg-indigo-600 text-white': isSameDay(selectedDate, date),
-						},
-						'mt-1 flex items-center justify-center font-semibold text-gray-900',
-					)}
-				>
-					{format(date, 'dd')}
-				</span>
+			</span>
+			<span class="hidden md:block">{format(date, 'E')}</span>
+			<span class="block md:hidden">{format(date, 'EEEEE')}</span>
+
+			<span
+				class={clsx(
+					{
+						'bg-indigo-300 text-white': isToday(date) && !isSameDay(selectedDate, date),
+						'bg-indigo-600 text-white': isSameDay(selectedDate, date),
+					},
+					'flex h-8 w-8 items-center justify-center rounded-full font-semibold text-gray-900',
+				)}
+			>
+				{format(date, 'dd')}
 			</span>
 		</button>
 	{/each}

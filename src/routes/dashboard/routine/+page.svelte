@@ -6,6 +6,7 @@
 	import PlusButton from '$lib/components/plus-button/PlusButton.svelte';
 	import Streak from '$lib/components/streak/Streak.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
+	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 	import WeekListSelector from '$lib/components/week-list-selector/WeekListSelector.svelte';
 	import { DATE, DbPaTH } from '$lib/consts';
 	import { title } from '$lib/utils';
@@ -36,14 +37,20 @@
 
 <div class="py-4">
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-		<div class="flex h-full flex-col">
+		<div class="flex h-full w-full flex-col gap-3">
 			<SignedIn let:user>
 				<TypedCollection
 					let:data={routines}
 					ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.ROUTINES}`}
 					type={routinesType}
 				>
-					<Streak {routines} />
+					<div class="flex items-center justify-between">
+						<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{$title}</h1>
+						<div class="flex flex-grow justify-between gap-5 md:flex-grow-0 md:justify-start">
+							<WeekChanger bind:selectedDate bind:weekStart />
+							<Streak {routines} />
+						</div>
+					</div>
 
 					<WeekListSelector bind:selectedDate {dates} {routines} />
 
