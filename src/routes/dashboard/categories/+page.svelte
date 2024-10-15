@@ -2,10 +2,10 @@
 	import type { Category } from '$lib/category/utils';
 
 	import Modal from '$lib/components/modal/Modal.svelte';
+	import PlusButton from '$lib/components/plus-button/PlusButton.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { DbPaTH } from '$lib/consts';
 	import { title } from '$lib/utils/store';
-	import { Plus } from 'lucide-svelte';
 	import { SignedIn } from 'sveltefire';
 
 	import CategoryForm from './category-form/CategoryForm.svelte';
@@ -42,19 +42,12 @@
 						{/each}
 					</ul>
 
-					<!--to prevent the floating button from hiding any task-->
-					<div class="h-8" />
-
-					<button
-						class="fixed bottom-4 right-4 flex items-center gap-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+					<PlusButton
 						on:click={() => {
 							showForm = true;
 							editingCategory = buildEmptyCategory();
 						}}
-					>
-						<Plus class="h-4 w-4" />
-						<span>Create Category</span>
-					</button>
+					/>
 
 					<Modal on:close={() => (showForm = false)} show={showForm}>
 						<CategoryForm

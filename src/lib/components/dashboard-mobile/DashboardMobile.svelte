@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Logo from '$lib/components/Logo.svelte';
 	import SideMenu from '$lib/components/side-menu/SideMenu.svelte';
 	import { type User, title } from '$lib/utils/store';
 	import { Menu } from 'lucide-svelte';
@@ -13,7 +14,10 @@
 <div class={className}>
 	<!--header-->
 	<header class="fixed z-10 flex h-14 w-full justify-between gap-3 border-b bg-white p-4">
-		<h1 class="text-lg font-semibold text-gray-900">{$title}</h1>
+		<div class="flex items-center gap-2">
+			<Logo class="h-8 w-8 text-indigo-600" />
+			<h1 class="text-lg font-semibold text-gray-900">{$title}</h1>
+		</div>
 		<button on:click={() => (showMenu = true)}>
 			<Menu />
 		</button>
@@ -21,10 +25,11 @@
 
 	<!--side menu-->
 	<SideMenu
-		class="fixed left-0 top-0 z-20 transform transition-transform duration-300 {showMenu
+		class="fixed left-0 top-0 z-20 transform transition-transform duration-500 {showMenu
 			? 'translate-x-0'
 			: '-translate-x-full'}"
 		{currentUser}
+		on:click={() => (showMenu = false)}
 	/>
 
 	<!--background-->

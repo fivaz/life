@@ -41,6 +41,7 @@
 							? 'bg-gray-50 text-indigo-600'
 							: 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600'}"
 						href={item.href}
+						on:click
 					>
 						<!-- eslint-disable perfectionist/sort-svelte-attributes -->
 						<svelte:component this={item.icon} class="h-6 w-6" />

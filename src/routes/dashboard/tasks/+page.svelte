@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Category } from '$lib/category/utils';
 
-	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
@@ -9,8 +8,10 @@
 	import { auth, db } from '$lib/firebase';
 	import { buildEmptyToDo, buildToDoWithDeadline } from '$lib/task/build-utils';
 	import { type AnyTask, queryUncompletedTasks } from '$lib/task/utils';
+	import { title } from '$lib/utils/store';
 	import { DocumentText } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { Plus } from 'lucide-svelte';
 	import { SignedIn, collectionStore, userStore } from 'sveltefire';
 
 	import { type SortedTaskType, sortTasksByDate } from './service';
@@ -42,6 +43,8 @@
 	}
 
 	let categoryType: Category;
+
+	title.set('Tasks');
 </script>
 
 <div class="py-4">
@@ -72,9 +75,9 @@
 					</ul>
 
 					<!--to prevent the floating button from hiding any task-->
-					<div class="h-8" />
+					<div class="h-20" />
 
-					<div class="fixed bottom-4 right-4 flex items-center gap-2">
+					<div class="fixed bottom-4 right-8 flex flex-col items-center gap-3">
 						<button
 							class="rounded bg-white p-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
 							on:click={() => (showStats = true)}
@@ -82,14 +85,17 @@
 						>
 							<Icon class="h-5 w-5" src={DocumentText} />
 						</button>
-						<Button
+
+						<button
+							class="flex items-center gap-2 rounded-full bg-indigo-600 p-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
 							on:click={() => {
 								showForm = true;
 								editingTask = buildEmptyToDo(categories);
 							}}
+							type="button"
 						>
-							Create Task
-						</Button>
+							<Plus class="h-4 w-4" />
+						</button>
 					</div>
 
 					<TaskFormWrapper bind:show={showForm} {categories} {editingTask} userId={user.uid} />
