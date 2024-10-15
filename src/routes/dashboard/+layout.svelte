@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import DashboardCore from '$lib/components/dashboard-core/DashboardCore.svelte';
+	import Dashboard from '$lib/components/dashboard/Dashboard.svelte';
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
 	import { dialog } from '$lib/components/dialog/service';
 	import { Routes, dashboardRoute } from '$lib/consts';
@@ -18,9 +18,9 @@
 	});
 </script>
 
-<DashboardCore>
+<Dashboard>
 	<slot />
-</DashboardCore>
+</Dashboard>
 
 <Dialog
 	cancelText={$dialog.cancelText}

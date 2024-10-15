@@ -3,19 +3,19 @@
 
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
-	import DashboardCore from './DashboardCore.svelte';
+	import Dashboard from './Dashboard.svelte';
 
 	export const meta = {
 		argTypes: {},
-		component: DashboardCore,
+		component: Dashboard,
 		parameters: {
 			layout: 'fullscreen',
 		},
-	} satisfies Meta<DashboardCore>;
+	} satisfies Meta<Dashboard>;
 </script>
 
 <Template let:args>
-	<DashboardCore {...args} />
+	<Dashboard {...args} />
 </Template>
 
 <Story args={{}} name="Primary" />

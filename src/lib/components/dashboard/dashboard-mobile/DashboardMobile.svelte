@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Logo from '$lib/components/Logo.svelte';
-	import SideMenu from '$lib/components/side-menu/SideMenu.svelte';
+	import SideMenu from '$lib/components/dashboard/side-menu/SideMenu.svelte';
 	import { type User, title } from '$lib/utils/store';
 	import { Menu } from 'lucide-svelte';
 

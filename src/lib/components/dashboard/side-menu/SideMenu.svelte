@@ -30,7 +30,10 @@
 </script>
 
 <div class="h-full w-64 bg-white {className} flex flex-col items-stretch gap-5 p-3">
-	<Logo class="h-8 w-auto self-start text-indigo-600" />
+	<div class="flex items-center gap-2 text-indigo-600">
+		<Logo class="h-8 w-auto self-start" />
+		<h2 class="text-lg font-semibold">Life</h2>
+	</div>
 
 	<nav class="flex-1">
 		<ul>

@@ -8,6 +8,6 @@ export function updateUser(displayName: null | string, photoURL: null | string) 
 	currentUser.update((user) => user && { ...user, displayName, photoURL });
 }
 
-export type User = Pick<UserInfo, 'displayName' | 'photoURL'> | null;
+export type User = Pick<UserInfo, 'displayName' | 'email' | 'photoURL'> | null;
 
 export const title = writable<string>('Dashboard');
