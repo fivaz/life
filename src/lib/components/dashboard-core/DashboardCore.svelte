@@ -16,10 +16,10 @@
 	});
 </script>
 
-<div class="flex h-screen flex-col md:flex-row">
+<div class="flex h-screen flex-col overflow-hidden md:flex-row">
 	<DashboardDesktop class="hidden md:block" {currentUser} />
 
 	<DashboardMobile class="block md:hidden" {currentUser} />
 
-	<main class="mt-14 flex-1 md:mt-0"><slot /></main>
+	<main class="mt-14 flex-1 overflow-y-auto md:mt-0"><slot /></main>
 </div>

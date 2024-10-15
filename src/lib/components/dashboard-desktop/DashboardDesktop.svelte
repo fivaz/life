@@ -8,6 +8,4 @@
 	export let currentUser: User;
 </script>
 
-<header class={className}>
-	<SideMenu {currentUser} />
-</header>
+<SideMenu class="{className} sticky top-0 border-r" {currentUser} />
