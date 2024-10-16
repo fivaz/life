@@ -1,9 +1,19 @@
 import type { AnyTask } from '$lib/task/utils';
 import type { Query } from 'firebase/firestore';
 
-import { addDays, differenceInMilliseconds, endOfToday, startOfWeek } from 'date-fns';
+import { DATE } from '$lib/consts';
+import {
+	addDays,
+	differenceInMilliseconds,
+	endOfToday,
+	format,
+	startOfWeek,
+} from 'date-fns';
 import { onSnapshot } from 'firebase/firestore';
 import { derived, writable } from 'svelte/store';
+
+// list of weekStarts in which the tasks have already been fetched
+export const savedWeeks = writable<string[]>([]);
 
 export const weekStart = writable<Date>(startOfWeek(new Date(), { weekStartsOn: 1 }));
 
@@ -14,6 +24,19 @@ export const tasks = writable<AnyTask[]>([]);
 export const dates = derived(weekStart, ($weekStart) =>
 	Array.from({ length: 7 }, (_, i) => addDays($weekStart, i)),
 );
+
+export function onChangeWeekStart(newWeekStart: Date, query: Query<AnyTask>): void {
+	const newWeekStartString = format(newWeekStart, DATE);
+	savedWeeks.update((weeks) => {
+		if (!weeks.includes(newWeekStartString)) {
+			weeks.push(newWeekStartString);
+			// only fetch tasks for other weeks, if they haven't been fetched previously
+			subscribeToWeekTasks(query);
+		}
+
+		return weeks;
+	});
+}
 
 export function subscribeToWeekTasks(query: Query<AnyTask>) {
 	return onSnapshot(

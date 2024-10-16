@@ -3,19 +3,19 @@
 	import type { Query } from 'firebase/firestore';
 
 	import {
-		subscribeToWeekTasks,
+		onChangeWeekStart,
 		updateDateAtMidnight,
 		weekStart,
 	} from '$lib/components/calendar/service';
-
-	import CalendarBody from './calendar-body/CalendarBody.svelte';
+	
+import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
 
 	updateDateAtMidnight();
 
 	export let fetchTasks: (weekStart: Date) => Query<AnyTask>;
 
-	$: subscribeToWeekTasks(fetchTasks($weekStart));
+	$: onChangeWeekStart($weekStart, fetchTasks($weekStart));
 </script>
 
 <div class="flex h-screen flex-col md:h-[calc(100vh-20px)]">
