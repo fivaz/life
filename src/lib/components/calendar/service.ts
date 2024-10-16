@@ -16,27 +16,28 @@ export const dates = derived(weekStart, ($weekStart) =>
 );
 
 export function subscribeToWeekTasks(query: Query<AnyTask>) {
-	// Subscribe to real-time updates using onSnapshot
-	// Return unsubscribe function to stop listening when needed
 	return onSnapshot(
 		query,
 		(querySnapshot) => {
-			// Get the existing tasks from the store
 			tasks.update((existingTasks) => {
-				const existingIds = new Set(existingTasks.map((task) => task.id)); // Create a set of existing task IDs
+				const updatedTasks = [...existingTasks]; // Start with the existing tasks
 
-				// Merge new tasks with existing tasks
-				const newTasks = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-				const mergedTasks = [...existingTasks]; // Start with the existing tasks
+				querySnapshot.docs.forEach((doc) => {
+					const newTask = { ...doc.data(), id: doc.id };
 
-				newTasks.forEach((task) => {
-					if (!existingIds.has(task.id)) {
-						// Check for duplicates
-						mergedTasks.push(task); // Add only unique tasks
+					// Check if the task already exists
+					const existingIndex = updatedTasks.findIndex((task) => task.id === newTask.id);
+
+					if (existingIndex > -1) {
+						// If it exists, replace the existing task
+						updatedTasks[existingIndex] = newTask;
+					} else {
+						// If it doesn't exist, add the new task
+						updatedTasks.push(newTask);
 					}
 				});
 
-				return mergedTasks; // Return the updated array of tasks
+				return updatedTasks;
 			});
 		},
 		(error) => {
