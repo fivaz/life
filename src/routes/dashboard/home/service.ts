@@ -27,13 +27,20 @@ export function persistToDos(userId: string, toDos: ToDo[]) {
 	});
 }
 
-export function getWeekTasks(userId: string, startOfWeek: Date): Query<AnyTask> {
+export function getWeekTasks(userId: string, startOfWeek: Date): [Query<AnyTask>, Query<AnyTask>] {
 	const startOfWeekString = format(startOfWeek, DATE);
 	const endOfWeekString = format(endOfWeek(startOfWeek), DATE);
 	const goalsRef = collection(db, `${DbPaTH.USERS}/${userId}/${DbPaTH.TASKS}`);
-	return query(
-		goalsRef,
-		where('date', '>=', startOfWeekString),
-		where('date', '<=', endOfWeekString),
-	) as Query<AnyTask>;
+	return [
+		query(
+			goalsRef,
+			where('date', '>=', startOfWeekString),
+			where('date', '<=', endOfWeekString),
+		) as Query<AnyTask>,
+		query(
+			goalsRef,
+			where('deadline', '>=', startOfWeekString),
+			where('deadline', '<=', endOfWeekString),
+		) as Query<AnyTask>,
+	];
 }

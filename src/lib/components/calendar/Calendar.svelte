@@ -14,7 +14,7 @@
 
 	updateDateAtMidnight();
 
-	export let fetchTasks: (weekStart: Date) => Query<AnyTask>;
+	export let fetchTasks: (weekStart: Date) => [Query<AnyTask>, Query<AnyTask>];
 
 	export let createTask: (date: Date) => void;
 
