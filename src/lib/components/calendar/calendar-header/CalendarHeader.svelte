@@ -6,11 +6,13 @@
 	import { getCurrentRoundedDate } from '$lib/task/time-utils';
 	import { format } from 'date-fns';
 	import { Plus } from 'lucide-svelte';
-	import { createEventDispatcher } from 'svelte';
+	import { getContext } from 'svelte';
 
-	const dispatch = createEventDispatcher<{ createTask: Date }>();
+	const createTask = getContext('createTask');
 
-	$: createEvent = () => dispatch('createTask', getCurrentRoundedDate());
+	function createEvent() {
+		createTask(getCurrentRoundedDate());
+	}
 </script>
 
 <header class="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">

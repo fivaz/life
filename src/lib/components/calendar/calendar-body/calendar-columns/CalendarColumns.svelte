@@ -1,14 +1,11 @@
 <script lang="ts">
 	import { dates, selectedDate } from '$lib/components/calendar/service';
 	import { buildDate } from '$lib/task/time-utils';
-	import { createEventDispatcher } from 'svelte';
+	import { getContext } from 'svelte';
 
 	import CalendarRows from './calendar-rows/CalendarRows.svelte';
 
-	const dispatch = createEventDispatcher<{
-		createTask: Date;
-		move: { cellNumber: number; date: Date };
-	}>();
+	const createTask = getContext('createTask');
 </script>
 
 <div class="hidden grow md:flex">
@@ -16,7 +13,7 @@
 		{#each $dates as date (date)}
 			<CalendarRows
 				{date}
-				on:click={(e) => dispatch('createTask', buildDate(date, e.detail))}
+				on:click={(e) => createTask(buildDate(date, e.detail))}
 				on:editTask
 				on:moveEvent
 				on:persistToDos
@@ -30,7 +27,7 @@
 <div class="mb-5 block grow border border-b md:hidden">
 	<CalendarRows
 		date={$selectedDate}
-		on:click={(e) => dispatch('createTask', buildDate($selectedDate, e.detail))}
+		on:click={(e) => createTask(buildDate($selectedDate, e.detail))}
 		on:editTask
 		on:moveEvent
 		on:persistToDos

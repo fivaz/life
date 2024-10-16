@@ -23,3 +23,16 @@ declare module '@storybook/addon-svelte-csf' {
 		args: Record<string, unknown>;
 	}
 }
+
+type Context = {
+	createTask: (date: Date) => void; // for example
+};
+
+declare module 'svelte' {
+	export function getContext<T>(key: T extends keyof Context ? T : never): Context[T];
+
+	export function setContext<T>(
+		key: T extends keyof Context ? T : never,
+		context: Context[T],
+	): void;
+}

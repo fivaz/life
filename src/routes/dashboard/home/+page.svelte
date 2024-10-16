@@ -59,8 +59,8 @@
 		type={categoryType}
 	>
 		<Calendar
+			createTask={(date) => openFormToCreateTask(categories, date)}
 			fetchTasks={(weekStart) => getWeekTasks(user.uid, weekStart)}
-			on:createTask={(e) => openFormToCreateTask(categories, e.detail)}
 			on:editTask={(e) => openFormToEditTask(e.detail.task, e.detail.targetDate)}
 			on:moveEvent={(e) =>
 				moveEvent(
