@@ -86,3 +86,9 @@ export function updateDateAtMidnight() {
 		updateDateAtMidnight(); // Schedule the next update for the following midnight
 	}, timeUntilMidnight);
 }
+
+export function removeLocalTask(task: AnyTask) {
+	tasks.update((existingTasks) =>
+		existingTasks.filter((existingTask) => existingTask.id !== task.id),
+	);
+}

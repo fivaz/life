@@ -3,6 +3,7 @@
 	import type { Goal } from '$lib/goal/utils';
 	import type { AnyTask } from '$lib/task/utils';
 
+	import { removeLocalTask } from '$lib/components/calendar/service';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import {
@@ -31,6 +32,7 @@
 
 	async function removeTask(userId: string, task: AnyTask, targetDate: string | undefined) {
 		if (await deletePossibleSingleRecurringEvent(task, userId, targetDate)) {
+			removeLocalTask(task);
 			close();
 		}
 	}
