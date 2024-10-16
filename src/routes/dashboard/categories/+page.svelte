@@ -43,27 +43,25 @@
 			ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.CATEGORIES}`}
 			type={categoryType}
 		>
-			<div class="flex flex-col gap-5">
-				<ul class="divide-y divide-gray-100" role="list">
-					{#each categories as category (category)}
-						<CategoryRow
-							{category}
-							on:edit={(e) => {
-								showForm = true;
-								editingCategory = e.detail;
-							}}
-						/>
-					{/each}
-				</ul>
-
-				<Modal on:close={() => (showForm = false)} show={showForm}>
-					<CategoryForm
-						category={editingCategory}
-						on:close={() => (showForm = false)}
-						userId={user.uid}
+			<ul class="flex flex-col gap-1">
+				{#each categories as category (category)}
+					<CategoryRow
+						{category}
+						on:edit={(e) => {
+							showForm = true;
+							editingCategory = e.detail;
+						}}
 					/>
-				</Modal>
-			</div>
+				{/each}
+			</ul>
+
+			<Modal on:close={() => (showForm = false)} show={showForm}>
+				<CategoryForm
+					category={editingCategory}
+					on:close={() => (showForm = false)}
+					userId={user.uid}
+				/>
+			</Modal>
 		</TypedCollection>
 	</SignedIn>
 </div>

@@ -51,7 +51,7 @@
 						<div class="flex gap-5">
 							<WeekChanger bind:selectedDate bind:weekStart />
 
-							<div class="h-7 border-r border-gray-300"></div>
+							<div class="h-7 border-r border-gray-300" />
 
 							<Button
 								on:click={() => {
@@ -68,17 +68,19 @@
 
 				<WeekListSelector bind:selectedDate {dates} {routines} />
 
-				{#each routines as routine (routine.id)}
-					<RoutineRow
-						on:edit={(e) => {
-							showForm = true;
-							editingRoutine = e.detail;
-						}}
-						{routine}
-						selectedDate={dateString}
-						userId={user.uid}
-					/>
-				{/each}
+				<ul class="flex flex-col gap-1">
+					{#each routines as routine (routine.id)}
+						<RoutineRow
+							on:edit={(e) => {
+								showForm = true;
+								editingRoutine = e.detail;
+							}}
+							{routine}
+							selectedDate={dateString}
+							userId={user.uid}
+						/>
+					{/each}
+				</ul>
 
 				{#if routines.length === 0}
 					<div class="flex flex-1 items-center justify-center text-center">
