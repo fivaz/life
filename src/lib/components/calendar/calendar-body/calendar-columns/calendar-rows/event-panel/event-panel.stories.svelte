@@ -29,7 +29,6 @@
 		<EventPanel
 			{...args}
 			class="!static"
-			on:editTask={(args) => console.log('editTask', args.detail)}
 			on:moveEvent={(args) => console.log('moveEvent', args.detail)}
 			on:toggleEvent={(args) => console.log('toggleEvent', args.detail)}
 			targetDate={new Date()}

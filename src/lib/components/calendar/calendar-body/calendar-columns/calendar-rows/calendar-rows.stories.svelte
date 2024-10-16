@@ -21,7 +21,6 @@
 		{...args}
 		date={new Date()}
 		on:click={(args) => console.log('click', args.detail)}
-		on:editTask={(args) => console.log('editTask', args.detail)}
 		on:moveEvent={(args) => console.log('moveEvent', args.detail)}
 		on:toggleEvent={(args) => console.log('toggleEvent', args.detail)}
 		{tasks}

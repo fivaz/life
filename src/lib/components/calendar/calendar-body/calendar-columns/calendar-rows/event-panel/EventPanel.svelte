@@ -18,7 +18,7 @@
 	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/service';
 	import { clsx } from 'clsx';
 	import interact from 'interactjs';
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { createEventDispatcher, getContext, onMount } from 'svelte';
 
 	import EventPanelCore from './event-panel-core/EventPanelCore.svelte';
 
@@ -114,6 +114,8 @@
 		document.removeEventListener('click', unSelect);
 	}
 
+	const editTask = getContext('editTask');
+
 	onMount(() => {
 		if (!container) return;
 
@@ -123,7 +125,7 @@
 			//e.target instanceof HTMLInputElement is necessary so when clicking on the checkbox isDone doesn't open the form
 			if ($isSomethingDragging || e.target instanceof HTMLInputElement) return;
 
-			dispatch('editTask', { targetDate, task: event });
+			editTask(event, targetDate);
 		});
 
 		interactivePanel.pointerEvents({ holdDuration: 300 }).on('hold', () => {

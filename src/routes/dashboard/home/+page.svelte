@@ -60,8 +60,8 @@
 	>
 		<Calendar
 			createTask={(date) => openFormToCreateTask(categories, date)}
+			editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
 			fetchTasks={(weekStart) => getWeekTasks(user.uid, weekStart)}
-			on:editTask={(e) => openFormToEditTask(e.detail.task, e.detail.targetDate)}
 			on:moveEvent={(e) =>
 				moveEvent(
 					user.uid,

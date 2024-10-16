@@ -27,14 +27,7 @@
 	<div class="relative">
 		<CalendarGrid on:click targetDate={formattedDate} />
 		{#each events as event (event)}
-			<EventPanel
-				{event}
-				{eventsGrid}
-				on:editTask
-				on:moveEvent
-				on:toggleEvent
-				targetDate={formattedDate}
-			/>
+			<EventPanel {event} {eventsGrid} on:moveEvent on:toggleEvent targetDate={formattedDate} />
 		{/each}
 	</div>
 </div>

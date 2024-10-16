@@ -18,12 +18,16 @@
 
 	export let createTask: (date: Date) => void;
 
+	export let editTask: (task: AnyTask, date: string) => void;
+
 	setContext('createTask', createTask);
+
+	setContext('editTask', editTask);
 
 	$: onChangeWeekStart($weekStart, fetchTasks($weekStart));
 </script>
 
 <div class="flex h-screen flex-col md:h-[calc(100vh-20px)]">
 	<CalendarHeader />
-	<CalendarBody on:editTask on:moveEvent on:persistToDos on:toggleEvent />
+	<CalendarBody on:moveEvent on:persistToDos on:toggleEvent />
 </div>
