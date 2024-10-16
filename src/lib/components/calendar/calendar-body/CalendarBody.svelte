@@ -39,7 +39,7 @@
 			<HorizontalTime>
 				<div bind:this={containerOffset} />
 			</HorizontalTime>
-			<CalendarColumns on:toggleEvent />
+			<CalendarColumns />
 		</div>
 	</div>
 </div>

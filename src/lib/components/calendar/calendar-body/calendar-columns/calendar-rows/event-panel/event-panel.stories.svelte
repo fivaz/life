@@ -26,12 +26,7 @@
 
 <Template let:args>
 	<div class="!relative w-52">
-		<EventPanel
-			{...args}
-			class="!static"
-			on:toggleEvent={(args) => console.log('toggleEvent', args.detail)}
-			targetDate={new Date()}
-		/>
+		<EventPanel {...args} class="!static" targetDate={new Date()} />
 	</div>
 </Template>
 

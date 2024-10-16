@@ -26,12 +26,7 @@
 
 <Template let:args>
 	<div class="relative h-48 w-48">
-		<EventPanelCore
-			{...args}
-			isSelected={false}
-			on:toggleEvent={(args) => console.log('toggleEvent', args.detail)}
-			targetDate={new Date()}
-		/>
+		<EventPanelCore {...args} isSelected={false} targetDate={new Date()} />
 	</div>
 </Template>
 

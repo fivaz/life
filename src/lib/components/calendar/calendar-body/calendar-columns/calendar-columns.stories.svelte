@@ -20,7 +20,6 @@
 	<CalendarColumns
 		{...args}
 		dates={Array.from({ length: 7 }, (_, i) => addDays(new Date(), i))}
-		on:toggleEvent={(args) => console.log('toggleEvent', args.detail)}
 		selectedDate={new Date()}
 		tasks={events}
 	/>

@@ -39,6 +39,7 @@ type Context = {
 		},
 	) => void;
 	persistToDos: (toDos: ToDo[]) => void;
+	toggleEvent: (event: AnyEvent, targetDate: string) => void;
 };
 
 declare module 'svelte' {

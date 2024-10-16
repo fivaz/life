@@ -11,7 +11,7 @@
 	} from '$lib/task/utils';
 	import { clsx } from 'clsx';
 	import { format, parse } from 'date-fns';
-	import { createEventDispatcher } from 'svelte';
+	import { getContext } from 'svelte';
 
 	import GoalIcon from '../../../../../../../../routes/dashboard/goals/goal-form/goal-icon/GoalIcon.svelte';
 
@@ -39,10 +39,6 @@
 		return formattedTime;
 	}
 
-	const dispatch = createEventDispatcher<{
-		toggleEvent: { event: AnyEvent; targetDate: string };
-	}>();
-
 	function isLong() {
 		return getDurationInMinutes(event) > GRID_CELL_TIME;
 	}
@@ -62,6 +58,8 @@
 
 		return title;
 	}
+
+	const toggleEvent = getContext('toggleEvent');
 </script>
 
 <div
@@ -92,7 +90,7 @@
 		<input
 			checked={event.isDone}
 			class="rounded border-gray-300 focus:ring-indigo-600"
-			on:change={() => dispatch('toggleEvent', { event, targetDate })}
+			on:change={() => toggleEvent(event, targetDate)}
 			type="checkbox"
 		/>
 	</label>

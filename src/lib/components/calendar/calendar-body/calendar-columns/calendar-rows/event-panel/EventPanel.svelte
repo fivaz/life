@@ -148,5 +148,5 @@
 	class={clsx(className, EVENT_PANEL_CLASS, 'absolute rounded-lg')}
 	style="{getHeight(event)} {getTop(event)} {getDivision(event, eventsGrid)}"
 >
-	<EventPanelCore {event} {isSelected} on:toggleEvent {targetDate} />
+	<EventPanelCore {event} {isSelected} {targetDate} />
 </div>

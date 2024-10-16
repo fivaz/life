@@ -27,7 +27,7 @@
 	<div class="relative">
 		<CalendarGrid on:click targetDate={formattedDate} />
 		{#each events as event (event)}
-			<EventPanel {event} {eventsGrid} on:toggleEvent targetDate={formattedDate} />
+			<EventPanel {event} {eventsGrid} targetDate={formattedDate} />
 		{/each}
 	</div>
 </div>

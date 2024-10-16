@@ -22,6 +22,8 @@
 
 	export let persistToDos: (toDos: ToDo[]) => void;
 
+	export let toggleEvent: (event: AnyEvent, targetDate: string) => void;
+
 	export let moveEvent: (
 		event: AnyEvent,
 		moveObject: {
@@ -40,10 +42,12 @@
 
 	setContext('persistToDos', persistToDos);
 
+	setContext('toggleEvent', toggleEvent);
+
 	$: onChangeWeekStart($weekStart, fetchTasks($weekStart));
 </script>
 
 <div class="flex h-screen flex-col md:h-[calc(100vh-20px)]">
 	<CalendarHeader />
-	<CalendarBody on:toggleEvent />
+	<CalendarBody />
 </div>
