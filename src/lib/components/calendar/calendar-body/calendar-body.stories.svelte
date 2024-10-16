@@ -15,11 +15,7 @@
 </script>
 
 <Template let:args>
-	<CalendarBody
-		{...args}
-		on:moveEvent={(args) => console.log('moveEvent', args.detail)}
-		on:toggleEvent={(args) => console.log('toggleEvent', args.detail)}
-	/>
+	<CalendarBody {...args} on:toggleEvent={(args) => console.log('toggleEvent', args.detail)} />
 </Template>
 
 <Story args={{}} name="Primary" />

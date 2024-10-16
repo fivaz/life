@@ -16,7 +16,7 @@ declare global {
 
 export {};
 
-import type { AnyTask } from '$lib/task/utils';
+import type { AnyEvent, AnyTask } from '$lib/task/utils';
 
 import '@storybook/addon-svelte-csf';
 
@@ -29,6 +29,15 @@ declare module '@storybook/addon-svelte-csf' {
 type Context = {
 	createTask: (date: Date) => void;
 	editTask: (task: AnyTask, date: string) => void;
+	moveEvent: (
+		event: AnyEvent,
+		moveObject: {
+			date: string;
+			duration: string;
+			oldDate: string;
+			startTime: string;
+		},
+	) => void;
 };
 
 declare module 'svelte' {

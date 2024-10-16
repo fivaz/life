@@ -9,10 +9,12 @@ import { Query, collection, query, where } from 'firebase/firestore';
 export function moveEvent(
 	userId: string,
 	event: AnyEvent,
-	date: string,
-	duration: string,
-	startTime: string,
-	oldDate: string,
+	{
+		date,
+		duration,
+		oldDate,
+		startTime,
+	}: { date: string; duration: string; oldDate: string; startTime: string },
 ) {
 	const newEvent = { ...event, date, duration, startTime };
 	editPossibleSingleRecurringEvent(newEvent, userId, oldDate);

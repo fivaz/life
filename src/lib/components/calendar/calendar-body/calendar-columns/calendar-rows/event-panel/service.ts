@@ -113,7 +113,7 @@ export function getCellSizeFromDuration(event: AnyEvent) {
 export function hasMoved(
 	panel: HTMLDivElement,
 	event: AnyEvent,
-): { newDate: string; newDuration: string; newStartTime: string } | false {
+): { date: string; duration: string; startTime: string } | false {
 	const dateTime = getDateTimeBeneath(panel);
 	if (!dateTime) return false;
 	const duration = getDurationFromCellSize(panel.getBoundingClientRect().height);
@@ -122,5 +122,5 @@ export function hasMoved(
 	if (startTime === event.startTime && date === event.date && duration === event.duration)
 		return false;
 
-	return { newDate: date, newDuration: duration, newStartTime: startTime };
+	return { date, duration, startTime };
 }

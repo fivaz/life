@@ -62,15 +62,7 @@
 			createTask={(date) => openFormToCreateTask(categories, date)}
 			editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
 			fetchTasks={(weekStart) => getWeekTasks(user.uid, weekStart)}
-			on:moveEvent={(e) =>
-				moveEvent(
-					user.uid,
-					e.detail.event,
-					e.detail.newDate,
-					e.detail.newDuration,
-					e.detail.newStartTime,
-					e.detail.oldDate,
-				)}
+			moveEvent={(event, moveObject) => moveEvent(user.uid, event, moveObject)}
 			on:persistToDos={(e) => persistToDos(user.uid, e.detail)}
 			on:toggleEvent={(e) => toggleCompletion(user.uid, e.detail.event, e.detail.targetDate)}
 		/>

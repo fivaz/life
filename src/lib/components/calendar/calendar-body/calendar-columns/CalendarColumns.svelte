@@ -14,7 +14,6 @@
 			<CalendarRows
 				{date}
 				on:click={(e) => createTask(buildDate(date, e.detail))}
-				on:moveEvent
 				on:persistToDos
 				on:toggleEvent
 			/>
@@ -27,7 +26,6 @@
 	<CalendarRows
 		date={$selectedDate}
 		on:click={(e) => createTask(buildDate($selectedDate, e.detail))}
-		on:moveEvent
 		on:persistToDos
 		on:toggleEvent
 	/>

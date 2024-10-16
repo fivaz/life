@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { AnyEvent, AnyTask, Event } from '$lib/task/utils';
+	import type { AnyEvent } from '$lib/task/utils';
 
 	import {
 		GRID_CELL_HEIGHT,
@@ -18,7 +18,7 @@
 	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/service';
 	import { clsx } from 'clsx';
 	import interact from 'interactjs';
-	import { createEventDispatcher, getContext, onMount } from 'svelte';
+	import { getContext, onMount } from 'svelte';
 
 	import EventPanelCore from './event-panel-core/EventPanelCore.svelte';
 
@@ -42,16 +42,9 @@
 		interactivePanel?.styleCursor(isSelected);
 	}
 
-	const dispatch = createEventDispatcher<{
-		editTask: { targetDate: string; task: AnyTask };
-		moveEvent: {
-			event: Event;
-			newDate: string;
-			newDuration: string;
-			newStartTime: string;
-			oldDate: string;
-		};
-	}>();
+	const editTask = getContext('editTask');
+
+	const moveEvent = getContext('moveEvent');
 
 	function onMove({ dx, dy, target }: { dx: number; dy: number; target: HTMLElement }) {
 		if (!isSelected) return;
@@ -99,7 +92,7 @@
 		const hasChanged = hasMoved(container, event);
 
 		if (hasChanged) {
-			dispatch('moveEvent', { ...hasChanged, event, oldDate: targetDate });
+			moveEvent(event, { ...hasChanged, oldDate: targetDate });
 		} else {
 			Object.assign(container.style, {
 				backgroundColor: '',
@@ -113,8 +106,6 @@
 
 		document.removeEventListener('click', unSelect);
 	}
-
-	const editTask = getContext('editTask');
 
 	onMount(() => {
 		if (!container) return;
