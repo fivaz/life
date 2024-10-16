@@ -63,8 +63,8 @@
 			editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
 			fetchTasks={(weekStart) => getWeekTasks(user.uid, weekStart)}
 			moveEvent={(event, moveObject) => moveEvent(user.uid, event, moveObject)}
-			on:persistToDos={(e) => persistToDos(user.uid, e.detail)}
 			on:toggleEvent={(e) => toggleCompletion(user.uid, e.detail.event, e.detail.targetDate)}
+			persistToDos={(toDos) => persistToDos(user.uid, toDos)}
 		/>
 		<TaskFormWrapper
 			bind:show={showForm}

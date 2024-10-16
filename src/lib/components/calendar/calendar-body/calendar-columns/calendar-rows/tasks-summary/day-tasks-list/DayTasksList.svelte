@@ -8,7 +8,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { addDays, format, parse } from 'date-fns';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, getContext } from 'svelte';
 
 	import GoalIcon from '../../../../../../../../routes/dashboard/goals/goal-form/goal-icon/GoalIcon.svelte';
 
@@ -40,8 +40,12 @@
 				return { ...task, deadline: dayAfter };
 			});
 
-		dispatch('persistToDos', postponedToDos);
+		persistToDos(postponedToDos);
 	}
+
+	const editTask = getContext('editTask');
+
+	const persistToDos = getContext('persistToDos');
 </script>
 
 <div
@@ -62,7 +66,7 @@
 			<!-- svelte-ignore a11y-no-noninteractive-element-interactions a11y-click-events-have-key-events -->
 			<li
 				class="flex cursor-pointer items-center px-6 py-3 hover:bg-gray-100 hover:underline"
-				on:click={() => dispatch('editTask', { targetDate: '', task: task })}
+				on:click={() => editTask(task, '')}
 			>
 				<span class="w-5 pr-3 font-medium text-gray-500">{index + 1}</span>
 				<Icon

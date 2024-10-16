@@ -22,7 +22,7 @@
 
 <div>
 	<div class="border-b" style="height: {SUMMARY_GRID_CELL_HEIGHT}px">
-		<TasksSummary on:editTask on:persistToDos tasks={[...toDos, ...events]} />
+		<TasksSummary tasks={[...toDos, ...events]} />
 	</div>
 	<div class="relative">
 		<CalendarGrid on:click targetDate={formattedDate} />

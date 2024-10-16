@@ -51,5 +51,5 @@
 </div>
 
 <Modal on:close={() => (isOpen = false)} show={isOpen}>
-	<DayTasksList on:close={() => (isOpen = false)} on:editTask on:persistToDos tasks={workTasks} />
+	<DayTasksList on:close={() => (isOpen = false)} tasks={workTasks} />
 </Modal>

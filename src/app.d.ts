@@ -16,7 +16,7 @@ declare global {
 
 export {};
 
-import type { AnyEvent, AnyTask } from '$lib/task/utils';
+import type { AnyEvent, AnyTask, ToDo } from '$lib/task/utils';
 
 import '@storybook/addon-svelte-csf';
 
@@ -38,6 +38,7 @@ type Context = {
 			startTime: string;
 		},
 	) => void;
+	persistToDos: (toDos: ToDo[]) => void;
 };
 
 declare module 'svelte' {

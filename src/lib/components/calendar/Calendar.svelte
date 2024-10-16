@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { AnyEvent, AnyTask } from '$lib/task/utils';
+	import type { AnyEvent, AnyTask, ToDo } from '$lib/task/utils';
 	import type { Query } from 'firebase/firestore';
 
 	import {
@@ -20,6 +20,8 @@
 
 	export let editTask: (task: AnyTask, date: string) => void;
 
+	export let persistToDos: (toDos: ToDo[]) => void;
+
 	export let moveEvent: (
 		event: AnyEvent,
 		moveObject: {
@@ -36,10 +38,12 @@
 
 	setContext('moveEvent', moveEvent);
 
+	setContext('persistToDos', persistToDos);
+
 	$: onChangeWeekStart($weekStart, fetchTasks($weekStart));
 </script>
 
 <div class="flex h-screen flex-col md:h-[calc(100vh-20px)]">
 	<CalendarHeader />
-	<CalendarBody on:persistToDos on:toggleEvent />
+	<CalendarBody on:toggleEvent />
 </div>
