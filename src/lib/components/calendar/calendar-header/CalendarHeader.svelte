@@ -1,21 +1,16 @@
 <script lang="ts">
-	import type { AnyTask } from '$lib/task/utils';
-
-	import { selectedDate, subscribeToWeekTasks, weekStart } from '$lib/components/calendar/service';
+	import { selectedDate, weekStart } from '$lib/components/calendar/service';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 	import { DATE } from '$lib/consts';
 	import { getCurrentRoundedDate } from '$lib/task/time-utils';
 	import { format } from 'date-fns';
-	import { Query } from 'firebase/firestore';
 	import { Plus } from 'lucide-svelte';
-	import { createEventDispatcher, getContext } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher<{ createTask: Date }>();
 
 	$: createEvent = () => dispatch('createTask', getCurrentRoundedDate());
-
-	const fetchTasks = getContext<(weekStart: Date) => Query<AnyTask>>('fetchTasks');
 </script>
 
 <header class="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">
@@ -32,11 +27,7 @@
 	</div>
 
 	<div class="flex items-center gap-5">
-		<WeekChanger
-			bind:selectedDate={$selectedDate}
-			bind:weekStart={$weekStart}
-			on:updateWeekStart={(e) => subscribeToWeekTasks(fetchTasks(e.detail))}
-		/>
+		<WeekChanger bind:selectedDate={$selectedDate} bind:weekStart={$weekStart} />
 
 		<div class="hidden h-7 border-r border-gray-300 md:block"></div>
 

@@ -1,7 +1,7 @@
 import type { AnyTask } from '$lib/task/utils';
 import type { Query } from 'firebase/firestore';
 
-import { addDays, startOfWeek } from 'date-fns';
+import { addDays, differenceInMilliseconds, endOfToday, startOfWeek } from 'date-fns';
 import { onSnapshot } from 'firebase/firestore';
 import { derived, writable } from 'svelte/store';
 
@@ -43,4 +43,15 @@ export function subscribeToWeekTasks(query: Query<AnyTask>) {
 			console.error('Error fetching tasks: ', error);
 		},
 	);
+}
+
+export function updateDateAtMidnight() {
+	console.warn('updateDateAtMidnight');
+	const now = new Date();
+	const timeUntilMidnight = differenceInMilliseconds(endOfToday(), now);
+
+	setTimeout(() => {
+		selectedDate.set(new Date());
+		updateDateAtMidnight(); // Schedule the next update for the following midnight
+	}, timeUntilMidnight);
 }
