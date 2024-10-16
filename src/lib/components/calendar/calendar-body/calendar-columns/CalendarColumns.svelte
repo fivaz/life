@@ -1,15 +1,9 @@
 <script lang="ts">
-	import type { AnyTask } from '$lib/task/utils';
-
+	import { dates, selectedDate } from '$lib/components/calendar/service';
 	import { buildDate } from '$lib/task/time-utils';
 	import { createEventDispatcher } from 'svelte';
 
 	import CalendarRows from './calendar-rows/CalendarRows.svelte';
-
-	export let dates: Date[];
-	export let tasks: AnyTask[];
-
-	export let selectedDate: Date;
 
 	const dispatch = createEventDispatcher<{
 		createTask: Date;
@@ -19,7 +13,7 @@
 
 <div class="hidden grow md:flex">
 	<div class="grid w-full grid-cols-7 divide-x border-x">
-		{#each dates as date (date)}
+		{#each $dates as date (date)}
 			<CalendarRows
 				{date}
 				on:click={(e) => dispatch('createTask', buildDate(date, e.detail))}
@@ -27,7 +21,6 @@
 				on:moveEvent
 				on:persistToDos
 				on:toggleEvent
-				{tasks}
 			/>
 		{/each}
 	</div>
@@ -36,12 +29,11 @@
 
 <div class="mb-5 block grow border border-b md:hidden">
 	<CalendarRows
-		date={selectedDate}
-		on:click={(e) => dispatch('createTask', buildDate(selectedDate, e.detail))}
+		date={$selectedDate}
+		on:click={(e) => dispatch('createTask', buildDate($selectedDate, e.detail))}
 		on:editTask
 		on:moveEvent
 		on:persistToDos
 		on:toggleEvent
-		{tasks}
 	/>
 </div>

@@ -1,7 +1,6 @@
 <script lang="ts">
-	import type { AnyTask } from '$lib/task/utils';
-
 	import TasksSummary from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/tasks-summary/TasksSummary.svelte';
+	import { tasks } from '$lib/components/calendar/service';
 	import { DATE } from '$lib/consts';
 	import { format } from 'date-fns';
 
@@ -10,15 +9,13 @@
 	import EventPanel from './event-panel/EventPanel.svelte';
 	import { getEventGrid, getEvents, getToDos } from './service';
 
-	export let tasks: AnyTask[];
-
 	export let date: Date;
 
 	$: formattedDate = format(date, DATE);
 
-	$: toDos = getToDos(tasks, date);
+	$: toDos = getToDos($tasks, date);
 
-	$: events = getEvents(tasks, date);
+	$: events = getEvents($tasks, date);
 
 	$: eventsGrid = getEventGrid(events);
 </script>

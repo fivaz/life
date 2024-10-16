@@ -1,17 +1,9 @@
 <script lang="ts">
-	import type { AnyTask } from '$lib/task/utils';
-
-	import { addDays } from 'date-fns';
 	import { onMount } from 'svelte';
 
 	import CalendarColumns from './calendar-columns/CalendarColumns.svelte';
 	import HorizontalTime from './horizontal-time/HorizontalTime.svelte';
 	import WeekList from './week-list/WeekList.svelte';
-
-	export let weekStart: Date;
-	export let tasks: AnyTask[];
-
-	export let selectedDate: Date;
 
 	let container: HTMLDivElement | null = null;
 	let containerNav: HTMLDivElement | null = null;
@@ -29,8 +21,6 @@
 				currentMinute) /
 			1440;
 	});
-
-	$: dates = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
 </script>
 
 <div
@@ -42,23 +32,14 @@
 			bind:this={containerNav}
 			class="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 md:pr-8"
 		>
-			<WeekList bind:selectedDate {dates} />
+			<WeekList />
 		</div>
 
 		<div class="flex h-full w-full">
 			<HorizontalTime>
 				<div bind:this={containerOffset} />
 			</HorizontalTime>
-			<CalendarColumns
-				{dates}
-				on:createTask
-				on:editTask
-				on:moveEvent
-				on:persistToDos
-				on:toggleEvent
-				{selectedDate}
-				{tasks}
-			/>
+			<CalendarColumns on:createTask on:editTask on:moveEvent on:persistToDos on:toggleEvent />
 		</div>
 	</div>
 </div>

@@ -3,6 +3,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { addDays, isSameWeek, startOfWeek } from 'date-fns';
 	import { CalendarCheck } from 'lucide-svelte';
+	import { createEventDispatcher } from 'svelte';
 
 	export let weekStart: Date;
 
@@ -28,6 +29,10 @@
 			? currentDate
 			: weekStart;
 	}
+
+	const dispatch = createEventDispatcher();
+
+	$: dispatch('updateWeekStart', weekStart);
 </script>
 
 <div class="flex items-center">
