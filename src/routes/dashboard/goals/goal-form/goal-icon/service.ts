@@ -1,8 +1,6 @@
 import {
 	ArrowUp,
 	Bed,
-	Book,
-	Briefcase,
 	Bullseye,
 	Calendar,
 	Camera,
@@ -28,6 +26,7 @@ import {
 	Music,
 	Paintbrush,
 	PersonRunning,
+	Pills,
 	Plane,
 	PuzzlePiece,
 	Road,
@@ -35,14 +34,23 @@ import {
 	Searchengin,
 	Seedling,
 	Shield,
+	Shower,
 	Stopwatch,
 	Sun,
 	Toolbox,
 	Tree,
 	Trophy,
+	Tv,
 	Utensils,
 } from '@steeze-ui/font-awesome';
-import { CalendarCheck } from '@steeze-ui/lucide-icons';
+import {
+	BookOpenText,
+	BriefcaseBusiness,
+	CalendarCheck,
+	GlassWater,
+	PencilLine,
+	Smartphone,
+} from '@steeze-ui/lucide-icons';
 import { type IconSource } from '@steeze-ui/svelte-icon';
 
 const defaultIcon: GoalIconType = { component: Fire, name: 'Fire' };
@@ -63,7 +71,7 @@ export const icons: GoalIconType[] = [
 	{ component: Dumbbell, name: 'Weightlifting Barbell' },
 	{ component: Paintbrush, name: 'Paintbrush' },
 	{ component: MoneyBill1Wave, name: 'Money' },
-	{ component: Book, name: 'Book' },
+	{ component: BookOpenText, name: 'Book' },
 	{ component: Stopwatch, name: 'Stopwatch' },
 	{ component: Lightbulb, name: 'Lightbulb', theme: 'default' },
 	{ component: Seedling, name: 'Plant Sprout' },
@@ -74,7 +82,6 @@ export const icons: GoalIconType[] = [
 	{ component: Shield, name: 'Shield' },
 	{ component: Road, name: 'Road/Signpost' },
 	{ component: Searchengin, name: 'Magnifying Glass', theme: 'default' },
-	{ component: Briefcase, name: 'Briefcase' },
 	{ component: Check, name: 'Checkmark' },
 	{ component: Calendar, name: 'Calendar', theme: 'default' },
 	{ component: PuzzlePiece, name: 'Puzzle' },
@@ -97,6 +104,13 @@ export const icons: GoalIconType[] = [
 	{ component: Toolbox, name: 'Toolbox' },
 	{ component: Bed, name: 'Bed' },
 	{ component: CalendarCheck, name: 'CalendarCheck' },
+	{ component: Smartphone, name: 'Smartphone' },
+	{ component: Shower, name: 'Shower' },
+	{ component: Pills, name: 'Pills' },
+	{ component: BriefcaseBusiness, name: 'Work' },
+	{ component: Tv, name: 'Tv' },
+	{ component: GlassWater, name: 'Water' },
+	{ component: PencilLine, name: 'Pencil' },
 ];
 
 export function getIcon(name: null | string) {
