@@ -167,6 +167,9 @@ importers:
       svelte-check:
         specifier: ^3.6.0
         version: 3.8.4(@babel/core@7.24.7)(postcss-load-config@4.0.2(postcss@8.4.39))(postcss@8.4.39)(svelte@4.2.18)
+      svelte-dnd-action:
+        specifier: ^0.9.51
+        version: 0.9.51(svelte@4.2.18)
       svelte-flatpickr:
         specifier: ^3.3.4
         version: 3.3.4(svelte@4.2.18)
@@ -3815,6 +3818,11 @@ packages:
     hasBin: true
     peerDependencies:
       svelte: ^3.55.0 || ^4.0.0-next.0 || ^4.0.0 || ^5.0.0-next.0
+
+  svelte-dnd-action@0.9.51:
+    resolution: {integrity: sha512-/0DEK+QqWf6QYtJgbQPJE/LSzo6JAE00oWVtBWZrBDAMXeN4cYVd0Z7sSpbu00Sm/h03t/RF4UGUMwosmrseQw==}
+    peerDependencies:
+      svelte: '>=3.23.0 || ^5.0.0-next.0'
 
   svelte-eslint-parser@0.39.2:
     resolution: {integrity: sha512-87UwLuWTtDIuzWOhOi1zBL5wYVd07M5BK1qZ57YmXJB5/UmjUNJqGy3XSOhPqjckY1dATNV9y+mx+nI0WH6HPA==}
@@ -8319,6 +8327,10 @@ snapshots:
       - sass
       - stylus
       - sugarss
+
+  svelte-dnd-action@0.9.51(svelte@4.2.18):
+    dependencies:
+      svelte: 4.2.18
 
   svelte-eslint-parser@0.39.2(svelte@4.2.18):
     dependencies:

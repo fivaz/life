@@ -11,7 +11,10 @@ export async function storeAvatar(userId: string, file: Blob): Promise<string> {
 	return await getDownloadURL(avatarsRef);
 }
 
-export const currentUser = writable<Pick<UserInfo, 'displayName' | 'email' | 'photoURL'> | null>();
+export const currentUser = writable<Pick<
+	UserInfo,
+	'displayName' | 'email' | 'photoURL' | 'uid'
+> | null>();
 
 export function updateUser(displayName: null | string, photoURL: null | string) {
 	currentUser.update((user) => user && { ...user, displayName, photoURL });
