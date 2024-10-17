@@ -48,6 +48,11 @@ export default [
 		},
 	},
 	sonarjsRecommended,
+	{
+		rules: {
+			'sonarjs/no-unused-collection': 'off',
+		},
+	},
 	perfectionistNatural,
 	{
 		rules: {

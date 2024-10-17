@@ -1,22 +1,24 @@
 <script lang="ts">
+	import type { Routine } from '$lib/routine/utils';
+
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import Streak from '$lib/components/streak/Streak.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 	import WeekListSelector from '$lib/components/week-list-selector/WeekListSelector.svelte';
 	import { DATE } from '$lib/consts';
+	import { auth } from '$lib/firebase';
 	import { title } from '$lib/utils';
 	import { addDays, format, startOfWeek } from 'date-fns';
 	import { Calendar1, Plus } from 'lucide-svelte';
-	import { dndzone } from 'svelte-dnd-action';
+	import { onMount } from 'svelte';
+	import { flip } from 'svelte/animate';
+	import { dragHandleZone } from 'svelte-dnd-action';
 
 	import RoutineForm from './routine-form/RoutineForm.svelte';
 	import { buildEmptyRoutine } from './routine-form/service';
 	import RoutineRow from './routine-row/RoutineRow.svelte';
-	import { auth } from '$lib/firebase';
 	import { fetchRoutines, routines, updateRoutineOrder } from './service';
-	import { onMount } from 'svelte';
-	import type { Routine } from '$lib/routine/utils';
 
 	let weekStart = startOfWeek(new Date(), { weekStartsOn: 1 });
 
@@ -32,8 +34,6 @@
 
 	$: dateString = format(selectedDate, DATE);
 
-	let items = $routines;
-
 	let user: { uid: string } | null = null;
 
 	onMount(() => {
@@ -46,12 +46,12 @@
 	});
 
 	function updateRoutineLocally({ detail }: { detail: { items: Routine[] } }) {
-		items = detail.items;
+		$routines = detail.items;
 	}
 
 	function persistChanges({ detail }: { detail: { items: Routine[] } }) {
-		items = detail.items;
-		if (user) updateRoutineOrder(user.uid, items);
+		$routines = detail.items;
+		if (user) updateRoutineOrder(user.uid, $routines);
 	}
 </script>
 
@@ -88,18 +88,20 @@
 				class="flex flex-col gap-1"
 				on:consider={updateRoutineLocally}
 				on:finalize={persistChanges}
-				use:dndzone={{ items, flipDurationMs: 100 }}
+				use:dragHandleZone={{ flipDurationMs: 200, items: $routines }}
 			>
-				{#each items as routine (routine.id)}
-					<RoutineRow
-						on:edit={(e) => {
-							showForm = true;
-							editingRoutine = e.detail;
-						}}
-						{routine}
-						selectedDate={dateString}
-						userId={user.uid}
-					/>
+				{#each $routines as routine (routine.id)}
+					<li animate:flip={{ duration: 200 }}>
+						<RoutineRow
+							on:edit={(e) => {
+								showForm = true;
+								editingRoutine = e.detail;
+							}}
+							{routine}
+							selectedDate={dateString}
+							userId={user.uid}
+						/>
+					</li>
 				{/each}
 			</ul>
 
@@ -130,7 +132,6 @@
 				<RoutineForm
 					on:close={() => (showForm = false)}
 					routine={editingRoutine}
-					routinesLength={$routines.length}
 					userId={user.uid}
 				/>
 			</Modal>

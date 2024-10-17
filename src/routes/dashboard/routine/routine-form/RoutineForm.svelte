@@ -2,8 +2,6 @@
 	import Button from '$lib/components/form/button/Button.svelte';
 	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';
 	import Input from '$lib/components/form/input/Input.svelte';
-	import Select from '$lib/components/form/select/Select.svelte';
-	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import { type Routine } from '$lib/routine/utils';
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -15,8 +13,6 @@
 	export let userId: string;
 
 	export let routine: Routine;
-
-	export let routinesLength: number;
 
 	let routineIn = { ...routine };
 
@@ -60,16 +56,7 @@
 		</div>
 
 		<div class="flex flex-col gap-2 text-gray-700">
-			<div class="flex gap-2">
-				<Input autocomplete="off" bind:value={routineIn.name} class="flex-1" placeholder="Name" />
-
-				<Select bind:value={routineIn.order} class="w-24">
-					<span slot="placeholder">{routineIn.order || 'Position'}</span>
-					{#each Array.from({ length: routinesLength }, (_, i) => i + 1) as position (position)}
-						<SelectItem value={position}>{position}</SelectItem>
-					{/each}
-				</Select>
-			</div>
+			<Input autocomplete="off" bind:value={routineIn.name} class="flex-1" placeholder="Name" />
 
 			<IconSelector bind:value={routineIn.icon} name="icon" />
 		</div>

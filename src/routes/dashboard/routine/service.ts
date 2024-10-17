@@ -1,17 +1,8 @@
 import type { Routine } from '$lib/routine/utils';
 
-import { DbPaTH } from '$lib/consts';
 import { db } from '$lib/firebase';
-import {
-	collection,
-	doc,
-	onSnapshot,
-	orderBy,
-	query,
-	updateDoc,
-	writeBatch,
-} from 'firebase/firestore';
-import { derived, writable } from 'svelte/store';
+import { collection, doc, onSnapshot, orderBy, query, writeBatch } from 'firebase/firestore';
+import { writable } from 'svelte/store';
 
 export const routines = writable<Routine[]>([]);
 
@@ -21,7 +12,6 @@ export function fetchRoutines(userId: string) {
 
 	onSnapshot(q, (snapshot) => {
 		const routinesList = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }) as Routine);
-		console.log('routines updated');
 		routines.set(routinesList);
 	});
 }
