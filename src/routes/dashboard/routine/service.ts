@@ -16,7 +16,7 @@ export function fetchRoutines(userId: string) {
 	});
 }
 
-export async function updateRoutineOrder(userId: string, routines: Routine[]) {
+export async function updateRoutine(userId: string, routines: Routine[]) {
 	const batch = writeBatch(db); // Initialize a batch
 
 	routines.forEach((routine, index) => {

@@ -7,18 +7,17 @@
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 	import WeekListSelector from '$lib/components/week-list-selector/WeekListSelector.svelte';
 	import { DATE } from '$lib/consts';
-	import { auth } from '$lib/firebase';
+	import { currentUser } from '$lib/user/utils';
 	import { title } from '$lib/utils';
 	import { addDays, format, startOfWeek } from 'date-fns';
 	import { Calendar1, Plus } from 'lucide-svelte';
-	import { onMount } from 'svelte';
 	import { flip } from 'svelte/animate';
 	import { dragHandleZone } from 'svelte-dnd-action';
 
 	import RoutineForm from './routine-form/RoutineForm.svelte';
 	import { buildEmptyRoutine } from './routine-form/service';
 	import RoutineRow from './routine-row/RoutineRow.svelte';
-	import { fetchRoutines, routines, updateRoutineOrder } from './service';
+	import { fetchRoutines, routines, updateRoutine } from './service';
 
 	let weekStart = startOfWeek(new Date(), { weekStartsOn: 1 });
 
@@ -34,16 +33,11 @@
 
 	$: dateString = format(selectedDate, DATE);
 
-	let user: { uid: string } | null = null;
-
-	onMount(() => {
-		auth.onAuthStateChanged((currentUser) => {
-			if (currentUser) {
-				user = currentUser;
-				fetchRoutines(user.uid);
-			}
-		});
-	});
+	$: {
+		if ($currentUser) {
+			fetchRoutines($currentUser.uid);
+		}
+	}
 
 	function updateRoutineLocally({ detail }: { detail: { items: Routine[] } }) {
 		$routines = detail.items;
@@ -51,13 +45,13 @@
 
 	function persistChanges({ detail }: { detail: { items: Routine[] } }) {
 		$routines = detail.items;
-		if (user) updateRoutineOrder(user.uid, $routines);
+		if ($currentUser) updateRoutine($currentUser.uid, $routines);
 	}
 </script>
 
 <div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
 	<div class="flex h-full w-full flex-col gap-5">
-		{#if user}
+		{#if $currentUser}
 			<div class="flex items-center justify-between">
 				<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{$title}</h1>
 				<div
@@ -99,7 +93,7 @@
 							}}
 							{routine}
 							selectedDate={dateString}
-							userId={user.uid}
+							userId={$currentUser.uid}
 						/>
 					</li>
 				{/each}
@@ -132,7 +126,7 @@
 				<RoutineForm
 					on:close={() => (showForm = false)}
 					routine={editingRoutine}
-					userId={user.uid}
+					userId={$currentUser.uid}
 				/>
 			</Modal>
 		{/if}
