@@ -22,16 +22,16 @@
 </script>
 
 <li
-	class="flex justify-between gap-x-3 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-200 {isDone
+	class="flex justify-between rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-200 {isDone
 		? 'bg-indigo-600'
 		: 'bg-indigo-400'}"
 >
-	<div class="flex items-center gap-x-2">
+	<div class="flex w-[calc(100%-64px)] items-center gap-2">
 		<GoalIcon class="h-5 w-5" name={routine.icon} />
-		<div class="text-sm font-semibold leading-6">{routine.name}</div>
+		<span class="w-[calc(100%-28px)] truncate text-sm font-semibold">{routine.name}</span>
 	</div>
 
-	<div>
+	<div class="flex w-16 justify-end gap-2">
 		<button
 			class="rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
 			on:click={() => toggleRoutineCompletion(routine, selectedDate, userId)}
