@@ -5,7 +5,7 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
-	import { DbPaTH } from '$lib/consts';
+	import { DB_PATH } from '$lib/consts';
 	import { auth, db } from '$lib/firebase';
 	import { buildEmptyToDo, buildToDoWithDeadline } from '$lib/task/build-utils';
 	import { type AnyTask, queryUncompletedTasks } from '$lib/task/utils';
@@ -52,7 +52,7 @@
 	<SignedIn let:user>
 		<TypedCollection
 			let:data={categories}
-			ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.CATEGORIES}`}
+			ref={`${DB_PATH.USERS}/${user.uid}/${DB_PATH.CATEGORIES}`}
 			type={categoryType}
 		>
 			<div class="flex items-center justify-between">

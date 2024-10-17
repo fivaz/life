@@ -2,7 +2,7 @@ import type { EventDispatcher } from 'svelte';
 
 import { type Category, type CategoryType, CategoryTypes } from '$lib/category/utils';
 import { tailwindColors } from '$lib/category/utils';
-import { DbPaTH } from '$lib/consts';
+import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
 import {
 	addDoc,
@@ -27,14 +27,14 @@ export function buildEmptyCategory() {
 }
 
 export function editCategory(id: string, data: Omit<Category, 'id'>, userId: string) {
-	const categoryDocRef = doc(db, DbPaTH.USERS, userId, DbPaTH.CATEGORIES, id);
+	const categoryDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES, id);
 	void updateDoc(categoryDocRef, data);
 	void updateCategoryInTasks(id, data, userId);
 }
 
 async function updateCategoryInTasks(id: string, data: Omit<Category, 'id'>, userId: string) {
 	const tasksQuery = query(
-		collection(db, DbPaTH.USERS, userId, DbPaTH.TASKS),
+		collection(db, DB_PATH.USERS, userId, DB_PATH.TASKS),
 		where('category.id', '==', id),
 	);
 
@@ -51,7 +51,7 @@ async function updateCategoryInTasks(id: string, data: Omit<Category, 'id'>, use
 }
 
 export function addCategory(data: Omit<Category, 'id'>, userId: string) {
-	const categoriesCollectionRef = collection(db, DbPaTH.USERS, userId, DbPaTH.CATEGORIES);
+	const categoriesCollectionRef = collection(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES);
 	void addDoc(categoriesCollectionRef, data);
 }
 
@@ -61,7 +61,7 @@ export async function deleteCategory(
 	dispatch: EventDispatcher<{ close: null }>,
 ) {
 	if (id) {
-		const categoryDocRef = doc(db, DbPaTH.USERS, userId, DbPaTH.CATEGORIES, id);
+		const categoryDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES, id);
 		await deleteDoc(categoryDocRef);
 		dispatch('close');
 	}

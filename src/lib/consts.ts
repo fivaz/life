@@ -21,7 +21,7 @@ export const Routes = {
 };
 
 // firebase paths
-export const DbPaTH = {
+export const DB_PATH = {
 	AVATARS: 'avatars',
 	CATEGORIES: 'categories',
 	GOALS: 'goals',

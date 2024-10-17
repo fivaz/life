@@ -1,12 +1,9 @@
 <script lang="ts">
-	import { getAuth } from 'firebase/auth';
-
-	import Profile from './profile/Profile.svelte';
-
-	const auth = getAuth();
-	const user = auth.currentUser;
+	import { currentUser } from '$lib/user/utils';
+	
+import Profile from './profile/Profile.svelte';
 </script>
 
-{#if user}
-	<Profile {user} />
+{#if $currentUser}
+	<Profile user={$currentUser} />
 {/if}

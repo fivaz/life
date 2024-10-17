@@ -1,6 +1,6 @@
 import type { EventDispatcher } from 'svelte';
 
-import { DbPaTH } from '$lib/consts';
+import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
 import { type Routine } from '$lib/routine/utils';
 import {
@@ -41,19 +41,19 @@ export function toggleRoutineCompletion(
 
 	const { id, ...data } = routine;
 
-	const routineDocRef = doc(db, DbPaTH.USERS, userId, DbPaTH.ROUTINES, id);
+	const routineDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.ROUTINES, id);
 	void updateDoc(routineDocRef, data);
 }
 
 export function editRoutine(id: string, data: Omit<Routine, 'id'>, userId: string) {
-	const routineDocRef = doc(db, DbPaTH.USERS, userId, DbPaTH.ROUTINES, id);
+	const routineDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.ROUTINES, id);
 	void updateDoc(routineDocRef, data);
 	void updateRoutineInTasks(id, data, userId);
 }
 
 async function updateRoutineInTasks(id: string, data: Omit<Routine, 'id'>, userId: string) {
 	const tasksQuery = query(
-		collection(db, DbPaTH.USERS, userId, DbPaTH.TASKS),
+		collection(db, DB_PATH.USERS, userId, DB_PATH.TASKS),
 		where('routine.id', '==', id),
 	);
 
@@ -70,7 +70,7 @@ async function updateRoutineInTasks(id: string, data: Omit<Routine, 'id'>, userI
 }
 
 export function addRoutine(data: Omit<Routine, 'id'>, userId: string) {
-	const routinesCollectionRef = collection(db, DbPaTH.USERS, userId, DbPaTH.ROUTINES);
+	const routinesCollectionRef = collection(db, DB_PATH.USERS, userId, DB_PATH.ROUTINES);
 	void addDoc(routinesCollectionRef, data);
 }
 
@@ -80,7 +80,7 @@ export async function deleteRoutine(
 	dispatch: EventDispatcher<{ close: null }>,
 ) {
 	if (id) {
-		const routineDocRef = doc(db, DbPaTH.USERS, userId, DbPaTH.ROUTINES, id);
+		const routineDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.ROUTINES, id);
 		await deleteDoc(routineDocRef);
 		dispatch('close');
 	}

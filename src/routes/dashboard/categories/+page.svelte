@@ -4,7 +4,7 @@
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
-	import { DbPaTH } from '$lib/consts';
+	import { DB_PATH } from '$lib/consts';
 	import { title } from '$lib/utils';
 	import { Plus } from 'lucide-svelte';
 	import { SignedIn } from 'sveltefire';
@@ -40,7 +40,7 @@
 	<SignedIn let:user>
 		<TypedCollection
 			let:data={categories}
-			ref={`${DbPaTH.USERS}/${user.uid}/${DbPaTH.CATEGORIES}`}
+			ref={`${DB_PATH.USERS}/${user.uid}/${DB_PATH.CATEGORIES}`}
 			type={categoryType}
 		>
 			<ul class="flex flex-col gap-1">

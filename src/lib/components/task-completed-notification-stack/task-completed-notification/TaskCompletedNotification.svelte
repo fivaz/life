@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { AnyTask } from '$lib/task/utils';
 
-	import { DbPaTH } from '$lib/consts';
+	import { DB_PATH } from '$lib/consts';
 	import { db } from '$lib/firebase';
 	import { type Goal, getCompletedTasks } from '$lib/goal/utils';
 	import { CheckCircle, XMark } from '@steeze-ui/heroicons';
@@ -22,7 +22,14 @@
 	}
 
 	async function fetchPercentageComplete(task: AnyTask & { goal: Goal }) {
-		const tasksRef = collection(db, DbPaTH.USERS, userId, DbPaTH.GOALS, task.goal.id, DbPaTH.TASKS);
+		const tasksRef = collection(
+			db,
+			DB_PATH.USERS,
+			userId,
+			DB_PATH.GOALS,
+			task.goal.id,
+			DB_PATH.TASKS,
+		);
 		const tasksSnapshot = await getDocs(tasksRef);
 		const tasks = tasksSnapshot.docs.map((doc) => doc.data()) as AnyTask[];
 		return getCompletedPercentage(tasks);

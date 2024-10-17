@@ -1,7 +1,7 @@
 import type { AnyEvent, AnyTask, ToDo } from '$lib/task/utils';
 
 import { editPossibleSingleRecurringEvent, editTask } from '$lib/components/task-form/service';
-import { DATE, DbPaTH } from '$lib/consts';
+import { DATE, DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
 import { endOfWeek, format } from 'date-fns';
 import { Query, collection, query, where } from 'firebase/firestore';
@@ -30,7 +30,7 @@ export function persistToDos(userId: string, toDos: ToDo[]) {
 export function getWeekTasks(userId: string, startOfWeek: Date): [Query<AnyTask>, Query<AnyTask>] {
 	const startOfWeekString = format(startOfWeek, DATE);
 	const endOfWeekString = format(endOfWeek(startOfWeek), DATE);
-	const goalsRef = collection(db, `${DbPaTH.USERS}/${userId}/${DbPaTH.TASKS}`);
+	const goalsRef = collection(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}`);
 	return [
 		query(
 			goalsRef,

@@ -7,7 +7,7 @@
 	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
 	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
-	import { DbPaTH } from '$lib/consts';
+	import { DB_PATH } from '$lib/consts';
 	import { buildEmptyEvent, buildEventWithTime } from '$lib/task/build-utils';
 	import { title } from '$lib/utils';
 	import { SignedIn } from 'sveltefire';
@@ -55,7 +55,7 @@
 <SignedIn let:user>
 	<TypedCollection
 		let:data={categories}
-		ref="{DbPaTH.USERS}/{user.uid}/{DbPaTH.CATEGORIES}"
+		ref="{DB_PATH.USERS}/{user.uid}/{DB_PATH.CATEGORIES}"
 		type={categoryType}
 	>
 		<Calendar

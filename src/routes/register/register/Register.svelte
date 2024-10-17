@@ -3,7 +3,7 @@
 	import Logo from '$lib/components/Logo.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
-	import { DbPaTH, Routes } from '$lib/consts';
+	import { DB_PATH, Routes } from '$lib/consts';
 	import { auth, db } from '$lib/firebase';
 	import { storeAvatar } from '$lib/user/utils';
 	import { validator } from '@felte/validator-yup';
@@ -35,7 +35,7 @@
 
 	async function addDefaultCategories(userId: string) {
 		// TODO when one select a category as default, make all other non default
-		const categoriesCollectionRef = collection(db, DbPaTH.USERS, userId, DbPaTH.CATEGORIES);
+		const categoriesCollectionRef = collection(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES);
 		void addDoc(categoriesCollectionRef, {
 			color: 'green',
 			isDefault: true,
@@ -66,7 +66,7 @@
 
 		await updateProfile(user, { displayName, photoURL });
 
-		const userRef = doc(db, DbPaTH.USERS, user.uid);
+		const userRef = doc(db, DB_PATH.USERS, user.uid);
 
 		await setDoc(userRef, {
 			displayName,

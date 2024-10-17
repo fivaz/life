@@ -1,4 +1,4 @@
-import type { AnyTask, Event, RecurringEvent, Task, ToDo } from '$lib/task/utils';
+import type { AnyTask, Event, RecurringEvent, ToDo } from '$lib/task/utils';
 
 import { getEndTime } from '$lib/components/task-form/service';
 import { weekDays } from '$lib/components/task-form/task-form-recurring/days-checkbox/service';
@@ -7,13 +7,16 @@ import { convertTimeToMinutes, getCurrentRoundedDate } from '$lib/task/time-util
 import { isRecurring, isToDo } from '$lib/task/utils';
 import { addMinutes, addMonths, format, isAfter, parse } from 'date-fns';
 
-export type TaskIn = Omit<Task, 'recurringExceptions'> & {
-	endTime: string;
-	image: string;
-	isEvent: boolean;
-	isRecurring: boolean;
-	recurringExceptions: Date[];
-};
+// TaskIn is a super type that has all the attributes of possible Tasks together
+export type TaskIn = ToDo &
+	Event &
+	Omit<RecurringEvent, 'recurringExceptions'> & {
+		endTime: string;
+		image: string;
+		isEvent: boolean;
+		isRecurring: boolean;
+		recurringExceptions: Date[];
+	};
 
 function checkDuration(taskIn: TaskIn): string {
 	if (
