@@ -16,7 +16,7 @@
 
 <Template let:args>
 	<div class="w-96">
-		<Select {...args} bind:value={selectedCategory} items={categories}>
+		<Select {...args} bind:value={selectedCategory}>
 			<span slot="placeholder">{categories[0].name}</span>
 			{#each categories as category (category)}
 				<SelectItem value={category}>{category.name}</SelectItem>

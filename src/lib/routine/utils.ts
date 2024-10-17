@@ -4,4 +4,5 @@ export type Routine = {
 	icon: string;
 	id: string;
 	name: string;
+	order: number;
 };

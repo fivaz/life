@@ -22,6 +22,7 @@ export function buildEmptyRoutine(): Routine {
 		icon: 'Fire',
 		id: '',
 		name: '',
+		order: 0,
 	};
 }
 

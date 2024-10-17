@@ -32,6 +32,10 @@
 	title.set('Routine');
 
 	$: dateString = format(selectedDate, DATE);
+
+	function orderRoutines(routines: Routine[]) {
+		return routines.sort((a, b) => (a.order || Infinity) - (b.order || Infinity));
+	}
 </script>
 
 <div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
@@ -69,7 +73,7 @@
 				<WeekListSelector bind:selectedDate {dates} {routines} />
 
 				<ul class="flex flex-col gap-1">
-					{#each routines as routine (routine.id)}
+					{#each orderRoutines(routines) as routine (routine.id)}
 						<RoutineRow
 							on:edit={(e) => {
 								showForm = true;
@@ -109,6 +113,7 @@
 					<RoutineForm
 						on:close={() => (showForm = false)}
 						routine={editingRoutine}
+						routinesLength={routines.length}
 						userId={user.uid}
 					/>
 				</Modal>
