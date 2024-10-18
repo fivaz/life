@@ -40,8 +40,16 @@ export const externalTasksStore = writable<Task[]>([]);
 export const savedWeeks = writable<string[]>([]);
 
 export function getWeekTasks(userId: string, startOfWeek: Date): void {
-	const queries = queryWeekTasks(userId, startOfWeek);
-	onChangeWeekStart(startOfWeek, queries);
+	const weekStartString = format(startOfWeek, DATE);
+	savedWeeks.update((weeks) => {
+		// only fetch tasks for other weeks that haven't been fetched previously
+		if (!weeks.includes(weekStartString)) {
+			weeks.push(weekStartString);
+			subscribeToWeekTasks(userId, startOfWeek);
+		}
+
+		return weeks;
+	});
 }
 
 function queryWeekTasks(userId: string, startOfWeek: Date): [Query<Task>, Query<Task>] {
@@ -62,20 +70,9 @@ function queryWeekTasks(userId: string, startOfWeek: Date): [Query<Task>, Query<
 	];
 }
 
-export function onChangeWeekStart(newWeekStart: Date, queries: [Query<Task>, Query<Task>]): void {
-	const newWeekStartString = format(newWeekStart, DATE);
-	savedWeeks.update((weeks) => {
-		// only fetch tasks for other weeks, if they haven't been fetched previously
-		if (!weeks.includes(newWeekStartString)) {
-			weeks.push(newWeekStartString);
-			subscribeToWeekTasks(queries);
-		}
+export function subscribeToWeekTasks(userId: string, startOfWeek: Date) {
+	const [dateQuery, deadlineQuery] = queryWeekTasks(userId, startOfWeek);
 
-		return weeks;
-	});
-}
-
-export function subscribeToWeekTasks([dateQuery, deadlineQuery]: [Query<Task>, Query<Task>]) {
 	// Use onSnapshot to listen for real-time updates for both queries
 	const unsubscribeDate = onSnapshot(dateQuery, (dateSnapshot) =>
 		updateTasksFromSnapshot(dateSnapshot),
