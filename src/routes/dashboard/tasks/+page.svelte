@@ -1,19 +1,21 @@
 <script lang="ts">
-	import type { Category } from '$lib/category/utils';
-
+	import { type Category } from '$lib/category/utils';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
-	import { auth, db } from '$lib/firebase';
+	import { db } from '$lib/firebase';
 	import { buildEmptyToDo, buildToDoWithDeadline } from '$lib/task/build-utils';
-	import { type AnyTask, queryUncompletedTasks } from '$lib/task/utils';
+	import { type AnyTask } from '$lib/task/utils';
+	import { currentUser } from '$lib/user/utils';
 	import { title } from '$lib/utils';
 	import { DocumentText } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { type Unsubscribe, collection, onSnapshot, query, where } from 'firebase/firestore';
 	import { Plus } from 'lucide-svelte';
-	import { SignedIn, collectionStore, userStore } from 'sveltefire';
+	import { onDestroy } from 'svelte';
+	import { SignedIn } from 'sveltefire';
 
 	import { type SortedTaskType, sortTasksByDate } from './service';
 	import TaskList from './task-list/TaskList.svelte';
@@ -25,23 +27,26 @@
 
 	let showStats = false;
 
-	const user = userStore(auth);
+	let sortedTasks: SortedTaskType = { [Symbol.iterator]: function* () {} };
+	let unsubscribe: Unsubscribe | undefined = undefined;
 
-	let tasks: ReturnType<typeof collectionStore<AnyTask>>;
+	export function fetchUncompletedTasks(userId: string) {
+		const tasksRef = collection(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}`);
+		const q = query(tasksRef, where('isDone', '==', false));
 
-	$: {
-		if ($user) {
-			tasks = collectionStore<AnyTask>(db, queryUncompletedTasks($user.uid));
-		}
+		unsubscribe = onSnapshot(q, (snapshot) => {
+			const tasks = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }) as AnyTask);
+			sortedTasks = sortTasksByDate(tasks);
+		});
 	}
 
-	let sortedTasks: SortedTaskType;
-
 	$: {
-		if ($tasks) {
-			sortedTasks = sortTasksByDate($tasks);
-		}
+		if ($currentUser) fetchUncompletedTasks($currentUser.uid);
 	}
+
+	onDestroy(() => {
+		if (unsubscribe) unsubscribe();
+	});
 
 	let categoryType: Category;
 

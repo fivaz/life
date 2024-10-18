@@ -7,8 +7,8 @@
 	import { title } from '$lib/utils';
 	import { type Unsubscribe, collection, onSnapshot, query, where } from 'firebase/firestore';
 	import { onDestroy } from 'svelte';
-	
-import ReportTasksByTime from './report-tasks-by-time/ReportTasksByTime.svelte';
+
+	import ReportTasksByTime from './report-tasks-by-time/ReportTasksByTime.svelte';
 
 	let tasks: AnyTask[] = [];
 	let unsubscribe: Unsubscribe | undefined;

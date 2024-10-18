@@ -89,7 +89,7 @@ function groupTasksByDate(tasks: AnyTask[]): Record<string, AnyTask[]> {
 	);
 }
 
-function getTaskByOrderedDate(tasksByDate: Record<string, AnyTask[]>) {
+function getTaskByOrderedDate(tasksByDate: Record<string, AnyTask[]>): SortedTaskType {
 	const priorityObject: Record<string, number> = {
 		[GROUPS.NextWeek]: 5,
 		[GROUPS.Overdue]: 1,
@@ -103,8 +103,8 @@ function getTaskByOrderedDate(tasksByDate: Record<string, AnyTask[]>) {
 
 	function sorting(a: string, b: string) {
 		// 5 is the Number representing the rest
-		const priorityA = priorityObject[a] || 5;
-		const priorityB = priorityObject[b] || 5;
+		const priorityA = priorityObject[a] || 6;
+		const priorityB = priorityObject[b] || 6;
 
 		return priorityA - priorityB;
 	}
@@ -120,7 +120,7 @@ function getTaskByOrderedDate(tasksByDate: Record<string, AnyTask[]>) {
 	};
 }
 
-export function sortTasksByDate(tasks: AnyTask[]): Record<string, AnyTask[]> & Iterable<string> {
+export function sortTasksByDate(tasks: AnyTask[]): SortedTaskType {
 	const sortedTasks = sortTasks(tasks);
 	const tasksByDate = groupTasksByDate(sortedTasks);
 	return getTaskByOrderedDate(tasksByDate);
