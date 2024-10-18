@@ -8,16 +8,14 @@
 	import { db } from '$lib/firebase';
 	import { buildEmptyToDo, buildToDoWithDeadline } from '$lib/task/build-utils';
 	import { type AnyTask } from '$lib/task/utils';
-	import { currentUser } from '$lib/user/utils';
 	import { title } from '$lib/utils';
 	import { DocumentText } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { type Unsubscribe, collection, onSnapshot, query, where } from 'firebase/firestore';
+	import { collection, query, where } from 'firebase/firestore';
 	import { Plus } from 'lucide-svelte';
-	import { onDestroy } from 'svelte';
 	import { SignedIn } from 'sveltefire';
 
-	import { type SortedTaskType, sortTasksByDate } from './service';
+	import { sortTasksByDate } from './service';
 	import TaskList from './task-list/TaskList.svelte';
 	import TasksStats from './tasks-stats/TasksStats.svelte';
 
@@ -27,28 +25,14 @@
 
 	let showStats = false;
 
-	let sortedTasks: SortedTaskType = { [Symbol.iterator]: function* () {} };
-	let unsubscribe: Unsubscribe | undefined = undefined;
-
-	export function fetchUncompletedTasks(userId: string) {
+	function queryUncompletedTasks(userId: string) {
 		const tasksRef = collection(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}`);
-		const q = query(tasksRef, where('isDone', '==', false));
-
-		unsubscribe = onSnapshot(q, (snapshot) => {
-			const tasks = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }) as AnyTask);
-			sortedTasks = sortTasksByDate(tasks);
-		});
+		return query(tasksRef, where('isDone', '==', false));
 	}
-
-	$: {
-		if ($currentUser) fetchUncompletedTasks($currentUser.uid);
-	}
-
-	onDestroy(() => {
-		if (unsubscribe) unsubscribe();
-	});
 
 	let categoryType: Category;
+
+	let taskType: AnyTask;
 
 	title.set('Tasks');
 </script>
@@ -88,30 +72,33 @@
 			</div>
 
 			<div class="flex flex-col gap-5">
-				<ul class="flex flex-col gap-3">
-					{#each sortedTasks as date (date)}
-						<TaskList
-							label={date}
-							on:create={(e) => {
-								showForm = true;
-								editingTask = buildToDoWithDeadline(categories, e.detail);
-							}}
-							on:edit={(e) => {
-								showForm = true;
-								editingTask = e.detail;
-							}}
-							tasks={sortedTasks[date]}
-							userId={user.uid}
-						/>
-					{/each}
-				</ul>
+				<TypedCollection let:data={tasks} ref={queryUncompletedTasks(user.uid)} type={taskType}>
+					{@const sortedTasks = sortTasksByDate(tasks)}
+					<ul class="flex flex-col gap-3">
+						{#each sortedTasks as date (date)}
+							<TaskList
+								label={date}
+								on:create={(e) => {
+									showForm = true;
+									editingTask = buildToDoWithDeadline(categories, e.detail);
+								}}
+								on:edit={(e) => {
+									showForm = true;
+									editingTask = e.detail;
+								}}
+								tasks={sortedTasks[date]}
+								userId={user.uid}
+							/>
+						{/each}
+					</ul>
+
+					<Modal on:close={() => (showStats = false)} show={showStats}>
+						<TasksStats on:close={() => (showStats = false)} {sortedTasks} />
+					</Modal>
+				</TypedCollection>
 
 				<TaskFormWrapper bind:show={showForm} {categories} {editingTask} userId={user.uid} />
 			</div>
 		</TypedCollection>
 	</SignedIn>
 </div>
-
-<Modal on:close={() => (showStats = false)} show={showStats}>
-	<TasksStats on:close={() => (showStats = false)} {sortedTasks} />
-</Modal>
