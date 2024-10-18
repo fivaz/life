@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { AnyEvent, AnyTask } from '$lib/task/utils';
+	import type { AnyEvent, Task } from '$lib/task/utils';
 
 	import { type Category, CategoryTypes } from '$lib/category/utils';
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
@@ -18,22 +18,22 @@
 
 	let showForm = false;
 
-	let editingTask: AnyTask = buildEmptyEvent([]);
+	let editingTask: Task = buildEmptyEvent([]);
 
-	let completedTasks: AnyTask[] = [];
+	let completedTasks: Task[] = [];
 
 	function openFormToCreateTask(categories: Category[], date: Date) {
 		showForm = true;
 		editingTask = buildEventWithTime(categories, date);
 	}
 
-	function openFormToEditTask(task: AnyTask, date: string) {
+	function openFormToEditTask(task: Task, date: string) {
 		showForm = true;
 		targetDate = date;
 		editingTask = task;
 	}
 
-	function updateNotification(task: AnyTask) {
+	function updateNotification(task: Task) {
 		if (task.category.type === CategoryTypes.WORK && task.isDone) {
 			completedTasks = [...completedTasks, task];
 		} else {

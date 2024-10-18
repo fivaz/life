@@ -1,4 +1,4 @@
-import type { AnyEvent, AnyTask, RecurringEvent, ToDo } from '$lib/task/utils';
+import type { AnyEvent, RecurringEvent, Task, ToDo } from '$lib/task/utils';
 
 import { NUMBER_OF_CELLS } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
 import {
@@ -38,11 +38,11 @@ function isRecurringOnDay(event: RecurringEvent, day: Date): boolean {
 	return false;
 }
 
-export function isToDoOnDay(task: AnyTask, day: Date): boolean {
+export function isToDoOnDay(task: Task, day: Date): boolean {
 	return isToDo(task) && isSameDay(parse(task.deadline, DATE, new Date()), day);
 }
 
-export function isEventOnDay(task: AnyTask, day: Date): boolean {
+export function isEventOnDay(task: Task, day: Date): boolean {
 	if (isRecurring(task)) {
 		return isRecurringOnDay(task, day);
 	}
@@ -69,11 +69,11 @@ export function isEventOnDay(task: AnyTask, day: Date): boolean {
 	return false;
 }
 
-export function getToDos(tasks: AnyTask[], date: Date) {
+export function getToDos(tasks: Task[], date: Date) {
 	return tasks.filter((task): task is ToDo => isToDoOnDay(task, date));
 }
 
-export function getEvents(tasks: AnyTask[], date: Date) {
+export function getEvents(tasks: Task[], date: Date) {
 	const events = tasks.filter((task): task is AnyEvent => isEventOnDay(task, date));
 	events.sort((a, b) => convertTimeToMinutes(a.startTime) - convertTimeToMinutes(b.startTime));
 	return events;

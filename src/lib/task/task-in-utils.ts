@@ -1,4 +1,4 @@
-import type { AnyTask, Event, RecurringEvent, ToDo } from '$lib/task/utils';
+import type { Event, RecurringEvent, Task, ToDo } from '$lib/task/utils';
 
 import { getEndTime } from '$lib/components/task-form/service';
 import { weekDays } from '$lib/components/task-form/task-form-recurring/days-checkbox/service';
@@ -42,7 +42,7 @@ export function checkErrors(taskIn: TaskIn): string {
 	return checkDuration(taskIn) || checkIsInverted(taskIn);
 }
 
-export function convertToAnyTask(taskIn: TaskIn): AnyTask {
+export function convertToAnyTask(taskIn: TaskIn): Task {
 	taskIn.name = taskIn.name || taskIn.category.name;
 
 	if (taskIn.isEvent) {
@@ -107,7 +107,7 @@ export function getRecurringEvent(data: TaskIn): RecurringEvent {
 	};
 }
 
-export function convertToTaskIn(task: AnyTask): TaskIn {
+export function convertToTaskIn(task: Task): TaskIn {
 	if (isToDo(task)) {
 		return convertToDo(task);
 	} else {

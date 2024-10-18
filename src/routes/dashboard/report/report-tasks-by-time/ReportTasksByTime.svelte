@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { AnyTask } from '$lib/task/utils.js';
+	import type { Task } from '$lib/task/utils.js';
 
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
@@ -34,7 +34,7 @@
 		CategoryScale,
 	);
 
-	export let tasks: AnyTask[];
+	export let tasks: Task[];
 
 	let interval: ReportInterval = ReportIntervals.DAY;
 

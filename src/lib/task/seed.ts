@@ -1,4 +1,4 @@
-import type { AnyTask, Event, RecurringEvent, ToDo } from '$lib/task/utils';
+import type { Event, RecurringEvent, Task, ToDo } from '$lib/task/utils';
 
 import { routine, sleep, work } from '$lib/category/seed';
 import { DATE, TIME } from '$lib/consts';
@@ -137,7 +137,7 @@ export const longRecurring: RecurringEvent = {
 	startTime: format(getTodayAtTime('10:15'), TIME),
 };
 
-export const events: AnyTask[] = [
+export const events: Task[] = [
 	normalWithoutDescriptionWithGoal,
 	normalWithoutDescriptionWithoutGoal,
 	normalWithDescription,
@@ -174,4 +174,4 @@ export const birthdayToDo: ToDo = {
 
 export const toDos: ToDo[] = [workToDo, birthdayToDo];
 
-export const tasks: AnyTask[] = [...events, ...toDos];
+export const tasks: Task[] = [...events, ...toDos];

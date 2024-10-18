@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { AnyEvent, AnyTask, ToDo } from '$lib/task/utils';
+	import type { AnyEvent, Task, ToDo } from '$lib/task/utils';
 
 	import { updateDateAtMidnight, weekStart } from '$lib/components/calendar/service';
 	import { setContext } from 'svelte';
@@ -10,13 +10,13 @@
 
 	updateDateAtMidnight();
 
-	export let tasks: AnyTask[];
+	export let tasks: Task[];
 
 	export let fetchTasks: (weekStart: Date) => void;
 
 	export let createTask: (date: Date) => void;
 
-	export let editTask: (task: AnyTask, date: string) => void;
+	export let editTask: (task: Task, date: string) => void;
 
 	export let persistToDos: (toDos: ToDo[]) => void;
 

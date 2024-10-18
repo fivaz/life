@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Goal } from '$lib/goal/utils';
-	import type { AnyTask } from '$lib/task/utils';
+	import type { Task } from '$lib/task/utils';
 
 	import { type Category } from '$lib/category/utils';
 	import Button from '$lib/components/form/button/Button.svelte';
@@ -19,7 +19,7 @@
 
 	let editingGoal = buildEmptyGoal();
 
-	let editingTask: AnyTask = buildEmptyToDo([]);
+	let editingTask: Task = buildEmptyToDo([]);
 
 	let showForm = false;
 
@@ -27,7 +27,7 @@
 
 	let goalType: Goal;
 
-	let taskType: AnyTask;
+	let taskType: Task;
 
 	let categoryType: Category;
 

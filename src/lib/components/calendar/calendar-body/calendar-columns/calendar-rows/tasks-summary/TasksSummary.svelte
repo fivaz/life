@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { AnyTask } from '$lib/task/utils';
+	import type { Task } from '$lib/task/utils';
 
 	import DayTasksList from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/tasks-summary/day-tasks-list/DayTasksList.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { isRecurring } from '$lib/task/utils.js';
 	import { clsx } from 'clsx';
 
-	export let tasks: AnyTask[];
+	export let tasks: Task[];
 
 	let isOpen = false;
 
@@ -14,14 +14,14 @@
 
 	$: hasPendingToDos = workTasks.some((task) => task.isDone === false);
 
-	function getValidWorks(tasks: AnyTask[]): AnyTask[] {
+	function getValidWorks(tasks: Task[]): Task[] {
 		// accept only category work tasks
 		const workTasks = tasks.filter((task) => task.category.type === 'work');
 		// accept only non-recurring tasks
 		return workTasks.filter((workTask) => !isRecurring(workTask));
 	}
 
-	function getLabel(tasks: AnyTask[]): string {
+	function getLabel(tasks: Task[]): string {
 		if (tasks.length === 0) {
 			return '';
 		}

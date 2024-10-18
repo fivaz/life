@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { AnyTask } from '$lib/task/utils';
+	import type { Task } from '$lib/task/utils';
 
 	import { DB_PATH } from '$lib/consts';
 	import { db } from '$lib/firebase';
@@ -10,18 +10,18 @@
 	import { onMount } from 'svelte';
 	import { cubicOut } from 'svelte/easing';
 
-	export let task: AnyTask;
+	export let task: Task;
 	export let onRemove: () => void;
 
 	export let userId: string;
 
-	function getCompletedPercentage(tasks: AnyTask[]): number {
+	function getCompletedPercentage(tasks: Task[]): number {
 		const completedTasks = getCompletedTasks(tasks);
 		const total = tasks.length;
 		return Number(((completedTasks / total) * 100).toFixed(0));
 	}
 
-	async function fetchPercentageComplete(task: AnyTask & { goal: Goal }) {
+	async function fetchPercentageComplete(task: Task & { goal: Goal }) {
 		const tasksRef = collection(
 			db,
 			DB_PATH.USERS,
@@ -31,7 +31,7 @@
 			DB_PATH.TASKS,
 		);
 		const tasksSnapshot = await getDocs(tasksRef);
-		const tasks = tasksSnapshot.docs.map((doc) => doc.data()) as AnyTask[];
+		const tasks = tasksSnapshot.docs.map((doc) => doc.data()) as Task[];
 		return getCompletedPercentage(tasks);
 	}
 
@@ -56,7 +56,7 @@
 
 	onMount(async () => {
 		if (task.goal) {
-			percentage = await fetchPercentageComplete(task as AnyTask & { goal: Goal });
+			percentage = await fetchPercentageComplete(task as Task & { goal: Goal });
 		}
 
 		setTimeout(() => {

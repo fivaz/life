@@ -1,6 +1,6 @@
 import { DATE, DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
-import { type AnyTask } from '$lib/task/utils';
+import { type Task } from '$lib/task/utils';
 import { parse } from 'date-fns';
 import { Query, collection, query, where } from 'firebase/firestore';
 
@@ -31,6 +31,6 @@ export function sortGoals(goals: Goal[]) {
 	});
 }
 
-export function getCompletedTasks(tasks: AnyTask[]): number {
+export function getCompletedTasks(tasks: Task[]): number {
 	return tasks.reduce((total, task) => total + Number(task.isDone), 0);
 }

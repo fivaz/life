@@ -1,12 +1,12 @@
 import { editTask } from '$lib/components/task-form/service';
 import { getTaskDate } from '$lib/task/time-utils';
-import { type AnyTask, isToDo } from '$lib/task/utils';
+import { type Task, isToDo } from '$lib/task/utils';
 import { format } from 'date-fns';
 
 export const TASK_LIST_CLASS = 'task-list-class';
 export const HANDLE = 'handle-class';
 
-export function formatDate(task: AnyTask, dateFormat: string) {
+export function formatDate(task: Task, dateFormat: string) {
 	const date = getTaskDate(task);
 	return date ? format(date, dateFormat) : '';
 }
@@ -31,7 +31,7 @@ export function getDateBeneath(draggedElement: HTMLLIElement, x: number, y: numb
 	return date;
 }
 
-export function moveTask(task: AnyTask, userId: string, date: string) {
+export function moveTask(task: Task, userId: string, date: string) {
 	if (isToDo(task)) {
 		if (task.deadline === date) return false;
 		task.deadline = date;
@@ -46,7 +46,7 @@ export function moveTask(task: AnyTask, userId: string, date: string) {
 
 export function hasMoved(
 	container: HTMLLIElement,
-	task: AnyTask,
+	task: Task,
 	userId: string,
 	{ x, y }: { x: number; y: number },
 ): boolean {

@@ -3,7 +3,7 @@
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { db } from '$lib/firebase';
-	import { type AnyTask } from '$lib/task/utils';
+	import { type Task } from '$lib/task/utils';
 	import { title } from '$lib/utils';
 	import { collection, query, where } from 'firebase/firestore';
 	import { SignedIn } from 'sveltefire';
@@ -15,7 +15,7 @@
 		return query(tasksRef, where('category.type', '==', CategoryTypes.WORK));
 	}
 
-	let taskType: AnyTask;
+	let taskType: Task;
 
 	title.set('Report');
 </script>

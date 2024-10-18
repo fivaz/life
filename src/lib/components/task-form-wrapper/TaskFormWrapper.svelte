@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Category } from '$lib/category/utils';
 	import type { Goal } from '$lib/goal/utils';
-	import type { AnyTask } from '$lib/task/utils';
+	import type { Task } from '$lib/task/utils';
 
 	import { removeLocalTask } from '$lib/components/calendar/service';
 	import Modal from '$lib/components/modal/Modal.svelte';
@@ -20,7 +20,7 @@
 	export let categories: Category[];
 	export let goals: Goal[] = [];
 	export let targetDate: string | undefined = undefined;
-	export let editingTask: AnyTask;
+	export let editingTask: Task;
 	export let show: boolean;
 
 	let goalsStore: ReturnType<typeof collectionStore<Goal>> | Writable<Goal[]> =
@@ -30,20 +30,20 @@
 		goalsStore = collectionStore<Goal>(db, queryUncompletedGoals(userId));
 	}
 
-	async function removeTask(userId: string, task: AnyTask, targetDate: string | undefined) {
+	async function removeTask(userId: string, task: Task, targetDate: string | undefined) {
 		if (await deletePossibleSingleRecurringEvent(task, userId, targetDate)) {
 			removeLocalTask(task);
 			close();
 		}
 	}
 
-	function createTask(userId: string, data: Omit<AnyTask, 'id'>, file: File | null) {
+	function createTask(userId: string, data: Omit<Task, 'id'>, file: File | null) {
 		addTask(data, userId, file);
 		close();
 	}
 
 	async function editTask(args: {
-		data: Omit<AnyTask, 'id'>;
+		data: Omit<Task, 'id'>;
 		file: File | null;
 		formerGoal: Goal | null;
 		id: string;

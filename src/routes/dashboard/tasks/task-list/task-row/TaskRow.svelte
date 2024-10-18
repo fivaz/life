@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { AnyTask } from '$lib/task/utils';
+	import type { Task } from '$lib/task/utils';
 
 	import { tailwindColors } from '$lib/category/utils';
 	import { DATE_FR, DATE_FR_SHORT } from '$lib/consts';
@@ -10,11 +10,11 @@
 
 	import { HANDLE, formatDate, hasMoved, startDrag } from './service';
 
-	export let task: AnyTask;
+	export let task: Task;
 	export let userId: string;
 	export let isDraggable: boolean;
 
-	let dispatch = createEventDispatcher<{ edit: AnyTask; rescheduleToTomorrow: AnyTask }>();
+	let dispatch = createEventDispatcher<{ edit: Task; rescheduleToTomorrow: Task }>();
 
 	let container: HTMLLIElement | undefined;
 

@@ -1,5 +1,5 @@
 import type { Goal } from '$lib/goal/utils';
-import type { AnyTask, RecurringEvent } from '$lib/task/utils';
+import type { RecurringEvent, Task } from '$lib/task/utils';
 
 import { createDialog } from '$lib/components/dialog/service';
 import { DB_PATH, TIME } from '$lib/consts';
@@ -51,11 +51,7 @@ export function getDuration(startTime: string, endTime: string): string {
 	return format(new Date(0, 0, 0, totalHours, remainingMinutes), TIME);
 }
 
-export function editPossibleSingleRecurringEvent(
-	event: AnyTask,
-	userId: string,
-	targetDate: string,
-) {
+export function editPossibleSingleRecurringEvent(event: Task, userId: string, targetDate: string) {
 	const { id, ...data } = event;
 	if (isRecurring(data)) {
 		void editSingleRecurringEvent(id, data, userId, targetDate);
@@ -92,7 +88,7 @@ export async function editTaskWithPrompt({
 	userId,
 	wasRecurring,
 }: {
-	data: Omit<AnyTask, 'id'>;
+	data: Omit<Task, 'id'>;
 	file: File | null;
 	formerGoal: Goal | null;
 	id: string;
@@ -125,7 +121,7 @@ export async function editTaskWithPrompt({
 
 async function editTaskInGoal(
 	userId: string,
-	data: Omit<AnyTask, 'id'>,
+	data: Omit<Task, 'id'>,
 	formerGoal: Goal | null,
 	taskRef: DocumentReference,
 ) {
@@ -133,21 +129,21 @@ async function editTaskInGoal(
 	const hasFormerGoal = formerGoal !== null;
 
 	if (hasNewGoal && !hasFormerGoal) {
-		updateTaskInGoal(userId, taskRef, data as Omit<AnyTask, 'id'> & { goal: Goal });
+		updateTaskInGoal(userId, taskRef, data as Omit<Task, 'id'> & { goal: Goal });
 	} else if (!hasNewGoal && hasFormerGoal) {
 		removeTaskFromGoal(userId, taskRef, formerGoal);
 	} else if (hasNewGoal && hasFormerGoal) {
 		if (data.goal!.id !== formerGoal.id) {
 			removeTaskFromGoal(userId, taskRef, formerGoal);
 		}
-		updateTaskInGoal(userId, taskRef, data as Omit<AnyTask, 'id'> & { goal: Goal });
+		updateTaskInGoal(userId, taskRef, data as Omit<Task, 'id'> & { goal: Goal });
 	}
 }
 
 function updateTaskInGoal(
 	userId: string,
 	taskRef: DocumentReference,
-	taskData: Omit<AnyTask, 'id'> & { goal: Goal },
+	taskData: Omit<Task, 'id'> & { goal: Goal },
 ) {
 	const goalDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.GOALS, taskData.goal.id);
 	const goalTaskDocRef = doc(goalDocRef, DB_PATH.TASKS, taskRef.id);
@@ -163,7 +159,7 @@ function removeTaskFromGoal(userId: string, taskRef: DocumentReference, goal: Go
 
 export async function editTask(
 	id: string,
-	data: Omit<AnyTask, 'id'>,
+	data: Omit<Task, 'id'>,
 	userId: string,
 	formerGoal: Goal | null,
 	file: File | null,
@@ -180,7 +176,7 @@ export async function editTask(
 	void editTaskInGoal(userId, data, formerGoal, taskDocRef);
 }
 
-function addTaskToGoal(userId: string, data: Omit<AnyTask, 'id'>, id: string) {
+function addTaskToGoal(userId: string, data: Omit<Task, 'id'>, id: string) {
 	if (data.goal) {
 		const goalDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.GOALS, data.goal.id);
 		const goalTaskCollectionRef = doc(goalDocRef, DB_PATH.TASKS, id);
@@ -194,7 +190,7 @@ export async function storeImage(userId: string, taskId: string, file: Blob): Pr
 	return await getDownloadURL(avatarsRef);
 }
 
-export async function addTask(data: Omit<AnyTask, 'id'>, userId: string, file?: File | null) {
+export async function addTask(data: Omit<Task, 'id'>, userId: string, file?: File | null) {
 	const newTaskRef = doc(collection(db, DB_PATH.USERS, userId, DB_PATH.TASKS));
 
 	void setDoc(newTaskRef, data);
@@ -210,7 +206,7 @@ export async function addTask(data: Omit<AnyTask, 'id'>, userId: string, file?: 
 	void addTaskToGoal(userId, data, newTaskRef.id);
 }
 
-function deleteTask(id: string, data: Omit<AnyTask, 'id'>, userId: string) {
+function deleteTask(id: string, data: Omit<Task, 'id'>, userId: string) {
 	const taskDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.TASKS, id);
 	void deleteDoc(taskDocRef);
 
@@ -232,7 +228,7 @@ function addExceptionToRecurring(
 }
 
 export async function deletePossibleSingleRecurringEvent(
-	task: AnyTask,
+	task: Task,
 	userId: string,
 	targetDate: string | undefined,
 ): Promise<boolean> {

@@ -1,4 +1,4 @@
-import type { AnyTask } from '$lib/task/utils';
+import type { Task } from '$lib/task/utils';
 
 import { addDays, differenceInMilliseconds, endOfToday, startOfWeek } from 'date-fns';
 import { derived, writable } from 'svelte/store';
@@ -9,7 +9,7 @@ export const weekStart = writable<Date>(startOfWeek(new Date(), { weekStartsOn: 
 
 export const selectedDate = writable<Date>(new Date());
 
-export const tasks = writable<AnyTask[]>([]);
+export const tasks = writable<Task[]>([]);
 
 export const dates = derived(weekStart, ($weekStart) =>
 	Array.from({ length: 7 }, (_, i) => addDays($weekStart, i)),
@@ -26,7 +26,7 @@ export function updateDateAtMidnight() {
 	}, timeUntilMidnight);
 }
 
-export function removeLocalTask(task: AnyTask) {
+export function removeLocalTask(task: Task) {
 	tasks.update((existingTasks) =>
 		existingTasks.filter((existingTask) => existingTask.id !== task.id),
 	);

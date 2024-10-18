@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Category } from '$lib/category/utils';
 	import type { Goal } from '$lib/goal/utils';
-	import type { AnyTask } from '$lib/task/utils';
+	import type { Task } from '$lib/task/utils';
 
 	import { tailwindColors } from '$lib/category/utils';
 	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
@@ -23,7 +23,7 @@
 
 	import GoalIcon from '../../../routes/dashboard/goals/goal-form/goal-icon/GoalIcon.svelte';
 
-	export let task: AnyTask;
+	export let task: Task;
 
 	export let goals: Goal[];
 
@@ -43,16 +43,16 @@
 
 	const dispatch = createEventDispatcher<{
 		close: null;
-		createTask: { data: Omit<AnyTask, 'id'>; file: File | null };
+		createTask: { data: Omit<Task, 'id'>; file: File | null };
 		editTask: {
-			data: Omit<AnyTask, 'id'>;
+			data: Omit<Task, 'id'>;
 			file: File | null;
 			formerGoal: Goal | null;
 			id: string;
 			targetDate: string | undefined;
 			wasRecurring: boolean;
 		};
-		removeTask: { targetDate: string | undefined; task: AnyTask };
+		removeTask: { targetDate: string | undefined; task: Task };
 	}>();
 
 	$: isEditing = !!task.id;

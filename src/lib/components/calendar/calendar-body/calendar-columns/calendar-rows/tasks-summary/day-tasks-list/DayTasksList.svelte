@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { AnyTask, ToDo } from '$lib/task/utils';
+	import type { Task, ToDo } from '$lib/task/utils';
 
 	import { DATE } from '$lib/consts';
 	import { getTotalDuration } from '$lib/task/time-utils';
@@ -12,11 +12,11 @@
 
 	import GoalIcon from '../../../../../../../../routes/dashboard/goals/goal-form/goal-icon/GoalIcon.svelte';
 
-	export let tasks: AnyTask[];
+	export let tasks: Task[];
 
 	const dispatch = createEventDispatcher<{
 		close: null;
-		editTask: { targetDate: string; task: AnyTask };
+		editTask: { targetDate: string; task: Task };
 		persistToDos: ToDo[];
 	}>();
 

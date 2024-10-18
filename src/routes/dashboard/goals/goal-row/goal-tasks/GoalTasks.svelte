@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { AnyTask } from '$lib/task/utils';
+	import type { Task } from '$lib/task/utils';
 
 	import { DATE_FR } from '$lib/consts.js';
 	import { getTaskDate } from '$lib/task/time-utils';
@@ -10,11 +10,11 @@
 	import { format } from 'date-fns';
 	import { createEventDispatcher } from 'svelte';
 
-	export let tasks: AnyTask[];
+	export let tasks: Task[];
 
-	const dispatch = createEventDispatcher<{ editTask: AnyTask }>();
+	const dispatch = createEventDispatcher<{ editTask: Task }>();
 
-	function showDate(task: AnyTask) {
+	function showDate(task: Task) {
 		const date = getTaskDate(task);
 		if (!date) {
 			return 'N/A';

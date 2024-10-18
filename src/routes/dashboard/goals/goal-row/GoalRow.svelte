@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Goal } from '$lib/goal/utils';
-	import type { AnyTask } from '$lib/task/utils';
+	import type { Task } from '$lib/task/utils';
 
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
 	import { getCompletedTasks } from '$lib/goal/utils';
@@ -14,11 +14,11 @@
 	import GoalTasks from './goal-tasks/GoalTasks.svelte';
 
 	export let goal: Goal;
-	export let tasks: AnyTask[];
+	export let tasks: Task[];
 
 	const dispatch = createEventDispatcher<{ addTask: null; editGoal: Goal }>();
 
-	export function getNumberOfTasks(tasks: AnyTask[]) {
+	export function getNumberOfTasks(tasks: Task[]) {
 		if (tasks.length === 0) {
 			return '';
 		}

@@ -1,4 +1,4 @@
-import type { AnyEvent, AnyTask, ToDo } from '$lib/task/utils';
+import type { AnyEvent, Task, ToDo } from '$lib/task/utils';
 
 import { editPossibleSingleRecurringEvent, editTask } from '$lib/components/task-form/service';
 import { DATE, DB_PATH } from '$lib/consts';
@@ -35,7 +35,7 @@ export function persistToDos(userId: string, toDos: ToDo[]) {
 	});
 }
 
-export const externalTasksStore = writable<AnyTask[]>([]);
+export const externalTasksStore = writable<Task[]>([]);
 
 export const savedWeeks = writable<string[]>([]);
 
@@ -44,7 +44,7 @@ export function getWeekTasks(userId: string, startOfWeek: Date): void {
 	onChangeWeekStart(startOfWeek, queries);
 }
 
-function queryWeekTasks(userId: string, startOfWeek: Date): [Query<AnyTask>, Query<AnyTask>] {
+function queryWeekTasks(userId: string, startOfWeek: Date): [Query<Task>, Query<Task>] {
 	const startOfWeekString = format(startOfWeek, DATE);
 	const endOfWeekString = format(endOfWeek(startOfWeek), DATE);
 	const goalsRef = collection(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}`);
@@ -53,19 +53,16 @@ function queryWeekTasks(userId: string, startOfWeek: Date): [Query<AnyTask>, Que
 			goalsRef,
 			where('date', '>=', startOfWeekString),
 			where('date', '<=', endOfWeekString),
-		) as Query<AnyTask>,
+		) as Query<Task>,
 		query(
 			goalsRef,
 			where('deadline', '>=', startOfWeekString),
 			where('deadline', '<=', endOfWeekString),
-		) as Query<AnyTask>,
+		) as Query<Task>,
 	];
 }
 
-export function onChangeWeekStart(
-	newWeekStart: Date,
-	queries: [Query<AnyTask>, Query<AnyTask>],
-): void {
+export function onChangeWeekStart(newWeekStart: Date, queries: [Query<Task>, Query<Task>]): void {
 	const newWeekStartString = format(newWeekStart, DATE);
 	savedWeeks.update((weeks) => {
 		// only fetch tasks for other weeks, if they haven't been fetched previously
@@ -78,7 +75,7 @@ export function onChangeWeekStart(
 	});
 }
 
-export function subscribeToWeekTasks([dateQuery, deadlineQuery]: [Query<AnyTask>, Query<AnyTask>]) {
+export function subscribeToWeekTasks([dateQuery, deadlineQuery]: [Query<Task>, Query<Task>]) {
 	// Use onSnapshot to listen for real-time updates for both queries
 	const unsubscribeDate = onSnapshot(dateQuery, (dateSnapshot) =>
 		updateTasksFromSnapshot(dateSnapshot),
@@ -96,7 +93,7 @@ export function subscribeToWeekTasks([dateQuery, deadlineQuery]: [Query<AnyTask>
 }
 
 // Helper function to update tasks in the store from Firestore snapshots
-function updateTasksFromSnapshot(snapshot: QuerySnapshot<AnyTask>) {
+function updateTasksFromSnapshot(snapshot: QuerySnapshot<Task>) {
 	externalTasksStore.update((existingTasks) => {
 		const updatedTasks = [...existingTasks];
 

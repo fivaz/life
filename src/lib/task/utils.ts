@@ -36,13 +36,13 @@ export type RecurringEvent = Event & {
 
 export type AnyEvent = Event | RecurringEvent;
 
-export type AnyTask = AnyEvent | ToDo;
+export type Task = AnyEvent | ToDo;
 
-export function getDurationInMinutes(task: AnyTask) {
+export function getDurationInMinutes(task: Task) {
 	return convertTimeToMinutes(task.duration);
 }
 
-export function sortTasks(tasks: AnyTask[]) {
+export function sortTasks(tasks: Task[]) {
 	return tasks.sort((a, b) => {
 		const dateA = getTaskDateTime(a);
 
@@ -60,17 +60,17 @@ export function sortTasks(tasks: AnyTask[]) {
 	});
 }
 
-export function isRecurring(task: AnyTask | Omit<AnyTask, 'id'>): task is RecurringEvent {
+export function isRecurring(task: Omit<Task, 'id'> | Task): task is RecurringEvent {
 	return 'recurringStartAt' in task;
 }
 
-export function isToDo(task: AnyTask | Omit<AnyTask, 'id'>): task is ToDo {
+export function isToDo(task: Omit<Task, 'id'> | Task): task is ToDo {
 	return 'deadline' in task;
 }
 
 export function queryUncompletedTasks(userId: string) {
 	const tasksRef = collection(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}`);
-	return query(tasksRef, where('isDone', '==', false)) as Query<AnyTask>;
+	return query(tasksRef, where('isDone', '==', false)) as Query<Task>;
 }
 
 export type SubTask = { isDone: boolean; title: string };

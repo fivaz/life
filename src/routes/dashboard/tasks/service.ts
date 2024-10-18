@@ -1,4 +1,4 @@
-import type { AnyTask } from '$lib/task/utils';
+import type { Task } from '$lib/task/utils';
 
 import { DATE_FR } from '$lib/consts';
 import { getTaskDate } from '$lib/task/time-utils';
@@ -14,7 +14,7 @@ import {
 	startOfWeek,
 } from 'date-fns';
 
-export type SortedTaskType = Record<string, AnyTask[]> & Iterable<string>;
+export type SortedTaskType = Record<string, Task[]> & Iterable<string>;
 
 export enum GROUPS {
 	NextWeek = 'Next week',
@@ -41,7 +41,7 @@ function isNextWeek(date: Date): boolean {
 	return isWithinInterval(date, { end, start });
 }
 
-function getDateName(task: AnyTask): GROUPS | string {
+function getDateName(task: Task): GROUPS | string {
 	const date = getTaskDate(task);
 
 	if (isRecurring(task)) {
@@ -68,8 +68,8 @@ function getDateName(task: AnyTask): GROUPS | string {
 	return format(date, DATE_FR);
 }
 
-function groupTasksByDate(tasks: AnyTask[]): Record<string, AnyTask[]> {
-	return tasks.reduce<Record<string, AnyTask[]>>(
+function groupTasksByDate(tasks: Task[]): Record<string, Task[]> {
+	return tasks.reduce<Record<string, Task[]>>(
 		(groups, task) => {
 			const date = getDateName(task);
 
@@ -89,7 +89,7 @@ function groupTasksByDate(tasks: AnyTask[]): Record<string, AnyTask[]> {
 	);
 }
 
-function getTaskByOrderedDate(tasksByDate: Record<string, AnyTask[]>): SortedTaskType {
+function getTaskByOrderedDate(tasksByDate: Record<string, Task[]>): SortedTaskType {
 	const priorityObject: Record<string, number> = {
 		[GROUPS.NextWeek]: 5,
 		[GROUPS.Overdue]: 1,
@@ -120,7 +120,7 @@ function getTaskByOrderedDate(tasksByDate: Record<string, AnyTask[]>): SortedTas
 	};
 }
 
-export function sortTasksByDate(tasks: AnyTask[]): SortedTaskType {
+export function sortTasksByDate(tasks: Task[]): SortedTaskType {
 	const sortedTasks = sortTasks(tasks);
 	const tasksByDate = groupTasksByDate(sortedTasks);
 	return getTaskByOrderedDate(tasksByDate);

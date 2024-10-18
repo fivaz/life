@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { AnyTask } from '$lib/task/utils';
+	import type { Task } from '$lib/task/utils';
 
 	import { DATE, DATE_FR } from '$lib/consts';
 	import { getTotalDuration } from '$lib/task/time-utils';
@@ -14,7 +14,7 @@
 	import { TASK_LIST_CLASS } from './task-row/service';
 
 	export let label: string;
-	export let tasks: AnyTask[];
+	export let tasks: Task[];
 	export let userId: string;
 
 	$: isDroppable = label !== GROUPS.Recurring && label !== GROUPS.Overdue;
@@ -42,7 +42,7 @@
 		return format(parse(label, DATE_FR, new Date()), DATE);
 	}
 
-	export function getNumberOfTasks(tasks: AnyTask[]) {
+	export function getNumberOfTasks(tasks: Task[]) {
 		if (tasks.length === 0) {
 			return '';
 		}

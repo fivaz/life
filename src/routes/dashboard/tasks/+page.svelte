@@ -7,7 +7,7 @@
 	import { DB_PATH } from '$lib/consts';
 	import { db } from '$lib/firebase';
 	import { buildEmptyToDo, buildToDoWithDeadline } from '$lib/task/build-utils';
-	import { type AnyTask } from '$lib/task/utils';
+	import { type Task } from '$lib/task/utils';
 	import { title } from '$lib/utils';
 	import { DocumentText } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -19,7 +19,7 @@
 	import TaskList from './task-list/TaskList.svelte';
 	import TasksStats from './tasks-stats/TasksStats.svelte';
 
-	let editingTask: AnyTask = buildEmptyToDo([]);
+	let editingTask: Task = buildEmptyToDo([]);
 
 	let showForm = false;
 
@@ -32,7 +32,7 @@
 
 	let categoryType: Category;
 
-	let taskType: AnyTask;
+	let taskType: Task;
 
 	title.set('Tasks');
 </script>
