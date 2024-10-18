@@ -29,6 +29,7 @@ declare module '@storybook/addon-svelte-csf' {
 type Context = {
 	createTask: (date: Date) => void;
 	editTask: (task: AnyTask, date: string) => void;
+	fetchTasks: (weekStart: Date) => void;
 	moveEvent: (
 		event: AnyEvent,
 		moveObject: {

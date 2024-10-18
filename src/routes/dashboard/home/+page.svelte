@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { Category } from '$lib/category/utils';
 	import type { AnyEvent, AnyTask } from '$lib/task/utils';
 
+	import { type Category, CategoryTypes } from '$lib/category/utils';
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
 	import TaskCompletedNotificationStack from '$lib/components/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
 	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
@@ -12,7 +12,7 @@
 	import { title } from '$lib/utils';
 	import { SignedIn } from 'sveltefire';
 
-	import { getWeekTasks, moveEvent, persistToDos } from './service';
+	import { externalTasksStore, getWeekTasks, moveEvent, persistToDos } from './service';
 
 	let targetDate: string | undefined = undefined;
 
@@ -34,7 +34,7 @@
 	}
 
 	function updateNotification(task: AnyTask) {
-		if (task.category.type === 'work' && task.isDone) {
+		if (task.category.type === CategoryTypes.WORK && task.isDone) {
 			completedTasks = [...completedTasks, task];
 		} else {
 			completedTasks = completedTasks.filter((completedTask) => completedTask.id !== task.id);
@@ -64,6 +64,7 @@
 			fetchTasks={(weekStart) => getWeekTasks(user.uid, weekStart)}
 			moveEvent={(event, moveObject) => moveEvent(user.uid, event, moveObject)}
 			persistToDos={(toDos) => persistToDos(user.uid, toDos)}
+			tasks={$externalTasksStore}
 			toggleEvent={(event, targetDate) => toggleCompletion(user.uid, event, targetDate)}
 		/>
 		<TaskFormWrapper
