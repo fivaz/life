@@ -22,4 +22,4 @@
 	<CalendarHeader {...args}></CalendarHeader>
 </Template>
 
-<Story args={{ weekStart: startOfWeek(new Date()) }} name="Primary" />
+<Story args={{ weekStart: startOfWeek(new Date(), { weekStartsOn: 1 }) }} name="Primary" />

@@ -54,7 +54,7 @@ export function getWeekTasks(userId: string, startOfWeek: Date): void {
 
 function queryWeekTasks(userId: string, startOfWeek: Date): [Query<Task>, Query<Task>] {
 	const startOfWeekString = format(startOfWeek, DATE);
-	const endOfWeekString = format(endOfWeek(startOfWeek), DATE);
+	const endOfWeekString = format(endOfWeek(startOfWeek, { weekStartsOn: 1 }), DATE);
 	const goalsRef = collection(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}`);
 	return [
 		query(

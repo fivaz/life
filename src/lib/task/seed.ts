@@ -151,7 +151,7 @@ export const events: Task[] = [
 export const workToDo: ToDo = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
-	deadline: format(startOfWeek(new Date()), DATE),
+	deadline: format(startOfWeek(new Date(), { weekStartsOn: 1 }), DATE),
 	description: '',
 	duration: '',
 	goal: null,
