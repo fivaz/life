@@ -3,7 +3,6 @@
 	import type { Goal } from '$lib/goal/utils';
 	import type { Task } from '$lib/task/utils';
 
-	import { removeLocalTask } from '$lib/components/calendar/service';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import {
@@ -15,6 +14,8 @@
 	import { queryUncompletedGoals, sortGoals } from '$lib/goal/utils';
 	import { type Writable, writable } from 'svelte/store';
 	import { collectionStore } from 'sveltefire';
+
+	import { removeLocalTask } from '../../../routes/dashboard/home/service';
 
 	export let userId: string;
 	export let categories: Category[];

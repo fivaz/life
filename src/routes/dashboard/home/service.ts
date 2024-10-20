@@ -112,3 +112,9 @@ function updateTasksFromSnapshot(snapshot: QuerySnapshot<Task>) {
 		return updatedTasks;
 	});
 }
+
+export function removeLocalTask(task: Task) {
+	externalTasksStore.update((existingTasks) =>
+		existingTasks.filter((existingTask) => existingTask.id !== task.id),
+	);
+}
