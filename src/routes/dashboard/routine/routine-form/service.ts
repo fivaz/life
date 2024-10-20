@@ -8,11 +8,7 @@ import {
 	collection,
 	deleteDoc,
 	doc,
-	getDocs,
-	query,
 	updateDoc,
-	where,
-	writeBatch,
 } from 'firebase/firestore';
 
 export function buildEmptyRoutine(): Routine {
@@ -48,25 +44,6 @@ export function toggleRoutineCompletion(
 export function editRoutine(id: string, data: Omit<Routine, 'id'>, userId: string) {
 	const routineDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.ROUTINES, id);
 	void updateDoc(routineDocRef, data);
-	void updateRoutineInTasks(id, data, userId);
-}
-
-async function updateRoutineInTasks(id: string, data: Omit<Routine, 'id'>, userId: string) {
-	const tasksQuery = query(
-		collection(db, DB_PATH.USERS, userId, DB_PATH.TASKS),
-		where('routine.id', '==', id),
-	);
-
-	const tasksSnapshot = await getDocs(tasksQuery);
-
-	const batch = writeBatch(db);
-
-	tasksSnapshot.forEach((taskDoc) => {
-		const taskRef = taskDoc.ref;
-		batch.update(taskRef, { routine: data });
-	});
-
-	await batch.commit();
 }
 
 export function addRoutine(data: Omit<Routine, 'id'>, userId: string) {

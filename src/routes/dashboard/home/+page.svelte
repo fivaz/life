@@ -59,9 +59,9 @@
 		type={categoryType}
 	>
 		<Calendar
+			changeWeek={(weekStart) => getWeekTasks(user.uid, weekStart)}
 			createTask={(date) => openFormToCreateTask(categories, date)}
 			editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
-			fetchTasks={(weekStart) => getWeekTasks(user.uid, weekStart)}
 			moveEvent={(event, moveObject) => moveEvent(user.uid, event, moveObject)}
 			persistToDos={(toDos) => persistToDos(user.uid, toDos)}
 			tasks={$externalTasksStore}

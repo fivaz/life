@@ -1,8 +1,10 @@
 <script lang="ts">
-	import type { AnyEvent, Task, ToDo } from '$lib/task/utils';
+	import type { Task } from '$lib/task/utils';
 
 	import { updateDateAtMidnight, weekStart } from '$lib/components/calendar/service';
 	import { setContext } from 'svelte';
+
+	import type { Context } from '../../../app';
 
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
@@ -12,25 +14,17 @@
 
 	export let tasks: Task[];
 
-	export let fetchTasks: (weekStart: Date) => void;
+	export let changeWeek: Context['changeWeek'];
 
-	export let createTask: (date: Date) => void;
+	export let createTask: Context['createTask'];
 
-	export let editTask: (task: Task, date: string) => void;
+	export let editTask: Context['editTask'];
 
-	export let persistToDos: (toDos: ToDo[]) => void;
+	export let persistToDos: Context['persistToDos'];
 
-	export let toggleEvent: (event: AnyEvent, targetDate: string) => void;
+	export let toggleEvent: Context['toggleEvent'];
 
-	export let moveEvent: (
-		event: AnyEvent,
-		moveObject: {
-			date: string;
-			duration: string;
-			oldDate: string;
-			startTime: string;
-		},
-	) => void;
+	export let moveEvent: Context['moveEvent'];
 
 	$: $taskStore = tasks;
 
@@ -44,9 +38,9 @@
 
 	setContext('toggleEvent', toggleEvent);
 
-	setContext('fetchTasks', fetchTasks);
+	setContext('changeWeek', changeWeek);
 
-	$: fetchTasks($weekStart);
+	$: changeWeek($weekStart);
 </script>
 
 <div class="flex h-screen flex-col md:h-[calc(100vh-20px)]">

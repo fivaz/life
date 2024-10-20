@@ -7,7 +7,7 @@
 	import { dragHandleZone } from 'svelte-dnd-action';
 
 	import RoutineRow from '../routine-row/RoutineRow.svelte';
-	import { updateRoutine } from '../service';
+	import { updateRoutines } from '../service';
 
 	export let selectedDate: Date;
 
@@ -23,7 +23,7 @@
 
 	function persistChanges({ detail }: { detail: { items: Routine[] } }) {
 		routines = detail.items;
-		updateRoutine(userId, routines);
+		updateRoutines(userId, routines);
 	}
 </script>
 
