@@ -4,7 +4,6 @@
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import { getDuration, getEndTime } from '$lib/components/task-form/service';
-	import { Transition } from '@rgossiaux/svelte-headlessui';
 
 	export let taskIn: TaskIn;
 
@@ -30,15 +29,16 @@
 	</div>
 
 	{#if taskIn.isEvent}
-		<Transition
-			class="overflow-hidden transition-all duration-500"
-			enterFrom="transform opacity-0 max-h-0"
-			enterTo="transform opacity-100 max-h-36"
-			leaveFrom="transform opacity-100 max-h-36"
-			leaveTo="transform opacity-0 max-h-0"
-			show={isEventOpen}
-			unmount={false}
-		>
+		<div class={isEventOpen ? 'block' : 'hidden'}>
+			<!--		<Transition-->
+			<!--			class="overflow-hidden transition-all duration-500"-->
+			<!--			enterFrom="transform opacity-0 max-h-0"-->
+			<!--			enterTo="transform opacity-100 max-h-36"-->
+			<!--			leaveFrom="transform opacity-100 max-h-36"-->
+			<!--			leaveTo="transform opacity-0 max-h-0"-->
+			<!--			show={isEventOpen}-->
+			<!--			unmount={false}-->
+			<!--		>-->
 			<Input bind:value={taskIn.date} label="Date" name="date" required type="date" />
 
 			<div class="flex gap-3">
@@ -62,6 +62,6 @@
 					type="time"
 				/>
 			</div>
-		</Transition>
+		</div>
 	{/if}
 </div>
