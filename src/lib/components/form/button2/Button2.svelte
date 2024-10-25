@@ -2,14 +2,15 @@
 	import { ArrowPath } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
+	import type { Snippet } from 'svelte';
 
 	interface Props {
 		isLoading?: boolean;
 		color?: keyof typeof colors;
 		type?: 'button' | 'submit' | undefined;
-		disabled?: any;
+		disabled?: boolean;
 		class?: string;
-		children?: import('svelte').Snippet;
+		children?: Snippet;
 		onclick: () => void;
 	}
 

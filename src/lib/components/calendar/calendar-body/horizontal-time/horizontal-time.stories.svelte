@@ -12,7 +12,7 @@
 </script>
 
 <Template let:args>
-	<HorizontalTime {...args}><div /></HorizontalTime>
+	<HorizontalTime {...args}><div></div></HorizontalTime>
 </Template>
 
 <Story args={{}} name="Primary" />

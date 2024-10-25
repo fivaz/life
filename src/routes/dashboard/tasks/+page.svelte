@@ -46,7 +46,7 @@
 		>
 			<div class="flex items-center justify-between">
 				<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{$title}</h1>
-				<span />
+				<span></span>
 
 				<div class="flex items-center gap-5">
 					<button

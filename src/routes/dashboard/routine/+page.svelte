@@ -52,7 +52,7 @@
 						<div class="flex gap-5">
 							<WeekChanger bind:selectedDate bind:weekStart />
 
-							<div class="h-7 border-r border-gray-300" />
+							<div class="h-7 border-r border-gray-300"></div>
 
 							<Button
 								on:click={() => {

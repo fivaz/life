@@ -3,10 +3,9 @@
 
 	import Button2 from '$lib/components/form/button2/Button2.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
+	import TypedCollection from '$lib/components/typed-collection2/TypedCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { title } from '$lib/utils';
-	import { Plus } from 'lucide-svelte';
 	import { SignedIn } from 'sveltefire';
 
 	import CategoryForm from './category-form/CategoryForm.svelte';
@@ -26,42 +25,41 @@
 	<div class="flex items-center justify-between">
 		<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{$title}</h1>
 		<span></span>
+		<!--		TODO add Icon Plus back in the button-->
+		<!--		<Plus class="h-4 w-auto" />-->
 		<Button2
 			onclick={() => {
 				showForm = true;
 				editingCategory = buildEmptyCategory();
 			}}
 		>
-			<Plus class="h-4 w-auto" />
 			New Category
 		</Button2>
 	</div>
 
 	<SignedIn let:user>
-		<TypedCollection
-			let:data={categories}
-			ref={`${DB_PATH.USERS}/${user.uid}/${DB_PATH.CATEGORIES}`}
-			type={categoryType}
-		>
-			<ul class="flex flex-col gap-1">
-				{#each categories as category (category)}
-					<CategoryRow
-						{category}
-						edit={(category) => {
-							showForm = true;
-							editingCategory = category;
-						}}
-					/>
-				{/each}
-			</ul>
+		<TypedCollection ref={`${DB_PATH.USERS}/${user.uid}/${DB_PATH.CATEGORIES}`} type={categoryType}>
+			{#snippet data(categories)}
+				<ul class="flex flex-col gap-1">
+					{#each categories as category (category)}
+						<CategoryRow
+							{category}
+							edit={(category) => {
+								showForm = true;
+								editingCategory = category;
+							}}
+						/>
+					{/each}
+				</ul>
 
-			<Modal on:close={() => (showForm = false)} show={showForm}>
-				<CategoryForm
-					category={editingCategory}
-					on:close={() => (showForm = false)}
-					userId={user.uid}
-				/>
-			</Modal>
+				<Modal on:close={() => (showForm = false)} show={showForm}>
+					<CategoryForm
+						category={editingCategory}
+						on:close={() => (showForm = false)}
+						userId={user.uid}
+					/>
+				</Modal>
+			{/snippet}
 		</TypedCollection>
 	</SignedIn>
 </div>

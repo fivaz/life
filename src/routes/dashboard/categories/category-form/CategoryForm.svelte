@@ -132,7 +132,7 @@
 				Delete
 			</ConfirmButton>
 		{:else}
-			<div />
+			<div></div>
 		{/if}
 
 		<Button type="submit">
