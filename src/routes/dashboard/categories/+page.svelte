@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Category } from '$lib/category/utils';
 
-	import Button from '$lib/components/form/button/Button.svelte';
+	import Button2 from '$lib/components/form/button2/Button2.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
@@ -26,15 +26,15 @@
 	<div class="flex items-center justify-between">
 		<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{$title}</h1>
 		<span></span>
-		<Button
-			on:click={() => {
+		<Button2
+			onclick={() => {
 				showForm = true;
 				editingCategory = buildEmptyCategory();
 			}}
 		>
 			<Plus class="h-4 w-auto" />
 			New Category
-		</Button>
+		</Button2>
 	</div>
 
 	<SignedIn let:user>

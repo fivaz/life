@@ -2,7 +2,6 @@
 	import type { Category } from '$lib/category/utils';
 
 	import { tailwindColors } from '$lib/category/utils';
-	import {} from '@steeze-ui/heroicons';
 	import { Check, Settings2, Tag } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
