@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
-	import { Transition } from '@rgossiaux/svelte-headlessui';
 	import Flatpickr from 'svelte-flatpickr';
 
 	import DaysCheckbox from './days-checkbox/DaysCheckbox.svelte'; // TODO check later how I should import a precompiled component https://github.com/sveltejs/svelte/issues/604
@@ -40,15 +39,16 @@
 	</div>
 
 	{#if taskIn.isRecurring}
-		<Transition
-			class="overflow-hidden transition-all duration-500"
-			enterFrom="transform opacity-0 max-h-0"
-			enterTo="transform opacity-100 max-h-36"
-			leaveFrom="transform opacity-100 max-h-36"
-			leaveTo="transform opacity-0 max-h-0"
-			show={isRecurringOpen}
-			unmount={false}
-		>
+		<div class={isRecurringOpen ? 'block' : 'hidden'}>
+			<!--		<Transition-->
+			<!--			class="overflow-hidden transition-all duration-500"-->
+			<!--			enterFrom="transform opacity-0 max-h-0"-->
+			<!--			enterTo="transform opacity-100 max-h-36"-->
+			<!--			leaveFrom="transform opacity-100 max-h-36"-->
+			<!--			leaveTo="transform opacity-0 max-h-0"-->
+			<!--			show={isRecurringOpen}-->
+			<!--			unmount={false}-->
+			<!--		>-->
 			<div class="flex gap-3 pt-2">
 				<Input
 					bind:value={taskIn.recurringStartAt}
@@ -92,6 +92,7 @@
 					}}
 				/>
 			</div>
-		</Transition>
+			<!--		</Transition>-->
+		</div>
 	{/if}
 </div>

@@ -62,6 +62,7 @@
 					type="time"
 				/>
 			</div>
+			<!--		</Transition>-->
 		</div>
 	{/if}
 </div>

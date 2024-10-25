@@ -1,7 +1,5 @@
 <script lang="ts">
-	
-
-import { ChevronRight } from '@steeze-ui/heroicons';
+	import { ChevronRight } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
 	export let title: string;
