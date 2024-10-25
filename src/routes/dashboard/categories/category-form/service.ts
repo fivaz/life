@@ -58,11 +58,11 @@ export function addCategory(data: Omit<Category, 'id'>, userId: string) {
 export async function deleteCategory(
 	id: string | undefined,
 	userId: string,
-	dispatch: EventDispatcher<{ close: null }>,
+	closeForm: () => void,
 ) {
 	if (id) {
 		const categoryDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES, id);
 		await deleteDoc(categoryDocRef);
-		dispatch('close');
+		closeForm();
 	}
 }

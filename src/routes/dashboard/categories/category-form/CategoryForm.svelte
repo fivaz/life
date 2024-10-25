@@ -8,49 +8,55 @@
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
-	import { getErrors } from '$lib/form-utils';
-	import { validator } from '@felte/validator-yup';
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
-	import { createForm } from 'felte';
-	import { createEventDispatcher } from 'svelte';
-	import { object, string } from 'yup';
 
 	import { addCategory, deleteCategory, editCategory } from './service';
 
-	export let userId: string;
+	interface Props {
+		userId: string;
+		category: Category;
+		close: () => void;
+	}
 
-	export let category: Category;
+	let { userId, category, close }: Props = $props();
 
-	$: isEditing = !!category.id;
+	let isEditing = $derived(!!category.id);
 
-	const dispatch = createEventDispatcher<{ close: null }>();
+	let errorMessage = $state('');
 
-	const schema = object({
-		name: string().required(),
-	});
+	let categoryIn = $state(category);
 
-	const { data, errors, form } = createForm({
-		extend: [validator({ schema })],
-		initialValues: category,
-		onSubmit: (values) => {
-			const { id, ...data } = values;
-			if (id) {
-				editCategory(id, data, userId);
-			} else {
-				addCategory(data, userId);
-			}
-			dispatch('close');
-		},
-		validateSchema: schema,
-	});
+	function checkErrors(category: Category): string {
+		if (!category.name) {
+			return 'name is required';
+		}
+
+		return '';
+	}
+
+	function onSubmit(event: SubmitEvent) {
+		event.preventDefault();
+		errorMessage = checkErrors(categoryIn);
+		if (errorMessage) {
+			return;
+		}
+
+		const { id, ...data } = categoryIn;
+
+		if (id) {
+			editCategory(id, data, userId);
+		} else {
+			addCategory(data, userId);
+		}
+		close();
+	}
 </script>
 
 <form
 	class="relative w-[355px] overflow-hidden rounded-md text-sm font-medium shadow"
-	on:submit|preventDefault
-	use:form
+	onsubmit={onSubmit}
 >
 	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
 		<div class="flex items-center justify-between pb-2">
@@ -63,7 +69,7 @@
 			</h2>
 			<button
 				class="inline-flex rounded-md p-1.5 pl-2 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
-				on:click={() => dispatch('close')}
+				onclick={close}
 				type="button"
 			>
 				<span class="sr-only">Dismiss</span>
@@ -71,29 +77,29 @@
 			</button>
 		</div>
 
-		<Alert hasCloseButton={false} isVisible={!!getErrors($errors)} type="error">
-			{getErrors($errors)}
+		<Alert hasCloseButton={false} isVisible={!!errorMessage} type="error">
+			{errorMessage}
 		</Alert>
 
 		<div class="flex flex-col gap-2 text-sm font-medium text-gray-700">
 			<Input autocomplete="off" class="flex-1" inputClass="" name="name" placeholder="Name" />
 
 			<Select
-				bind:value={$data.color}
+				bind:value={categoryIn.color}
 				class="flex items-center"
 				label="Category"
 				labelClass="w-1/5"
 				selectClass="flex-1"
 			>
 				<div class="flex items-center gap-3" slot="placeholder">
-					<div class={clsx('h-5 w-5 rounded-md', tailwindColors[$data?.color]?.darkBg)} />
-					{$data.color}
+					<div class={clsx('h-5 w-5 rounded-md', tailwindColors[categoryIn?.color]?.darkBg)}></div>
+					{categoryIn.color}
 				</div>
 
 				{#each Object.keys(tailwindColors) as color (color)}
 					<SelectItem value={color}>
 						<div class="flex items-center gap-3">
-							<div class={clsx('h-5 w-5 rounded-md', tailwindColors[color]?.darkBg)} />
+							<div class={clsx('h-5 w-5 rounded-md', tailwindColors[color]?.darkBg)}></div>
 							{color}
 						</div>
 					</SelectItem>
@@ -101,13 +107,13 @@
 			</Select>
 
 			<Select
-				bind:value={$data.type}
+				bind:value={categoryIn.type}
 				class="flex items-center"
 				label="Type"
 				labelClass="w-1/5"
 				selectClass="flex-1"
 			>
-				<div class="flex items-center gap-5" slot="placeholder">{$data.type}</div>
+				<div class="flex items-center gap-5" slot="placeholder">{categoryIn.type}</div>
 
 				{#each Object.values(CategoryTypes) as categoryType (categoryType)}
 					<SelectItem class="flex items-center gap-5" value={categoryType}>
@@ -117,7 +123,7 @@
 			</Select>
 
 			<div class="rounded-lg bg-white p-2">
-				<Toggle bind:value={$data.isDefault} label="default" name="isDefault" />
+				<Toggle bind:value={categoryIn.isDefault} label="default" name="isDefault" />
 			</div>
 		</div>
 	</div>
@@ -126,7 +132,7 @@
 		{#if isEditing}
 			<ConfirmButton
 				color="red"
-				on:confirm={() => deleteCategory(category.id, userId, dispatch)}
+				on:confirm={() => deleteCategory(category.id, userId, close)}
 				type="button"
 			>
 				Delete
