@@ -1,17 +1,10 @@
-import js from '@eslint/js';
 import prettier from 'eslint-config-prettier';
-import perfectionist from 'eslint-plugin-perfectionist';
-import perfectionistNatural from 'eslint-plugin-perfectionist/configs/recommended-natural';
-import sonarjs from 'eslint-plugin-sonarjs';
+import js from '@eslint/js';
 import svelte from 'eslint-plugin-svelte';
-import unusedImports from 'eslint-plugin-unused-imports';
 import globals from 'globals';
 import ts from 'typescript-eslint';
 
-const sonarjsRecommended = sonarjs.configs.recommended;
-
-/** @type {import('eslint').Linter.FlatConfig[]} */
-export default [
+export default ts.config(
 	js.configs.recommended,
 	...ts.configs.recommended,
 	...svelte.configs['flat/recommended'],
@@ -27,6 +20,7 @@ export default [
 	},
 	{
 		files: ['**/*.svelte'],
+
 		languageOptions: {
 			parserOptions: {
 				parser: ts.parser,
@@ -34,52 +28,6 @@ export default [
 		},
 	},
 	{
-		ignores: ['build/', '.svelte-kit/', 'dist/', '.vercel/'],
+		ignores: ['build/', '.svelte-kit/', 'dist/'],
 	},
-	{
-		rules: {
-			'@typescript-eslint/no-unused-vars': 'off',
-		},
-	},
-	{
-		plugins: {
-			perfectionist,
-			'unused-imports': unusedImports,
-		},
-	},
-	sonarjsRecommended,
-	{
-		rules: {
-			'sonarjs/no-unused-collection': 'off',
-		},
-	},
-	perfectionistNatural,
-	{
-		rules: {
-			'perfectionist/sort-intersection-types': 'off',
-		},
-	},
-	{
-		rules: {
-			'no-unused-vars': 'off', // or "@typescript-eslint/no-unused-vars": "off",
-			'perfectionist/sort-objects': ['error', { 'partition-by-new-line': true }],
-			'unused-imports/no-unused-imports': 'error',
-			'unused-imports/no-unused-vars': [
-				'warn',
-				{
-					args: 'after-used',
-					argsIgnorePattern: '^_',
-					ignoreRestSiblings: true,
-					vars: 'all',
-					varsIgnorePattern: '^_',
-				},
-			],
-		},
-	},
-	{
-		ignores: ['**/*.stories.svelte'],
-		rules: {
-			'no-console': ['error', { allow: ['warn', 'error'] }],
-		},
-	},
-];
+);

@@ -1,19 +1,17 @@
-import type { StorybookConfig } from '@storybook/sveltekit';
-
-const config: StorybookConfig = {
+/** @type { import('@storybook/sveltekit').StorybookConfig } */
+const config = {
+	stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|ts|svelte)'],
 	addons: [
+		'@storybook/addon-svelte-csf',
 		'@storybook/addon-links',
 		'@storybook/addon-essentials',
 		'@chromatic-com/storybook',
 		'@storybook/addon-interactions',
-		'@storybook/addon-svelte-csf',
 	],
-	docs: {},
 	framework: {
 		name: '@storybook/sveltekit',
 		options: {},
 	},
 	staticDirs: ['../static'],
-	stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx|svelte)'],
 };
 export default config;
