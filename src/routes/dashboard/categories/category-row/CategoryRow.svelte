@@ -5,11 +5,13 @@
 	import {} from '@steeze-ui/heroicons';
 	import { Check, Settings2, Tag } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { createEventDispatcher } from 'svelte';
 
-	export let category: Category;
+	interface Props {
+		category: Category;
+		edit: (category: Category) => void;
+	}
 
-	let dispatch = createEventDispatcher<{ edit: Category; remove: Category }>();
+	let { category, edit }: Props = $props();
 </script>
 
 <li
@@ -28,7 +30,7 @@
 		<button
 			class="{tailwindColors[category.color].hoverBg} {tailwindColors[category.color]
 				.hoverText} rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
-			on:click={() => dispatch('edit', category)}
+			onclick={() => edit(category)}
 			type="button"
 		>
 			<Icon class="h-4 w-4" src={Settings2} />

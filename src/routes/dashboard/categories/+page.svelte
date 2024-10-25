@@ -13,9 +13,9 @@
 	import { buildEmptyCategory } from './category-form/service';
 	import CategoryRow from './category-row/CategoryRow.svelte';
 
-	let editingCategory: Category = buildEmptyCategory();
+	let editingCategory: Category = $state(buildEmptyCategory());
 
-	let showForm = false;
+	let showForm = $state(false);
 
 	let categoryType: Category;
 
@@ -25,7 +25,7 @@
 <div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
 	<div class="flex items-center justify-between">
 		<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{$title}</h1>
-		<span />
+		<span></span>
 		<Button
 			on:click={() => {
 				showForm = true;
@@ -47,9 +47,9 @@
 				{#each categories as category (category)}
 					<CategoryRow
 						{category}
-						on:edit={(e) => {
+						edit={(category) => {
 							showForm = true;
-							editingCategory = e.detail;
+							editingCategory = category;
 						}}
 					/>
 				{/each}
