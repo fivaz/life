@@ -83,9 +83,6 @@ importers:
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.47)
-      chart.js:
-        specifier: ^4.4.5
-        version: 4.4.5
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
