@@ -26,7 +26,7 @@
 
 	let errorMessage = $state('');
 
-	let categoryIn = $state(category);
+	let categoryIn = $state({ ...category });
 
 	function checkErrors(category: Category): string {
 		if (!category.name) {
@@ -54,10 +54,7 @@
 	}
 </script>
 
-<form
-	class="relative w-[355px] overflow-hidden rounded-md text-sm font-medium shadow"
-	onsubmit={onSubmit}
->
+<form class="relative w-[355px] rounded-md text-sm font-medium shadow" onsubmit={onSubmit}>
 	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
 		<div class="flex items-center justify-between pb-2">
 			<h2 class="text-lg font-medium text-gray-900">
@@ -82,7 +79,14 @@
 		</Alert>
 
 		<div class="flex flex-col gap-2 text-sm font-medium text-gray-700">
-			<Input autocomplete="off" class="flex-1" inputClass="" name="name" placeholder="Name" />
+			<Input
+				autocomplete="off"
+				class="flex-1"
+				inputClass=""
+				name="name"
+				placeholder="Name"
+				bind:value={categoryIn.name}
+			/>
 
 			<Select
 				bind:value={categoryIn.color}
@@ -91,15 +95,17 @@
 				labelClass="w-1/5"
 				selectClass="flex-1"
 			>
-				<div class="flex items-center gap-3" slot="placeholder">
-					<div class={clsx('h-5 w-5 rounded-md', tailwindColors[categoryIn?.color]?.darkBg)}></div>
-					{categoryIn.color}
-				</div>
+				{#snippet placeholder()}
+					<div class="flex items-center gap-3">
+						<div class="h-5 w-5 rounded-md {tailwindColors[categoryIn?.color]?.darkBg}"></div>
+						{categoryIn.color}
+					</div>
+				{/snippet}
 
 				{#each Object.keys(tailwindColors) as color (color)}
 					<SelectItem value={color}>
 						<div class="flex items-center gap-3">
-							<div class={clsx('h-5 w-5 rounded-md', tailwindColors[color]?.darkBg)}></div>
+							<div class="h-5 w-5 rounded-md {tailwindColors[color]?.darkBg}"></div>
 							{color}
 						</div>
 					</SelectItem>
@@ -113,7 +119,9 @@
 				labelClass="w-1/5"
 				selectClass="flex-1"
 			>
-				<div class="flex items-center gap-5" slot="placeholder">{categoryIn.type}</div>
+				{#snippet placeholder()}
+					<div class="flex items-center gap-5">{categoryIn.type}</div>
+				{/snippet}
 
 				{#each Object.values(CategoryTypes) as categoryType (categoryType)}
 					<SelectItem class="flex items-center gap-5" value={categoryType}>

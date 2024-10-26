@@ -15,7 +15,7 @@
 	}
 </script>
 
-<button on:click={() => (value = !value)}>
+<button on:click={() => (value = !value)} type="button">
 	<input {name} type="hidden" value={value ? 'true' : ''} />
 	<span class="flex items-center gap-2">
 		<span class="flex-1 text-start">{label}</span>

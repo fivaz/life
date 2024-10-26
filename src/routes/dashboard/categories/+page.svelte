@@ -55,7 +55,7 @@
 				<Modal on:close={() => (showForm = false)} show={showForm}>
 					<CategoryForm
 						category={editingCategory}
-						on:close={() => (showForm = false)}
+						close={() => (showForm = false)}
 						userId={user.uid}
 					/>
 				</Modal>
