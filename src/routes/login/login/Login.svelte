@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import Logo from '$lib/components/Logo.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
-	import Button from '$lib/components/form/button/Button.svelte';
+	import Button from '$lib/components/form/button2/Button2.svelte';
 	import { Routes } from '$lib/consts';
 	import { auth } from '$lib/firebase';
 	import { validator } from '@felte/validator-yup';
@@ -11,45 +11,58 @@
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 	import { object, string } from 'yup';
 
-	let isLoading = false;
+	let isLoading = $state<boolean>(false);
 
-	let errorMessage: string | unknown = '';
+	let errorMessage = $state<string>('');
 
-	const schema = object({
-		email: string().email().required(),
-		password: string().required(),
-	});
+	let email = $state<string>('');
+	let password = $state<string>('');
 
-	const { errors, form } = createForm<{
-		email: string;
-		password: string;
-	}>({
-		extend: [validator({ schema })],
-		onError: (error) => {
-			if (error instanceof FirebaseError) {
-				if (error.code === 'auth/invalid-credential') {
-					errorMessage = 'login or password are incorrect';
-				} else if (error.code === 'auth/network-request-failed') {
-					errorMessage = "you can't login if you're not connected to the internet";
-				} else {
-					errorMessage = error.message;
-				}
+	function validateFields(email: string, password: string): string {
+		if (!email) {
+			return 'Email is required';
+		}
+		if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+			return 'Invalid email address';
+		}
+		if (!password) {
+			return 'Password is required';
+		}
+
+		return '';
+	}
+
+	function parseErrors(error: unknown) {
+		if (error instanceof FirebaseError) {
+			if (error.code === 'auth/invalid-credential') {
+				return 'login or password are incorrect';
+			} else if (error.code === 'auth/network-request-failed') {
+				return "you can't login if you're not connected to the internet";
 			} else {
-				errorMessage = error;
+				return error.message;
 			}
-			isLoading = false;
-		},
-		onSubmit: async ({ email, password }) => {
+		} else {
+			console.error(error);
+			return 'Unexpected error';
+		}
+	}
+
+	async function onSubmit(event: SubmitEvent) {
+		event.preventDefault();
+		errorMessage = validateFields(email, password);
+		if (errorMessage) {
+			return;
+		}
+
+		try {
 			isLoading = true;
 			await signInWithEmailAndPassword(auth, email, password);
 			void goto(Routes.HOME);
-		},
-	});
-
-	$: {
-		errorMessage = Object.values($errors)
-			.filter((value) => value)
-			.join(', ');
+		} catch (error) {
+			errorMessage = parseErrors(error);
+		} finally {
+			isLoading = false;
+		}
 	}
 </script>
 
@@ -72,11 +85,11 @@
 			</div>
 
 			<div class="mt-5">
-				<Alert isVisible={!!errorMessage} on:close={() => (errorMessage = '')} type="error">
+				<Alert isVisible={!!errorMessage} close={() => (errorMessage = '')} type="error">
 					{errorMessage}
 				</Alert>
 				<div class="mt-5">
-					<form class="space-y-6" use:form>
+					<form class="space-y-6" onsubmit={onSubmit}>
 						<div>
 							<label class="block text-sm font-medium leading-6 text-gray-900" for="email">
 								Email address
@@ -88,6 +101,7 @@
 									id="email"
 									name="email"
 									type="email"
+									bind:value={email}
 								/>
 							</div>
 						</div>
@@ -103,6 +117,7 @@
 									id="password"
 									name="password"
 									type="password"
+									bind:value={password}
 								/>
 							</div>
 						</div>
