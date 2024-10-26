@@ -1,35 +1,36 @@
 <script lang="ts">
 	import { convertMinutesToTime } from '$lib/task/time-utils';
 	import { clsx } from 'clsx';
-	import { createEventDispatcher } from 'svelte';
 
 	import { GRID_CELL_HEIGHT, GRID_CLASS, isSomethingDragging } from '../service';
 
-	const dispatch = createEventDispatcher<{ click: string; move: number }>();
+	interface Props {
+		class?: string;
+		cellNumber: number;
+		targetDate: string;
+		create: (time: string) => void;
+	}
 
-	let className = '';
-	export { className as class };
-	export let cellNumber: number;
-	export let targetDate: string;
+	let { class: klass, cellNumber, targetDate, create }: Props = $props();
 
-	$: time = convertMinutesToTime(cellNumber * 15);
+	let time = $derived(convertMinutesToTime(cellNumber * 15));
 </script>
 
 <!--the class grid-cell is used in EventPanel to control droppable zones for its drag and drop-->
 <div
-	class={clsx(GRID_CLASS, className, { 'border-b': $isSomethingDragging })}
+	class={clsx(GRID_CLASS, klass, { 'border-b': $isSomethingDragging })}
 	data-date={targetDate}
 	data-time={time}
-	on:click={() => !$isSomethingDragging && dispatch('click', time)}
-	on:keydown={(e) => {
+	onclick={() => !$isSomethingDragging && create(time)}
+	onkeydown={(e) => {
 		if (e.key === 'Enter') {
-			dispatch('click', time);
+			create(time);
 		}
 	}}
 	role="button"
 	style="height: {GRID_CELL_HEIGHT}px"
 	tabindex="0"
-/>
+></div>
 
 <style>
 	.grid-class:nth-child(even):not(:last-child) {

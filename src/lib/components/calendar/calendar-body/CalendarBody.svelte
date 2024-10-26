@@ -5,9 +5,9 @@
 	import HorizontalTime from './horizontal-time/HorizontalTime.svelte';
 	import WeekList from './week-list/WeekList.svelte';
 
-	let container: HTMLDivElement | null = null;
-	let containerNav: HTMLDivElement | null = null;
-	let containerOffset: HTMLDivElement | null = null;
+	let container = $state<HTMLDivElement | null>(null);
+	let containerNav = $state<HTMLDivElement | null>(null);
+	let containerOffset = $state<HTMLDivElement | null>(null);
 
 	onMount(() => {
 		// Set the container scroll position based on the current time.
@@ -37,7 +37,7 @@
 
 		<div class="flex h-full w-full">
 			<HorizontalTime>
-				<div bind:this={containerOffset} />
+				<div bind:this={containerOffset}></div>
 			</HorizontalTime>
 			<CalendarColumns />
 		</div>

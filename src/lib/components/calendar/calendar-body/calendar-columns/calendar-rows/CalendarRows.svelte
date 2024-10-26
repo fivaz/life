@@ -9,15 +9,20 @@
 	import EventPanel from './event-panel/EventPanel.svelte';
 	import { getEventGrid, getEvents, getToDos } from './service';
 
-	export let date: Date;
+	interface Props {
+		date: Date;
+		create: (time: string) => void;
+	}
 
-	$: formattedDate = format(date, DATE);
+	let { date, create }: Props = $props();
 
-	$: toDos = getToDos($tasks, date);
+	let formattedDate = $derived(format(date, DATE));
 
-	$: events = getEvents($tasks, date);
+	let toDos = $derived(getToDos($tasks, date));
 
-	$: eventsGrid = getEventGrid(events);
+	let events = $derived(getEvents($tasks, date));
+
+	let eventsGrid = $derived(getEventGrid(events));
 </script>
 
 <div>
@@ -25,7 +30,7 @@
 		<TasksSummary tasks={[...toDos, ...events]} />
 	</div>
 	<div class="relative">
-		<CalendarGrid on:click targetDate={formattedDate} />
+		<CalendarGrid {create} targetDate={formattedDate} />
 		{#each events as event (event)}
 			<EventPanel {event} {eventsGrid} targetDate={formattedDate} />
 		{/each}

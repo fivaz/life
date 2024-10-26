@@ -3,6 +3,13 @@
 		GRID_CELL_HEIGHT,
 		SUMMARY_GRID_CELL_HEIGHT,
 	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
+	import type { Snippet } from 'svelte';
+
+	interface Props {
+		children?: Snippet;
+	}
+
+	let { children }: Props = $props();
 
 	const timeLabels = [
 		'12AM',
@@ -34,7 +41,7 @@
 
 <div>
 	<div style="height: {SUMMARY_GRID_CELL_HEIGHT}px">
-		<slot />
+		{@render children?.()}
 	</div>
 	<div class="flex w-7 flex-col pr-2 text-right text-xs leading-5 text-gray-400 md:w-14">
 		{#each timeLabels as timeLabel (timeLabel)}

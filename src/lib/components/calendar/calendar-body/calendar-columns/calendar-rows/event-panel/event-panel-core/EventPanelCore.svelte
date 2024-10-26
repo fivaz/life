@@ -15,10 +15,13 @@
 
 	import GoalIcon from '../../../../../../../../routes/dashboard/goals/goal-form/goal-icon/GoalIcon.svelte';
 
-	export let event: AnyEvent;
-	export let targetDate: string;
-	export let isSelected: boolean;
+	interface Props {
+		event: AnyEvent;
+		targetDate: string;
+		isSelected: boolean;
+	}
 
+	let { event, targetDate, isSelected }: Props = $props();
 	// format date from this format '01:15' to this format '1h15min'
 	function formattedDuration() {
 		const date = roundTo15(parse(event.duration, TIME, new Date()));
@@ -82,15 +85,16 @@
 		</span>
 	</div>
 
-	<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions-->
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
+	<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 	<label
 		class={clsx('absolute right-0 top-0 flex p-[5px] pl-3', { 'pb-3': isLong() })}
-		on:click|stopPropagation
+		onclick={(e) => e.stopPropagation()}
 	>
 		<input
 			checked={event.isDone}
 			class="rounded border-gray-300 focus:ring-indigo-600"
-			on:change={() => toggleEvent(event, targetDate)}
+			onchange={() => toggleEvent(event, targetDate)}
 			type="checkbox"
 		/>
 	</label>

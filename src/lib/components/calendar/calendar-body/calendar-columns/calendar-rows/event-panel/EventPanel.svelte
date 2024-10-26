@@ -22,25 +22,26 @@
 
 	import EventPanelCore from './event-panel-core/EventPanelCore.svelte';
 
-	export let event: AnyEvent;
-	export let eventsGrid: EventsGrid;
-
-	export let targetDate: string;
-
-	let container: HTMLDivElement | undefined;
-
-	let isSelected = false;
-
-	let position = { x: 0, y: 0 };
-
-	let interactivePanel: ReturnType<typeof interact> | null = null;
-
-	let className = '';
-	export { className as class };
-
-	$: {
-		interactivePanel?.styleCursor(isSelected);
+	interface Props {
+		event: AnyEvent;
+		eventsGrid: EventsGrid;
+		targetDate: string;
+		class?: string;
 	}
+
+	let { event, eventsGrid, targetDate, class: klass = '' }: Props = $props();
+
+	let container = $state<HTMLDivElement | undefined>();
+
+	let isSelected = $state<boolean>(false);
+
+	let position = $state({ x: 0, y: 0 });
+
+	let interactivePanel: ReturnType<typeof interact> | null = $state(null);
+
+	$effect(() => {
+		interactivePanel?.styleCursor(isSelected);
+	});
 
 	const editTask = getContext('editTask');
 
@@ -145,7 +146,7 @@
 
 <div
 	bind:this={container}
-	class={clsx(className, EVENT_PANEL_CLASS, 'absolute rounded-lg')}
+	class={clsx(klass, EVENT_PANEL_CLASS, 'absolute rounded-lg')}
 	style="{getHeight(event)} {getTop(event)} {getDivision(event, eventsGrid)}"
 >
 	<EventPanelCore {event} {isSelected} {targetDate} />
