@@ -9,13 +9,16 @@
 	import RoutineRow from '../routine-row/RoutineRow.svelte';
 	import { updateRoutines } from '../service';
 
-	export let selectedDate: Date;
+	interface Props {
+		selectedDate: Date;
+		userId: string;
+		routines: Routine[];
+		edit: (routine: Routine) => void;
+	}
 
-	export let userId: string;
+	let { selectedDate, userId, edit, routines = $bindable() }: Props = $props();
 
-	export let routines: Routine[];
-
-	$: dateString = format(selectedDate, DATE);
+	let dateString = $derived(format(selectedDate, DATE));
 
 	function updateRoutineLocally({ detail }: { detail: { items: Routine[] } }) {
 		routines = detail.items;
@@ -29,13 +32,13 @@
 
 <ul
 	class="flex flex-col gap-1"
-	on:consider={updateRoutineLocally}
-	on:finalize={persistChanges}
+	onconsider={updateRoutineLocally}
+	onfinalize={persistChanges}
 	use:dragHandleZone={{ flipDurationMs: 200, items: routines }}
 >
 	{#each routines as routine (routine.id)}
 		<li animate:flip={{ duration: 200 }}>
-			<RoutineRow on:edit {routine} selectedDate={dateString} {userId} />
+			<RoutineRow {edit} {routine} selectedDate={dateString} {userId} />
 		</li>
 	{/each}
 </ul>

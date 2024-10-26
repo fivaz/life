@@ -45,14 +45,10 @@ export function addRoutine(data: Omit<Routine, 'id'>, userId: string) {
 	void addDoc(routinesCollectionRef, data);
 }
 
-export async function deleteRoutine(
-	id: string | undefined,
-	userId: string,
-	dispatch: EventDispatcher<{ close: null }>,
-) {
+export async function deleteRoutine(id: string | undefined, userId: string, close: () => void) {
 	if (id) {
 		const routineDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.ROUTINES, id);
 		await deleteDoc(routineDocRef);
-		dispatch('close');
+		close();
 	}
 }

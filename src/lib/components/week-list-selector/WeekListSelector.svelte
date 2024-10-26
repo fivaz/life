@@ -6,9 +6,13 @@
 	import { format, isSameDay, isToday } from 'date-fns';
 	import { CheckCheck } from 'lucide-svelte';
 
-	export let routines: Routine[];
-	export let dates: Date[];
-	export let selectedDate: Date;
+	interface Props {
+		routines: Routine[];
+		dates: Date[];
+		selectedDate: Date;
+	}
+
+	let { routines, dates, selectedDate = $bindable() }: Props = $props();
 
 	function isCompleted(selectedDate: Date, routines: Routine[]): boolean {
 		const dateString = format(selectedDate, DATE);
@@ -24,7 +28,7 @@
 	{#each dates as date (date)}
 		<button
 			class="flex flex-col items-center justify-center gap-1 pb-3 pt-2 md:flex-row"
-			on:click={() => (selectedDate = date)}
+			onclick={() => (selectedDate = date)}
 			type="button"
 		>
 			<span class="hidden md:block">

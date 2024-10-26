@@ -5,7 +5,13 @@
 	import { format } from 'date-fns';
 	import { Flame } from 'lucide-svelte';
 
-	export let routines: Routine[];
+	interface Props {
+		routines: Routine[];
+	}
+
+	let { routines }: Props = $props();
+
+	let streak = $derived(getRoutineStreak(routines));
 
 	function allRoutinesHaveEntryForDate(routines: Routine[], date: string): boolean {
 		// otherwise the loop doesn't end cause .every returns true in case the list is empty
@@ -35,8 +41,6 @@
 
 		return streak;
 	}
-
-	$: streak = getRoutineStreak(routines);
 </script>
 
 <div class="flex items-center font-semibold text-red-500">

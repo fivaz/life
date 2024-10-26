@@ -1,26 +1,28 @@
 <script lang="ts">
-	import Button from '$lib/components/form/button/Button.svelte';
-	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';
-	import Input from '$lib/components/form/input/Input.svelte';
+	import Button from '$lib/components/form/button2/Button2.svelte';
+	import ConfirmButton from '$lib/components/form/confirm-button2/ConfirmButton.svelte';
+	import Input from '$lib/components/form/input2/Input.svelte';
 	import { type Routine } from '$lib/routine/utils';
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { createEventDispatcher } from 'svelte';
 
 	import IconSelector from '../../goals/goal-form/icon-selector/IconSelector.svelte';
 	import { addRoutine, deleteRoutine, editRoutine } from './service';
 
-	export let userId: string;
+	interface Props {
+		userId: string;
+		routine: Routine;
+		close: () => void;
+	}
 
-	export let routine: Routine;
+	let { userId, routine, close }: Props = $props();
 
-	let routineIn = { ...routine };
+	let routineIn = $state({ ...routine });
 
-	$: isEditing = !!routine.id;
+	let isEditing = $derived(!!routine.id);
 
-	const dispatch = createEventDispatcher<{ close: null }>();
-
-	function onSubmit() {
+	function onSubmit(event: SubmitEvent) {
+		event.preventDefault();
 		const { id, ...data } = routineIn;
 
 		if (id) {
@@ -28,26 +30,22 @@
 		} else {
 			addRoutine(data, userId);
 		}
-		dispatch('close');
+		close();
 	}
 </script>
 
 <form
 	class="relative w-[355px] overflow-hidden rounded-md text-sm font-medium shadow"
-	on:submit|preventDefault={onSubmit}
+	onsubmit={onSubmit}
 >
 	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
 		<div class="flex items-center justify-between pb-2">
 			<h2 class="text-lg font-medium text-gray-900">
-				{#if isEditing}
-					Edit Routine
-				{:else}
-					Add Routine
-				{/if}
+				{isEditing ? 'Edit Routine' : 'Add Routine'}
 			</h2>
 			<button
 				class="inline-flex rounded-md p-1.5 pl-2 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
-				on:click={() => dispatch('close')}
+				onclick={close}
 				type="button"
 			>
 				<span class="sr-only">Dismiss</span>
@@ -66,7 +64,7 @@
 		{#if isEditing}
 			<ConfirmButton
 				color="red"
-				on:confirm={() => deleteRoutine(routine.id, userId, dispatch)}
+				confirm={() => deleteRoutine(routine.id, userId, close)}
 				type="button"
 			>
 				Delete

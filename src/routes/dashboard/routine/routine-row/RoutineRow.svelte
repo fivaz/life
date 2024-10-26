@@ -4,22 +4,23 @@
 	import { Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Check, GripVertical, Undo2 } from 'lucide-svelte';
-	import { createEventDispatcher } from 'svelte';
 	import { dragHandle } from 'svelte-dnd-action';
 
 	import GoalIcon from '../../goals/goal-form/goal-icon/GoalIcon.svelte';
 	import { toggleRoutineCompletion } from '../routine-form/service';
 
-	export let routine: Routine;
+	interface Props {
+		routine: Routine;
+		selectedDate: string;
+		userId: string;
+		edit: (routine: Routine) => void;
+	}
 
-	export let selectedDate: string;
+	let { routine, selectedDate, userId, edit }: Props = $props();
 
-	export let userId: string;
-
-	let dispatch = createEventDispatcher<{ edit: Routine; remove: Routine }>();
-
-	$: isDone =
-		routine.completeHistory.find(({ date }) => date === selectedDate)?.isCompleted || false;
+	let isDone = $derived(
+		routine.completeHistory.find(({ date }) => date === selectedDate)?.isCompleted || false,
+	);
 </script>
 
 <div
@@ -38,7 +39,7 @@
 	<div class="flex w-16 justify-end gap-2">
 		<button
 			class="rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
-			on:click={() => toggleRoutineCompletion(routine, selectedDate, userId)}
+			onclick={() => toggleRoutineCompletion(routine, selectedDate, userId)}
 			type="button"
 		>
 			{#if isDone}
@@ -49,7 +50,7 @@
 		</button>
 		<button
 			class="rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
-			on:click={() => dispatch('edit', routine)}
+			onclick={() => edit(routine)}
 			type="button"
 		>
 			<Icon class="h-4 w-4" src={Settings2} />

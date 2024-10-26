@@ -1,20 +1,21 @@
 <script lang="ts">
-	import Input from '$lib/components/form/input/Input.svelte';
+	import Input from '$lib/components/form/input2/Input.svelte';
 	import { clsx } from 'clsx';
 
 	import GoalIcon from '../goal-icon/GoalIcon.svelte';
 	import { icons } from '../goal-icon/service';
 
-	export let name: string;
+	interface Props {
+		name: string;
+		value: null | string;
+	}
 
-	export let value: null | string;
+	let { name, value = $bindable() }: Props = $props();
 
-	let filteredIcons = icons;
+	let searchQuery = $state('');
 
-	let searchQuery = '';
-
-	$: filteredIcons = icons.filter(({ name }) =>
-		name.toLowerCase().includes(searchQuery.toLowerCase()),
+	let filteredIcons = $derived(
+		icons.filter(({ name }) => name.toLowerCase().includes(searchQuery.toLowerCase())),
 	);
 </script>
 
@@ -26,11 +27,10 @@
 	>
 		{#each filteredIcons as icon (icon.name)}
 			<button
-				class={clsx(
-					{ 'bg-indigo-200 text-indigo-700': value === icon.name },
-					'flex cursor-pointer items-center justify-center rounded p-1 text-2xl',
-				)}
-				on:click={() => (value = icon.name)}
+				class="
+					{value === icon.name ? 'bg-indigo-200 text-indigo-700' : ''}
+					flex cursor-pointer items-center justify-center rounded p-1 text-2xl"
+				onclick={() => (value = icon.name)}
 				type="button"
 			>
 				<GoalIcon class="h-6" {icon} />
