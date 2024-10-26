@@ -10,10 +10,15 @@
 	import { onMount } from 'svelte';
 	import { cubicOut } from 'svelte/easing';
 
-	export let task: Task;
-	export let onRemove: () => void;
+	interface Props {
+		task: Task;
+		onRemove: () => void;
+		userId: string;
+	}
 
-	export let userId: string;
+	let { task, onRemove, userId }: Props = $props();
+
+	let percentage = $state(0);
 
 	function getCompletedPercentage(tasks: Task[]): number {
 		const completedTasks = getCompletedTasks(tasks);
@@ -31,6 +36,7 @@
 			DB_PATH.TASKS,
 		);
 		const tasksSnapshot = await getDocs(tasksRef);
+		// TODO check if I should do something else instead of snapShot as it subscribe to the value
 		const tasks = tasksSnapshot.docs.map((doc) => doc.data()) as Task[];
 		return getCompletedPercentage(tasks);
 	}
@@ -51,8 +57,6 @@
 			easing: cubicOut,
 		};
 	}
-
-	let percentage = 0;
 
 	onMount(async () => {
 		if (task.goal) {
@@ -96,7 +100,7 @@
 			<div class="ml-4 flex flex-shrink-0">
 				<button
 					class="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-					on:click={onRemove}
+					onclick={onRemove}
 					type="button"
 				>
 					<span class="sr-only">Close</span>

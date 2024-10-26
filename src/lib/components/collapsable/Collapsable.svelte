@@ -1,14 +1,20 @@
 <script lang="ts">
 	import { ChevronRight } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import type { Snippet } from 'svelte';
 
-	export let title: string;
+	interface Props {
+		title: string;
+		children: Snippet;
+	}
 
-	let isOpen: boolean = false;
+	let { title, children }: Props = $props();
+
+	let isOpen: boolean = $state(false);
 </script>
 
 <div class="rounded-lg bg-white p-2">
-	<button class="flex w-full justify-between" on:click={() => (isOpen = !isOpen)}>
+	<button class="flex w-full justify-between" onclick={() => (isOpen = !isOpen)}>
 		<span>{title}</span>
 		<Icon class="h-5 w-5 {isOpen ? 'rotate-90 transform' : ''}" src={ChevronRight} />
 	</button>
@@ -21,7 +27,7 @@
 		<!--			leaveTo="transform opacity-0 max-h-0"-->
 		<!--		>-->
 		<div class="flex flex-col gap-2 pt-2 text-gray-500">
-			<slot />
+			{@render children?.()}
 		</div>
 		<!--		</Transition>-->
 	{/if}

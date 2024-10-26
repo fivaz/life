@@ -4,7 +4,11 @@
 	import TaskCompletedNotification from '$lib/components/task-completed-notification-stack/task-completed-notification/TaskCompletedNotification.svelte';
 	import { SignedIn } from 'sveltefire';
 
-	export let completedTasks: Task[] = [];
+	interface Props {
+		completedTasks?: Task[];
+	}
+
+	let { completedTasks = $bindable([]) }: Props = $props();
 
 	function removeNotification(index: number) {
 		completedTasks = completedTasks.filter((_, i) => i !== index);
