@@ -2,10 +2,10 @@
 	import { goto } from '$app/navigation';
 	import Logo from '$lib/components/Logo.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
-	import Button from '$lib/components/form/button/Button.svelte';
+	import Button from '$lib/components/form/button2/Button2.svelte';
 	import { DB_PATH, Routes } from '$lib/consts';
 	import { auth, db } from '$lib/firebase';
-	import { storeAvatar } from '$lib/user/utils';
+	import { checkEmail, storeAvatar } from '$lib/auth/utils';
 	import { validator } from '@felte/validator-yup';
 	import { createForm } from 'felte';
 	import { FirebaseError } from 'firebase/app';
@@ -13,50 +13,39 @@
 	import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 	import { minidenticon } from 'minidenticons';
 	import { object, string } from 'yup';
+	import { addDefaultCategories, parseErrors, validateFields } from './service';
 
-	let isLoading: boolean = false;
+	let name = $state<string>('');
+	let email = $state<string>('');
+	let password = $state<string>('');
 
-	let email = '';
+	let isLoading = $state<boolean>(false);
 
-	let errorMessage: string | unknown = '';
+	let errorMessage = $state<string>('');
 
-	const schema = object({
-		displayName: string().required(),
-		email: string().email().required(),
-		password: string().required().min(6, 'Password should be at least 6 characters'),
-	});
+	let avatar = $derived(minidenticon(email, 95, 45));
 
-	type Account = {
-		displayName: string;
-		email: string;
-		password: string;
-		photoURL: string;
-	};
+	let photoURL = $derived('data:image/svg+xml;utf8,' + encodeURIComponent(avatar));
 
-	async function addDefaultCategories(userId: string) {
-		// TODO when one select a category as default, make all other non default
-		const categoriesCollectionRef = collection(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES);
-		void addDoc(categoriesCollectionRef, {
-			color: 'green',
-			isDefault: true,
-			name: 'work',
-			type: 'work',
-		});
-		void addDoc(categoriesCollectionRef, {
-			color: 'blue',
-			isDefault: false,
-			name: 'sleep',
-			type: 'sleep',
-		});
-		void addDoc(categoriesCollectionRef, {
-			color: 'red',
-			isDefault: false,
-			name: 'fun',
-			type: 'fun',
-		});
+	async function onSubmit(event: SubmitEvent) {
+		event.preventDefault();
+		errorMessage = validateFields(email, password);
+		if (errorMessage) {
+			return;
+		}
+
+		try {
+			isLoading = true;
+			await register(name, email, password);
+			void goto(Routes.ROOT);
+		} catch (error) {
+			errorMessage = parseErrors(error);
+		} finally {
+			isLoading = false;
+		}
 	}
 
-	async function register({ displayName, email, password }: Omit<Account, 'photoURL'>) {
+	async function register(displayName: string, email: string, password: string) {
 		const { user } = await createUserWithEmailAndPassword(auth, email, password);
 
 		const photoURL = await storeAvatar(
@@ -76,37 +65,6 @@
 
 		await addDefaultCategories(user.uid);
 	}
-
-	const { errors, form } = createForm<Omit<Account, 'photoURL'>>({
-		extend: [validator({ schema })],
-		onError: (error) => {
-			if (error instanceof FirebaseError) {
-				if (error.code === 'auth/email-already-in-use') {
-					errorMessage = 'This email is already in use';
-				} else {
-					errorMessage = error.message;
-				}
-			} else {
-				errorMessage = error;
-			}
-			isLoading = false;
-		},
-		onSubmit: async (values) => {
-			isLoading = true;
-			await register({ ...values });
-			void goto(Routes.ROOT);
-		},
-	});
-
-	$: avatar = minidenticon(email, 95, 45);
-
-	$: photoURL = 'data:image/svg+xml;utf8,' + encodeURIComponent(avatar);
-
-	$: {
-		errorMessage = Object.values($errors)
-			.filter((value) => value)
-			.join(', ');
-	}
 </script>
 
 <div class="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -118,12 +76,12 @@
 	</div>
 
 	<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-		<Alert isVisible={!!errorMessage} on:close={() => (errorMessage = '')} type="error">
+		<Alert class="mb-3" isVisible={!!errorMessage} close={() => (errorMessage = '')} type="error">
 			{errorMessage}
 		</Alert>
 
 		<div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-			<form class="space-y-6" use:form>
+			<form class="space-y-6" onsubmit={onSubmit}>
 				{#if email}
 					<div class="flex flex-col justify-center">
 						<h3 class="block text-center text-sm font-medium leading-6 text-gray-900">
@@ -142,6 +100,7 @@
 							id="name"
 							name="displayName"
 							type="text"
+							bind:value={name}
 						/>
 					</div>
 				</div>
@@ -172,6 +131,7 @@
 							id="password"
 							name="password"
 							type="password"
+							bind:value={password}
 						/>
 					</div>
 				</div>

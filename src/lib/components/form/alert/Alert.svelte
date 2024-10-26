@@ -16,9 +16,10 @@
 		type: 'error' | 'info' | 'success' | 'warning';
 		children: Snippet;
 		close: () => void;
+		class?: string;
 	}
 
-	let { isVisible, hasCloseButton = true, type, children, close }: Props = $props();
+	let { isVisible, class: klass, hasCloseButton = true, type, children, close }: Props = $props();
 
 	const typeElements = {
 		error: {
@@ -53,7 +54,7 @@
 </script>
 
 {#if isVisible}
-	<div class="{typeElements[type].background} rounded-md p-4" transition:fade>
+	<div class="{typeElements[type].background} {klass} rounded-md p-4" transition:fade>
 		<div class="flex">
 			<div class="flex-shrink-0">
 				<Icon

@@ -3,7 +3,7 @@
 	import Logo from '$lib/components/Logo.svelte';
 	import ProfileDropUp from '$lib/components/dashboard/profile-drop-up/ProfileDropUp.svelte';
 	import { Routes } from '$lib/consts';
-	import { currentUser } from '$lib/user/utils';
+	import { currentUser } from '$lib/auth/utils';
 	import {
 		CalendarDays,
 		ChartCandlestick,

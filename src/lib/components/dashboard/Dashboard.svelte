@@ -4,7 +4,7 @@
 	import DashboardMobile from '$lib/components/dashboard/dashboard-mobile/DashboardMobile.svelte';
 	import { demoLogin } from '$lib/consts';
 	import { auth } from '$lib/firebase';
-	import { currentUser } from '$lib/user/utils';
+	import { currentUser } from '$lib/auth/utils';
 	import { onAuthStateChanged } from 'firebase/auth';
 	import { onMount } from 'svelte';
 

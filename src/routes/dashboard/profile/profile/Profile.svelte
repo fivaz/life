@@ -4,7 +4,7 @@
 	import Input from '$lib/components/form/input2/Input.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { db } from '$lib/firebase';
-	import { storeAvatar, updateUser } from '$lib/user/utils';
+	import { storeAvatar, updateUser } from '$lib/auth/utils';
 	import { type Auth, updateProfile } from 'firebase/auth';
 	import { doc, updateDoc } from 'firebase/firestore';
 	import { minidenticon } from 'minidenticons';

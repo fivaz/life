@@ -10,6 +10,8 @@
 	import { FirebaseError } from 'firebase/app';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 	import { object, string } from 'yup';
+	import { checkEmail } from '$lib/auth/utils';
+	import { parseErrors, validateFields } from './service';
 
 	let isLoading = $state<boolean>(false);
 
@@ -17,35 +19,6 @@
 
 	let email = $state<string>('');
 	let password = $state<string>('');
-
-	function validateFields(email: string, password: string): string {
-		if (!email) {
-			return 'Email is required';
-		}
-		if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
-			return 'Invalid email address';
-		}
-		if (!password) {
-			return 'Password is required';
-		}
-
-		return '';
-	}
-
-	function parseErrors(error: unknown) {
-		if (error instanceof FirebaseError) {
-			if (error.code === 'auth/invalid-credential') {
-				return 'login or password are incorrect';
-			} else if (error.code === 'auth/network-request-failed') {
-				return "you can't login if you're not connected to the internet";
-			} else {
-				return error.message;
-			}
-		} else {
-			console.error(error);
-			return 'Unexpected error';
-		}
-	}
 
 	async function onSubmit(event: SubmitEvent) {
 		event.preventDefault();
