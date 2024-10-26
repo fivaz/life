@@ -12,21 +12,20 @@
 
 	updateDateAtMidnight();
 
-	export let tasks: Task[];
+	interface Props {
+		tasks: Task[];
+		changeWeek: Context['changeWeek'];
+		createTask: Context['createTask'];
+		editTask: Context['editTask'];
+		persistToDos: Context['persistToDos'];
+		toggleEvent: Context['toggleEvent'];
+		moveEvent: Context['moveEvent'];
+	}
 
-	export let changeWeek: Context['changeWeek'];
+	let { tasks, changeWeek, createTask, editTask, persistToDos, toggleEvent, moveEvent }: Props =
+		$props();
 
-	export let createTask: Context['createTask'];
-
-	export let editTask: Context['editTask'];
-
-	export let persistToDos: Context['persistToDos'];
-
-	export let toggleEvent: Context['toggleEvent'];
-
-	export let moveEvent: Context['moveEvent'];
-
-	$: $taskStore = tasks;
+	$taskStore = tasks;
 
 	setContext('createTask', createTask);
 
@@ -40,7 +39,9 @@
 
 	setContext('changeWeek', changeWeek);
 
-	$: changeWeek($weekStart);
+	$effect(() => {
+		changeWeek($weekStart);
+	});
 </script>
 
 <div class="flex h-screen flex-col md:h-[calc(100vh-20px)]">

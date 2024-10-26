@@ -6,7 +6,7 @@
 	import TaskCompletedNotificationStack from '$lib/components/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
 	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
 	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
-	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
+	import TypedCollection from '$lib/components/typed-collection2/TypedCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { buildEmptyEvent, buildEventWithTime } from '$lib/task/build-utils';
 	import { title } from '$lib/utils';
@@ -14,21 +14,21 @@
 
 	import { externalTasksStore, getWeekTasks, moveEvent, persistToDos } from './service';
 
-	let targetDate: string | undefined = undefined;
+	let targetDate = $state<string | undefined>();
 
-	let showForm = false;
+	let isFormShown = $state<boolean>(false);
 
-	let editingTask: Task = buildEmptyEvent([]);
+	let editingTask = $state<Task>(buildEmptyEvent([]));
 
-	let completedTasks: Task[] = [];
+	let completedTasks = $state<Task[]>([]);
 
 	function openFormToCreateTask(categories: Category[], date: Date) {
-		showForm = true;
+		isFormShown = true;
 		editingTask = buildEventWithTime(categories, date);
 	}
 
 	function openFormToEditTask(task: Task, date: string) {
-		showForm = true;
+		isFormShown = true;
 		targetDate = date;
 		editingTask = task;
 	}
@@ -53,27 +53,25 @@
 </script>
 
 <SignedIn let:user>
-	<TypedCollection
-		let:data={categories}
-		ref="{DB_PATH.USERS}/{user.uid}/{DB_PATH.CATEGORIES}"
-		type={categoryType}
-	>
-		<Calendar
-			changeWeek={(weekStart) => getWeekTasks(user.uid, weekStart)}
-			createTask={(date) => openFormToCreateTask(categories, date)}
-			editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
-			moveEvent={(event, moveObject) => moveEvent(user.uid, event, moveObject)}
-			persistToDos={(toDos) => persistToDos(user.uid, toDos)}
-			tasks={$externalTasksStore}
-			toggleEvent={(event, targetDate) => toggleCompletion(user.uid, event, targetDate)}
-		/>
-		<TaskFormWrapper
-			bind:show={showForm}
-			{categories}
-			{editingTask}
-			{targetDate}
-			userId={user.uid}
-		/>
+	<TypedCollection ref="{DB_PATH.USERS}/{user.uid}/{DB_PATH.CATEGORIES}" type={categoryType}>
+		{#snippet data(categories)}
+			<Calendar
+				changeWeek={(weekStart) => getWeekTasks(user.uid, weekStart)}
+				createTask={(date) => openFormToCreateTask(categories, date)}
+				editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
+				moveEvent={(event, moveObject) => moveEvent(user.uid, event, moveObject)}
+				persistToDos={(toDos) => persistToDos(user.uid, toDos)}
+				tasks={$externalTasksStore}
+				toggleEvent={(event, targetDate) => toggleCompletion(user.uid, event, targetDate)}
+			/>
+			<TaskFormWrapper
+				bind:isShown={isFormShown}
+				{categories}
+				{editingTask}
+				{targetDate}
+				userId={user.uid}
+			/>
+		{/snippet}
 	</TypedCollection>
 	<TaskCompletedNotificationStack bind:completedTasks />
 </SignedIn>

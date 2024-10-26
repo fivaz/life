@@ -4,11 +4,14 @@
 	import { addDays, isSameWeek, startOfWeek } from 'date-fns';
 	import { CalendarCheck } from 'lucide-svelte';
 
-	export let weekStart: Date;
+	interface Props {
+		weekStart: Date;
+		selectedDate: Date;
+	}
 
-	export let selectedDate: Date;
+	let { weekStart = $bindable(), selectedDate = $bindable() }: Props = $props();
 
-	let currentDate = new Date();
+	const currentDate = new Date();
 
 	function goToToday() {
 		selectedDate = currentDate;
@@ -34,7 +37,7 @@
 	<div class="relative flex items-stretch rounded-md bg-white shadow-sm">
 		<button
 			class="hmd:h-9 -8 flex w-9 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-0 text-gray-400 hover:bg-gray-50 hover:text-gray-500 focus:relative"
-			on:click={goToPreviousWeek}
+			onclick={goToPreviousWeek}
 			type="button"
 		>
 			<span class="sr-only">Previous week</span>
@@ -43,18 +46,18 @@
 
 		<button
 			class="border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative"
-			on:click={goToToday}
+			onclick={goToToday}
 			type="button"
 		>
 			<span class="hidden md:block">Today</span>
 			<span class="block md:hidden"><CalendarCheck class="h-5 w-5 text-gray-400" /></span>
 		</button>
 
-		<span class="relative -mx-px hidden h-5 w-px bg-gray-300" />
+		<span class="relative -mx-px hidden h-5 w-px bg-gray-300"></span>
 
 		<button
 			class="flex h-8 w-9 items-center justify-center rounded-r-md border-y border-r border-gray-300 pl-0 text-gray-400 hover:bg-gray-50 hover:text-gray-500 focus:relative md:h-9"
-			on:click={goToNextWeek}
+			onclick={goToNextWeek}
 			type="button"
 		>
 			<span class="sr-only">Next week</span>

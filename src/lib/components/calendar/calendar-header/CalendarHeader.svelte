@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { selectedDate, weekStart } from '$lib/components/calendar/service';
-	import Button from '$lib/components/form/button/Button.svelte';
+	import Button from '$lib/components/form/button2/Button2.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 	import { DATE } from '$lib/consts';
 	import { getCurrentRoundedDate } from '$lib/task/time-utils';
@@ -33,8 +33,8 @@
 
 		<div class="hidden h-7 border-r border-gray-300 md:block"></div>
 
-		<Button on:click={createEvent} type="button">
-			<Plus class="h-4 w-auto" />
+		<Button onclick={createEvent} type="button">
+			<!--			<Plus class="h-4 w-auto" />-->
 			<span class="hidden md:block">Add event</span>
 		</Button>
 	</div>
