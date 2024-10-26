@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
 	import { Chart } from 'chart.js/auto';
-	//
+	import type { ChartConfiguration } from 'chart.js/dist/types';
+
+	// TODO
 	// import {
 	// 	CategoryScale,
 	// 	Chart as ChartJS,
@@ -25,11 +27,14 @@
 	// 	CategoryScale,
 	// );
 
-	let { data, options } = $props<{ data: any; options?: any }>();
+	let { data, options } = $props<{
+		data: ChartConfiguration['data'];
+		options: ChartConfiguration['options'];
+	}>();
 
-	let canvasRef: HTMLCanvasElement;
+	let canvasRef: HTMLCanvasElement | null = null;
 
-	let chartInstance: Chart | null = null;
+	let chartInstance = $state<Chart | null>(null);
 
 	$effect(() => {
 		if (chartInstance) {
@@ -40,6 +45,7 @@
 	});
 
 	onMount(() => {
+		if (!canvasRef) return;
 		chartInstance = new Chart(canvasRef, {
 			type: 'line',
 			data,

@@ -129,11 +129,13 @@ function getBeforeFirstDate(labels: string[], interval: ReportInterval) {
 }
 
 export function getDataSet(
-	uncompletedTasksByDate: UncompletedTasksByDate,
+	tasks: Task[],
 	interval: ReportInterval,
 ): [labels: string[], values: number[]] {
 	const labels = [];
 	const values = [];
+
+	const uncompletedTasksByDate = getUncompletedTasksByDate(tasks, interval);
 
 	for (const [date, value] of uncompletedTasksByDate) {
 		const formattedDate = format(

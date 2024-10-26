@@ -44,6 +44,7 @@
 	});
 </script>
 
+<!--TODO make click outside close dropdown-->
 <div class={clsx(klass, 'text-sm font-medium text-gray-700')}>
 	{#if label}
 		<div class={labelClass}>
