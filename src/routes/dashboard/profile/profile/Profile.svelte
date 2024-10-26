@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Alert from '$lib/components/form/alert/Alert.svelte';
-	import Button from '$lib/components/form/button/Button.svelte';
-	import Input from '$lib/components/form/input/Input.svelte';
+	import Button from '$lib/components/form/button2/Button2.svelte';
+	import Input from '$lib/components/form/input2/Input.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { db } from '$lib/firebase';
 	import { storeAvatar, updateUser } from '$lib/user/utils';
@@ -9,17 +9,21 @@
 	import { doc, updateDoc } from 'firebase/firestore';
 	import { minidenticon } from 'minidenticons';
 
-	export let user: NonNullable<Auth['currentUser']>;
+	interface Props {
+		user: NonNullable<Auth['currentUser']>;
+	}
 
-	let success: boolean = false;
+	let { user }: Props = $props();
 
-	let isLoading = false;
+	let success: boolean = $state(false);
 
-	let displayName = user.displayName;
+	let isLoading = $state(false);
 
-	let file: File | null;
+	let displayName = $state<string>(user.displayName || '');
 
-	let photoURL = user.photoURL;
+	let file: File | null = $state(null);
+
+	let photoURL = $state(user.photoURL);
 
 	function handleChange(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (event.currentTarget.files) {
@@ -40,7 +44,8 @@
 		updateUser(displayName, photoURL);
 	}
 
-	async function onSubmit() {
+	async function onSubmit(event: SubmitEvent) {
+		event.preventDefault();
 		isLoading = true;
 
 		if (file) {
@@ -73,11 +78,11 @@
 		</h2>
 	</div>
 	<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-		<Alert isVisible={!!success} on:close={() => (success = false)} type="success">
+		<Alert isVisible={!!success} close={() => (success = false)} type="success">
 			Profile successfully edited
 		</Alert>
 		<div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-			<form class="space-y-6" enctype="multipart/form-data" on:submit|preventDefault={onSubmit}>
+			<form class="space-y-6" enctype="multipart/form-data" onsubmit={onSubmit}>
 				<div class="col-span-full">
 					<h3 class="block text-sm font-medium leading-6 text-gray-900">Avatar</h3>
 					<div class="flex items-center gap-x-3">
@@ -89,12 +94,12 @@
 								accept="image/*"
 								class="hidden"
 								name="avatar"
-								on:change={handleChange}
+								onchange={handleChange}
 								type="file"
 							/>
 							Change
 						</label>
-						<Button on:click={resetImage} type="button">Reset image</Button>
+						<Button onclick={resetImage} type="button">Reset image</Button>
 					</div>
 				</div>
 
@@ -120,7 +125,7 @@
 							name="username"
 							required
 							type="email"
-							value={user.email}
+							value={user.email || ''}
 						/>
 					</div>
 				</div>

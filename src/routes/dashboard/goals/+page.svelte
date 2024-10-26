@@ -101,7 +101,7 @@
 						</TypedCollection>
 					</ul>
 
-					<Modal close={() => (showForm = false)} show={showForm}>
+					<Modal close={() => (showForm = false)} isShown={showForm}>
 						<GoalForm goal={editingGoal} close={() => (showForm = false)} userId={user.uid} />
 					</Modal>
 				</div>

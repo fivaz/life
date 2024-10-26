@@ -15,9 +15,10 @@
 		hasCloseButton?: boolean;
 		type: 'error' | 'info' | 'success' | 'warning';
 		children: Snippet;
+		close: () => void;
 	}
 
-	let { isVisible, hasCloseButton = true, type, children }: Props = $props();
+	let { isVisible, hasCloseButton = true, type, children, close }: Props = $props();
 
 	const typeElements = {
 		error: {
