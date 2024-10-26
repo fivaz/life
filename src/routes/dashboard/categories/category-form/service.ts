@@ -1,5 +1,3 @@
-import type { EventDispatcher } from 'svelte';
-
 import { type Category, type CategoryType, CategoryTypes } from '$lib/category/utils';
 import { tailwindColors } from '$lib/category/utils';
 import { DB_PATH } from '$lib/consts';

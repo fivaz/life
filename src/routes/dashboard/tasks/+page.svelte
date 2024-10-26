@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { type Category } from '$lib/category/utils';
-	import Button from '$lib/components/form/button/Button2.svelte';
+	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
@@ -12,7 +12,6 @@
 	import { DocumentText } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { collection, query, where } from 'firebase/firestore';
-	import { Plus } from 'lucide-svelte';
 	import { SignedIn } from 'sveltefire';
 
 	import { sortTasksByDate } from './service';

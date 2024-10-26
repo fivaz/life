@@ -1,5 +1,4 @@
 import type { Goal } from '$lib/goal/utils';
-import type { EventDispatcher } from 'svelte';
 
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';

@@ -4,7 +4,6 @@ import { DB_PATH } from '$lib/consts';
 import { storage } from '$lib/firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { writable } from 'svelte/store';
-import { string } from 'yup';
 
 export async function storeAvatar(userId: string, file: Blob): Promise<string> {
 	const avatarsRef = ref(storage, `${DB_PATH.AVATARS}/${userId}`);

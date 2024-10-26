@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Routine } from '$lib/routine/utils';
 
-	import Button from '$lib/components/form/button/Button2.svelte';
+	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import Streak from '$lib/components/streak/Streak.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
@@ -12,7 +12,7 @@
 	import { title } from '$lib/utils';
 	import { addDays, startOfWeek } from 'date-fns';
 	import { collection, orderBy, query } from 'firebase/firestore';
-	import { Calendar1, Plus } from 'lucide-svelte';
+	import { Calendar1 } from 'lucide-svelte';
 	import { SignedIn } from 'sveltefire';
 
 	import RoutineForm from './routine-form/RoutineForm.svelte';

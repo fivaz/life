@@ -3,14 +3,13 @@
 	import type { Task } from '$lib/task/utils';
 
 	import { type Category } from '$lib/category/utils';
-	import Button from '$lib/components/form/button/Button2.svelte';
+	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { buildEmptyEvent, buildEmptyToDo } from '$lib/task/build-utils';
 	import { title } from '$lib/utils';
-	import { Plus } from 'lucide-svelte';
 	import { SignedIn } from 'sveltefire';
 
 	import GoalForm from './goal-form/GoalForm.svelte';

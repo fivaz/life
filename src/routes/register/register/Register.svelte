@@ -2,17 +2,13 @@
 	import { goto } from '$app/navigation';
 	import Logo from '$lib/components/Logo.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
-	import Button from '$lib/components/form/button/Button2.svelte';
+	import Button from '$lib/components/form/button/Button.svelte';
 	import { DB_PATH, Routes } from '$lib/consts';
 	import { auth, db } from '$lib/firebase';
-	import { checkEmail, storeAvatar } from '$lib/auth/utils';
-	import { validator } from '@felte/validator-yup';
-	import { createForm } from 'felte';
-	import { FirebaseError } from 'firebase/app';
+	import { storeAvatar } from '$lib/auth/utils';
 	import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-	import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+	import { doc, setDoc } from 'firebase/firestore';
 	import { minidenticon } from 'minidenticons';
-	import { object, string } from 'yup';
 	import { addDefaultCategories, parseErrors, validateFields } from './service';
 
 	let name = $state<string>('');

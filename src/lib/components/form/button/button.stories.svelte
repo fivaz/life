@@ -5,7 +5,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Story, Template } from '@storybook/addon-svelte-csf';
 
-	import Button2 from './Button2.svelte';
+	import Button2 from './Button.svelte';
 
 	export const meta = {
 		argTypes: {},

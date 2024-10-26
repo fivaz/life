@@ -1,5 +1,3 @@
-import type { EventDispatcher } from 'svelte';
-
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
 import { type Routine } from '$lib/routine/utils';

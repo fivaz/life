@@ -8,10 +8,13 @@
 
 	interface Props {
 		ref: CollectionReference | Query | string;
+		// eslint-disable-next-line no-undef
 		type: T;
+		// eslint-disable-next-line no-undef
 		data: Snippet<[T[]]>;
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	let { type, ref, data }: Props = $props();
 
 	const raw = collectionStore(db, ref) as Readable<Array<typeof type & { ref: never }>>;

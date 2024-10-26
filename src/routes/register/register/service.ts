@@ -1,5 +1,4 @@
 import { checkEmail } from '$lib/auth/utils';
-import { string } from 'yup';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '$lib/firebase';
 import { DB_PATH } from '$lib/consts';

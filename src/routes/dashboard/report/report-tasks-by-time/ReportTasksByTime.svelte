@@ -4,12 +4,7 @@
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 
-	import {
-		type ReportInterval,
-		ReportIntervals,
-		getDataSet,
-		getUncompletedTasksByDate,
-	} from './service';
+	import { type ReportInterval, ReportIntervals, getDataSet } from './service';
 	import LineChart from './line-chart/LineChart.svelte';
 
 	interface Props {

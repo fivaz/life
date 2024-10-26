@@ -16,7 +16,7 @@
 
 <Template let:args>
 	<Collapsable {...args} title="Test">
-		<div class="h-96 w-96 bg-indigo-100" />
+		<div class="h-96 w-96 bg-indigo-100"></div>
 	</Collapsable>
 </Template>
 

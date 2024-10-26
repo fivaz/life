@@ -7,7 +7,6 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { addDays, addWeeks, format, lastDayOfWeek, parse, subDays } from 'date-fns';
-	import { createEventDispatcher } from 'svelte';
 
 	import { GROUPS } from '../service';
 	import TaskRow from './task-row/TaskRow.svelte';

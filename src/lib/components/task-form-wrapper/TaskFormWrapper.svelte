@@ -5,17 +5,11 @@
 
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
-	import {
-		addTask,
-		deletePossibleSingleRecurringEvent,
-		editTaskWithPrompt,
-	} from '$lib/components/task-form/service';
+
 	import { db } from '$lib/firebase';
 	import { queryUncompletedGoals, sortGoals } from '$lib/goal/utils';
 	import { type Writable, writable } from 'svelte/store';
 	import { collectionStore } from 'sveltefire';
-
-	import { removeLocalTask } from '../../../routes/dashboard/home/service';
 
 	interface Props {
 		userId: string;

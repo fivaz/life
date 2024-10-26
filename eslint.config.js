@@ -36,6 +36,7 @@ export default ts.config(
 	{
 		rules: {
 			'@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
+			'unused-imports/no-unused-imports': 'error',
 		},
 	},
 	{

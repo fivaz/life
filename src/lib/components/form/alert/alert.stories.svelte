@@ -1,63 +1,59 @@
 <script context="module" lang="ts">
 	import type { Meta } from '@storybook/svelte';
 
-	import { Story, Template } from '@storybook/addon-svelte-csf';
-
 	import Alert from './Alert.svelte';
 
-	export const meta = {
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	const { Story } = defineMeta({
 		component: Alert,
-	} satisfies Meta<Alert>;
+	});
 </script>
 
-<Template let:args>
-	<Alert {...args} />
-</Template>
+{#snippet template(args)}
+	<Alert {...args}>{args.children}</Alert>
+{/snippet}
 
 <Story
 	args={{
 		isVisible: true,
 		type: 'success',
+		close: () => console.log('close'),
+		children: 'Successfully uploaded',
 	}}
-	let:args
 	name="Success"
-	on:close={() => console.log('close')}
->
-	<Alert {...args}>Successfully uploaded</Alert>
-</Story>
+	children={template}
+/>
 
 <Story
 	args={{
 		isVisible: true,
 		type: 'info',
+		close: () => console.log('close'),
+		children: 'A new software update is available. See what’s new in version 2.0.4',
 	}}
-	let:args
 	name="Info"
-	on:close={() => console.log('close')}
->
-	<Alert {...args}>A new software update is available. See what’s new in version 2.0.4.</Alert>
-</Story>
+	children={template}
+/>
 
 <Story
 	args={{
 		isVisible: true,
 		type: 'warning',
+		close: () => console.log('close'),
+		children: 'You have no credits left',
 	}}
-	let:args
 	name="Warning"
-	on:close={() => console.log('close')}
->
-	<Alert {...args}>You have no credits left</Alert>
-</Story>
+	children={template}
+/>
 
 <Story
 	args={{
 		isVisible: true,
 		type: 'error',
+		close: () => console.log('close'),
+		children: 'There were 2 errors with your submission',
 	}}
-	let:args
 	name="Error"
-	on:close={() => console.log('close')}
->
-	<Alert {...args}>There were 2 errors with your submission</Alert>
-</Story>
+	children={template}
+/>

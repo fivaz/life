@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Input from '$lib/components/form/input/Input.svelte';
-	import { clsx } from 'clsx';
 
 	import GoalIcon from '../goal-icon/GoalIcon.svelte';
 	import { icons } from '../goal-icon/service';

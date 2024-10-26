@@ -3,7 +3,6 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { setContext, type Snippet } from 'svelte';
-	import { writable } from 'svelte/store';
 
 	interface Props {
 		label?: string;

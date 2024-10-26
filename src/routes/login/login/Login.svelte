@@ -2,15 +2,10 @@
 	import { goto } from '$app/navigation';
 	import Logo from '$lib/components/Logo.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
-	import Button from '$lib/components/form/button/Button2.svelte';
+	import Button from '$lib/components/form/button/Button.svelte';
 	import { Routes } from '$lib/consts';
 	import { auth } from '$lib/firebase';
-	import { validator } from '@felte/validator-yup';
-	import { createForm } from 'felte';
-	import { FirebaseError } from 'firebase/app';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
-	import { object, string } from 'yup';
-	import { checkEmail } from '$lib/auth/utils';
 	import { parseErrors, validateFields } from './service';
 
 	let isLoading = $state<boolean>(false);

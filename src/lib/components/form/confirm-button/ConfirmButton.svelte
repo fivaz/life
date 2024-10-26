@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createDialog } from '$lib/components/dialog/service';
-	import Button from '$lib/components/form/button/Button2.svelte';
+	import Button from '$lib/components/form/button/Button.svelte';
 	import { type Snippet } from 'svelte';
 
 	interface Props {

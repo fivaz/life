@@ -1,21 +1,16 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import type { Meta } from '@storybook/svelte';
 
-	import { Story, Template } from '@storybook/addon-svelte-csf';
-
 	import ToDoStats from './TasksStats.svelte';
+	import Select from '$lib/components/form/select/Select.svelte';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 
-	export const meta = {
-		argTypes: {},
+	const { Story } = defineMeta({
 		component: ToDoStats,
 		parameters: {
 			layout: 'fullscreen',
 		},
-	} satisfies Meta<ToDoStats>;
+	});
 </script>
-
-<Template let:args>
-	<ToDoStats {...args} />
-</Template>
 
 <Story args={{}} name="Primary" />
