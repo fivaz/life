@@ -17,7 +17,7 @@
 			<button
 				aria-label="modal background"
 				class="absolute inset-0 bg-black opacity-50"
-				onclick={() => close()}
+				onclick={close}
 			></button>
 			{@render children?.()}
 		</div>

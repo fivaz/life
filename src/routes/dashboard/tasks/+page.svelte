@@ -48,7 +48,7 @@
 					<div class="flex items-center gap-5">
 						<button
 							class="rounded bg-white p-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-							onclick={() => (isFormShown = true)}
+							onclick={() => (isStatsShown = true)}
 							type="button"
 						>
 							<Icon class="h-5 w-5" src={DocumentText} />
