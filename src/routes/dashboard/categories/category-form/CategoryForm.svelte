@@ -5,8 +5,8 @@
 	import Button from '$lib/components/form/button/Button.svelte';
 	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';
 	import Input from '$lib/components/form/input/Input.svelte';
-	import Select from '$lib/components/form/select/Select.svelte';
-	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
+	import Select from '$lib/components/form/select2/Select.svelte';
+	import SelectItem from '$lib/components/form/select2/select-item/SelectItem.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
