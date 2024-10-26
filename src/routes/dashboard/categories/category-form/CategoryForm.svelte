@@ -7,7 +7,7 @@
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select2/Select.svelte';
 	import SelectItem from '$lib/components/form/select2/select-item/SelectItem.svelte';
-	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
+	import Toggle from '$lib/components/form/toggle2/Toggle.svelte';
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
@@ -78,14 +78,7 @@
 		</Alert>
 
 		<div class="flex flex-col gap-2 text-sm font-medium text-gray-700">
-			<Input
-				autocomplete="off"
-				class="flex-1"
-				inputClass=""
-				name="name"
-				placeholder="Name"
-				bind:value={categoryIn.name}
-			/>
+			<Input autocomplete="off" class="flex-1" placeholder="Name" bind:value={categoryIn.name} />
 
 			<Select
 				bind:value={categoryIn.color}
@@ -130,7 +123,7 @@
 			</Select>
 
 			<div class="rounded-lg bg-white p-2">
-				<Toggle bind:value={categoryIn.isDefault} label="default" name="isDefault" />
+				<Toggle bind:value={categoryIn.isDefault} label="default" />
 			</div>
 		</div>
 	</div>
