@@ -57,11 +57,7 @@
 	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
 		<div class="flex items-center justify-between pb-2">
 			<h2 class="text-lg font-medium text-gray-900">
-				{#if isEditing}
-					Edit Category
-				{:else}
-					Add Category
-				{/if}
+				{isEditing ? 'Edit Category' : 'Add Category'}
 			</h2>
 			<button
 				class="inline-flex rounded-md p-1.5 pl-2 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"

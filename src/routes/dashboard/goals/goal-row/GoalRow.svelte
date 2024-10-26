@@ -6,16 +6,21 @@
 	import { getCompletedTasks } from '$lib/goal/utils';
 	import { ChevronDown, ChevronUp, Plus, Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { clsx } from 'clsx';
-	import { createEventDispatcher } from 'svelte';
 
 	import GoalIcon from '../goal-form/goal-icon/GoalIcon.svelte';
 	import GoalTasks from './goal-tasks/GoalTasks.svelte';
 
-	export let goal: Goal;
-	export let tasks: Task[];
+	interface Props {
+		goal: Goal;
+		tasks: Task[];
+		addTask: () => void;
+		editGoal: (goal: Goal) => void;
+		editTask: (task: Task) => void;
+	}
 
-	const dispatch = createEventDispatcher<{ addTask: null; editGoal: Goal }>();
+	let { goal, editGoal, tasks, addTask, editTask }: Props = $props();
+
+	let isTaskListOpen = $state(false);
 
 	export function getNumberOfTasks(tasks: Task[]) {
 		if (tasks.length === 0) {
@@ -26,8 +31,6 @@
 		}
 		return `${tasks.length} tasks`;
 	}
-
-	let areTasksOpen = false;
 </script>
 
 <li
@@ -36,9 +39,8 @@
 	<div class="w-full">
 		<div class={'flex items-center justify-between px-3 pb-2'}>
 			<div
-				class={clsx('flex w-[calc(100%-70px)] items-center gap-2 truncate', {
-					'line-through': goal.isDone,
-				})}
+				class:line-through={goal.isDone}
+				class="flex w-[calc(100%-70px)] items-center gap-2 truncate"
 			>
 				<GoalIcon class="h-5 w-5 text-indigo-600" name={goal.icon} />
 				<span>{goal.name}</span>
@@ -47,14 +49,14 @@
 			<div>
 				<button
 					class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-					on:click={() => dispatch('addTask')}
+					onclick={() => addTask()}
 					type="button"
 				>
 					<Icon class="h-4 w-4" src={Plus} />
 				</button>
 				<button
 					class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-					on:click={() => dispatch('editGoal', goal)}
+					onclick={() => editGoal(goal)}
 					type="button"
 				>
 					<Icon class="h-4 w-4 text-black" src={Settings2} />
@@ -64,36 +66,23 @@
 
 		{#if tasks.length}
 			<ProgressBar maxValue={tasks.length} value={getCompletedTasks(tasks)} />
-
-			{#if !areTasksOpen}
-				<button
-					class="flex w-full items-end justify-center gap-2 hover:bg-gray-100 hover:underline"
-					on:click={() => (areTasksOpen = true)}
-				>
-					<span>{getNumberOfTasks(tasks)}</span>
-					<Icon class="h-4 w-4 animate-bounce" src={ChevronDown} />
-				</button>
+			{#if isTaskListOpen}
+				<GoalTasks {editTask} {tasks} />
 			{/if}
 		{/if}
 	</div>
 
 	<div class="text-sm">
 		{#if tasks.length}
-			{#if areTasksOpen}
-				<div>
-					<GoalTasks on:editTask {tasks} />
-
-					<button
-						class="flex w-full items-end justify-center gap-2 text-base hover:bg-gray-100 hover:underline"
-						on:click={() => (areTasksOpen = false)}
-					>
-						<span>{getNumberOfTasks(tasks)}</span>
-						<Icon class="h-4 w-4 animate-bounce" src={ChevronUp} />
-					</button>
-				</div>
-			{/if}
+			<button
+				class="flex w-full items-end justify-center gap-2 text-base hover:bg-gray-100 hover:underline"
+				onclick={() => (isTaskListOpen = !isTaskListOpen)}
+			>
+				<span>{getNumberOfTasks(tasks)}</span>
+				<Icon class="h-4 w-4 animate-bounce" src={isTaskListOpen ? ChevronUp : ChevronDown} />
+			</button>
 		{:else}
-			<div class="px-3 text-red-500">No tasks yet</div>
+			<div class="w-full px-3 text-center text-red-500">No tasks yet</div>
 		{/if}
 	</div>
 </li>

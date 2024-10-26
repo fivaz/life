@@ -1,19 +1,19 @@
 <script lang="ts">
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { clsx } from 'clsx';
 
 	import type { GoalIconType } from './service';
 
 	import { getIcon } from './service';
 
-	let className = '';
-	export { className as class };
+	interface Props {
+		class?: string;
+		icon?: GoalIconType;
+		name?: null | string;
+	}
 
-	export let icon: GoalIconType | undefined = undefined;
+	let { class: klass = '', icon, name = null }: Props = $props();
 
-	export let name: null | string = null;
-
-	$: foundIcon = icon || getIcon(name);
+	let foundIcon = $derived(icon || getIcon(name));
 </script>
 
-<Icon class={clsx(className)} src={foundIcon.component} theme={foundIcon.theme || 'solid'} />
+<Icon class={klass} src={foundIcon.component} theme={foundIcon.theme || 'solid'} />

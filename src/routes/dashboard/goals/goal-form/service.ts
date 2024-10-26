@@ -15,14 +15,10 @@ export function addGoal(data: Omit<Goal, 'id'>, userId: string) {
 	return addDoc(goalsCollectionRef, data);
 }
 
-export async function deleteGoal(
-	id: string | undefined,
-	userId: string,
-	dispatch: EventDispatcher<{ close: null }>,
-) {
+export async function deleteGoal(id: string | undefined, userId: string, close: () => void) {
 	if (id) {
 		const goalDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.GOALS, id);
 		await deleteDoc(goalDocRef);
-		dispatch('close');
+		close();
 	}
 }
