@@ -7,15 +7,17 @@
 		XMark,
 	} from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { clsx } from 'clsx';
-	import { createEventDispatcher } from 'svelte';
+	import { type Snippet } from 'svelte';
 	import { fade } from 'svelte/transition';
 
-	export let isVisible: boolean;
+	interface Props {
+		isVisible: boolean;
+		hasCloseButton?: boolean;
+		type: 'error' | 'info' | 'success' | 'warning';
+		children: Snippet;
+	}
 
-	export let hasCloseButton = true;
-
-	export let type: 'error' | 'info' | 'success' | 'warning';
+	let { isVisible, hasCloseButton = true, type, children }: Props = $props();
 
 	const typeElements = {
 		error: {
@@ -47,32 +49,28 @@
 			message: 'text-yellow-800',
 		},
 	};
-
-	const dispatch = createEventDispatcher();
 </script>
 
 {#if isVisible}
-	<div class={clsx(typeElements[type].background, 'rounded-md p-4')} transition:fade>
+	<div class="{typeElements[type].background} rounded-md p-4" transition:fade>
 		<div class="flex">
 			<div class="flex-shrink-0">
 				<Icon
 					aria-hidden="true"
-					class={clsx(typeElements[type].button, 'h-5 w-5')}
+					class="{typeElements[type].button} h-5 w-5"
 					src={typeElements[type].icon}
 				/>
 			</div>
 			<div class="ml-3">
-				<p class={clsx(typeElements[type].button, 'text-sm font-medium')}><slot /></p>
+				<p class="{typeElements[type].button} text-sm font-medium">{@render children?.()}</p>
 			</div>
 			{#if hasCloseButton}
 				<div class="ml-auto pl-3">
 					<div class="-mx-1.5 -my-1.5">
 						<button
-							class={clsx(
-								typeElements[type].button,
-								'inline-flex rounded-md p-1.5 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50',
-							)}
-							on:click={() => dispatch('close')}
+							class="{typeElements[type].button}
+							inline-flex rounded-md p-1.5 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50"
+							onclick={close}
 							type="button"
 						>
 							<span class="sr-only">Dismiss</span>
