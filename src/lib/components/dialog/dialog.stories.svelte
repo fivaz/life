@@ -1,23 +1,22 @@
 <script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
-
-	import { Story, Template } from '@storybook/addon-svelte-csf';
-
 	import Dialog from './Dialog.svelte';
 
-	export const meta = {
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	const { Story } = defineMeta({
 		component: Dialog,
-	} satisfies Meta<Dialog>;
+	});
 </script>
 
-<Template let:args>
+<!-- eslint-disable-next-line @typescript-eslint/no-explicit-any-->
+{#snippet template(args: any)}
 	<Dialog
 		{...args}
-		on:cancel={() => console.log('cancel')}
-		on:close={() => console.log('close')}
-		on:confirm={() => console.log('confirm')}
+		cancel={() => console.log('cancel')}
+		close={() => console.log('close')}
+		confirm={() => console.log('confirm')}
 	/>
-</Template>
+{/snippet}
 
 <Story
 	args={{
@@ -28,6 +27,7 @@
 		title: 'Delete event ?',
 	}}
 	name="Primary"
+	children={template}
 />
 
 <Story
@@ -38,4 +38,5 @@
 		title: 'Delete?',
 	}}
 	name="No Message"
+	children={template}
 />

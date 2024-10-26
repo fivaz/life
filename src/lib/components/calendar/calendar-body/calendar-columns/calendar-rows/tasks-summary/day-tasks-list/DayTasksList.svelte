@@ -8,29 +8,28 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { addDays, format, parse } from 'date-fns';
-	import { createEventDispatcher, getContext } from 'svelte';
+	import { getContext } from 'svelte';
 
 	import GoalIcon from '../../../../../../../../routes/dashboard/goals/goal-form/goal-icon/GoalIcon.svelte';
 
-	export let tasks: Task[];
-
-	const dispatch = createEventDispatcher<{
-		close: null;
-		editTask: { targetDate: string; task: Task };
-		persistToDos: ToDo[];
-	}>();
-
-	$: uncompletedTasks = tasks.filter((toDo) => toDo.isDone === false);
-
-	$: uncompletedDuration = getTotalDuration(uncompletedTasks);
-
-	$: doneDuration = getTotalDuration(tasks.filter((toDo) => toDo.isDone === true));
-
-	$: {
-		if (tasks.length === 0) {
-			dispatch('close');
-		}
+	interface Props {
+		tasks: Task[];
+		close: () => void;
 	}
+
+	let { tasks, close }: Props = $props();
+
+	let uncompletedTasks = $derived(tasks.filter((toDo) => toDo.isDone === false));
+
+	let uncompletedDuration = $derived(getTotalDuration(uncompletedTasks));
+
+	let doneDuration = $derived(getTotalDuration(tasks.filter((toDo) => toDo.isDone === true)));
+
+	$effect(() => {
+		if (tasks.length === 0) {
+			close();
+		}
+	});
 
 	function postponeToDos() {
 		const postponedToDos = uncompletedTasks
@@ -63,49 +62,47 @@
 
 	<ul class="flex flex-grow flex-col overflow-y-auto py-3">
 		{#each tasks as task, index (task)}
-			<!-- svelte-ignore a11y-no-noninteractive-element-interactions a11y-click-events-have-key-events -->
-			<li
-				class="flex cursor-pointer items-center px-6 py-3 hover:bg-gray-100 hover:underline"
-				on:click={() => editTask(task, '')}
-			>
-				<span class="w-5 pr-3 font-medium text-gray-500">{index + 1}</span>
-				<Icon
-					class="h-5 w-8 pr-3 text-gray-400"
-					src={isToDo(task) ? CalendarDays : CalendarClock}
-					theme="solid"
-				/>
-				<div
-					class={clsx(
-						{ 'line-through': task.isDone },
-						'flex-1 truncate pr-3 font-medium text-gray-500',
-					)}
-				>
-					{task.name}
-				</div>
-
-				{#if task.goal?.icon}
-					<GoalIcon class="h-4 w-8 pr-3 text-gray-400" name={task.goal.icon} />
-				{/if}
-				<div class="w-12">{task.duration}</div>
-				<div class="w-16">
-					<div
+			<li class="flex cursor-pointer items-center px-6 py-3 hover:bg-gray-100 hover:underline">
+				<button onclick={() => editTask(task, '')}>
+					<span class="w-5 pr-3 font-medium text-gray-500">{index + 1}</span>
+					<Icon
+						class="h-5 w-8 pr-3 text-gray-400"
+						src={isToDo(task) ? CalendarDays : CalendarClock}
+						theme="solid"
+					/>
+					<span
 						class={clsx(
-							task.isDone
-								? 'bg-green-50 text-green-700 ring-green-600/20'
-								: 'bg-red-50 text-red-700 ring-red-600/20',
-							'm-auto w-max rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset',
+							{ 'line-through': task.isDone },
+							'flex-1 truncate pr-3 font-medium text-gray-500',
 						)}
 					>
-						{task.isDone ? 'Done' : 'Undone'}
-					</div>
-				</div>
+						{task.name}
+					</span>
+
+					{#if task.goal?.icon}
+						<GoalIcon class="h-4 w-8 pr-3 text-gray-400" name={task.goal.icon} />
+					{/if}
+					<span class="w-12">{task.duration}</span>
+					<span class="w-16">
+						<span
+							class={clsx(
+								task.isDone
+									? 'bg-green-50 text-green-700 ring-green-600/20'
+									: 'bg-red-50 text-red-700 ring-red-600/20',
+								'm-auto w-max rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset',
+							)}
+						>
+							{task.isDone ? 'Done' : 'Undone'}
+						</span>
+					</span>
+				</button>
 			</li>
 		{/each}
 	</ul>
 
 	<div class="flex-none p-6">
 		{#if uncompletedTasks.length}
-			<button class="font-semibold hover:underline" on:click={postponeToDos}>
+			<button class="font-semibold hover:underline" onclick={postponeToDos}>
 				Postpone remaining unset tasks <span aria-hidden="true">&rarr;</span>
 			</button>
 		{/if}

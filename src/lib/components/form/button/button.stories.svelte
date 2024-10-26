@@ -1,34 +1,30 @@
 <script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
-
 	import { Trash } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { Story, Template } from '@storybook/addon-svelte-csf';
 
-	import Button2 from './Button.svelte';
+	import Button from './Button.svelte';
 
-	export const meta = {
-		argTypes: {},
-		component: Button2,
-	} satisfies Meta<Button2>;
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	const { Story } = defineMeta({
+		component: Button,
+	});
 </script>
 
-<Template let:args>
-	<Button2 {...args} on:click={() => console.log('clicked')}>Text</Button2>
-</Template>
-
-<Story args={{}} name="Normal" />
-
-<Story args={{ isLoading: true }} name="Loading" />
-
-<Story args={{ color: 'red', isLoading: true }} let:args name="Label">
-	<Button2 {...args}>Label</Button2>
+<Story args={{}} name="Indigo">
+	<Button color="indigo" onclick={() => console.log('clicked')}>Indigo</Button>
 </Story>
 
-<Story args={{ color: 'red', isLoading: true }} let:args name="Icon Loading">
-	<Button2 {...args}><Icon class="h-4 w-4" src={Trash} /></Button2>
+<Story args={{}} name="Label">
+	<Button color="red" onclick={() => console.log('clicked')}>Red</Button>
 </Story>
 
-<Story args={{ color: 'red', isLoading: false }} let:args name="Icon Normal">
-	<Button2 {...args}><Icon class="h-4 w-4" src={Trash} /></Button2>
+<Story args={{}} name="Loading">
+	<Button color="indigo" isLoading onclick={() => console.log('clicked')}>Loading</Button>
+</Story>
+
+<Story args={{}} name="Loading with icon">
+	<Button color="indigo" isLoading onclick={() => console.log('clicked')}>
+		<Icon class="h-4 w-4" src={Trash} />Loading
+	</Button>
 </Story>

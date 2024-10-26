@@ -1,18 +1,15 @@
 <script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
-
-	import { Story, Template } from '@storybook/addon-svelte-csf';
-
 	import { buildEmptyGoal } from '../service';
 	import GoalForm from './GoalForm.svelte';
 
-	export const meta = {
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	const { Story } = defineMeta({
 		component: GoalForm,
-	} satisfies Meta<GoalForm>;
+	});
 </script>
 
-<Template let:args>
-	<GoalForm {...args} goal={buildEmptyGoal()} on:close={() => console.log('closed')} userId="0" />
-</Template>
-
-<Story args={{}} name="Primary" />
+<Story
+	args={{ userId: '0', goal: buildEmptyGoal(), close: () => console.log('closed') }}
+	name="Primary"
+/>

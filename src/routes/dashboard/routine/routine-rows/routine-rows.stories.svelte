@@ -1,6 +1,4 @@
 <script module lang="ts">
-	import type { Meta } from '@storybook/svelte';
-
 	import RoutineRows from './RoutineRows.svelte';
 
 	import { defineMeta } from '@storybook/addon-svelte-csf';

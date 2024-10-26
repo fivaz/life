@@ -1,18 +1,13 @@
 <script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
-
-	import { Story, Template } from '@storybook/addon-svelte-csf';
-
 	import HorizontalTime from './HorizontalTime.svelte';
 
-	export const meta = {
-		argTypes: {},
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	const { Story } = defineMeta({
 		component: HorizontalTime,
-	} satisfies Meta<HorizontalTime>;
+	});
 </script>
 
-<Template let:args>
-	<HorizontalTime {...args}><div></div></HorizontalTime>
-</Template>
-
-<Story args={{}} name="Primary" />
+<Story args={{}} name="Primary">
+	<HorizontalTime><div></div></HorizontalTime>
+</Story>

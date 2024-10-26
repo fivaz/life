@@ -1,21 +1,18 @@
 <script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
-
-	import { Story, Template } from '@storybook/addon-svelte-csf';
-
 	import WeekChanger from './WeekChanger.svelte';
 
-	export const meta = {
-		argTypes: {},
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	const { Story } = defineMeta({
 		component: WeekChanger,
 		parameters: {
 			layout: 'fullscreen',
 		},
-	} satisfies Meta<WeekChanger>;
+	});
 </script>
 
-<Template let:args>
-	<WeekChanger {...args} />
-</Template>
+<script>
+	import { startOfWeek } from 'date-fns';
+</script>
 
-<Story args={{}} name="Primary" />
+<Story args={{ weekStart: startOfWeek(new Date()), selectedDate: new Date() }} name="Primary" />

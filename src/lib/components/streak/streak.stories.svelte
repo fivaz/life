@@ -1,21 +1,14 @@
-<script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
-
-	import { Story, Template } from '@storybook/addon-svelte-csf';
-
+<script module lang="ts">
 	import Streak from './Streak.svelte';
 
-	export const meta = {
-		argTypes: {},
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	const { Story } = defineMeta({
 		component: Streak,
 		parameters: {
 			layout: 'fullscreen',
 		},
-	} satisfies Meta<Streak>;
+	});
 </script>
-
-<Template let:args>
-	<Streak {...args} />
-</Template>
 
 <Story args={{}} name="Primary" />

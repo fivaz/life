@@ -1,25 +1,25 @@
 <script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
+	import { type ToDo } from '$lib/task/utils';
 
 	import { birthdayToDo, toDos, workToDo } from '$lib/task/seed';
-	import { Story, Template } from '@storybook/addon-svelte-csf';
 
 	import ToDosPanel from './TasksSummary.svelte';
 
-	export const meta = {
-		argTypes: {},
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	const { Story } = defineMeta({
 		component: ToDosPanel,
-	} satisfies Meta<ToDosPanel>;
+	});
 </script>
 
-<Template let:args>
+{#snippet template(args: { tasks: ToDo[] })}
 	<div class="w-24">
 		<ToDosPanel {...args} />
 	</div>
-</Template>
+{/snippet}
 
-<Story args={{ toDos: [workToDo] }} name="OneDueToDo" />
+<Story args={{ tasks: [workToDo] }} name="OneDueToDo" children={template} />
 
-<Story args={{ toDos: [birthdayToDo] }} name="OneToDo" />
+<Story args={{ tasks: [birthdayToDo] }} name="OneToDo" children={template} />
 
-<Story args={{ toDos }} name="ManyToDos" />
+<Story args={{ tasks: toDos }} name="ManyToDos" children={template} />

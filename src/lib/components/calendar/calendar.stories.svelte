@@ -1,23 +1,23 @@
 <script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
-
 	import { tasks } from '$lib/task/seed';
-	import { Story, Template } from '@storybook/addon-svelte-csf';
 
 	import Calendar from './Calendar.svelte';
-	export const meta = {
-		argTypes: {},
+
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	const { Story } = defineMeta({
 		component: Calendar,
 		parameters: {
 			layout: 'fullscreen',
 		},
-	} satisfies Meta<Calendar>;
+	});
 </script>
 
-<Template let:args>
+<Story args={{}} name="Primary">
 	<div class="h-screen">
 		<Calendar
-			{...args}
+			persistToDos={(toDos) => console.log('toDos', toDos)}
+			changeWeek={(week) => console.log('changeWeek', week)}
 			createTask={(date) => console.log('createTask', date)}
 			editTask={(task, date) => console.log('editTask', task, date)}
 			moveEvent={(event, moveObject) => console.log('moveEvent', event, moveObject)}
@@ -25,6 +25,4 @@
 			toggleEvent={(event, targetDate) => console.log('toggleEvent', event, targetDate)}
 		/>
 	</div>
-</Template>
-
-<Story args={{}} name="Primary" />
+</Story>

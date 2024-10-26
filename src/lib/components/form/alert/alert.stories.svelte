@@ -1,6 +1,4 @@
 <script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
-
 	import Alert from './Alert.svelte';
 
 	import { defineMeta } from '@storybook/addon-svelte-csf';
@@ -10,7 +8,8 @@
 	});
 </script>
 
-{#snippet template(args)}
+<!-- eslint-disable-next-line @typescript-eslint/no-explicit-any-->
+{#snippet template(args: any)}
 	<Alert {...args}>{args.children}</Alert>
 {/snippet}
 

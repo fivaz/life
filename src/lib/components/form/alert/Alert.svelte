@@ -15,7 +15,7 @@
 		hasCloseButton?: boolean;
 		type: 'error' | 'info' | 'success' | 'warning';
 		children: Snippet;
-		close: () => void;
+		close?: () => void;
 		class?: string;
 	}
 

@@ -8,7 +8,7 @@ import { writable } from 'svelte/store';
 export async function storeAvatar(userId: string, file: Blob): Promise<string> {
 	const avatarsRef = ref(storage, `${DB_PATH.AVATARS}/${userId}`);
 	await uploadBytes(avatarsRef, file);
-	return await getDownloadURL(avatarsRef);
+	return getDownloadURL(avatarsRef);
 }
 
 export const currentUser = writable<Auth['currentUser']>();

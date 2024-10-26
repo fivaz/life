@@ -1,28 +1,20 @@
 <script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
-
-	import { Story, Template } from '@storybook/addon-svelte-csf';
-
 	import CalendarRows from './CalendarRows.svelte';
 
-	export const meta = {
-		argTypes: {},
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	const { Story } = defineMeta({
 		component: CalendarRows,
 		parameters: {
 			layout: 'fullscreen',
 		},
-	} satisfies Meta<CalendarRows>;
-
-	import { tasks } from '$lib/task/seed.js';
+	});
 </script>
 
-<Template let:args>
-	<CalendarRows
-		{...args}
-		date={new Date()}
-		on:click={(args) => console.log('click', args.detail)}
-		{tasks}
-	/>
-</Template>
-
-<Story args={{}} name="Primary" />
+<Story
+	args={{
+		date: new Date(),
+		create: (time: string) => console.log('time', time),
+	}}
+	name="Primary"
+/>

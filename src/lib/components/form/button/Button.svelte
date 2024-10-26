@@ -30,9 +30,9 @@
 		red: 'focus-visible:outline-red-600 bg-red-600 hover:bg-red-500',
 	} as const;
 
-	let slot: HTMLElement | null = $state(null);
+	let child = $state<HTMLElement | null>(null);
 
-	let slotText = $derived(slot?.innerText || '');
+	let slotText = $derived(child?.innerText || '');
 </script>
 
 <button
@@ -55,7 +55,7 @@
 	<!--hides the content of the button when showing the loading icon, if the content of the button
 	 is an icon without any text-->
 	<span
-		bind:this={slot}
+		bind:this={child}
 		class={clsx('flex items-center gap-2', { hidden: isLoading && !slotText })}
 	>
 		{@render children?.()}

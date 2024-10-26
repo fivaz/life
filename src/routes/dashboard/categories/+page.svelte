@@ -52,7 +52,7 @@
 					{/each}
 				</ul>
 
-				<Modal close={() => (showForm = false)} show={showForm}>
+				<Modal close={() => (showForm = false)} isShown={showForm}>
 					<CategoryForm
 						category={editingCategory}
 						close={() => (showForm = false)}

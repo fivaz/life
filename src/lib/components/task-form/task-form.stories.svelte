@@ -1,33 +1,33 @@
 <script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
-
 	import { categories } from '$lib/category/seed';
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
 	import { dialog } from '$lib/components/dialog/service';
 	import { buildEmptyEvent, buildEmptyToDo } from '$lib/task/build-utils';
 	import { normalWithSubTasks } from '$lib/task/seed';
-	import { Story, Template } from '@storybook/addon-svelte-csf';
 
 	import TaskForm from './TaskForm.svelte';
 
-	export const meta = {
-		argTypes: {},
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	const { Story } = defineMeta({
 		component: TaskForm,
-	} satisfies Meta<TaskForm>;
+	});
 </script>
 
-<Template let:args>
+<!-- eslint-disable-next-line @typescript-eslint/no-explicit-any-->
+{#snippet template(args: any)}
 	<Dialog
 		cancelText={$dialog.cancelText}
 		confirmText={$dialog.confirmText}
 		message={$dialog.message}
 		resolve={$dialog.resolve}
-		show={$dialog.show}
+		isShown={$dialog.show}
 		title={$dialog.title}
 	/>
-
-	<TaskForm {...args} {categories} on:close={() => console.log('closed')} userId="0" />
-</Template>
+	<div class="w-96">
+		<TaskForm {...args} />
+	</div>
+{/snippet}
 
 <Story
 	args={{
@@ -35,6 +35,7 @@
 		task: buildEmptyEvent(categories),
 	}}
 	name="Create Event"
+	children={template}
 />
 
 <Story
@@ -43,6 +44,7 @@
 		task: normalWithSubTasks,
 	}}
 	name="Edit event"
+	children={template}
 />
 
 <Story
@@ -50,4 +52,5 @@
 		task: buildEmptyToDo(categories),
 	}}
 	name="Create ToDo"
+	children={template}
 />

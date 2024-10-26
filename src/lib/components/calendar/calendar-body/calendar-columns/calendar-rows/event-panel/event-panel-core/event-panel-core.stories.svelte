@@ -1,17 +1,5 @@
 <script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
-
-	import { Story, Template } from '@storybook/addon-svelte-csf';
-
 	import EventPanelCore from './EventPanelCore.svelte';
-
-	export const meta = {
-		argTypes: {},
-		component: EventPanelCore,
-	} satisfies Meta<EventPanelCore>;
-</script>
-
-<script>
 	import {
 		longRecurring,
 		normalWithDescription,
@@ -22,32 +10,49 @@
 		shortWithSubTasks,
 		shortWithoutDescription,
 	} from '$lib/task/seed';
+
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	const { Story } = defineMeta({
+		component: EventPanelCore,
+	});
 </script>
 
-<Template let:args>
+<!-- eslint-disable-next-line @typescript-eslint/no-explicit-any-->
+{#snippet template(args: any)}
 	<div class="relative h-48 w-48">
-		<EventPanelCore {...args} isSelected={false} targetDate={new Date()} />
+		<EventPanelCore isSelected={false} targetDate={new Date()} {...args} />
 	</div>
-</Template>
+{/snippet}
 
 <Story
 	args={{ event: normalWithoutDescriptionWithGoal }}
 	name="Normal without description with goal"
+	children={template}
 />
 
 <Story
 	args={{ event: normalWithoutDescriptionWithoutGoal }}
 	name="Normal without description without goal"
+	children={template}
 />
 
-<Story args={{ event: normalWithDescription }} name="Normal with a description" />
+<Story
+	args={{ event: normalWithDescription }}
+	name="Normal with a description"
+	children={template}
+/>
 
-<Story args={{ event: normalWithSubTasks }} name="Normal with sub tasks" />
+<Story args={{ event: normalWithSubTasks }} name="Normal with sub tasks" children={template} />
 
-<Story args={{ event: shortWithoutDescription }} name="Short without description" />
+<Story
+	args={{ event: shortWithoutDescription }}
+	name="Short without description"
+	children={template}
+/>
 
-<Story args={{ event: shortWithDescription }} name="Short with a description" />
+<Story args={{ event: shortWithDescription }} name="Short with a description" children={template} />
 
-<Story args={{ event: shortWithSubTasks }} name="Short with sub tasks" />
+<Story args={{ event: shortWithSubTasks }} name="Short with sub tasks" children={template} />
 
-<Story args={{ event: longRecurring }} name="Long recurring" />
+<Story args={{ event: longRecurring }} name="Long recurring" children={template} />

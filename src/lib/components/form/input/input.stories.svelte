@@ -1,18 +1,12 @@
 <script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
-
-	import { Story, Template } from '@storybook/addon-svelte-csf';
-
 	import Input from './Input.svelte';
 
-	export const meta = {
-		component: Input,
-	} satisfies Meta<Input>;
-</script>
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 
-<Template let:args>
-	<Input {...args} />
-</Template>
+	const { Story } = defineMeta({
+		component: Input,
+	});
+</script>
 
 <Story
 	args={{

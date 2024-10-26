@@ -6,13 +6,17 @@
 	import { isRecurring } from '$lib/task/utils.js';
 	import { clsx } from 'clsx';
 
-	export let tasks: Task[];
+	interface Props {
+		tasks: Task[];
+	}
 
-	let isOpen = false;
+	let { tasks }: Props = $props();
 
-	$: workTasks = getValidWorks(tasks);
+	let isOpen = $state(false);
 
-	$: hasPendingToDos = workTasks.some((task) => task.isDone === false);
+	let workTasks = $derived(getValidWorks(tasks));
+
+	let hasPendingToDos = $derived(workTasks.some((task) => task.isDone === false));
 
 	function getValidWorks(tasks: Task[]): Task[] {
 		// accept only category work tasks
@@ -43,13 +47,13 @@
 					: 'bg-cyan-50 text-cyan-500 hover:bg-cyan-100',
 				'absolute w-full truncate rounded-lg px-2 py-1 text-xs leading-5 hover:font-semibold',
 			)}
-			on:click={() => (isOpen = true)}
+			onclick={() => (isOpen = true)}
 		>
 			{getLabel(workTasks)}
 		</button>
 	{/if}
 </div>
 
-<Modal on:close={() => (isOpen = false)} show={isOpen}>
-	<DayTasksList on:close={() => (isOpen = false)} tasks={workTasks} />
+<Modal close={() => (isOpen = false)} isShown={isOpen}>
+	<DayTasksList close={() => (isOpen = false)} tasks={workTasks} />
 </Modal>
