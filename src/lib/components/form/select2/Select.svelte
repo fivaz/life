@@ -38,6 +38,10 @@
 
 		isOpen = false;
 	}
+
+	$effect(() => {
+		setContext('selectedValue', value);
+	});
 </script>
 
 <div class={clsx(klass, 'text-sm font-medium text-gray-700')}>

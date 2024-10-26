@@ -20,7 +20,7 @@
 				{selectedCategory.name}
 			{/snippet}
 			{#each categories as category (category)}
-				<SelectItem isSelected={selectedCategory.id === category.id} value={category}>
+				<SelectItem value={category}>
 					{category.name}
 				</SelectItem>
 			{/each}
