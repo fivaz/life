@@ -13,11 +13,17 @@
 	import TaskRow from './task-row/TaskRow.svelte';
 	import { TASK_LIST_CLASS } from './task-row/service';
 
-	export let label: string;
-	export let tasks: Task[];
-	export let userId: string;
+	interface Props {
+		label: string;
+		tasks: Task[];
+		userId: string;
+		create: (deadline: string) => void;
+		edit: (task: Task) => void;
+	}
 
-	$: isDroppable = label !== GROUPS.Recurring && label !== GROUPS.Overdue;
+	let { label, tasks, userId, create, edit }: Props = $props();
+
+	let isDroppable = $derived(label !== GROUPS.Recurring && label !== GROUPS.Overdue);
 
 	function getDate(label: string): string {
 		if (label === GROUPS.Overdue) {
@@ -51,8 +57,6 @@
 		}
 		return `(${tasks.length} tasks)`;
 	}
-
-	const dispatch = createEventDispatcher<{ create: string }>();
 </script>
 
 <!--recurring and overdue list shouldn't be droppable-->
@@ -74,7 +78,7 @@
 			{#if label !== GROUPS.Recurring}
 				<button
 					class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-					on:click={() => dispatch('create', getDate(label))}
+					onclick={() => create(getDate(label))}
 					type="button"
 				>
 					<Icon class="h-4 w-4" src={Plus} />
@@ -88,7 +92,7 @@
 	>
 		{#each tasks as task (task.id)}
 			<!--recurring tasks shouldn't be draggable-->
-			<TaskRow isDraggable={label !== GROUPS.Recurring} on:edit {task} {userId} />
+			<TaskRow isDraggable={label !== GROUPS.Recurring} {edit} {task} {userId} />
 		{/each}
 		{#if isDroppable}
 			<li

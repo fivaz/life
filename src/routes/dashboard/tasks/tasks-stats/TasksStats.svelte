@@ -5,11 +5,14 @@
 
 	import type { SortedTaskType } from '../service';
 
-	export let sortedTasks: SortedTaskType;
+	interface Props {
+		sortedTasks: SortedTaskType;
+	}
 
-	$: netSortedTasks = prepareSortedTasks(sortedTasks);
+	let { sortedTasks }: Props = $props();
 
-	$: total = Object.values(netSortedTasks).flat();
+	let netSortedTasks = $derived(prepareSortedTasks(sortedTasks));
+	let total = $derived(Object.values(netSortedTasks).flat());
 
 	function prepareSortedTasks(sortedTasks: SortedTaskType): SortedTaskType {
 		let copiedObject = { ...sortedTasks };

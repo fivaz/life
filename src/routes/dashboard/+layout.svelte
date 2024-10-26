@@ -7,7 +7,13 @@
 	import { Routes, dashboardRoute } from '$lib/consts';
 	import { auth } from '$lib/firebase';
 	import { onAuthStateChanged } from 'firebase/auth';
-	import { onMount } from 'svelte';
+	import { onMount, type Snippet } from 'svelte';
+
+	interface Props {
+		children: Snippet;
+	}
+
+	let { children }: Props = $props();
 
 	onMount(() => {
 		onAuthStateChanged(auth, (user) => {
@@ -19,7 +25,7 @@
 </script>
 
 <Dashboard>
-	<slot />
+	{@render children?.()}
 </Dashboard>
 
 <Dialog

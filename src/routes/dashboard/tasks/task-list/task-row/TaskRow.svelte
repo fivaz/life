@@ -10,13 +10,16 @@
 
 	import { HANDLE, formatDate, hasMoved, startDrag } from './service';
 
-	export let task: Task;
-	export let userId: string;
-	export let isDraggable: boolean;
+	interface Props {
+		task: Task;
+		userId: string;
+		isDraggable: boolean;
+		edit: (task: Task) => void;
+	}
 
-	let dispatch = createEventDispatcher<{ edit: Task; rescheduleToTomorrow: Task }>();
+	let { task, userId, isDraggable, edit }: Props = $props();
 
-	let container: HTMLLIElement | undefined;
+	let container = $state<HTMLLIElement | null>(null);
 
 	let interactiveContainer: ReturnType<typeof interact> | null = null;
 
@@ -46,7 +49,7 @@
 	}
 
 	let isSmallScreen: boolean;
-	// sm- breakpoint from tailwind
+	// 640px is sm- breakpoint from tailwind
 	const breakpoint = 640;
 
 	function updateScreenSize() {
@@ -98,7 +101,7 @@
 			class="{tailwindColors[task.category.color].hoverBg} {tailwindColors[task.category.color]
 				.hoverText}
 				rounded px-1.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300"
-			on:click={() => dispatch('edit', task)}
+			onclick={() => edit(task)}
 			type="button"
 		>
 			<Icon class="h-4 w-4 text-white" src={Settings2} />
