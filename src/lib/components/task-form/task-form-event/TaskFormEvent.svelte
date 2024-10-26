@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { TaskIn } from '$lib/task/task-in-utils';
 
-	import Input from '$lib/components/form/input2/Input.svelte';
-	import Toggle from '$lib/components/form/toggle2/Toggle.svelte';
+	import Input from '$lib/components/form/input/Input.svelte';
+	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import { getDuration, getEndTime } from '$lib/components/task-form/service';
 
 	interface Props {

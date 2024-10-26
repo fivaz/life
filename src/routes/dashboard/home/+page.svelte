@@ -6,7 +6,7 @@
 	import TaskCompletedNotificationStack from '$lib/components/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
 	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
 	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
-	import TypedCollection from '$lib/components/typed-collection2/TypedCollection.svelte';
+	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { buildEmptyEvent, buildEventWithTime } from '$lib/task/build-utils';
 	import { title } from '$lib/utils';

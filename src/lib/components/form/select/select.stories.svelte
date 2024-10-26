@@ -1,30 +1,33 @@
-<script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
-
+<script module lang="ts">
 	import { categories } from '$lib/category/seed';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
-	import { Story, Template } from '@storybook/addon-svelte-csf';
 
 	import Select from './Select.svelte';
 
-	export const meta = {
-		component: Select,
-	} satisfies Meta<Select>;
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 
-	let selectedCategory = categories[0].id;
+	const { Story } = defineMeta({
+		component: Select,
+	});
+
+	let selectedCategory = $state(categories[0]);
 </script>
 
-<Template let:args>
+{#snippet template(args)}
 	<div class="w-96">
 		<Select {...args} bind:value={selectedCategory}>
-			<span slot="placeholder">{categories[0].name}</span>
+			{#snippet placeholder()}
+				{selectedCategory.name}
+			{/snippet}
 			{#each categories as category (category)}
-				<SelectItem value={category}>{category.name}</SelectItem>
+				<SelectItem value={category}>
+					{category.name}
+				</SelectItem>
 			{/each}
 		</Select>
 	</div>
-</Template>
+{/snippet}
 
-<Story args={{}} name="With Label" />
+<Story args={{ label: 'Label' }} name="With Label" children={template} />
 
-<Story args={{ label: 'Label' }} name="Without Label" />
+<Story args={{}} name="Without Label" children={template} />

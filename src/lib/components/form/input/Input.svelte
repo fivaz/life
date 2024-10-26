@@ -1,39 +1,37 @@
 <script lang="ts">
-	import { clsx } from 'clsx';
-	import { createEventDispatcher } from 'svelte';
+	import type { HTMLInputAttributes } from 'svelte/elements';
 
-	export let label: string = '';
+	interface Props extends Omit<HTMLInputAttributes, 'oninput'> {
+		label?: string;
+		inputClass?: string;
+		labelClass?: string;
+		value?: string;
+		disabled?: boolean;
+		oninput?: (input: string) => void;
+	}
 
-	export let inputClass: string = '';
-
-	export let labelClass: string = '';
-
-	export let value: null | string | undefined = undefined;
-
-	const dispatch = createEventDispatcher<{ input: string }>();
+	let {
+		label,
+		inputClass,
+		labelClass,
+		value = $bindable(),
+		disabled,
+		oninput,
+		class: klass,
+		...rest
+	}: Props = $props();
 </script>
 
-<label
-	class={clsx(
-		$$props.class,
-		'block text-sm font-medium',
-		$$props.disabled ? 'text-gray-500' : 'text-gray-700',
-	)}
->
+<label class="{klass} block text-sm font-medium {disabled ? 'text-gray-500' : 'text-gray-700'}">
 	{#if label}
-		<span class={clsx(labelClass)}>
-			{label}
-		</span>
+		<span class={labelClass}>{label}</span>
 	{/if}
 	<input
-		{...$$props}
+		class:cursor-not-allowed={disabled}
+		class="{inputClass} block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 		bind:value
-		class={clsx(
-			inputClass,
-			{ 'cursor-not-allowed': $$props.disabled },
-			'block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm',
-		)}
-		on:input={(e) => dispatch('input', e.currentTarget.value)}
+		{...rest}
+		oninput={(e) => oninput?.(e.currentTarget.value)}
 	/>
 	<!--on:input needs to dispatch itself in order to its type be correctly typed, otherwise we can use
 	e.currentTarget outside a native inputElement and we can't cast a type inside a Svelte template-->

@@ -1,44 +1,45 @@
 <script lang="ts">
 	import { createDialog } from '$lib/components/dialog/service';
-	import Button from '$lib/components/form/button/Button.svelte';
-	import { createEventDispatcher } from 'svelte';
+	import Button from '$lib/components/form/button/Button2.svelte';
+	import { type Snippet } from 'svelte';
 
-	export let title = ' Are you sure?';
-	export let message = '';
-	export let confirmByKey: string | undefined = undefined;
+	interface Props {
+		title?: string;
+		message?: string;
+		confirmByKey?: string;
+		color?: 'indigo' | 'none' | 'red';
+		type?: 'button' | 'submit';
+		class?: string;
+		children?: Snippet;
+		confirm: () => void;
+	}
 
-	export let color: 'indigo' | 'none' | 'red' | undefined = undefined;
-
-	export let type: 'button' | 'submit' | undefined = undefined;
-
-	let dispatch = createEventDispatcher<{ confirm: null }>();
-
-	let className = '';
-	export { className as class };
+	let {
+		title = ' Are you sure?',
+		message = '',
+		confirmByKey,
+		color,
+		type,
+		class: klass = '',
+		children,
+		confirm,
+	}: Props = $props();
 
 	async function submit() {
 		if (await createDialog({ message, title })) {
-			dispatch('confirm');
+			confirm();
 		}
 	}
 </script>
 
 <svelte:window
-	on:keydown={async (e) => {
+	on:keydown={(e) => {
 		if (confirmByKey && e.key === confirmByKey) {
-			await submit();
+			submit();
 		}
 	}}
 />
 
-<Button
-	class={className}
-	{color}
-	on:click={async (e) => {
-		e.preventDefault();
-		await submit();
-	}}
-	{type}
->
-	<slot />
+<Button class={klass} {color} onclick={submit} {type}>
+	{@render children?.()}
 </Button>

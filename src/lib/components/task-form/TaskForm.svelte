@@ -6,11 +6,11 @@
 	import { tailwindColors } from '$lib/category/utils';
 	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
-	import Button from '$lib/components/form/button2/Button2.svelte';
-	import ConfirmButton from '$lib/components/form/confirm-button2/ConfirmButton.svelte';
-	import Input from '$lib/components/form/input2/Input.svelte';
-	import Select from '$lib/components/form/select2/Select.svelte';
-	import SelectItem from '$lib/components/form/select2/select-item/SelectItem.svelte';
+	import Button from '$lib/components/form/button/Button2.svelte';
+	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';
+	import Input from '$lib/components/form/input/Input.svelte';
+	import Select from '$lib/components/form/select/Select.svelte';
+	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import {
 		addTask,
 		deletePossibleSingleRecurringEvent,

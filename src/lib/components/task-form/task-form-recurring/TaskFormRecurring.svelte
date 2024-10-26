@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Input from '$lib/components/form/input2/Input.svelte';
-	import Toggle from '$lib/components/form/toggle2/Toggle.svelte';
+	import Input from '$lib/components/form/input/Input.svelte';
+	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import Flatpickr from 'svelte-flatpickr';
 
 	import DaysCheckbox from './days-checkbox/DaysCheckbox.svelte'; // TODO check later how I should import a precompiled component https://github.com/sveltejs/svelte/issues/604

@@ -2,14 +2,27 @@
 	import { ArrowPath } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
+	import type { Snippet } from 'svelte';
 
-	export let isLoading: boolean = false;
+	interface Props {
+		isLoading?: boolean;
+		color?: keyof typeof colors;
+		type?: 'button' | 'submit' | undefined;
+		disabled?: boolean;
+		class?: string;
+		children?: Snippet;
+		onclick?: ((e: MouseEvent) => void) | ((e: MouseEvent) => Promise<void>); //onclick is optional because it can be a submit form button
+	}
 
-	export let color: keyof typeof colors = 'indigo';
-
-	export let type: 'button' | 'submit' | undefined = undefined;
-
-	export let disabled = isLoading;
+	let {
+		isLoading = false,
+		color = 'indigo',
+		type = undefined,
+		disabled = isLoading,
+		class: className = '',
+		children,
+		onclick,
+	}: Props = $props();
 
 	const colors = {
 		indigo: 'focus-visible:outline-indigo-600 bg-indigo-600 hover:bg-indigo-500',
@@ -17,12 +30,9 @@
 		red: 'focus-visible:outline-red-600 bg-red-600 hover:bg-red-500',
 	} as const;
 
-	let className = '';
-	export { className as class };
+	let slot: HTMLElement | null = $state(null);
 
-	let slot: HTMLElement | null = null;
-
-	$: slotText = slot?.innerText || '';
+	let slotText = $derived(slot?.innerText || '');
 </script>
 
 <button
@@ -36,7 +46,7 @@
 		className,
 	)}
 	{disabled}
-	on:click
+	{onclick}
 	{type}
 >
 	{#if isLoading}
@@ -48,6 +58,6 @@
 		bind:this={slot}
 		class={clsx('flex items-center gap-2', { hidden: isLoading && !slotText })}
 	>
-		<slot />
+		{@render children?.()}
 	</span>
 </button>

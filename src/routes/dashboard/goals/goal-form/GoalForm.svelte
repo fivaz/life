@@ -2,10 +2,10 @@
 	import type { Goal } from '$lib/goal/utils';
 
 	import Alert from '$lib/components/form/alert/Alert.svelte';
-	import Button from '$lib/components/form/button2/Button2.svelte';
-	import ConfirmButton from '$lib/components/form/confirm-button2/ConfirmButton.svelte';
-	import Input from '$lib/components/form/input2/Input.svelte';
-	import Toggle from '$lib/components/form/toggle2/Toggle.svelte';
+	import Button from '$lib/components/form/button/Button2.svelte';
+	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';
+	import Input from '$lib/components/form/input/Input.svelte';
+	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 

@@ -3,7 +3,7 @@
 	import type { Goal } from '$lib/goal/utils';
 	import type { Task } from '$lib/task/utils';
 
-	import Modal from '$lib/components/modal2/Modal.svelte';
+	import Modal from '$lib/components/modal/Modal.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import {
 		addTask,

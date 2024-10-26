@@ -1,13 +1,18 @@
-<script generics="T" lang="ts">
+<script lang="ts" generics="T">
 	import type { CollectionReference, Query } from 'firebase/firestore';
+	import type { Snippet } from 'svelte';
 
 	import { db } from '$lib/firebase';
 	import { type Readable, derived } from 'svelte/store';
 	import { collectionStore } from 'sveltefire';
-	// eslint-disable-next-line no-undef
-	export let type: T;
 
-	export let ref: CollectionReference | Query | string;
+	interface Props {
+		ref: CollectionReference | Query | string;
+		type: T;
+		data: Snippet<[T[]]>;
+	}
+
+	let { type, ref, data }: Props = $props();
 
 	const raw = collectionStore(db, ref) as Readable<Array<typeof type & { ref: never }>>;
 
@@ -17,7 +22,5 @@
 </script>
 
 {#if $dataStore}
-	<slot data={$dataStore} {type} />
-{:else}
-	<slot name="loading" />
+	{@render data($dataStore)}
 {/if}

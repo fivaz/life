@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { CategoryTypes } from '$lib/category/utils';
-	import TypedCollection from '$lib/components/typed-collection2/TypedCollection.svelte';
+	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { db } from '$lib/firebase';
 	import { type Task } from '$lib/task/utils';

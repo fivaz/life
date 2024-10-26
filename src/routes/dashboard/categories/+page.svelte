@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { Category } from '$lib/category/utils';
 
-	import Button2 from '$lib/components/form/button2/Button2.svelte';
-	import Modal from '$lib/components/modal2/Modal.svelte';
-	import TypedCollection from '$lib/components/typed-collection2/TypedCollection.svelte';
+	import Button2 from '$lib/components/form/button/Button2.svelte';
+	import Modal from '$lib/components/modal/Modal.svelte';
+	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { title } from '$lib/utils';
 	import { SignedIn } from 'sveltefire';

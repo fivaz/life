@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { Task } from '$lib/task/utils.js';
 
-	import Select from '$lib/components/form/select2/Select.svelte';
-	import SelectItem from '$lib/components/form/select2/select-item/SelectItem.svelte';
+	import Select from '$lib/components/form/select/Select.svelte';
+	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 
 	import {
 		type ReportInterval,

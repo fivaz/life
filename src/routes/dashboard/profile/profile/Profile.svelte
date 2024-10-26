@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Alert from '$lib/components/form/alert/Alert.svelte';
-	import Button from '$lib/components/form/button2/Button2.svelte';
-	import Input from '$lib/components/form/input2/Input.svelte';
+	import Button from '$lib/components/form/button/Button2.svelte';
+	import Input from '$lib/components/form/input/Input.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { db } from '$lib/firebase';
 	import { storeAvatar, updateUser } from '$lib/auth/utils';

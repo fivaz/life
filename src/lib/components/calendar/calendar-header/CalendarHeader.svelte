@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { selectedDate, weekStart } from '$lib/components/calendar/service';
-	import Button from '$lib/components/form/button2/Button2.svelte';
+	import Button from '$lib/components/form/button/Button2.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 	import { DATE } from '$lib/consts';
 	import { getCurrentRoundedDate } from '$lib/task/time-utils';

@@ -1,10 +1,10 @@
 <script lang="ts">
 	import type { Routine } from '$lib/routine/utils';
 
-	import Button from '$lib/components/form/button2/Button2.svelte';
-	import Modal from '$lib/components/modal2/Modal.svelte';
+	import Button from '$lib/components/form/button/Button2.svelte';
+	import Modal from '$lib/components/modal/Modal.svelte';
 	import Streak from '$lib/components/streak/Streak.svelte';
-	import TypedCollection from '$lib/components/typed-collection2/TypedCollection.svelte';
+	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 	import WeekListSelector from '$lib/components/week-list-selector/WeekListSelector.svelte';
 	import { DB_PATH } from '$lib/consts';
