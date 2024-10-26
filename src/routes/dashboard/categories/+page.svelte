@@ -2,7 +2,7 @@
 	import type { Category } from '$lib/category/utils';
 
 	import Button2 from '$lib/components/form/button2/Button2.svelte';
-	import Modal from '$lib/components/modal/Modal.svelte';
+	import Modal from '$lib/components/modal2/Modal.svelte';
 	import TypedCollection from '$lib/components/typed-collection2/TypedCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { title } from '$lib/utils';
@@ -52,7 +52,7 @@
 					{/each}
 				</ul>
 
-				<Modal on:close={() => (showForm = false)} show={showForm}>
+				<Modal close={() => (showForm = false)} show={showForm}>
 					<CategoryForm
 						category={editingCategory}
 						close={() => (showForm = false)}
