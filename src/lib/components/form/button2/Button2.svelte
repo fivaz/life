@@ -11,7 +11,7 @@
 		disabled?: boolean;
 		class?: string;
 		children?: Snippet;
-		onclick: () => void;
+		onclick?: ((e: MouseEvent) => void) | ((e: MouseEvent) => Promise<void>); //onclick is optional because it can be a submit form button
 	}
 
 	let {

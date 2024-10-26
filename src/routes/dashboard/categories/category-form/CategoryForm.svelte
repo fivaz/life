@@ -2,15 +2,14 @@
 	import { type Category, CategoryTypes } from '$lib/category/utils';
 	import { tailwindColors } from '$lib/category/utils';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
-	import Button from '$lib/components/form/button/Button.svelte';
-	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';
+	import Button from '$lib/components/form/button2/Button2.svelte';
+	import ConfirmButton from '$lib/components/form/confirm-button2/ConfirmButton.svelte';
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select2/Select.svelte';
 	import SelectItem from '$lib/components/form/select2/select-item/SelectItem.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { clsx } from 'clsx';
 
 	import { addCategory, deleteCategory, editCategory } from './service';
 
@@ -140,8 +139,9 @@
 		{#if isEditing}
 			<ConfirmButton
 				color="red"
-				on:confirm={() => deleteCategory(category.id, userId, close)}
+				confirm={() => deleteCategory(category.id, userId, close)}
 				type="button"
+				confirmByKey="Delete"
 			>
 				Delete
 			</ConfirmButton>
