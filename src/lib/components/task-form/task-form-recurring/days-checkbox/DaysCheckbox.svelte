@@ -1,14 +1,13 @@
 <script lang="ts">
-	import { clsx } from 'clsx';
-
 	import { weekDays } from './service';
 
-	export let value: string[];
+	interface Props {
+		value: string[];
+		name: string;
+		class?: string;
+	}
 
-	export let name: string;
-
-	let className = '';
-	export { className as class };
+	let { value = $bindable(), name, class: klass }: Props = $props();
 
 	function handleCheckboxChange(day: string) {
 		const index = value.indexOf(day);
@@ -29,7 +28,7 @@
 
 <input {name} type="hidden" {value} />
 
-<div class={clsx(className)}>
+<div class={klass}>
 	{#each weekDays as day (day)}
 		<div class="flex flex-col items-center gap-1">
 			<label class="text-sm font-medium text-gray-700" for={day}>{day}</label>
@@ -37,7 +36,7 @@
 				checked={value.includes(day)}
 				class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
 				id={day}
-				on:change={() => handleCheckboxChange(day)}
+				onchange={() => handleCheckboxChange(day)}
 				type="checkbox"
 			/>
 		</div>

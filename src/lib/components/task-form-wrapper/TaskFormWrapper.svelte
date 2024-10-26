@@ -3,7 +3,7 @@
 	import type { Goal } from '$lib/goal/utils';
 	import type { Task } from '$lib/task/utils';
 
-	import Modal from '$lib/components/modal/Modal.svelte';
+	import Modal from '$lib/components/modal2/Modal.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 	import {
 		addTask,
@@ -17,12 +17,23 @@
 
 	import { removeLocalTask } from '../../../routes/dashboard/home/service';
 
-	export let userId: string;
-	export let categories: Category[];
-	export let goals: Goal[] = [];
-	export let targetDate: string | undefined = undefined;
-	export let editingTask: Task;
-	export let show: boolean;
+	interface Props {
+		userId: string;
+		categories: Category[];
+		goals?: Goal[];
+		targetDate?: string;
+		editingTask: Task;
+		isShown: boolean;
+	}
+
+	let {
+		userId,
+		categories,
+		goals = [],
+		targetDate,
+		editingTask,
+		isShown = $bindable(),
+	}: Props = $props();
 
 	let goalsStore: ReturnType<typeof collectionStore<Goal>> | Writable<Goal[]> =
 		writable<Goal[]>(goals);
@@ -31,45 +42,17 @@
 		goalsStore = collectionStore<Goal>(db, queryUncompletedGoals(userId));
 	}
 
-	async function removeTask(userId: string, task: Task, targetDate: string | undefined) {
-		if (await deletePossibleSingleRecurringEvent(task, userId, targetDate)) {
-			removeLocalTask(task);
-			close();
-		}
-	}
-
-	function createTask(userId: string, data: Omit<Task, 'id'>, file: File | null) {
-		addTask(data, userId, file);
-		close();
-	}
-
-	async function editTask(args: {
-		data: Omit<Task, 'id'>;
-		file: File | null;
-		formerGoal: Goal | null;
-		id: string;
-		targetDate: string | undefined;
-		userId: string;
-		wasRecurring: boolean;
-	}) {
-		if (await editTaskWithPrompt(args)) {
-			close();
-		}
-	}
-
 	function close() {
-		show = false;
+		isShown = false;
 	}
 </script>
 
-<Modal on:close={() => close()} {show}>
+<Modal {close} {isShown}>
 	<TaskForm
+		{userId}
 		{categories}
 		goals={sortGoals($goalsStore)}
-		on:close={() => close()}
-		on:createTask={(e) => createTask(userId, e.detail.data, e.detail.file)}
-		on:editTask={(e) => editTask({ userId, ...e.detail })}
-		on:removeTask={(e) => removeTask(userId, e.detail.task, e.detail.targetDate)}
+		{close}
 		{targetDate}
 		task={editingTask}
 	/>

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Input from '$lib/components/form/input/Input.svelte';
-	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
+	import Input from '$lib/components/form/input2/Input.svelte';
+	import Toggle from '$lib/components/form/toggle2/Toggle.svelte';
 	import Flatpickr from 'svelte-flatpickr';
 
 	import DaysCheckbox from './days-checkbox/DaysCheckbox.svelte'; // TODO check later how I should import a precompiled component https://github.com/sveltejs/svelte/issues/604
@@ -8,16 +8,20 @@
 
 	import 'flatpickr/dist/themes/airbnb.css';
 
-	export let taskIn: TaskIn;
+	interface Props {
+		taskIn: TaskIn;
+	}
 
-	let isRecurringOpen = false;
+	let { taskIn = $bindable() }: Props = $props();
+
+	let isRecurringOpen = $state(false);
 </script>
 
 <div class="rounded-lg bg-white p-2">
 	<div class="flex">
 		<button
 			class="flex-1 text-start"
-			on:click={() => {
+			onclick={() => {
 				if (taskIn.isRecurring) {
 					isRecurringOpen = !isRecurringOpen;
 				} else {
@@ -28,10 +32,11 @@
 		>
 			Recurring
 		</button>
+
 		<Toggle
 			bind:value={taskIn.isRecurring}
-			on:change={(e) => {
-				if (e.detail) {
+			onchange={(value) => {
+				if (value) {
 					isRecurringOpen = true;
 				}
 			}}

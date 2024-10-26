@@ -1,20 +1,24 @@
 <script lang="ts">
 	import type { TaskIn } from '$lib/task/task-in-utils';
 
-	import Input from '$lib/components/form/input/Input.svelte';
-	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
+	import Input from '$lib/components/form/input2/Input.svelte';
+	import Toggle from '$lib/components/form/toggle2/Toggle.svelte';
 	import { getDuration, getEndTime } from '$lib/components/task-form/service';
 
-	export let taskIn: TaskIn;
+	interface Props {
+		taskIn: TaskIn;
+	}
 
-	let isEventOpen = true;
+	let { taskIn = $bindable() }: Props = $props();
+
+	let isEventOpen = $state(true);
 </script>
 
 <div class="rounded-lg bg-white p-2">
 	<div class="flex">
 		<button
 			class="flex-1 text-start"
-			on:click={() => {
+			onclick={() => {
 				if (taskIn.isEvent) {
 					isEventOpen = !isEventOpen;
 				} else {
@@ -25,7 +29,7 @@
 		>
 			Event
 		</button>
-		<Toggle bind:value={taskIn.isEvent} on:change={(e) => (isEventOpen = e.detail)} />
+		<Toggle bind:value={taskIn.isEvent} onchange={(value) => (isEventOpen = value)} />
 	</div>
 
 	{#if taskIn.isEvent}
@@ -47,7 +51,7 @@
 					class="w-1/2"
 					label="Start time"
 					name="startTime"
-					on:input={(e) => (taskIn.endTime = getEndTime(e.detail, taskIn.duration))}
+					oninput={(input) => (taskIn.endTime = getEndTime(input, taskIn.duration))}
 					required
 					type="time"
 				/>
@@ -57,7 +61,7 @@
 					class="w-1/2"
 					label="End time"
 					name="endTime"
-					on:input={(e) => (taskIn.duration = getDuration(taskIn.startTime, e.detail))}
+					oninput={(input) => (taskIn.duration = getDuration(taskIn.startTime, input))}
 					required
 					type="time"
 				/>

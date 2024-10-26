@@ -3,15 +3,15 @@
 	import type { Snippet } from 'svelte';
 
 	interface Props {
-		show: boolean;
+		isShown: boolean;
 		children?: Snippet;
 		close: () => void;
 	}
 
-	let { show, close, children }: Props = $props();
+	let { isShown, close, children }: Props = $props();
 </script>
 
-{#if show}
+{#if isShown}
 	<Portal target="body">
 		<div class="fixed inset-0 z-20 flex items-center justify-center">
 			<button

@@ -91,7 +91,7 @@
 									</div>
 								{/each}
 								<TaskFormWrapper
-									bind:show={showTaskForm}
+									bind:isShown={showTaskForm}
 									{categories}
 									{editingTask}
 									{goals}

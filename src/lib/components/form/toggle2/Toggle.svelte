@@ -2,12 +2,18 @@
 	interface Props {
 		value: boolean;
 		label?: string;
+		onchange?: (value: boolean) => void;
 	}
 
-	let { value = $bindable(), label = '' }: Props = $props();
+	let { value = $bindable(), label = '', onchange }: Props = $props();
+
+	function handleClick() {
+		value = !value;
+		onchange?.(value);
+	}
 </script>
 
-<button onclick={() => (value = !value)} type="button" class="w-full">
+<button onclick={handleClick} type="button" class="w-full">
 	<span class="flex items-center gap-2">
 		<span class="flex-1 text-start">{label}</span>
 		<span

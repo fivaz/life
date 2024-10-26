@@ -6,60 +6,77 @@
 	import { tailwindColors } from '$lib/category/utils';
 	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
-	import Button from '$lib/components/form/button/Button.svelte';
-	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';
-	import Input from '$lib/components/form/input/Input.svelte';
-	import Select from '$lib/components/form/select/Select.svelte';
-	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
-	import { getEndTime } from '$lib/components/task-form/service';
+	import Button from '$lib/components/form/button2/Button2.svelte';
+	import ConfirmButton from '$lib/components/form/confirm-button2/ConfirmButton.svelte';
+	import Input from '$lib/components/form/input2/Input.svelte';
+	import Select from '$lib/components/form/select2/Select.svelte';
+	import SelectItem from '$lib/components/form/select2/select-item/SelectItem.svelte';
+	import {
+		addTask,
+		deletePossibleSingleRecurringEvent,
+		editTaskWithPrompt,
+		getEndTime,
+	} from '$lib/components/task-form/service';
 	import TaskFormEvent from '$lib/components/task-form/task-form-event/TaskFormEvent.svelte';
 	import TaskFormImage from '$lib/components/task-form/task-form-image/TaskFormImage.svelte';
 	import TaskFormRecurring from '$lib/components/task-form/task-form-recurring/TaskFormRecurring.svelte';
 	import { checkErrors, convertToAnyTask, convertToTaskIn } from '$lib/task/task-in-utils';
 	import { EllipsisVertical, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { clsx } from 'clsx';
-	import { createEventDispatcher } from 'svelte';
 
 	import GoalIcon from '../../../routes/dashboard/goals/goal-form/goal-icon/GoalIcon.svelte';
+	import { isToDo } from '$lib/task/utils.js';
+	import { removeLocalTask } from '../../../routes/dashboard/home/service';
 
-	export let task: Task;
+	interface Props {
+		userId: string;
+		task: Task;
+		goals: Goal[];
+		categories: Category[];
+		targetDate?: string;
+		close: () => void;
+	}
 
-	export let goals: Goal[];
+	let { task, goals, categories, targetDate, userId, close }: Props = $props();
 
-	export let categories: Category[];
+	const taskInInit = convertToTaskIn(task);
 
-	export let targetDate: string | undefined = undefined;
+	let taskIn = $state({ ...taskInInit });
 
-	let taskIn = convertToTaskIn(task);
+	const wasRecurring = taskInInit.isRecurring;
 
-	let wasRecurring = taskIn.isRecurring;
+	const formerGoal = taskInInit.goal;
 
-	let formerGoal = taskIn.goal;
+	let errorMessage = $state('');
 
-	let errorMessage = '';
+	let file: File | null = $state(null);
 
-	let file: File | null = null;
+	let isEditing = $derived(!!task.id);
 
-	const dispatch = createEventDispatcher<{
-		close: null;
-		createTask: { data: Omit<Task, 'id'>; file: File | null };
-		editTask: {
-			data: Omit<Task, 'id'>;
-			file: File | null;
-			formerGoal: Goal | null;
-			id: string;
-			targetDate: string | undefined;
-			wasRecurring: boolean;
-		};
-		removeTask: { targetDate: string | undefined; task: Task };
-	}>();
+	let formName = $derived(`${isEditing ? 'Edit' : 'Add'} ${isToDo(task) ? 'Task' : 'Event'}`);
 
-	$: isEditing = !!task.id;
+	function createTask(data: Omit<Task, 'id'>) {
+		addTask(data, userId, file);
+		close();
+	}
 
-	$: formName = `${isEditing ? 'Edit' : 'Add'} ${'startTime' in task ? 'Event' : 'Task'}`;
+	async function editTask(data: Omit<Task, 'id'>, id: string) {
+		if (
+			await editTaskWithPrompt({ data, id, file, userId, targetDate, formerGoal, wasRecurring })
+		) {
+			close();
+		}
+	}
 
-	function onSubmit() {
+	async function removeTask() {
+		if (await deletePossibleSingleRecurringEvent(taskIn, userId, targetDate)) {
+			removeLocalTask(taskIn);
+			close();
+		}
+	}
+
+	function onSubmit(event: SubmitEvent) {
+		event.preventDefault();
 		errorMessage = checkErrors(taskIn);
 		if (errorMessage) {
 			return;
@@ -68,9 +85,9 @@
 		const { id, ...data } = convertToAnyTask(taskIn);
 
 		if (id) {
-			dispatch('editTask', { data, file, formerGoal, id, targetDate, wasRecurring });
+			editTask(data, id);
 		} else {
-			dispatch('createTask', { data, file });
+			createTask(data);
 		}
 	}
 
@@ -84,7 +101,7 @@
 
 <form
 	class="relative w-11/12 max-w-[355px] overflow-hidden rounded-md text-start font-medium shadow"
-	on:submit|preventDefault={onSubmit}
+	onsubmit={onSubmit}
 >
 	<div class="bg-neutral-100 p-4">
 		<div class="flex flex-col gap-2 text-sm text-gray-700">
@@ -96,7 +113,7 @@
 					</button>
 					<button
 						class="rounded-md p-1 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
-						on:click={() => dispatch('close')}
+						onclick={close}
 						type="button"
 					>
 						<span class="sr-only">Dismiss</span>
@@ -110,13 +127,7 @@
 			</Alert>
 
 			<div class="flex items-center gap-3">
-				<Input
-					autocomplete="off"
-					bind:value={taskIn.name}
-					class="flex-1"
-					name="name"
-					placeholder="Name"
-				/>
+				<Input autocomplete="off" bind:value={taskIn.name} class="flex-1" placeholder="Name" />
 
 				<label>
 					<input
@@ -135,12 +146,11 @@
 			<Collapsable title="Description">
 				<label class="block text-sm text-gray-700">
 					<textarea
-						bind:value={taskIn.description}
+						value={taskIn.description}
 						class="block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-						name="description"
-						on:input={(e) => (taskIn.description = formatSubTasks(e.currentTarget.value))}
+						oninput={(e) => (taskIn.description = formatSubTasks(e.currentTarget.value))}
 						placeholder="Create subtasks for this task using bullet points with `-`. Fill in the boxes to mark them as completed."
-					/>
+					></textarea>
 				</label>
 			</Collapsable>
 
@@ -151,15 +161,16 @@
 				labelClass="w-1/5"
 				selectClass="flex-1"
 			>
-				<div class="flex items-center gap-3" slot="placeholder">
-					<div class={clsx('h-5 w-5 rounded-md', tailwindColors[taskIn.category.color]?.darkBg)} />
-					{taskIn.category.name}
-				</div>
-
+				{#snippet placeholder()}
+					<div class="flex items-center gap-3">
+						<div class="h-5 w-5 rounded-md {tailwindColors[taskIn.category.color]?.darkBg}"></div>
+						{taskIn.category.name}
+					</div>
+				{/snippet}
 				{#each categories as category (category)}
 					<SelectItem value={category}>
 						<div class="flex items-center gap-3">
-							<div class={clsx('h-5 w-5 rounded-md', tailwindColors[category.color]?.darkBg)} />
+							<div class="h-5 w-5 rounded-md {tailwindColors[category.color]?.darkBg}"></div>
 							{category.name}
 						</div>
 					</SelectItem>
@@ -173,7 +184,9 @@
 				labelClass="w-1/5"
 				selectClass="flex-1"
 			>
-				<span slot="placeholder">{taskIn.goal?.name || 'no goal'}</span>
+				{#snippet placeholder()}
+					{taskIn.goal?.name || 'no goal'}
+				{/snippet}
 				<SelectItem value={null}>no goal</SelectItem>
 				{#each goals as goal (goal)}
 					<SelectItem class="flex gap-2" value={goal}>
@@ -189,7 +202,6 @@
 					class="w-1/2"
 					disabled={taskIn.isEvent}
 					label="Deadline"
-					name="deadline"
 					type="date"
 				/>
 
@@ -197,8 +209,7 @@
 					bind:value={taskIn.duration}
 					class="w-1/2"
 					label="Duration"
-					name="duration"
-					on:input={(e) => (taskIn.endTime = getEndTime(taskIn.startTime, e.detail))}
+					oninput={(input) => (taskIn.endTime = getEndTime(taskIn.startTime, input))}
 					required
 					type="time"
 				/>
@@ -214,12 +225,7 @@
 
 	<div class="flex justify-between bg-gray-50 px-4 py-3 text-right sm:px-6">
 		{#if isEditing}
-			<ConfirmButton
-				color="red"
-				confirmByKey="Delete"
-				on:confirm={() => dispatch('removeTask', { targetDate, task })}
-				type="button"
-			>
+			<ConfirmButton color="red" confirmByKey="Delete" confirm={removeTask} type="button">
 				Delete
 			</ConfirmButton>
 		{:else}
