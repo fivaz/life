@@ -88,7 +88,7 @@
 					</div>
 				{/if}
 
-				<Modal close={() => (showForm = false)} isOpen={showForm}>
+				<Modal bind:isOpen={showForm}>
 					<RoutineForm close={() => (showForm = false)} routine={editingRoutine} {userId} />
 				</Modal>
 			{/snippet}

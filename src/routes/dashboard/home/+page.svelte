@@ -5,14 +5,13 @@
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
 	import TaskCompletedNotificationStack from '$lib/components/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
 	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
-	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
-	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
-	import { DB_PATH } from '$lib/consts';
 	import { buildEmptyEvent, buildEventWithTime } from '$lib/task/build-utils';
 
-	import AuthGuard from '$lib/components/auth-guard/AuthGuard.svelte';
-
 	import { runeTasks, getWeekTasks, moveEvent, persistToDos } from './service.svelte';
+	import DBCategories from '$lib/category/DBCategories.svelte';
+	import DBGoals from '$lib/goal/DBGoals.svelte';
+	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
+	import Modal from '$lib/components/modal/Modal.svelte';
 
 	let targetDate = $state<string | undefined>();
 
@@ -46,32 +45,33 @@
 		editPossibleSingleRecurringEvent(newEvent, userId, targetDate);
 		updateNotification(newEvent);
 	}
-
-	let categoryType: Category;
 </script>
 
-<AuthGuard>
-	{#snippet data(user)}
-		<TypedCollection ref="{DB_PATH.USERS}/{user.uid}/{DB_PATH.CATEGORIES}" type={categoryType}>
-			{#snippet data(categories)}
-				<Calendar
-					changeWeek={(weekStart) => getWeekTasks(user.uid, weekStart)}
-					createTask={(date) => openFormToCreateTask(categories, date)}
-					editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
-					moveEvent={(event, moveObject) => moveEvent(user.uid, event, moveObject)}
-					persistToDos={(toDos) => persistToDos(user.uid, toDos)}
-					tasks={runeTasks().value}
-					toggleEvent={(event, targetDate) => toggleCompletion(user.uid, event, targetDate)}
-				/>
-				<TaskFormWrapper
-					bind:isOpen={isFormShown}
-					{categories}
-					{editingTask}
-					{targetDate}
-					userId={user.uid}
-				/>
+<DBCategories>
+	{#snippet data(categories, userId)}
+		<Calendar
+			changeWeek={(weekStart) => getWeekTasks(userId, weekStart)}
+			createTask={(date) => openFormToCreateTask(categories, date)}
+			editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
+			moveEvent={(event, moveObject) => moveEvent(userId, event, moveObject)}
+			persistToDos={(toDos) => persistToDos(userId, toDos)}
+			tasks={runeTasks().value}
+			toggleEvent={(event, targetDate) => toggleCompletion(userId, event, targetDate)}
+		/>
+		<DBGoals>
+			{#snippet data(goals)}
+				<Modal bind:isOpen={isFormShown}>
+					<TaskForm
+						{userId}
+						{categories}
+						{goals}
+						close={() => (isFormShown = false)}
+						task={editingTask}
+						{targetDate}
+					/>
+				</Modal>
 			{/snippet}
-		</TypedCollection>
-		<TaskCompletedNotificationStack bind:completedTasks />
+		</DBGoals>
+		<TaskCompletedNotificationStack bind:completedTasks {userId} />
 	{/snippet}
-</AuthGuard>
+</DBCategories>

@@ -1,21 +1,21 @@
 <script lang="ts">
-	import type { Goal } from '$lib/goal/utils';
+	import type { Task } from '$lib/task/utils';
 	import { DB_PATH } from '$lib/consts';
 
 	import type { Snippet } from 'svelte';
 	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
-	import { orderBy } from 'firebase/firestore';
+	import { where } from 'firebase/firestore';
 
 	interface Props {
-		data: Snippet<[Goal[], string]>;
+		data: Snippet<[Task[], string]>;
 	}
 
 	let { data: typedData }: Props = $props();
 
-	let goalType: Goal;
+	let taskType: Task;
 </script>
 
-<DBCollection collection={DB_PATH.GOALS} type={goalType} constrain={orderBy('deadline')}>
+<DBCollection constrain={where('isDone', '==', false)} collection={DB_PATH.TASKS} type={taskType}>
 	{#snippet data(items, userId)}
 		{@render typedData(items, userId)}
 	{/snippet}

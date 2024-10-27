@@ -5,10 +5,10 @@
 	interface Props {
 		isOpen: boolean;
 		children: Snippet;
-		close: () => void;
+		close?: () => void;
 	}
 
-	let { isOpen, close, children }: Props = $props();
+	let { isOpen = $bindable(), close = () => (isOpen = false), children }: Props = $props();
 </script>
 
 {#if isOpen}

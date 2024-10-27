@@ -4,8 +4,8 @@
 	import { type Task } from '$lib/task/utils';
 
 	import { where } from 'firebase/firestore';
-	
-import ReportTasksByTime from './report-tasks-by-time/ReportTasksByTime.svelte';
+
+	import ReportTasksByTime from './report-tasks-by-time/ReportTasksByTime.svelte';
 	import { title } from '$lib/utils.svelte';
 	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
 

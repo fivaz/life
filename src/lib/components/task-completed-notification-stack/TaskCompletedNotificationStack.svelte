@@ -2,13 +2,13 @@
 	import type { Task } from '$lib/task/utils';
 
 	import TaskCompletedNotification from '$lib/components/task-completed-notification-stack/task-completed-notification/TaskCompletedNotification.svelte';
-	import AuthGuard from '$lib/components/auth-guard/AuthGuard.svelte';
 
 	interface Props {
 		completedTasks?: Task[];
+		userId: string;
 	}
 
-	let { completedTasks = $bindable([]) }: Props = $props();
+	let { userId, completedTasks = $bindable([]) }: Props = $props();
 
 	function removeNotification(index: number) {
 		completedTasks = completedTasks.filter((_, i) => i !== index);
@@ -20,16 +20,8 @@
 	class="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6"
 >
 	<div class="flex w-full flex-col items-center space-y-4 sm:items-end">
-		<AuthGuard>
-			{#snippet data(user)}
-				{#each completedTasks as task, index (task.id)}
-					<TaskCompletedNotification
-						onRemove={() => removeNotification(index)}
-						{task}
-						userId={user.uid}
-					/>
-				{/each}
-			{/snippet}
-		</AuthGuard>
+		{#each completedTasks as task, index (task.id)}
+			<TaskCompletedNotification onRemove={() => removeNotification(index)} {task} {userId} />
+		{/each}
 	</div>
 </div>

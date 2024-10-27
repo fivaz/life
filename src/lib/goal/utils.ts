@@ -17,7 +17,7 @@ export function queryUncompletedGoals(userId: string) {
 	return query(goalsRef, where('isDone', '==', false)) as Query<Goal>;
 }
 
-export function sortGoals(goals: Goal[]) {
+export function sortByDeadline(goals: Goal[]) {
 	return goals.toSorted((a, b) => {
 		const dateA = a.deadline ? parse(a.deadline, DATE, new Date()) : null;
 		const dateB = b.deadline ? parse(b.deadline, DATE, new Date()) : null;

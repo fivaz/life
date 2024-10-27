@@ -1,10 +1,9 @@
 <script lang="ts">
-	import type { Goal } from '$lib/goal/utils';
+	import { type Goal } from '$lib/goal/utils';
 	import type { Task } from '$lib/task/utils';
 
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import TaskFormWrapper from '$lib/components/task-form-wrapper/TaskFormWrapper.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { buildEmptyEvent, buildEmptyToDo } from '$lib/task/build-utils';
 	import { title } from '$lib/utils.svelte';
@@ -16,6 +15,7 @@
 	import DBGoals from '$lib/goal/DBGoals.svelte';
 	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
 	import DBCategories from '$lib/category/DBCategories.svelte';
+	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 
 	let editingGoal = $state(buildEmptyGoal());
 
@@ -23,7 +23,7 @@
 
 	let showForm = $state(false);
 
-	let showTaskForm = $state(false);
+	let isTaskFormOpen = $state(false);
 
 	let taskType: Task;
 
@@ -67,12 +67,12 @@
 												<GoalRow
 													{goal}
 													addTask={() => {
-														showTaskForm = true;
+														isTaskFormOpen = true;
 														editingTask = buildEmptyEvent(categories, goal);
 													}}
 													editGoal={(goal) => handleEditGoal(goal)}
 													editTask={(task) => {
-														showTaskForm = true;
+														isTaskFormOpen = true;
 														editingTask = task;
 													}}
 													{tasks}
@@ -82,18 +82,21 @@
 									{/each}
 								</div>
 							{/each}
-							<TaskFormWrapper
-								bind:isOpen={showTaskForm}
-								{categories}
-								{editingTask}
-								{goals}
-								{userId}
-							/>
+
+							<Modal bind:isOpen={isTaskFormOpen}>
+								<TaskForm
+									{userId}
+									{categories}
+									{goals}
+									close={() => (isTaskFormOpen = false)}
+									task={editingTask}
+								/>
+							</Modal>
 						{/snippet}
 					</DBGoals>
 				</ul>
 
-				<Modal close={() => (showForm = false)} isOpen={showForm}>
+				<Modal bind:isOpen={showForm}>
 					<GoalForm goal={editingGoal} close={() => (showForm = false)} {userId} />
 				</Modal>
 			</div>

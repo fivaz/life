@@ -44,7 +44,7 @@
 				{/each}
 			</ul>
 
-			<Modal close={() => (isFormOpen = false)} isOpen={isFormOpen}>
+			<Modal bind:isOpen={isFormOpen}>
 				<CategoryForm category={editingCategory} close={() => (isFormOpen = false)} {userId} />
 			</Modal>
 		{/snippet}
