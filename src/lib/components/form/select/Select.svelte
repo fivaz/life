@@ -2,7 +2,7 @@
 	import { ChevronUpDown } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
-	import { setContext, type Snippet } from 'svelte';
+	import { onMount, setContext, type Snippet } from 'svelte';
 
 	interface Props {
 		label?: string;
@@ -10,21 +10,23 @@
 		class?: string;
 		labelClass?: string;
 		selectClass?: string;
-		placeholder?: Snippet;
-		children?: Snippet;
+		placeholder: Snippet;
+		children: Snippet;
 	}
 
 	let {
 		label = '',
 		value = $bindable(),
-		class: klass = '',
-		labelClass = '',
-		selectClass = '',
+		class: klass,
+		labelClass,
+		selectClass,
 		placeholder,
 		children,
 	}: Props = $props();
 
 	let isOpen = $state<boolean>(false);
+
+	let list = $state<HTMLDivElement | null>(null);
 
 	function selectItem(event: MouseEvent) {
 		const li = (event.target as HTMLElement).closest('li');
@@ -38,13 +40,35 @@
 		isOpen = false;
 	}
 
+	function toggleIsOpen() {
+		isOpen = !isOpen;
+	}
+
+	function closeOnClickOutside(event: MouseEvent) {
+		if (!isOpen) return;
+
+		if (!(event.target instanceof HTMLElement)) return;
+
+		if (!list) return;
+
+		if (list.contains(event.target)) return;
+
+		isOpen = false;
+	}
+
+	onMount(() => {
+		document.addEventListener('click', closeOnClickOutside);
+		return () => {
+			document.removeEventListener('click', closeOnClickOutside);
+		};
+	});
+
 	$effect(() => {
 		setContext('selectedValue', value);
 	});
 </script>
 
-<!--TODO make click outside close dropdown-->
-<div class={clsx(klass, 'text-sm font-medium text-gray-700')}>
+<div bind:this={list} class={clsx(klass, 'text-sm font-medium text-gray-700')}>
 	{#if label}
 		<div class={labelClass}>
 			{label}
@@ -54,10 +78,10 @@
 		<button
 			class="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
 			type="button"
-			onclick={() => (isOpen = !isOpen)}
+			onclick={toggleIsOpen}
 		>
 			<span class="block truncate">
-				{@render placeholder?.()}
+				{@render placeholder()}
 			</span>
 			<span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
 				<Icon aria-hidden="true" class="h-5 w-5 text-gray-400" src={ChevronUpDown} />
@@ -70,7 +94,7 @@
 				class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
 				onclick={selectItem}
 			>
-				{@render children?.()}
+				{@render children()}
 			</ul>
 		{/if}
 	</div>

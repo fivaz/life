@@ -7,7 +7,7 @@
 	interface Props {
 		class?: string;
 		value: unknown;
-		children?: Snippet;
+		children: Snippet;
 	}
 
 	let { class: klass = '', value, children }: Props = $props();
@@ -22,7 +22,7 @@
 	data-value={valueString}
 >
 	<span class={clsx('truncate font-normal group-hover:font-semibold', klass)}>
-		{@render children?.()}
+		{@render children()}
 	</span>
 
 	{#if JSON.stringify(selectedValue) === valueString}
