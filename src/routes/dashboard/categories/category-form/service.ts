@@ -3,12 +3,12 @@ import { tailwindColors } from '$lib/category/utils';
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
 import {
-	addDoc,
 	collection,
 	deleteDoc,
 	doc,
 	getDocs,
 	query,
+	setDoc,
 	updateDoc,
 	where,
 	writeBatch,
@@ -25,10 +25,12 @@ export function buildEmptyCategory() {
 }
 
 export function editCategory(id: string, data: Omit<Category, 'id'>, userId: string) {
-	// TODO when one select a category as default, make all other non default
 	const categoryDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES, id);
 	void updateDoc(categoryDocRef, data);
 	void updateCategoryInTasks(id, data, userId);
+	if (data.isDefault) {
+		void resetDefaultCategories(id, userId);
+	}
 }
 
 async function updateCategoryInTasks(id: string, data: Omit<Category, 'id'>, userId: string) {
@@ -50,8 +52,30 @@ async function updateCategoryInTasks(id: string, data: Omit<Category, 'id'>, use
 }
 
 export function addCategory(data: Omit<Category, 'id'>, userId: string) {
-	const categoriesCollectionRef = collection(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES);
-	void addDoc(categoriesCollectionRef, data);
+	const newCategoryDocRef = doc(collection(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES));
+	void setDoc(newCategoryDocRef, data);
+	if (data.isDefault) {
+		void resetDefaultCategories(newCategoryDocRef.id, userId);
+	}
+}
+
+async function resetDefaultCategories(exceptId: string, userId: string) {
+	const categoryQuery = query(
+		collection(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES),
+		where('isDefault', '==', true),
+	);
+
+	const categoriesSnapshot = await getDocs(categoryQuery);
+
+	const batch = writeBatch(db);
+
+	categoriesSnapshot.forEach((categoryDoc) => {
+		if (categoryDoc.id !== exceptId) {
+			batch.update(categoryDoc.ref, { isDefault: false });
+		}
+	});
+
+	await batch.commit();
 }
 
 export async function deleteCategory(
