@@ -13,8 +13,11 @@
 		Tags,
 	} from 'lucide-svelte';
 
-	let className = '';
-	export { className as class };
+	interface Props {
+		class?: string;
+	}
+
+	let { class: klass }: Props = $props();
 
 	const navigation = [
 		{ href: Routes.HOME, icon: CalendarDays, name: 'Calendar' },
@@ -26,7 +29,7 @@
 	];
 </script>
 
-<div class="h-full w-64 bg-white {className} flex flex-col items-stretch gap-5 p-3">
+<div class="{klass} flex h-full w-64 flex-col items-stretch gap-5 bg-white p-3">
 	<div class="flex items-center gap-2 text-indigo-600">
 		<Logo class="h-8 w-auto self-start" />
 		<h2 class="text-lg font-semibold">Life</h2>
@@ -41,11 +44,8 @@
 							? 'bg-gray-50 text-indigo-600'
 							: 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600'}"
 						href={item.href}
-						on:click
 					>
-						<!-- eslint-disable perfectionist/sort-svelte-attributes -->
-						<svelte:component this={item.icon} class="h-6 w-6" />
-						<!-- eslint-enable perfectionist/sort-svelte-attributes -->
+						<item.icon class="h-6 w-6" />
 						<span class="text-sm font-semibold">
 							{item.name}
 						</span>
@@ -56,7 +56,7 @@
 	</nav>
 
 	<div class="fixed bottom-0 left-0">
-		<ProfileDropUp on:click>
+		<ProfileDropUp>
 			<div class="flex items-center gap-2 rounded-lg p-2 hover:bg-gray-50">
 				<img alt="avatar" class="h-8 w-8 rounded-full" src={$currentUser?.photoURL} />
 				<span class="text-sm font-semibold text-gray-900">{$currentUser?.displayName}</span>

@@ -1,6 +1,5 @@
 <script lang="ts">
-	
-interface Props {
+	interface Props {
 		class?: string;
 	}
 

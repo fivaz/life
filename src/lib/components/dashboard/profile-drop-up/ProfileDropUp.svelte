@@ -3,10 +3,16 @@
 	import { Routes } from '$lib/consts';
 	import { auth } from '$lib/firebase';
 	import { signOut } from 'firebase/auth';
-	import { onMount } from 'svelte';
+	import { onMount, type Snippet } from 'svelte';
 	import { fade } from 'svelte/transition';
 
-	let isOpen = false;
+	interface Props {
+		children: Snippet;
+	}
+
+	let { children }: Props = $props();
+
+	let isOpen = $state(false);
 
 	function handleClickOutside() {
 		if (isOpen) {
@@ -20,6 +26,11 @@
 			document.removeEventListener('click', handleClickOutside);
 		};
 	});
+
+	function toggleIsOpen(event: MouseEvent) {
+		event.stopPropagation();
+		isOpen = !isOpen;
+	}
 </script>
 
 <div class="relative inline-block text-left">
@@ -40,7 +51,6 @@
 				<a
 					class="block px-3 py-1 text-sm leading-6 text-gray-900 hover:bg-gray-50"
 					href={Routes.PROFILE}
-					on:click
 				>
 					Profile
 				</a>
@@ -48,7 +58,7 @@
 			<li>
 				<button
 					class="block w-full px-3 py-1 text-left text-sm leading-6 text-gray-900 hover:bg-gray-50"
-					on:click={async () => {
+					onclick={async () => {
 						await signOut(auth);
 						void goto(Routes.LOGIN);
 					}}
@@ -59,7 +69,7 @@
 		</ul>
 		<!--		</div>-->
 	{/if}
-	<button class="w-full" on:click|stopPropagation={() => (isOpen = !isOpen)}>
-		<slot />
+	<button class="w-full" onclick={toggleIsOpen}>
+		{@render children()}
 	</button>
 </div>
