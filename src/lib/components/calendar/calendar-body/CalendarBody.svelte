@@ -4,6 +4,13 @@
 	import CalendarColumns from './calendar-columns/CalendarColumns.svelte';
 	import HorizontalTime from './horizontal-time/HorizontalTime.svelte';
 	import WeekList from './week-list/WeekList.svelte';
+	import type { Task } from '$lib/task/utils';
+
+	interface Props {
+		tasks: Task[];
+	}
+
+	let { tasks }: Props = $props();
 
 	let container = $state<HTMLDivElement | null>(null);
 	let containerNav = $state<HTMLDivElement | null>(null);
@@ -39,7 +46,7 @@
 			<HorizontalTime>
 				<div bind:this={containerOffset}></div>
 			</HorizontalTime>
-			<CalendarColumns />
+			<CalendarColumns {tasks} />
 		</div>
 	</div>
 </div>

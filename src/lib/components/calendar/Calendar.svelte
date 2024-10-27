@@ -8,9 +8,8 @@
 
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
-	import { tasks as taskStore } from './service';
-
-	updateDateAtMidnight();
+	
+updateDateAtMidnight();
 
 	interface Props {
 		tasks: Task[];
@@ -24,8 +23,6 @@
 
 	let { tasks, changeWeek, createTask, editTask, persistToDos, toggleEvent, moveEvent }: Props =
 		$props();
-
-	$taskStore = tasks;
 
 	setContext('createTask', createTask);
 
@@ -46,5 +43,5 @@
 
 <div class="flex h-screen flex-col md:h-[calc(100vh-20px)]">
 	<CalendarHeader />
-	<CalendarBody />
+	<CalendarBody {tasks} />
 </div>

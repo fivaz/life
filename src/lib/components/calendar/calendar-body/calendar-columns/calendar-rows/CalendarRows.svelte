@@ -1,6 +1,5 @@
 <script lang="ts">
 	import TasksSummary from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/tasks-summary/TasksSummary.svelte';
-	import { tasks } from '$lib/components/calendar/service';
 	import { DATE } from '$lib/consts';
 	import { format } from 'date-fns';
 
@@ -8,19 +7,21 @@
 	import { SUMMARY_GRID_CELL_HEIGHT } from './calendar-grid/service';
 	import EventPanel from './event-panel/EventPanel.svelte';
 	import { getEventGrid, getEvents, getToDos } from './service';
+	import type { Task } from '$lib/task/utils';
 
 	interface Props {
 		date: Date;
 		create: (time: string) => void;
+		tasks: Task[];
 	}
 
-	let { date, create }: Props = $props();
+	let { tasks, date, create }: Props = $props();
 
 	let formattedDate = $derived(format(date, DATE));
 
-	let toDos = $derived(getToDos($tasks, date));
+	let toDos = $derived(getToDos(tasks, date));
 
-	let events = $derived(getEvents($tasks, date));
+	let events = $derived(getEvents(tasks, date));
 
 	let eventsGrid = $derived(getEventGrid(events));
 </script>

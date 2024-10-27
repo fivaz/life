@@ -26,7 +26,7 @@
 
 	import GoalIcon from '../../../routes/dashboard/goals/goal-form/goal-icon/GoalIcon.svelte';
 	import { isToDo } from '$lib/task/utils.js';
-	import { removeLocalTask } from '../../../routes/dashboard/home/service';
+	import { removeLocalTask } from '../../../routes/dashboard/home/service.svelte';
 
 	interface Props {
 		userId: string;

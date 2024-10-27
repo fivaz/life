@@ -12,7 +12,7 @@
 	import { title } from '$lib/utils';
 	import AuthGuard from '$lib/components/auth-guard/AuthGuard.svelte';
 
-	import { externalTasksStore, getWeekTasks, moveEvent, persistToDos } from './service';
+	import { runeTasks, getWeekTasks, moveEvent, persistToDos } from './service.svelte';
 
 	let targetDate = $state<string | undefined>();
 
@@ -62,7 +62,7 @@
 					editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
 					moveEvent={(event, moveObject) => moveEvent(user.uid, event, moveObject)}
 					persistToDos={(toDos) => persistToDos(user.uid, toDos)}
-					tasks={$externalTasksStore}
+					tasks={runeTasks().value}
 					toggleEvent={(event, targetDate) => toggleCompletion(user.uid, event, targetDate)}
 				/>
 				<TaskFormWrapper
