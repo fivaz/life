@@ -103,6 +103,7 @@ function getGoalsByOrderedDate(goalsByDate: Record<string, Goal[]>) {
 	};
 }
 
+// TODO use Object.groupBy() Ecmascript 2024 in the parts of the code where I group tasks by date
 export function sortGoalsByDate(goals: Goal[]): Record<string, Goal[]> & Iterable<string> {
 	const sortedTasks = sortGoals(goals);
 	const tasksByDate = groupGoalsByDate(sortedTasks);

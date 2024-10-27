@@ -9,7 +9,7 @@
 	import { buildEmptyCategory } from './category-form/service';
 	import CategoryRow from './category-row/CategoryRow.svelte';
 	import { Plus } from 'lucide-svelte';
-	import DBCategories from '$lib/components/db-categories/DBCategories.svelte';
+	import DBCategories from '$lib/components/db-collection/db-categories/DBCategories.svelte';
 
 	let editingCategory: Category = $state(buildEmptyCategory());
 
@@ -18,7 +18,7 @@
 
 <div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
 	<DBCategories>
-		{#snippet data(userId, categories)}
+		{#snippet data(categories, userId)}
 			<div class="flex items-center justify-between">
 				<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
 				<span></span>

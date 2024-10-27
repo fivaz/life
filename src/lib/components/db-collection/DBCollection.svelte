@@ -1,6 +1,5 @@
-<script lang="ts">
+<script lang="ts" generics="T">
 	import { collection, onSnapshot } from 'firebase/firestore';
-	import type { Category } from '$lib/category/utils';
 	import { DB_PATH } from '$lib/consts';
 	import { db } from '$lib/firebase';
 	import { currentUser } from '$lib/auth/utils';
@@ -10,12 +9,17 @@
 	import Loading from '$lib/components/loading/Loading.svelte';
 
 	interface Props {
-		data: Snippet<[string, Category[]]>;
+		segment: string;
+		// eslint-disable-next-line no-undef
+		data: Snippet<[T[], string]>;
+		// eslint-disable-next-line no-undef
+		type: T;
 	}
 
-	let { data }: Props = $props();
+	let { data, segment }: Props = $props();
 
-	let categories = $state<Category[]>([]);
+	// eslint-disable-next-line no-undef
+	let items = $state<T[]>([]);
 
 	let isLoading = $state(true);
 
@@ -23,12 +27,10 @@
 		let unsubscribe: Unsubscribe = () => {};
 
 		if ($currentUser) {
-			const categoriesRef = collection(
-				db,
-				`${DB_PATH.USERS}/${$currentUser.uid}/${DB_PATH.CATEGORIES}`,
-			);
-			unsubscribe = onSnapshot(categoriesRef, (snapshot) => {
-				categories = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }) as Category);
+			const collectionRef = collection(db, `${DB_PATH.USERS}/${$currentUser.uid}/${segment}`);
+			unsubscribe = onSnapshot(collectionRef, (snapshot) => {
+				// eslint-disable-next-line no-undef
+				items = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }) as T);
 				isLoading = false;
 			});
 		}
@@ -40,5 +42,5 @@
 {#if isLoading}
 	<Loading />
 {:else if $currentUser}
-	{@render data($currentUser.uid, categories)}
+	{@render data(items, $currentUser.uid)}
 {/if}

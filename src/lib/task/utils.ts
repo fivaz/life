@@ -39,6 +39,7 @@ export function getDurationInMinutes(task: Task) {
 	return convertTimeToMinutes(task.duration);
 }
 
+// TODO replace .sort with toSorted
 export function sortTasks(tasks: Task[]) {
 	return tasks.sort((a, b) => {
 		const dateA = getTaskDateTime(a);

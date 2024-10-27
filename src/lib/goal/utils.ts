@@ -18,7 +18,7 @@ export function queryUncompletedGoals(userId: string) {
 }
 
 export function sortGoals(goals: Goal[]) {
-	return goals.sort((a, b) => {
+	return goals.toSorted((a, b) => {
 		const dateA = a.deadline ? parse(a.deadline, DATE, new Date()) : null;
 		const dateB = b.deadline ? parse(b.deadline, DATE, new Date()) : null;
 		if (!dateA) {
