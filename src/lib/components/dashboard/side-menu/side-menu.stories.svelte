@@ -1,6 +1,5 @@
 <script module lang="ts">
-	
-import { user } from '$lib/auth/seed';
+	import { user } from '$lib/auth/seed';
 
 	import SideMenu from './SideMenu.svelte';
 

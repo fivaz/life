@@ -1,17 +1,14 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { dialog } from '$lib/components/dialog/service';
 
 	import ConfirmButton from './ConfirmButton.svelte';
+	import Dialog from '$lib/components/dialog/Dialog.svelte';
 
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	const { Story } = defineMeta({
 		component: ConfirmButton,
 	});
-</script>
-
-<script>
-	import Dialog from '$lib/components/dialog/Dialog.svelte';
 </script>
 
 <Story args={{}} name="Primary">

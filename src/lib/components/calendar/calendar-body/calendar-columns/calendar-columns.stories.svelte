@@ -1,6 +1,5 @@
 <script module lang="ts">
-	
-import { events } from '$lib/task/seed';
+	import { events } from '$lib/task/seed';
 
 	import { addDays } from 'date-fns';
 

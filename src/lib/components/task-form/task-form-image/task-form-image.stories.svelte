@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { normalWithSubTasks } from '$lib/task/seed';
 	import TaskFormImage from './TaskFormImage.svelte';
 
@@ -7,9 +7,7 @@
 	const { Story } = defineMeta({
 		component: TaskFormImage,
 	});
-</script>
 
-<script>
 	import { convertToTaskIn } from '$lib/task/task-in-utils';
 </script>
 

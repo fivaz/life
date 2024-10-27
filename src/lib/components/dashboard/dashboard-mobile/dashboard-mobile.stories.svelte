@@ -1,6 +1,5 @@
 <script module lang="ts">
-	
-import DashboardMobile from './DashboardMobile.svelte';
+	import DashboardMobile from './DashboardMobile.svelte';
 
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 

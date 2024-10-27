@@ -1,6 +1,5 @@
 <script module lang="ts">
-	
-import { addDays } from 'date-fns';
+	import { addDays } from 'date-fns';
 
 	import WeekList from './WeekList.svelte';
 

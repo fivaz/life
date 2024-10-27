@@ -1,6 +1,5 @@
 <script module lang="ts">
-	
-import { ChevronDown } from '@steeze-ui/heroicons';
+	import { ChevronDown } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
 	import ProfileDropUp from './ProfileDropUp.svelte';
