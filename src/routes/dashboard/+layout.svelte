@@ -25,7 +25,7 @@
 </script>
 
 <Dashboard>
-	{@render children?.()}
+	{@render children()}
 </Dashboard>
 
 <Dialog

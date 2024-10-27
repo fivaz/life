@@ -1,16 +1,24 @@
 <script lang="ts">
 	import { auth, db } from '$lib/firebase';
 	import { FirebaseApp } from 'sveltefire';
-	import type { Snippet } from 'svelte';
+	import { onMount, type Snippet } from 'svelte';
 	import '../app.css';
+	import { onAuthStateChanged } from 'firebase/auth';
+	import { currentUser } from '$lib/auth/utils.svelte';
 
 	interface Props {
 		children: Snippet;
 	}
 
 	let { children }: Props = $props();
+
+	onMount(() => {
+		onAuthStateChanged(auth, (user) => {
+			currentUser.value = user;
+		});
+	});
 </script>
 
 <FirebaseApp {auth} firestore={db}>
-	{@render children?.()}
+	{@render children()}
 </FirebaseApp>

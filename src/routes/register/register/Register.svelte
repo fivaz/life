@@ -5,7 +5,7 @@
 	import Button from '$lib/components/form/button/Button.svelte';
 	import { DB_PATH, Routes } from '$lib/consts';
 	import { auth, db } from '$lib/firebase';
-	import { storeAvatar } from '$lib/auth/utils';
+	import { storeAvatar } from '$lib/auth/utils.svelte';
 	import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 	import { doc, setDoc } from 'firebase/firestore';
 	import { minidenticon } from 'minidenticons';

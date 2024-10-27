@@ -1,4 +1,4 @@
-import { checkEmail } from '$lib/auth/utils';
+import { checkEmail } from '$lib/auth/utils.svelte';
 import { FirebaseError } from 'firebase/app';
 
 export function validateFields(email: string, password: string): string {

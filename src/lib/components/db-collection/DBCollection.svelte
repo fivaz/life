@@ -2,7 +2,7 @@
 	import { collection, onSnapshot, query, type QueryConstraint, Query } from 'firebase/firestore';
 	import { DB_PATH } from '$lib/consts';
 	import { db } from '$lib/firebase';
-	import { currentUser } from '$lib/auth/utils';
+	import { currentUser } from '$lib/auth/utils.svelte';
 
 	import type { Snippet } from 'svelte';
 	import { type Unsubscribe } from 'firebase/firestore';
@@ -37,8 +37,8 @@
 	$effect(() => {
 		let unsubscribe: Unsubscribe = () => {};
 
-		if ($currentUser) {
-			unsubscribe = onSnapshot(getQuery($currentUser.uid), (snapshot) => {
+		if (currentUser.value) {
+			unsubscribe = onSnapshot(getQuery(currentUser.value.uid), (snapshot) => {
 				// eslint-disable-next-line no-undef
 				items = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }) as T);
 				isLoading = false;
@@ -51,6 +51,6 @@
 
 {#if isLoading}
 	<Loading />
-{:else if $currentUser}
-	{@render data(items, $currentUser.uid)}
+{:else if currentUser.value}
+	{@render data(items, currentUser.value.uid)}
 {/if}

@@ -1,4 +1,4 @@
-import { checkEmail } from '$lib/auth/utils';
+import { checkEmail } from '$lib/auth/utils.svelte';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '$lib/firebase';
 import { DB_PATH } from '$lib/consts';
