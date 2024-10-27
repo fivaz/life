@@ -5,7 +5,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 
 	interface Props {
-		isShown: boolean;
+		isOpen: boolean;
 		title: string;
 		message?: string;
 		confirmText: string;
@@ -13,7 +13,7 @@
 		resolve: (value: boolean | null) => void;
 	}
 
-	let { isShown, title, message = '', confirmText, cancelText, resolve }: Props = $props();
+	let { isOpen, title, message = '', confirmText, cancelText, resolve }: Props = $props();
 
 	function confirm() {
 		resolve(true);
@@ -31,7 +31,7 @@
 	}
 </script>
 
-<Modal {close} {isShown}>
+<Modal {close} {isOpen}>
 	<div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
 		<div
 			class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6"

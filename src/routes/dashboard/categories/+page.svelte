@@ -15,7 +15,7 @@
 
 	let editingCategory: Category = $state(buildEmptyCategory());
 
-	let showForm = $state(false);
+	let isFormOpen = $state(false);
 
 	let categoryType: Category;
 
@@ -28,7 +28,7 @@
 		<span></span>
 		<Button2
 			onclick={() => {
-				showForm = true;
+				isFormOpen = true;
 				editingCategory = buildEmptyCategory();
 			}}
 		>
@@ -49,17 +49,17 @@
 							<CategoryRow
 								{category}
 								edit={(category) => {
-									showForm = true;
+									isFormOpen = true;
 									editingCategory = category;
 								}}
 							/>
 						{/each}
 					</ul>
 
-					<Modal close={() => (showForm = false)} isShown={showForm}>
+					<Modal close={() => (isFormOpen = false)} isOpen={isFormOpen}>
 						<CategoryForm
 							category={editingCategory}
-							close={() => (showForm = false)}
+							close={() => (isFormOpen = false)}
 							userId={user.uid}
 						/>
 					</Modal>

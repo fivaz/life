@@ -94,14 +94,14 @@
 									{/each}
 								</ul>
 
-								<Modal close={() => (isStatsShown = false)} isShown={isStatsShown}>
+								<Modal close={() => (isStatsShown = false)} isOpen={isStatsShown}>
 									<TasksStats {sortedTasks} />
 								</Modal>
 							{/snippet}
 						</TypedCollection>
 
 						<TaskFormWrapper
-							bind:isShown={isFormShown}
+							bind:isOpen={isFormShown}
 							{categories}
 							{editingTask}
 							userId={user.uid}

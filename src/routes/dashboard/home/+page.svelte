@@ -66,7 +66,7 @@
 					toggleEvent={(event, targetDate) => toggleCompletion(user.uid, event, targetDate)}
 				/>
 				<TaskFormWrapper
-					bind:isShown={isFormShown}
+					bind:isOpen={isFormShown}
 					{categories}
 					{editingTask}
 					{targetDate}

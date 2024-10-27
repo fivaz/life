@@ -33,6 +33,6 @@
 	confirmText={$dialog.confirmText}
 	message={$dialog.message}
 	resolve={$dialog.resolve}
-	isShown={$dialog.show}
+	isOpen={$dialog.show}
 	title={$dialog.title}
 />

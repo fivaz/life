@@ -17,7 +17,7 @@
 		goals?: Goal[];
 		targetDate?: string;
 		editingTask: Task;
-		isShown: boolean;
+		isOpen: boolean;
 	}
 
 	let {
@@ -26,7 +26,7 @@
 		goals = [],
 		targetDate,
 		editingTask,
-		isShown = $bindable(),
+		isOpen = $bindable(),
 	}: Props = $props();
 
 	let goalsStore: ReturnType<typeof collectionStore<Goal>> | Writable<Goal[]> =
@@ -37,11 +37,11 @@
 	}
 
 	function close() {
-		isShown = false;
+		isOpen = false;
 	}
 </script>
 
-<Modal {close} {isShown}>
+<Modal {close} {isOpen}>
 	<TaskForm
 		{userId}
 		{categories}

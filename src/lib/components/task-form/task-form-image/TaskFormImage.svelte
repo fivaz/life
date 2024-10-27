@@ -28,7 +28,7 @@
 			<button onclick={() => (isImageOpen = true)} type="button">
 				<img alt="event description" src={taskIn.image} />
 			</button>
-			<Modal close={() => (isImageOpen = false)} isShown={isImageOpen}>
+			<Modal close={() => (isImageOpen = false)} isOpen={isImageOpen}>
 				<!--normally I wouldn't need to restate the z-index of the Modal to its children, but due to an unknown bug I have to-->
 				<div class="z-20 rounded-lg bg-white p-2 shadow">
 					<img

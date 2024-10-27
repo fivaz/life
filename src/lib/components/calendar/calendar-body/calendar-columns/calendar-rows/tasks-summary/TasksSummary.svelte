@@ -54,6 +54,6 @@
 	{/if}
 </div>
 
-<Modal close={() => (isOpen = false)} isShown={isOpen}>
+<Modal close={() => (isOpen = false)} {isOpen}>
 	<DayTasksList close={() => (isOpen = false)} tasks={workTasks} />
 </Modal>

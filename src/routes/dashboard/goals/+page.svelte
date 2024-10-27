@@ -98,7 +98,7 @@
 										</div>
 									{/each}
 									<TaskFormWrapper
-										bind:isShown={showTaskForm}
+										bind:isOpen={showTaskForm}
 										{categories}
 										{editingTask}
 										{goals}
@@ -108,7 +108,7 @@
 							</TypedCollection>
 						</ul>
 
-						<Modal close={() => (showForm = false)} isShown={showForm}>
+						<Modal close={() => (showForm = false)} isOpen={showForm}>
 							<GoalForm goal={editingGoal} close={() => (showForm = false)} userId={user.uid} />
 						</Modal>
 					</div>

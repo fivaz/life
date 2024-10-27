@@ -104,7 +104,7 @@
 							</div>
 						{/if}
 
-						<Modal close={() => (showForm = false)} isShown={showForm}>
+						<Modal close={() => (showForm = false)} isOpen={showForm}>
 							<RoutineForm
 								close={() => (showForm = false)}
 								routine={editingRoutine}
