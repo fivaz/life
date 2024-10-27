@@ -15,6 +15,7 @@
 	import GoalForm from './goal-form/GoalForm.svelte';
 	import GoalRow from './goal-row/GoalRow.svelte';
 	import { buildEmptyGoal, sortGoalsByDate } from './service';
+	import { Plus } from 'lucide-svelte';
 
 	let editingGoal = $state(buildEmptyGoal());
 
@@ -48,7 +49,7 @@
 				editingGoal = buildEmptyGoal();
 			}}
 		>
-			<!--			<Plus class="h-4 w-auto" />-->
+			<Plus class="h-4 w-auto" />
 			New Goal
 		</Button>
 	</div>

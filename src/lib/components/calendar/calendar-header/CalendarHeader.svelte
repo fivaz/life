@@ -6,6 +6,7 @@
 	import { getCurrentRoundedDate } from '$lib/task/time-utils';
 	import { format } from 'date-fns';
 	import { getContext } from 'svelte';
+	import { Plus } from 'lucide-svelte';
 
 	const createTask = getContext('createTask');
 
@@ -33,7 +34,7 @@
 		<div class="hidden h-7 border-r border-gray-300 md:block"></div>
 
 		<Button onclick={createEvent} type="button">
-			<!--			<Plus class="h-4 w-auto" />-->
+			<Plus class="h-4 w-auto" />
 			<span class="hidden md:block">Add event</span>
 		</Button>
 	</div>

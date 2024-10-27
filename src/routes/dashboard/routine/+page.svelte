@@ -12,7 +12,7 @@
 	import { title } from '$lib/utils';
 	import { addDays, startOfWeek } from 'date-fns';
 	import { collection, orderBy, query } from 'firebase/firestore';
-	import { Calendar1 } from 'lucide-svelte';
+	import { Calendar1, Plus } from 'lucide-svelte';
 	import AuthGuard from '$lib/components/auth-guard/AuthGuard.svelte';
 
 	import RoutineForm from './routine-form/RoutineForm.svelte';
@@ -62,7 +62,7 @@
 											editingRoutine = buildEmptyRoutine();
 										}}
 									>
-										<!--									<Plus class="h-4 w-auto" />-->
+										<Plus class="h-4 w-auto" />
 										<span class="hidden md:block">New Routine</span>
 									</Button>
 								</div>
@@ -96,7 +96,7 @@
 												editingRoutine = buildEmptyRoutine();
 											}}
 										>
-											<!--										<Plus class="h-5 w-auto" />-->
+											<Plus class="h-5 w-auto" />
 											New Routine
 										</Button>
 									</div>

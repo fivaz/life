@@ -23,7 +23,6 @@ export function validateFields(email: string, password: string): string {
 }
 
 export async function addDefaultCategories(userId: string) {
-	// TODO when one select a category as default, make all other non default
 	const categoriesCollectionRef = collection(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES);
 	void addDoc(categoriesCollectionRef, {
 		color: 'green',

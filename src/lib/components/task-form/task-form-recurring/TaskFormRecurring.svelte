@@ -3,7 +3,7 @@
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import Flatpickr from 'svelte-flatpickr';
 
-	import DaysCheckbox from './days-checkbox/DaysCheckbox.svelte'; // TODO check later how I should import a precompiled component https://github.com/sveltejs/svelte/issues/604
+	import DaysCheckbox from './days-checkbox/DaysCheckbox.svelte';
 	import type { TaskIn } from '$lib/task/task-in-utils';
 
 	import 'flatpickr/dist/themes/airbnb.css';

@@ -17,6 +17,7 @@
 	import { sortTasksByDate } from './service';
 	import TaskList from './task-list/TaskList.svelte';
 	import TasksStats from './tasks-stats/TasksStats.svelte';
+	import { Plus } from 'lucide-svelte';
 
 	let editingTask: Task = $state(buildEmptyToDo([]));
 
@@ -65,7 +66,7 @@
 									editingTask = buildEmptyToDo(categories);
 								}}
 							>
-								<!--							<Plus class="h-4 w-auto" />-->
+								<Plus class="h-4 w-auto" />
 								New Category
 							</Button>
 						</div>

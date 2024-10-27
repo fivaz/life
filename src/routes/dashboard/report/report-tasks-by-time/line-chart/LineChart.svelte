@@ -2,30 +2,6 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { Chart, type ChartConfiguration } from 'chart.js/auto';
 
-	// TODO
-	// import {
-	// 	CategoryScale,
-	// 	Chart as ChartJS,
-	// 	Filler,
-	// 	Legend,
-	// 	LineElement,
-	// 	LinearScale,
-	// 	PointElement,
-	// 	Title,
-	// 	Tooltip,
-	// } from 'chart.js';
-	//
-	// ChartJS.register(
-	// 	Title,
-	// 	Filler,
-	// 	Tooltip,
-	// 	Legend,
-	// 	LineElement,
-	// 	LinearScale,
-	// 	PointElement,
-	// 	CategoryScale,
-	// );
-
 	let { data, options } = $props<{
 		data: ChartConfiguration['data'];
 		options: ChartConfiguration['options'];

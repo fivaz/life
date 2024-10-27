@@ -36,7 +36,6 @@
 			DB_PATH.TASKS,
 		);
 		const tasksSnapshot = await getDocs(tasksRef);
-		// TODO check if I should do something else instead of snapShot as it subscribe to the value
 		const tasks = tasksSnapshot.docs.map((doc) => doc.data()) as Task[];
 		return getCompletedPercentage(tasks);
 	}

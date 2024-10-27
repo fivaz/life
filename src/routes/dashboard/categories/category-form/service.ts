@@ -25,6 +25,7 @@ export function buildEmptyCategory() {
 }
 
 export function editCategory(id: string, data: Omit<Category, 'id'>, userId: string) {
+	// TODO when one select a category as default, make all other non default
 	const categoryDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES, id);
 	void updateDoc(categoryDocRef, data);
 	void updateCategoryInTasks(id, data, userId);

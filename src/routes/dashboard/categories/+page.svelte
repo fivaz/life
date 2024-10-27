@@ -11,6 +11,7 @@
 	import CategoryForm from './category-form/CategoryForm.svelte';
 	import { buildEmptyCategory } from './category-form/service';
 	import CategoryRow from './category-row/CategoryRow.svelte';
+	import { Plus } from 'lucide-svelte';
 
 	let editingCategory: Category = $state(buildEmptyCategory());
 
@@ -25,14 +26,13 @@
 	<div class="flex items-center justify-between">
 		<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{$title}</h1>
 		<span></span>
-		<!--		TODO add Icon Plus back in the button-->
-		<!--		<Plus class="h-4 w-auto" />-->
 		<Button2
 			onclick={() => {
 				showForm = true;
 				editingCategory = buildEmptyCategory();
 			}}
 		>
+			<Plus class="h-4 w-auto" />
 			New Category
 		</Button2>
 	</div>
