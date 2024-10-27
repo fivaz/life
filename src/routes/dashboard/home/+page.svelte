@@ -9,7 +9,7 @@
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { buildEmptyEvent, buildEventWithTime } from '$lib/task/build-utils';
-	import { title } from '$lib/utils';
+
 	import AuthGuard from '$lib/components/auth-guard/AuthGuard.svelte';
 
 	import { runeTasks, getWeekTasks, moveEvent, persistToDos } from './service.svelte';
@@ -48,8 +48,6 @@
 	}
 
 	let categoryType: Category;
-
-	title.set('Calendar');
 </script>
 
 <AuthGuard>

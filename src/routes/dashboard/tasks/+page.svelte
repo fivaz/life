@@ -8,7 +8,7 @@
 	import { db } from '$lib/firebase';
 	import { buildEmptyToDo, buildToDoWithDeadline } from '$lib/task/build-utils';
 	import { type Task } from '$lib/task/utils';
-	import { title } from '$lib/utils';
+
 	import { DocumentText } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { collection, query, where } from 'firebase/firestore';
@@ -18,6 +18,7 @@
 	import TaskList from './task-list/TaskList.svelte';
 	import TasksStats from './tasks-stats/TasksStats.svelte';
 	import { Plus } from 'lucide-svelte';
+	import { title } from '$lib/utils.svelte';
 
 	let editingTask: Task = $state(buildEmptyToDo([]));
 
@@ -33,8 +34,6 @@
 	let categoryType: Category;
 
 	let taskType: Task;
-
-	title.set('Tasks');
 </script>
 
 <div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
@@ -46,7 +45,7 @@
 			>
 				{#snippet data(categories)}
 					<div class="flex items-center justify-between">
-						<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{$title}</h1>
+						<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
 						<span></span>
 
 						<div class="flex items-center gap-5">

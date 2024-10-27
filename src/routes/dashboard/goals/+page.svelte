@@ -9,7 +9,7 @@
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { buildEmptyEvent, buildEmptyToDo } from '$lib/task/build-utils';
-	import { title } from '$lib/utils';
+	import { title } from '$lib/utils.svelte';
 	import AuthGuard from '$lib/components/auth-guard/AuthGuard.svelte';
 
 	import GoalForm from './goal-form/GoalForm.svelte';
@@ -35,13 +35,11 @@
 		showForm = true;
 		editingGoal = goal;
 	}
-
-	title.set('Goals');
 </script>
 
 <div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
 	<div class="flex items-center justify-between">
-		<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{$title}</h1>
+		<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
 		<span></span>
 		<Button
 			onclick={() => {

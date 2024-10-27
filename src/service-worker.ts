@@ -4,13 +4,16 @@ import { precacheAndRoute } from 'workbox-precaching';
 
 const precache_list = [
 	'/', // Attention: serves stale index, might not be ideal for your use case.
+	'/demo',
 	'/login',
 	'/register',
-	'/dashboard/home',
 	'/dashboard/categories',
-	'/dashboard/tasks',
 	'/dashboard/goals',
+	'/dashboard/home',
+	'/dashboard/profile',
 	'/dashboard/report',
+	'/dashboard/routine',
+	'/dashboard/tasks',
 	...build,
 	...files,
 	...prerendered,

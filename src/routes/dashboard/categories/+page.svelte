@@ -5,7 +5,7 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
-	import { title } from '$lib/utils';
+	import { title } from '$lib/utils.svelte';
 	import AuthGuard from '$lib/components/auth-guard/AuthGuard.svelte';
 
 	import CategoryForm from './category-form/CategoryForm.svelte';
@@ -18,13 +18,11 @@
 	let isFormOpen = $state(false);
 
 	let categoryType: Category;
-
-	title.set('Categories');
 </script>
 
 <div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
 	<div class="flex items-center justify-between">
-		<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{$title}</h1>
+		<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
 		<span></span>
 		<Button2
 			onclick={() => {

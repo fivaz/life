@@ -9,7 +9,7 @@
 	import WeekListSelector from '$lib/components/week-list-selector/WeekListSelector.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { db } from '$lib/firebase';
-	import { title } from '$lib/utils';
+
 	import { addDays, startOfWeek } from 'date-fns';
 	import { collection, orderBy, query } from 'firebase/firestore';
 	import { Calendar1, Plus } from 'lucide-svelte';
@@ -18,6 +18,7 @@
 	import RoutineForm from './routine-form/RoutineForm.svelte';
 	import { buildEmptyRoutine } from './routine-form/service';
 	import RoutineRows from './routine-rows/RoutineRows.svelte';
+	import { title } from '$lib/utils.svelte';
 
 	let weekStart = $state(startOfWeek(new Date(), { weekStartsOn: 1 }));
 
@@ -34,8 +35,6 @@
 		return query(routinesRef, orderBy('order'));
 	}
 
-	title.set('Routine');
-
 	let routineType: Routine;
 </script>
 
@@ -46,7 +45,7 @@
 				<TypedCollection ref={querySortedRoutine(user.uid)} type={routineType}>
 					{#snippet data(routines)}
 						<div class="flex items-center justify-between">
-							<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{$title}</h1>
+							<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
 							<div
 								class="flex flex-grow items-center justify-between gap-5 md:flex-grow-0 md:justify-start"
 							>
