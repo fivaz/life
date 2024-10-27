@@ -1,10 +1,7 @@
 import type { Category } from '$lib/category/utils';
 import type { Goal } from '$lib/goal/utils';
 
-import { DB_PATH } from '$lib/consts';
-import { db } from '$lib/firebase';
 import { convertTimeToMinutes, getTaskDateTime } from '$lib/task/time-utils';
-import { type Query, collection, query, where } from 'firebase/firestore';
 
 export type CoreTask = {
 	category: Category;
@@ -66,11 +63,6 @@ export function isRecurring(task: Omit<Task, 'id'> | Task): task is RecurringEve
 
 export function isToDo(task: Omit<Task, 'id'> | Task): task is ToDo {
 	return 'deadline' in task;
-}
-
-export function queryUncompletedTasks(userId: string) {
-	const tasksRef = collection(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}`);
-	return query(tasksRef, where('isDone', '==', false)) as Query<Task>;
 }
 
 export type SubTask = { isDone: boolean; title: string };

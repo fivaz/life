@@ -8,8 +8,8 @@
 
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
-	
-updateDateAtMidnight();
+
+	updateDateAtMidnight();
 
 	interface Props {
 		tasks: Task[];

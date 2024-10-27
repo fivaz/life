@@ -69,8 +69,8 @@
 	}
 
 	async function removeTask() {
-		if (await deletePossibleSingleRecurringEvent(taskIn, userId, targetDate)) {
-			removeLocalTask(taskIn);
+		if (await deletePossibleSingleRecurringEvent(task, userId, targetDate)) {
+			removeLocalTask(task);
 			close();
 		}
 	}
