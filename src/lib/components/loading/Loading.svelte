@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { LoaderCircle } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	
-interface Props {
+
+	interface Props {
 		loading: boolean;
 		class?: string;
 	}

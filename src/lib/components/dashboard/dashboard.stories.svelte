@@ -1,21 +1,15 @@
-<script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
+<script module lang="ts">
+	
+import Dashboard from './Dashboard.svelte';
 
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 
-	import Dashboard from './Dashboard.svelte';
-
-	export const meta = {
-		argTypes: {},
+	const { Story } = defineMeta({
 		component: Dashboard,
 		parameters: {
 			layout: 'fullscreen',
 		},
-	} satisfies Meta<Dashboard>;
+	});
 </script>
-
-<Template let:args>
-	<Dashboard {...args} />
-</Template>
 
 <Story args={{}} name="Primary" />

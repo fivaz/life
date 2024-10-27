@@ -1,22 +1,15 @@
-<script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
+<script module lang="ts">
+	
+import DashboardMobile from './DashboardMobile.svelte';
 
-	import { user } from '$lib/auth/seed';
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 
-	import DashboardMobile from './DashboardMobile.svelte';
-
-	export const meta = {
-		argTypes: {},
+	const { Story } = defineMeta({
 		component: DashboardMobile,
 		parameters: {
 			layout: 'fullscreen',
 		},
-	} satisfies Meta<DashboardMobile>;
+	});
 </script>
 
-<Template let:args>
-	<DashboardMobile {...args} />
-</Template>
-
-<Story args={{ currentUser: user }} name="Primary" />
+<Story args={{}} name="Primary" />

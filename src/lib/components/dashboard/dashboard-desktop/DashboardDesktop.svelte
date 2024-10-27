@@ -1,7 +1,10 @@
 <script lang="ts">
 	import SideMenu from '$lib/components/dashboard/side-menu/SideMenu.svelte';
-	let className = '';
-	export { className as class };
+	interface Props {
+		class?: string;
+	}
+
+	let { class: klass = '' }: Props = $props();
 </script>
 
-<SideMenu class="{className} sticky top-0 border-r" />
+<SideMenu class="{klass} sticky top-0 border-r" />

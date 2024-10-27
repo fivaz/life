@@ -6,7 +6,7 @@
 	import { type Task } from '$lib/task/utils';
 	import { title } from '$lib/utils';
 	import { collection, query, where } from 'firebase/firestore';
-	import { SignedIn } from 'sveltefire';
+	import AuthGuard from '$lib/components/auth-guard/AuthGuard.svelte';
 
 	import ReportTasksByTime from './report-tasks-by-time/ReportTasksByTime.svelte';
 
@@ -23,12 +23,14 @@
 <div class="py-4">
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{$title}</h1>
-		<SignedIn let:user>
-			<TypedCollection ref={queryWorkTasks(user.uid)} type={taskType}>
-				{#snippet data(tasks)}
-					<ReportTasksByTime {tasks} />
-				{/snippet}
-			</TypedCollection>
-		</SignedIn>
+		<AuthGuard>
+			{#snippet data(user)}
+				<TypedCollection ref={queryWorkTasks(user.uid)} type={taskType}>
+					{#snippet data(tasks)}
+						<ReportTasksByTime {tasks} />
+					{/snippet}
+				</TypedCollection>
+			{/snippet}
+		</AuthGuard>
 	</div>
 </div>

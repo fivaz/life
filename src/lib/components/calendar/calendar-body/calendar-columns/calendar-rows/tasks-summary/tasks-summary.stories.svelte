@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { type ToDo } from '$lib/task/utils';
 
 	import { birthdayToDo, toDos, workToDo } from '$lib/task/seed';

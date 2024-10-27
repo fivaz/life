@@ -1,23 +1,19 @@
-<script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
+<script module lang="ts">
+	
+import Collapsable from './Collapsable.svelte';
 
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 
-	import Collapsable from './Collapsable.svelte';
-
-	export const meta = {
-		argTypes: {},
+	const { Story } = defineMeta({
 		component: Collapsable,
 		parameters: {
 			layout: 'fullscreen',
 		},
-	} satisfies Meta<Collapsable>;
+	});
 </script>
 
-<Template let:args>
-	<Collapsable {...args} title="Test">
+<Story args={{}} name="Primary">
+	<Collapsable title="Test">
 		<div class="h-96 w-96 bg-indigo-100"></div>
 	</Collapsable>
-</Template>
-
-<Story args={{}} name="Primary" />
+</Story>

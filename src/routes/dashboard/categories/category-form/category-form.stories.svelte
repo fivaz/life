@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import CategoryForm from './CategoryForm.svelte';
 	import { buildEmptyCategory } from './service';
 

@@ -1,23 +1,20 @@
-<script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
-
-	import { Story, Template } from '@storybook/addon-svelte-csf';
-	import { addDays } from 'date-fns';
+<script module lang="ts">
+	
+import { addDays } from 'date-fns';
 
 	import WeekList from './WeekList.svelte';
 
-	export const meta = {
-		argTypes: {},
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	const { Story } = defineMeta({
 		component: WeekList,
-	} satisfies Meta<WeekList>;
+	});
 </script>
 
-<Template let:args>
-	<WeekList
-		{...args}
-		dates={Array.from({ length: 7 }, (_, i) => addDays(new Date(), i))}
-		selectedDate={new Date()}
-	/>
-</Template>
-
-<Story args={{}} name="Primary" />
+<Story
+	args={{
+		dates: Array.from({ length: 7 }, (_, i) => addDays(new Date(), i)),
+		selectedDate: new Date(),
+	}}
+	name="Primary"
+/>

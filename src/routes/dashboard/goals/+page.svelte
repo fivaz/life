@@ -10,7 +10,7 @@
 	import { DB_PATH } from '$lib/consts';
 	import { buildEmptyEvent, buildEmptyToDo } from '$lib/task/build-utils';
 	import { title } from '$lib/utils';
-	import { SignedIn } from 'sveltefire';
+	import AuthGuard from '$lib/components/auth-guard/AuthGuard.svelte';
 
 	import GoalForm from './goal-form/GoalForm.svelte';
 	import GoalRow from './goal-row/GoalRow.svelte';
@@ -53,58 +53,66 @@
 		</Button>
 	</div>
 
-	<SignedIn let:user>
-		<TypedCollection ref={`${DB_PATH.USERS}/${user.uid}/${DB_PATH.CATEGORIES}`} type={categoryType}>
-			{#snippet data(categories)}
-				<div class="flex flex-col gap-5">
-					<ul class="divide-y divide-gray-100" role="list">
-						<TypedCollection ref={`${DB_PATH.USERS}/${user.uid}/${DB_PATH.GOALS}`} type={goalType}>
-							{#snippet data(goals)}
-								{@const goalsByDate = sortGoalsByDate(goals)}
+	<AuthGuard>
+		{#snippet data(user)}
+			<TypedCollection
+				ref={`${DB_PATH.USERS}/${user.uid}/${DB_PATH.CATEGORIES}`}
+				type={categoryType}
+			>
+				{#snippet data(categories)}
+					<div class="flex flex-col gap-5">
+						<ul class="divide-y divide-gray-100" role="list">
+							<TypedCollection
+								ref={`${DB_PATH.USERS}/${user.uid}/${DB_PATH.GOALS}`}
+								type={goalType}
+							>
+								{#snippet data(goals)}
+									{@const goalsByDate = sortGoalsByDate(goals)}
 
-								{#each goalsByDate as date (date)}
-									<div class="flex justify-between p-2 font-semibold">{date}</div>
-									<div class="flex flex-col gap-3">
-										{#each goalsByDate[date] as goal (goal)}
-											<TypedCollection
-												ref="{DB_PATH.USERS}/{user.uid}/{DB_PATH.GOALS}/{goal.id}/{DB_PATH.TASKS}"
-												type={taskType}
-											>
-												{#snippet data(tasks)}
-													<GoalRow
-														{goal}
-														addTask={() => {
-															showTaskForm = true;
-															editingTask = buildEmptyEvent(categories, goal);
-														}}
-														editGoal={(goal) => handleEditGoal(goal)}
-														editTask={(task) => {
-															showTaskForm = true;
-															editingTask = task;
-														}}
-														{tasks}
-													/>
-												{/snippet}
-											</TypedCollection>
-										{/each}
-									</div>
-								{/each}
-								<TaskFormWrapper
-									bind:isShown={showTaskForm}
-									{categories}
-									{editingTask}
-									{goals}
-									userId={user.uid}
-								/>
-							{/snippet}
-						</TypedCollection>
-					</ul>
+									{#each goalsByDate as date (date)}
+										<div class="flex justify-between p-2 font-semibold">{date}</div>
+										<div class="flex flex-col gap-3">
+											{#each goalsByDate[date] as goal (goal)}
+												<TypedCollection
+													ref="{DB_PATH.USERS}/{user.uid}/{DB_PATH.GOALS}/{goal.id}/{DB_PATH.TASKS}"
+													type={taskType}
+												>
+													{#snippet data(tasks)}
+														<GoalRow
+															{goal}
+															addTask={() => {
+																showTaskForm = true;
+																editingTask = buildEmptyEvent(categories, goal);
+															}}
+															editGoal={(goal) => handleEditGoal(goal)}
+															editTask={(task) => {
+																showTaskForm = true;
+																editingTask = task;
+															}}
+															{tasks}
+														/>
+													{/snippet}
+												</TypedCollection>
+											{/each}
+										</div>
+									{/each}
+									<TaskFormWrapper
+										bind:isShown={showTaskForm}
+										{categories}
+										{editingTask}
+										{goals}
+										userId={user.uid}
+									/>
+								{/snippet}
+							</TypedCollection>
+						</ul>
 
-					<Modal close={() => (showForm = false)} isShown={showForm}>
-						<GoalForm goal={editingGoal} close={() => (showForm = false)} userId={user.uid} />
-					</Modal>
-				</div>
-			{/snippet}
-		</TypedCollection>
-	</SignedIn>
+						<Modal close={() => (showForm = false)} isShown={showForm}>
+							<GoalForm goal={editingGoal} close={() => (showForm = false)} userId={user.uid} />
+						</Modal>
+					</div>
+				{/snippet}
+			</TypedCollection>
+		{/snippet}
+	</AuthGuard>
 </div>

@@ -4,30 +4,37 @@
 	import { title } from '$lib/utils';
 	import { Menu } from 'lucide-svelte';
 
-	let showMenu = false;
-	let className = '';
-	export { className as class };
+	interface Props {
+		class?: string;
+	}
+
+	let { class: klass }: Props = $props();
+
+	let showMenu = $state(false);
 </script>
 
-<div class={className}>
+<div class={klass}>
 	<!--header-->
 	<header class="fixed z-10 flex h-14 w-full justify-between gap-3 border-b bg-white p-4">
 		<div class="flex items-center gap-2">
 			<Logo class="h-8 w-8 text-indigo-600" />
 			<h1 class="text-lg font-semibold text-gray-900">{$title}</h1>
 		</div>
-		<button on:click={() => (showMenu = true)}>
+		<button onclick={() => (showMenu = true)}>
 			<Menu />
 		</button>
 	</header>
 
 	<!--side menu-->
-	<SideMenu
-		class="fixed left-0 top-0 z-20 transform transition-transform duration-500 {showMenu
-			? 'translate-x-0'
-			: '-translate-x-full'}"
-		on:click={() => (showMenu = false)}
-	/>
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<div onclick={() => (showMenu = false)}>
+		<SideMenu
+			class="fixed left-0 top-0 z-20 transform transition-transform duration-500 {showMenu
+				? 'translate-x-0'
+				: '-translate-x-full'}"
+		/>
+	</div>
 
 	<!--background-->
 	<button
@@ -35,6 +42,6 @@
 		class="fixed left-0 right-0 top-0 z-10 h-full bg-black transition-opacity duration-300 {showMenu
 			? 'bg-opacity-50'
 			: 'pointer-events-none bg-opacity-0'}"
-		on:click={() => (showMenu = false)}
+		onclick={() => (showMenu = false)}
 	></button>
 </div>

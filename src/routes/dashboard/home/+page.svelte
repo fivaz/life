@@ -10,7 +10,7 @@
 	import { DB_PATH } from '$lib/consts';
 	import { buildEmptyEvent, buildEventWithTime } from '$lib/task/build-utils';
 	import { title } from '$lib/utils';
-	import { SignedIn } from 'sveltefire';
+	import AuthGuard from '$lib/components/auth-guard/AuthGuard.svelte';
 
 	import { externalTasksStore, getWeekTasks, moveEvent, persistToDos } from './service';
 
@@ -52,26 +52,28 @@
 	title.set('Calendar');
 </script>
 
-<SignedIn let:user>
-	<TypedCollection ref="{DB_PATH.USERS}/{user.uid}/{DB_PATH.CATEGORIES}" type={categoryType}>
-		{#snippet data(categories)}
-			<Calendar
-				changeWeek={(weekStart) => getWeekTasks(user.uid, weekStart)}
-				createTask={(date) => openFormToCreateTask(categories, date)}
-				editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
-				moveEvent={(event, moveObject) => moveEvent(user.uid, event, moveObject)}
-				persistToDos={(toDos) => persistToDos(user.uid, toDos)}
-				tasks={$externalTasksStore}
-				toggleEvent={(event, targetDate) => toggleCompletion(user.uid, event, targetDate)}
-			/>
-			<TaskFormWrapper
-				bind:isShown={isFormShown}
-				{categories}
-				{editingTask}
-				{targetDate}
-				userId={user.uid}
-			/>
-		{/snippet}
-	</TypedCollection>
-	<TaskCompletedNotificationStack bind:completedTasks />
-</SignedIn>
+<AuthGuard>
+	{#snippet data(user)}
+		<TypedCollection ref="{DB_PATH.USERS}/{user.uid}/{DB_PATH.CATEGORIES}" type={categoryType}>
+			{#snippet data(categories)}
+				<Calendar
+					changeWeek={(weekStart) => getWeekTasks(user.uid, weekStart)}
+					createTask={(date) => openFormToCreateTask(categories, date)}
+					editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
+					moveEvent={(event, moveObject) => moveEvent(user.uid, event, moveObject)}
+					persistToDos={(toDos) => persistToDos(user.uid, toDos)}
+					tasks={$externalTasksStore}
+					toggleEvent={(event, targetDate) => toggleCompletion(user.uid, event, targetDate)}
+				/>
+				<TaskFormWrapper
+					bind:isShown={isFormShown}
+					{categories}
+					{editingTask}
+					{targetDate}
+					userId={user.uid}
+				/>
+			{/snippet}
+		</TypedCollection>
+		<TaskCompletedNotificationStack bind:completedTasks />
+	{/snippet}
+</AuthGuard>

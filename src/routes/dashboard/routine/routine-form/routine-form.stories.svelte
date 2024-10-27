@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import RoutineForm from './RoutineForm.svelte';
 	import { buildEmptyRoutine } from './service';
 

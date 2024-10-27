@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import WeekChanger from './WeekChanger.svelte';
 
 	import { defineMeta } from '@storybook/addon-svelte-csf';

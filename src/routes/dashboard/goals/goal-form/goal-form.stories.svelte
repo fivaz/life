@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { buildEmptyGoal } from '../service';
 	import GoalForm from './GoalForm.svelte';
 

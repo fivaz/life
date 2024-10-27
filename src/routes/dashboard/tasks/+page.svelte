@@ -12,7 +12,7 @@
 	import { DocumentText } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { collection, query, where } from 'firebase/firestore';
-	import { SignedIn } from 'sveltefire';
+	import AuthGuard from '$lib/components/auth-guard/AuthGuard.svelte';
 
 	import { sortTasksByDate } from './service';
 	import TaskList from './task-list/TaskList.svelte';
@@ -37,72 +37,77 @@
 </script>
 
 <div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
-	<SignedIn let:user>
-		<TypedCollection ref={`${DB_PATH.USERS}/${user.uid}/${DB_PATH.CATEGORIES}`} type={categoryType}>
-			{#snippet data(categories)}
-				<div class="flex items-center justify-between">
-					<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{$title}</h1>
-					<span></span>
+	<AuthGuard>
+		{#snippet data(user)}
+			<TypedCollection
+				ref={`${DB_PATH.USERS}/${user.uid}/${DB_PATH.CATEGORIES}`}
+				type={categoryType}
+			>
+				{#snippet data(categories)}
+					<div class="flex items-center justify-between">
+						<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{$title}</h1>
+						<span></span>
 
-					<div class="flex items-center gap-5">
-						<button
-							class="rounded bg-white p-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-							onclick={() => (isStatsShown = true)}
-							type="button"
-						>
-							<Icon class="h-5 w-5" src={DocumentText} />
-						</button>
+						<div class="flex items-center gap-5">
+							<button
+								class="rounded bg-white p-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+								onclick={() => (isStatsShown = true)}
+								type="button"
+							>
+								<Icon class="h-5 w-5" src={DocumentText} />
+							</button>
 
-						<div class="hidden h-7 border-r border-gray-300 md:block"></div>
+							<div class="hidden h-7 border-r border-gray-300 md:block"></div>
 
-						<Button
-							onclick={() => {
-								isFormShown = true;
-								editingTask = buildEmptyToDo(categories);
-							}}
-						>
-							<!--							<Plus class="h-4 w-auto" />-->
-							New Category
-						</Button>
+							<Button
+								onclick={() => {
+									isFormShown = true;
+									editingTask = buildEmptyToDo(categories);
+								}}
+							>
+								<!--							<Plus class="h-4 w-auto" />-->
+								New Category
+							</Button>
+						</div>
 					</div>
-				</div>
 
-				<div class="flex flex-col gap-5">
-					<TypedCollection ref={queryUncompletedTasks(user.uid)} type={taskType}>
-						{#snippet data(tasks)}
-							{@const sortedTasks = sortTasksByDate(tasks)}
-							<ul class="flex flex-col gap-3">
-								{#each sortedTasks as date (date)}
-									<TaskList
-										label={date}
-										create={(deadline) => {
-											isFormShown = true;
-											editingTask = buildToDoWithDeadline(categories, deadline);
-										}}
-										edit={(task) => {
-											isFormShown = true;
-											editingTask = task;
-										}}
-										tasks={sortedTasks[date]}
-										userId={user.uid}
-									/>
-								{/each}
-							</ul>
+					<div class="flex flex-col gap-5">
+						<TypedCollection ref={queryUncompletedTasks(user.uid)} type={taskType}>
+							{#snippet data(tasks)}
+								{@const sortedTasks = sortTasksByDate(tasks)}
+								<ul class="flex flex-col gap-3">
+									{#each sortedTasks as date (date)}
+										<TaskList
+											label={date}
+											create={(deadline) => {
+												isFormShown = true;
+												editingTask = buildToDoWithDeadline(categories, deadline);
+											}}
+											edit={(task) => {
+												isFormShown = true;
+												editingTask = task;
+											}}
+											tasks={sortedTasks[date]}
+											userId={user.uid}
+										/>
+									{/each}
+								</ul>
 
-							<Modal close={() => (isStatsShown = false)} isShown={isStatsShown}>
-								<TasksStats {sortedTasks} />
-							</Modal>
-						{/snippet}
-					</TypedCollection>
+								<Modal close={() => (isStatsShown = false)} isShown={isStatsShown}>
+									<TasksStats {sortedTasks} />
+								</Modal>
+							{/snippet}
+						</TypedCollection>
 
-					<TaskFormWrapper
-						bind:isShown={isFormShown}
-						{categories}
-						{editingTask}
-						userId={user.uid}
-					/>
-				</div>
-			{/snippet}
-		</TypedCollection>
-	</SignedIn>
+						<TaskFormWrapper
+							bind:isShown={isFormShown}
+							{categories}
+							{editingTask}
+							userId={user.uid}
+						/>
+					</div>
+				{/snippet}
+			</TypedCollection>
+		{/snippet}
+	</AuthGuard>
 </div>

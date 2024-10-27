@@ -1,22 +1,17 @@
-<script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
-
-	import { user } from '$lib/auth/seed';
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+<script module lang="ts">
+	
+import { user } from '$lib/auth/seed';
 
 	import SideMenu from './SideMenu.svelte';
 
-	export const meta = {
-		argTypes: {},
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	const { Story } = defineMeta({
 		component: SideMenu,
 		parameters: {
 			layout: 'fullscreen',
 		},
-	} satisfies Meta<SideMenu>;
+	});
 </script>
-
-<Template let:args>
-	<SideMenu {...args} />
-</Template>
 
 <Story args={{ currentUser: user }} name="Primary" />

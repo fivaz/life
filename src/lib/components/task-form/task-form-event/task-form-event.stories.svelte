@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { normalWithSubTasks } from '$lib/task/seed';
 	import { convertToTaskIn } from '$lib/task/task-in-utils';
 

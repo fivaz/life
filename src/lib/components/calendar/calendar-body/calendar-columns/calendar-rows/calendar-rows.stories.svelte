@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import CalendarRows from './CalendarRows.svelte';
 
 	import { defineMeta } from '@storybook/addon-svelte-csf';

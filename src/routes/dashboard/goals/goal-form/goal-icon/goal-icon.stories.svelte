@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import GoalIcon from './GoalIcon.svelte';
 
 	import { defineMeta } from '@storybook/addon-svelte-csf';

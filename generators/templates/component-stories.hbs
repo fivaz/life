@@ -1,19 +1,14 @@
-<script context="module" lang="ts">
-  import { Story, Template } from '@storybook/addon-svelte-csf';
-  import type { Meta } from '@storybook/svelte';
-  import {{pascalCase name}} from './{{pascalCase name}}.svelte';
+<script module lang="ts">
 
-  export const meta = {
-		argTypes:{},
-    component: {{pascalCase name}},
-    parameters: {
-      layout: 'fullscreen'
-    }
-  } satisfies Meta<{{pascalCase name}}>;
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+	import {{pascalCase name}} from './{{pascalCase name}}.svelte';
+
+	const { Story } = defineMeta({
+		component: {{pascalCase name}},
+		parameters: {
+			layout: 'fullscreen',
+		},
+	});
 </script>
-
-<Template let:args>
-  <{{pascalCase name}} {...args} />
-</Template>
 
 <Story args=\{{}} name="Primary"/>

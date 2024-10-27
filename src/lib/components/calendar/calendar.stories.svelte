@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { tasks } from '$lib/task/seed';
 
 	import Calendar from './Calendar.svelte';

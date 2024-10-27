@@ -1,25 +1,16 @@
-<script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
+<script module lang="ts">
+	
+import CalendarHeader from './CalendarHeader.svelte';
 
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+	import { startOfWeek } from 'date-fns';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 
-	import CalendarHeader from './CalendarHeader.svelte';
-
-	export const meta = {
-		argTypes: {},
+	const { Story } = defineMeta({
 		component: CalendarHeader,
 		parameters: {
 			layout: 'fullscreen',
 		},
-	} satisfies Meta<CalendarHeader>;
+	});
 </script>
-
-<script>
-	import { startOfWeek } from 'date-fns';
-</script>
-
-<Template let:args>
-	<CalendarHeader {...args}></CalendarHeader>
-</Template>
 
 <Story args={{ weekStart: startOfWeek(new Date(), { weekStartsOn: 1 }) }} name="Primary" />

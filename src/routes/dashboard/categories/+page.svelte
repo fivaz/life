@@ -6,7 +6,7 @@
 	import TypedCollection from '$lib/components/typed-collection/TypedCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { title } from '$lib/utils';
-	import { SignedIn } from 'sveltefire';
+	import AuthGuard from '$lib/components/auth-guard/AuthGuard.svelte';
 
 	import CategoryForm from './category-form/CategoryForm.svelte';
 	import { buildEmptyCategory } from './category-form/service';
@@ -37,29 +37,34 @@
 		</Button2>
 	</div>
 
-	<SignedIn let:user>
-		<TypedCollection ref={`${DB_PATH.USERS}/${user.uid}/${DB_PATH.CATEGORIES}`} type={categoryType}>
-			{#snippet data(categories)}
-				<ul class="flex flex-col gap-1">
-					{#each categories as category (category)}
-						<CategoryRow
-							{category}
-							edit={(category) => {
-								showForm = true;
-								editingCategory = category;
-							}}
-						/>
-					{/each}
-				</ul>
+	<AuthGuard>
+		{#snippet data(user)}
+			<TypedCollection
+				ref={`${DB_PATH.USERS}/${user.uid}/${DB_PATH.CATEGORIES}`}
+				type={categoryType}
+			>
+				{#snippet data(categories)}
+					<ul class="flex flex-col gap-1">
+						{#each categories as category (category)}
+							<CategoryRow
+								{category}
+								edit={(category) => {
+									showForm = true;
+									editingCategory = category;
+								}}
+							/>
+						{/each}
+					</ul>
 
-				<Modal close={() => (showForm = false)} isShown={showForm}>
-					<CategoryForm
-						category={editingCategory}
-						close={() => (showForm = false)}
-						userId={user.uid}
-					/>
-				</Modal>
-			{/snippet}
-		</TypedCollection>
-	</SignedIn>
+					<Modal close={() => (showForm = false)} isShown={showForm}>
+						<CategoryForm
+							category={editingCategory}
+							close={() => (showForm = false)}
+							userId={user.uid}
+						/>
+					</Modal>
+				{/snippet}
+			</TypedCollection>
+		{/snippet}
+	</AuthGuard>
 </div>

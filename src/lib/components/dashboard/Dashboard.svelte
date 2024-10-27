@@ -6,7 +6,13 @@
 	import { auth } from '$lib/firebase';
 	import { currentUser } from '$lib/auth/utils';
 	import { onAuthStateChanged } from 'firebase/auth';
-	import { onMount } from 'svelte';
+	import { onMount, type Snippet } from 'svelte';
+
+	interface Props {
+		children: Snippet;
+	}
+
+	let { children }: Props = $props();
 
 	onMount(() => {
 		onAuthStateChanged(auth, (user) => {
@@ -25,6 +31,6 @@
 			<Banner />
 		{/if}
 
-		<slot />
+		{@render children()}
 	</main>
 </div>

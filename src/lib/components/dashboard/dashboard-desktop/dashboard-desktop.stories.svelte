@@ -1,22 +1,16 @@
-<script context="module" lang="ts">
-	import type { Meta } from '@storybook/svelte';
+<script module lang="ts">
+	
 
-	import { user } from '$lib/auth/seed';
-	import { Story, Template } from '@storybook/addon-svelte-csf';
+import DashboardDesktop from './DashboardDesktop.svelte';
 
-	import DashboardDesktop from './DashboardDesktop.svelte';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 
-	export const meta = {
-		argTypes: {},
+	const { Story } = defineMeta({
 		component: DashboardDesktop,
 		parameters: {
 			layout: 'fullscreen',
 		},
-	} satisfies Meta<DashboardDesktop>;
+	});
 </script>
 
-<Template let:args>
-	<DashboardDesktop {...args} />
-</Template>
-
-<Story args={{ currentUser: user }} name="Primary" />
+<Story args={{}} name="Primary" />

@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import Input from './Input.svelte';
 
 	import { defineMeta } from '@storybook/addon-svelte-csf';

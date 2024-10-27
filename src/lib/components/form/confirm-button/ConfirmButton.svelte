@@ -33,7 +33,7 @@
 </script>
 
 <svelte:window
-	on:keydown={(e) => {
+	onkeydown={(e) => {
 		if (confirmByKey && e.key === confirmByKey) {
 			submit();
 		}

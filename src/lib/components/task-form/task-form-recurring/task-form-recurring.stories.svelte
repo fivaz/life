@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { normalWithSubTasks } from '$lib/task/seed';
 
 	import TaskFormRecurring from './TaskFormRecurring.svelte';
