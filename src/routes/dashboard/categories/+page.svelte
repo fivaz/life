@@ -9,8 +9,7 @@
 	import { buildEmptyCategory } from './category-form/service';
 	import CategoryRow from './category-row/CategoryRow.svelte';
 	import { Plus } from 'lucide-svelte';
-	import DBCategories from '$lib/components/db-collection/db-categories/DBCategories.svelte';
-
+	import DBCategories from '$lib/category/DBCategories.svelte';
 	let editingCategory: Category = $state(buildEmptyCategory());
 
 	let isFormOpen = $state(false);

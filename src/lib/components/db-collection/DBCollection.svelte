@@ -1,5 +1,5 @@
 <script lang="ts" generics="T">
-	import { collection, onSnapshot } from 'firebase/firestore';
+	import { collection, onSnapshot, query, type QueryConstraint, Query } from 'firebase/firestore';
 	import { DB_PATH } from '$lib/consts';
 	import { db } from '$lib/firebase';
 	import { currentUser } from '$lib/auth/utils';
@@ -10,25 +10,35 @@
 
 	interface Props {
 		segment: string;
+		constrain?: QueryConstraint;
 		// eslint-disable-next-line no-undef
 		data: Snippet<[T[], string]>;
 		// eslint-disable-next-line no-undef
 		type: T;
 	}
 
-	let { data, segment }: Props = $props();
+	let { data, segment, constrain: querySection }: Props = $props();
 
 	// eslint-disable-next-line no-undef
 	let items = $state<T[]>([]);
 
 	let isLoading = $state(true);
 
+	function getQuery(userId: string): Query {
+		const collectionRef = collection(db, `${DB_PATH.USERS}/${userId}/${segment}`);
+
+		if (querySection) {
+			return query(collectionRef, querySection);
+		} else {
+			return collectionRef;
+		}
+	}
+
 	$effect(() => {
 		let unsubscribe: Unsubscribe = () => {};
 
 		if ($currentUser) {
-			const collectionRef = collection(db, `${DB_PATH.USERS}/${$currentUser.uid}/${segment}`);
-			unsubscribe = onSnapshot(collectionRef, (snapshot) => {
+			unsubscribe = onSnapshot(getQuery($currentUser.uid), (snapshot) => {
 				// eslint-disable-next-line no-undef
 				items = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }) as T);
 				isLoading = false;

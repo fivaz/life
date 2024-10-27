@@ -8,14 +8,14 @@
 	import { DB_PATH } from '$lib/consts';
 	import { buildEmptyEvent, buildEmptyToDo } from '$lib/task/build-utils';
 	import { title } from '$lib/utils.svelte';
-	
-import GoalForm from './goal-form/GoalForm.svelte';
+
+	import GoalForm from './goal-form/GoalForm.svelte';
 	import GoalRow from './goal-row/GoalRow.svelte';
 	import { buildEmptyGoal, sortGoalsByDate } from './service';
 	import { Plus } from 'lucide-svelte';
-	import DBCategories from '$lib/components/db-collection/db-categories/DBCategories.svelte';
-	import DBGoals from '$lib/components/db-collection/db-goals/DBGoals.svelte';
+	import DBGoals from '$lib/goal/DBGoals.svelte';
 	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
+	import DBCategories from '$lib/category/DBCategories.svelte';
 
 	let editingGoal = $state(buildEmptyGoal());
 
