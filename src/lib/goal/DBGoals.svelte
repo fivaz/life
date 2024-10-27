@@ -14,7 +14,7 @@
 	let goalType: Goal;
 </script>
 
-<DBCollection segment={DB_PATH.GOALS} type={goalType}>
+<DBCollection collection={DB_PATH.GOALS} type={goalType}>
 	{#snippet data(items, userId)}
 		{@render typedData(items, userId)}
 	{/snippet}

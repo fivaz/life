@@ -15,7 +15,7 @@
 	let routineType: Routine;
 </script>
 
-<DBCollection segment={DB_PATH.ROUTINES} type={routineType} constrain={orderBy('order')}>
+<DBCollection collection={DB_PATH.ROUTINES} type={routineType} constrain={orderBy('order')}>
 	{#snippet data(items, userId)}
 		{@render typedData(items, userId)}
 	{/snippet}

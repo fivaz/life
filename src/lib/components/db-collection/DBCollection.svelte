@@ -9,7 +9,7 @@
 	import Loading from '$lib/components/loading/Loading.svelte';
 
 	interface Props {
-		segment: string;
+		collection: string;
 		constrain?: QueryConstraint;
 		// eslint-disable-next-line no-undef
 		data: Snippet<[T[], string]>;
@@ -17,7 +17,7 @@
 		type: T;
 	}
 
-	let { data, segment, constrain: querySection }: Props = $props();
+	let { data, collection: segment, constrain }: Props = $props();
 
 	// eslint-disable-next-line no-undef
 	let items = $state<T[]>([]);
@@ -27,8 +27,8 @@
 	function getQuery(userId: string): Query {
 		const collectionRef = collection(db, `${DB_PATH.USERS}/${userId}/${segment}`);
 
-		if (querySection) {
-			return query(collectionRef, querySection);
+		if (constrain) {
+			return query(collectionRef, constrain);
 		} else {
 			return collectionRef;
 		}
