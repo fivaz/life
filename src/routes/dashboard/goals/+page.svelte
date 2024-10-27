@@ -33,22 +33,22 @@
 	}
 </script>
 
-<div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
-	<div class="flex items-center justify-between">
-		<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
-		<span></span>
-		<Button
-			onclick={() => {
-				showForm = true;
-				editingGoal = buildEmptyGoal();
-			}}
-		>
-			<Plus class="h-4 w-auto" />
-			New Goal
-		</Button>
-	</div>
-	<DBCategories>
-		{#snippet data(categories, userId)}
+<DBCategories>
+	{#snippet data(categories, userId)}
+		<div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
+			<div class="flex items-center justify-between">
+				<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
+				<span></span>
+				<Button
+					onclick={() => {
+						showForm = true;
+						editingGoal = buildEmptyGoal();
+					}}
+				>
+					<Plus class="h-4 w-auto" />
+					New Goal
+				</Button>
+			</div>
 			<div class="flex flex-col gap-5">
 				<ul class="divide-y divide-gray-100" role="list">
 					<DBGoals>
@@ -100,6 +100,6 @@
 					<GoalForm goal={editingGoal} close={() => (showForm = false)} {userId} />
 				</Modal>
 			</div>
-		{/snippet}
-	</DBCategories>
-</div>
+		</div>
+	{/snippet}
+</DBCategories>

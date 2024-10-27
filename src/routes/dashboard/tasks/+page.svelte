@@ -24,9 +24,9 @@
 	let isStatsShown = $state(false);
 </script>
 
-<div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
-	<DBCategories>
-		{#snippet data(categories, userId)}
+<DBCategories>
+	{#snippet data(categories, userId)}
+		<div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
 			<div class="flex items-center justify-between">
 				<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
 				<span></span>
@@ -96,6 +96,6 @@
 					{/snippet}
 				</DBGoals>
 			</div>
-		{/snippet}
-	</DBCategories>
-</div>
+		</div>
+	{/snippet}
+</DBCategories>

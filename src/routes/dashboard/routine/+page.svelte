@@ -25,10 +25,10 @@
 	let selectedDate: Date = $state(new Date());
 </script>
 
-<div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
-	<div class="flex h-full w-full flex-col gap-5">
-		<DBRoutines>
-			{#snippet data(routines, userId)}
+<DBRoutines>
+	{#snippet data(routines, userId)}
+		<div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
+			<div class="flex h-full w-full flex-col gap-5">
 				<div class="flex items-center justify-between">
 					<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
 					<div
@@ -91,7 +91,7 @@
 				<Modal bind:isOpen={showForm}>
 					<RoutineForm close={() => (showForm = false)} routine={editingRoutine} {userId} />
 				</Modal>
-			{/snippet}
-		</DBRoutines>
-	</div>
-</div>
+			</div>
+		</div>
+	{/snippet}
+</DBRoutines>
