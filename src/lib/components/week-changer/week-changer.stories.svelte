@@ -9,9 +9,7 @@
 			layout: 'fullscreen',
 		},
 	});
-</script>
 
-<script>
 	import { startOfWeek } from 'date-fns';
 </script>
 

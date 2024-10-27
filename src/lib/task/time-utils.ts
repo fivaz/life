@@ -33,7 +33,7 @@ export function convertTimeToMinutes(time: string): number {
 		const [hours, minutes] = time.split(':').map(Number);
 		return hours * 60 + minutes;
 	}
-	throw "Time isn't in the format hh:mm";
+	throw new Error("Time isn't in the format hh:mm");
 }
 
 export function convertMinutesToTime(time: number): string {

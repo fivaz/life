@@ -76,10 +76,10 @@ export function queryUncompletedTasks(userId: string) {
 export type SubTask = { isDone: boolean; title: string };
 
 export function getSubTasks(task: CoreTask): SubTask[] {
-	// \[\s?(x| )\s?\] matches either [x] or [ ] (with optional spaces inside).
+	// \[\s?([x ])\s?\] matches either [x] or [ ] (with optional spaces inside).
 	// \s-\s matches the separator - (a space, dash, space).
 	// (.+) captures the message part (anything after the separator).
-	const regex = /\[\s?(x| )\s?\]\s-\s(.+)/g;
+	const regex = /\[\s?([x ])\s?]\s-\s(.+)/g;
 
 	let match: RegExpExecArray | null;
 	const subTasks: { isDone: boolean; title: string }[] = [];

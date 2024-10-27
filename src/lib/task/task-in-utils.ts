@@ -110,13 +110,11 @@ export function getRecurringEvent(data: TaskIn): RecurringEvent {
 export function convertToTaskIn(task: Task): TaskIn {
 	if (isToDo(task)) {
 		return convertToDo(task);
-	} else {
-		if (isRecurring(task)) {
+	} else if (isRecurring(task)) {
 			return convertRecurring(task);
 		} else {
 			return convertEvent(task);
 		}
-	}
 }
 
 function convertToDo(todo: ToDo): TaskIn {
