@@ -4,7 +4,7 @@
 	import { onMount, type Snippet } from 'svelte';
 	import '../app.css';
 	import { onAuthStateChanged } from 'firebase/auth';
-	import { currentUser } from '$lib/auth/utils.svelte';
+	import { setUser } from '$lib/auth/utils.svelte';
 
 	interface Props {
 		children: Snippet;
@@ -14,7 +14,7 @@
 
 	onMount(() => {
 		onAuthStateChanged(auth, (user) => {
-			currentUser.value = user;
+			setUser(user);
 		});
 	});
 </script>

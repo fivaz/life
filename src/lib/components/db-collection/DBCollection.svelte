@@ -37,8 +37,8 @@
 	$effect(() => {
 		let unsubscribe: Unsubscribe = () => {};
 
-		if (currentUser.value) {
-			unsubscribe = onSnapshot(getQuery(currentUser.value.uid), (snapshot) => {
+		if (currentUser.uid) {
+			unsubscribe = onSnapshot(getQuery(currentUser.uid), (snapshot) => {
 				// eslint-disable-next-line no-undef
 				items = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }) as T);
 				isLoading = false;
@@ -51,6 +51,6 @@
 
 {#if isLoading}
 	<Loading />
-{:else if currentUser.value}
-	{@render data(items, currentUser.value.uid)}
+{:else if currentUser.uid}
+	{@render data(items, currentUser.uid)}
 {/if}

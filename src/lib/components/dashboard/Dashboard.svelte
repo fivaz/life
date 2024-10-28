@@ -19,7 +19,7 @@
 	<DashboardMobile class="flex md:hidden" />
 
 	<main class="mt-14 flex-1 overflow-y-auto md:mt-0">
-		{#if currentUser.value?.email === demoLogin.email}
+		{#if currentUser.email === demoLogin.email}
 			<Banner />
 		{/if}
 

@@ -4,6 +4,6 @@
 	import Profile from './profile/Profile.svelte';
 </script>
 
-{#if currentUser.value}
-	<Profile user={currentUser.value} />
+{#if currentUser.uid}
+	<Profile user={currentUser} />
 {/if}

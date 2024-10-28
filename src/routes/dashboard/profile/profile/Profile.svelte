@@ -3,27 +3,29 @@
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Input from '$lib/components/form/input/Input.svelte';
 	import { DB_PATH } from '$lib/consts';
-	import { db } from '$lib/firebase';
-	import { storeAvatar, updateUser } from '$lib/auth/utils.svelte';
-	import { type Auth, updateProfile } from 'firebase/auth';
+	import { auth, db } from '$lib/firebase';
+	import { storeAvatar, updateUser, type User } from '$lib/auth/utils.svelte';
+	import { type User as FirebaseUser, updateProfile } from 'firebase/auth';
 	import { doc, updateDoc } from 'firebase/firestore';
 	import { minidenticon } from 'minidenticons';
 
 	interface Props {
-		user: NonNullable<Auth['currentUser']>;
+		user: User;
 	}
 
 	let { user }: Props = $props();
 
-	let success: boolean = $state(false);
+	let success = $state<boolean>(false);
 
-	let isLoading = $state(false);
+	let isLoading = $state<boolean>(false);
 
-	let displayName = $state<string>(user.displayName || '');
+	let displayName = $state<string>(user.displayName);
+
+	let photoURL = $state(user.photoURL);
 
 	let file: File | null = $state(null);
 
-	let photoURL = $state(user.photoURL);
+	let firebaseUser: FirebaseUser | null = $state(auth.currentUser);
 
 	function handleChange(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (event.currentTarget.files) {
@@ -32,11 +34,7 @@
 		}
 	}
 
-	async function editProfile(
-		user: NonNullable<Auth['currentUser']>,
-		displayName: null | string,
-		photoURL: null | string,
-	) {
+	async function editProfile(user: FirebaseUser, displayName: string, photoURL: string) {
 		await updateProfile(user, { displayName, photoURL });
 		const userRef = doc(db, DB_PATH.USERS, user.uid);
 		await updateDoc(userRef, { displayName, photoURL });
@@ -47,15 +45,21 @@
 	async function onSubmit(event: SubmitEvent) {
 		event.preventDefault();
 		isLoading = true;
+		try {
+			if (file) {
+				photoURL = await storeAvatar(user.uid, file);
+			}
 
-		if (file) {
-			photoURL = await storeAvatar(user.uid, file);
+			if (firebaseUser) {
+				await editProfile(firebaseUser, displayName, photoURL);
+			}
+
+			success = true;
+		} catch (error) {
+			console.error(error);
+		} finally {
+			isLoading = false;
 		}
-
-		await editProfile(user, displayName, photoURL);
-
-		success = true;
-		isLoading = false;
 	}
 
 	async function resetImage() {

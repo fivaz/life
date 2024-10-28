@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
 	import Dashboard from '$lib/components/dashboard/Dashboard.svelte';
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
 	import { dialog } from '$lib/components/dialog/service';
-	import { Routes, dashboardRoute } from '$lib/consts';
-	import { auth } from '$lib/firebase';
-	import { onAuthStateChanged } from 'firebase/auth';
+	import { Routes } from '$lib/consts';
+
 	import { onMount, type Snippet } from 'svelte';
+	import { onAuthStateChanged } from 'firebase/auth';
+	import { auth } from '$lib/firebase';
 
 	interface Props {
 		children: Snippet;
@@ -17,7 +17,7 @@
 
 	onMount(() => {
 		onAuthStateChanged(auth, (user) => {
-			if (!user && $page.url.pathname.startsWith(dashboardRoute)) {
+			if (!user) {
 				goto(Routes.LOGIN);
 			}
 		});

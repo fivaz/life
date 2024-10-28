@@ -60,8 +60,8 @@
 	<div class="fixed bottom-0 left-0">
 		<ProfileDropUp>
 			<div class="flex items-center gap-2 rounded-lg p-2 hover:bg-gray-50">
-				<img alt="avatar" class="h-8 w-8 rounded-full" src={currentUser.value?.photoURL} />
-				<span class="text-sm font-semibold text-gray-900">{currentUser.value?.displayName}</span>
+				<img alt="avatar" class="h-8 w-8 rounded-full" src={currentUser.photoURL} />
+				<span class="text-sm font-semibold text-gray-900">{currentUser.displayName}</span>
 			</div>
 		</ProfileDropUp>
 	</div>

@@ -1,12 +1,7 @@
-import type { User } from 'firebase/auth';
-
 import { DB_PATH } from '$lib/consts';
 import { storage } from '$lib/firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-
-type NewUser = {
-	-readonly [K in keyof User]: User[K];
-};
+import { type User as FirebaseUser } from 'firebase/auth';
 
 export async function storeAvatar(userId: string, file: Blob): Promise<string> {
 	const avatarsRef = ref(storage, `${DB_PATH.AVATARS}/${userId}`);
@@ -14,21 +9,25 @@ export async function storeAvatar(userId: string, file: Blob): Promise<string> {
 	return getDownloadURL(avatarsRef);
 }
 
-let _currentUser = $state<NewUser | null>(null);
+export type User = { displayName: string; email: string; uid: string; photoURL: string };
 
-export const currentUser = {
-	get value() {
-		return _currentUser;
-	},
-	set value(newUser) {
-		_currentUser = newUser;
-	},
-};
+export const currentUser = $state<User>({
+	displayName: '',
+	email: '',
+	uid: '',
+	photoURL: '',
+});
 
-export function updateUser(displayName: null | string, photoURL: null | string) {
-	if (!_currentUser) return;
-	_currentUser.displayName = displayName;
-	_currentUser.photoURL = photoURL;
+export function setUser(user: FirebaseUser | null) {
+	currentUser.displayName = user?.displayName || '';
+	currentUser.uid = user?.uid || '';
+	currentUser.photoURL = user?.photoURL || '';
+	currentUser.email = user?.email || '';
+}
+
+export function updateUser(displayName: string, photoURL: string) {
+	currentUser.displayName = displayName;
+	currentUser.photoURL = photoURL;
 }
 
 export function checkEmail(email: string): boolean {
