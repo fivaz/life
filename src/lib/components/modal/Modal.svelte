@@ -1,15 +1,41 @@
 <script lang="ts">
 	import Portal from 'svelte-portal';
 	import type { Snippet } from 'svelte';
+	import { dialog } from '$lib/components/dialog/service.svelte';
 
 	interface Props {
 		isOpen: boolean;
 		children: Snippet;
 		close?: () => void;
+		isDialog?: boolean;
 	}
 
-	let { isOpen = $bindable(), close = () => (isOpen = false), children }: Props = $props();
+	let {
+		isDialog = false,
+		isOpen = $bindable(),
+		close = () => (isOpen = false),
+		children,
+	}: Props = $props();
+
+	function showBeClosed(event: KeyboardEvent) {
+		if (!isOpen) return;
+
+		if (event.key !== 'Escape') return;
+
+		//make sure that a Modal is only closed on Esc if there isn't a dialog open
+		if (!isDialog && !dialog.value.show) {
+			close();
+			return;
+		}
+
+		// in case the dialog is open close it
+		if (isDialog && dialog.value.show) {
+			close();
+		}
+	}
 </script>
+
+<svelte:window onkeydown={showBeClosed} />
 
 {#if isOpen}
 	<Portal target="body">

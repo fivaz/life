@@ -104,7 +104,12 @@
 
 	<div class="flex justify-between bg-gray-50 px-4 py-3 text-right sm:px-6">
 		{#if isEditing}
-			<ConfirmButton color="red" confirm={() => deleteGoal(goal.id, userId, close)} type="button">
+			<ConfirmButton
+				color="red"
+				confirmByKey="Delete"
+				confirm={() => deleteGoal(goal.id, userId, close)}
+				type="button"
+			>
 				Delete
 			</ConfirmButton>
 		{:else}

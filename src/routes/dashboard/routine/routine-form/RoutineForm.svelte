@@ -64,6 +64,7 @@
 		{#if isEditing}
 			<ConfirmButton
 				color="red"
+				confirmByKey="Delete"
 				confirm={() => deleteRoutine(routine.id, userId, close)}
 				type="button"
 			>
