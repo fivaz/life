@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import Dashboard from '$lib/components/dashboard/Dashboard.svelte';
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
-	import { dialog } from '$lib/components/dialog/service';
+	import { dialog } from '$lib/components/dialog/service.svelte';
 	import { Routes } from '$lib/consts';
 
 	import { onMount, type Snippet } from 'svelte';
@@ -29,10 +29,10 @@
 </Dashboard>
 
 <Dialog
-	cancelText={$dialog.cancelText}
-	confirmText={$dialog.confirmText}
-	message={$dialog.message}
-	resolve={$dialog.resolve}
-	isOpen={$dialog.show}
-	title={$dialog.title}
+	cancelText={dialog.value.cancelText}
+	confirmText={dialog.value.confirmText}
+	message={dialog.value.message}
+	resolve={dialog.value.resolve}
+	isOpen={dialog.value.show}
+	title={dialog.value.title}
 />

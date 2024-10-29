@@ -1,4 +1,3 @@
-import { writable } from 'svelte/store';
 
 const closedDialog = {
 	cancelText: '',
@@ -9,7 +8,7 @@ const closedDialog = {
 	title: '',
 };
 
-export const dialog = writable<{
+let _dialog = $state<{
 	cancelText: string;
 	confirmText: string;
 	message: string;
@@ -17,6 +16,15 @@ export const dialog = writable<{
 	show: boolean;
 	title: string;
 }>(closedDialog);
+
+export const dialog = {
+	get value() {
+		return _dialog;
+	},
+	set value(value) {
+		_dialog = value;
+	},
+};
 
 export function createDialog({
 	cancelText = 'cancel',
@@ -30,17 +38,17 @@ export function createDialog({
 	title: string;
 }) {
 	return new Promise<boolean | null>((resolve) => {
-		dialog.update(() => ({
+		_dialog = {
 			cancelText,
 			confirmText,
 			message,
 			resolve,
 			show: true,
 			title,
-		}));
+		};
 	});
 }
 
 export function closeDialog() {
-	dialog.update(() => closedDialog);
+	_dialog = closedDialog;
 }

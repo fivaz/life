@@ -1,7 +1,7 @@
 <script module lang="ts">
 	import { categories } from '$lib/category/seed';
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
-	import { dialog } from '$lib/components/dialog/service';
+	import { dialog } from '$lib/components/dialog/service.svelte';
 	import { buildEmptyEvent, buildEmptyToDo } from '$lib/task/build-utils';
 	import { normalWithSubTasks } from '$lib/task/seed';
 
@@ -17,12 +17,12 @@
 <!-- eslint-disable-next-line @typescript-eslint/no-explicit-any-->
 {#snippet template(args: any)}
 	<Dialog
-		cancelText={$dialog.cancelText}
-		confirmText={$dialog.confirmText}
-		message={$dialog.message}
-		resolve={$dialog.resolve}
-		isOpen={$dialog.show}
-		title={$dialog.title}
+		cancelText={dialog.value.cancelText}
+		confirmText={dialog.value.confirmText}
+		message={dialog.value.message}
+		resolve={dialog.value.resolve}
+		isOpen={dialog.value.show}
+		title={dialog.value.title}
 	/>
 	<div class="w-96">
 		<TaskForm {...args} />

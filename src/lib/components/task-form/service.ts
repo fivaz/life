@@ -1,7 +1,7 @@
 import type { Goal } from '$lib/goal/utils';
 import type { RecurringEvent, Task } from '$lib/task/utils';
 
-import { createDialog } from '$lib/components/dialog/service';
+import { createDialog } from '$lib/components/dialog/service.svelte';
 import { DB_PATH, TIME } from '$lib/consts';
 import { db, storage } from '$lib/firebase';
 import { isRecurring } from '$lib/task/utils';

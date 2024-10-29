@@ -1,5 +1,5 @@
 <script module lang="ts">
-	import { dialog } from '$lib/components/dialog/service';
+	import { dialog } from '$lib/components/dialog/service.svelte';
 
 	import ConfirmButton from './ConfirmButton.svelte';
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
@@ -13,12 +13,12 @@
 
 <Story args={{}} name="Primary">
 	<Dialog
-		cancelText={$dialog.cancelText}
-		confirmText={$dialog.confirmText}
-		message={$dialog.message}
-		resolve={$dialog.resolve}
-		isOpen={$dialog.show}
-		title={$dialog.title}
+		cancelText={dialog.value.cancelText}
+		confirmText={dialog.value.confirmText}
+		message={dialog.value.message}
+		resolve={dialog.value.resolve}
+		isOpen={dialog.value.show}
+		title={dialog.value.title}
 	/>
 
 	<ConfirmButton confirm={() => console.log('confirmed')}>button</ConfirmButton>
