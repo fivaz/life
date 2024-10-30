@@ -60,10 +60,13 @@
 		</div>
 	</div>
 
-	<ul class="flex flex-grow flex-col overflow-y-auto py-3">
+	<ul class="py-3">
 		{#each tasks as task, index (task)}
-			<li class="flex cursor-pointer items-center px-6 py-3 hover:bg-gray-100 hover:underline">
-				<button onclick={() => editTask(task, '')}>
+			<li class="hover:bg-gray-100 hover:underline">
+				<button
+					class="flex w-full items-center px-6 py-3 text-left"
+					onclick={() => editTask(task, '')}
+				>
 					<span class="w-5 pr-3 font-medium text-gray-500">{index + 1}</span>
 					<Icon
 						class="h-5 w-8 pr-3 text-gray-400"
@@ -83,13 +86,13 @@
 						<GoalIcon class="h-4 w-8 pr-3 text-gray-400" name={task.goal.icon} />
 					{/if}
 					<span class="w-12">{task.duration}</span>
-					<span class="w-16">
+					<span class="flex w-16 justify-center">
 						<span
 							class={clsx(
 								task.isDone
 									? 'bg-green-50 text-green-700 ring-green-600/20'
 									: 'bg-red-50 text-red-700 ring-red-600/20',
-								'm-auto w-max rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset',
+								'rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset',
 							)}
 						>
 							{task.isDone ? 'Done' : 'Undone'}
