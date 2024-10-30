@@ -2,7 +2,7 @@ import type { Task } from '$lib/task/utils';
 
 import { DATE_FR } from '$lib/consts';
 import { getTaskDate } from '$lib/task/time-utils';
-import { isRecurring, sortTasks } from '$lib/task/utils';
+import { isRecurring } from '$lib/task/utils';
 import {
 	addWeeks,
 	endOfWeek,
@@ -69,42 +69,34 @@ function getDateName(task: Task): GROUPS | string {
 }
 
 function groupTasksByDate(tasks: Task[]): Record<string, Task[]> {
-	return tasks.reduce<Record<string, Task[]>>(
-		(groups, task) => {
-			const date = getDateName(task);
+	const tasksByDate = Object.groupBy(tasks, getDateName) as Record<string, Task[]>;
 
-			if (!groups[date]) {
-				groups[date] = [];
-			}
-			groups[date].push(task);
-			return groups;
-		},
-		{
-			[GROUPS.NextWeek]: [],
-			[GROUPS.Someday]: [],
-			[GROUPS.Today]: [],
-			[GROUPS.Tomorrow]: [],
-			[GROUPS.Week]: [],
-		},
-	);
+	const groupOfDates = {
+		[GROUPS.NextWeek]: [],
+		[GROUPS.Someday]: [],
+		[GROUPS.Today]: [],
+		[GROUPS.Tomorrow]: [],
+		[GROUPS.Week]: [],
+	};
+
+	return Object.assign(groupOfDates, tasksByDate);
 }
 
-function getTaskByOrderedDate(tasksByDate: Record<string, Task[]>): SortedTaskType {
-	const priorityObject: Record<string, number> = {
-		[GROUPS.NextWeek]: 5,
+function groupTaskByDateSorted(tasksByDate: Record<string, Task[]>): SortedTaskType {
+	const dateHashMap: Record<string, number> = {
 		[GROUPS.Overdue]: 1,
-		[GROUPS.Recurring]: 8,
-		// Rest : 6
-		[GROUPS.Someday]: 7,
 		[GROUPS.Today]: 2,
 		[GROUPS.Tomorrow]: 3,
 		[GROUPS.Week]: 4,
+		[GROUPS.NextWeek]: 5,
+		// Rest : 6
+		[GROUPS.Someday]: 7,
+		[GROUPS.Recurring]: 8,
 	};
 
 	function sorting(a: string, b: string) {
-		// 5 is the Number representing the rest
-		const priorityA = priorityObject[a] || 6;
-		const priorityB = priorityObject[b] || 6;
+		const priorityA = dateHashMap[a] || 6;
+		const priorityB = dateHashMap[b] || 6;
 
 		return priorityA - priorityB;
 	}
@@ -120,8 +112,7 @@ function getTaskByOrderedDate(tasksByDate: Record<string, Task[]>): SortedTaskTy
 	};
 }
 
-export function sortTasksByDate(tasks: Task[]): SortedTaskType {
-	const sortedTasks = sortTasks(tasks);
-	const tasksByDate = groupTasksByDate(sortedTasks);
-	return getTaskByOrderedDate(tasksByDate);
+export function getTasksByDateSorted(tasks: Task[]): SortedTaskType {
+	const tasksByDate = groupTasksByDate(tasks);
+	return groupTaskByDateSorted(tasksByDate);
 }

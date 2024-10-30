@@ -7,7 +7,7 @@
 	import { DocumentText } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
-	import { sortTasksByDate } from './service';
+	import { getTasksByDateSorted } from './service';
 	import TaskList from './task-list/TaskList.svelte';
 	import TasksStats from './tasks-stats/TasksStats.svelte';
 	import { Plus } from 'lucide-svelte';
@@ -57,9 +57,9 @@
 			<div class="flex flex-col gap-5">
 				<DBUndoneTasks>
 					{#snippet data(tasks)}
-						{@const sortedTasks = sortTasksByDate(tasks)}
+						{@const sortedTasksGroup = getTasksByDateSorted(tasks)}
 						<ul class="flex flex-col gap-3">
-							{#each sortedTasks as date (date)}
+							{#each sortedTasksGroup as date (date)}
 								<TaskList
 									label={date}
 									create={(deadline) => {
@@ -70,14 +70,14 @@
 										isFormShown = true;
 										editingTask = task;
 									}}
-									tasks={sortedTasks[date]}
+									tasks={sortedTasksGroup[date]}
 									{userId}
 								/>
 							{/each}
 						</ul>
 
 						<Modal bind:isOpen={isStatsShown}>
-							<TasksStats {sortedTasks} />
+							<TasksStats tasks={sortedTasksGroup} />
 						</Modal>
 					{/snippet}
 				</DBUndoneTasks>

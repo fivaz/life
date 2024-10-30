@@ -6,12 +6,12 @@
 	import type { SortedTaskType } from '../service';
 
 	interface Props {
-		sortedTasks: SortedTaskType;
+		tasks: SortedTaskType;
 	}
 
-	let { sortedTasks }: Props = $props();
+	let { tasks }: Props = $props();
 
-	let netSortedTasks = $derived(prepareSortedTasks(sortedTasks));
+	let netSortedTasks = $derived(prepareSortedTasks(tasks));
 	let total = $derived(Object.values(netSortedTasks).flat());
 
 	function prepareSortedTasks(sortedTasks: SortedTaskType): SortedTaskType {
@@ -39,8 +39,8 @@
 						<Icon class="h-6 w-6 text-gray-400" src={LayoutGrid} />
 						<div>{date}</div>
 					</div>
-					<div class="w-16 text-center">{sortedTasks[date].length}</div>
-					<div class="w-16 text-right">{getTotalDuration(sortedTasks[date])}</div>
+					<div class="w-16 text-center">{tasks[date].length}</div>
+					<div class="w-16 text-right">{getTotalDuration(tasks[date])}</div>
 				</li>
 			{/each}
 			<li class="flex cursor-pointer justify-between gap-3 px-6 py-3 hover:bg-gray-100">
