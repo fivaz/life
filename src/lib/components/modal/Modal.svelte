@@ -17,21 +17,20 @@
 		children,
 	}: Props = $props();
 
+	// this makes sure that if there is a dialog on the screen, the only modal closed on Esc is the
+	// one being used by the dialog, otherwise the modal not used by a dialog will be closed
+	let isCloseableOnEsc = $derived(isDialog === dialog.value.show);
+
 	function showBeClosed(event: KeyboardEvent) {
 		if (!isOpen) return;
 
 		if (event.key !== 'Escape') return;
 
-		//make sure that a Modal is only closed on Esc if there isn't a dialog open
-		if (!isDialog && !dialog.value.show) {
-			close();
-			return;
-		}
+		if (!isCloseableOnEsc) return;
 
-		// in case the dialog is open close it
-		if (isDialog && dialog.value.show) {
-			close();
-		}
+		close();
+
+		event.stopPropagation();
 	}
 </script>
 
