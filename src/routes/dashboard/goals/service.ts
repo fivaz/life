@@ -1,7 +1,6 @@
 import type { Goal } from '$lib/goal/utils';
 
 import { DATE, DATE_FR } from '$lib/consts';
-import { sortByDeadline } from '$lib/goal/utils';
 import { format, getQuarter, isPast, isThisYear, lastDayOfQuarter, parse } from 'date-fns';
 
 export function buildEmptyGoal(): Goal {
@@ -60,17 +59,6 @@ function getDateName(goal: Goal): GROUPS | string {
 
 	return format(date, DATE_FR);
 }
-function groupGoalsByDate(goals: Goal[]): Record<string, Goal[]> {
-	return goals.reduce<Record<string, Goal[]>>((groups, goal) => {
-		const date = getDateName(goal);
-
-		if (!groups[date]) {
-			groups[date] = [];
-		}
-		groups[date].push(goal);
-		return groups;
-	}, {});
-}
 
 function getGoalsByOrderedDate(goalsByDate: Record<string, Goal[]>) {
 	const priorityObject: Record<string, number> = {
@@ -103,9 +91,7 @@ function getGoalsByOrderedDate(goalsByDate: Record<string, Goal[]>) {
 	};
 }
 
-// TODO use Object.groupBy() Ecmascript 2024 in the parts of the code where I group tasks by date
 export function sortGoalsByDate(goals: Goal[]): Record<string, Goal[]> & Iterable<string> {
-	const sortedTasks = sortByDeadline(goals);
-	const tasksByDate = groupGoalsByDate(sortedTasks);
-	return getGoalsByOrderedDate(tasksByDate);
+	const goalsByDate = Object.groupBy(goals, getDateName) as Record<string, Goal[]>;
+	return getGoalsByOrderedDate(goalsByDate);
 }
