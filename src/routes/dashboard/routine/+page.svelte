@@ -3,7 +3,7 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import Streak from '$lib/components/streak/Streak.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
-	import WeekListSelector from '$lib/components/week-list-selector/WeekListSelector.svelte';
+	import WeekListSelector from './week-list-selector/WeekListSelector.svelte';
 
 	import { addDays, startOfWeek } from 'date-fns';
 	import { Calendar1, Plus } from 'lucide-svelte';
@@ -16,7 +16,7 @@
 
 	let weekStart = $state(startOfWeek(new Date(), { weekStartsOn: 1 }));
 
-	let dates = $derived(Array.from({ length: 7 }, (_, i) => addDays(weekStart, i)));
+	const dates = $derived(Array.from({ length: 7 }, (_, i) => addDays(weekStart, i)));
 
 	let editingRoutine = $state(buildEmptyRoutine());
 

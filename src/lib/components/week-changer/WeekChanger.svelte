@@ -7,6 +7,7 @@
 	interface Props {
 		weekStart: Date;
 		selectedDate: Date;
+		onchange?: (weekStart: Date) => void;
 	}
 
 	let { weekStart = $bindable(), selectedDate = $bindable() }: Props = $props();

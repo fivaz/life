@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { selectedDate, weekStart } from '$lib/components/calendar/service';
+	import { selectedDate, weekStart } from '$lib/components/calendar/service.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 	import { DATE } from '$lib/consts';
@@ -13,23 +13,29 @@
 	function createEvent() {
 		createTask(getCurrentRoundedDate());
 	}
+
+	const changeWeekCallback = getContext('changeWeek');
+
+	$effect(() => {
+		changeWeekCallback(weekStart.value);
+	});
 </script>
 
 <header class="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">
 	<div>
 		<h1 class="text-base font-semibold leading-6 text-gray-900">
-			<time class="sm:hidden" dateTime={format($selectedDate, DATE)}>
-				{format($selectedDate, 'MMM dd, yyyy')}
+			<time class="sm:hidden" dateTime={format(selectedDate.value, DATE)}>
+				{format(selectedDate.value, 'MMM dd, yyyy')}
 			</time>
-			<time class="hidden sm:inline" dateTime={format($selectedDate, DATE)}>
-				{format($selectedDate, 'MMMM dd, yyyy')}
+			<time class="hidden sm:inline" dateTime={format(selectedDate.value, DATE)}>
+				{format(selectedDate.value, 'MMMM dd, yyyy')}
 			</time>
 		</h1>
-		<p class="mt-1 text-sm text-gray-500">{format($selectedDate, 'eeee')}</p>
+		<p class="mt-1 text-sm text-gray-500">{format(selectedDate.value, 'eeee')}</p>
 	</div>
 
 	<div class="flex items-center gap-5">
-		<WeekChanger bind:selectedDate={$selectedDate} bind:weekStart={$weekStart} />
+		<WeekChanger bind:selectedDate={selectedDate.value} bind:weekStart={weekStart.value} />
 
 		<div class="hidden h-7 border-r border-gray-300 md:block"></div>
 

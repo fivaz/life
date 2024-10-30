@@ -7,7 +7,7 @@
 	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
 	import { buildEmptyEvent, buildEventWithTime } from '$lib/task/build-utils';
 
-	import { runeTasks, getWeekTasks, moveEvent, persistToDos } from './service.svelte';
+	import { externalTasks as tasks, getWeekTasks, moveEvent, persistToDos } from './service.svelte';
 	import DBCategories from '$lib/category/DBCategories.svelte';
 	import DBGoals from '$lib/goal/DBGoals.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
@@ -55,7 +55,7 @@
 			editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
 			moveEvent={(event, moveObject) => moveEvent(userId, event, moveObject)}
 			persistToDos={(toDos) => persistToDos(userId, toDos)}
-			tasks={runeTasks().value}
+			{tasks}
 			toggleEvent={(event, targetDate) => toggleCompletion(userId, event, targetDate)}
 		/>
 		<DBGoals>

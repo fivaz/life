@@ -34,18 +34,10 @@ export function persistToDos(userId: string, toDos: ToDo[]) {
 	});
 }
 
-let externalTasks = $state<Task[]>([]);
+export const externalTasks = $state<Task[]>([]);
 
 // eslint-disable-next-line prefer-const
 let savedWeeks = $state<string[]>([]);
-
-export function runeTasks() {
-	return {
-		get value() {
-			return externalTasks;
-		},
-	};
-}
 
 export function getWeekTasks(userId: string, startOfWeek: Date): void {
 	const weekStartString = format(startOfWeek, DATE);
@@ -110,5 +102,7 @@ function addTask(newTask: Task): void {
 }
 
 export function removeLocalTask(task: Task) {
-	externalTasks = externalTasks.filter((existingTask) => existingTask.id !== task.id);
+	const index = externalTasks.findIndex((existingTask) => existingTask.id === task.id);
+	if (!index) return;
+	externalTasks.slice(index, 1);
 }

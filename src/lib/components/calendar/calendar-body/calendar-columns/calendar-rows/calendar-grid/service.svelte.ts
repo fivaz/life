@@ -1,4 +1,3 @@
-
 // this var is used in a style tag ass grid-class, if you change the value, remember to also change the style tag
 export const GRID_CLASS = 'grid-class';
 export const GRID_CELL_TIME = 15;

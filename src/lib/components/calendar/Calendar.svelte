@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Task } from '$lib/task/utils';
 
-	import { updateDateAtMidnight, weekStart } from '$lib/components/calendar/service';
+	import { updateDateAtMidnight } from '$lib/components/calendar/service.svelte';
 	import { setContext } from 'svelte';
 
 	import type { Context } from '../../../app';
@@ -35,10 +35,6 @@
 	setContext('toggleEvent', toggleEvent);
 
 	setContext('changeWeek', changeWeek);
-
-	$effect(() => {
-		changeWeek($weekStart);
-	});
 </script>
 
 <div class="flex h-screen flex-col md:h-[calc(100vh-20px)]">

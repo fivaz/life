@@ -1,6 +1,5 @@
 <script lang="ts">
-	
-import GridCell from './grid-cell/GridCell.svelte';
+	import GridCell from './grid-cell/GridCell.svelte';
 	import { NUMBER_OF_CELLS } from './service.svelte';
 
 	interface Props {
