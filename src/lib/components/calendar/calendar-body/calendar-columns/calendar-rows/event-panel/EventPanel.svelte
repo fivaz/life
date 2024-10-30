@@ -4,7 +4,7 @@
 	import {
 		GRID_CELL_HEIGHT,
 		isSomethingDragging,
-	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
+	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
 	import {
 		EVENT_PANEL_CLASS,
 		type EventsGrid,
@@ -58,7 +58,7 @@
 
 	function startDrag(e: { target: HTMLElement }) {
 		if (!isSelected) return;
-		isSomethingDragging.set(true);
+		isSomethingDragging.value = true;
 		Object.assign(e.target.style, {
 			touchAction: 'none',
 			zIndex: '1',
@@ -89,7 +89,7 @@
 		e.preventDefault();
 
 		isSelected = false;
-		isSomethingDragging.set(false);
+		isSomethingDragging.value = false;
 		const hasChanged = hasMoved(container, event);
 
 		if (hasChanged) {
@@ -115,14 +115,14 @@
 
 		interactivePanel.on('click', (e) => {
 			//e.target instanceof HTMLInputElement is necessary so when clicking on the checkbox isDone doesn't open the form
-			if ($isSomethingDragging || e.target instanceof HTMLInputElement) return;
+			if (isSomethingDragging.value || e.target instanceof HTMLInputElement) return;
 
 			editTask(event, targetDate);
 		});
 
 		interactivePanel.pointerEvents({ holdDuration: 300 }).on('hold', () => {
 			isSelected = true;
-			isSomethingDragging.set(true);
+			isSomethingDragging.value = true;
 
 			document.addEventListener('click', unSelect);
 		});

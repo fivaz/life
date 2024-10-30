@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { tailwindColors } from '$lib/category/utils';
-	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
+	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
 	import { TIME } from '$lib/consts';
 	import { roundTo15 } from '$lib/task/time-utils';
 	import {

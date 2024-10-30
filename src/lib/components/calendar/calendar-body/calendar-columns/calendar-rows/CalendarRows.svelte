@@ -4,7 +4,7 @@
 	import { format } from 'date-fns';
 
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
-	import { SUMMARY_GRID_CELL_HEIGHT } from './calendar-grid/service';
+	import { SUMMARY_GRID_CELL_HEIGHT } from './calendar-grid/service.svelte';
 	import EventPanel from './event-panel/EventPanel.svelte';
 	import { getEventGrid, getEvents, getToDos } from './service';
 	import type { Task } from '$lib/task/utils';

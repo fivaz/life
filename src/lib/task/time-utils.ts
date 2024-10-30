@@ -1,4 +1,4 @@
-import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
+import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
 import { DATE, TIME } from '$lib/consts';
 import { type Task, getDurationInMinutes, isToDo } from '$lib/task/utils';
 import { parse, set } from 'date-fns';

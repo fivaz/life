@@ -2,7 +2,7 @@
 	import { convertMinutesToTime } from '$lib/task/time-utils';
 	import { clsx } from 'clsx';
 
-	import { GRID_CELL_HEIGHT, GRID_CLASS, isSomethingDragging } from '../service';
+	import { GRID_CELL_HEIGHT, GRID_CLASS, isSomethingDragging } from '../service.svelte';
 
 	interface Props {
 		class?: string;
@@ -17,19 +17,14 @@
 </script>
 
 <!--the class grid-cell is used in EventPanel to control droppable zones for its drag and drop-->
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
-	class={clsx(GRID_CLASS, klass, { 'border-b': $isSomethingDragging })}
+	class={clsx(GRID_CLASS, klass, { 'border-b': isSomethingDragging.value })}
 	data-date={targetDate}
 	data-time={time}
-	onclick={() => !$isSomethingDragging && create(time)}
-	onkeydown={(e) => {
-		if (e.key === 'Enter') {
-			create(time);
-		}
-	}}
-	role="button"
+	onclick={() => !isSomethingDragging.value && create(time)}
 	style="height: {GRID_CELL_HEIGHT}px"
-	tabindex="0"
 ></div>
 
 <style>

@@ -1,6 +1,6 @@
 import type { AnyEvent, RecurringEvent, Task, ToDo } from '$lib/task/utils';
 
-import { NUMBER_OF_CELLS } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service';
+import { NUMBER_OF_CELLS } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
 import {
 	type EventsGrid,
 	getEventSlots,
