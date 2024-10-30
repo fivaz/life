@@ -3,7 +3,6 @@
 	import Logo from '$lib/components/Logo.svelte';
 	import ProfileDropUp from '$lib/components/dashboard/profile-drop-up/ProfileDropUp.svelte';
 	import { Routes } from '$lib/consts';
-	import { currentUser } from '$lib/auth/utils.svelte';
 	import {
 		CalendarDays,
 		ChartCandlestick,
@@ -58,11 +57,6 @@
 	</nav>
 
 	<div class="fixed bottom-0 left-0">
-		<ProfileDropUp>
-			<div class="flex items-center gap-2 rounded-lg p-2 hover:bg-gray-50">
-				<img alt="avatar" class="h-8 w-8 rounded-full" src={currentUser.photoURL} />
-				<span class="text-sm font-semibold text-gray-900">{currentUser.displayName}</span>
-			</div>
-		</ProfileDropUp>
+		<ProfileDropUp />
 	</div>
 </div>

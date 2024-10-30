@@ -3,7 +3,9 @@
 
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
-	import { getDuration, getEndTime } from '$lib/components/task-form/service';
+	import { getEndTime } from '$lib/components/task-form/service';
+	import { differenceInMinutes, format } from 'date-fns';
+	import { TIME } from '$lib/consts';
 
 	interface Props {
 		taskIn: TaskIn;
@@ -12,6 +14,23 @@
 	let { taskIn = $bindable() }: Props = $props();
 
 	let isEventOpen = $state(true);
+
+	function getDuration(startTime: string, endTime: string): string {
+		if (!startTime || !endTime) {
+			return '';
+		}
+		const [startTimeHours, startTimeMinutes] = startTime.split(':').map(Number);
+		const [endTimeHours, endTimeMinutes] = endTime.split(':').map(Number);
+
+		const startTimeDate = new Date(0, 0, 0, startTimeHours, startTimeMinutes);
+		const endTimeDate = new Date(0, 0, 0, endTimeHours, endTimeMinutes);
+
+		const totalMinutes = differenceInMinutes(endTimeDate, startTimeDate);
+		const totalHours = Math.floor(totalMinutes / 60);
+		const remainingMinutes = totalMinutes % 60;
+
+		return format(new Date(0, 0, 0, totalHours, remainingMinutes), TIME);
+	}
 </script>
 
 <div class="rounded-lg bg-white p-2">

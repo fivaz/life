@@ -4,10 +4,15 @@
 	import { type Category, CategoryTypes } from '$lib/category/utils';
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
 	import TaskCompletedNotificationStack from '$lib/components/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
-	import { editPossibleSingleRecurringEvent } from '$lib/components/task-form/service';
 	import { buildEmptyEvent, buildEventWithTime } from '$lib/task/build-utils';
 
-	import { externalTasks as tasks, getWeekTasks, moveEvent, persistToDos } from './service.svelte';
+	import {
+		editPossibleSingleRecurringEvent,
+		externalTasks as tasks,
+		getWeekTasks,
+		moveEvent,
+		persistToDos,
+	} from './service.svelte';
 	import DBCategories from '$lib/category/DBCategories.svelte';
 	import DBGoals from '$lib/goal/DBGoals.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
@@ -21,15 +26,24 @@
 
 	let completedTasks = $state<Task[]>([]);
 
+	// ADD
 	function openFormToCreateTask(categories: Category[], date: Date) {
 		isFormShown = true;
 		editingTask = buildEventWithTime(categories, date);
 	}
 
+	//EDIT
 	function openFormToEditTask(task: Task, date: string) {
 		isFormShown = true;
 		targetDate = date;
 		editingTask = task;
+	}
+
+	//TOGGLE
+	function toggleCompletion(userId: string, event: AnyEvent, targetDate: string) {
+		const newEvent = { ...event, isDone: !event.isDone };
+		editPossibleSingleRecurringEvent(newEvent, userId, targetDate);
+		updateNotification(newEvent);
 	}
 
 	function updateNotification(task: Task) {
@@ -38,12 +52,6 @@
 		} else {
 			completedTasks = completedTasks.filter((completedTask) => completedTask.id !== task.id);
 		}
-	}
-
-	function toggleCompletion(userId: string, event: AnyEvent, targetDate: string) {
-		const newEvent = { ...event, isDone: !event.isDone };
-		editPossibleSingleRecurringEvent(newEvent, userId, targetDate);
-		updateNotification(newEvent);
 	}
 </script>
 

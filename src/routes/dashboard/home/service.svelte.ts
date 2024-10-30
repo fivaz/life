@@ -1,6 +1,6 @@
-import type { AnyEvent, Task, ToDo } from '$lib/task/utils';
+import { type AnyEvent, isRecurring, type Task, type ToDo } from '$lib/task/utils';
 
-import { editPossibleSingleRecurringEvent, editTask } from '$lib/components/task-form/service';
+import { editSingleRecurringEvent, editTask } from '$lib/components/task-form/service';
 import { DATE, DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
 import { endOfWeek, format } from 'date-fns';
@@ -105,4 +105,13 @@ export function removeLocalTask(task: Task) {
 	const index = externalTasks.findIndex((existingTask) => existingTask.id === task.id);
 	if (!index) return;
 	externalTasks.splice(index, 1);
+}
+
+export function editPossibleSingleRecurringEvent(event: Task, userId: string, targetDate: string) {
+	const { id, ...data } = event;
+	if (isRecurring(data)) {
+		void editSingleRecurringEvent(id, data, userId, targetDate);
+	} else {
+		void editTask(id, data, userId, null, null);
+	}
 }

@@ -5,7 +5,7 @@ import { createDialog } from '$lib/components/dialog/service.svelte';
 import { DB_PATH, TIME } from '$lib/consts';
 import { db, storage } from '$lib/firebase';
 import { isRecurring } from '$lib/task/utils';
-import { add, differenceInMinutes, format, isSameDay } from 'date-fns';
+import { add, format, isSameDay } from 'date-fns';
 import {
 	type DocumentReference,
 	collection,
@@ -16,49 +16,33 @@ import {
 } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
-export function getEndTime(startTime: string, duration: string): string {
-	if (!startTime || !duration) {
-		return '';
+// ADD
+
+export async function addTask(data: Omit<Task, 'id'>, userId: string, file?: File | null) {
+	const newTaskRef = doc(collection(db, DB_PATH.USERS, userId, DB_PATH.TASKS));
+
+	void setDoc(newTaskRef, data);
+
+	if (file) {
+		const image = await storeImage(userId, newTaskRef.id, file);
+
+		void updateDoc(newTaskRef, { image });
+
+		data.image = image;
 	}
-	const [startTimeHours, startTimeMinutes] = startTime.split(':').map(Number);
-	const [durationHours, durationMinutes] = duration.split(':').map(Number);
 
-	const startTimeDate = new Date(1, 0, 0, startTimeHours, startTimeMinutes);
-
-	const endDate = add(startTimeDate, { hours: durationHours, minutes: durationMinutes });
-
-	if (isSameDay(startTimeDate, endDate)) {
-		return format(endDate, TIME);
-	}
-
-	return '23:59';
+	void addTaskToGoal(userId, data, newTaskRef.id);
 }
 
-export function getDuration(startTime: string, endTime: string): string {
-	if (!startTime || !endTime) {
-		return '';
-	}
-	const [startTimeHours, startTimeMinutes] = startTime.split(':').map(Number);
-	const [endTimeHours, endTimeMinutes] = endTime.split(':').map(Number);
-
-	const startTimeDate = new Date(0, 0, 0, startTimeHours, startTimeMinutes);
-	const endTimeDate = new Date(0, 0, 0, endTimeHours, endTimeMinutes);
-
-	const totalMinutes = differenceInMinutes(endTimeDate, startTimeDate);
-	const totalHours = Math.floor(totalMinutes / 60);
-	const remainingMinutes = totalMinutes % 60;
-
-	return format(new Date(0, 0, 0, totalHours, remainingMinutes), TIME);
-}
-
-export function editPossibleSingleRecurringEvent(event: Task, userId: string, targetDate: string) {
-	const { id, ...data } = event;
-	if (isRecurring(data)) {
-		void editSingleRecurringEvent(id, data, userId, targetDate);
-	} else {
-		void editTask(id, data, userId, null, null);
+function addTaskToGoal(userId: string, data: Omit<Task, 'id'>, id: string) {
+	if (data.goal) {
+		const goalDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.GOALS, data.goal.id);
+		const goalTaskCollectionRef = doc(goalDocRef, DB_PATH.TASKS, id);
+		void setDoc(goalTaskCollectionRef, data);
 	}
 }
+
+// EDIT
 
 export function editSingleRecurringEvent(
 	id: string,
@@ -119,6 +103,25 @@ export async function editTaskWithPrompt({
 	return true;
 }
 
+export async function editTask(
+	id: string,
+	data: Omit<Task, 'id'>,
+	userId: string,
+	formerGoal: Goal | null,
+	file: File | null,
+) {
+	const taskDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.TASKS, id);
+	void setDoc(taskDocRef, data);
+
+	if (file) {
+		const image = await storeImage(userId, id, file);
+
+		void updateDoc(taskDocRef, { image });
+	}
+
+	void editTaskInGoal(userId, data, formerGoal, taskDocRef);
+}
+
 async function editTaskInGoal(
 	userId: string,
 	data: Omit<Task, 'id'>,
@@ -157,75 +160,13 @@ function removeTaskFromGoal(userId: string, taskRef: DocumentReference, goal: Go
 	void deleteDoc(goalTaskDocRef);
 }
 
-export async function editTask(
-	id: string,
-	data: Omit<Task, 'id'>,
-	userId: string,
-	formerGoal: Goal | null,
-	file: File | null,
-) {
-	const taskDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.TASKS, id);
-	void setDoc(taskDocRef, data);
-
-	if (file) {
-		const image = await storeImage(userId, id, file);
-
-		void updateDoc(taskDocRef, { image });
-	}
-
-	void editTaskInGoal(userId, data, formerGoal, taskDocRef);
-}
-
-function addTaskToGoal(userId: string, data: Omit<Task, 'id'>, id: string) {
-	if (data.goal) {
-		const goalDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.GOALS, data.goal.id);
-		const goalTaskCollectionRef = doc(goalDocRef, DB_PATH.TASKS, id);
-		void setDoc(goalTaskCollectionRef, data);
-	}
-}
-
 export async function storeImage(userId: string, taskId: string, file: Blob): Promise<string> {
 	const avatarsRef = ref(storage, `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}/${taskId}`);
 	await uploadBytes(avatarsRef, file);
 	return await getDownloadURL(avatarsRef);
 }
 
-export async function addTask(data: Omit<Task, 'id'>, userId: string, file?: File | null) {
-	const newTaskRef = doc(collection(db, DB_PATH.USERS, userId, DB_PATH.TASKS));
-
-	void setDoc(newTaskRef, data);
-
-	if (file) {
-		const image = await storeImage(userId, newTaskRef.id, file);
-
-		void updateDoc(newTaskRef, { image });
-
-		data.image = image;
-	}
-
-	void addTaskToGoal(userId, data, newTaskRef.id);
-}
-
-function deleteTask(id: string, data: Omit<Task, 'id'>, userId: string) {
-	const taskDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.TASKS, id);
-	void deleteDoc(taskDocRef);
-
-	if (data.goal) {
-		removeTaskFromGoal(userId, taskDocRef, data.goal);
-	}
-}
-
-function addExceptionToRecurring(
-	id: string,
-	task: Omit<RecurringEvent, 'id'>,
-	date: string,
-	userId: string,
-) {
-	const exceptions = [...task.recurringExceptions, date];
-
-	const taskDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.TASKS, id);
-	void updateDoc(taskDocRef, { recurringExceptions: exceptions });
-}
+// DELETE
 
 export async function deletePossibleSingleRecurringEvent(
 	task: Task,
@@ -256,4 +197,46 @@ export async function deletePossibleSingleRecurringEvent(
 	}
 
 	return true;
+}
+
+function addExceptionToRecurring(
+	id: string,
+	task: Omit<RecurringEvent, 'id'>,
+	date: string,
+	userId: string,
+) {
+	const exceptions = [...task.recurringExceptions, date];
+
+	const taskDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.TASKS, id);
+	void updateDoc(taskDocRef, { recurringExceptions: exceptions });
+}
+
+function deleteTask(id: string, data: Omit<Task, 'id'>, userId: string) {
+	const taskDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.TASKS, id);
+	void deleteDoc(taskDocRef);
+
+	if (data.goal) {
+		removeTaskFromGoal(userId, taskDocRef, data.goal);
+	}
+}
+
+// OTHERS
+
+export function getEndTime(startTime: string, duration: string): string {
+	if (!startTime || !duration) {
+		return '';
+	}
+
+	const [startTimeHours, startTimeMinutes] = startTime.split(':').map(Number);
+	const [durationHours, durationMinutes] = duration.split(':').map(Number);
+
+	const startTimeDate = new Date(1, 0, 0, startTimeHours, startTimeMinutes);
+
+	const endDate = add(startTimeDate, { hours: durationHours, minutes: durationMinutes });
+
+	if (isSameDay(startTimeDate, endDate)) {
+		return format(endDate, TIME);
+	}
+
+	return '23:59';
 }

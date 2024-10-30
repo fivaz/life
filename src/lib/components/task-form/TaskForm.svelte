@@ -27,6 +27,7 @@
 	import GoalIcon from '../../../routes/dashboard/goals/goal-form/goal-icon/GoalIcon.svelte';
 	import { isToDo } from '$lib/task/utils.js';
 	import { removeLocalTask } from '../../../routes/dashboard/home/service.svelte';
+	import DropDown from '$lib/components/drop-down/DropDown.svelte';
 
 	interface Props {
 		userId: string;
@@ -97,6 +98,18 @@
 
 		return description.replace(regex, '[ ] - $2\n');
 	}
+
+	const optionsList = $derived([
+		{
+			label: taskIn.isDone ? 'Mark as completed' : 'Mark as uncompleted',
+			//setTimeout is necessary so the text doesn't change before the animation closes the dropdown
+			onclick: () => setTimeout(() => (taskIn.isDone = !taskIn.isDone), 100),
+		},
+		{
+			label: 'Duplicate task',
+			onclick: () => console.log('Duplicate task'),
+		},
+	]);
 </script>
 
 <form
@@ -108,9 +121,16 @@
 			<div class="flex items-center justify-between">
 				<h2 class="text-lg text-gray-900">{formName}</h2>
 				<div class="flex">
-					<button class="rounded-md p-1 hover:bg-gray-200" type="button">
-						<Icon class="h-5 w-auto" src={EllipsisVertical} />
-					</button>
+					<DropDown
+						class="w-40"
+						position="bottom-left"
+						itemClass="text-gray-700"
+						list={optionsList}
+					>
+						<div class="rounded-md p-1 hover:bg-gray-200">
+							<Icon class="h-5 w-auto" src={EllipsisVertical} />
+						</div>
+					</DropDown>
 					<button
 						class="rounded-md p-1 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
 						onclick={close}
@@ -126,18 +146,7 @@
 				{errorMessage}
 			</Alert>
 
-			<div class="flex items-center gap-3">
-				<Input autocomplete="off" bind:value={taskIn.name} class="flex-1" placeholder="Name" />
-
-				<label>
-					<input
-						bind:checked={taskIn.isDone}
-						class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-						name="isDone"
-						type="checkbox"
-					/>
-				</label>
-			</div>
+			<Input autocomplete="off" bind:value={taskIn.name} class="flex-1" placeholder="Name" />
 
 			<Collapsable title="Image">
 				<TaskFormImage bind:file bind:taskIn />
