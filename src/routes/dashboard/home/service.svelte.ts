@@ -104,5 +104,5 @@ function addTask(newTask: Task): void {
 export function removeLocalTask(task: Task) {
 	const index = externalTasks.findIndex((existingTask) => existingTask.id === task.id);
 	if (!index) return;
-	externalTasks.slice(index, 1);
+	externalTasks.splice(index, 1);
 }

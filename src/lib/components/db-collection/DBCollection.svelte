@@ -4,7 +4,7 @@
 	import { db } from '$lib/firebase';
 	import { currentUser } from '$lib/auth/utils.svelte';
 
-	import type { Snippet } from 'svelte';
+	import { type Snippet } from 'svelte';
 	import { type Unsubscribe } from 'firebase/firestore';
 	import Loading from '$lib/components/loading/Loading.svelte';
 
@@ -34,6 +34,7 @@
 		}
 	}
 
+	// it needs to be an effect instead of a onMount cause currentUser doesn't exist during mounting and, it's updated later
 	$effect(() => {
 		let unsubscribe: Unsubscribe = () => {};
 
