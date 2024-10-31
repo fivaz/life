@@ -9,15 +9,15 @@
 		signInWithEmailAndPassword,
 		signInWithPopup,
 		GoogleAuthProvider,
+		GithubAuthProvider,
 		type User,
 	} from 'firebase/auth';
 	import { parseErrors, validateFields } from './service';
 	import { doc, getDoc } from 'firebase/firestore';
 	import { createUser } from '../../register/register/service';
 	import { minidenticon } from 'minidenticons';
-	import { updateUser } from '$lib/auth/utils.svelte';
-
-	let isLoadingEmailProvider = $state<boolean>(false);
+	
+let isLoadingEmailProvider = $state<boolean>(false);
 
 	let isLoadingGoogleProvider = $state<boolean>(false);
 
@@ -55,7 +55,7 @@
 		try {
 			const provider = new GoogleAuthProvider();
 			const result = await signInWithPopup(auth, provider);
-			void handleGoogleLogin(result.user);
+			await handleProviderLogin(result.user);
 		} catch (error) {
 			errorMessage = parseErrors(error);
 		} finally {
@@ -63,7 +63,7 @@
 		}
 	}
 
-	async function handleGoogleLogin(user: User) {
+	async function handleProviderLogin(user: User) {
 		const userRef = doc(db, DB_PATH.USERS, user.uid);
 		const docSnap = await getDoc(userRef);
 		if (!docSnap.exists()) {
@@ -74,11 +74,22 @@
 			const avatar = minidenticon(user.email, 95, 45);
 
 			await createUser(user, user.displayName || 'unnamed user', user.email, avatar);
-
-			updateUser(user.displayName || 'unnamed user', avatar);
 		}
 
-		void goto(Routes.HOME);
+		return goto(Routes.HOME);
+	}
+
+	async function githubSignIn() {
+		isLoadingGithubProvider = true;
+		try {
+			const provider = new GithubAuthProvider();
+			const result = await signInWithPopup(auth, provider);
+			await handleProviderLogin(result.user);
+		} catch (error) {
+			errorMessage = parseErrors(error);
+		} finally {
+			isLoadingGithubProvider = false;
+		}
 	}
 </script>
 
@@ -212,7 +223,7 @@
 					color="none"
 					isLoading={isLoadingGithubProvider}
 					disabled={isDisabled}
-					onclick={() => console.log('github login')}
+					onclick={githubSignIn}
 					class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
 				>
 					<svg
