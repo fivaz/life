@@ -1,9 +1,8 @@
 import type { Event, RecurringEvent, Task, ToDo } from '$lib/task/utils';
 
-import { getEndTime } from '$lib/components/task-form/service';
 import { weekDays } from '$lib/components/task-form/task-form-recurring/days-checkbox/service';
 import { DATE, TIME } from '$lib/consts';
-import { convertTimeToMinutes, getCurrentRoundedDate } from '$lib/task/time-utils';
+import { convertTimeToMinutes, getCurrentRoundedDate, sumTimes } from '$lib/task/time-utils';
 import { isRecurring, isToDo } from '$lib/task/utils';
 import { addMinutes, addMonths, format, isAfter, parse } from 'date-fns';
 
@@ -138,7 +137,7 @@ function convertRecurring(event: RecurringEvent): TaskIn {
 	return {
 		...event,
 		deadline: event.date,
-		endTime: getEndTime(event.startTime, event.duration),
+		endTime: sumTimes(event.startTime, event.duration),
 		image: event.image || '',
 		isEvent: true,
 		isRecurring: true,
@@ -150,7 +149,7 @@ function convertEvent(event: Event): TaskIn {
 	return {
 		...event,
 		deadline: event.date,
-		endTime: getEndTime(event.startTime, event.duration),
+		endTime: sumTimes(event.startTime, event.duration),
 		image: event.image || '',
 		isEvent: true,
 		isRecurring: false,

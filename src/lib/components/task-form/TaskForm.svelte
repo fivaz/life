@@ -14,8 +14,8 @@
 	import {
 		addTask,
 		deletePossibleSingleRecurringEvent,
+		duplicateTask,
 		editTaskWithPrompt,
-		getEndTime,
 	} from '$lib/components/task-form/service';
 	import TaskFormEvent from '$lib/components/task-form/task-form-event/TaskFormEvent.svelte';
 	import TaskFormImage from '$lib/components/task-form/task-form-image/TaskFormImage.svelte';
@@ -28,6 +28,8 @@
 	import { isToDo } from '$lib/task/utils.js';
 	import { removeLocalTask } from '../../../routes/dashboard/home/service.svelte';
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';
+	import { Copy, ListTodo } from 'lucide-svelte';
+	import { sumTimes } from '$lib/task/time-utils';
 
 	interface Props {
 		userId: string;
@@ -56,12 +58,12 @@
 
 	let formName = $derived(`${isEditing ? 'Edit' : 'Add'} ${isToDo(task) ? 'Task' : 'Event'}`);
 
-	function createTask(data: Omit<Task, 'id'>) {
+	function handleCreateTask(data: Omit<Task, 'id'>) {
 		addTask(data, userId, file);
 		close();
 	}
 
-	async function editTask(data: Omit<Task, 'id'>, id: string) {
+	async function handleEditTask(data: Omit<Task, 'id'>, id: string) {
 		if (
 			await editTaskWithPrompt({ data, id, file, userId, targetDate, formerGoal, wasRecurring })
 		) {
@@ -86,9 +88,9 @@
 		const { id, ...data } = convertToAnyTask(taskIn);
 
 		if (id) {
-			editTask(data, id);
+			handleEditTask(data, id);
 		} else {
-			createTask(data);
+			handleCreateTask(data);
 		}
 	}
 
@@ -99,17 +101,39 @@
 		return description.replace(regex, '[ ] - $2\n');
 	}
 
-	const optionsList = $derived([
-		{
-			label: taskIn.isDone ? 'Mark as completed' : 'Mark as uncompleted',
-			//setTimeout is necessary so the text doesn't change before the animation closes the dropdown
-			onclick: () => setTimeout(() => (taskIn.isDone = !taskIn.isDone), 100),
-		},
-		{
-			label: 'Duplicate task',
-			onclick: () => console.log('Duplicate task'),
-		},
-	]);
+	function isAfterHalfToMidnight(task: Task): boolean {
+		if (isToDo(task)) return false;
+
+		const [hours, minutes] = task.startTime.split(':').map(Number);
+
+		if (hours < 23) return false;
+
+		return minutes >= 30;
+	}
+
+	const optionsList = $derived.by(() => {
+		const options: { icon?: typeof Copy; label: string; onclick: () => void }[] = [
+			{
+				icon: ListTodo,
+				label: taskIn.isDone ? 'Mark as completed' : 'Mark as uncompleted',
+				//setTimeout is necessary so the text doesn't change before the animation closes the dropdown
+				onclick: () => setTimeout(() => (taskIn.isDone = !taskIn.isDone), 100),
+			},
+		];
+
+		if (!isAfterHalfToMidnight(task)) {
+			options.push({
+				icon: Copy,
+				label: 'Duplicate task',
+				onclick: () => {
+					duplicateTask(task, userId);
+					close();
+				},
+			});
+		}
+
+		return options;
+	});
 </script>
 
 <form
@@ -120,9 +144,9 @@
 		<div class="flex flex-col gap-2 text-sm text-gray-700">
 			<div class="flex items-center justify-between">
 				<h2 class="text-lg text-gray-900">{formName}</h2>
-				<div class="flex">
+				<div class="flex items-center">
 					<DropDown
-						class="w-40"
+						class="w-48"
 						position="bottom-left"
 						itemClass="text-gray-700"
 						list={optionsList}
@@ -218,7 +242,7 @@
 					bind:value={taskIn.duration}
 					class="w-1/2"
 					label="Duration"
-					oninput={(input) => (taskIn.endTime = getEndTime(taskIn.startTime, input))}
+					oninput={(input) => (taskIn.endTime = sumTimes(taskIn.startTime, input))}
 					required
 					type="time"
 				/>

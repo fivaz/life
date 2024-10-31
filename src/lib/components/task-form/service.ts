@@ -1,11 +1,10 @@
 import type { Goal } from '$lib/goal/utils';
-import type { RecurringEvent, Task } from '$lib/task/utils';
+import { isToDo, type RecurringEvent, type Task } from '$lib/task/utils';
 
 import { createDialog } from '$lib/components/dialog/service.svelte';
-import { DB_PATH, TIME } from '$lib/consts';
+import { DB_PATH } from '$lib/consts';
 import { db, storage } from '$lib/firebase';
 import { isRecurring } from '$lib/task/utils';
-import { add, format, isSameDay } from 'date-fns';
 import {
 	type DocumentReference,
 	collection,
@@ -15,6 +14,7 @@ import {
 	updateDoc,
 } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { getHalfTime, sumTimes } from '$lib/task/time-utils';
 
 // ADD
 
@@ -222,21 +222,18 @@ function deleteTask(id: string, data: Omit<Task, 'id'>, userId: string) {
 
 // OTHERS
 
-export function getEndTime(startTime: string, duration: string): string {
-	if (!startTime || !duration) {
-		return '';
-	}
+export function duplicateTask(task: Task, userId: string) {
+	const halfDuration = getHalfTime(task.duration);
 
-	const [startTimeHours, startTimeMinutes] = startTime.split(':').map(Number);
-	const [durationHours, durationMinutes] = duration.split(':').map(Number);
+	const { id, ...data } = { ...task };
+	data.duration = halfDuration;
 
-	const startTimeDate = new Date(1, 0, 0, startTimeHours, startTimeMinutes);
+	void editTask(id, data, userId, null, null);
 
-	const endDate = add(startTimeDate, { hours: durationHours, minutes: durationMinutes });
+	const copyData = {
+		...data,
+		...(isToDo(task) ? {} : { startTime: sumTimes(task.startTime, halfDuration) }),
+	};
 
-	if (isSameDay(startTimeDate, endDate)) {
-		return format(endDate, TIME);
-	}
-
-	return '23:59';
+	void addTask(copyData, userId);
 }

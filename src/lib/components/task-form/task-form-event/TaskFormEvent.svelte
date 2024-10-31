@@ -3,9 +3,9 @@
 
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
-	import { getEndTime } from '$lib/components/task-form/service';
 	import { differenceInMinutes, format } from 'date-fns';
 	import { TIME } from '$lib/consts';
+	import { sumTimes } from '$lib/task/time-utils';
 
 	interface Props {
 		taskIn: TaskIn;
@@ -70,7 +70,7 @@
 					class="w-1/2"
 					label="Start time"
 					name="startTime"
-					oninput={(input) => (taskIn.endTime = getEndTime(input, taskIn.duration))}
+					oninput={(input) => (taskIn.endTime = sumTimes(input, taskIn.duration))}
 					required
 					type="time"
 				/>

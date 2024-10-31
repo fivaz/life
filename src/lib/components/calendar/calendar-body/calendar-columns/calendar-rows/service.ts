@@ -5,10 +5,10 @@ import {
 	type EventsGrid,
 	getEventSlots,
 } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
-import { getEndTime } from '$lib/components/task-form/service';
+
 import { weekDays } from '$lib/components/task-form/task-form-recurring/days-checkbox/service';
 import { DATE, DATETIME } from '$lib/consts';
-import { convertTimeToMinutes } from '$lib/task/time-utils';
+import { convertTimeToMinutes, sumTimes } from '$lib/task/time-utils';
 import { isRecurring, isToDo } from '$lib/task/utils';
 import { endOfDay, getDay, isSameDay, isWithinInterval, parse, startOfDay } from 'date-fns';
 
@@ -49,7 +49,7 @@ export function isEventOnDay(task: Task, day: Date): boolean {
 
 	if (!isToDo(task)) {
 		const startDateString = `${task.date} ${task.startTime}`;
-		const endDateString = `${task.date} ${getEndTime(task.startTime, task.duration)}`;
+		const endDateString = `${task.date} ${sumTimes(task.startTime, task.duration)}`;
 
 		const startDate = parse(startDateString, DATETIME, new Date());
 		const endDate = parse(endDateString, DATETIME, new Date());
