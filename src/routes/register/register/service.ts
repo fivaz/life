@@ -1,8 +1,9 @@
-import { checkEmail } from '$lib/auth/utils.svelte';
-import { addDoc, collection } from 'firebase/firestore';
-import { db } from '$lib/firebase';
+import { checkEmail, storeAvatar } from '$lib/auth/utils.svelte';
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '$lib/firebase';
 import { DB_PATH } from '$lib/consts';
 import { FirebaseError } from 'firebase/app';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 export function validateFields(email: string, password: string): string {
 	if (!email) {
@@ -55,4 +56,30 @@ export function parseErrors(error: unknown) {
 		console.error(error);
 		return 'Unexpected error';
 	}
+}
+
+export async function register(
+	displayName: string,
+	email: string,
+	password: string,
+	avatar: string,
+) {
+	const { user } = await createUserWithEmailAndPassword(auth, email, password);
+
+	const photoURL = await storeAvatar(
+		user.uid,
+		new Blob([avatar], { type: 'image/svg+xml;charset=utf-8' }),
+	);
+
+	await updateProfile(user, { displayName, photoURL });
+
+	const userRef = doc(db, DB_PATH.USERS, user.uid);
+
+	await setDoc(userRef, {
+		displayName,
+		email,
+		photoURL,
+	});
+
+	await addDefaultCategories(user.uid);
 }

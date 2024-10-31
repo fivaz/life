@@ -3,13 +3,9 @@
 	import Logo from '$lib/components/Logo.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
-	import { DB_PATH, Routes } from '$lib/consts';
-	import { auth, db } from '$lib/firebase';
-	import { storeAvatar } from '$lib/auth/utils.svelte';
-	import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-	import { doc, setDoc } from 'firebase/firestore';
+	import { Routes } from '$lib/consts';
 	import { minidenticon } from 'minidenticons';
-	import { addDefaultCategories, parseErrors, validateFields } from './service';
+	import { parseErrors, register, validateFields } from './service';
 
 	let name = $state<string>('');
 	let email = $state<string>('');
@@ -32,34 +28,13 @@
 
 		try {
 			isLoading = true;
-			await register(name, email, password);
+			await register(name, email, password, avatar);
 			void goto(Routes.ROOT);
 		} catch (error) {
 			errorMessage = parseErrors(error);
 		} finally {
 			isLoading = false;
 		}
-	}
-
-	async function register(displayName: string, email: string, password: string) {
-		const { user } = await createUserWithEmailAndPassword(auth, email, password);
-
-		const photoURL = await storeAvatar(
-			user.uid,
-			new Blob([avatar], { type: 'image/svg+xml;charset=utf-8' }),
-		);
-
-		await updateProfile(user, { displayName, photoURL });
-
-		const userRef = doc(db, DB_PATH.USERS, user.uid);
-
-		await setDoc(userRef, {
-			displayName,
-			email,
-			photoURL,
-		});
-
-		await addDefaultCategories(user.uid);
 	}
 </script>
 
