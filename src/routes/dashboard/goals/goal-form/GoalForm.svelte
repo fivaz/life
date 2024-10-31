@@ -12,7 +12,7 @@
 	import GoalIcon from './goal-icon/GoalIcon.svelte';
 	import { getIcon } from './goal-icon/service';
 	import IconSelector from './icon-selector/IconSelector.svelte';
-	import { addGoal, deleteGoal, editGoal } from './service';
+	import { addGoal, checkErrors, deleteGoal, editGoal } from './service';
 
 	interface Props {
 		userId: string;
@@ -27,14 +27,6 @@
 	let errorMessage = $state('');
 
 	let goalIn = $state({ ...goal });
-
-	function checkErrors(goal: Goal): string {
-		if (!goal.name) {
-			return 'name is required';
-		}
-
-		return '';
-	}
 
 	function onSubmit(event: SubmitEvent) {
 		event.preventDefault();
@@ -65,7 +57,7 @@
 			</h2>
 			<button
 				class="inline-flex rounded-md p-1.5 pl-2 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
-				onclick={() => close()}
+				onclick={close}
 				type="button"
 			>
 				<span class="sr-only">Dismiss</span>

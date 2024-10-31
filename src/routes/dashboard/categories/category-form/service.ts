@@ -14,16 +14,7 @@ import {
 	writeBatch,
 } from 'firebase/firestore';
 
-export function buildEmptyCategory() {
-	return {
-		color: Object.keys(tailwindColors)[0],
-		id: '',
-		isDefault: false,
-		name: '',
-		type: Object.values(CategoryTypes)[0] as CategoryType,
-	};
-}
-
+// EDIT
 export function editCategory(id: string, data: Omit<Category, 'id'>, userId: string) {
 	const categoryDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES, id);
 	void updateDoc(categoryDocRef, data);
@@ -51,12 +42,37 @@ async function updateCategoryInTasks(id: string, data: Omit<Category, 'id'>, use
 	await batch.commit();
 }
 
+// ADD
 export function addCategory(data: Omit<Category, 'id'>, userId: string) {
 	const newCategoryDocRef = doc(collection(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES));
 	void setDoc(newCategoryDocRef, data);
 	if (data.isDefault) {
 		void resetDefaultCategories(newCategoryDocRef.id, userId);
 	}
+}
+
+// DELETE
+export async function deleteCategory(
+	id: string | undefined,
+	userId: string,
+	closeForm: () => void,
+) {
+	if (id) {
+		const categoryDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES, id);
+		await deleteDoc(categoryDocRef);
+		closeForm();
+	}
+}
+
+// OTHERS
+export function buildEmptyCategory() {
+	return {
+		color: Object.keys(tailwindColors)[0],
+		id: '',
+		isDefault: false,
+		name: '',
+		type: Object.values(CategoryTypes)[0] as CategoryType,
+	};
 }
 
 async function resetDefaultCategories(exceptId: string, userId: string) {
@@ -76,16 +92,4 @@ async function resetDefaultCategories(exceptId: string, userId: string) {
 	});
 
 	await batch.commit();
-}
-
-export async function deleteCategory(
-	id: string | undefined,
-	userId: string,
-	closeForm: () => void,
-) {
-	if (id) {
-		const categoryDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES, id);
-		await deleteDoc(categoryDocRef);
-		closeForm();
-	}
 }

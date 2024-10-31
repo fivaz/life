@@ -10,9 +10,9 @@
 	import { Plus } from 'lucide-svelte';
 	import DBCategories from '$lib/category/DBCategories.svelte';
 
-	let editingCategory: Category = $state(buildEmptyCategory());
+	let editingCategory = $state<Category>(buildEmptyCategory());
 
-	let isFormOpen = $state(false);
+	let isFormOpen = $state<boolean>(false);
 </script>
 
 <DBCategories>

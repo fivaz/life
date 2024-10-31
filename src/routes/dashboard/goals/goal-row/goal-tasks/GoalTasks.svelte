@@ -27,6 +27,7 @@
 	}
 </script>
 
+<!--TODO remove clsx-->
 <ul role="list">
 	{#each tasksByDate as task (task)}
 		<li>

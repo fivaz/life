@@ -17,20 +17,15 @@
 	import DBCategories from '$lib/category/DBCategories.svelte';
 	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
 
-	let editingGoal = $state(buildEmptyGoal());
+	let editingGoal = $state<Goal>(buildEmptyGoal());
 
-	let editingTask: Task = $state(buildEmptyToDo([]));
+	let editingTask = $state<Task>(buildEmptyToDo([]));
 
-	let showForm = $state(false);
+	let isFormOpen = $state<boolean>(false);
 
-	let isTaskFormOpen = $state(false);
+	let isTaskFormOpen = $state<boolean>(false);
 
 	let taskType: Task;
-
-	function handleEditGoal(goal: Goal) {
-		showForm = true;
-		editingGoal = goal;
-	}
 </script>
 
 <DBCategories>
@@ -41,7 +36,7 @@
 				<span></span>
 				<Button
 					onclick={() => {
-						showForm = true;
+						isFormOpen = true;
 						editingGoal = buildEmptyGoal();
 					}}
 				>
@@ -49,8 +44,9 @@
 					New Goal
 				</Button>
 			</div>
+
 			<div class="flex flex-col gap-5">
-				<ul class="divide-y divide-gray-100" role="list">
+				<ul class="divide-y divide-gray-100">
 					<DBGoals>
 						{#snippet data(goals)}
 							{@const goalsByDate = sortGoalsByDate(goals)}
@@ -70,7 +66,10 @@
 														isTaskFormOpen = true;
 														editingTask = buildEmptyEvent(categories, goal);
 													}}
-													editGoal={(goal) => handleEditGoal(goal)}
+													editGoal={(goal) => {
+														isFormOpen = true;
+														editingGoal = goal;
+													}}
 													editTask={(task) => {
 														isTaskFormOpen = true;
 														editingTask = task;
@@ -96,8 +95,8 @@
 					</DBGoals>
 				</ul>
 
-				<Modal bind:isOpen={showForm}>
-					<GoalForm goal={editingGoal} close={() => (showForm = false)} {userId} />
+				<Modal bind:isOpen={isFormOpen}>
+					<GoalForm goal={editingGoal} close={() => (isFormOpen = false)} {userId} />
 				</Modal>
 			</div>
 		</div>
