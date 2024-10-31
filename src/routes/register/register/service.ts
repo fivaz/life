@@ -3,7 +3,7 @@ import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '$lib/firebase';
 import { DB_PATH } from '$lib/consts';
 import { FirebaseError } from 'firebase/app';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile, type User } from 'firebase/auth';
 
 export function validateFields(email: string, password: string): string {
 	if (!email) {
@@ -21,28 +21,6 @@ export function validateFields(email: string, password: string): string {
 	}
 
 	return '';
-}
-
-export async function addDefaultCategories(userId: string) {
-	const categoriesCollectionRef = collection(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES);
-	void addDoc(categoriesCollectionRef, {
-		color: 'green',
-		isDefault: true,
-		name: 'work',
-		type: 'work',
-	});
-	void addDoc(categoriesCollectionRef, {
-		color: 'blue',
-		isDefault: false,
-		name: 'sleep',
-		type: 'sleep',
-	});
-	void addDoc(categoriesCollectionRef, {
-		color: 'red',
-		isDefault: false,
-		name: 'fun',
-		type: 'fun',
-	});
 }
 
 export function parseErrors(error: unknown) {
@@ -66,6 +44,10 @@ export async function register(
 ) {
 	const { user } = await createUserWithEmailAndPassword(auth, email, password);
 
+	return createUser(user, displayName, email, avatar);
+}
+
+export async function createUser(user: User, displayName: string, email: string, avatar: string) {
 	const photoURL = await storeAvatar(
 		user.uid,
 		new Blob([avatar], { type: 'image/svg+xml;charset=utf-8' }),
@@ -73,7 +55,16 @@ export async function register(
 
 	await updateProfile(user, { displayName, photoURL });
 
-	const userRef = doc(db, DB_PATH.USERS, user.uid);
+	await createUserInDB(user.uid, displayName, email, photoURL);
+}
+
+async function createUserInDB(
+	userId: string,
+	displayName: string,
+	email: string,
+	photoURL: string,
+) {
+	const userRef = doc(db, DB_PATH.USERS, userId);
 
 	await setDoc(userRef, {
 		displayName,
@@ -81,5 +72,27 @@ export async function register(
 		photoURL,
 	});
 
-	await addDefaultCategories(user.uid);
+	await addDefaultCategories(userId);
+}
+
+export async function addDefaultCategories(userId: string) {
+	const categoriesCollectionRef = collection(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES);
+	void addDoc(categoriesCollectionRef, {
+		color: 'green',
+		isDefault: true,
+		name: 'work',
+		type: 'work',
+	});
+	void addDoc(categoriesCollectionRef, {
+		color: 'blue',
+		isDefault: false,
+		name: 'sleep',
+		type: 'sleep',
+	});
+	void addDoc(categoriesCollectionRef, {
+		color: 'red',
+		isDefault: false,
+		name: 'fun',
+		type: 'fun',
+	});
 }

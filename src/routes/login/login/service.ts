@@ -21,7 +21,10 @@ export function parseErrors(error: unknown) {
 			return 'login or password are incorrect';
 		} else if (error.code === 'auth/network-request-failed') {
 			return "you can't login if you're not connected to the internet";
+		} else if (error.code === 'auth/popup-closed-by-user') {
+			return 'the pop up was closed, try again';
 		} else {
+			console.error(error.message);
 			return error.message;
 		}
 	} else {
