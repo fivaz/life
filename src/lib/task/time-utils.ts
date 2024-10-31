@@ -1,6 +1,6 @@
 import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
 import { DATE, TIME } from '$lib/consts';
-import { type Task, getDurationInMinutes, isToDo } from '$lib/task/utils';
+import { getDurationInMinutes, isToDo, type Task } from '$lib/task/utils';
 import { add, format, isSameDay, parse, set } from 'date-fns';
 
 export function getTotalDuration(tasks: Task[]): string {
@@ -36,15 +36,20 @@ export function convertTimeToMinutes(time: string): number {
 	throw new Error("Time isn't in the format hh:mm");
 }
 
-export function convertMinutesToTime(time: number): string {
-	const hours = Math.floor(time / 60);
-	const minutes = time % 60;
+export function convertMinutesToTime(timeInMinutes: number): string {
+	const hours = Math.floor(timeInMinutes / 60);
+	const minutes = timeInMinutes % 60;
 
 	return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
 }
 
 export function getCurrentRoundedDate() {
 	return roundTo15(new Date());
+}
+
+export function getDateRoundDownTo15() {
+	const milliseconds = 1000 * 60 * GRID_CELL_TIME;
+	return new Date(Math.floor(new Date().getTime() / milliseconds) * milliseconds);
 }
 
 export function roundTo15(date: Date) {
@@ -72,20 +77,15 @@ export function sumTimes(startTime: string, duration: string): string {
 }
 
 export function getHalfTime(time: string) {
-	console.log('time', time);
 	const [hours, minutes] = time.split(':').map(Number);
 	const totalMinutes = hours * 60 + minutes;
-	console.log('totalMinutes', totalMinutes);
 	const halfMinutes = totalMinutes / 2;
-	console.log('halfMinutes', halfMinutes);
+
 	const roundedHalfMinutes = Math.round(halfMinutes / GRID_CELL_TIME) * GRID_CELL_TIME;
-	console.log('roundedHalfMinutes', roundedHalfMinutes);
 
 	const halfHours = Math.floor(roundedHalfMinutes / 60);
-	console.log('halfHours', halfHours);
+
 	const remainingInMinutes = Math.round(roundedHalfMinutes % 60);
-	console.log('remainingInMinutes', remainingInMinutes);
-	const x = `${String(halfHours).padStart(2, '0')}:${String(remainingInMinutes).padStart(2, '0')}`;
-	console.log('x', x);
-	return x;
+
+	return `${String(halfHours).padStart(2, '0')}:${String(remainingInMinutes).padStart(2, '0')}`;
 }
