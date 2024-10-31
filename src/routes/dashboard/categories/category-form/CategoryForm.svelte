@@ -53,8 +53,8 @@
 	}
 </script>
 
-<form class="relative w-[355px] rounded-md text-sm font-medium shadow" onsubmit={onSubmit}>
-	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
+<form class="relative w-[355px] text-sm font-medium shadow" onsubmit={onSubmit}>
+	<div class="rounded-t-md bg-neutral-100 px-4 py-5 sm:p-4">
 		<div class="flex items-center justify-between pb-2">
 			<h2 class="text-lg font-medium text-gray-900">
 				{isEditing ? 'Edit Category' : 'Add Category'}
@@ -124,7 +124,7 @@
 		</div>
 	</div>
 
-	<div class="flex justify-between bg-gray-50 px-4 py-3 text-right sm:px-6">
+	<div class="flex justify-between rounded-b-md bg-gray-50 px-4 py-3 text-right sm:px-6">
 		{#if isEditing}
 			<ConfirmButton
 				color="red"
