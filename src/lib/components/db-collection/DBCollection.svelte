@@ -1,5 +1,11 @@
 <script lang="ts" generics="T">
-	import { collection, onSnapshot, query, type QueryConstraint, Query } from 'firebase/firestore';
+	import {
+		collection,
+		onSnapshot,
+		query,
+		type QueryConstraint,
+		type Query,
+	} from 'firebase/firestore';
 	import { DB_PATH } from '$lib/consts';
 	import { db } from '$lib/firebase';
 	import { currentUser } from '$lib/auth/utils.svelte';

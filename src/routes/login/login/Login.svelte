@@ -34,6 +34,7 @@
 	}
 </script>
 
+<!--the input names email and password as well as the submit type of the button are selectors used in the test-->
 <div class="flex min-h-full flex-1">
 	<div
 		class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24"

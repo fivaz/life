@@ -7,7 +7,7 @@ import { endOfWeek, format } from 'date-fns';
 import {
 	collection,
 	onSnapshot,
-	Query,
+	type Query,
 	query,
 	type QuerySnapshot,
 	where,
