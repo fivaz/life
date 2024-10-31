@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Category } from '$lib/category/utils';
 
-	import Button2 from '$lib/components/form/button/Button.svelte';
+	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { title } from '$lib/utils.svelte';
 	import CategoryForm from './category-form/CategoryForm.svelte';
@@ -13,6 +13,8 @@
 	let editingCategory = $state<Category>(buildEmptyCategory());
 
 	let isFormOpen = $state<boolean>(false);
+
+	title.value = 'Categories';
 </script>
 
 <DBCategories>
@@ -21,7 +23,7 @@
 			<div class="flex items-center justify-between">
 				<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
 				<span></span>
-				<Button2
+				<Button
 					onclick={() => {
 						isFormOpen = true;
 						editingCategory = buildEmptyCategory();
@@ -29,7 +31,7 @@
 				>
 					<Plus class="h-4 w-auto" />
 					New Category
-				</Button2>
+				</Button>
 			</div>
 
 			<ul class="flex flex-col gap-1">

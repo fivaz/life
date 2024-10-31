@@ -26,6 +26,8 @@
 	let isTaskFormOpen = $state<boolean>(false);
 
 	let taskType: Task;
+
+	title.value = 'Goals';
 </script>
 
 <DBCategories>

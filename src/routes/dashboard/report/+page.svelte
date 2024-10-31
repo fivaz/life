@@ -10,6 +10,8 @@
 	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
 
 	let taskType: Task;
+
+	title.value = 'Report';
 </script>
 
 <DBCollection

@@ -1,4 +1,5 @@
-import { addDays, differenceInMilliseconds, endOfToday, startOfWeek } from 'date-fns';
+import { addDays, differenceInMilliseconds, startOfWeek } from 'date-fns';
+import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
 
 // list of weekStarts in which the tasks have already been fetched
 export const weekStart = $state<{ value: Date }>({
@@ -13,15 +14,18 @@ export const weekDays = {
 	},
 };
 
+export const currentDate = $state<{ value: Date }>({ value: new Date() });
+
 export const selectedDate = $state<{ value: Date }>({ value: new Date() });
 
-export function updateDateAtMidnight() {
-	console.warn('updateDateAtMidnight');
+export function getNextRoundedTime() {
 	const now = new Date();
-	const timeUntilMidnight = differenceInMilliseconds(endOfToday(), now);
 
-	setTimeout(() => {
-		selectedDate.value = new Date();
-		updateDateAtMidnight(); // Schedule the next update for the following midnight
-	}, timeUntilMidnight);
+	const currentTimeMilliseconds = now.getTime();
+
+	const roundedMilliseconds = 1000 * 60 * GRID_CELL_TIME;
+	const nextTimeRounded =
+		Math.ceil(currentTimeMilliseconds / roundedMilliseconds) * roundedMilliseconds;
+
+	return differenceInMilliseconds(nextTimeRounded, currentTimeMilliseconds);
 }

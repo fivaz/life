@@ -22,6 +22,8 @@
 	let isFormShown = $state(false);
 
 	let isStatsShown = $state(false);
+
+	title.value = 'Tasks';
 </script>
 
 <DBCategories>

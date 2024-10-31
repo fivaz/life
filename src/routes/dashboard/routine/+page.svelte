@@ -23,6 +23,8 @@
 	let showForm = $state(false);
 
 	let selectedDate: Date = $state(new Date());
+
+	title.value = 'Routine';
 </script>
 
 <DBRoutines>

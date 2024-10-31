@@ -60,35 +60,30 @@
 				<div class="mt-5">
 					<form class="space-y-6" onsubmit={onSubmit}>
 						<div>
-							<label class="block text-sm font-medium leading-6 text-gray-900" for="email">
+							<label class="block text-sm font-medium leading-6 text-gray-900">
 								Email address
-							</label>
-							<div class="mt-2">
+
 								<input
 									autocomplete="email"
-									class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-									id="email"
+									class="mt-2 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 									name="email"
 									type="email"
 									bind:value={email}
 								/>
-							</div>
+							</label>
 						</div>
 
 						<div>
-							<label class="block text-sm font-medium leading-6 text-gray-900" for="password">
+							<label class="block text-sm font-medium leading-6 text-gray-900">
 								Password
-							</label>
-							<div class="mt-2">
 								<input
 									autocomplete="current-password"
-									class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-									id="password"
+									class="mt-2 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 									name="password"
 									type="password"
 									bind:value={password}
 								/>
-							</div>
+							</label>
 						</div>
 
 						<div class="flex items-center justify-between">
