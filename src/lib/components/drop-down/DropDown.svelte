@@ -29,7 +29,7 @@
 
 		if (!(event.target instanceof HTMLElement)) return;
 
-		if (event.target.contains(button)) return;
+		if (button.contains(event.target)) return;
 
 		if (event.target === button) return;
 
