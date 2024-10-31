@@ -1,35 +1,19 @@
 import { addDays, differenceInMilliseconds, endOfToday, startOfWeek } from 'date-fns';
 
 // list of weekStarts in which the tasks have already been fetched
-let _weekStart = $state<Date>(startOfWeek(new Date(), { weekStartsOn: 1 }));
+export const weekStart = $state<{ value: Date }>({
+	value: startOfWeek(new Date(), { weekStartsOn: 1 }),
+});
 
-export const weekStart = {
+const _weekDays = $derived(Array.from({ length: 7 }, (_, i) => addDays(weekStart.value, i)));
+
+export const weekDays = {
 	get value() {
-		return _weekStart;
-	},
-	set value(newDate) {
-		_weekStart = newDate;
+		return _weekDays;
 	},
 };
 
-const _dates = $derived(Array.from({ length: 7 }, (_, i) => addDays(weekStart.value, i)));
-
-export const dates = {
-	get value() {
-		return _dates;
-	},
-};
-
-let _selectedDate = $state<Date>(new Date());
-
-export const selectedDate = {
-	get value() {
-		return _selectedDate;
-	},
-	set value(newDate) {
-		_selectedDate = newDate;
-	},
-};
+export const selectedDate = $state<{ value: Date }>({ value: new Date() });
 
 export function updateDateAtMidnight() {
 	console.warn('updateDateAtMidnight');

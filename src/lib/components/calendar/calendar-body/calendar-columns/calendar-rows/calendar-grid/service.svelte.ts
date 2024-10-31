@@ -9,13 +9,4 @@ export const NUMBER_OF_CELLS = (24 * 60) / GRID_CELL_TIME;
 export const GRID_CELL_HEIGHT = 50;
 export const SUMMARY_GRID_CELL_HEIGHT = 30;
 
-let _isSomethingDragging = $state<boolean>(false);
-
-export const isSomethingDragging = {
-	get value() {
-		return _isSomethingDragging;
-	},
-	set value(newValue) {
-		_isSomethingDragging = newValue;
-	},
-};
+export const isSomethingDragging = $state<{ value: boolean }>({ value: false });

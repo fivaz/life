@@ -1,4 +1,4 @@
-const closedDialog = {
+const closedDialog: Dialog = {
 	cancelText: '',
 	confirmText: '',
 	message: '',
@@ -7,23 +7,16 @@ const closedDialog = {
 	title: '',
 };
 
-let _dialog = $state<{
+type Dialog = {
 	cancelText: string;
 	confirmText: string;
 	message: string;
 	resolve: (value: boolean | null) => void;
 	show: boolean;
 	title: string;
-}>(closedDialog);
-
-export const dialog = {
-	get value() {
-		return _dialog;
-	},
-	set value(value) {
-		_dialog = value;
-	},
 };
+
+export const dialog = $state<{ value: Dialog }>({ value: closedDialog });
 
 export function createDialog({
 	cancelText = 'cancel',
@@ -37,7 +30,7 @@ export function createDialog({
 	title: string;
 }) {
 	return new Promise<boolean | null>((resolve) => {
-		_dialog = {
+		dialog.value = {
 			cancelText,
 			confirmText,
 			message,
@@ -49,5 +42,5 @@ export function createDialog({
 }
 
 export function closeDialog() {
-	_dialog = closedDialog;
+	dialog.value = closedDialog;
 }

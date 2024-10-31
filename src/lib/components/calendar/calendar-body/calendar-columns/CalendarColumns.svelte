@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { dates, selectedDate } from '$lib/components/calendar/service.svelte';
+	import { weekDays, selectedDate } from '$lib/components/calendar/service.svelte';
 	import { buildDate } from '$lib/task/time-utils';
 	import { getContext } from 'svelte';
 
@@ -17,7 +17,7 @@
 
 <div class="hidden grow md:flex">
 	<div class="grid w-full grid-cols-7 divide-x border-x">
-		{#each dates.value as date (date)}
+		{#each weekDays.value as date (date)}
 			<CalendarRows {date} {tasks} create={(time) => createTask(buildDate(date, time))} />
 		{/each}
 	</div>
