@@ -26,7 +26,6 @@
 
 	import GoalIcon from '../../../routes/dashboard/goals/goal-form/goal-icon/GoalIcon.svelte';
 	import { isToDo } from '$lib/task/utils.js';
-	import { removeLocalTask } from '../../../routes/dashboard/home/service.svelte';
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';
 	import { Copy, ListTodo } from 'lucide-svelte';
 	import { sumTimes } from '$lib/task/time-utils';
@@ -73,7 +72,6 @@
 
 	async function removeTask() {
 		if (await deletePossibleSingleRecurringEvent(task, userId, targetDate)) {
-			removeLocalTask(task);
 			close();
 		}
 	}

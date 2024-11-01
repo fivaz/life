@@ -8,10 +8,10 @@
 
 	import {
 		editPossibleSingleRecurringEvent,
-		externalTasks as tasks,
 		getWeekTasks,
 		moveEvent,
 		persistToDos,
+		tasks,
 	} from './service.svelte';
 	import DBCategories from '$lib/category/DBCategories.svelte';
 	import DBGoals from '$lib/goal/DBGoals.svelte';
@@ -63,7 +63,7 @@
 			editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
 			moveEvent={(event, moveObject) => moveEvent(userId, event, moveObject)}
 			persistToDos={(toDos) => persistToDos(userId, toDos)}
-			{tasks}
+			tasks={tasks.value}
 			toggleEvent={(event, targetDate) => toggleCompletion(userId, event, targetDate)}
 		/>
 		<DBGoals>

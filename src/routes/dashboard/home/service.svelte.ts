@@ -34,16 +34,18 @@ export function persistToDos(userId: string, toDos: ToDo[]) {
 	});
 }
 
-export const externalTasks = $state<Task[]>([]);
+export const _tasksByWeek = $state<Record<string, { events: Task[]; todos: Task[] }>>({});
 
-// eslint-disable-next-line prefer-const
-let savedWeeks = $state<string[]>([]);
+export const tasks = {
+	get value() {
+		return Object.values(_tasksByWeek).flatMap((entry) => [...entry.events, ...entry.todos]);
+	},
+};
 
 export function getWeekTasks(userId: string, startOfWeek: Date): void {
 	const weekStartString = format(startOfWeek, DATE);
 	// only fetch tasks for other weeks that haven't been fetched previously
-	if (!savedWeeks.includes(weekStartString)) {
-		savedWeeks.push(weekStartString);
+	if (!_tasksByWeek[weekStartString]) {
 		subscribeToWeekTasks(userId, startOfWeek);
 	}
 }
@@ -67,15 +69,18 @@ function queryWeekTasks(userId: string, startOfWeek: Date): [Query<Task>, Query<
 }
 
 export function subscribeToWeekTasks(userId: string, startOfWeek: Date) {
+	const startOfWeekString = format(startOfWeek, DATE);
+	_tasksByWeek[startOfWeekString] = { events: [], todos: [] };
+
 	const [dateQuery, deadlineQuery] = queryWeekTasks(userId, startOfWeek);
 
 	// Use onSnapshot to listen for real-time updates for both queries
 	const unsubscribeDate = onSnapshot(dateQuery, (dateSnapshot) =>
-		updateTasksFromSnapshot(dateSnapshot),
+		updateTasksFromSnapshot(dateSnapshot, startOfWeekString, 'events'),
 	);
 
 	const unsubscribeDeadline = onSnapshot(deadlineQuery, (deadlineSnapshot) =>
-		updateTasksFromSnapshot(deadlineSnapshot),
+		updateTasksFromSnapshot(deadlineSnapshot, startOfWeekString, 'todos'),
 	);
 
 	// Return a function to unsubscribe from both snapshots
@@ -86,25 +91,14 @@ export function subscribeToWeekTasks(userId: string, startOfWeek: Date) {
 }
 
 // Helper function to update tasks in the store from Firestore snapshots
-function updateTasksFromSnapshot(snapshot: QuerySnapshot<Task>) {
-	snapshot.docs.forEach((doc) => {
-		addTask({ ...doc.data(), id: doc.id });
-	});
-}
-
-function addTask(newTask: Task): void {
-	const index = externalTasks.findIndex((task) => task.id === newTask.id);
-	if (index == -1) {
-		externalTasks.push(newTask);
-	} else {
-		externalTasks[index] = newTask;
-	}
-}
-
-export function removeLocalTask(task: Task) {
-	const index = externalTasks.findIndex((existingTask) => existingTask.id === task.id);
-	if (!index) return;
-	externalTasks.splice(index, 1);
+function updateTasksFromSnapshot(
+	snapshot: QuerySnapshot<Task>,
+	startOfWeek: string,
+	taskType: 'events' | 'todos',
+) {
+	_tasksByWeek[startOfWeek][taskType] = snapshot.docs.map(
+		(doc) => ({ ...doc.data(), id: doc.id }) as Task,
+	);
 }
 
 export function editPossibleSingleRecurringEvent(event: Task, userId: string, targetDate: string) {
