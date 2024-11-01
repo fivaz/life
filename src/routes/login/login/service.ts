@@ -1,5 +1,5 @@
-import { checkEmail } from '$lib/auth/utils.svelte';
 import { FirebaseError } from 'firebase/app';
+import { checkEmail } from '$lib/auth/sign-in.svelte.js';
 
 export function validateFields(email: string, password: string): string {
 	if (!email) {

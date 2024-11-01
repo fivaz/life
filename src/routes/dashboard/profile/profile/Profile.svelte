@@ -4,10 +4,11 @@
 	import Input from '$lib/components/form/input/Input.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { auth, db } from '$lib/firebase';
-	import { storeAvatar, updateUser, type User } from '$lib/auth/utils.svelte';
+	import { updateUser, type User } from '$lib/auth/utils.svelte';
 	import { type User as FirebaseUser, updateProfile } from 'firebase/auth';
 	import { doc, updateDoc } from 'firebase/firestore';
 	import { minidenticon } from 'minidenticons';
+	import { storeAvatar } from '$lib/auth/sign-in.svelte.js';
 
 	interface Props {
 		user: User;

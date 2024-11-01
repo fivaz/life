@@ -1,9 +1,9 @@
-import { checkEmail, storeAvatar } from '$lib/auth/utils.svelte';
 import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '$lib/firebase';
 import { DB_PATH } from '$lib/consts';
 import { FirebaseError } from 'firebase/app';
 import { createUserWithEmailAndPassword, updateProfile, type User } from 'firebase/auth';
+import { checkEmail, storeAvatar } from '$lib/auth/sign-in.svelte.js';
 
 export function validateFields(email: string, password: string): string {
 	if (!email) {

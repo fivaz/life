@@ -1,13 +1,4 @@
-import { DB_PATH } from '$lib/consts';
-import { storage } from '$lib/firebase';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { type User as FirebaseUser } from 'firebase/auth';
-
-export async function storeAvatar(userId: string, file: Blob): Promise<string> {
-	const avatarsRef = ref(storage, `${DB_PATH.AVATARS}/${userId}`);
-	await uploadBytes(avatarsRef, file);
-	return getDownloadURL(avatarsRef);
-}
 
 export type User = { displayName: string; email: string; uid: string; photoURL: string };
 
@@ -28,8 +19,4 @@ export function setUser(user: FirebaseUser | null) {
 export function updateUser(displayName: string, photoURL: string) {
 	currentUser.displayName = displayName;
 	currentUser.photoURL = photoURL;
-}
-
-export function checkEmail(email: string): boolean {
-	return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
 }

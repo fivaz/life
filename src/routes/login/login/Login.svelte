@@ -3,94 +3,34 @@
 	import Logo from '$lib/components/Logo.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
-	import { DB_PATH, Routes } from '$lib/consts';
-	import { auth, db } from '$lib/firebase';
-	import {
-		signInWithEmailAndPassword,
-		signInWithPopup,
-		GoogleAuthProvider,
-		GithubAuthProvider,
-		type User,
-	} from 'firebase/auth';
+	import { Routes } from '$lib/consts';
+	import { auth } from '$lib/firebase';
+	import { signInWithEmailAndPassword } from 'firebase/auth';
 	import { parseErrors, validateFields } from './service';
-	import { doc, getDoc } from 'firebase/firestore';
-	import { createUser } from '../../register/register/service';
-	import { minidenticon } from 'minidenticons';
-	import GithubIcon from '../GithubIcon.svelte';
-	import GoogleIcon from '../GoogleIcon.svelte';
+	import GithubIcon from '$lib/components/icons/GithubIcon.svelte';
+	import GoogleIcon from '$lib/components/icons/GoogleIcon.svelte';
+	import { errorMessage, githubSignIn, googleSignIn, isLoading } from '$lib/auth/sign-in.svelte';
 
-	let isLoadingEmailProvider = $state<boolean>(false);
-
-	let isLoadingGoogleProvider = $state<boolean>(false);
-
-	let isLoadingGithubProvider = $state<boolean>(false);
-
-	let isDisabled = $derived(
-		isLoadingEmailProvider || isLoadingGoogleProvider || isLoadingGithubProvider,
-	);
-
-	let errorMessage = $state<string>('');
+	let isDisabled = $derived(isLoading.email || isLoading.google || isLoading.github);
 
 	let email = $state<string>('');
 	let password = $state<string>('');
 
 	async function onSubmit(event: SubmitEvent) {
 		event.preventDefault();
-		errorMessage = validateFields(email, password);
-		if (errorMessage) {
+		errorMessage.value = validateFields(email, password);
+		if (errorMessage.value) {
 			return;
 		}
 
 		try {
-			isLoadingEmailProvider = true;
+			isLoading.email = true;
 			await signInWithEmailAndPassword(auth, email, password);
 			void goto(Routes.HOME);
 		} catch (error) {
-			errorMessage = parseErrors(error);
+			errorMessage.value = parseErrors(error);
 		} finally {
-			isLoadingEmailProvider = false;
-		}
-	}
-
-	async function googleSignIn() {
-		isLoadingGoogleProvider = true;
-		try {
-			const provider = new GoogleAuthProvider();
-			const result = await signInWithPopup(auth, provider);
-			await handleProviderLogin(result.user);
-		} catch (error) {
-			errorMessage = parseErrors(error);
-		} finally {
-			isLoadingGoogleProvider = false;
-		}
-	}
-
-	async function handleProviderLogin(user: User) {
-		const userRef = doc(db, DB_PATH.USERS, user.uid);
-		const docSnap = await getDoc(userRef);
-		if (!docSnap.exists()) {
-			if (!user.email) {
-				throw Error("google didn't return user's email");
-			}
-
-			const avatar = minidenticon(user.email, 95, 45);
-
-			await createUser(user, user.displayName || 'unnamed user', user.email, avatar);
-		}
-
-		return goto(Routes.HOME);
-	}
-
-	async function githubSignIn() {
-		isLoadingGithubProvider = true;
-		try {
-			const provider = new GithubAuthProvider();
-			const result = await signInWithPopup(auth, provider);
-			await handleProviderLogin(result.user);
-		} catch (error) {
-			errorMessage = parseErrors(error);
-		} finally {
-			isLoadingGithubProvider = false;
+			isLoading.email = false;
 		}
 	}
 </script>
@@ -115,8 +55,12 @@
 			</div>
 
 			<div class="mt-5">
-				<Alert isVisible={!!errorMessage} close={() => (errorMessage = '')} type="error">
-					{errorMessage}
+				<Alert
+					isVisible={!!errorMessage.value}
+					close={() => (errorMessage.value = '')}
+					type="error"
+				>
+					{errorMessage.value}
 				</Alert>
 				<div class="mt-5">
 					<form class="space-y-6" onsubmit={onSubmit}>
@@ -172,7 +116,7 @@
 							<Button
 								disabled={isDisabled}
 								class="w-full leading-6"
-								isLoading={isLoadingEmailProvider}
+								isLoading={isLoading.email}
 								type="submit"
 							>
 								Sign in
@@ -181,39 +125,42 @@
 					</form>
 				</div>
 			</div>
-		</div>
-		<div class="mt-10">
-			<div class="relative">
-				<div class="absolute inset-0 flex items-center" aria-hidden="true">
-					<div class="w-full border-t border-gray-200"></div>
-				</div>
-				<div class="relative flex justify-center text-sm/6 font-medium">
-					<span class="bg-white px-6 text-gray-900">Or continue with</span>
-				</div>
-			</div>
 
-			<div class="mt-6 grid grid-cols-2 gap-4">
-				<Button
-					color="none"
-					onclick={googleSignIn}
-					isLoading={isLoadingGoogleProvider}
-					disabled={isDisabled}
-					class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
-				>
-					<GoogleIcon />
-					<span class="text-sm/6 font-semibold">Google</span>
-				</Button>
+			<div class="mt-10">
+				<div class="relative">
+					<div class="absolute inset-0 flex items-center" aria-hidden="true">
+						<div class="w-full border-t border-gray-200"></div>
+					</div>
+					<div class="relative flex justify-center text-sm/6 font-medium">
+						<span class="bg-white px-6 text-gray-900">Or continue with</span>
+					</div>
+				</div>
 
-				<Button
-					color="none"
-					isLoading={isLoadingGithubProvider}
-					disabled={isDisabled}
-					onclick={githubSignIn}
-					class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
-				>
-					<GithubIcon />
-					<span class="text-sm/6 font-semibold">GitHub</span>
-				</Button>
+				<div class="mt-6 grid grid-cols-2 gap-4">
+					<Button
+						type="button"
+						color="none"
+						onclick={googleSignIn}
+						isLoading={isLoading.google}
+						disabled={isDisabled}
+						class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
+					>
+						<GoogleIcon />
+						<span class="text-sm/6 font-semibold">Google</span>
+					</Button>
+
+					<Button
+						type="button"
+						color="none"
+						isLoading={isLoading.github}
+						disabled={isDisabled}
+						onclick={githubSignIn}
+						class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
+					>
+						<GithubIcon />
+						<span class="text-sm/6 font-semibold">GitHub</span>
+					</Button>
+				</div>
 			</div>
 		</div>
 	</div>
