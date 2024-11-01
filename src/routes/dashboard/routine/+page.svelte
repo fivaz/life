@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import Streak from '$lib/components/streak/Streak.svelte';
+	import Streak from './streak/Streak.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 	import WeekListSelector from './week-list-selector/WeekListSelector.svelte';
 

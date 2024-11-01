@@ -6,8 +6,8 @@
 	import { Check, GripVertical, Undo2 } from 'lucide-svelte';
 	import { dragHandle } from 'svelte-dnd-action';
 
-	import GoalIcon from '../../goals/goal-form/goal-icon/GoalIcon.svelte';
-	import { toggleRoutineCompletion } from '../routine-form/service';
+	import GoalIcon from '../../../goals/goal-form/goal-icon/GoalIcon.svelte';
+	import { toggleRoutineCompletion } from '../../routine-form/service';
 	import { Flame } from 'lucide-svelte';
 	import { format, parse, subDays } from 'date-fns';
 	import { DATE } from '$lib/consts';

@@ -6,7 +6,7 @@
 	import { flip } from 'svelte/animate';
 	import { dragHandleZone } from 'svelte-dnd-action';
 
-	import RoutineRow from '../routine-row/RoutineRow.svelte';
+	import RoutineRow from './routine-row/RoutineRow.svelte';
 	import { updateRoutines } from '../service';
 
 	interface Props {
