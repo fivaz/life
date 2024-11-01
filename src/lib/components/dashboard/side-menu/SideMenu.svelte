@@ -12,6 +12,7 @@
 		Tags,
 	} from 'lucide-svelte';
 	import { title } from '$lib/utils.svelte';
+	import { Tooltip } from 'flowbite-svelte';
 
 	interface Props {
 		class?: string;
@@ -33,6 +34,7 @@
 	<div class="flex items-center gap-2 text-indigo-600">
 		<Logo class="h-8 w-auto self-start" />
 		<h2 class="text-lg font-semibold">Life</h2>
+		<Tooltip color="purple">current commit: {import.meta.env.VITE_GIT_COMMIT_HASH}</Tooltip>
 	</div>
 
 	<nav class="flex-1">
