@@ -4,6 +4,7 @@
 
 	import { Menu } from 'lucide-svelte';
 	import { title } from '$lib/utils.svelte';
+	import { afterNavigate } from '$app/navigation';
 
 	interface Props {
 		class?: string;
@@ -12,6 +13,13 @@
 	let { class: klass }: Props = $props();
 
 	let showMenu = $state(false);
+
+	afterNavigate(() => {
+		// make sure the SideMenu is closed whenever the user uses it to navigate to another page
+		if (showMenu) {
+			showMenu = false;
+		}
+	});
 </script>
 
 <div class={klass}>
@@ -27,15 +35,10 @@
 	</header>
 
 	<!--side menu-->
-	<!-- svelte-ignore a11y_click_events_have_key_events -->
-	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<div onclick={() => (showMenu = false)}>
-		<SideMenu
-			class="fixed left-0 top-0 z-20 transform transition-transform duration-500 {showMenu
-				? 'translate-x-0'
-				: '-translate-x-full'}"
-		/>
-	</div>
+	<SideMenu
+		class="fixed left-0 top-0 z-20 transform transition-transform duration-500
+				{showMenu ? 'translate-x-0' : '-translate-x-full'}"
+	/>
 
 	<!--background-->
 	<button

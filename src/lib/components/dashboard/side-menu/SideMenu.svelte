@@ -11,7 +11,6 @@
 		ListTodo,
 		Tags,
 	} from 'lucide-svelte';
-	import { title } from '$lib/utils.svelte';
 	import { Tooltip } from 'flowbite-svelte';
 	import { PUBLIC_COMMIT_HASH } from '$env/static/public';
 
@@ -43,11 +42,11 @@
 			{#each navigation as item (item.name)}
 				<li>
 					<a
-						class=" flex items-center gap-3 rounded-lg p-2 {$page.url.pathname === item.href
+						class="flex items-center gap-3 rounded-lg p-2
+							{$page.url.pathname === item.href
 							? 'bg-gray-50 text-indigo-600'
 							: 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600'}"
 						href={item.href}
-						onclick={() => (title.value = item.name)}
 					>
 						<item.icon class="h-6 w-6" />
 						<span class="text-sm font-semibold">
@@ -59,7 +58,5 @@
 		</ul>
 	</nav>
 
-	<div class="fixed bottom-0 left-0">
-		<ProfileDropUp />
-	</div>
+	<ProfileDropUp />
 </div>
