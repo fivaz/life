@@ -59,7 +59,8 @@
 	<div bind:this={container} class="relative border-b" style="height: {SUMMARY_GRID_CELL_HEIGHT}px">
 		<TasksSummary
 			style="width: {containerWidth}px"
-			class="{klass} {isScrollingUp.value ? 'fixed' : ''} z-10 w-full justify-center"
+			class="{klass} {isScrollingUp.value ? 'fixed' : ''}
+			z-10 w-full justify-center shadow ring-1 ring-black ring-opacity-5"
 			tasks={[...toDos, ...events]}
 		/>
 	</div>
