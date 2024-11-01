@@ -2,8 +2,8 @@
 	"name": "life",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "VITE_GIT_COMMIT_HASH=$(git rev-parse --short HEAD) vite dev --port 5175",
-		"build": "VITE_GIT_COMMIT_HASH=$(git rev-parse --short HEAD) vite build",
+		"dev": "PUBLIC_COMMIT_HASH=$(git rev-parse --short HEAD) vite dev --port 5175",
+		"build": "PUBLIC_COMMIT_HASH=$(git rev-parse --short HEAD) vite build",
 		"preview": "vite preview",
 		"build:preview": "pnpm run build && vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
