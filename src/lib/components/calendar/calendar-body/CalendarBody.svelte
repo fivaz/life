@@ -5,6 +5,7 @@
 	import HorizontalTime from './horizontal-time/HorizontalTime.svelte';
 	import WeekList from './week-list/WeekList.svelte';
 	import type { Task } from '$lib/task/utils';
+	import { isScrollingUp } from '$lib/components/calendar/calendar-body/calendar-columns/service.svelte';
 
 	interface Props {
 		tasks: Task[];
@@ -16,17 +17,45 @@
 	let containerNav = $state<HTMLDivElement | null>(null);
 	let containerOffset = $state<HTMLDivElement | null>(null);
 
-	onMount(() => {
+	let ticking = $state(false);
+
+	let lastScrollPosition = $state(0);
+
+	function scrollToTime() {
 		// Set the container scroll position based on the current time.
 		const currentMinute = new Date().getHours() * 60;
-		if (!container || !containerNav || !containerOffset) {
-			return;
-		}
+		if (!container || !containerNav || !containerOffset) return;
 
 		container.scrollTop =
 			((container.scrollHeight - containerNav.offsetHeight - containerOffset.offsetHeight) *
 				currentMinute) /
 			1440;
+	}
+
+	function detectScroll() {
+		if (!container) return;
+
+		container.addEventListener('scroll', () => {
+			if (!container) return;
+			const currentScrollPosition = container.scrollTop;
+
+			if (!ticking) {
+				window.requestAnimationFrame(() => {
+					if (!container) return;
+
+					isScrollingUp.value = lastScrollPosition > currentScrollPosition;
+					lastScrollPosition = currentScrollPosition;
+					ticking = false;
+				});
+
+				ticking = true;
+			}
+		});
+	}
+
+	onMount(() => {
+		scrollToTime();
+		detectScroll();
 	});
 </script>
 

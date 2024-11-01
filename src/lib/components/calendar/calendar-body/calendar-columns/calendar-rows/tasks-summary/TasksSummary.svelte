@@ -8,9 +8,11 @@
 
 	interface Props {
 		tasks: Task[];
+		class?: string;
+		style?: string;
 	}
 
-	let { tasks }: Props = $props();
+	let { tasks, style, class: klass }: Props = $props();
 
 	let isOpen = $state(false);
 
@@ -37,23 +39,22 @@
 	}
 </script>
 
-<!--there is a bug here that this truncate won't work if not inside a relative -> absolute hierarchy-->
-<div class="relative">
-	{#if workTasks.length}
-		<button
-			class={clsx(
-				hasPendingToDos
-					? 'bg-orange-50 text-orange-500 hover:bg-orange-100'
-					: 'bg-cyan-50 text-cyan-500 hover:bg-cyan-100',
-				'absolute w-full truncate rounded-lg px-2 py-1 text-xs leading-5 hover:font-semibold',
-			)}
-			onclick={() => (isOpen = true)}
-		>
-			{getLabel(workTasks)}
-		</button>
-	{/if}
-</div>
+{#if workTasks.length}
+	<button
+		{style}
+		class={clsx(
+			klass,
+			hasPendingToDos
+				? 'bg-orange-50 text-orange-500 hover:bg-orange-100'
+				: 'bg-cyan-50 text-cyan-500 hover:bg-cyan-100',
+			'rounded-lg px-2 py-1 text-center text-xs leading-5 hover:font-semibold',
+		)}
+		onclick={() => (isOpen = true)}
+	>
+		{getLabel(workTasks)}
+	</button>
+{/if}
 
-<Modal close={() => (isOpen = false)} {isOpen}>
+<Modal bind:isOpen>
 	<DayTasksList close={() => (isOpen = false)} tasks={workTasks} />
 </Modal>
