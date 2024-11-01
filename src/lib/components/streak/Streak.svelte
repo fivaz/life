@@ -2,7 +2,7 @@
 	import type { Routine } from '$lib/routine/utils';
 
 	import { DATE } from '$lib/consts';
-	import { format } from 'date-fns';
+	import { format, subDays } from 'date-fns';
 	import { Flame } from 'lucide-svelte';
 
 	interface Props {
@@ -11,7 +11,7 @@
 
 	let { routines }: Props = $props();
 
-	let streak = $derived(getRoutineStreak(routines));
+	let streak = $derived(getRoutinesStreak(routines));
 
 	function allRoutinesHaveEntryForDate(routines: Routine[], date: string): boolean {
 		// otherwise the loop doesn't end cause .every returns true in case the list is empty
@@ -24,7 +24,7 @@
 		);
 	}
 
-	function getRoutineStreak(routines: Routine[]): number {
+	function getRoutinesStreak(routines: Routine[]): number {
 		let streak = 0;
 		let currentDate = new Date();
 
@@ -36,7 +36,7 @@
 			}
 
 			streak++;
-			currentDate.setDate(currentDate.getDate() - 1);
+			currentDate = subDays(currentDate, 1);
 		}
 
 		return streak;
