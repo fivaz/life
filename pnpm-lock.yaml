@@ -173,9 +173,6 @@ importers:
       svelte-portal:
         specifier: ^2.2.1
         version: 2.2.1
-      sveltefire:
-        specifier: ^0.4.5
-        version: 0.4.5(firebase@11.0.1)(svelte@5.1.9)
       tailwindcss:
         specifier: ^3.4.9
         version: 3.4.14
@@ -3765,12 +3762,6 @@ packages:
   sveltedoc-parser@4.2.1:
     resolution: {integrity: sha512-sWJRa4qOfRdSORSVw9GhfDEwsbsYsegnDzBevUCF6k/Eis/QqCu9lJ6I0+d/E2wOWCjOhlcJ3+jl/Iur+5mmCw==}
     engines: {node: '>=10.0.0'}
-
-  sveltefire@0.4.5:
-    resolution: {integrity: sha512-sNvDr4SadW1m5BF6Id7JIky3vOvTLOrP9w6vtcpvBo8TKvO4RqnohiRYGsFB2eK6RRKkA1H8ccuGd7sdbIrhFQ==}
-    peerDependencies:
-      firebase: ^9.0.0
-      svelte: ^4.0.0
 
   svg.draggable.js@2.2.2:
     resolution: {integrity: sha512-JzNHBc2fLQMzYCZ90KZHN2ohXL0BQJGQimK1kGk6AvSeibuKcIdDX9Kr0dT9+UJ5O8nYA0RB839Lhvk4CY4MZw==}
@@ -8067,11 +8058,6 @@ snapshots:
       htmlparser2-svelte: 4.1.0
     transitivePeerDependencies:
       - supports-color
-
-  sveltefire@0.4.5(firebase@11.0.1)(svelte@5.1.9):
-    dependencies:
-      firebase: 11.0.1
-      svelte: 5.1.9
 
   svg.draggable.js@2.2.2:
     dependencies:

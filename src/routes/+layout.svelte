@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { auth, db } from '$lib/firebase';
-	import { FirebaseApp } from 'sveltefire';
+	import { auth } from '$lib/firebase';
 	import { onMount, type Snippet } from 'svelte';
 	import '../app.css';
 	import { onAuthStateChanged } from 'firebase/auth';
@@ -19,6 +18,4 @@
 	});
 </script>
 
-<FirebaseApp {auth} firestore={db}>
-	{@render children()}
-</FirebaseApp>
+{@render children()}
