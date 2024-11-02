@@ -21,7 +21,7 @@
 	let { class: klass }: Props = $props();
 
 	const navigation = [
-		{ href: Routes.HOME, icon: CalendarDays, name: 'Calendar' },
+		{ href: Routes.ROOT, icon: CalendarDays, name: 'Calendar' },
 		{ href: Routes.CATEGORIES, icon: Tags, name: 'Categories' },
 		{ href: Routes.TASKS, icon: ClipboardList, name: 'Tasks' },
 		{ href: Routes.GOALS, icon: Goal, name: 'Goals' },

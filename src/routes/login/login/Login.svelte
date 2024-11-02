@@ -26,7 +26,7 @@
 		try {
 			isLoading.email = true;
 			await signInWithEmailAndPassword(auth, email, password);
-			void goto(Routes.HOME);
+			void goto(Routes.ROOT);
 		} catch (error) {
 			errorMessage.value = parseErrors(error);
 		} finally {

@@ -52,7 +52,7 @@ async function handleProviderLogin(user: User) {
 		await createUser(user, user.displayName || 'unnamed user', user.email, avatar);
 	}
 
-	return goto(Routes.HOME);
+	return goto(Routes.ROOT);
 }
 
 export async function githubSignIn() {

@@ -5,19 +5,16 @@ export const DATE_FR = 'dd.MM.yyyy';
 export const DATE_FR_SHORT = 'dd.MM';
 export const DATETIME = 'yyyy-MM-dd HH:mm';
 
-export const dashboardRoute = '';
-
 export const Routes = {
-	CATEGORIES: `${dashboardRoute}/categories`,
-	GOALS: `${dashboardRoute}/goals`,
-	HOME: `${dashboardRoute}/`,
-	LOGIN: '/login',
-	PROFILE: `${dashboardRoute}/profile`,
-	REGISTER: '/register',
-	REPORT: `${dashboardRoute}/report`,
 	ROOT: '/',
-	ROUTINE: `${dashboardRoute}/routine`,
-	TASKS: `${dashboardRoute}/tasks`,
+	CATEGORIES: `/categories`,
+	GOALS: `/goals`,
+	PROFILE: `/profile`,
+	REGISTER: '/register',
+	REPORT: `/report`,
+	ROUTINE: `/routine`,
+	LOGIN: '/login',
+	TASKS: `/tasks`,
 };
 
 // firebase paths
