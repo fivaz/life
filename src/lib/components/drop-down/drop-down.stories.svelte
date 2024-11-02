@@ -14,7 +14,6 @@
 	];
 </script>
 
-<!-- eslint-disable-next-line @typescript-eslint/no-explicit-any-->
 {#snippet template(args: any)}
 	<DropDown {...args}>
 		<Button>Button</Button>

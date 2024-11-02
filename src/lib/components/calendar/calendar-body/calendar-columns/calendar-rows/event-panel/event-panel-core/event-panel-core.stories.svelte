@@ -18,7 +18,6 @@
 	});
 </script>
 
-<!-- eslint-disable-next-line @typescript-eslint/no-explicit-any-->
 {#snippet template(args: any)}
 	<div class="relative h-48 w-48">
 		<EventPanelCore isSelected={false} targetDate={new Date()} {...args} />

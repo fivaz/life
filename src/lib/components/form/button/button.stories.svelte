@@ -11,20 +11,34 @@
 	});
 </script>
 
-<Story args={{}} name="Indigo">
-	<Button color="indigo" onclick={() => console.log('clicked')}>Indigo</Button>
-</Story>
+{#snippet template(args: any)}
+	{#if !args.isOnlyIcon}
+		<Button {...args} }><Icon class="h-4 w-4" src={Trash} />Button</Button>
+	{:else}
+		<Button {...args} }><Icon class="h-4 w-4" src={Trash} /></Button>
+	{/if}
+{/snippet}
 
-<Story args={{}} name="Label">
-	<Button color="red" onclick={() => console.log('clicked')}>Red</Button>
-</Story>
+<Story
+	args={{
+		color: 'indigo',
+		disabled: false,
+		isLoading: false,
+		onclick: () => console.log('clicked'),
+		isOnlyIcon: false,
+	}}
+	name="Primary"
+	children={template}
+/>
 
-<Story args={{}} name="Loading">
-	<Button color="indigo" isLoading onclick={() => console.log('clicked')}>Loading</Button>
-</Story>
-
-<Story args={{}} name="Loading with icon">
-	<Button color="indigo" isLoading onclick={() => console.log('clicked')}>
-		<Icon class="h-4 w-4" src={Trash} />Loading
-	</Button>
-</Story>
+<Story
+	args={{
+		color: 'indigo',
+		disabled: false,
+		isLoading: false,
+		onclick: () => console.log('clicked'),
+		isOnlyIcon: true,
+	}}
+	name="With only Icon"
+	children={template}
+/>

@@ -8,13 +8,13 @@
 	import TaskForm from './TaskForm.svelte';
 
 	import { defineMeta } from '@storybook/addon-svelte-csf';
+	import { goals } from '$lib/goal/seed';
 
 	const { Story } = defineMeta({
 		component: TaskForm,
 	});
 </script>
 
-<!-- eslint-disable-next-line @typescript-eslint/no-explicit-any-->
 {#snippet template(args: any)}
 	<Dialog
 		cancelText={dialog.value.cancelText}
@@ -25,7 +25,7 @@
 		title={dialog.value.title}
 	/>
 	<div class="w-96">
-		<TaskForm {...args} />
+		<TaskForm {goals} {categories} userId="" close={() => console.log('closed')} {...args} />
 	</div>
 {/snippet}
 

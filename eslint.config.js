@@ -26,12 +26,17 @@ export default ts.config(
 	},
 	{
 		files: ['**/*.svelte'],
-
 		languageOptions: {
 			parserOptions: {
 				parser: ts.parser,
 			},
 		},
+	},
+	{
+		files: ['**/*.stories.svelte'],
+		rules: {
+			'@typescript-eslint/no-explicit-any': 'off'
+		}
 	},
 	{
 		rules: {

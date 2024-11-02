@@ -10,7 +10,7 @@
 		type?: 'button' | 'submit' | undefined;
 		disabled?: boolean;
 		class?: string;
-		children?: Snippet;
+		children: Snippet;
 		onclick?: ((e: MouseEvent) => void) | ((e: MouseEvent) => Promise<void>); //onclick is optional because it can be a submit form button
 	}
 
@@ -58,6 +58,6 @@
 		bind:this={child}
 		class={clsx('flex items-center gap-2', { hidden: isLoading && !slotText })}
 	>
-		{@render children?.()}
+		{@render children()}
 	</span>
 </button>
