@@ -1,4 +1,4 @@
-import { editTask } from '$lib/components/task-form/service';
+import { editTask } from '$lib/task/task-form/service';
 import { getTaskDate } from '$lib/task/time-utils';
 import { type Task, isToDo } from '$lib/task/utils';
 import { format } from 'date-fns';

@@ -6,7 +6,7 @@ import {
 	getEventSlots,
 } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
 
-import { weekDays } from '$lib/components/task-form/task-form-recurring/days-checkbox/service';
+import { weekDays } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 import { DATE, DATETIME } from '$lib/consts';
 import { convertTimeToMinutes, sumTimes } from '$lib/task/time-utils';
 import { isRecurring, isToDo } from '$lib/task/utils';

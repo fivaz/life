@@ -3,7 +3,7 @@
 
 	import { type Category, CategoryTypes } from '$lib/category/utils';
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
-	import TaskCompletedNotificationStack from '$lib/components/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
+	import TaskCompletedNotificationStack from '$lib/task/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
 	import { buildEmptyEvent, buildEventWithTime } from '$lib/task/build-utils';
 
 	import {
@@ -12,10 +12,10 @@
 		moveEvent,
 		persistToDos,
 		tasks,
-	} from './service.svelte';
+	} from './service.svelte.js';
 	import DBCategories from '$lib/category/DBCategories.svelte';
 	import DBGoals from '$lib/goal/DBGoals.svelte';
-	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
+	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 
 	let targetDate = $state<string | undefined>();

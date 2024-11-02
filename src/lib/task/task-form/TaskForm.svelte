@@ -16,19 +16,19 @@
 		deletePossibleSingleRecurringEvent,
 		duplicateTask,
 		editTaskWithPrompt,
-	} from '$lib/components/task-form/service';
-	import TaskFormEvent from '$lib/components/task-form/task-form-event/TaskFormEvent.svelte';
-	import TaskFormImage from '$lib/components/task-form/task-form-image/TaskFormImage.svelte';
-	import TaskFormRecurring from '$lib/components/task-form/task-form-recurring/TaskFormRecurring.svelte';
+	} from '$lib/task/task-form/service';
+	import TaskFormEvent from '$lib/task/task-form/task-form-event/TaskFormEvent.svelte';
+	import TaskFormImage from '$lib/task/task-form/task-form-image/TaskFormImage.svelte';
+	import TaskFormRecurring from '$lib/task/task-form/task-form-recurring/TaskFormRecurring.svelte';
 	import { checkErrors, convertToAnyTask, convertToTaskIn } from '$lib/task/task-in-utils';
 	import { EllipsisVertical, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
-	import GoalIcon from '../../../routes/dashboard/goals/goal-form/goal-icon/GoalIcon.svelte';
 	import { isToDo } from '$lib/task/utils.js';
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';
 	import { Copy, ListTodo } from 'lucide-svelte';
 	import { sumTimes } from '$lib/task/time-utils';
+	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 
 	interface Props {
 		userId: string;

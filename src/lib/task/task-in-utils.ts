@@ -1,6 +1,6 @@
 import type { Event, RecurringEvent, Task, ToDo } from '$lib/task/utils';
 
-import { weekDays } from '$lib/components/task-form/task-form-recurring/days-checkbox/service';
+import { weekDays } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 import { DATE, TIME } from '$lib/consts';
 import { convertTimeToMinutes, getCurrentRoundedDate, sumTimes } from '$lib/task/time-utils';
 import { isRecurring, isToDo } from '$lib/task/utils';

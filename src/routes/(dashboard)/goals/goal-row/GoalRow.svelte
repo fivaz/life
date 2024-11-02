@@ -7,7 +7,7 @@
 	import { ChevronDown, ChevronUp, Plus, Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
-	import GoalIcon from '../goal-form/goal-icon/GoalIcon.svelte';
+	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import GoalTasks from './goal-tasks/GoalTasks.svelte';
 
 	interface Props {

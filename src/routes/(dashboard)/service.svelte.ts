@@ -1,6 +1,6 @@
 import { type AnyEvent, isRecurring, type Task, type ToDo } from '$lib/task/utils';
 
-import { editSingleRecurringEvent, editTask } from '$lib/components/task-form/service';
+import { editSingleRecurringEvent, editTask } from '$lib/task/task-form/service';
 import { DATE, DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
 import { endOfWeek, format } from 'date-fns';

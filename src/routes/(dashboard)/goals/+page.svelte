@@ -15,7 +15,7 @@
 	import DBGoals from '$lib/goal/DBGoals.svelte';
 	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
 	import DBCategories from '$lib/category/DBCategories.svelte';
-	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
+	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 
 	let editingGoal = $state<Goal>(buildEmptyGoal());
 

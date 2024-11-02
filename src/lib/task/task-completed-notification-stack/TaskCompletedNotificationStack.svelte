@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Task } from '$lib/task/utils';
 
-	import TaskCompletedNotification from '$lib/components/task-completed-notification-stack/task-completed-notification/TaskCompletedNotification.svelte';
+	import TaskCompletedNotification from '$lib/task/task-completed-notification-stack/task-completed-notification/TaskCompletedNotification.svelte';
 
 	interface Props {
 		completedTasks?: Task[];

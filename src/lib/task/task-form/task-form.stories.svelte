@@ -1,7 +1,7 @@
 <script module lang="ts">
 	import { categories } from '$lib/category/seed';
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
-	import { dialog } from '$lib/components/dialog/service.svelte';
+	import { dialog } from '$lib/components/dialog/service.svelte.js';
 	import { buildEmptyEvent, buildEmptyToDo } from '$lib/task/build-utils';
 	import { normalWithSubTasks } from '$lib/task/seed';
 

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import Dashboard from '$lib/components/dashboard/Dashboard.svelte';
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
 	import { dialog } from '$lib/components/dialog/service.svelte';
 	import { Routes } from '$lib/consts';
@@ -8,6 +7,8 @@
 	import { onMount, type Snippet } from 'svelte';
 	import { onAuthStateChanged } from 'firebase/auth';
 	import { auth } from '$lib/firebase';
+	import { setUser } from '$lib/auth/utils.svelte';
+	import Dashboard from '$lib/components/dashboard/Dashboard.svelte';
 
 	interface Props {
 		children: Snippet;
@@ -17,6 +18,7 @@
 
 	onMount(() => {
 		onAuthStateChanged(auth, (user) => {
+			setUser(user);
 			if (!user) {
 				goto(Routes.LOGIN);
 			}

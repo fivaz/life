@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Input from '$lib/components/form/input/Input.svelte';
 
-	import GoalIcon from '../goal-icon/GoalIcon.svelte';
-	import { icons } from '../goal-icon/service';
+	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
+	import { icons } from '$lib/goal/goal-icon/service';
 
 	interface Props {
 		name: string;

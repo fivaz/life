@@ -9,8 +9,7 @@
 	import { clsx } from 'clsx';
 	import { addDays, format, parse } from 'date-fns';
 	import { getContext } from 'svelte';
-
-	import GoalIcon from '../../../../../../../../routes/dashboard/goals/goal-form/goal-icon/GoalIcon.svelte';
+	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 
 	interface Props {
 		tasks: Task[];

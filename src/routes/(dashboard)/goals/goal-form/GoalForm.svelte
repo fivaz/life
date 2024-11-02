@@ -9,8 +9,8 @@
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
-	import GoalIcon from './goal-icon/GoalIcon.svelte';
-	import { getIcon } from './goal-icon/service';
+	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
+	import { getIcon } from '$lib/goal/goal-icon/service';
 	import IconSelector from './icon-selector/IconSelector.svelte';
 	import { addGoal, checkErrors, deleteGoal, editGoal } from './service';
 

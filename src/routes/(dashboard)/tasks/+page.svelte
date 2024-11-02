@@ -14,7 +14,7 @@
 	import { title } from '$lib/utils.svelte';
 	import DBCategories from '$lib/category/DBCategories.svelte';
 	import DBUndoneTasks from '$lib/task/DBUndoneTasks.svelte';
-	import TaskForm from '$lib/components/task-form/TaskForm.svelte';
+	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 	import DBGoals from '$lib/goal/DBGoals.svelte';
 
 	let editingTask: Task = $state(buildEmptyToDo([]));
