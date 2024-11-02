@@ -35,8 +35,8 @@ export default ts.config(
 	{
 		files: ['**/*.stories.svelte'],
 		rules: {
-			'@typescript-eslint/no-explicit-any': 'off'
-		}
+			'@typescript-eslint/no-explicit-any': 'off',
+		},
 	},
 	{
 		rules: {

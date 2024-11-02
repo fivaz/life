@@ -11,8 +11,8 @@
 		ListTodo,
 		Tags,
 	} from 'lucide-svelte';
-	import { Tooltip } from 'flowbite-svelte';
 	import { PUBLIC_COMMIT_HASH } from '$env/static/public';
+	import Tooltip from '$lib/components/tooltip/Tooltip.svelte';
 
 	interface Props {
 		class?: string;
@@ -33,8 +33,9 @@
 <div class="{klass} flex h-full w-64 flex-col items-stretch gap-5 bg-white p-3">
 	<div class="flex items-center gap-2 text-indigo-600">
 		<Logo class="h-8 w-auto self-start" />
-		<h2 class="text-lg font-semibold">Life</h2>
-		<Tooltip color="purple">current commit: {PUBLIC_COMMIT_HASH}</Tooltip>
+		<Tooltip class="bg-indigo-50" text="current commit: {PUBLIC_COMMIT_HASH}">
+			<h2 class="text-lg font-semibold">Life</h2>
+		</Tooltip>
 	</div>
 
 	<nav class="flex-1">
