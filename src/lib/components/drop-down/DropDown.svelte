@@ -3,6 +3,7 @@
 	import { fade } from 'svelte/transition';
 	import { Copy } from 'lucide-svelte';
 
+	// TODO use floating lib to make this instead of pure CSS
 	interface Props {
 		children: Snippet;
 		class?: string;
