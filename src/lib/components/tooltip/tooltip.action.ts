@@ -7,9 +7,17 @@ import {
 	shift,
 } from '@floating-ui/dom';
 
+const tailwindColor = {
+	green: 'text-green-500 bg-green-50',
+	red: 'text-red-500 bg-red-50',
+	indigo: 'text-indigo-500 bg-indigo-50',
+	yellow: 'text-yellow-500 bg-yellow-50',
+};
+
 type TooltipOptions = {
 	text: string;
 	placement?: ComputePositionConfig['placement'];
+	color: keyof typeof tailwindColor;
 };
 
 function createTooltip(targetEl: HTMLElement, options: TooltipOptions | string) {
@@ -22,8 +30,11 @@ function createTooltip(targetEl: HTMLElement, options: TooltipOptions | string) 
         position: absolute;
         top: 0;
         left: 0;
-        font-weight: 600;
+        font-size: 90%;
+        border-radius: 0.25rem;
+        padding: 0.375rem;
       `,
+		className: tailwindColor[typeof options === 'string' ? 'indigo' : options.color],
 	});
 
 	const arrowEl = Object.assign(document.createElement('div'), {
@@ -33,6 +44,7 @@ function createTooltip(targetEl: HTMLElement, options: TooltipOptions | string) 
 				height: 8px;
 				transform: rotate(45deg);
 			`,
+		className: tailwindColor[typeof options === 'string' ? 'indigo' : options.color],
 	});
 
 	tooltipEl.append(arrowEl);

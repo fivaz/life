@@ -12,7 +12,6 @@
 		Tags,
 	} from 'lucide-svelte';
 	import { PUBLIC_COMMIT_HASH } from '$env/static/public';
-	import Tooltip from '$lib/components/tooltip/Tooltip.svelte';
 	import { tooltip } from '$lib/components/tooltip/tooltip.action';
 
 	interface Props {
@@ -34,9 +33,6 @@
 <div class="{klass} flex h-full w-64 flex-col items-stretch gap-5 bg-white p-3">
 	<div class="flex items-center gap-2 text-indigo-600">
 		<Logo class="h-8 w-auto self-start" />
-		<Tooltip class="bg-indigo-50" text="current commit: {PUBLIC_COMMIT_HASH}">
-			<h2 class="text-lg font-semibold">Life</h2>
-		</Tooltip>
 		<h2 class="text-lg font-semibold" use:tooltip={`current commit: ${PUBLIC_COMMIT_HASH}`}>
 			Life
 		</h2>
