@@ -86,7 +86,11 @@
 	class="{klass} absolute left-0 top-0 hidden w-max rounded p-1.5 text-[90%]"
 >
 	{text}
-	<div class="absolute h-2 w-2 rotate-45 transform" bind:this={arrowElement} id="arrow"></div>
+	<div
+		class="{klass} absolute h-2 w-2 rotate-45 transform"
+		bind:this={arrowElement}
+		id="arrow"
+	></div>
 </div>
 
 <button bind:this={button} id="button" aria-describedby="tooltip" type="button">

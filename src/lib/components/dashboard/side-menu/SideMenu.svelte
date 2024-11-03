@@ -37,10 +37,7 @@
 		<Tooltip class="bg-indigo-50" text="current commit: {PUBLIC_COMMIT_HASH}">
 			<h2 class="text-lg font-semibold">Life</h2>
 		</Tooltip>
-		<h2
-			class="text-lg font-semibold"
-			use:tooltip={{ text: `current commit: ${PUBLIC_COMMIT_HASH}` }}
-		>
+		<h2 class="text-lg font-semibold" use:tooltip={`current commit: ${PUBLIC_COMMIT_HASH}`}>
 			Life
 		</h2>
 	</div>
