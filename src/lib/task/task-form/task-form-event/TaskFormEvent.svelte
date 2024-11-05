@@ -6,6 +6,7 @@
 	import { differenceInMinutes, format } from 'date-fns';
 	import { TIME } from '$lib/consts';
 	import { sumTimes } from '$lib/task/time-utils';
+	import { slide } from 'svelte/transition';
 
 	interface Props {
 		taskIn: TaskIn;
@@ -52,40 +53,32 @@
 	</div>
 
 	{#if taskIn.isEvent}
-		<div class={isEventOpen ? 'block' : 'hidden'}>
-			<!--		<Transition-->
-			<!--			class="overflow-hidden transition-all duration-500"-->
-			<!--			enterFrom="transform opacity-0 max-h-0"-->
-			<!--			enterTo="transform opacity-100 max-h-36"-->
-			<!--			leaveFrom="transform opacity-100 max-h-36"-->
-			<!--			leaveTo="transform opacity-0 max-h-0"-->
-			<!--			show={isEventOpen}-->
-			<!--			unmount={false}-->
-			<!--		>-->
-			<Input bind:value={taskIn.date} label="Date" name="date" required type="date" />
+		{#if isEventOpen}
+			<div transition:slide>
+				<Input bind:value={taskIn.date} label="Date" name="date" required type="date" />
 
-			<div class="flex gap-3">
-				<Input
-					bind:value={taskIn.startTime}
-					class="w-1/2"
-					label="Start time"
-					name="startTime"
-					oninput={(input) => (taskIn.endTime = sumTimes(input, taskIn.duration))}
-					required
-					type="time"
-				/>
+				<div class="flex gap-3">
+					<Input
+						bind:value={taskIn.startTime}
+						class="w-1/2"
+						label="Start time"
+						name="startTime"
+						oninput={(input) => (taskIn.endTime = sumTimes(input, taskIn.duration))}
+						required
+						type="time"
+					/>
 
-				<Input
-					bind:value={taskIn.endTime}
-					class="w-1/2"
-					label="End time"
-					name="endTime"
-					oninput={(input) => (taskIn.duration = getDuration(taskIn.startTime, input))}
-					required
-					type="time"
-				/>
+					<Input
+						bind:value={taskIn.endTime}
+						class="w-1/2"
+						label="End time"
+						name="endTime"
+						oninput={(input) => (taskIn.duration = getDuration(taskIn.startTime, input))}
+						required
+						type="time"
+					/>
+				</div>
 			</div>
-			<!--		</Transition>-->
-		</div>
+		{/if}
 	{/if}
 </div>

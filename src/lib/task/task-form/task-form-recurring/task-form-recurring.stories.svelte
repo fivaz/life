@@ -10,10 +10,12 @@
 	});
 
 	import { convertToTaskIn } from '$lib/task/task-in-utils';
+
+	let taskIn = $state(convertToTaskIn(normalWithSubTasks));
 </script>
 
 <Story args={{}} name="Primary">
 	<div class="w-72">
-		<TaskFormRecurring taskIn={convertToTaskIn(normalWithSubTasks)} />
+		<TaskFormRecurring {taskIn} />
 	</div>
 </Story>
