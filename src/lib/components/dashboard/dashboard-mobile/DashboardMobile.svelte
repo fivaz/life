@@ -5,8 +5,8 @@
 	import { Menu } from 'lucide-svelte';
 	import { title } from '$lib/utils.svelte';
 	import { afterNavigate } from '$app/navigation';
-	
-interface Props {
+
+	interface Props {
 		class?: string;
 	}
 

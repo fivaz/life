@@ -4,6 +4,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 
 	import type { SortedTaskType } from '../service';
+	import { CategoryTypes } from '$lib/category/utils';
 
 	interface Props {
 		tasks: SortedTaskType;
@@ -12,7 +13,10 @@
 	let { tasks }: Props = $props();
 
 	let netSortedTasks = $derived(prepareSortedTasks(tasks));
+
 	let total = $derived(Object.values(netSortedTasks).flat());
+
+	let workTasks = $derived(total.filter((task) => task.category.type === CategoryTypes.WORK));
 
 	function prepareSortedTasks(sortedTasks: SortedTaskType): SortedTaskType {
 		let copiedObject = { ...sortedTasks };
@@ -43,6 +47,14 @@
 					<div class="w-16 text-right">{getTotalDuration(tasks[date])}</div>
 				</li>
 			{/each}
+			<li class="flex cursor-pointer justify-between gap-3 px-6 py-3 hover:bg-gray-100">
+				<div class="flex grow gap-3">
+					<Icon class="h-6 w-6 text-gray-400" src={Grid3x3} />
+					<div>Work tasks</div>
+				</div>
+				<div class="w-16 text-center">{workTasks.length}</div>
+				<div class="w-16 text-right">{getTotalDuration(workTasks)}</div>
+			</li>
 			<li class="flex cursor-pointer justify-between gap-3 px-6 py-3 hover:bg-gray-100">
 				<div class="flex grow gap-3">
 					<Icon class="h-6 w-6 text-gray-400" src={Grid3x3} />
