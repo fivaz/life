@@ -1,18 +1,11 @@
 <script lang="ts">
-	import type { TaskIn } from '$lib/task/task-in-utils';
-
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import { differenceInMinutes, format } from 'date-fns';
 	import { TIME } from '$lib/consts';
 	import { sumTimes } from '$lib/task/time-utils';
 	import { slide } from 'svelte/transition';
-
-	interface Props {
-		taskIn: TaskIn;
-	}
-
-	let { taskIn = $bindable() }: Props = $props();
+	import { taskIn } from '$lib/task/task-form/service.svelte';
 
 	let isEventOpen = $state(true);
 
@@ -39,41 +32,42 @@
 		<button
 			class="flex-1 text-start"
 			onclick={() => {
-				if (taskIn.isEvent) {
+				if (taskIn.value.isEvent) {
 					isEventOpen = !isEventOpen;
 				} else {
-					taskIn.isEvent = true;
+					taskIn.value.isEvent = true;
 				}
 			}}
 			type="button"
 		>
 			Event
 		</button>
-		<Toggle bind:value={taskIn.isEvent} onchange={(value) => (isEventOpen = value)} />
+		<Toggle bind:value={taskIn.value.isEvent} onchange={(value) => (isEventOpen = value)} />
 	</div>
 
-	{#if taskIn.isEvent}
+	{#if taskIn.value.isEvent}
 		{#if isEventOpen}
 			<div transition:slide>
-				<Input bind:value={taskIn.date} label="Date" name="date" required type="date" />
+				<Input bind:value={taskIn.value.date} label="Date" name="date" required type="date" />
 
 				<div class="flex gap-3">
 					<Input
-						bind:value={taskIn.startTime}
+						bind:value={taskIn.value.startTime}
 						class="w-1/2"
 						label="Start time"
 						name="startTime"
-						oninput={(input) => (taskIn.endTime = sumTimes(input, taskIn.duration))}
+						oninput={(input) => (taskIn.value.endTime = sumTimes(input, taskIn.value.duration))}
 						required
 						type="time"
 					/>
 
 					<Input
-						bind:value={taskIn.endTime}
+						bind:value={taskIn.value.endTime}
 						class="w-1/2"
 						label="End time"
 						name="endTime"
-						oninput={(input) => (taskIn.duration = getDuration(taskIn.startTime, input))}
+						oninput={(input) =>
+							(taskIn.value.duration = getDuration(taskIn.value.startTime, input))}
 						required
 						type="time"
 					/>

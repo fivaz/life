@@ -1,7 +1,4 @@
 <script module lang="ts">
-	import { normalWithSubTasks } from '$lib/task/seed';
-	import { convertToTaskIn } from '$lib/task/task-in-utils';
-
 	import TaskFormEvent from './TaskFormEvent.svelte';
 
 	import { defineMeta } from '@storybook/addon-svelte-csf';
@@ -13,6 +10,6 @@
 
 <Story args={{}} name="Primary">
 	<div class="w-72">
-		<TaskFormEvent taskIn={convertToTaskIn(normalWithSubTasks)} />
+		<TaskFormEvent />
 	</div>
 </Story>

@@ -1,32 +1,30 @@
 <script lang="ts">
-	import type { TaskIn } from '$lib/task/task-in-utils';
-
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { Photo } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { taskIn } from '$lib/task/task-form/service.svelte';
 
 	interface Props {
-		taskIn: TaskIn;
 		file: File | null;
 	}
 
 	let isImageOpen = $state(false);
 
-	let { taskIn = $bindable(), file = $bindable() }: Props = $props();
+	let { file = $bindable() }: Props = $props();
 
 	function handleChange(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (event.currentTarget.files) {
 			[file] = event.currentTarget.files;
-			taskIn.image = URL.createObjectURL(file);
+			taskIn.value.image = URL.createObjectURL(file);
 		}
 	}
 </script>
 
 <div class="flex w-full flex-col gap-2">
-	{#if taskIn.image}
+	{#if taskIn.value.image}
 		<div class="flex h-24 items-center justify-center overflow-hidden">
 			<button onclick={() => (isImageOpen = true)} type="button">
-				<img alt="event description" src={taskIn.image} />
+				<img alt="event description" src={taskIn.value.image} />
 			</button>
 			<Modal close={() => (isImageOpen = false)} isOpen={isImageOpen}>
 				<!--normally I wouldn't need to restate the z-index of the Modal to its children, but due to an unknown bug I have to-->
@@ -34,7 +32,7 @@
 					<img
 						alt="event description"
 						class="max-w-11/12 h-auto max-h-[90vh] w-auto object-contain"
-						src={taskIn.image}
+						src={taskIn.value.image}
 					/>
 				</div>
 			</Modal>
@@ -48,7 +46,7 @@
 		class="inline-flex w-full justify-center gap-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 	>
 		<input accept="image/*" class="hidden" name="avatar" onchange={handleChange} type="file" />
-		{#if taskIn.image}
+		{#if taskIn.value.image}
 			Change image
 		{:else}
 			Add image

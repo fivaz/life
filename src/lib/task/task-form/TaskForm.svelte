@@ -16,7 +16,7 @@
 		deletePossibleSingleRecurringEvent,
 		duplicateTask,
 		editTaskWithPrompt,
-	} from '$lib/task/task-form/service';
+	} from '$lib/task/task-form/db-service';
 	import TaskFormEvent from '$lib/task/task-form/task-form-event/TaskFormEvent.svelte';
 	import TaskFormImage from '$lib/task/task-form/task-form-image/TaskFormImage.svelte';
 	import TaskFormRecurring from '$lib/task/task-form/task-form-recurring/TaskFormRecurring.svelte';
@@ -24,11 +24,12 @@
 	import { EllipsisVertical, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
-	import { isToDo } from '$lib/task/utils.js';
+	import { isRecurring, isToDo } from '$lib/task/utils.js';
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';
 	import { Copy, ListTodo } from 'lucide-svelte';
 	import { sumTimes } from '$lib/task/time-utils';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
+	import { taskIn } from '$lib/task/task-form/service.svelte';
 
 	interface Props {
 		userId: string;
@@ -41,13 +42,11 @@
 
 	let { task, goals, categories, targetDate, userId, close }: Props = $props();
 
-	const taskInInit = convertToTaskIn(task);
+	taskIn.value = convertToTaskIn(task);
 
-	let taskIn = $state({ ...taskInInit });
+	const wasRecurring = isRecurring(task);
 
-	const wasRecurring = taskInInit.isRecurring;
-
-	const formerGoal = taskInInit.goal;
+	const formerGoal = task.goal;
 
 	let errorMessage = $state('');
 
@@ -78,12 +77,12 @@
 
 	function onSubmit(event: SubmitEvent) {
 		event.preventDefault();
-		errorMessage = checkErrors(taskIn);
+		errorMessage = checkErrors(taskIn.value);
 		if (errorMessage) {
 			return;
 		}
 
-		const { id, ...data } = convertToAnyTask(taskIn);
+		const { id, ...data } = convertToAnyTask(taskIn.value);
 
 		if (id) {
 			handleEditTask(data, id);
@@ -113,9 +112,9 @@
 		const options: { icon?: typeof Copy; label: string; onclick: () => void }[] = [
 			{
 				icon: ListTodo,
-				label: taskIn.isDone ? 'Mark as completed' : 'Mark as uncompleted',
+				label: taskIn.value.isDone ? 'Mark as completed' : 'Mark as uncompleted',
 				//setTimeout is necessary so the text doesn't change before the animation closes the dropdown
-				onclick: () => setTimeout(() => (taskIn.isDone = !taskIn.isDone), 100),
+				onclick: () => setTimeout(() => (taskIn.value.isDone = !taskIn.value.isDone), 100),
 			},
 		];
 
@@ -168,25 +167,25 @@
 				{errorMessage}
 			</Alert>
 
-			<Input autocomplete="off" bind:value={taskIn.name} class="flex-1" placeholder="Name" />
+			<Input autocomplete="off" bind:value={taskIn.value.name} class="flex-1" placeholder="Name" />
 
 			<Collapsable title="Image">
-				<TaskFormImage bind:file bind:taskIn />
+				<TaskFormImage bind:file />
 			</Collapsable>
 
 			<Collapsable title="Description">
 				<label class="block text-sm text-gray-700">
 					<textarea
-						value={taskIn.description}
+						value={taskIn.value.description}
 						class="block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-						oninput={(e) => (taskIn.description = formatSubTasks(e.currentTarget.value))}
+						oninput={(e) => (taskIn.value.description = formatSubTasks(e.currentTarget.value))}
 						placeholder="Create subtasks for this task using bullet points with `-`. Fill in the boxes to mark them as completed."
 					></textarea>
 				</label>
 			</Collapsable>
 
 			<Select
-				bind:value={taskIn.category}
+				bind:value={taskIn.value.category}
 				class="flex items-center"
 				label="Category"
 				labelClass="w-1/5"
@@ -194,8 +193,10 @@
 			>
 				{#snippet placeholder()}
 					<div class="flex items-center gap-3">
-						<div class="h-5 w-5 rounded-md {tailwindColors[taskIn.category.color]?.darkBg}"></div>
-						{taskIn.category.name}
+						<div
+							class="h-5 w-5 rounded-md {tailwindColors[taskIn.value.category.color]?.darkBg}"
+						></div>
+						{taskIn.value.category.name}
 					</div>
 				{/snippet}
 				{#each categories as category (category)}
@@ -209,14 +210,14 @@
 			</Select>
 
 			<Select
-				bind:value={taskIn.goal}
+				bind:value={taskIn.value.goal}
 				class="flex items-center"
 				label="Goal"
 				labelClass="w-1/5"
 				selectClass="flex-1"
 			>
 				{#snippet placeholder()}
-					{taskIn.goal?.name || 'no goal'}
+					{taskIn.value.goal?.name || 'no goal'}
 				{/snippet}
 				<SelectItem value={null}>no goal</SelectItem>
 				{#each goals as goal (goal)}
@@ -229,27 +230,27 @@
 
 			<div class="flex gap-3">
 				<Input
-					bind:value={taskIn.deadline}
+					bind:value={taskIn.value.deadline}
 					class="w-1/2"
-					disabled={taskIn.isEvent}
+					disabled={taskIn.value.isEvent}
 					label="Deadline"
 					type="date"
 				/>
 
 				<Input
-					bind:value={taskIn.duration}
+					bind:value={taskIn.value.duration}
 					class="w-1/2"
 					label="Duration"
-					oninput={(input) => (taskIn.endTime = sumTimes(taskIn.startTime, input))}
+					oninput={(input) => (taskIn.value.endTime = sumTimes(taskIn.value.startTime, input))}
 					required
 					type="time"
 				/>
 			</div>
 
-			<TaskFormEvent bind:taskIn />
+			<TaskFormEvent />
 
-			{#if taskIn.isEvent}
-				<TaskFormRecurring bind:taskIn />
+			{#if taskIn.value.isEvent}
+				<TaskFormRecurring />
 			{/if}
 		</div>
 	</div>
