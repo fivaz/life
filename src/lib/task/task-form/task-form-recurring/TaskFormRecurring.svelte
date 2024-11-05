@@ -5,9 +5,12 @@
 
 	import DaysCheckbox from './days-checkbox/DaysCheckbox.svelte';
 	import type { TaskIn } from '$lib/task/task-in-utils';
-	import { slide } from 'svelte/transition';
+	import { slide, fade } from 'svelte/transition';
 
 	import 'flatpickr/dist/themes/airbnb.css';
+	import Select from '$lib/components/form/select/Select.svelte';
+	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
+	import { frequencies } from '$lib/task/utils';
 
 	interface Props {
 		taskIn: TaskIn;
@@ -47,48 +50,41 @@
 	{#if taskIn.isRecurring}
 		{#if isRecurringOpen}
 			<div transition:slide>
-				<div class="flex gap-3 pt-2">
-					<Input
-						bind:value={taskIn.recurringStartAt}
-						class="w-1/2"
-						label="Start at"
-						name="recurringStartAt"
-						required
-						type="date"
-					/>
+				<div class="flex flex-col gap-3 pt-2">
+					<Select bind:value={taskIn.recurringFrequency} label="Frequency">
+						{#snippet placeholder()}
+							<div class="flex items-center gap-3">{taskIn.recurringFrequency}</div>
+						{/snippet}
+						{#each frequencies as frequency (frequency)}
+							<SelectItem value={frequency}>
+								<div class="flex items-center gap-3">{frequency}</div>
+							</SelectItem>
+						{/each}
+					</Select>
 
-					<Input
-						bind:value={taskIn.recurringEndAt}
-						class="w-1/2"
-						label="End at"
-						name="recurringEndAt"
-						required
-						type="date"
-					/>
-				</div>
-				<div>
-					<h3 class="mb-1 block text-sm text-gray-700">Repeat every</h3>
-					<DaysCheckbox
-						bind:value={taskIn.recurringDaysOfWeek}
-						class="flex justify-around"
-						name="recurringDaysOfWeek"
-					/>
-				</div>
+					{#if taskIn.recurringFrequency === 'daily'}
+						<div transition:fade>
+							<h3 class="text-sm text-gray-700">Repeat every</h3>
+							<DaysCheckbox bind:value={taskIn.recurringDaysOfWeek} class="flex justify-around" />
+						</div>
+					{/if}
 
-				<div>
-					<label class="mb-1 block text-sm text-gray-700" for="recurringExceptions">
-						Exclude on
-					</label>
-					<Flatpickr
-						bind:value={taskIn.recurringExceptions}
-						class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-						id="recurringExceptions"
-						name="recurringExceptions"
-						options={{
-							dateFormat: 'Y-m-d',
-							mode: 'multiple',
-						}}
-					/>
+					<Input bind:value={taskIn.recurringEndAt} label="End at" required type="date" />
+
+					<div>
+						<label class="mb-1 block text-sm text-gray-700">
+							Exceptions
+							<Flatpickr
+								bind:value={taskIn.recurringExceptions}
+								class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+								id="recurringExceptions"
+								options={{
+									dateFormat: 'Y-m-d',
+									mode: 'multiple',
+								}}
+							/>
+						</label>
+					</div>
 				</div>
 			</div>
 		{/if}

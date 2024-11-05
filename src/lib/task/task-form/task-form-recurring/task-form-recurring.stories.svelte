@@ -1,5 +1,5 @@
 <script module lang="ts">
-	import { normalWithSubTasks } from '$lib/task/seed';
+	import { longRecurring } from '$lib/task/seed';
 
 	import TaskFormRecurring from './TaskFormRecurring.svelte';
 
@@ -11,11 +11,17 @@
 
 	import { convertToTaskIn } from '$lib/task/task-in-utils';
 
-	let taskIn = $state(convertToTaskIn(normalWithSubTasks));
+	let taskInDaily = $state(convertToTaskIn(longRecurring));
+
+	let taskInWeekly = $state({ ...convertToTaskIn(longRecurring), recurringFrequency: 'weekly' });
 </script>
 
-<Story args={{}} name="Primary">
-	<div class="w-72">
-		<TaskFormRecurring {taskIn} />
+{#snippet template(args: any)}
+	<div class="w-72 rounded-md bg-indigo-50 p-2">
+		<TaskFormRecurring {...args} />
 	</div>
-</Story>
+{/snippet}
+
+<Story args={{ taskIn: taskInDaily }} name="Daily frequency" children={template} />
+
+<Story args={{ taskIn: taskInWeekly }} name="Weekly frequency" children={template} />

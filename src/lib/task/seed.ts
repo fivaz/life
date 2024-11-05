@@ -134,6 +134,7 @@ export const longRecurring: RecurringEvent = {
 	recurringEndAt: '',
 	recurringExceptions: [],
 	recurringStartAt: '',
+	recurringFrequency: 'daily',
 	startTime: format(getTodayAtTime('10:15'), TIME),
 };
 

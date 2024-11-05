@@ -24,11 +24,14 @@ export type Event = CoreTask & {
 	startTime: string;
 };
 
+export const frequencies = ['daily', 'weekly', 'monthly', 'yearly'] as const;
+
 export type RecurringEvent = Event & {
 	recurringDaysOfWeek: string[];
 	recurringEndAt: string;
 	recurringExceptions: string[];
 	recurringStartAt: string;
+	recurringFrequency?: (typeof frequencies)[number];
 };
 
 export type AnyEvent = Event | RecurringEvent;

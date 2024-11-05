@@ -3,7 +3,7 @@
 
 	interface Props {
 		value: string[];
-		name: string;
+		name?: string;
 		class?: string;
 	}
 
