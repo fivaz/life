@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { weekDays } from './service';
+	import { nameOfDaysOfWeek } from './service';
 
 	interface Props {
 		value: string[];
@@ -17,7 +17,7 @@
 			value.splice(index, 1);
 		} else {
 			// Otherwise, insert it at its proper position
-			const dayIndex = weekDays.indexOf(day);
+			const dayIndex = nameOfDaysOfWeek.indexOf(day);
 			value.splice(dayIndex, 0, day);
 		}
 
@@ -29,7 +29,7 @@
 <input {name} type="hidden" {value} />
 
 <div class={klass}>
-	{#each weekDays as day (day)}
+	{#each nameOfDaysOfWeek as day (day)}
 		<div class="flex flex-col items-center gap-1">
 			<label class="text-sm font-medium text-gray-700" for={day}>{day}</label>
 			<input

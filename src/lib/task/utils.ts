@@ -27,11 +27,10 @@ export type Event = CoreTask & {
 export const frequencies = ['daily', 'weekly', 'monthly', 'yearly'] as const;
 
 export type RecurringEvent = Event & {
+	recurringFrequency: (typeof frequencies)[number];
 	recurringDaysOfWeek: string[];
 	recurringEndAt: string;
 	recurringExceptions: string[];
-	recurringStartAt: string;
-	recurringFrequency?: (typeof frequencies)[number];
 };
 
 export type AnyEvent = Event | RecurringEvent;
@@ -61,7 +60,7 @@ export function sortTasks(tasks: Task[]) {
 }
 
 export function isRecurring(task: Omit<Task, 'id'> | Task): task is RecurringEvent {
-	return 'recurringStartAt' in task;
+	return 'recurringFrequency' in task;
 }
 
 export function isToDo(task: Omit<Task, 'id'> | Task): task is ToDo {

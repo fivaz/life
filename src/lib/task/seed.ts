@@ -133,7 +133,6 @@ export const longRecurring: RecurringEvent = {
 	recurringDaysOfWeek: [],
 	recurringEndAt: '',
 	recurringExceptions: [],
-	recurringStartAt: '',
 	recurringFrequency: 'daily',
 	startTime: format(getTodayAtTime('10:15'), TIME),
 };

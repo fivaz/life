@@ -6,35 +6,49 @@ import {
 	getEventSlots,
 } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
 
-import { weekDays } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
+import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 import { DATE, DATETIME } from '$lib/consts';
 import { convertTimeToMinutes, sumTimes } from '$lib/task/time-utils';
 import { isRecurring, isToDo } from '$lib/task/utils';
-import { endOfDay, getDay, isSameDay, isWithinInterval, parse, startOfDay } from 'date-fns';
+import {
+	endOfDay,
+	getDay,
+	isAfter,
+	isBefore,
+	isSameDay,
+	isWithinInterval,
+	parse,
+	startOfDay,
+} from 'date-fns';
 
-function isRecurringOnDay(event: RecurringEvent, day: Date): boolean {
-	if (
-		event.recurringExceptions &&
-		event.recurringExceptions.some((exceptionDate) => {
-			return isWithinInterval(parse(exceptionDate, DATE, new Date()), {
-				end: endOfDay(day),
-				start: startOfDay(day),
-			});
-		})
-	) {
+function isDateAnException(event: RecurringEvent, date: Date): boolean {
+	return event.recurringExceptions.some((exceptionDate) => {
+		return isWithinInterval(parse(exceptionDate, DATE, new Date()), {
+			end: endOfDay(date),
+			start: startOfDay(date),
+		});
+	});
+}
+
+function isRecurringOnDay(event: RecurringEvent, date: Date): boolean {
+	if (isAfter(date, parse(event.recurringEndAt, DATE, new Date()))) {
 		return false;
 	}
-	if (
-		// don't forget to always put this inside an if to check recurringStartAt and recurringEndAt
-		isWithinInterval(day, {
-			end: parse(event.recurringEndAt, DATE, new Date()),
-			start: parse(event.recurringStartAt, DATE, new Date()),
-		})
-	) {
-		// Check if today is one of the recurring days of the week
-		const todayDayOfWeek = getDay(day);
-		return event.recurringDaysOfWeek.includes(weekDays[todayDayOfWeek]);
+
+	if (isDateAnException(event, date)) {
+		return false;
 	}
+
+	if (isBefore(date, parse(event.date, DATE, new Date()))) {
+		return false;
+	}
+
+	if (event.recurringFrequency === 'daily') {
+		// Check if today is one of the recurring days of the week
+		const dayOfWeek = getDay(date);
+		return event.recurringDaysOfWeek.includes(nameOfDaysOfWeek[dayOfWeek]);
+	}
+
 	return false;
 }
 

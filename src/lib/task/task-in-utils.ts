@@ -1,6 +1,6 @@
 import type { Event, RecurringEvent, Task, ToDo } from '$lib/task/utils';
 
-import { weekDays } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
+import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 import { DATE, TIME } from '$lib/consts';
 import { convertTimeToMinutes, getCurrentRoundedDate, sumTimes } from '$lib/task/time-utils';
 import { isRecurring, isToDo } from '$lib/task/utils';
@@ -101,7 +101,7 @@ export function getRecurringEvent(data: TaskIn): RecurringEvent {
 		recurringDaysOfWeek: data.recurringDaysOfWeek,
 		recurringEndAt: data.recurringEndAt,
 		recurringExceptions: data.recurringExceptions.map((date) => format(date, DATE)),
-		recurringStartAt: data.recurringStartAt,
+		recurringFrequency: data.recurringFrequency,
 		startTime: data.startTime,
 	};
 }
@@ -125,10 +125,10 @@ function convertToDo(todo: ToDo): TaskIn {
 		image: todo.image || '',
 		isEvent: false,
 		isRecurring: false,
-		recurringDaysOfWeek: weekDays.slice(1, 6),
+		recurringFrequency: 'daily',
+		recurringDaysOfWeek: nameOfDaysOfWeek.slice(1, 6),
 		recurringEndAt: format(addMonths(new Date(), 1), DATE),
 		recurringExceptions: [],
-		recurringStartAt: format(new Date(), DATE),
 		startTime: format(getCurrentRoundedDate(), TIME),
 	};
 }
@@ -153,9 +153,9 @@ function convertEvent(event: Event): TaskIn {
 		image: event.image || '',
 		isEvent: true,
 		isRecurring: false,
-		recurringDaysOfWeek: weekDays.slice(1, 6),
+		recurringDaysOfWeek: nameOfDaysOfWeek.slice(1, 6),
 		recurringEndAt: format(addMonths(new Date(), 1), DATE),
 		recurringExceptions: [],
-		recurringStartAt: format(new Date(), DATE),
+		recurringFrequency: 'daily',
 	};
 }

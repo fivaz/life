@@ -52,7 +52,7 @@ export function editSingleRecurringEvent(
 	file?: File | null,
 ) {
 	//remove all the recurring attributes from the event
-	const { recurringDaysOfWeek, recurringEndAt, recurringExceptions, recurringStartAt, ...event } =
+	const { recurringDaysOfWeek, recurringEndAt, recurringExceptions, recurringFrequency, ...event } =
 		recurringEvent;
 
 	// clone the event but with a new date
