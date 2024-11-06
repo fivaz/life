@@ -17,8 +17,8 @@
 	import DBGoals from '$lib/goal/DBGoals.svelte';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	
-let targetDate = $state<string | undefined>();
+
+	let targetDate = $state<string | undefined>();
 
 	let isFormShown = $state<boolean>(false);
 

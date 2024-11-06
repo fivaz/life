@@ -20,7 +20,7 @@ export enum GROUPS {
 	Overdue = 'Overdue',
 	Today = 'Today',
 	Tomorrow = 'Tomorrow',
-	Week = 'This week',
+	ThisWeek = 'This week',
 	NextWeek = 'Next week',
 	Someday = 'Someday',
 	DailyRecurring = 'Recurring Daily',
@@ -70,7 +70,7 @@ function getDateName(task: Task): GROUPS | string {
 		return GROUPS.Tomorrow;
 	}
 	if (isCurrentWeek(date)) {
-		return GROUPS.Week;
+		return GROUPS.ThisWeek;
 	}
 	if (isNextWeek(date)) {
 		return GROUPS.NextWeek;
@@ -81,12 +81,13 @@ function getDateName(task: Task): GROUPS | string {
 function groupTasksByDate(tasks: Task[]): Record<string, Task[]> {
 	const tasksByDate = Object.groupBy(tasks, getDateName) as Record<string, Task[]>;
 
+	// minimum amount of groups I must have even if they will remain empty
 	const groupOfDates = {
-		[GROUPS.NextWeek]: [],
-		[GROUPS.Someday]: [],
 		[GROUPS.Today]: [],
 		[GROUPS.Tomorrow]: [],
-		[GROUPS.Week]: [],
+		[GROUPS.ThisWeek]: [],
+		[GROUPS.NextWeek]: [],
+		[GROUPS.Someday]: [],
 	};
 
 	return Object.assign(groupOfDates, tasksByDate);
@@ -97,7 +98,7 @@ function groupTaskByDateSorted(tasksByDate: Record<string, Task[]>): SortedTaskT
 		[GROUPS.Overdue]: 1,
 		[GROUPS.Today]: 2,
 		[GROUPS.Tomorrow]: 3,
-		[GROUPS.Week]: 4,
+		[GROUPS.ThisWeek]: 4,
 		[GROUPS.NextWeek]: 5,
 		// Rest : 6
 		[GROUPS.Someday]: 7,

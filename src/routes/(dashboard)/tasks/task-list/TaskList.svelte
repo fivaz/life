@@ -40,7 +40,7 @@
 		if (label === GROUPS.Tomorrow) {
 			return format(addDays(new Date(), 1), DATE);
 		}
-		if (label === GROUPS.Week) {
+		if (label === GROUPS.ThisWeek) {
 			return format(lastDayOfWeek(new Date(), { weekStartsOn: 1 }), DATE);
 		}
 		if (label === GROUPS.NextWeek) {
