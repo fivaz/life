@@ -22,7 +22,13 @@
 
 	let { label, tasks, userId, create, edit }: Props = $props();
 
-	let isDroppable = $derived(label !== GROUPS.Recurring && label !== GROUPS.Overdue);
+	let isNotRecurrent = $derived(
+		label !== GROUPS.DailyRecurring &&
+			label !== GROUPS.MonthlyRecurring &&
+			label !== GROUPS.YearlyRecurring,
+	);
+
+	let isDroppable = $derived(isNotRecurrent && label !== GROUPS.Overdue);
 
 	function getDate(label: string): string {
 		if (label === GROUPS.Overdue) {
@@ -74,7 +80,7 @@
 		<div class="flex gap-2">
 			<div>{getTotalDuration(tasks)}</div>
 
-			{#if label !== GROUPS.Recurring}
+			{#if isNotRecurrent}
 				<button
 					class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
 					onclick={() => create(getDate(label))}
@@ -87,11 +93,11 @@
 	</div>
 	<ul
 		class={clsx('flex flex-col gap-1', { [TASK_LIST_CLASS]: isDroppable })}
-		data-date={label !== GROUPS.Recurring && getDate(label)}
+		data-date={isNotRecurrent && getDate(label)}
 	>
 		{#each tasks as task (task.id)}
 			<!--recurring tasks shouldn't be draggable-->
-			<TaskRow isDraggable={label !== GROUPS.Recurring} {edit} {task} {userId} />
+			<TaskRow isDraggable={isNotRecurrent} {edit} {task} {userId} />
 		{/each}
 		{#if isDroppable}
 			<li

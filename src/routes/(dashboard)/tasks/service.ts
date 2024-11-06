@@ -17,13 +17,15 @@ import {
 export type SortedTaskType = Record<string, Task[]> & Iterable<string>;
 
 export enum GROUPS {
-	NextWeek = 'Next week',
 	Overdue = 'Overdue',
-	Recurring = 'Recurring',
-	Someday = 'Someday',
 	Today = 'Today',
 	Tomorrow = 'Tomorrow',
 	Week = 'This week',
+	NextWeek = 'Next week',
+	Someday = 'Someday',
+	DailyRecurring = 'Recurring Daily',
+	MonthlyRecurring = 'Monthly Recurring',
+	YearlyRecurring = 'Yearly Recurring',
 }
 
 function isCurrentWeek(date: Date) {
@@ -45,7 +47,15 @@ function getDateName(task: Task): GROUPS | string {
 	const date = getTaskDate(task);
 
 	if (isRecurring(task)) {
-		return GROUPS.Recurring;
+		if (task.recurringFrequency === 'yearly') {
+			return GROUPS.YearlyRecurring;
+		}
+		if (task.recurringFrequency === 'monthly') {
+			return GROUPS.MonthlyRecurring;
+		}
+		if (task.recurringFrequency === 'daily') {
+			return GROUPS.DailyRecurring;
+		}
 	}
 	if (!date) {
 		return GROUPS.Someday;
@@ -91,7 +101,9 @@ function groupTaskByDateSorted(tasksByDate: Record<string, Task[]>): SortedTaskT
 		[GROUPS.NextWeek]: 5,
 		// Rest : 6
 		[GROUPS.Someday]: 7,
-		[GROUPS.Recurring]: 8,
+		[GROUPS.DailyRecurring]: 8,
+		[GROUPS.MonthlyRecurring]: 9,
+		[GROUPS.YearlyRecurring]: 10,
 	};
 
 	function sorting(a: string, b: string) {

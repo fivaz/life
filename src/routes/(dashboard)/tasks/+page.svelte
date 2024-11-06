@@ -24,6 +24,14 @@
 	let isStatsShown = $state(false);
 
 	title.value = 'Tasks';
+
+	function openForm() {
+		isFormShown = true;
+	}
+
+	function closeForm() {
+		isFormShown = false;
+	}
 </script>
 
 <DBCategories>
@@ -31,7 +39,6 @@
 		<div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
 			<div class="flex items-center justify-between">
 				<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
-				<span></span>
 
 				<div class="flex items-center gap-5">
 					<button
@@ -46,7 +53,7 @@
 
 					<Button
 						onclick={() => {
-							isFormShown = true;
+							openForm();
 							editingTask = buildEmptyToDo(categories);
 						}}
 					>
@@ -59,27 +66,27 @@
 			<div class="flex flex-col gap-5">
 				<DBUndoneTasks>
 					{#snippet data(tasks)}
-						{@const sortedTasksGroup = getTasksByDateSorted(tasks)}
+						{@const sortedTasksByDate = getTasksByDateSorted(tasks)}
 						<ul class="flex flex-col gap-3">
-							{#each sortedTasksGroup as date (date)}
+							{#each sortedTasksByDate as dateGroup (dateGroup)}
 								<TaskList
-									label={date}
-									create={(deadline) => {
-										isFormShown = true;
-										editingTask = buildToDoWithDeadline(categories, deadline);
+									label={dateGroup}
+									create={(date) => {
+										openForm();
+										editingTask = buildToDoWithDeadline(categories, date);
 									}}
 									edit={(task) => {
-										isFormShown = true;
+										openForm();
 										editingTask = task;
 									}}
-									tasks={sortedTasksGroup[date]}
+									tasks={sortedTasksByDate[dateGroup]}
 									{userId}
 								/>
 							{/each}
 						</ul>
 
 						<Modal bind:isOpen={isStatsShown}>
-							<TasksStats tasks={sortedTasksGroup} />
+							<TasksStats tasks={sortedTasksByDate} />
 						</Modal>
 					{/snippet}
 				</DBUndoneTasks>
@@ -87,13 +94,7 @@
 				<DBGoals>
 					{#snippet data(goals)}
 						<Modal bind:isOpen={isFormShown}>
-							<TaskForm
-								{userId}
-								{categories}
-								{goals}
-								close={() => (isFormShown = false)}
-								task={editingTask}
-							/>
+							<TaskForm {userId} {categories} {goals} close={closeForm} task={editingTask} />
 						</Modal>
 					{/snippet}
 				</DBGoals>
