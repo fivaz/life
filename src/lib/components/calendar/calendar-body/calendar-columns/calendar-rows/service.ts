@@ -12,7 +12,9 @@ import { convertTimeToMinutes, sumTimes } from '$lib/task/time-utils';
 import { isRecurring, isToDo } from '$lib/task/utils';
 import {
 	endOfDay,
+	getDate,
 	getDay,
+	getMonth,
 	isAfter,
 	isBefore,
 	isSameDay,
@@ -30,6 +32,24 @@ function isDateAnException(event: RecurringEvent, date: Date): boolean {
 	});
 }
 
+function isDailyRecurringOnDay(event: RecurringEvent, date: Date): boolean {
+	// Check if today is one of the recurring days of the week
+	const dayOfWeek = getDay(date);
+	return event.recurringDaysOfWeek.includes(nameOfDaysOfWeek[dayOfWeek]);
+}
+
+function isWeeklyRecurringOnDay(event: RecurringEvent, date: Date): boolean {
+	return getDay(event.date) === getDay(date);
+}
+
+function isMonthlyRecurringOnDay(event: RecurringEvent, date: Date): boolean {
+	return getDate(event.date) === getDate(date);
+}
+
+function isYearlyRecurringOnDay(event: RecurringEvent, date: Date): boolean {
+	return getDate(event.date) === getDate(date) && getMonth(event.date) === getMonth(date);
+}
+
 function isRecurringOnDay(event: RecurringEvent, date: Date): boolean {
 	if (isAfter(date, parse(event.recurringEndAt, DATE, new Date()))) {
 		return false;
@@ -44,9 +64,19 @@ function isRecurringOnDay(event: RecurringEvent, date: Date): boolean {
 	}
 
 	if (event.recurringFrequency === 'daily') {
-		// Check if today is one of the recurring days of the week
-		const dayOfWeek = getDay(date);
-		return event.recurringDaysOfWeek.includes(nameOfDaysOfWeek[dayOfWeek]);
+		return isDailyRecurringOnDay(event, date);
+	}
+
+	if (event.recurringFrequency === 'weekly') {
+		return isWeeklyRecurringOnDay(event, date);
+	}
+
+	if (event.recurringFrequency === 'monthly') {
+		return isMonthlyRecurringOnDay(event, date);
+	}
+
+	if (event.recurringFrequency === 'yearly') {
+		return isYearlyRecurringOnDay(event, date);
 	}
 
 	return false;

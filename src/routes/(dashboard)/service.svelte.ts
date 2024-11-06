@@ -34,34 +34,44 @@ export function persistToDos(userId: string, toDos: ToDo[]) {
 	});
 }
 
-export const _tasksByWeek = $state<Record<string, { events: Task[]; todos: Task[] }>>({});
+const tasksWeekHashMap = $state<
+	Record<string, { events: Task[]; todos: Task[]; recurring: Task[] }>
+>({});
 
 export const tasks = {
 	get value() {
-		return Object.values(_tasksByWeek).flatMap((entry) => [...entry.events, ...entry.todos]);
+		return Object.values(tasksWeekHashMap).flatMap((entry) => [
+			...entry.events,
+			...entry.todos,
+			...entry.recurring,
+		]);
 	},
 };
 
 export function getWeekTasks(userId: string, startOfWeek: Date): void {
 	const weekStartString = format(startOfWeek, DATE);
 	// only fetch tasks for other weeks that haven't been fetched previously
-	if (!_tasksByWeek[weekStartString]) {
+	if (!tasksWeekHashMap[weekStartString]) {
 		subscribeToWeekTasks(userId, startOfWeek);
 	}
 }
 
-function queryWeekTasks(userId: string, startOfWeek: Date): [Query<Task>, Query<Task>] {
+function queryWeekTasks(
+	userId: string,
+	startOfWeek: Date,
+): [Query<Task>, Query<Task>, Query<Task>] {
 	const startOfWeekString = format(startOfWeek, DATE);
 	const endOfWeekString = format(endOfWeek(startOfWeek, { weekStartsOn: 1 }), DATE);
-	const goalsRef = collection(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}`);
+	const tasksRef = collection(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}`);
 	return [
+		query(tasksRef, where('recurringFrequency', '!=', null)) as Query<Task>,
 		query(
-			goalsRef,
+			tasksRef,
 			where('date', '>=', startOfWeekString),
 			where('date', '<=', endOfWeekString),
 		) as Query<Task>,
 		query(
-			goalsRef,
+			tasksRef,
 			where('deadline', '>=', startOfWeekString),
 			where('deadline', '<=', endOfWeekString),
 		) as Query<Task>,
@@ -70,21 +80,26 @@ function queryWeekTasks(userId: string, startOfWeek: Date): [Query<Task>, Query<
 
 export function subscribeToWeekTasks(userId: string, startOfWeek: Date) {
 	const startOfWeekString = format(startOfWeek, DATE);
-	_tasksByWeek[startOfWeekString] = { events: [], todos: [] };
+	tasksWeekHashMap[startOfWeekString] = { events: [], todos: [], recurring: [] };
 
-	const [dateQuery, deadlineQuery] = queryWeekTasks(userId, startOfWeek);
+	const [recurringQuery, eventsQuery, toDosQuery] = queryWeekTasks(userId, startOfWeek);
 
 	// Use onSnapshot to listen for real-time updates for both queries
-	const unsubscribeDate = onSnapshot(dateQuery, (dateSnapshot) =>
-		updateTasksFromSnapshot(dateSnapshot, startOfWeekString, 'events'),
+	const unsubscribeRecurring = onSnapshot(recurringQuery, (snapshot) =>
+		updateTasksFromSnapshot(snapshot, startOfWeekString, 'recurring'),
 	);
 
-	const unsubscribeDeadline = onSnapshot(deadlineQuery, (deadlineSnapshot) =>
-		updateTasksFromSnapshot(deadlineSnapshot, startOfWeekString, 'todos'),
+	const unsubscribeDate = onSnapshot(eventsQuery, (snapshot) =>
+		updateTasksFromSnapshot(snapshot, startOfWeekString, 'events'),
+	);
+
+	const unsubscribeDeadline = onSnapshot(toDosQuery, (snapshot) =>
+		updateTasksFromSnapshot(snapshot, startOfWeekString, 'todos'),
 	);
 
 	// Return a function to unsubscribe from both snapshots
 	return () => {
+		unsubscribeRecurring();
 		unsubscribeDate();
 		unsubscribeDeadline();
 	};
@@ -94,9 +109,9 @@ export function subscribeToWeekTasks(userId: string, startOfWeek: Date) {
 function updateTasksFromSnapshot(
 	snapshot: QuerySnapshot<Task>,
 	startOfWeek: string,
-	taskType: 'events' | 'todos',
+	taskType: keyof (typeof tasksWeekHashMap)[string],
 ) {
-	_tasksByWeek[startOfWeek][taskType] = snapshot.docs.map(
+	tasksWeekHashMap[startOfWeek][taskType] = snapshot.docs.map(
 		(doc) => ({ ...doc.data(), id: doc.id }) as Task,
 	);
 }

@@ -83,7 +83,7 @@
 						</div>
 					{/if}
 
-					<Input bind:value={taskIn.value.recurringEndAt} label="End at" required type="date" />
+					<Input bind:value={taskIn.value.recurringEndAt} label="End at" type="date" />
 
 					<div>
 						<label class="mb-1 block text-sm text-gray-700">
