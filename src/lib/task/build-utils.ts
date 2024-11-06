@@ -9,7 +9,7 @@ export function buildEmptyToDo(categories: Category[]): ToDo {
 	return {
 		category: categories.find((category) => category.isDefault) || categories[0],
 		createdAt: new Date().toISOString(),
-		deadline: format(endOfWeek(new Date(), { weekStartsOn: 1 }), DATE),
+		date: format(endOfWeek(new Date(), { weekStartsOn: 1 }), DATE),
 		description: '',
 		duration: '00:15',
 		goal: null,
@@ -34,11 +34,11 @@ export function buildEmptyEvent(categories: Category[], goal: Goal | null = null
 	};
 }
 
-export function buildToDoWithDeadline(categories: Category[], deadline: string): ToDo {
+export function buildToDoWithDate(categories: Category[], date: string): ToDo {
 	return {
 		category: categories.find((category) => category.isDefault) || categories[0],
 		createdAt: new Date().toISOString(),
-		deadline,
+		date,
 		description: '',
 		duration: '00:15',
 		goal: null,

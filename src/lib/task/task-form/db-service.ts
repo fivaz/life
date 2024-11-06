@@ -1,5 +1,5 @@
 import type { Goal } from '$lib/goal/utils';
-import { isToDo, type RecurringEvent, type Task } from '$lib/task/utils';
+import { isTimed, type RecurringEvent, type Task } from '$lib/task/utils';
 
 import { createDialog } from '$lib/components/dialog/service.svelte.js';
 import { DB_PATH } from '$lib/consts';
@@ -232,7 +232,7 @@ export function duplicateTask(task: Task, userId: string) {
 
 	const copyData = {
 		...data,
-		...(isToDo(task) ? {} : { startTime: sumTimes(task.startTime, halfDuration) }),
+		...(isTimed(task) ? { startTime: sumTimes(task.startTime, halfDuration) } : {}),
 	};
 
 	void addTask(copyData, userId);

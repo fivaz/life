@@ -13,14 +13,12 @@ export type CoreTask = {
 	image?: string;
 	isDone: boolean;
 	name: string;
+	date: string;
 };
 
-export type ToDo = CoreTask & {
-	deadline: string;
-};
+export type ToDo = CoreTask;
 
 export type Event = CoreTask & {
-	date: string;
 	startTime: string;
 };
 
@@ -64,7 +62,11 @@ export function isRecurring(task: Omit<Task, 'id'> | Task): task is RecurringEve
 }
 
 export function isToDo(task: Omit<Task, 'id'> | Task): task is ToDo {
-	return 'deadline' in task;
+	return !('starTime' in task);
+}
+
+export function isTimed(task: Omit<Task, 'id'> | Task): task is Event {
+	return 'starTime' in task;
 }
 
 export type SubTask = { isDone: boolean; title: string };

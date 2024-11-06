@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import { buildEmptyToDo, buildToDoWithDeadline } from '$lib/task/build-utils';
+	import { buildEmptyToDo, buildToDoWithDate } from '$lib/task/build-utils';
 	import { type Task } from '$lib/task/utils';
 
 	import { DocumentText } from '@steeze-ui/heroicons';
@@ -73,7 +73,7 @@
 									label={dateGroup}
 									create={(date) => {
 										openForm();
-										editingTask = buildToDoWithDeadline(categories, date);
+										editingTask = buildToDoWithDate(categories, date);
 									}}
 									edit={(task) => {
 										openForm();

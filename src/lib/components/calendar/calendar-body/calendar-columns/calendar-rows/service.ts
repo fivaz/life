@@ -1,4 +1,4 @@
-import type { AnyEvent, RecurringEvent, Task, ToDo } from '$lib/task/utils';
+import { type AnyEvent, isTimed, type RecurringEvent, type Task, type ToDo } from '$lib/task/utils';
 
 import { NUMBER_OF_CELLS } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
 import {
@@ -9,7 +9,7 @@ import {
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 import { DATE, DATETIME } from '$lib/consts';
 import { convertTimeToMinutes, sumTimes } from '$lib/task/time-utils';
-import { isRecurring, isToDo } from '$lib/task/utils';
+import { isRecurring } from '$lib/task/utils';
 import {
 	endOfDay,
 	getDate,
@@ -83,7 +83,7 @@ function isRecurringOnDay(event: RecurringEvent, date: Date): boolean {
 }
 
 export function isToDoOnDay(task: Task, day: Date): boolean {
-	return isToDo(task) && isSameDay(parse(task.deadline, DATE, new Date()), day);
+	return !isTimed(task) && isSameDay(parse(task.date, DATE, new Date()), day);
 }
 
 export function isEventOnDay(task: Task, day: Date): boolean {
@@ -91,7 +91,7 @@ export function isEventOnDay(task: Task, day: Date): boolean {
 		return isRecurringOnDay(task, day);
 	}
 
-	if (!isToDo(task)) {
+	if (isTimed(task)) {
 		const startDateString = `${task.date} ${task.startTime}`;
 		const endDateString = `${task.date} ${sumTimes(task.startTime, task.duration)}`;
 

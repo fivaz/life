@@ -59,7 +59,7 @@ export function getToDo(data: TaskIn): ToDo {
 	return {
 		category: data.category,
 		createdAt: data.createdAt,
-		deadline: data.deadline,
+		date: data.date,
 		description: data.description,
 		duration: data.duration,
 		goal: data.goal,
@@ -136,7 +136,7 @@ function convertToDo(todo: ToDo): TaskIn {
 function convertRecurring(event: RecurringEvent): TaskIn {
 	return {
 		...event,
-		deadline: event.date,
+		date: event.date,
 		endTime: sumTimes(event.startTime, event.duration),
 		image: event.image || '',
 		isEvent: true,
@@ -148,7 +148,7 @@ function convertRecurring(event: RecurringEvent): TaskIn {
 function convertEvent(event: Event): TaskIn {
 	return {
 		...event,
-		deadline: event.date,
+		date: event.date,
 		endTime: sumTimes(event.startTime, event.duration),
 		image: event.image || '',
 		isEvent: true,

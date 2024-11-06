@@ -1,6 +1,6 @@
 import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
 import { DATE, TIME } from '$lib/consts';
-import { getDurationInMinutes, isToDo, type Task } from '$lib/task/utils';
+import { getDurationInMinutes, isTimed, type Task } from '$lib/task/utils';
 import { add, format, isSameDay, parse, set } from 'date-fns';
 
 export function getTotalDuration(tasks: Task[]): string {
@@ -9,16 +9,14 @@ export function getTotalDuration(tasks: Task[]): string {
 }
 
 export function getTaskDate(task: Task): Date | null {
-	const dateString = isToDo(task) ? task.deadline : task.date;
-
-	return dateString ? parse(dateString, DATE, new Date()) : null;
+	return task.date ? parse(task.date, DATE, new Date()) : null;
 }
 
 export function getTaskDateTime(task: Task): Date {
-	if (isToDo(task)) {
-		return parse(task.deadline, DATE, new Date());
-	} else {
+	if (isTimed(task)) {
 		return parse(`${task.date} ${task.startTime}`, `${DATE} ${TIME}`, new Date());
+	} else {
+		return parse(task.date, DATE, new Date());
 	}
 }
 

@@ -1,6 +1,6 @@
 import { editTask } from '$lib/task/task-form/db-service';
 import { getTaskDate } from '$lib/task/time-utils';
-import { type Task, isToDo } from '$lib/task/utils';
+import { type Task } from '$lib/task/utils';
 import { format } from 'date-fns';
 
 export const TASK_LIST_CLASS = 'task-list-class';
@@ -32,14 +32,12 @@ export function getDateBeneath(draggedElement: HTMLLIElement, x: number, y: numb
 }
 
 export function moveTask(task: Task, userId: string, date: string) {
-	if (isToDo(task)) {
-		if (task.deadline === date) return false;
-		task.deadline = date;
-	} else {
-		if (task.date === date) return false;
-		task.date = date;
-	}
+	if (task.date === date) return false;
+
+	task.date = date;
+
 	const { id, ...data } = task;
+
 	void editTask(id, data, userId, null, null);
 	return true;
 }

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Category } from '$lib/category/utils';
 	import type { Goal } from '$lib/goal/utils';
-	import type { Task } from '$lib/task/utils';
+	import { isTimed, type Task } from '$lib/task/utils';
 
 	import { tailwindColors } from '$lib/category/utils';
 	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
@@ -99,7 +99,7 @@
 	}
 
 	function isAfterHalfToMidnight(task: Task): boolean {
-		if (isToDo(task)) return false;
+		if (!isTimed(task)) return false;
 
 		const [hours, minutes] = task.startTime.split(':').map(Number);
 
@@ -230,7 +230,7 @@
 
 			<div class="flex gap-3">
 				<Input
-					bind:value={taskIn.value.deadline}
+					bind:value={taskIn.value.date}
 					class="w-1/2"
 					disabled={taskIn.value.isEvent}
 					label="Deadline"
