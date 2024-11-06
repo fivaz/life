@@ -12,7 +12,7 @@ declare global {
 
 export {};
 
-import type { AnyEvent, Task, ToDo } from '$lib/task/utils';
+import type { AnyTimedTask, Task, UnTimedTask } from '$lib/task/utils';
 
 import '@storybook/addon-svelte-csf';
 
@@ -27,7 +27,7 @@ export type Context = {
 	createTask: (date: Date) => void;
 	editTask: (task: Task, date: string) => void;
 	moveEvent: (
-		event: AnyEvent,
+		event: AnyTimedTask,
 		moveObject: {
 			date: string;
 			duration: string;
@@ -35,8 +35,8 @@ export type Context = {
 			startTime: string;
 		},
 	) => void;
-	persistToDos: (toDos: ToDo[]) => void;
-	toggleEvent: (event: AnyEvent, targetDate: string) => void;
+	persistToDos: (toDos: UnTimedTask[]) => void;
+	toggleEvent: (event: AnyTimedTask, targetDate: string) => void;
 };
 
 declare module 'svelte' {

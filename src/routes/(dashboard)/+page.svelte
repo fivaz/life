@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { AnyEvent, Task } from '$lib/task/utils';
+	import type { AnyTimedTask, Task } from '$lib/task/utils';
 
 	import { type Category, CategoryTypes } from '$lib/category/utils';
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
@@ -40,7 +40,7 @@
 	}
 
 	//TOGGLE
-	function toggleCompletion(userId: string, event: AnyEvent, targetDate: string) {
+	function toggleCompletion(userId: string, event: AnyTimedTask, targetDate: string) {
 		const newEvent = { ...event, isDone: !event.isDone };
 		editPossibleSingleRecurringEvent(newEvent, userId, targetDate);
 		updateNotification(newEvent);

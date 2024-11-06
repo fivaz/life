@@ -1,11 +1,11 @@
 import type { Category } from '$lib/category/utils';
 import type { Goal } from '$lib/goal/utils';
-import type { Event, ToDo } from '$lib/task/utils';
+import type { TimedTask, UnTimedTask } from '$lib/task/utils';
 
 import { DATE, TIME } from '$lib/consts';
 import { endOfWeek, format } from 'date-fns';
 
-export function buildEmptyToDo(categories: Category[]): ToDo {
+export function buildEmptyToDo(categories: Category[]): UnTimedTask {
 	return {
 		category: categories.find((category) => category.isDefault) || categories[0],
 		createdAt: new Date().toISOString(),
@@ -19,7 +19,7 @@ export function buildEmptyToDo(categories: Category[]): ToDo {
 	};
 }
 
-export function buildEmptyEvent(categories: Category[], goal: Goal | null = null): Event {
+export function buildEmptyEvent(categories: Category[], goal: Goal | null = null): TimedTask {
 	return {
 		category: categories.find((category) => category.isDefault) || categories[0],
 		createdAt: new Date().toISOString(),
@@ -34,7 +34,7 @@ export function buildEmptyEvent(categories: Category[], goal: Goal | null = null
 	};
 }
 
-export function buildToDoWithDate(categories: Category[], date: string): ToDo {
+export function buildToDoWithDate(categories: Category[], date: string): UnTimedTask {
 	return {
 		category: categories.find((category) => category.isDefault) || categories[0],
 		createdAt: new Date().toISOString(),
@@ -47,7 +47,7 @@ export function buildToDoWithDate(categories: Category[], date: string): ToDo {
 		name: '',
 	};
 }
-export function buildEventWithTime(categories: Category[], date: Date): Event {
+export function buildEventWithTime(categories: Category[], date: Date): TimedTask {
 	return {
 		category: categories.find((category) => category.isDefault) || categories[0],
 		createdAt: new Date().toISOString(),

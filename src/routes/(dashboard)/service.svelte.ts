@@ -1,4 +1,4 @@
-import { type AnyEvent, isRecurring, type Task, type ToDo } from '$lib/task/utils';
+import { type AnyTimedTask, isRecurring, type Task, type UnTimedTask } from '$lib/task/utils';
 
 import { editSingleRecurringEvent, editTask } from '$lib/task/task-form/db-service';
 import { DATE, DB_PATH } from '$lib/consts';
@@ -15,7 +15,7 @@ import {
 
 export function moveEvent(
 	userId: string,
-	event: AnyEvent,
+	event: AnyTimedTask,
 	{
 		date,
 		duration,
@@ -27,7 +27,7 @@ export function moveEvent(
 	editPossibleSingleRecurringEvent(newEvent, userId, oldDate);
 }
 
-export function persistToDos(userId: string, toDos: ToDo[]) {
+export function persistToDos(userId: string, toDos: UnTimedTask[]) {
 	toDos.forEach((toDo) => {
 		const { id, ...data } = toDo;
 		void editTask(id, data, userId, null, null);

@@ -4,7 +4,7 @@ import {
 	NUMBER_OF_CELLS,
 } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
 import { convertTimeToMinutes } from '$lib/task/time-utils';
-import { type AnyEvent } from '$lib/task/utils';
+import { type AnyTimedTask } from '$lib/task/utils';
 
 export const EVENT_PANEL_CLASS = 'event-panel-class';
 
@@ -12,7 +12,7 @@ export function getSlot(date: string) {
 	return Math.round(convertTimeToMinutes(date) / GRID_CELL_TIME);
 }
 
-export function getEventSlots(event: AnyEvent): { endSlot: number; startSlot: number } {
+export function getEventSlots(event: AnyTimedTask): { endSlot: number; startSlot: number } {
 	const startSlot = getSlot(event.startTime);
 	let endSlot = startSlot + getSlot(event.duration);
 	if (endSlot > NUMBER_OF_CELLS) {
@@ -40,7 +40,7 @@ function getColumn(eventIdToFind: string, eventGrid: EventsGrid[0]) {
 	return Number(column);
 }
 
-export function getDivision(event: AnyEvent, eventsGrid: EventsGrid) {
+export function getDivision(event: AnyTimedTask, eventsGrid: EventsGrid) {
 	const { endSlot, startSlot } = getEventSlots(event);
 	const eventGrid = eventsGrid.slice(startSlot, endSlot);
 	const maxOverlap = getMaxOverlap(eventGrid);
@@ -57,7 +57,7 @@ export function getDivision(event: AnyEvent, eventsGrid: EventsGrid) {
 	return `width: ${width}%; left: ${left}%;`;
 }
 
-export function getHeight(event: AnyEvent) {
+export function getHeight(event: AnyTimedTask) {
 	const { endSlot, startSlot } = getEventSlots(event);
 	// the duration is calculated like this instead of just event.duration to sanitize the duration in case it overlaps 24h
 	const duration = endSlot - startSlot;
@@ -65,7 +65,7 @@ export function getHeight(event: AnyEvent) {
 	return `height: ${duration * GRID_CELL_HEIGHT}px;`;
 }
 
-export function getTop(event: AnyEvent): string {
+export function getTop(event: AnyTimedTask): string {
 	const startTimeMinutes = convertTimeToMinutes(event.startTime);
 
 	return `top: ${(startTimeMinutes / GRID_CELL_TIME) * GRID_CELL_HEIGHT}px;`;

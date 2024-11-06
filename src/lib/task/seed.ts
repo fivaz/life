@@ -1,4 +1,4 @@
-import type { Event, RecurringEvent, Task, ToDo } from '$lib/task/utils';
+import type { TimedTask, RecurringTimedTask, Task, UnTimedTask } from '$lib/task/utils';
 
 import { routine, sleep, work } from '$lib/category/seed';
 import { DATE, TIME } from '$lib/consts';
@@ -17,7 +17,7 @@ const longText =
 
 let id = 0;
 
-export const normalWithoutDescriptionWithGoal: Event = {
+export const normalWithoutDescriptionWithGoal: TimedTask = {
 	category: sleep,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(getTodayAtTime('00:00'), DATE),
@@ -30,7 +30,7 @@ export const normalWithoutDescriptionWithGoal: Event = {
 	startTime: format(getTodayAtTime('00:00'), TIME),
 };
 
-export const normalWithoutDescriptionWithoutGoal: Event = {
+export const normalWithoutDescriptionWithoutGoal: TimedTask = {
 	category: sleep,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(getTodayAtTime('00:00'), DATE),
@@ -43,7 +43,7 @@ export const normalWithoutDescriptionWithoutGoal: Event = {
 	startTime: format(getTodayAtTime('00:00'), TIME),
 };
 
-export const normalWithDescription: Event = {
+export const normalWithDescription: TimedTask = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(startOfYesterday(), DATE),
@@ -56,7 +56,7 @@ export const normalWithDescription: Event = {
 	startTime: format(getTodayAtTime('15:15'), TIME),
 };
 
-export const normalWithSubTasks: Event = {
+export const normalWithSubTasks: TimedTask = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(startOfYesterday(), DATE),
@@ -75,7 +75,7 @@ export const normalWithSubTasks: Event = {
 	startTime: format(getTodayAtTime('15:15'), TIME),
 };
 
-export const shortWithoutDescription: Event = {
+export const shortWithoutDescription: TimedTask = {
 	category: routine,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(getTodayAtTime('07:00'), DATE),
@@ -88,7 +88,7 @@ export const shortWithoutDescription: Event = {
 	startTime: format(getTodayAtTime('07:00'), TIME),
 };
 
-export const shortWithDescription: Event = {
+export const shortWithDescription: TimedTask = {
 	category: routine,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(getTodayAtTime('07:00'), DATE),
@@ -101,7 +101,7 @@ export const shortWithDescription: Event = {
 	startTime: format(getTodayAtTime('07:00'), TIME),
 };
 
-export const shortWithSubTasks: Event = {
+export const shortWithSubTasks: TimedTask = {
 	category: routine,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(getTodayAtTime('07:00'), DATE),
@@ -120,7 +120,7 @@ export const shortWithSubTasks: Event = {
 	startTime: format(getTodayAtTime('07:00'), TIME),
 };
 
-export const longRecurring: RecurringEvent = {
+export const longRecurring: RecurringTimedTask = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(getTodayAtTime('10:15'), DATE),
@@ -148,7 +148,7 @@ export const events: Task[] = [
 	longRecurring,
 ];
 
-export const workToDo: ToDo = {
+export const workToDo: UnTimedTask = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(startOfWeek(new Date(), { weekStartsOn: 1 }), DATE),
@@ -160,7 +160,7 @@ export const workToDo: ToDo = {
 	name: longText,
 };
 
-export const birthdayToDo: ToDo = {
+export const birthdayToDo: UnTimedTask = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(startOfTomorrow(), DATE),
@@ -172,6 +172,6 @@ export const birthdayToDo: ToDo = {
 	name: "Friend's birthday",
 };
 
-export const toDos: ToDo[] = [workToDo, birthdayToDo];
+export const toDos: UnTimedTask[] = [workToDo, birthdayToDo];
 
 export const tasks: Task[] = [...events, ...toDos];

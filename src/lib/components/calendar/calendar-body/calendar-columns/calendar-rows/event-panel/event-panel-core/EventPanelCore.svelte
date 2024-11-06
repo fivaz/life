@@ -4,7 +4,7 @@
 	import { TIME } from '$lib/consts';
 	import { roundTo15 } from '$lib/task/time-utils';
 	import {
-		type AnyEvent,
+		type AnyTimedTask,
 		getCompletedTasks,
 		getDurationInMinutes,
 		getSubTasks,
@@ -15,7 +15,7 @@
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 
 	interface Props {
-		event: AnyEvent;
+		event: AnyTimedTask;
 		targetDate: string;
 		isSelected: boolean;
 	}

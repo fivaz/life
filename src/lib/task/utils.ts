@@ -16,24 +16,24 @@ export type CoreTask = {
 	date: string;
 };
 
-export type ToDo = CoreTask;
+export type UnTimedTask = CoreTask;
 
-export type Event = CoreTask & {
+export type TimedTask = CoreTask & {
 	startTime: string;
 };
 
 export const frequencies = ['daily', 'weekly', 'monthly', 'yearly'] as const;
 
-export type RecurringEvent = Event & {
+export type RecurringTimedTask = TimedTask & {
 	recurringFrequency: (typeof frequencies)[number];
 	recurringDaysOfWeek: string[];
 	recurringEndAt: string;
 	recurringExceptions: string[];
 };
 
-export type AnyEvent = Event | RecurringEvent;
+export type AnyTimedTask = TimedTask | RecurringTimedTask;
 
-export type Task = AnyEvent | ToDo;
+export type Task = AnyTimedTask | UnTimedTask;
 
 export function getDurationInMinutes(task: Task) {
 	return convertTimeToMinutes(task.duration);
@@ -57,15 +57,15 @@ export function sortTasks(tasks: Task[]) {
 	});
 }
 
-export function isRecurring(task: Omit<Task, 'id'> | Task): task is RecurringEvent {
+export function isRecurring(task: Omit<Task, 'id'> | Task): task is RecurringTimedTask {
 	return 'recurringFrequency' in task;
 }
 
-export function isToDo(task: Omit<Task, 'id'> | Task): task is ToDo {
+export function isToDo(task: Omit<Task, 'id'> | Task): task is UnTimedTask {
 	return !('starTime' in task);
 }
 
-export function isTimed(task: Omit<Task, 'id'> | Task): task is Event {
+export function isTimed(task: Omit<Task, 'id'> | Task): task is TimedTask {
 	return 'starTime' in task;
 }
 

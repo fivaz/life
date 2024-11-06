@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { AnyEvent } from '$lib/task/utils';
+	import type { AnyTimedTask } from '$lib/task/utils';
 
 	import {
 		GRID_CELL_HEIGHT,
@@ -23,7 +23,7 @@
 	import EventPanelCore from './event-panel-core/EventPanelCore.svelte';
 
 	interface Props {
-		event: AnyEvent;
+		event: AnyTimedTask;
 		eventsGrid: EventsGrid;
 		targetDate: string;
 		class?: string;

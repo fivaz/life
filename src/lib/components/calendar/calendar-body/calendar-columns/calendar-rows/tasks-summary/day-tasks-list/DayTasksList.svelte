@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { isTimed, type Task, type ToDo } from '$lib/task/utils';
+	import { isTimed, type Task, type UnTimedTask } from '$lib/task/utils';
 
 	import { DATE } from '$lib/consts';
 	import { getTotalDuration } from '$lib/task/time-utils';
@@ -32,7 +32,7 @@
 
 	function postponeToDos() {
 		const postponedToDos = uncompletedTasks
-			.filter((task): task is ToDo => !isTimed(task))
+			.filter((task): task is UnTimedTask => !isTimed(task))
 			.map((task) => {
 				const dayAfter = format(addDays(parse(task.date, DATE, new Date()), 1), DATE);
 				return { ...task, deadline: dayAfter };

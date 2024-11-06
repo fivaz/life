@@ -1,5 +1,5 @@
 import type { Goal } from '$lib/goal/utils';
-import { isTimed, type RecurringEvent, type Task } from '$lib/task/utils';
+import { isTimed, type RecurringTimedTask, type Task } from '$lib/task/utils';
 
 import { createDialog } from '$lib/components/dialog/service.svelte.js';
 import { DB_PATH } from '$lib/consts';
@@ -46,7 +46,7 @@ function addTaskToGoal(userId: string, data: Omit<Task, 'id'>, id: string) {
 
 export function editSingleRecurringEvent(
 	id: string,
-	recurringEvent: Omit<RecurringEvent, 'id'>,
+	recurringEvent: Omit<RecurringTimedTask, 'id'>,
 	userId: string,
 	targetDate: string,
 	file?: File | null,
@@ -81,7 +81,7 @@ export async function editTaskWithPrompt({
 	wasRecurring: boolean;
 }): Promise<boolean> {
 	if (isRecurring(data) && wasRecurring && targetDate) {
-		const recurringData = data as Omit<RecurringEvent, 'id'>;
+		const recurringData = data as Omit<RecurringTimedTask, 'id'>;
 		const result = await createDialog({
 			cancelText: 'future events',
 			confirmText: 'this event only',
@@ -188,7 +188,7 @@ export async function deletePossibleSingleRecurringEvent(
 		}
 
 		if (result) {
-			addExceptionToRecurring(id, data as Omit<RecurringEvent, 'id'>, targetDate, userId);
+			addExceptionToRecurring(id, data as Omit<RecurringTimedTask, 'id'>, targetDate, userId);
 		} else {
 			deleteTask(id, data, userId);
 		}
@@ -201,7 +201,7 @@ export async function deletePossibleSingleRecurringEvent(
 
 function addExceptionToRecurring(
 	id: string,
-	task: Omit<RecurringEvent, 'id'>,
+	task: Omit<RecurringTimedTask, 'id'>,
 	date: string,
 	userId: string,
 ) {

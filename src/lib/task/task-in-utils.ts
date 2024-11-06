@@ -1,4 +1,4 @@
-import type { Event, RecurringEvent, Task, ToDo } from '$lib/task/utils';
+import type { TimedTask, RecurringTimedTask, Task, UnTimedTask } from '$lib/task/utils';
 
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 import { DATE, TIME } from '$lib/consts';
@@ -7,9 +7,9 @@ import { isRecurring, isToDo } from '$lib/task/utils';
 import { addMinutes, addMonths, format, isAfter, parse } from 'date-fns';
 
 // TaskIn is a super type that has all the attributes of possible Tasks together
-export type TaskIn = ToDo &
-	Event &
-	Omit<RecurringEvent, 'recurringExceptions'> & {
+export type TaskIn = UnTimedTask &
+	TimedTask &
+	Omit<RecurringTimedTask, 'recurringExceptions'> & {
 		endTime: string;
 		image: string;
 		isEvent: boolean;
@@ -55,7 +55,7 @@ export function convertToAnyTask(taskIn: TaskIn): Task {
 	}
 }
 
-export function getToDo(data: TaskIn): ToDo {
+export function getToDo(data: TaskIn): UnTimedTask {
 	return {
 		category: data.category,
 		createdAt: data.createdAt,
@@ -70,7 +70,7 @@ export function getToDo(data: TaskIn): ToDo {
 	};
 }
 
-export function getEvent(data: TaskIn): Event {
+export function getEvent(data: TaskIn): TimedTask {
 	return {
 		category: data.category,
 		createdAt: data.createdAt,
@@ -86,7 +86,7 @@ export function getEvent(data: TaskIn): Event {
 	};
 }
 
-export function getRecurringEvent(data: TaskIn): RecurringEvent {
+export function getRecurringEvent(data: TaskIn): RecurringTimedTask {
 	return {
 		category: data.category,
 		createdAt: data.createdAt,
@@ -116,7 +116,7 @@ export function convertToTaskIn(task: Task): TaskIn {
 	}
 }
 
-function convertToDo(todo: ToDo): TaskIn {
+function convertToDo(todo: UnTimedTask): TaskIn {
 	return {
 		...todo,
 		date: format(new Date(), DATE),
@@ -133,7 +133,7 @@ function convertToDo(todo: ToDo): TaskIn {
 	};
 }
 
-function convertRecurring(event: RecurringEvent): TaskIn {
+function convertRecurring(event: RecurringTimedTask): TaskIn {
 	return {
 		...event,
 		date: event.date,
@@ -145,7 +145,7 @@ function convertRecurring(event: RecurringEvent): TaskIn {
 	};
 }
 
-function convertEvent(event: Event): TaskIn {
+function convertEvent(event: TimedTask): TaskIn {
 	return {
 		...event,
 		date: event.date,
