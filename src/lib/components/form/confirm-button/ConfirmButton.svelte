@@ -10,7 +10,7 @@
 		color?: 'indigo' | 'none' | 'red';
 		type?: 'button' | 'submit';
 		class?: string;
-		children?: Snippet;
+		children: Snippet;
 		confirm: () => void;
 	}
 
@@ -20,7 +20,7 @@
 		confirmByKey,
 		color,
 		type,
-		class: klass = '',
+		class: klass,
 		children,
 		confirm,
 	}: Props = $props();
@@ -30,16 +30,27 @@
 			confirm();
 		}
 	}
+
+	function isInputFocused() {
+		const activeElement = document.activeElement;
+		return (
+			activeElement &&
+			(activeElement.tagName === 'INPUT' ||
+				activeElement.tagName === 'TEXTAREA' ||
+				activeElement.tagName === 'SELECT' ||
+				activeElement.getAttribute('contenteditable') === 'true')
+		);
+	}
 </script>
 
 <svelte:window
 	onkeydown={(e) => {
-		if (confirmByKey && e.key === confirmByKey) {
+		if (!isInputFocused() && confirmByKey && e.key === confirmByKey) {
 			submit();
 		}
 	}}
 />
 
 <Button class={klass} {color} onclick={submit} {type}>
-	{@render children?.()}
+	{@render children()}
 </Button>

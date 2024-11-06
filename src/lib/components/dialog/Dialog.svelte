@@ -31,6 +31,14 @@
 	}
 </script>
 
+<svelte:window
+	onkeydown={(e) => {
+		if (isOpen && e.key === 'Enter') {
+			confirm();
+		}
+	}}
+/>
+
 <Modal {close} {isOpen} isDialog>
 	<div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
 		<div
