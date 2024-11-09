@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { XMark } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
+
 	import { type Category, CategoryTypes } from '$lib/category/utils';
 	import { tailwindColors } from '$lib/category/utils';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
@@ -8,8 +11,6 @@
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
-	import { XMark } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
 
 	import { addCategory, deleteCategory, editCategory } from './service';
 

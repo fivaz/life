@@ -1,8 +1,8 @@
-import type { Goal } from '$lib/goal/utils';
+import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
-import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import type { Goal } from '$lib/goal/utils';
 
 // EDIT
 export function editGoal(id: string, data: Omit<Goal, 'id'>, userId: string) {

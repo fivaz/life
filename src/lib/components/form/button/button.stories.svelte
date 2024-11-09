@@ -1,10 +1,9 @@
 <script module lang="ts">
 	import { Trash } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import Button from './Button.svelte';
-
-	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	const { Story } = defineMeta({
 		component: Button,

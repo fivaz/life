@@ -1,9 +1,9 @@
 <script module lang="ts">
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
 	import { tasks } from '$lib/task/seed';
 
 	import Calendar from './Calendar.svelte';
-
-	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	const { Story } = defineMeta({
 		component: Calendar,

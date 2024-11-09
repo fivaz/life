@@ -1,7 +1,7 @@
 <script module lang="ts">
-	import WeekListSelector from './WeekListSelector.svelte';
-
 	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	import WeekListSelector from './WeekListSelector.svelte';
 
 	const { Story } = defineMeta({
 		component: WeekListSelector,

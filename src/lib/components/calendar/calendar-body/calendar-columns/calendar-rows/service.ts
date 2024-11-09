@@ -1,14 +1,3 @@
-import { type Task } from '$lib/task/utils';
-
-import { NUMBER_OF_CELLS } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
-import {
-	type EventsGrid,
-	getEventSlots,
-} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
-
-import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
-import { DATE } from '$lib/consts';
-import { isRecurring } from '$lib/task/utils';
 import {
 	endOfDay,
 	getDate,
@@ -21,7 +10,17 @@ import {
 	parse,
 	startOfDay,
 } from 'date-fns';
+
+import { NUMBER_OF_CELLS } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
+import {
+	type EventsGrid,
+	getEventSlots,
+} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
+import { DATE } from '$lib/consts';
+import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 import { convertTimeToMinutes } from '$lib/task/time-utils';
+import { type Task } from '$lib/task/utils';
+import { isRecurring } from '$lib/task/utils';
 
 export function getTasksForDate(tasks: Task[], date: Date): Task[] {
 	return tasks.filter((task) => isForDate(task, date));

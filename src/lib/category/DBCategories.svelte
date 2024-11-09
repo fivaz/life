@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Category } from '$lib/category/utils';
-	import { DB_PATH } from '$lib/consts';
-
 	import type { Snippet } from 'svelte';
+
+	import type { Category } from '$lib/category/utils';
 	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
+	import { DB_PATH } from '$lib/consts';
 
 	interface Props {
 		data: Snippet<[Category[], string]>;

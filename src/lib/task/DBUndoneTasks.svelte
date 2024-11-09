@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { Task } from '$lib/task/utils';
-	import { DB_PATH } from '$lib/consts';
-
-	import type { Snippet } from 'svelte';
-	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
 	import { where } from 'firebase/firestore';
+	import type { Snippet } from 'svelte';
+
+	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
+	import { DB_PATH } from '$lib/consts';
+	import type { Task } from '$lib/task/utils';
 
 	interface Props {
 		data: Snippet<[Task[], string]>;

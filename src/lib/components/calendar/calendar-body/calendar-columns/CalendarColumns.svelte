@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { weekDays, selectedDate } from '$lib/components/calendar/service.svelte';
-	import { buildDate } from '$lib/task/time-utils';
 	import { getContext } from 'svelte';
 
-	import CalendarRows from './calendar-rows/CalendarRows.svelte';
+	import { selectedDate, weekDays } from '$lib/components/calendar/service.svelte';
+	import { buildDate } from '$lib/task/time-utils';
 	import type { Task } from '$lib/task/utils';
+
+	import CalendarRows from './calendar-rows/CalendarRows.svelte';
 
 	interface Props {
 		tasks: Task[];

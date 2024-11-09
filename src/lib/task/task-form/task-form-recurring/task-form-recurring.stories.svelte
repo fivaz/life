@@ -1,9 +1,9 @@
 <script module lang="ts">
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
 	import { longRecurring } from '$lib/task/seed';
 
 	import TaskFormRecurring from './TaskFormRecurring.svelte';
-
-	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	const { Story } = defineMeta({
 		component: TaskFormRecurring,

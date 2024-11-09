@@ -1,13 +1,13 @@
 <script lang="ts">
-	import type { Routine } from '$lib/routine/utils';
-
-	import { DATE } from '$lib/consts';
 	import { format } from 'date-fns';
 	import { flip } from 'svelte/animate';
 	import { dragHandleZone } from 'svelte-dnd-action';
 
-	import RoutineRow from './routine-row/RoutineRow.svelte';
+	import { DATE } from '$lib/consts';
+	import type { Routine } from '$lib/routine/utils';
+
 	import { updateRoutines } from '../service';
+	import RoutineRow from './routine-row/RoutineRow.svelte';
 
 	interface Props {
 		selectedDate: Date;

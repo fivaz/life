@@ -1,11 +1,10 @@
 <script lang="ts">
-	import type { Task } from '$lib/task/utils.js';
-
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
+	import type { Task } from '$lib/task/utils.js';
 
-	import { type ReportInterval, ReportIntervals, getDataSet } from './service';
 	import LineChart from './line-chart/LineChart.svelte';
+	import { getDataSet, type ReportInterval, ReportIntervals } from './service';
 
 	interface Props {
 		tasks: Task[];

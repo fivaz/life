@@ -1,7 +1,8 @@
+import { format } from 'date-fns';
+
 import { editTask } from '$lib/task/task-form/db-service';
 import { getTaskDate } from '$lib/task/time-utils';
 import { type Task } from '$lib/task/utils';
-import { format } from 'date-fns';
 
 export const TASK_LIST_CLASS = 'task-list-class';
 export const HANDLE = 'handle-class';

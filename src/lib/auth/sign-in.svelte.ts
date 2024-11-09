@@ -1,12 +1,14 @@
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { auth, db, storage } from '$lib/firebase';
-import { DB_PATH, Routes } from '$lib/consts';
 import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup, type User } from 'firebase/auth';
-import { parseErrors } from '../../routes/login/login/service';
 import { doc, getDoc } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { minidenticon } from 'minidenticons';
-import { createUser } from '../../routes/register/register/service';
+
 import { goto } from '$app/navigation';
+import { DB_PATH, Routes } from '$lib/consts';
+import { auth, db, storage } from '$lib/firebase';
+
+import { parseErrors } from '../../routes/login/login/service';
+import { createUser } from '../../routes/register/register/service';
 
 export async function storeAvatar(userId: string, file: Blob): Promise<string> {
 	const avatarsRef = ref(storage, `${DB_PATH.AVATARS}/${userId}`);

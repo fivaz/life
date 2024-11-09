@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { Routes } from '$lib/consts';
-	import { auth } from '$lib/firebase';
 	import { signOut } from 'firebase/auth';
+
+	import { goto } from '$app/navigation';
 	import { currentUser } from '$lib/auth/utils.svelte';
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';
+	import { Routes } from '$lib/consts';
+	import { auth } from '$lib/firebase';
 
 	const list = [
 		{ label: 'Profile', onclick: () => goto(Routes.PROFILE) },

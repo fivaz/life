@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { Goal } from '$lib/goal/utils';
-	import { DB_PATH } from '$lib/consts';
-
-	import type { Snippet } from 'svelte';
-	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
 	import { orderBy } from 'firebase/firestore';
+	import type { Snippet } from 'svelte';
+
+	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
+	import { DB_PATH } from '$lib/consts';
+	import type { Goal } from '$lib/goal/utils';
 
 	interface Props {
 		data: Snippet<[Goal[], string]>;

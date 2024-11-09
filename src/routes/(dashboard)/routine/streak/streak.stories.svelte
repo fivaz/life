@@ -1,7 +1,7 @@
 <script module lang="ts">
-	import Streak from './Streak.svelte';
-
 	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	import Streak from './Streak.svelte';
 
 	const { Story } = defineMeta({
 		component: Streak,

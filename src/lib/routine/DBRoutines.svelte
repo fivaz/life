@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { Routine } from '$lib/routine/utils';
-	import { DB_PATH } from '$lib/consts';
-
-	import type { Snippet } from 'svelte';
-	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
 	import { orderBy } from 'firebase/firestore';
+	import type { Snippet } from 'svelte';
+
+	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
+	import { DB_PATH } from '$lib/consts';
+	import type { Routine } from '$lib/routine/utils';
 
 	interface Props {
 		data: Snippet<[Routine[], string]>;

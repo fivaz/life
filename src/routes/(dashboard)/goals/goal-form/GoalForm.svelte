@@ -1,16 +1,16 @@
 <script lang="ts">
-	import type { Goal } from '$lib/goal/utils';
+	import { XMark } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
 
 	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
-	import { XMark } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
-
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import { getIcon } from '$lib/goal/goal-icon/service';
+	import type { Goal } from '$lib/goal/utils';
+
 	import IconSelector from './icon-selector/IconSelector.svelte';
 	import { addGoal, checkErrors, deleteGoal, editGoal } from './service';
 

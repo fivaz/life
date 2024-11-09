@@ -1,7 +1,8 @@
+import { add, format, isSameDay, parse, set } from 'date-fns';
+
 import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
 import { DATE, TIME } from '$lib/consts';
 import { getDurationInMinutes, isTimed, type Task } from '$lib/task/utils';
-import { add, format, isSameDay, parse, set } from 'date-fns';
 
 export function getTotalDuration(tasks: Task[]): string {
 	const totalDurationInMinutes = tasks.reduce((sum, task) => sum + getDurationInMinutes(task), 0);

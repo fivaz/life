@@ -1,7 +1,7 @@
 <script lang="ts">
+	import { Copy } from 'lucide-svelte';
 	import { onMount, type Snippet } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { Copy } from 'lucide-svelte';
 
 	// TODO use floating lib to make this instead of pure CSS
 	interface Props {

@@ -12,9 +12,9 @@ declare global {
 
 export {};
 
-import type { Task } from '$lib/task/utils';
-
 import '@storybook/addon-svelte-csf';
+
+import type { Task } from '$lib/task/utils';
 
 declare module '@storybook/addon-svelte-csf' {
 	interface StoryProps {

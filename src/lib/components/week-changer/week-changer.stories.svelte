@@ -1,7 +1,7 @@
 <script module lang="ts">
-	import WeekChanger from './WeekChanger.svelte';
-
 	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	import WeekChanger from './WeekChanger.svelte';
 
 	const { Story } = defineMeta({
 		component: WeekChanger,

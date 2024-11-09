@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { Routine } from '$lib/routine/utils';
-
-	import { DATE } from '$lib/consts';
 	import { clsx } from 'clsx';
 	import { format, isSameDay, isToday } from 'date-fns';
 	import { CheckCheck } from 'lucide-svelte';
+
+	import { DATE } from '$lib/consts';
+	import type { Routine } from '$lib/routine/utils';
 
 	interface Props {
 		routines: Routine[];

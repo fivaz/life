@@ -1,7 +1,7 @@
 <script module lang="ts">
-	import Collapsable from './Collapsable.svelte';
-
 	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	import Collapsable from './Collapsable.svelte';
 
 	const { Story } = defineMeta({
 		component: Collapsable,

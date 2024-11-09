@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
+	import { isScrollingUp } from '$lib/components/calendar/calendar-body/calendar-columns/service.svelte';
+	import type { Task } from '$lib/task/utils';
+
 	import CalendarColumns from './calendar-columns/CalendarColumns.svelte';
 	import HorizontalTime from './horizontal-time/HorizontalTime.svelte';
 	import WeekList from './week-list/WeekList.svelte';
-	import type { Task } from '$lib/task/utils';
-	import { isScrollingUp } from '$lib/components/calendar/calendar-body/calendar-columns/service.svelte';
 
 	interface Props {
 		tasks: Task[];

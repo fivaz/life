@@ -1,18 +1,18 @@
 <script lang="ts">
-	import Button from '$lib/components/form/button/Button.svelte';
-	import Modal from '$lib/components/modal/Modal.svelte';
-	import Streak from './streak/Streak.svelte';
-	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
-	import WeekListSelector from './week-list-selector/WeekListSelector.svelte';
-
 	import { addDays, startOfWeek } from 'date-fns';
 	import { Calendar1, Plus } from 'lucide-svelte';
+
+	import Button from '$lib/components/form/button/Button.svelte';
+	import Modal from '$lib/components/modal/Modal.svelte';
+	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
+	import DBRoutines from '$lib/routine/DBRoutines.svelte';
+	import { title } from '$lib/utils.svelte';
 
 	import RoutineForm from './routine-form/RoutineForm.svelte';
 	import { buildEmptyRoutine } from './routine-form/service';
 	import RoutineRows from './routine-rows/RoutineRows.svelte';
-	import { title } from '$lib/utils.svelte';
-	import DBRoutines from '$lib/routine/DBRoutines.svelte';
+	import Streak from './streak/Streak.svelte';
+	import WeekListSelector from './week-list-selector/WeekListSelector.svelte';
 
 	let weekStart = $state(startOfWeek(new Date(), { weekStartsOn: 1 }));
 

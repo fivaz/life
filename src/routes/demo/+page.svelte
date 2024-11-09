@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { Routes, demoLogin } from '$lib/consts';
-	import { auth } from '$lib/firebase';
 	import { LoaderCircle } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 	import { onMount } from 'svelte';
+
+	import { goto } from '$app/navigation';
+	import { demoLogin, Routes } from '$lib/consts';
+	import { auth } from '$lib/firebase';
 
 	onMount(async () => {
 		await signInWithEmailAndPassword(auth, demoLogin.email, demoLogin.password);

@@ -1,7 +1,7 @@
 <script module lang="ts">
-	import HorizontalTime from './HorizontalTime.svelte';
-
 	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	import HorizontalTime from './HorizontalTime.svelte';
 
 	const { Story } = defineMeta({
 		component: HorizontalTime,

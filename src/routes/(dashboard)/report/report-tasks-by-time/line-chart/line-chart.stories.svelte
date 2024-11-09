@@ -1,7 +1,7 @@
 <script module lang="ts">
-	import LineChart from './LineChart.svelte';
-
 	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	import LineChart from './LineChart.svelte';
 
 	const { Story } = defineMeta({
 		component: LineChart,

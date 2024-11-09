@@ -1,14 +1,16 @@
 <script lang="ts">
+	import { minidenticon } from 'minidenticons';
+
 	import { goto } from '$app/navigation';
-	import Logo from '$lib/components/Logo.svelte';
+	import { githubSignIn, googleSignIn, isLoading } from '$lib/auth/sign-in.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
-	import { Routes } from '$lib/consts';
-	import { minidenticon } from 'minidenticons';
-	import { parseErrors, register, validateFields } from './service';
-	import GoogleIcon from '$lib/components/icons/GoogleIcon.svelte';
 	import GithubIcon from '$lib/components/icons/GithubIcon.svelte';
-	import { githubSignIn, googleSignIn, isLoading } from '$lib/auth/sign-in.svelte';
+	import GoogleIcon from '$lib/components/icons/GoogleIcon.svelte';
+	import Logo from '$lib/components/Logo.svelte';
+	import { Routes } from '$lib/consts';
+
+	import { parseErrors, register, validateFields } from './service';
 
 	let isDisabled = $derived(isLoading.email || isLoading.google || isLoading.github);
 

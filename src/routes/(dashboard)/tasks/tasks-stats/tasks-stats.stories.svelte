@@ -1,6 +1,7 @@
 <script module lang="ts">
-	import ToDoStats from './TasksStats.svelte';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	import ToDoStats from './TasksStats.svelte';
 
 	const { Story } = defineMeta({
 		component: ToDoStats,

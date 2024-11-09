@@ -1,14 +1,14 @@
 <script lang="ts">
-	import type { Task } from '$lib/task/utils';
-
-	import { tailwindColors } from '$lib/category/utils';
-	import { DATE_FR, DATE_FR_SHORT } from '$lib/consts';
 	import { GripVertical, Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import interact from 'interactjs';
 	import { onDestroy, onMount } from 'svelte';
 
-	import { HANDLE, formatDate, hasMoved, startDrag } from './service';
+	import { tailwindColors } from '$lib/category/utils';
+	import { DATE_FR, DATE_FR_SHORT } from '$lib/consts';
+	import type { Task } from '$lib/task/utils';
+
+	import { formatDate, HANDLE, hasMoved, startDrag } from './service';
 
 	interface Props {
 		task: Task;

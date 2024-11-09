@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { getTotalDuration } from '$lib/task/time-utils';
 	import { Grid3x3, LayoutGrid } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
-	import type { SortedTaskType } from '../service';
 	import { CategoryTypes } from '$lib/category/utils';
+	import { getTotalDuration } from '$lib/task/time-utils';
+
+	import type { SortedTaskType } from '../service';
 
 	interface Props {
 		tasks: SortedTaskType;

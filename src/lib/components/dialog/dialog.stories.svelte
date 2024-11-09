@@ -1,7 +1,7 @@
 <script module lang="ts">
-	import Dialog from './Dialog.svelte';
-
 	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	import Dialog from './Dialog.svelte';
 
 	const { Story } = defineMeta({
 		component: Dialog,

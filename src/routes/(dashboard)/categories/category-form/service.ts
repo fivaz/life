@@ -1,7 +1,3 @@
-import { type Category, type CategoryType, CategoryTypes } from '$lib/category/utils';
-import { tailwindColors } from '$lib/category/utils';
-import { DB_PATH } from '$lib/consts';
-import { db } from '$lib/firebase';
 import {
 	collection,
 	deleteDoc,
@@ -13,6 +9,11 @@ import {
 	where,
 	writeBatch,
 } from 'firebase/firestore';
+
+import { type Category, type CategoryType, CategoryTypes } from '$lib/category/utils';
+import { tailwindColors } from '$lib/category/utils';
+import { DB_PATH } from '$lib/consts';
+import { db } from '$lib/firebase';
 
 // EDIT
 export function editCategory(id: string, data: Omit<Category, 'id'>, userId: string) {

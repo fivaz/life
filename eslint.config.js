@@ -1,9 +1,10 @@
-import prettier from 'eslint-config-prettier';
 import js from '@eslint/js';
+import prettier from 'eslint-config-prettier';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import svelte from 'eslint-plugin-svelte';
+import unusedImports from 'eslint-plugin-unused-imports';
 import globals from 'globals';
 import ts from 'typescript-eslint';
-import unusedImports from 'eslint-plugin-unused-imports';
 
 export default ts.config(
 	js.configs.recommended,
@@ -22,6 +23,7 @@ export default ts.config(
 	{
 		plugins: {
 			'unused-imports': unusedImports,
+			'simple-import-sort': simpleImportSort,
 		},
 	},
 	{
@@ -36,6 +38,12 @@ export default ts.config(
 		files: ['**/*.stories.svelte'],
 		rules: {
 			'@typescript-eslint/no-explicit-any': 'off',
+		},
+	},
+	{
+		rules: {
+			'simple-import-sort/imports': 'error',
+			'simple-import-sort/exports': 'error',
 		},
 	},
 	{

@@ -1,16 +1,17 @@
 <script lang="ts">
-	import TasksSummary from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/tasks-summary/TasksSummary.svelte';
-	import { DATE } from '$lib/consts';
 	import { format } from 'date-fns';
+	import { onMount } from 'svelte';
+
+	import TasksSummary from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/tasks-summary/TasksSummary.svelte';
+	import { isScrollingUp } from '$lib/components/calendar/calendar-body/calendar-columns/service.svelte';
+	import { DATE } from '$lib/consts';
+	import type { Task } from '$lib/task/utils';
+	import { isTimed } from '$lib/task/utils.js';
 
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
 	import { SUMMARY_GRID_CELL_HEIGHT } from './calendar-grid/service.svelte';
 	import EventPanel from './event-panel/EventPanel.svelte';
 	import { getEventGrid, getTasksForDate } from './service';
-	import type { Task } from '$lib/task/utils';
-	import { isScrollingUp } from '$lib/components/calendar/calendar-body/calendar-columns/service.svelte';
-	import { onMount } from 'svelte';
-	import { isTimed } from '$lib/task/utils.js';
 
 	interface Props {
 		date: Date;

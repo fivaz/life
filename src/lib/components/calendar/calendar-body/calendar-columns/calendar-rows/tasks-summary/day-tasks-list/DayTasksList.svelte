@@ -1,15 +1,15 @@
 <script lang="ts">
-	import { isRecurring, isTimed, type Task } from '$lib/task/utils';
-
-	import { DATE } from '$lib/consts';
-	import { getTotalDuration } from '$lib/task/time-utils';
-	import { isUntimed } from '$lib/task/utils';
 	import { CalendarClock, CalendarDays } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { addDays, format, parse } from 'date-fns';
 	import { getContext } from 'svelte';
+
+	import { DATE } from '$lib/consts';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
+	import { getTotalDuration } from '$lib/task/time-utils';
+	import { isRecurring, isTimed, type Task } from '$lib/task/utils';
+	import { isUntimed } from '$lib/task/utils';
 
 	interface Props {
 		tasks: Task[];

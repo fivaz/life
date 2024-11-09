@@ -1,21 +1,21 @@
 <script lang="ts">
-	import { type Goal } from '$lib/goal/utils';
-	import type { Task } from '$lib/task/utils';
+	import { Plus } from 'lucide-svelte';
 
+	import DBCategories from '$lib/category/DBCategories.svelte';
+	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { DB_PATH } from '$lib/consts';
+	import DBGoals from '$lib/goal/DBGoals.svelte';
+	import { type Goal } from '$lib/goal/utils';
 	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
+	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
+	import type { Task } from '$lib/task/utils';
 	import { title } from '$lib/utils.svelte';
 
 	import GoalForm from './goal-form/GoalForm.svelte';
 	import GoalRow from './goal-row/GoalRow.svelte';
 	import { buildEmptyGoal, sortGoalsByDate } from './service';
-	import { Plus } from 'lucide-svelte';
-	import DBGoals from '$lib/goal/DBGoals.svelte';
-	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
-	import DBCategories from '$lib/category/DBCategories.svelte';
-	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 
 	let editingGoal = $state<Goal>(buildEmptyGoal());
 

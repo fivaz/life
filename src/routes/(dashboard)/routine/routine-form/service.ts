@@ -1,7 +1,8 @@
+import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
 import { type Routine } from '$lib/routine/utils';
-import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 
 export function buildEmptyRoutine(): Routine {
 	return {

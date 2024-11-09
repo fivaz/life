@@ -1,9 +1,10 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
+
 	import {
 		GRID_CELL_HEIGHT,
 		SUMMARY_GRID_CELL_HEIGHT,
 	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
-	import type { Snippet } from 'svelte';
 
 	interface Props {
 		children?: Snippet;

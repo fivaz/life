@@ -1,6 +1,7 @@
 <script lang="ts">
-	import Portal from 'svelte-portal';
 	import type { Snippet } from 'svelte';
+	import Portal from 'svelte-portal';
+
 	import { dialog } from '$lib/components/dialog/service.svelte';
 
 	interface Props {

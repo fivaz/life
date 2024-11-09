@@ -1,10 +1,10 @@
 <script module lang="ts">
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
 	import { categories } from '$lib/category/seed';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 
 	import Select from './Select.svelte';
-
-	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	const { Story } = defineMeta({
 		component: Select,

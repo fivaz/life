@@ -1,13 +1,14 @@
 <script lang="ts">
-	import { tailwindColors } from '$lib/category/utils';
-	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
-	import { TIME } from '$lib/consts';
-	import { roundTo15 } from '$lib/task/time-utils';
-	import { type Task, getCompletedTasks, getDurationInMinutes, getSubTasks } from '$lib/task/utils';
 	import { clsx } from 'clsx';
 	import { format, parse } from 'date-fns';
 	import { getContext } from 'svelte';
+
+	import { tailwindColors } from '$lib/category/utils';
+	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
+	import { TIME } from '$lib/consts';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
+	import { roundTo15 } from '$lib/task/time-utils';
+	import { getCompletedTasks, getDurationInMinutes, getSubTasks, type Task } from '$lib/task/utils';
 
 	interface Props {
 		event: Task;

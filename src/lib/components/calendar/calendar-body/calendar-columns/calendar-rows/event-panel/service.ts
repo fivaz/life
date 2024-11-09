@@ -1,4 +1,4 @@
-import type { Task } from '$lib/task/utils';
+import { addMinutes, format, subMinutes } from 'date-fns';
 
 import {
 	GRID_CELL_HEIGHT,
@@ -7,8 +7,8 @@ import {
 } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
 import { EVENT_PANEL_CLASS } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
 import { TIME } from '$lib/consts';
+import type { Task } from '$lib/task/utils';
 import { getDurationInMinutes } from '$lib/task/utils';
-import { addMinutes, format, subMinutes } from 'date-fns';
 
 function getElementBeneath(draggedElement: HTMLElement, gridCellY: number, gridCellX: number) {
 	draggedElement.style.visibility = 'hidden';

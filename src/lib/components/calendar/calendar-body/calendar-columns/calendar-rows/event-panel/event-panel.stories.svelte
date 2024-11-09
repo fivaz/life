@@ -1,18 +1,18 @@
 <script module lang="ts">
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
 	import {
 		longRecurring,
 		normalWithDescription,
-		normalWithSubTasks,
 		normalWithoutDescriptionWithGoal,
 		normalWithoutDescriptionWithoutGoal,
+		normalWithSubTasks,
 		shortWithDescription,
-		shortWithSubTasks,
 		shortWithoutDescription,
+		shortWithSubTasks,
 	} from '$lib/task/seed';
 
 	import EventPanel from './EventPanel.svelte';
-
-	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	const { Story } = defineMeta({
 		component: EventPanel,

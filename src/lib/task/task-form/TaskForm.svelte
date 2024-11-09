@@ -1,35 +1,34 @@
 <script lang="ts">
-	import type { Category } from '$lib/category/utils';
-	import type { Goal } from '$lib/goal/utils';
-	import { isTimed, type Task } from '$lib/task/utils';
+	import { EllipsisVertical, XMark } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
+	import { Copy, ListTodo } from 'lucide-svelte';
 
+	import type { Category } from '$lib/category/utils';
 	import { tailwindColors } from '$lib/category/utils';
 	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
+	import DropDown from '$lib/components/drop-down/DropDown.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
+	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
+	import type { Goal } from '$lib/goal/utils';
 	import {
 		addTask,
 		deletePossibleSingleRecurringEvent,
 		duplicateTask,
 		editTaskWithPrompt,
 	} from '$lib/task/task-form/db-service';
+	import { taskIn } from '$lib/task/task-form/service.svelte';
 	import TaskFormEvent from '$lib/task/task-form/task-form-event/TaskFormEvent.svelte';
 	import TaskFormImage from '$lib/task/task-form/task-form-image/TaskFormImage.svelte';
 	import TaskFormRecurring from '$lib/task/task-form/task-form-recurring/TaskFormRecurring.svelte';
 	import { checkErrors, convertToTask, convertToTaskIn } from '$lib/task/task-in-utils';
-	import { EllipsisVertical, XMark } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
-
-	import { isRecurring, isUntimed } from '$lib/task/utils.js';
-	import DropDown from '$lib/components/drop-down/DropDown.svelte';
-	import { Copy, ListTodo } from 'lucide-svelte';
 	import { sumTimes } from '$lib/task/time-utils';
-	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
-	import { taskIn } from '$lib/task/task-form/service.svelte';
+	import { isTimed, type Task } from '$lib/task/utils';
+	import { isRecurring, isUntimed } from '$lib/task/utils.js';
 
 	interface Props {
 		userId: string;

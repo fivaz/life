@@ -1,14 +1,14 @@
 <script lang="ts">
-	import type { Task } from '$lib/task/utils';
-
-	import { DB_PATH } from '$lib/consts';
-	import { db } from '$lib/firebase';
-	import { type Goal, getCompletedTasks } from '$lib/goal/utils';
 	import { CheckCircle, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { collection, getDocs } from 'firebase/firestore';
 	import { onMount } from 'svelte';
 	import { cubicOut } from 'svelte/easing';
+
+	import { DB_PATH } from '$lib/consts';
+	import { db } from '$lib/firebase';
+	import { getCompletedTasks, type Goal } from '$lib/goal/utils';
+	import type { Task } from '$lib/task/utils';
 
 	interface Props {
 		task: Task;

@@ -1,7 +1,7 @@
 <script module lang="ts">
-	import IconSelector from './IconSelector.svelte';
-
 	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	import IconSelector from './IconSelector.svelte';
 
 	const { Story } = defineMeta({
 		component: IconSelector,

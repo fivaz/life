@@ -1,8 +1,8 @@
 <script module lang="ts">
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
 	import { buildEmptyGoal } from '../service';
 	import GoalForm from './GoalForm.svelte';
-
-	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	const { Story } = defineMeta({
 		component: GoalForm,

@@ -1,10 +1,10 @@
-import type { Task } from '$lib/task/utils';
+import { format, startOfTomorrow, startOfWeek, startOfYesterday } from 'date-fns';
 
 import { routine, sleep, work } from '$lib/category/seed';
 import { DATE, TIME } from '$lib/consts';
 import { sleepEarly } from '$lib/goal/seed';
 import { buildDate } from '$lib/task/time-utils';
-import { format, startOfTomorrow, startOfWeek, startOfYesterday } from 'date-fns';
+import type { Task } from '$lib/task/utils';
 
 function getTodayAtTime(time: string): Date {
 	const date = new Date();

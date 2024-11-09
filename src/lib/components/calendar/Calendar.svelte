@@ -1,14 +1,13 @@
 <script lang="ts">
-	import type { Task } from '$lib/task/utils';
-
-	import { currentDate, getNextRoundedTime } from '$lib/components/calendar/service.svelte';
 	import { setContext } from 'svelte';
 
-	import type { Context } from '../../../app';
+	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
+	import { currentDate, getNextRoundedTime } from '$lib/components/calendar/service.svelte';
+	import type { Task } from '$lib/task/utils';
 
+	import type { Context } from '../../../app';
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
-	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
 
 	interface Props {
 		tasks: Task[];

@@ -1,9 +1,9 @@
+import { format } from 'date-fns';
+
 import type { Category } from '$lib/category/utils';
+import { DATE, TIME } from '$lib/consts';
 import type { Goal } from '$lib/goal/utils';
 import type { Task } from '$lib/task/utils';
-
-import { DATE, TIME } from '$lib/consts';
-import { format } from 'date-fns';
 
 export function buildTimedTask(categories: Category[], goal: Goal | null = null): Task {
 	const now = new Date();

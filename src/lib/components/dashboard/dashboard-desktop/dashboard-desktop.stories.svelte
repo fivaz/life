@@ -1,7 +1,7 @@
 <script module lang="ts">
-	import DashboardDesktop from './DashboardDesktop.svelte';
-
 	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	import DashboardDesktop from './DashboardDesktop.svelte';
 
 	const { Story } = defineMeta({
 		component: DashboardDesktop,

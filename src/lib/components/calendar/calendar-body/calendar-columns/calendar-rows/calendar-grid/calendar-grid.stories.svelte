@@ -1,7 +1,7 @@
 <script module lang="ts">
-	import CalendarGrid from './CalendarGrid.svelte';
-
 	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	import CalendarGrid from './CalendarGrid.svelte';
 
 	const { Story } = defineMeta({
 		component: CalendarGrid,

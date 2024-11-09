@@ -1,10 +1,11 @@
 <script lang="ts">
+	import { XMark } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
+
 	import Button from '$lib/components/form/button/Button.svelte';
 	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';
 	import Input from '$lib/components/form/input/Input.svelte';
 	import { type Routine } from '$lib/routine/utils';
-	import { XMark } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
 
 	import IconSelector from '../../goals/goal-form/icon-selector/IconSelector.svelte';
 	import { addRoutine, deleteRoutine, editRoutine } from './service';

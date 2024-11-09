@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Routine } from '$lib/routine/utils';
-
-	import { DATE } from '$lib/consts';
 	import { format, subDays } from 'date-fns';
 	import { Flame } from 'lucide-svelte';
+
+	import { DATE } from '$lib/consts';
+	import type { Routine } from '$lib/routine/utils';
 
 	interface Props {
 		routines: Routine[];

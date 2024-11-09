@@ -1,7 +1,7 @@
 <script module lang="ts">
-	import RoutineRows from './RoutineRows.svelte';
-
 	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	import RoutineRows from './RoutineRows.svelte';
 
 	const { Story } = defineMeta({
 		component: RoutineRows,

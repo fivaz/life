@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { nameOfDaysOfWeek } from './service';
 	import { taskIn } from '$lib/task/task-form/service.svelte';
+
+	import { nameOfDaysOfWeek } from './service';
 
 	function handleCheckboxChange(day: string) {
 		const index = taskIn.value.recurringDaysOfWeek.indexOf(day);

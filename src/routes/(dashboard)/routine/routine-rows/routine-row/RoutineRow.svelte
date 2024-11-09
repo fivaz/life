@@ -1,16 +1,16 @@
 <script lang="ts">
-	import type { Routine } from '$lib/routine/utils';
-
 	import { Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { format, parse, subDays } from 'date-fns';
 	import { Check, GripVertical, Undo2 } from 'lucide-svelte';
+	import { Flame } from 'lucide-svelte';
 	import { dragHandle } from 'svelte-dnd-action';
 
-	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
-	import { toggleRoutineCompletion } from '../../routine-form/service';
-	import { Flame } from 'lucide-svelte';
-	import { format, parse, subDays } from 'date-fns';
 	import { DATE } from '$lib/consts';
+	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
+	import type { Routine } from '$lib/routine/utils';
+
+	import { toggleRoutineCompletion } from '../../routine-form/service';
 
 	interface Props {
 		routine: Routine;

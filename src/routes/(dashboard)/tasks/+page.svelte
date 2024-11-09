@@ -1,21 +1,21 @@
 <script lang="ts">
-	import Button from '$lib/components/form/button/Button.svelte';
-	import Modal from '$lib/components/modal/Modal.svelte';
-	import { buildUntimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
-	import { type Task } from '$lib/task/utils';
-
 	import { DocumentText } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { Plus } from 'lucide-svelte';
+
+	import DBCategories from '$lib/category/DBCategories.svelte';
+	import Button from '$lib/components/form/button/Button.svelte';
+	import Modal from '$lib/components/modal/Modal.svelte';
+	import DBGoals from '$lib/goal/DBGoals.svelte';
+	import { buildUntimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
+	import DBUndoneTasks from '$lib/task/DBUndoneTasks.svelte';
+	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
+	import { type Task } from '$lib/task/utils';
+	import { title } from '$lib/utils.svelte';
 
 	import { getTasksByDateSorted } from './service';
 	import TaskList from './task-list/TaskList.svelte';
 	import TasksStats from './tasks-stats/TasksStats.svelte';
-	import { Plus } from 'lucide-svelte';
-	import { title } from '$lib/utils.svelte';
-	import DBCategories from '$lib/category/DBCategories.svelte';
-	import DBUndoneTasks from '$lib/task/DBUndoneTasks.svelte';
-	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
-	import DBGoals from '$lib/goal/DBGoals.svelte';
 
 	let editingTask: Task = $state(buildUntimedTask([]));
 

@@ -1,16 +1,16 @@
 <script lang="ts">
-	import type { Task } from '$lib/task/utils';
-
-	import { DATE, DATE_FR } from '$lib/consts';
-	import { getTotalDuration } from '$lib/task/time-utils';
 	import { Clipboard, ClipboardCopy, ClipboardList, Plus } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { addDays, addWeeks, format, lastDayOfWeek, parse, subDays } from 'date-fns';
 
+	import { DATE, DATE_FR } from '$lib/consts';
+	import { getTotalDuration } from '$lib/task/time-utils';
+	import type { Task } from '$lib/task/utils';
+
 	import { GROUPS } from '../service';
-	import TaskRow from './task-row/TaskRow.svelte';
 	import { TASK_LIST_CLASS } from './task-row/service';
+	import TaskRow from './task-row/TaskRow.svelte';
 
 	interface Props {
 		label: string;

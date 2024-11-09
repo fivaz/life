@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { closeDialog } from '$lib/components/dialog/service.svelte';
-	import Modal from '$lib/components/modal/Modal.svelte';
 	import { ExclamationTriangle, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+
+	import { closeDialog } from '$lib/components/dialog/service.svelte';
+	import Modal from '$lib/components/modal/Modal.svelte';
 
 	interface Props {
 		isOpen: boolean;

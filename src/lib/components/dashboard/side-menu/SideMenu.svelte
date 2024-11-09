@@ -1,8 +1,4 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import Logo from '$lib/components/Logo.svelte';
-	import ProfileDropUp from '$lib/components/dashboard/profile-drop-up/ProfileDropUp.svelte';
-	import { Routes } from '$lib/consts';
 	import {
 		CalendarDays,
 		ChartCandlestick,
@@ -11,8 +7,13 @@
 		ListTodo,
 		Tags,
 	} from 'lucide-svelte';
+
+	import { page } from '$app/stores';
 	import { PUBLIC_COMMIT_HASH } from '$env/static/public';
+	import ProfileDropUp from '$lib/components/dashboard/profile-drop-up/ProfileDropUp.svelte';
+	import Logo from '$lib/components/Logo.svelte';
 	import { tooltip } from '$lib/components/tooltip/tooltip.action';
+	import { Routes } from '$lib/consts';
 
 	interface Props {
 		class?: string;

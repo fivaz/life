@@ -2,7 +2,6 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 
 	import type { GoalIconType } from './service';
-
 	import { getIcon } from './service';
 
 	interface Props {

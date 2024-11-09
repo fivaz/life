@@ -1,11 +1,12 @@
 <script lang="ts">
+	import { differenceInMinutes, format } from 'date-fns';
+	import { slide } from 'svelte/transition';
+
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
-	import { differenceInMinutes, format } from 'date-fns';
 	import { TIME } from '$lib/consts';
-	import { sumTimes } from '$lib/task/time-utils';
-	import { slide } from 'svelte/transition';
 	import { taskIn } from '$lib/task/task-form/service.svelte';
+	import { sumTimes } from '$lib/task/time-utils';
 
 	let isEventOpen = $state(true);
 

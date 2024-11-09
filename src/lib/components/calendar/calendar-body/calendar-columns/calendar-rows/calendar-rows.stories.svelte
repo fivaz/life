@@ -1,7 +1,7 @@
 <script module lang="ts">
-	import CalendarRows from './CalendarRows.svelte';
-
 	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	import CalendarRows from './CalendarRows.svelte';
 
 	const { Story } = defineMeta({
 		component: CalendarRows,

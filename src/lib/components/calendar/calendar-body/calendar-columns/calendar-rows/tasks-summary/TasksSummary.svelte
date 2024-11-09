@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Task } from '$lib/task/utils';
+	import { clsx } from 'clsx';
 
 	import DayTasksList from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/tasks-summary/day-tasks-list/DayTasksList.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import { clsx } from 'clsx';
+	import type { Task } from '$lib/task/utils';
 
 	interface Props {
 		tasks: Task[];

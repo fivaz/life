@@ -1,13 +1,13 @@
 <script lang="ts">
-	import type { Task } from '$lib/task/utils';
-
-	import { DATE_FR } from '$lib/consts.js';
-	import { getTaskDate } from '$lib/task/time-utils';
-	import { sortTasks } from '$lib/task/utils';
 	import { CalendarDays } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { format } from 'date-fns';
+
+	import { DATE_FR } from '$lib/consts.js';
+	import { getTaskDate } from '$lib/task/time-utils';
+	import type { Task } from '$lib/task/utils';
+	import { sortTasks } from '$lib/task/utils';
 
 	interface Props {
 		tasks: Task[];

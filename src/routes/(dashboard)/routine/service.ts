@@ -1,8 +1,8 @@
-import type { Routine } from '$lib/routine/utils';
+import { doc, writeBatch } from 'firebase/firestore';
 
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
-import { doc, writeBatch } from 'firebase/firestore';
+import type { Routine } from '$lib/routine/utils';
 
 export async function updateRoutines(userId: string, routines: Routine[]) {
 	const batch = writeBatch(db);

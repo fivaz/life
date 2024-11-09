@@ -1,11 +1,10 @@
 <script module lang="ts">
-	import { events } from '$lib/task/seed';
-
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import { addDays } from 'date-fns';
 
-	import CalendarColumns from './CalendarColumns.svelte';
+	import { events } from '$lib/task/seed';
 
-	import { defineMeta } from '@storybook/addon-svelte-csf';
+	import CalendarColumns from './CalendarColumns.svelte';
 
 	const { Story } = defineMeta({
 		component: CalendarColumns,

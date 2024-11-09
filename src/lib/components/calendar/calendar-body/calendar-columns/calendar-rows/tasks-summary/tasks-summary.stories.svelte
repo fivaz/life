@@ -1,11 +1,10 @@
 <script module lang="ts">
-	import { type Task } from '$lib/task/utils';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import { birthdayToDo, toDos, workToDo } from '$lib/task/seed';
+	import { type Task } from '$lib/task/utils';
 
 	import TasksSummary from './TasksSummary.svelte';
-
-	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	const { Story } = defineMeta({
 		component: TasksSummary,

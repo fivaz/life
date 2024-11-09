@@ -1,7 +1,7 @@
 <script module lang="ts">
-	import Dashboard from './Dashboard.svelte';
-
 	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	import Dashboard from './Dashboard.svelte';
 
 	const { Story } = defineMeta({
 		component: Dashboard,

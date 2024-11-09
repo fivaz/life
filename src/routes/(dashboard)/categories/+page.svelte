@@ -1,14 +1,15 @@
 <script lang="ts">
-	import type { Category } from '$lib/category/utils';
+	import { Plus } from 'lucide-svelte';
 
+	import DBCategories from '$lib/category/DBCategories.svelte';
+	import type { Category } from '$lib/category/utils';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { title } from '$lib/utils.svelte';
+
 	import CategoryForm from './category-form/CategoryForm.svelte';
 	import { buildEmptyCategory } from './category-form/service';
 	import CategoryRow from './category-row/CategoryRow.svelte';
-	import { Plus } from 'lucide-svelte';
-	import DBCategories from '$lib/category/DBCategories.svelte';
 
 	let editingCategory = $state<Category>(buildEmptyCategory());
 

@@ -1,8 +1,8 @@
 <script module lang="ts">
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
 	import RoutineForm from './RoutineForm.svelte';
 	import { buildEmptyRoutine } from './service';
-
-	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	const { Story } = defineMeta({
 		component: RoutineForm,

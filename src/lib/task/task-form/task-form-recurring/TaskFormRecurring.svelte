@@ -1,16 +1,17 @@
 <script lang="ts">
-	import Input from '$lib/components/form/input/Input.svelte';
-	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
-	import flatpickr from 'flatpickr';
-
-	import DaysCheckbox from './days-checkbox/DaysCheckbox.svelte';
-	import { slide, fade } from 'svelte/transition';
-
 	import 'flatpickr/dist/themes/airbnb.css';
+
+	import flatpickr from 'flatpickr';
+	import { fade, slide } from 'svelte/transition';
+
+	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
-	import { frequencies } from '$lib/task/utils';
+	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import { taskIn } from '$lib/task/task-form/service.svelte';
+	import { frequencies } from '$lib/task/utils';
+
+	import DaysCheckbox from './days-checkbox/DaysCheckbox.svelte';
 
 	let isRecurringOpen = $state(false);
 

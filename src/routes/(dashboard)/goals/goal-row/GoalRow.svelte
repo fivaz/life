@@ -1,13 +1,13 @@
 <script lang="ts">
-	import type { Goal } from '$lib/goal/utils';
-	import type { Task } from '$lib/task/utils';
-
-	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
-	import { getCompletedTasks } from '$lib/goal/utils';
 	import { ChevronDown, ChevronUp, Plus, Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
+	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
+	import type { Goal } from '$lib/goal/utils';
+	import { getCompletedTasks } from '$lib/goal/utils';
+	import type { Task } from '$lib/task/utils';
+
 	import GoalTasks from './goal-tasks/GoalTasks.svelte';
 
 	interface Props {

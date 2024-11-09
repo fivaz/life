@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { convertMinutesToTime } from '$lib/task/time-utils';
 	import { clsx } from 'clsx';
+	import { format } from 'date-fns';
 
-	import { GRID_CELL_HEIGHT, GRID_CLASS, isSomethingDragging } from '../service.svelte';
 	import { currentDate } from '$lib/components/calendar/service.svelte';
 	import { DATE, TIME } from '$lib/consts';
-	import { format } from 'date-fns';
+	import { convertMinutesToTime } from '$lib/task/time-utils';
+
+	import { GRID_CELL_HEIGHT, GRID_CLASS, isSomethingDragging } from '../service.svelte';
 
 	interface Props {
 		class?: string;

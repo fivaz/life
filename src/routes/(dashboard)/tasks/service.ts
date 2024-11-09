@@ -1,8 +1,3 @@
-import type { Task } from '$lib/task/utils';
-
-import { DATE_FR } from '$lib/consts';
-import { getTaskDate } from '$lib/task/time-utils';
-import { isRecurring } from '$lib/task/utils';
 import {
 	addWeeks,
 	endOfWeek,
@@ -13,6 +8,11 @@ import {
 	isWithinInterval,
 	startOfWeek,
 } from 'date-fns';
+
+import { DATE_FR } from '$lib/consts';
+import { getTaskDate } from '$lib/task/time-utils';
+import type { Task } from '$lib/task/utils';
+import { isRecurring } from '$lib/task/utils';
 
 export type SortedTaskType = Record<string, Task[]> & Iterable<string>;
 

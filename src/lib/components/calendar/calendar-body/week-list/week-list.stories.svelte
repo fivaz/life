@@ -1,9 +1,8 @@
 <script module lang="ts">
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import { addDays } from 'date-fns';
 
 	import WeekList from './WeekList.svelte';
-
-	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	const { Story } = defineMeta({
 		component: WeekList,

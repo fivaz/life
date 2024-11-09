@@ -1,11 +1,15 @@
 <script lang="ts">
-	import type { Task } from '$lib/task/utils';
-
+	import DBCategories from '$lib/category/DBCategories.svelte';
 	import { type Category, CategoryTypes } from '$lib/category/utils';
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
-	import TaskCompletedNotificationStack from '$lib/task/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
+	import Modal from '$lib/components/modal/Modal.svelte';
+	import DBGoals from '$lib/goal/DBGoals.svelte';
 	import { buildTimedTask, buildTimedTaskWithTimeSet } from '$lib/task/build-utils';
+	import TaskCompletedNotificationStack from '$lib/task/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
+	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
+	import type { Task } from '$lib/task/utils';
 
+	import { buildEmptyCategory } from './categories/category-form/service';
 	import {
 		editPossibleSingleRecurringEvent,
 		getWeekTasks,
@@ -13,11 +17,6 @@
 		persistTasks,
 		tasks,
 	} from './service.svelte.js';
-	import DBCategories from '$lib/category/DBCategories.svelte';
-	import DBGoals from '$lib/goal/DBGoals.svelte';
-	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
-	import Modal from '$lib/components/modal/Modal.svelte';
-	import { buildEmptyCategory } from './categories/category-form/service';
 
 	let targetDate = $state<string | undefined>();
 

@@ -1,7 +1,7 @@
 <script module lang="ts">
-	import TaskFormImage from './TaskFormImage.svelte';
-
 	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	import TaskFormImage from './TaskFormImage.svelte';
 
 	const { Story } = defineMeta({
 		component: TaskFormImage,

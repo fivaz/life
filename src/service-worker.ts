@@ -1,6 +1,7 @@
 /// <reference types="@sveltejs/kit" />
-import { build, files, prerendered, version } from '$service-worker';
 import { precacheAndRoute } from 'workbox-precaching';
+
+import { build, files, prerendered, version } from '$service-worker';
 
 const precache_list = [
 	'/',

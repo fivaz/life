@@ -1,5 +1,7 @@
 <script lang="ts">
-	import type { Task } from '$lib/task/utils';
+	import { clsx } from 'clsx';
+	import interact from 'interactjs';
+	import { getContext, onMount } from 'svelte';
 
 	import {
 		GRID_CELL_HEIGHT,
@@ -16,9 +18,7 @@
 		getCellSizeFromDuration,
 		hasMoved,
 	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/service';
-	import { clsx } from 'clsx';
-	import interact from 'interactjs';
-	import { getContext, onMount } from 'svelte';
+	import type { Task } from '$lib/task/utils';
 
 	import EventPanelCore from './event-panel-core/EventPanelCore.svelte';
 

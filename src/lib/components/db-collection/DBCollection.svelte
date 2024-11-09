@@ -2,17 +2,17 @@
 	import {
 		collection,
 		onSnapshot,
+		type Query,
 		query,
 		type QueryConstraint,
-		type Query,
 	} from 'firebase/firestore';
+	import { type Unsubscribe } from 'firebase/firestore';
+	import { type Snippet } from 'svelte';
+
+	import { currentUser } from '$lib/auth/utils.svelte';
+	import Loading from '$lib/components/loading/Loading.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { db } from '$lib/firebase';
-	import { currentUser } from '$lib/auth/utils.svelte';
-
-	import { type Snippet } from 'svelte';
-	import { type Unsubscribe } from 'firebase/firestore';
-	import Loading from '$lib/components/loading/Loading.svelte';
 
 	interface Props {
 		collection: string;

@@ -1,6 +1,3 @@
-import { DATE } from '$lib/consts';
-import { getTaskDateTime } from '$lib/task/time-utils';
-import { type Task, sortTasks } from '$lib/task/utils';
 import {
 	eachDayOfInterval,
 	eachMonthOfInterval,
@@ -18,6 +15,10 @@ import {
 	subWeeks,
 	subYears,
 } from 'date-fns';
+
+import { DATE } from '$lib/consts';
+import { getTaskDateTime } from '$lib/task/time-utils';
+import { sortTasks, type Task } from '$lib/task/utils';
 
 export type UncompletedTasksByDate = {
 	[Symbol.iterator](): IterableIterator<[string, number]>;

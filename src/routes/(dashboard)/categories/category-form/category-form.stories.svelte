@@ -1,8 +1,8 @@
 <script module lang="ts">
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
 	import CategoryForm from './CategoryForm.svelte';
 	import { buildEmptyCategory } from './service';
-
-	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	const { Story } = defineMeta({
 		component: CategoryForm,
