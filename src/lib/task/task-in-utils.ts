@@ -1,9 +1,9 @@
-import type { Task } from '$lib/task/utils';
+import { isTimed, type Task } from '$lib/task/utils';
 
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 import { DATE, TIME } from '$lib/consts';
 import { convertTimeToMinutes, getCurrentRoundedDate, sumTimes } from '$lib/task/time-utils';
-import { isRecurring, isUntimed } from '$lib/task/utils';
+import { isRecurring } from '$lib/task/utils';
 import { addMinutes, addMonths, format, isAfter, parse } from 'date-fns';
 
 // TaskIn is a super type that has all the attributes of possible Tasks together
@@ -62,7 +62,7 @@ export function convertToTaskIn(task: Task): TaskIn {
 
 	taskIn.endTime = sumTimes(taskIn.startTime, taskIn.duration);
 
-	if (isUntimed(task)) {
+	if (isTimed(task)) {
 		taskIn.isEvent = true;
 	}
 
