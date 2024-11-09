@@ -127,7 +127,6 @@ export function getEventGrid(events: Task[]): EventsGrid {
 			eventGrid[timeSlot][column] = eventId;
 		});
 	});
-	console.log(eventGrid);
 	return eventGrid;
 
 	/**

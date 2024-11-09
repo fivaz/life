@@ -35,7 +35,7 @@ export type Context = {
 			startTime: string;
 		},
 	) => void;
-	persistToDos: (toDos: Task[]) => void;
+	persistTasks: (tasks: Task[]) => void;
 	toggleEvent: (event: Task, targetDate: string) => void;
 };
 

@@ -27,7 +27,7 @@ export function moveEvent(
 	editPossibleSingleRecurringEvent(newEvent, userId, oldDate);
 }
 
-export function persistToDos(userId: string, toDos: Task[]) {
+export function persistTasks(userId: string, toDos: Task[]) {
 	toDos.forEach((toDo) => {
 		const { id, ...data } = toDo;
 		void editTask(id, data, userId, null, null);

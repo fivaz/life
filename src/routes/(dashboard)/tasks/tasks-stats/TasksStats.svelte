@@ -33,7 +33,7 @@
 			<li
 				class="flex cursor-pointer justify-between gap-3 px-6 py-3 font-semibold hover:bg-gray-100"
 			>
-				<div class="grow">deadline</div>
+				<div class="grow">date</div>
 				<div class="w-16">quantity</div>
 				<div class="w-16 text-right">duration</div>
 			</li>

@@ -16,7 +16,7 @@
 <Story args={{}} name="Primary">
 	<div class="h-screen">
 		<Calendar
-			persistToDos={(toDos) => console.log('toDos', toDos)}
+			persistTasks={(tasks) => console.log('tasks', tasks)}
 			changeWeek={(week) => console.log('changeWeek', week)}
 			createTask={(date) => console.log('createTask', date)}
 			editTask={(task, date) => console.log('editTask', task, date)}

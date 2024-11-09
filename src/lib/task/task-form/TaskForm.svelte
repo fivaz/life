@@ -48,8 +48,6 @@
 
 	const formerGoal = task.goal;
 
-	$inspect(taskIn);
-
 	let errorMessage = $state('');
 
 	let file: File | null = $state(null);

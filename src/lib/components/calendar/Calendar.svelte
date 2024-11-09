@@ -15,12 +15,12 @@
 		changeWeek: Context['changeWeek'];
 		createTask: Context['createTask'];
 		editTask: Context['editTask'];
-		persistToDos: Context['persistToDos'];
+		persistTasks: Context['persistTasks'];
 		toggleEvent: Context['toggleEvent'];
 		moveEvent: Context['moveEvent'];
 	}
 
-	let { tasks, changeWeek, createTask, editTask, persistToDos, toggleEvent, moveEvent }: Props =
+	let { tasks, changeWeek, createTask, editTask, persistTasks, toggleEvent, moveEvent }: Props =
 		$props();
 
 	let timeUntilNextUpdate = $state(getNextRoundedTime());
@@ -28,7 +28,7 @@
 	setContext('createTask', createTask);
 	setContext('editTask', editTask);
 	setContext('moveEvent', moveEvent);
-	setContext('persistToDos', persistToDos);
+	setContext('persistTasks', persistTasks);
 	setContext('toggleEvent', toggleEvent);
 	setContext('changeWeek', changeWeek);
 

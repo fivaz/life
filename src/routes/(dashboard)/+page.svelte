@@ -10,7 +10,7 @@
 		editPossibleSingleRecurringEvent,
 		getWeekTasks,
 		moveEvent,
-		persistToDos,
+		persistTasks,
 		tasks,
 	} from './service.svelte.js';
 	import DBCategories from '$lib/category/DBCategories.svelte';
@@ -63,7 +63,7 @@
 			createTask={(date) => openFormToCreateTask(categories, date)}
 			editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
 			moveEvent={(event, moveObject) => moveEvent(userId, event, moveObject)}
-			persistToDos={(toDos) => persistToDos(userId, toDos)}
+			persistTasks={(tasks) => persistTasks(userId, tasks)}
 			tasks={tasks.value}
 			toggleEvent={(event, targetDate) => toggleCompletion(userId, event, targetDate)}
 		/>

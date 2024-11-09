@@ -31,20 +31,20 @@
 		}
 	});
 
-	function postponeToDos() {
+	function postponeRemainingUntimedTasks() {
 		const postponedToDos = uncompletedTasks
-			.filter((task): task is Task => !isTimed(task))
+			.filter((task) => !isTimed(task))
 			.map((task) => {
 				const dayAfter = format(addDays(parse(task.date, DATE, new Date()), 1), DATE);
-				return { ...task, deadline: dayAfter };
+				return { ...task, date: dayAfter };
 			});
 
-		persistToDos(postponedToDos);
+		persistTasks(postponedToDos);
 	}
 
 	const editTask = getContext('editTask');
 
-	const persistToDos = getContext('persistToDos');
+	const persistTasks = getContext('persistTasks');
 </script>
 
 <div
@@ -105,7 +105,7 @@
 
 	<div class="flex-none p-6">
 		{#if uncompletedTasks.length}
-			<button class="font-semibold hover:underline" onclick={postponeToDos}>
+			<button class="font-semibold hover:underline" onclick={postponeRemainingUntimedTasks}>
 				Postpone remaining unset tasks <span aria-hidden="true">&rarr;</span>
 			</button>
 		{/if}
