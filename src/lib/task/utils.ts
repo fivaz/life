@@ -5,6 +5,7 @@ import { convertTimeToMinutes, getTaskDateTime } from '$lib/task/time-utils';
 
 export type Task = {
 	id: string;
+	// date in ISO format
 	createdAt: string;
 	name: string;
 	isDone: boolean;
@@ -12,16 +13,21 @@ export type Task = {
 	image: string;
 	category: Category;
 	goal: Goal | null;
+	// date in yyyy-MM-dd format
 	date: string;
+	// time in HH:mm format
 	duration: string;
+	// time in HH:mm format
 	startTime: string;
-	recurringFrequency: (typeof frequencies)[number] | '';
+	recurringFrequency: (typeof frequencies)[number];
+	// days of the week in (sun, mon, tue) format
 	recurringDaysOfWeek: string[];
 	recurringEndAt: string;
+	// list of dates in yyyy-MM-dd format
 	recurringExceptions: string[];
 };
 
-export const frequencies = ['daily', 'weekly', 'monthly', 'yearly'] as const;
+export const frequencies = ['daily', 'weekly', 'monthly', 'yearly', ''] as const;
 
 export function getDurationInMinutes(task: Task) {
 	return convertTimeToMinutes(task.duration);

@@ -16,7 +16,7 @@
 		label: string;
 		tasks: Task[];
 		userId: string;
-		create: (deadline: string) => void;
+		create: (date: Date) => void;
 		edit: (task: Task) => void;
 	}
 
@@ -83,7 +83,7 @@
 			{#if isNotRecurrent}
 				<button
 					class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-					onclick={() => create(getDate(label))}
+					onclick={() => create(parse(getDate(label), DATE, new Date()))}
 					type="button"
 				>
 					<Icon class="h-4 w-4" src={Plus} />

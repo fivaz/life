@@ -5,29 +5,28 @@ import type { Task } from '$lib/task/utils';
 import { DATE, TIME } from '$lib/consts';
 import { format } from 'date-fns';
 
-export function buildUntimedTask(categories: Category[]): Task {
-	const now = format(new Date(), TIME);
-	return buildSimplestTask(now, categories);
-}
-
 export function buildTimedTask(categories: Category[], goal: Goal | null = null): Task {
 	const now = new Date();
-	return Object.assign(buildSimplestTask(format(now, DATE), categories, goal), {
+	return Object.assign(buildUntimedTask(categories, now, goal), {
 		startTime: format(now, TIME),
 	});
 }
 
-export function buildUntimedTaskWithDateSet(categories: Category[], date: string): Task {
-	return buildSimplestTask(date, categories);
+export function buildUntimedTaskWithDateSet(categories: Category[], date: Date): Task {
+	return buildUntimedTask(categories, date);
 }
 
 export function buildTimedTaskWithTimeSet(categories: Category[], date: Date): Task {
-	return Object.assign(buildSimplestTask(format(date, DATE), categories), {
+	return Object.assign(buildUntimedTask(categories, date), {
 		startTime: format(date, TIME),
 	});
 }
 
-function buildSimplestTask(date: string, categories: Category[], goal: Goal | null = null): Task {
+export function buildUntimedTask(
+	categories: Category[],
+	date: Date = new Date(),
+	goal: Goal | null = null,
+): Task {
 	const defaultCategory = categories.find((category) => category.isDefault) || categories[0];
 
 	return {
@@ -37,8 +36,8 @@ function buildSimplestTask(date: string, categories: Category[], goal: Goal | nu
 		goal,
 		isDone: false,
 		category: defaultCategory,
-		createdAt: date,
-		date,
+		createdAt: date.toISOString(),
+		date: format(date, DATE),
 		duration: '00:15',
 		image: '',
 		recurringFrequency: '',

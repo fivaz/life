@@ -44,11 +44,11 @@
 
 	taskIn.value = convertToTaskIn(task);
 
-	$inspect(taskIn.value);
-
 	const wasRecurring = isRecurring(task);
 
 	const formerGoal = task.goal;
+
+	$inspect(taskIn);
 
 	let errorMessage = $state('');
 
