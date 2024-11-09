@@ -1,63 +1,50 @@
 import type { Category } from '$lib/category/utils';
 import type { Goal } from '$lib/goal/utils';
-import type { TimedTask, UnTimedTask } from '$lib/task/utils';
+import type { Task } from '$lib/task/utils';
 
 import { DATE, TIME } from '$lib/consts';
-import { endOfWeek, format } from 'date-fns';
+import { format } from 'date-fns';
 
-export function buildEmptyToDo(categories: Category[]): UnTimedTask {
-	return {
-		category: categories.find((category) => category.isDefault) || categories[0],
-		createdAt: new Date().toISOString(),
-		date: format(endOfWeek(new Date(), { weekStartsOn: 1 }), DATE),
-		description: '',
-		duration: '00:15',
-		goal: null,
-		id: '',
-		isDone: false,
-		name: '',
-	};
+export function buildUntimedTask(categories: Category[]): Task {
+	const now = format(new Date(), TIME);
+	return buildSimplestTask(now, categories);
 }
 
-export function buildEmptyEvent(categories: Category[], goal: Goal | null = null): TimedTask {
-	return {
-		category: categories.find((category) => category.isDefault) || categories[0],
-		createdAt: new Date().toISOString(),
-		date: format(new Date(), DATE),
-		description: '',
-		duration: '00:15',
-		goal,
-		id: '',
-		isDone: false,
-		name: '',
-		startTime: format(new Date(), TIME),
-	};
+export function buildTimedTask(categories: Category[], goal: Goal | null = null): Task {
+	const now = new Date();
+	return Object.assign(buildSimplestTask(format(now, DATE), categories, goal), {
+		startTime: format(now, TIME),
+	});
 }
 
-export function buildToDoWithDate(categories: Category[], date: string): UnTimedTask {
-	return {
-		category: categories.find((category) => category.isDefault) || categories[0],
-		createdAt: new Date().toISOString(),
-		date,
-		description: '',
-		duration: '00:15',
-		goal: null,
-		id: '',
-		isDone: false,
-		name: '',
-	};
+export function buildUntimedTaskWithDateSet(categories: Category[], date: string): Task {
+	return buildSimplestTask(date, categories);
 }
-export function buildEventWithTime(categories: Category[], date: Date): TimedTask {
-	return {
-		category: categories.find((category) => category.isDefault) || categories[0],
-		createdAt: new Date().toISOString(),
-		date: format(date, DATE),
-		description: '',
-		duration: '00:15',
-		goal: null,
-		id: '',
-		isDone: false,
-		name: '',
+
+export function buildTimedTaskWithTimeSet(categories: Category[], date: Date): Task {
+	return Object.assign(buildSimplestTask(format(date, DATE), categories), {
 		startTime: format(date, TIME),
+	});
+}
+
+function buildSimplestTask(date: string, categories: Category[], goal: Goal | null = null): Task {
+	const defaultCategory = categories.find((category) => category.isDefault) || categories[0];
+
+	return {
+		id: '',
+		name: '',
+		description: '',
+		goal,
+		isDone: false,
+		category: defaultCategory,
+		createdAt: date,
+		date,
+		duration: '00:15',
+		image: '',
+		recurringFrequency: '',
+		recurringDaysOfWeek: [],
+		recurringEndAt: '',
+		recurringExceptions: [],
+		startTime: '',
 	};
 }

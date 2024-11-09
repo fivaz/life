@@ -1,4 +1,4 @@
-import { type AnyTimedTask, type RecurringTimedTask, type Task } from '$lib/task/utils';
+import { type Task } from '$lib/task/utils';
 
 import { NUMBER_OF_CELLS } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
 import {
@@ -34,7 +34,7 @@ export function isForDate(task: Task, date: Date) {
 	return isSameDay(parse(task.date, DATE, new Date()), date);
 }
 
-function isRecurringOnDay(event: RecurringTimedTask, date: Date): boolean {
+function isRecurringOnDay(event: Task, date: Date): boolean {
 	if (isAfter(date, parse(event.recurringEndAt, DATE, new Date()))) {
 		return false;
 	}
@@ -65,7 +65,7 @@ function isRecurringOnDay(event: RecurringTimedTask, date: Date): boolean {
 
 	return false;
 
-	function isDateAnException(event: RecurringTimedTask, date: Date): boolean {
+	function isDateAnException(event: Task, date: Date): boolean {
 		return event.recurringExceptions.some((exceptionDate) => {
 			return isWithinInterval(parse(exceptionDate, DATE, new Date()), {
 				end: endOfDay(date),
@@ -74,26 +74,26 @@ function isRecurringOnDay(event: RecurringTimedTask, date: Date): boolean {
 		});
 	}
 
-	function isDailyRecurringOnDay(event: RecurringTimedTask, date: Date): boolean {
+	function isDailyRecurringOnDay(event: Task, date: Date): boolean {
 		// Check if today is one of the recurring days of the week
 		const dayOfWeek = getDay(date);
 		return event.recurringDaysOfWeek.includes(nameOfDaysOfWeek[dayOfWeek]);
 	}
 
-	function isWeeklyRecurringOnDay(event: RecurringTimedTask, date: Date): boolean {
+	function isWeeklyRecurringOnDay(event: Task, date: Date): boolean {
 		return getDay(event.date) === getDay(date);
 	}
 
-	function isMonthlyRecurringOnDay(event: RecurringTimedTask, date: Date): boolean {
+	function isMonthlyRecurringOnDay(event: Task, date: Date): boolean {
 		return getDate(event.date) === getDate(date);
 	}
 
-	function isYearlyRecurringOnDay(event: RecurringTimedTask, date: Date): boolean {
+	function isYearlyRecurringOnDay(event: Task, date: Date): boolean {
 		return getDate(event.date) === getDate(date) && getMonth(event.date) === getMonth(date);
 	}
 }
 
-export function getEventGrid(events: AnyTimedTask[]): EventsGrid {
+export function getEventGrid(events: Task[]): EventsGrid {
 	const arrayTimeSlots = getTimeSlots(events);
 	const eventColumns = assignColumns(events);
 	const objectTimeSlots: EventsGrid = Array.from({ length: 96 }, () => ({}));
@@ -121,7 +121,7 @@ export function getEventGrid(events: AnyTimedTask[]): EventsGrid {
 	 	96:[eventId99, eventId100,...],
 	 ]
 	 */
-	function getTimeSlots(events: AnyTimedTask[]): string[][] {
+	function getTimeSlots(events: Task[]): string[][] {
 		const timeSlots = new Array(NUMBER_OF_CELLS).fill(null).map<string[]>(() => []);
 
 		for (const event of events) {
@@ -152,7 +152,7 @@ export function getEventGrid(events: AnyTimedTask[]): EventsGrid {
 
 	 this is used so then we can know each how many events can be fit in the same time grid but in different columns
 	 */
-	function assignColumns(events: AnyTimedTask[]): Record<string, number> {
+	function assignColumns(events: Task[]): Record<string, number> {
 		const columnEndTimes: number[] = [];
 		const eventColumns: Record<string, number> = {};
 

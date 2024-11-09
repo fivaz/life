@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { AnyTimedTask, Task } from '$lib/task/utils';
+	import type { Task } from '$lib/task/utils';
 
 	import { type Category, CategoryTypes } from '$lib/category/utils';
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
 	import TaskCompletedNotificationStack from '$lib/task/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
-	import { buildEmptyEvent, buildEventWithTime } from '$lib/task/build-utils';
+	import { buildTimedTask, buildTimedTaskWithTimeSet } from '$lib/task/build-utils';
 
 	import {
 		editPossibleSingleRecurringEvent,
@@ -22,14 +22,14 @@
 
 	let isFormShown = $state<boolean>(false);
 
-	let editingTask = $state<Task>(buildEmptyEvent([]));
+	let editingTask = $state<Task>(buildTimedTask([]));
 
 	let completedTasks = $state<Task[]>([]);
 
 	// ADD
 	function openFormToCreateTask(categories: Category[], date: Date) {
 		isFormShown = true;
-		editingTask = buildEventWithTime(categories, date);
+		editingTask = buildTimedTaskWithTimeSet(categories, date);
 	}
 
 	//EDIT
@@ -40,7 +40,7 @@
 	}
 
 	//TOGGLE
-	function toggleCompletion(userId: string, event: AnyTimedTask, targetDate: string) {
+	function toggleCompletion(userId: string, event: Task, targetDate: string) {
 		const newEvent = { ...event, isDone: !event.isDone };
 		editPossibleSingleRecurringEvent(newEvent, userId, targetDate);
 		updateNotification(newEvent);

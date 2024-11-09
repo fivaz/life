@@ -1,5 +1,5 @@
 <script module lang="ts">
-	import { type UnTimedTask } from '$lib/task/utils';
+	import { type Task } from '$lib/task/utils';
 
 	import { birthdayToDo, toDos, workToDo } from '$lib/task/seed';
 
@@ -12,7 +12,7 @@
 	});
 </script>
 
-{#snippet template(args: { tasks: UnTimedTask[] })}
+{#snippet template(args: { tasks: Task[] })}
 	<div class="w-24">
 		<ToDosPanel {...args} />
 	</div>

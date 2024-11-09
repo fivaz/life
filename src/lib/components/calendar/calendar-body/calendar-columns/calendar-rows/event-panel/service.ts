@@ -1,4 +1,4 @@
-import type { AnyTimedTask } from '$lib/task/utils';
+import type { Task } from '$lib/task/utils';
 
 import {
 	GRID_CELL_HEIGHT,
@@ -104,7 +104,7 @@ export function getDurationFromCellSize(height: number) {
 	return format(resultDate, TIME);
 }
 
-export function getCellSizeFromDuration(event: AnyTimedTask) {
+export function getCellSizeFromDuration(event: Task) {
 	const numberOfFilledCells = getDurationInMinutes(event) / GRID_CELL_TIME;
 	const roundedNumberOfFilledCells = Math.round(numberOfFilledCells);
 	return roundedNumberOfFilledCells * GRID_CELL_HEIGHT;
@@ -112,7 +112,7 @@ export function getCellSizeFromDuration(event: AnyTimedTask) {
 
 export function hasMoved(
 	panel: HTMLDivElement,
-	event: AnyTimedTask,
+	event: Task,
 ): { date: string; duration: string; startTime: string } | false {
 	const dateTime = getDateTimeBeneath(panel);
 	if (!dateTime) return false;

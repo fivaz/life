@@ -5,7 +5,7 @@
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { DB_PATH } from '$lib/consts';
-	import { buildEmptyEvent, buildEmptyToDo } from '$lib/task/build-utils';
+	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
 	import { title } from '$lib/utils.svelte';
 
 	import GoalForm from './goal-form/GoalForm.svelte';
@@ -19,7 +19,7 @@
 
 	let editingGoal = $state<Goal>(buildEmptyGoal());
 
-	let editingTask = $state<Task>(buildEmptyToDo([]));
+	let editingTask = $state<Task>(buildUntimedTask([]));
 
 	let isFormOpen = $state<boolean>(false);
 
@@ -66,7 +66,7 @@
 													{goal}
 													addTask={() => {
 														isTaskFormOpen = true;
-														editingTask = buildEmptyEvent(categories, goal);
+														editingTask = buildTimedTask(categories, goal);
 													}}
 													editGoal={(goal) => {
 														isFormOpen = true;

@@ -3,37 +3,25 @@ import type { Goal } from '$lib/goal/utils';
 
 import { convertTimeToMinutes, getTaskDateTime } from '$lib/task/time-utils';
 
-export type CoreTask = {
-	category: Category;
-	createdAt: string;
-	description: string;
-	duration: string;
-	goal: Goal | null;
+export type Task = {
 	id: string;
-	image?: string;
-	isDone: boolean;
+	createdAt: string;
 	name: string;
+	isDone: boolean;
+	description: string;
+	image: string;
+	category: Category;
+	goal: Goal | null;
 	date: string;
-};
-
-export type UnTimedTask = CoreTask;
-
-export type TimedTask = CoreTask & {
+	duration: string;
 	startTime: string;
-};
-
-export const frequencies = ['daily', 'weekly', 'monthly', 'yearly'] as const;
-
-export type RecurringTimedTask = TimedTask & {
-	recurringFrequency: (typeof frequencies)[number];
+	recurringFrequency: (typeof frequencies)[number] | '';
 	recurringDaysOfWeek: string[];
 	recurringEndAt: string;
 	recurringExceptions: string[];
 };
 
-export type AnyTimedTask = TimedTask | RecurringTimedTask;
-
-export type Task = AnyTimedTask | UnTimedTask;
+export const frequencies = ['daily', 'weekly', 'monthly', 'yearly'] as const;
 
 export function getDurationInMinutes(task: Task) {
 	return convertTimeToMinutes(task.duration);
@@ -57,21 +45,21 @@ export function sortTasks(tasks: Task[]) {
 	});
 }
 
-export function isRecurring(task: Omit<Task, 'id'> | Task): task is RecurringTimedTask {
-	return 'recurringFrequency' in task;
+export function isRecurring(task: Omit<Task, 'id'> | Task) {
+	return !!task.recurringFrequency;
 }
 
-export function isUntimed(task: Omit<Task, 'id'> | Task): task is UnTimedTask {
-	return !('startTime' in task);
+export function isUntimed(task: Omit<Task, 'id'> | Task) {
+	return !task.startTime;
 }
 
-export function isTimed(task: Omit<Task, 'id'> | Task): task is TimedTask {
-	return 'startTime' in task;
+export function isTimed(task: Omit<Task, 'id'> | Task) {
+	return !!task.startTime;
 }
 
 export type SubTask = { isDone: boolean; title: string };
 
-export function getSubTasks(task: CoreTask): SubTask[] {
+export function getSubTasks(task: Task): SubTask[] {
 	// \[\s?([x ])\s?\] matches either [x] or [ ] (with optional spaces inside).
 	// \s-\s matches the separator - (a space, dash, space).
 	// (.+) captures the message part (anything after the separator).

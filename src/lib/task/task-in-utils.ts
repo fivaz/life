@@ -1,4 +1,4 @@
-import type { TimedTask, RecurringTimedTask, Task, UnTimedTask } from '$lib/task/utils';
+import type { Task } from '$lib/task/utils';
 
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 import { DATE, TIME } from '$lib/consts';
@@ -7,15 +7,12 @@ import { isRecurring, isUntimed } from '$lib/task/utils';
 import { addMinutes, addMonths, format, isAfter, parse } from 'date-fns';
 
 // TaskIn is a super type that has all the attributes of possible Tasks together
-export type TaskIn = UnTimedTask &
-	TimedTask &
-	Omit<RecurringTimedTask, 'recurringExceptions'> & {
-		endTime: string;
-		image: string;
-		isEvent: boolean;
-		isRecurring: boolean;
-		recurringExceptions: Date[];
-	};
+export type TaskIn = Task & {
+	endTime: string;
+	image: string;
+	isEvent: boolean;
+	isRecurring: boolean;
+};
 
 function checkDuration(taskIn: TaskIn): string {
 	if (
@@ -41,121 +38,62 @@ export function checkErrors(taskIn: TaskIn): string {
 	return checkDuration(taskIn) || checkIsInverted(taskIn);
 }
 
-export function convertToAnyTask(taskIn: TaskIn): Task {
+export function convertToTask(taskIn: TaskIn): Task {
 	taskIn.name = taskIn.name || taskIn.category.name;
 
-	if (taskIn.isEvent) {
-		if (taskIn.isRecurring) {
-			return getRecurringEvent(taskIn);
-		} else {
-			return getEvent(taskIn);
-		}
-	} else {
-		return getToDo(taskIn);
+	const { endTime, ...task } = taskIn;
+
+	if (!taskIn.isEvent) {
+		task.startTime = '';
 	}
-}
 
-export function getToDo(data: TaskIn): UnTimedTask {
-	return {
-		category: data.category,
-		createdAt: data.createdAt,
-		date: data.date,
-		description: data.description,
-		duration: data.duration,
-		goal: data.goal,
-		id: data.id,
-		image: data.image,
-		isDone: data.isDone,
-		name: data.name,
-	};
-}
+	if (!taskIn.isRecurring) {
+		task.recurringFrequency = '';
+		task.recurringDaysOfWeek = [];
+		task.recurringEndAt = '';
+		task.recurringExceptions = [];
+	}
 
-export function getEvent(data: TaskIn): TimedTask {
-	return {
-		category: data.category,
-		createdAt: data.createdAt,
-		date: data.date,
-		description: data.description,
-		duration: data.duration,
-		goal: data.goal,
-		id: data.id,
-		image: data.image,
-		isDone: data.isDone,
-		name: data.name,
-		startTime: data.startTime,
-	};
-}
-
-export function getRecurringEvent(data: TaskIn): RecurringTimedTask {
-	return {
-		category: data.category,
-		createdAt: data.createdAt,
-		date: data.date,
-		description: data.description,
-		duration: data.duration,
-		goal: data.goal,
-		id: data.id,
-		image: data.image,
-		isDone: data.isDone,
-		name: data.name,
-		recurringDaysOfWeek: data.recurringDaysOfWeek,
-		recurringEndAt: data.recurringEndAt,
-		recurringExceptions: data.recurringExceptions.map((date) => format(date, DATE)),
-		recurringFrequency: data.recurringFrequency,
-		startTime: data.startTime,
-	};
+	return task;
 }
 
 export function convertToTaskIn(task: Task): TaskIn {
+	const taskIn: TaskIn = Object.assign(buildEmptyTaskIn(), task);
+
+	taskIn.endTime = sumTimes(taskIn.startTime, taskIn.duration);
+
 	if (isUntimed(task)) {
-		return convertToDo(task);
-	} else if (isRecurring(task)) {
-		return convertRecurring(task);
-	} else {
-		return convertEvent(task);
+		taskIn.isEvent = true;
 	}
+
+	if (isRecurring(task)) {
+		taskIn.isRecurring = true;
+	}
+
+	return taskIn;
 }
 
-function convertToDo(todo: UnTimedTask): TaskIn {
+function buildEmptyTaskIn(): TaskIn {
+	const now = getCurrentRoundedDate();
+
 	return {
-		...todo,
-		date: format(new Date(), DATE),
-		duration: todo.duration || '00:15',
-		endTime: format(addMinutes(getCurrentRoundedDate(), convertTimeToMinutes(todo.duration)), TIME),
-		image: todo.image || '',
+		id: '',
+		name: '',
+		description: '',
+		goal: null,
+		isDone: false,
+		category: { id: '', name: 'no Category', isDefault: false, color: '', type: '' },
+		createdAt: format(now, DATE),
+		date: format(now, DATE),
+		duration: '00:15',
+		endTime: format(addMinutes(now, 15), TIME),
+		image: '',
 		isEvent: false,
 		isRecurring: false,
 		recurringFrequency: 'daily',
 		recurringDaysOfWeek: nameOfDaysOfWeek.slice(1, 6),
-		recurringEndAt: format(addMonths(new Date(), 1), DATE),
+		recurringEndAt: format(addMonths(now, 1), DATE),
 		recurringExceptions: [],
-		startTime: format(getCurrentRoundedDate(), TIME),
-	};
-}
-
-function convertRecurring(event: RecurringTimedTask): TaskIn {
-	return {
-		...event,
-		date: event.date,
-		endTime: sumTimes(event.startTime, event.duration),
-		image: event.image || '',
-		isEvent: true,
-		isRecurring: true,
-		recurringExceptions: event.recurringExceptions.map((date) => parse(date, DATE, new Date())),
-	};
-}
-
-function convertEvent(event: TimedTask): TaskIn {
-	return {
-		...event,
-		date: event.date,
-		endTime: sumTimes(event.startTime, event.duration),
-		image: event.image || '',
-		isEvent: true,
-		isRecurring: false,
-		recurringDaysOfWeek: nameOfDaysOfWeek.slice(1, 6),
-		recurringEndAt: format(addMonths(new Date(), 1), DATE),
-		recurringExceptions: [],
-		recurringFrequency: 'daily',
+		startTime: format(now, TIME),
 	};
 }

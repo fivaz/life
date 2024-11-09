@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import { buildEmptyToDo, buildToDoWithDate } from '$lib/task/build-utils';
+	import { buildUntimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
 	import { type Task } from '$lib/task/utils';
 
 	import { DocumentText } from '@steeze-ui/heroicons';
@@ -17,7 +17,7 @@
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 	import DBGoals from '$lib/goal/DBGoals.svelte';
 
-	let editingTask: Task = $state(buildEmptyToDo([]));
+	let editingTask: Task = $state(buildUntimedTask([]));
 
 	let isFormShown = $state(false);
 
@@ -54,7 +54,7 @@
 					<Button
 						onclick={() => {
 							openForm();
-							editingTask = buildEmptyToDo(categories);
+							editingTask = buildUntimedTask(categories);
 						}}
 					>
 						<Plus class="h-4 w-auto" />
@@ -73,7 +73,7 @@
 									label={dateGroup}
 									create={(date) => {
 										openForm();
-										editingTask = buildToDoWithDate(categories, date);
+										editingTask = buildUntimedTaskWithDateSet(categories, date);
 									}}
 									edit={(task) => {
 										openForm();

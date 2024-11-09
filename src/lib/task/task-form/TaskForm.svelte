@@ -20,7 +20,7 @@
 	import TaskFormEvent from '$lib/task/task-form/task-form-event/TaskFormEvent.svelte';
 	import TaskFormImage from '$lib/task/task-form/task-form-image/TaskFormImage.svelte';
 	import TaskFormRecurring from '$lib/task/task-form/task-form-recurring/TaskFormRecurring.svelte';
-	import { checkErrors, convertToAnyTask, convertToTaskIn } from '$lib/task/task-in-utils';
+	import { checkErrors, convertToTask, convertToTaskIn } from '$lib/task/task-in-utils';
 	import { EllipsisVertical, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
@@ -43,6 +43,8 @@
 	let { task, goals, categories, targetDate, userId, close }: Props = $props();
 
 	taskIn.value = convertToTaskIn(task);
+
+	$inspect(taskIn.value);
 
 	const wasRecurring = isRecurring(task);
 
@@ -82,7 +84,7 @@
 			return;
 		}
 
-		const { id, ...data } = convertToAnyTask(taskIn.value);
+		const { id, ...data } = convertToTask(taskIn.value);
 
 		if (id) {
 			handleEditTask(data, id);

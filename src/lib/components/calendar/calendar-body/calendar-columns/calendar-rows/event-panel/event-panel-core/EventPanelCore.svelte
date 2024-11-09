@@ -3,19 +3,14 @@
 	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
 	import { TIME } from '$lib/consts';
 	import { roundTo15 } from '$lib/task/time-utils';
-	import {
-		type AnyTimedTask,
-		getCompletedTasks,
-		getDurationInMinutes,
-		getSubTasks,
-	} from '$lib/task/utils';
+	import { type Task, getCompletedTasks, getDurationInMinutes, getSubTasks } from '$lib/task/utils';
 	import { clsx } from 'clsx';
 	import { format, parse } from 'date-fns';
 	import { getContext } from 'svelte';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 
 	interface Props {
-		event: AnyTimedTask;
+		event: Task;
 		targetDate: string;
 		isSelected: boolean;
 	}

@@ -3,7 +3,6 @@
 
 	import DayTasksList from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/tasks-summary/day-tasks-list/DayTasksList.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import { isRecurring } from '$lib/task/utils.js';
 	import { clsx } from 'clsx';
 
 	interface Props {
@@ -22,9 +21,7 @@
 
 	function getValidWorks(tasks: Task[]): Task[] {
 		// accept only category work tasks
-		const workTasks = tasks.filter((task) => task.category.type === 'work');
-		// accept only non-recurring tasks
-		return workTasks.filter((workTask) => !isRecurring(workTask));
+		return tasks.filter((task) => task.category.type === 'work');
 	}
 
 	function getLabel(tasks: Task[]): string {

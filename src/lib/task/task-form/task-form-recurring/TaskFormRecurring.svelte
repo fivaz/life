@@ -11,24 +11,18 @@
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import { frequencies } from '$lib/task/utils';
 	import { taskIn } from '$lib/task/task-form/service.svelte';
-	import { format } from 'date-fns';
-	import { DATE } from '$lib/consts';
-
-	let isRecurringOpen = $state(false);
+	
+let isRecurringOpen = $state(false);
 
 	let ref = $state<HTMLInputElement | null>(null);
-
-	let exceptionsInString = $derived.by(() =>
-		taskIn.value.recurringExceptions.map((date) => format(date, DATE)),
-	);
 
 	$effect(() => {
 		if (ref) {
 			flatpickr(ref, {
 				dateFormat: 'Y-m-d',
 				mode: 'multiple',
-				onValueUpdate: (dates) => {
-					taskIn.value.recurringExceptions = dates;
+				onValueUpdate: (_, datesStr) => {
+					taskIn.value.recurringExceptions = datesStr.split(',');
 				},
 			});
 		}
@@ -78,7 +72,7 @@
 						<input
 							class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 							bind:this={ref}
-							value={exceptionsInString}
+							value={taskIn.value.recurringExceptions}
 						/>
 					</label>
 				</div>

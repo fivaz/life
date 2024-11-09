@@ -1,5 +1,5 @@
 import type { Goal } from '$lib/goal/utils';
-import { isTimed, type RecurringTimedTask, type Task } from '$lib/task/utils';
+import { isTimed, type Task } from '$lib/task/utils';
 
 import { createDialog } from '$lib/components/dialog/service.svelte.js';
 import { DB_PATH } from '$lib/consts';
@@ -46,19 +46,24 @@ function addTaskToGoal(userId: string, data: Omit<Task, 'id'>, id: string) {
 
 export function editSingleRecurringEvent(
 	id: string,
-	recurringEvent: Omit<RecurringTimedTask, 'id'>,
+	recurringEvent: Omit<Task, 'id'>,
 	userId: string,
 	targetDate: string,
 	file?: File | null,
 ) {
 	//remove all the recurring attributes from the event
-	const { recurringDaysOfWeek, recurringEndAt, recurringExceptions, recurringFrequency, ...event } =
-		recurringEvent;
+	const event: Omit<Task, 'id'> = {
+		...recurringEvent,
+		recurringFrequency: '',
+		recurringDaysOfWeek: [],
+		recurringEndAt: '',
+		recurringExceptions: [],
+	};
 
 	// clone the event but with a new date
-	const newEvent = { ...event, date: targetDate };
+	event.date = targetDate;
 
-	void addTask(newEvent, userId, file);
+	void addTask(event, userId, file);
 
 	addExceptionToRecurring(id, recurringEvent, targetDate, userId);
 }
@@ -81,7 +86,7 @@ export async function editTaskWithPrompt({
 	wasRecurring: boolean;
 }): Promise<boolean> {
 	if (isRecurring(data) && wasRecurring && targetDate) {
-		const recurringData = data as Omit<RecurringTimedTask, 'id'>;
+		const recurringData = data as Omit<Task, 'id'>;
 		const result = await createDialog({
 			cancelText: 'future events',
 			confirmText: 'this event only',
@@ -188,7 +193,7 @@ export async function deletePossibleSingleRecurringEvent(
 		}
 
 		if (result) {
-			addExceptionToRecurring(id, data as Omit<RecurringTimedTask, 'id'>, targetDate, userId);
+			addExceptionToRecurring(id, data as Omit<Task, 'id'>, targetDate, userId);
 		} else {
 			deleteTask(id, data, userId);
 		}
@@ -199,12 +204,7 @@ export async function deletePossibleSingleRecurringEvent(
 	return true;
 }
 
-function addExceptionToRecurring(
-	id: string,
-	task: Omit<RecurringTimedTask, 'id'>,
-	date: string,
-	userId: string,
-) {
+function addExceptionToRecurring(id: string, task: Omit<Task, 'id'>, date: string, userId: string) {
 	const exceptions = [...task.recurringExceptions, date];
 
 	const taskDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.TASKS, id);

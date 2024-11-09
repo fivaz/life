@@ -2,7 +2,7 @@
 	import { categories } from '$lib/category/seed';
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
 	import { dialog } from '$lib/components/dialog/service.svelte.js';
-	import { buildEmptyEvent, buildEmptyToDo } from '$lib/task/build-utils';
+	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
 	import { normalWithSubTasks } from '$lib/task/seed';
 
 	import TaskForm from './TaskForm.svelte';
@@ -32,7 +32,7 @@
 <Story
 	args={{
 		targetDate: new Date().toISOString(),
-		task: buildEmptyEvent(categories),
+		task: buildTimedTask(categories),
 	}}
 	name="Create Event"
 	children={template}
@@ -49,7 +49,7 @@
 
 <Story
 	args={{
-		task: buildEmptyToDo(categories),
+		task: buildUntimedTask(categories),
 	}}
 	name="Create ToDo"
 	children={template}
