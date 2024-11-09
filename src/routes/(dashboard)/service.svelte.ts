@@ -38,10 +38,13 @@ const tasksWeekHashMap = $state<Record<string, { unique: Task[]; recurring: Task
 
 export const tasks = {
 	get value() {
-		return Object.values(tasksWeekHashMap).flatMap((entry) => [
+		const tasks = Object.values(tasksWeekHashMap).flatMap((entry) => [
 			...entry.unique,
 			...entry.recurring,
 		]);
+
+		// remove duplicates
+		return Array.from(tasks.reduce((map, task) => map.set(task.id, task), new Map()).values());
 	},
 };
 
@@ -58,7 +61,7 @@ function queryWeekTasks(userId: string, startOfWeek: Date): [Query<Task>, Query<
 	const endOfWeekString = format(endOfWeek(startOfWeek, { weekStartsOn: 1 }), DATE);
 	const tasksRef = collection(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}`);
 	return [
-		query(tasksRef, where('recurringFrequency', '!=', null)) as Query<Task>,
+		query(tasksRef, where('recurringFrequency', '!=', '')) as Query<Task>,
 		query(
 			tasksRef,
 			where('date', '>=', startOfWeekString),
