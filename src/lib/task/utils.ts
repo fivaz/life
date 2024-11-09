@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 import type { Category } from '$lib/category/utils';
 import type { Goal } from '$lib/goal/utils';
 import { convertTimeToMinutes, getTaskDateTime } from '$lib/task/time-utils';
@@ -27,6 +29,38 @@ export type Task = {
 };
 
 export const frequencies = ['daily', 'weekly', 'monthly', 'yearly', ''] as const;
+
+export const taskSchema = z.object({
+	id: z.string(),
+	createdAt: z.string(),
+	name: z.string(),
+	isDone: z.boolean(),
+	description: z.string(),
+	image: z.string(),
+	category: z.object({
+		name: z.string(),
+		isDefault: z.boolean(),
+		type: z.string(),
+		color: z.string(),
+	}),
+	goal: z
+		.object({
+			deadline: z.string(),
+			icon: z.null().nullable(),
+			id: z.string(),
+			isDone: z.boolean(),
+			name: z.string(),
+		})
+		.nullable(),
+	date: z.string(),
+	duration: z.string(),
+	startTime: z.string(),
+	// TODO type recurringFrequency better
+	recurringFrequency: z.string(),
+	recurringDaysOfWeek: z.array(z.string()),
+	recurringEndAt: z.string(),
+	recurringExceptions: z.array(z.string()),
+});
 
 export function getDurationInMinutes(task: Task) {
 	return convertTimeToMinutes(task.duration);

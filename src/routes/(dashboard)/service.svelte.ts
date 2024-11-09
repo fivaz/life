@@ -1,8 +1,3 @@
-import { type Task, isRecurring } from '$lib/task/utils';
-
-import { editSingleRecurringEvent, editTask } from '$lib/task/task-form/db-service';
-import { DATE, DB_PATH } from '$lib/consts';
-import { db } from '$lib/firebase';
 import { endOfWeek, format } from 'date-fns';
 import {
 	collection,
@@ -12,6 +7,11 @@ import {
 	type QuerySnapshot,
 	where,
 } from 'firebase/firestore';
+
+import { DATE, DB_PATH } from '$lib/consts';
+import { db } from '$lib/firebase';
+import { editSingleRecurringEvent, editTask } from '$lib/task/task-form/db-service';
+import { isRecurring, type Task, taskSchema } from '$lib/task/utils';
 
 export function moveEvent(
 	userId: string,
@@ -98,9 +98,16 @@ function updateTasksFromSnapshot(
 	startOfWeek: string,
 	taskType: keyof (typeof tasksWeekHashMap)[string],
 ) {
-	tasksWeekHashMap[startOfWeek][taskType] = snapshot.docs.map(
-		(doc) => ({ ...doc.data(), id: doc.id }) as Task,
-	);
+	tasksWeekHashMap[startOfWeek][taskType] = snapshot.docs.map((doc) => {
+		const task = { ...doc.data(), id: doc.id };
+		const validation = taskSchema.safeParse(task);
+
+		if (!validation.success) {
+			console.warn(`validation failed for task: ${task.id}, ${validation.error}`);
+		}
+
+		return task;
+	});
 }
 
 export function editPossibleSingleRecurringEvent(event: Task, userId: string, targetDate: string) {

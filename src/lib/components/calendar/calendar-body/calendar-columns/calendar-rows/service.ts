@@ -18,8 +18,7 @@ import {
 } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
 import { DATE } from '$lib/consts';
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
-import { convertTimeToMinutes } from '$lib/task/time-utils';
-import { type Task } from '$lib/task/utils';
+import { sortTasks, type Task } from '$lib/task/utils';
 import { isRecurring } from '$lib/task/utils';
 
 export function getTasksForDate(tasks: Task[], date: Date): Task[] {
@@ -112,9 +111,7 @@ function isRecurringOnDay(event: Task, date: Date): boolean {
  */
 export function getEventGrid(events: Task[]): EventsGrid {
 	// the algorithm only works if events are sorted by time
-	const sortedEvents = events.toSorted(
-		(a, b) => convertTimeToMinutes(a.startTime) - convertTimeToMinutes(b.startTime),
-	);
+	const sortedEvents = sortTasks(events);
 
 	const timeSlotsByEvents = getTimeSlots(sortedEvents);
 	const columnByEvent = assignColumns(sortedEvents);
