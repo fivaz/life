@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { isTimed, type Task } from '$lib/task/utils';
+	import { isRecurring, isTimed, type Task } from '$lib/task/utils';
 
 	import { DATE } from '$lib/consts';
 	import { getTotalDuration } from '$lib/task/time-utils';
@@ -32,14 +32,18 @@
 	});
 
 	function postponeRemainingUntimedTasks() {
-		const postponedToDos = uncompletedTasks
-			.filter((task) => !isTimed(task))
-			.map((task) => {
+		const untimedTasks = uncompletedTasks.filter((task) => !isTimed(task));
+
+		const untimedTasksUpdated = untimedTasks.map((task) => {
+			if (isRecurring(task)) {
+				return { ...task, recurringExceptions: [...task.recurringExceptions, format(date, DATE)] };
+			} else {
 				const dayAfter = format(addDays(parse(task.date, DATE, new Date()), 1), DATE);
 				return { ...task, date: dayAfter };
-			});
+			}
+		});
 
-		persistTasks(postponedToDos);
+		persistTasks(untimedTasksUpdated);
 	}
 
 	const editTask = getContext('editTask');
