@@ -52,14 +52,10 @@ export function addCategory(data: Omit<Category, 'id'>, userId: string) {
 }
 
 // DELETE
-export async function deleteCategory(
-	id: string | undefined,
-	userId: string,
-	closeForm: () => void,
-) {
+export function deleteCategory(id: string | undefined, userId: string, closeForm: () => void) {
 	if (id) {
 		const categoryDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES, id);
-		await deleteDoc(categoryDocRef);
+		void deleteDoc(categoryDocRef);
 		closeForm();
 	}
 }
