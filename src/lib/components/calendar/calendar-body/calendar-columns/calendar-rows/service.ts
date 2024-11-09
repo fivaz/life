@@ -21,6 +21,7 @@ import {
 	parse,
 	startOfDay,
 } from 'date-fns';
+import { convertTimeToMinutes } from '$lib/task/time-utils';
 
 export function getTasksForDate(tasks: Task[], date: Date): Task[] {
 	return tasks.filter((task) => isForDate(task, date));
@@ -93,32 +94,56 @@ function isRecurringOnDay(event: Task, date: Date): boolean {
 	}
 }
 
-export function getEventGrid(events: Task[]): EventsGrid {
-	const arrayTimeSlots = getTimeSlots(events);
-	const eventColumns = assignColumns(events);
-	const objectTimeSlots: EventsGrid = Array.from({ length: 96 }, () => ({}));
+/**
+ Convert a list of events into an array in which each index represent a time slot of 15 minutes of the day,
+ and each item is an object where its keys represent a column and the value is the id of the event that will
+ be placed in that column for the time slot
 
-	arrayTimeSlots.forEach((timeSlotEvents, index) => {
-		timeSlotEvents.forEach((eventId) => {
-			objectTimeSlots[index][eventColumns[eventId]] = eventId;
+ 	 [
+		 // 0 = 00:00
+	 	0:{0: 'eventId1'},
+		 // 1 = 00:15
+	 	1:{0: 'eventId2', 1: 'eventId3',...},
+	 	...
+		 // 94 = 23:30
+	 	94:{0:'eventId99', 1: 'eventId100',...},
+		 // 95 = 23:45
+	 	95:{0:'eventId99', 1: 'eventId100',...},
+	 ]
+ */
+export function getEventGrid(events: Task[]): EventsGrid {
+	// the algorithm only works if events are sorted by time
+	const sortedEvents = events.toSorted(
+		(a, b) => convertTimeToMinutes(a.startTime) - convertTimeToMinutes(b.startTime),
+	);
+
+	const timeSlotsByEvents = getTimeSlots(sortedEvents);
+	const columnByEvent = assignColumns(sortedEvents);
+	const eventGrid: EventsGrid = Array.from({ length: 96 }, () => ({}));
+
+	timeSlotsByEvents.forEach((eventIds, timeSlot) => {
+		eventIds.forEach((eventId) => {
+			const column = columnByEvent[eventId];
+			eventGrid[timeSlot][column] = eventId;
 		});
 	});
-
-	return objectTimeSlots;
+	console.log(eventGrid);
+	return eventGrid;
 
 	/**
-	 convert a list of events from:
-
-	 [event1, event2,...]
-
-	 into a hashmap of events ids in which each hash represent 15 minutes like:
+	 Convert a list of events into a list of time slots in which each index represents 15 minutes,
+	 and it contains a list of events ids that take place in that time slot:
 
 	 [
-	 	0:[eventId1, eventId2,...],
+		 // 0 = 00:00
+	 	0:[eventId1],
+		 // 1 = 00:15
 	 	1:[eventId2, eventId3,...],
 	 	...
-	 	95:[eventId97, eventId98,...],
-	 	96:[eventId99, eventId100,...],
+		 // 94 = 23:30
+	 	94:[eventId99, eventId100,...],
+		 // 95 = 23:45
+	 	95:[eventId99, eventId100,...],
 	 ]
 	 */
 	function getTimeSlots(events: Task[]): string[][] {
@@ -135,11 +160,9 @@ export function getEventGrid(events: Task[]): EventsGrid {
 	}
 
 	/**
-	 Convert a list of events from:
-
-	 [event1, event2,...]
-
-	 into an Object in which the keys are events Ids and the values are the position of each event:
+	 Convert a list of events into an Object in which the keys are events ids and the values are the colum in which the event should start its placement,
+	 events can spread to other columns if they exist. So in case there two events take place at the same moment one will start at the column 0
+	 and the other at column 1 but if there is only one event at a certain moment it will also be placed at column 0
 
 	 [
 	 	eventId1:0,
@@ -150,7 +173,7 @@ export function getEventGrid(events: Task[]): EventsGrid {
 	  ...
 	 ]
 
-	 this is used so then we can know each how many events can be fit in the same time grid but in different columns
+	 this is used to guarantee that if two events are taking place simultaneously they will never occupy the same column
 	 */
 	function assignColumns(events: Task[]): Record<string, number> {
 		const columnEndTimes: number[] = [];
