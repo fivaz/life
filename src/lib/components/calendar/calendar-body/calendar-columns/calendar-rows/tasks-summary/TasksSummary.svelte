@@ -9,9 +9,10 @@
 		tasks: Task[];
 		class?: string;
 		style?: string;
+		date: Date;
 	}
 
-	let { tasks, style, class: klass }: Props = $props();
+	let { tasks, style, class: klass, date }: Props = $props();
 
 	let isOpen = $state(false);
 
@@ -53,5 +54,5 @@
 {/if}
 
 <Modal bind:isOpen>
-	<DayTasksList close={() => (isOpen = false)} tasks={workTasks} />
+	<DayTasksList {date} close={() => (isOpen = false)} tasks={workTasks} />
 </Modal>

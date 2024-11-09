@@ -14,9 +14,10 @@
 	interface Props {
 		tasks: Task[];
 		close: () => void;
+		date: Date;
 	}
 
-	let { tasks, close }: Props = $props();
+	let { tasks, close, date }: Props = $props();
 
 	let uncompletedTasks = $derived(tasks.filter((toDo) => toDo.isDone === false));
 
@@ -64,7 +65,7 @@
 			<li class="hover:bg-gray-100 hover:underline">
 				<button
 					class="flex w-full items-center px-6 py-3 text-left"
-					onclick={() => editTask(task, '')}
+					onclick={() => editTask(task, format(date, DATE))}
 				>
 					<span class="w-5 pr-3 font-medium text-gray-500">{index + 1}</span>
 					<Icon

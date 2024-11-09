@@ -3,18 +3,20 @@
 
 	import { birthdayToDo, toDos, workToDo } from '$lib/task/seed';
 
-	import ToDosPanel from './TasksSummary.svelte';
+	import TasksSummary from './TasksSummary.svelte';
 
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
-	const { Story } = defineMeta({
-		component: ToDosPanel,
+	
+
+const { Story } = defineMeta({
+		component: TasksSummary,
 	});
 </script>
 
 {#snippet template(args: { tasks: Task[] })}
 	<div class="w-24">
-		<ToDosPanel {...args} />
+		<TasksSummary date={new Date()} {...args} />
 	</div>
 {/snippet}
 
