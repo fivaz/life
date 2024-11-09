@@ -167,12 +167,15 @@
 				{errorMessage}
 			</Alert>
 
+			<!--name-->
 			<Input autocomplete="off" bind:value={taskIn.value.name} class="flex-1" placeholder="Name" />
 
+			<!--image-->
 			<Collapsable title="Image">
 				<TaskFormImage bind:file />
 			</Collapsable>
 
+			<!--description-->
 			<Collapsable title="Description">
 				<label class="block text-sm text-gray-700">
 					<textarea
@@ -184,6 +187,7 @@
 				</label>
 			</Collapsable>
 
+			<!--category-->
 			<Select
 				bind:value={taskIn.value.category}
 				class="flex items-center"
@@ -209,6 +213,7 @@
 				{/each}
 			</Select>
 
+			<!--goal-->
 			<Select
 				bind:value={taskIn.value.goal}
 				class="flex items-center"
@@ -228,14 +233,9 @@
 				{/each}
 			</Select>
 
+			<!--date AND duration-->
 			<div class="flex gap-3">
-				<Input
-					bind:value={taskIn.value.date}
-					class="w-1/2"
-					disabled={taskIn.value.isEvent}
-					label="Deadline"
-					type="date"
-				/>
+				<Input bind:value={taskIn.value.date} class="w-1/2" label="Date" type="date" />
 
 				<Input
 					bind:value={taskIn.value.duration}
@@ -249,9 +249,7 @@
 
 			<TaskFormEvent />
 
-			{#if taskIn.value.isEvent}
-				<TaskFormRecurring />
-			{/if}
+			<TaskFormRecurring />
 		</div>
 	</div>
 

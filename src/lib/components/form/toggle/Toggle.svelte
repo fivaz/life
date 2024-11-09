@@ -13,7 +13,7 @@
 	}
 </script>
 
-<button onclick={handleClick} type="button" class="w-full">
+<button onclick={handleClick} type="button">
 	<span class="flex items-center gap-2">
 		<span class="flex-1 text-start">{label}</span>
 		<span

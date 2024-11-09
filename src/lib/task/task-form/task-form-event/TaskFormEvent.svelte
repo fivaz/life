@@ -25,54 +25,44 @@
 
 		return format(new Date(0, 0, 0, totalHours, remainingMinutes), TIME);
 	}
+
+	function togglePanel() {
+		if (!taskIn.value.isEvent) {
+			taskIn.value.isEvent = true;
+		}
+		isEventOpen = !isEventOpen;
+	}
 </script>
 
 <div class="rounded-lg bg-white p-2">
 	<div class="flex">
-		<button
-			class="flex-1 text-start"
-			onclick={() => {
-				if (taskIn.value.isEvent) {
-					isEventOpen = !isEventOpen;
-				} else {
-					taskIn.value.isEvent = true;
-				}
-			}}
-			type="button"
-		>
-			Event
-		</button>
-		<Toggle bind:value={taskIn.value.isEvent} onchange={(value) => (isEventOpen = value)} />
+		<button class="flex-1 text-start" onclick={togglePanel} type="button"> Time </button>
+		<Toggle bind:value={taskIn.value.isEvent} />
 	</div>
 
-	{#if taskIn.value.isEvent}
-		{#if isEventOpen}
-			<div transition:slide>
-				<Input bind:value={taskIn.value.date} label="Date" name="date" required type="date" />
+	{#if taskIn.value.isEvent && isEventOpen}
+		<div transition:slide>
+			<div class="flex gap-3">
+				<Input
+					bind:value={taskIn.value.startTime}
+					class="w-1/2"
+					label="Start at"
+					name="startTime"
+					oninput={(input) => (taskIn.value.endTime = sumTimes(input, taskIn.value.duration))}
+					required
+					type="time"
+				/>
 
-				<div class="flex gap-3">
-					<Input
-						bind:value={taskIn.value.startTime}
-						class="w-1/2"
-						label="Start time"
-						name="startTime"
-						oninput={(input) => (taskIn.value.endTime = sumTimes(input, taskIn.value.duration))}
-						required
-						type="time"
-					/>
-
-					<Input
-						bind:value={taskIn.value.endTime}
-						class="w-1/2"
-						label="End time"
-						name="endTime"
-						oninput={(input) =>
-							(taskIn.value.duration = getDuration(taskIn.value.startTime, input))}
-						required
-						type="time"
-					/>
-				</div>
+				<Input
+					bind:value={taskIn.value.endTime}
+					class="w-1/2"
+					label="End at"
+					name="endTime"
+					oninput={(input) => (taskIn.value.duration = getDuration(taskIn.value.startTime, input))}
+					required
+					type="time"
+				/>
 			</div>
-		{/if}
+		</div>
 	{/if}
 </div>
