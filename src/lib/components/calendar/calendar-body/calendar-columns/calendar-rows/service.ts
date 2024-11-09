@@ -119,11 +119,11 @@ export function isEventOnDay(task: Task, day: Date): boolean {
 	return false;
 }
 
-export function getToDos(tasks: Task[], date: Date) {
+export function getUnTimed(tasks: Task[], date: Date) {
 	return tasks.filter((task): task is UnTimedTask => isToDoOnDay(task, date));
 }
 
-export function getEvents(tasks: Task[], date: Date) {
+export function getTimed(tasks: Task[], date: Date) {
 	const events = tasks.filter((task): task is AnyTimedTask => isEventOnDay(task, date));
 	events.sort((a, b) => convertTimeToMinutes(a.startTime) - convertTimeToMinutes(b.startTime));
 	return events;

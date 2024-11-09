@@ -24,7 +24,7 @@
 	import { EllipsisVertical, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
-	import { isRecurring, isToDo } from '$lib/task/utils.js';
+	import { isRecurring, isUntimed } from '$lib/task/utils.js';
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';
 	import { Copy, ListTodo } from 'lucide-svelte';
 	import { sumTimes } from '$lib/task/time-utils';
@@ -54,7 +54,7 @@
 
 	let isEditing = $derived(!!task.id);
 
-	let formName = $derived(`${isEditing ? 'Edit' : 'Add'} ${isToDo(task) ? 'Task' : 'Event'}`);
+	let formName = $derived(`${isEditing ? 'Edit' : 'Add'} ${isUntimed(task) ? 'Task' : 'Event'}`);
 
 	function handleCreateTask(data: Omit<Task, 'id'>) {
 		addTask(data, userId, file);

@@ -61,12 +61,12 @@ export function isRecurring(task: Omit<Task, 'id'> | Task): task is RecurringTim
 	return 'recurringFrequency' in task;
 }
 
-export function isToDo(task: Omit<Task, 'id'> | Task): task is UnTimedTask {
-	return !('starTime' in task);
+export function isUntimed(task: Omit<Task, 'id'> | Task): task is UnTimedTask {
+	return !('startTime' in task);
 }
 
 export function isTimed(task: Omit<Task, 'id'> | Task): task is TimedTask {
-	return 'starTime' in task;
+	return 'startTime' in task;
 }
 
 export type SubTask = { isDone: boolean; title: string };

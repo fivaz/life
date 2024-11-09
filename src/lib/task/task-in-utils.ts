@@ -3,7 +3,7 @@ import type { TimedTask, RecurringTimedTask, Task, UnTimedTask } from '$lib/task
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 import { DATE, TIME } from '$lib/consts';
 import { convertTimeToMinutes, getCurrentRoundedDate, sumTimes } from '$lib/task/time-utils';
-import { isRecurring, isToDo } from '$lib/task/utils';
+import { isRecurring, isUntimed } from '$lib/task/utils';
 import { addMinutes, addMonths, format, isAfter, parse } from 'date-fns';
 
 // TaskIn is a super type that has all the attributes of possible Tasks together
@@ -107,7 +107,7 @@ export function getRecurringEvent(data: TaskIn): RecurringTimedTask {
 }
 
 export function convertToTaskIn(task: Task): TaskIn {
-	if (isToDo(task)) {
+	if (isUntimed(task)) {
 		return convertToDo(task);
 	} else if (isRecurring(task)) {
 		return convertRecurring(task);

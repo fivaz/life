@@ -3,7 +3,7 @@
 
 	import { DATE } from '$lib/consts';
 	import { getTotalDuration } from '$lib/task/time-utils';
-	import { isToDo } from '$lib/task/utils';
+	import { isUntimed } from '$lib/task/utils';
 	import { CalendarClock, CalendarDays } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
@@ -69,7 +69,7 @@
 					<span class="w-5 pr-3 font-medium text-gray-500">{index + 1}</span>
 					<Icon
 						class="h-5 w-8 pr-3 text-gray-400"
-						src={isToDo(task) ? CalendarDays : CalendarClock}
+						src={isUntimed(task) ? CalendarDays : CalendarClock}
 						theme="solid"
 					/>
 					<span
