@@ -34,15 +34,12 @@ export function persistToDos(userId: string, toDos: UnTimedTask[]) {
 	});
 }
 
-const tasksWeekHashMap = $state<
-	Record<string, { events: Task[]; todos: Task[]; recurring: Task[] }>
->({});
+const tasksWeekHashMap = $state<Record<string, { unique: Task[]; recurring: Task[] }>>({});
 
 export const tasks = {
 	get value() {
 		return Object.values(tasksWeekHashMap).flatMap((entry) => [
-			...entry.events,
-			...entry.todos,
+			...entry.unique,
 			...entry.recurring,
 		]);
 	},
@@ -56,10 +53,7 @@ export function getWeekTasks(userId: string, startOfWeek: Date): void {
 	}
 }
 
-function queryWeekTasks(
-	userId: string,
-	startOfWeek: Date,
-): [Query<Task>, Query<Task>, Query<Task>] {
+function queryWeekTasks(userId: string, startOfWeek: Date): [Query<Task>, Query<Task>] {
 	const startOfWeekString = format(startOfWeek, DATE);
 	const endOfWeekString = format(endOfWeek(startOfWeek, { weekStartsOn: 1 }), DATE);
 	const tasksRef = collection(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}`);
@@ -70,38 +64,28 @@ function queryWeekTasks(
 			where('date', '>=', startOfWeekString),
 			where('date', '<=', endOfWeekString),
 		) as Query<Task>,
-		query(
-			tasksRef,
-			where('deadline', '>=', startOfWeekString),
-			where('deadline', '<=', endOfWeekString),
-		) as Query<Task>,
 	];
 }
 
 export function subscribeToWeekTasks(userId: string, startOfWeek: Date) {
 	const startOfWeekString = format(startOfWeek, DATE);
-	tasksWeekHashMap[startOfWeekString] = { events: [], todos: [], recurring: [] };
+	tasksWeekHashMap[startOfWeekString] = { unique: [], recurring: [] };
 
-	const [recurringQuery, eventsQuery, toDosQuery] = queryWeekTasks(userId, startOfWeek);
+	const [recurringQuery, uniqueQuery] = queryWeekTasks(userId, startOfWeek);
 
 	// Use onSnapshot to listen for real-time updates for both queries
 	const unsubscribeRecurring = onSnapshot(recurringQuery, (snapshot) =>
 		updateTasksFromSnapshot(snapshot, startOfWeekString, 'recurring'),
 	);
 
-	const unsubscribeDate = onSnapshot(eventsQuery, (snapshot) =>
-		updateTasksFromSnapshot(snapshot, startOfWeekString, 'events'),
-	);
-
-	const unsubscribeDeadline = onSnapshot(toDosQuery, (snapshot) =>
-		updateTasksFromSnapshot(snapshot, startOfWeekString, 'todos'),
+	const unsubscribeDate = onSnapshot(uniqueQuery, (snapshot) =>
+		updateTasksFromSnapshot(snapshot, startOfWeekString, 'unique'),
 	);
 
 	// Return a function to unsubscribe from both snapshots
 	return () => {
 		unsubscribeRecurring();
 		unsubscribeDate();
-		unsubscribeDeadline();
 	};
 }
 

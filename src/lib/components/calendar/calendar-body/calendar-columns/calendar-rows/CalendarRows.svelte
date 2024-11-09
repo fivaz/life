@@ -6,10 +6,11 @@
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
 	import { SUMMARY_GRID_CELL_HEIGHT } from './calendar-grid/service.svelte';
 	import EventPanel from './event-panel/EventPanel.svelte';
-	import { getEventGrid, getTimed, getUnTimed } from './service';
+	import { getEventGrid, getTasksForDate } from './service';
 	import type { Task } from '$lib/task/utils';
 	import { isScrollingUp } from '$lib/components/calendar/calendar-body/calendar-columns/service.svelte';
 	import { onMount } from 'svelte';
+	import { isTimed } from '$lib/task/utils.js';
 
 	interface Props {
 		date: Date;
@@ -22,9 +23,9 @@
 
 	let formattedDate = $derived(format(date, DATE));
 
-	let untimedTasks = $derived(getUnTimed(tasks, date));
+	let tasksOnDate = $derived(getTasksForDate(tasks, date));
 
-	let timedTasks = $derived(getTimed(tasks, date));
+	let timedTasks = $derived(tasksOnDate.filter((task) => isTimed(task)));
 
 	let eventsGrid = $derived(getEventGrid(timedTasks));
 
@@ -61,7 +62,7 @@
 			style="width: {containerWidth}px"
 			class="{klass} {isScrollingUp.value ? 'fixed' : ''}
 			z-10 w-full justify-center shadow ring-1 ring-black ring-opacity-5"
-			tasks={[...untimedTasks, ...timedTasks]}
+			tasks={tasksOnDate}
 		/>
 	</div>
 	<div class="relative">

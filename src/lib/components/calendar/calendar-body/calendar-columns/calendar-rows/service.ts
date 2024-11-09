@@ -1,10 +1,4 @@
-import {
-	type AnyTimedTask,
-	isTimed,
-	type RecurringTimedTask,
-	type Task,
-	type UnTimedTask,
-} from '$lib/task/utils';
+import { type AnyTimedTask, type RecurringTimedTask, type Task } from '$lib/task/utils';
 
 import { NUMBER_OF_CELLS } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
 import {
@@ -13,8 +7,7 @@ import {
 } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
 
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
-import { DATE, DATETIME } from '$lib/consts';
-import { convertTimeToMinutes, sumTimes } from '$lib/task/time-utils';
+import { DATE } from '$lib/consts';
 import { isRecurring } from '$lib/task/utils';
 import {
 	endOfDay,
@@ -29,31 +22,16 @@ import {
 	startOfDay,
 } from 'date-fns';
 
-function isDateAnException(event: RecurringTimedTask, date: Date): boolean {
-	return event.recurringExceptions.some((exceptionDate) => {
-		return isWithinInterval(parse(exceptionDate, DATE, new Date()), {
-			end: endOfDay(date),
-			start: startOfDay(date),
-		});
-	});
+export function getTasksForDate(tasks: Task[], date: Date): Task[] {
+	return tasks.filter((task) => isForDate(task, date));
 }
 
-function isDailyRecurringOnDay(event: RecurringTimedTask, date: Date): boolean {
-	// Check if today is one of the recurring days of the week
-	const dayOfWeek = getDay(date);
-	return event.recurringDaysOfWeek.includes(nameOfDaysOfWeek[dayOfWeek]);
-}
+export function isForDate(task: Task, date: Date) {
+	if (isRecurring(task)) {
+		return isRecurringOnDay(task, date);
+	}
 
-function isWeeklyRecurringOnDay(event: RecurringTimedTask, date: Date): boolean {
-	return getDay(event.date) === getDay(date);
-}
-
-function isMonthlyRecurringOnDay(event: RecurringTimedTask, date: Date): boolean {
-	return getDate(event.date) === getDate(date);
-}
-
-function isYearlyRecurringOnDay(event: RecurringTimedTask, date: Date): boolean {
-	return getDate(event.date) === getDate(date) && getMonth(event.date) === getMonth(date);
+	return isSameDay(parse(task.date, DATE, new Date()), date);
 }
 
 function isRecurringOnDay(event: RecurringTimedTask, date: Date): boolean {
@@ -86,78 +64,33 @@ function isRecurringOnDay(event: RecurringTimedTask, date: Date): boolean {
 	}
 
 	return false;
-}
 
-export function isToDoOnDay(task: Task, day: Date): boolean {
-	return !isTimed(task) && isSameDay(parse(task.date, DATE, new Date()), day);
-}
-
-export function isEventOnDay(task: Task, day: Date): boolean {
-	if (isRecurring(task)) {
-		return isRecurringOnDay(task, day);
+	function isDateAnException(event: RecurringTimedTask, date: Date): boolean {
+		return event.recurringExceptions.some((exceptionDate) => {
+			return isWithinInterval(parse(exceptionDate, DATE, new Date()), {
+				end: endOfDay(date),
+				start: startOfDay(date),
+			});
+		});
 	}
 
-	if (isTimed(task)) {
-		const startDateString = `${task.date} ${task.startTime}`;
-		const endDateString = `${task.date} ${sumTimes(task.startTime, task.duration)}`;
-
-		const startDate = parse(startDateString, DATETIME, new Date());
-		const endDate = parse(endDateString, DATETIME, new Date());
-
-		return (
-			isWithinInterval(startDate, {
-				end: endOfDay(day),
-				start: startOfDay(day),
-			}) ||
-			isWithinInterval(endDate, {
-				end: endOfDay(day),
-				start: startOfDay(day),
-			})
-		);
+	function isDailyRecurringOnDay(event: RecurringTimedTask, date: Date): boolean {
+		// Check if today is one of the recurring days of the week
+		const dayOfWeek = getDay(date);
+		return event.recurringDaysOfWeek.includes(nameOfDaysOfWeek[dayOfWeek]);
 	}
 
-	return false;
-}
-
-export function getUnTimed(tasks: Task[], date: Date) {
-	return tasks.filter((task): task is UnTimedTask => isToDoOnDay(task, date));
-}
-
-export function getTimed(tasks: Task[], date: Date) {
-	const events = tasks.filter((task): task is AnyTimedTask => isEventOnDay(task, date));
-	events.sort((a, b) => convertTimeToMinutes(a.startTime) - convertTimeToMinutes(b.startTime));
-	return events;
-}
-
-export function getTimeSlots(events: AnyTimedTask[]): string[][] {
-	const timeSlots = new Array(NUMBER_OF_CELLS).fill(null).map<string[]>(() => []);
-
-	for (const event of events) {
-		const { endSlot, startSlot } = getEventSlots(event);
-		for (let i = startSlot; i < endSlot; i++) {
-			timeSlots[i].push(event.id);
-		}
+	function isWeeklyRecurringOnDay(event: RecurringTimedTask, date: Date): boolean {
+		return getDay(event.date) === getDay(date);
 	}
 
-	return timeSlots;
-}
-
-export function assignColumns(events: AnyTimedTask[]): Record<string, number> {
-	const columnEndTimes: number[] = [];
-	const eventColumns: Record<string, number> = {};
-
-	for (const event of events) {
-		const { endSlot, startSlot } = getEventSlots(event);
-
-		let column = 0;
-		while (column < columnEndTimes.length && columnEndTimes[column] > startSlot) {
-			column++;
-		}
-		eventColumns[event.id] = column;
-		columnEndTimes[column] = endSlot;
+	function isMonthlyRecurringOnDay(event: RecurringTimedTask, date: Date): boolean {
+		return getDate(event.date) === getDate(date);
 	}
 
-	return eventColumns;
+	function isYearlyRecurringOnDay(event: RecurringTimedTask, date: Date): boolean {
+		return getDate(event.date) === getDate(date) && getMonth(event.date) === getMonth(date);
+	}
 }
 
 export function getEventGrid(events: AnyTimedTask[]): EventsGrid {
@@ -172,4 +105,68 @@ export function getEventGrid(events: AnyTimedTask[]): EventsGrid {
 	});
 
 	return objectTimeSlots;
+
+	/**
+	 convert a list of events from:
+
+	 [event1, event2,...]
+
+	 into a hashmap of events ids in which each hash represent 15 minutes like:
+
+	 [
+	 	0:[eventId1, eventId2,...],
+	 	1:[eventId2, eventId3,...],
+	 	...
+	 	95:[eventId97, eventId98,...],
+	 	96:[eventId99, eventId100,...],
+	 ]
+	 */
+	function getTimeSlots(events: AnyTimedTask[]): string[][] {
+		const timeSlots = new Array(NUMBER_OF_CELLS).fill(null).map<string[]>(() => []);
+
+		for (const event of events) {
+			const { endSlot, startSlot } = getEventSlots(event);
+			for (let i = startSlot; i < endSlot; i++) {
+				timeSlots[i].push(event.id);
+			}
+		}
+
+		return timeSlots;
+	}
+
+	/**
+	 Convert a list of events from:
+
+	 [event1, event2,...]
+
+	 into an Object in which the keys are events Ids and the values are the position of each event:
+
+	 [
+	 	eventId1:0,
+	 	eventId2:1,
+	  eventId3:0,
+	 	eventId4:0,
+	  eventId5:1,
+	  ...
+	 ]
+
+	 this is used so then we can know each how many events can be fit in the same time grid but in different columns
+	 */
+	function assignColumns(events: AnyTimedTask[]): Record<string, number> {
+		const columnEndTimes: number[] = [];
+		const eventColumns: Record<string, number> = {};
+
+		for (const event of events) {
+			const { endSlot, startSlot } = getEventSlots(event);
+
+			let column = 0;
+			while (column < columnEndTimes.length && columnEndTimes[column] > startSlot) {
+				column++;
+			}
+			eventColumns[event.id] = column;
+			columnEndTimes[column] = endSlot;
+		}
+
+		return eventColumns;
+	}
 }
