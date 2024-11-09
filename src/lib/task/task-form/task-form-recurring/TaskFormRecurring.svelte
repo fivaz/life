@@ -11,8 +11,8 @@
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import { frequencies } from '$lib/task/utils';
 	import { taskIn } from '$lib/task/task-form/service.svelte';
-	
-let isRecurringOpen = $state(false);
+
+	let isRecurringOpen = $state(false);
 
 	let ref = $state<HTMLInputElement | null>(null);
 

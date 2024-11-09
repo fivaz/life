@@ -2,9 +2,9 @@ import { isTimed, type Task } from '$lib/task/utils';
 
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 import { DATE, TIME } from '$lib/consts';
-import { convertTimeToMinutes, getCurrentRoundedDate, sumTimes } from '$lib/task/time-utils';
+import { convertTimeToMinutes, sumTimes } from '$lib/task/time-utils';
 import { isRecurring } from '$lib/task/utils';
-import { addMinutes, addMonths, format, isAfter, parse } from 'date-fns';
+import { addMonths, format, isAfter, parse } from 'date-fns';
 
 // TaskIn is a super type that has all the attributes of possible Tasks together
 export type TaskIn = Task & {
@@ -58,42 +58,29 @@ export function convertToTask(taskIn: TaskIn): Task {
 }
 
 export function convertToTaskIn(task: Task): TaskIn {
-	const taskIn: TaskIn = Object.assign(buildEmptyTaskIn(), task);
-
-	taskIn.endTime = sumTimes(taskIn.startTime, taskIn.duration);
+	const taskIn: TaskIn = {
+		...task,
+		isEvent: false,
+		isRecurring: false,
+		endTime: '',
+	};
 
 	if (isTimed(task)) {
 		taskIn.isEvent = true;
+	} else {
+		taskIn.startTime = format(new Date(), TIME);
 	}
+
+	taskIn.endTime = sumTimes(taskIn.startTime, taskIn.duration);
 
 	if (isRecurring(task)) {
 		taskIn.isRecurring = true;
+	} else {
+		taskIn.recurringFrequency = 'daily';
+		taskIn.recurringDaysOfWeek = nameOfDaysOfWeek.slice(1, 6);
+		taskIn.recurringEndAt = format(addMonths(new Date(), 1), DATE);
+		taskIn.recurringExceptions = [];
 	}
 
 	return taskIn;
-}
-
-function buildEmptyTaskIn(): TaskIn {
-	const now = getCurrentRoundedDate();
-
-	return {
-		id: '',
-		name: '',
-		description: '',
-		goal: null,
-		isDone: false,
-		category: { id: '', name: 'no Category', isDefault: false, color: '', type: '' },
-		createdAt: format(now, DATE),
-		date: format(now, DATE),
-		duration: '00:15',
-		endTime: format(addMinutes(now, 15), TIME),
-		image: '',
-		isEvent: false,
-		isRecurring: false,
-		recurringFrequency: 'daily',
-		recurringDaysOfWeek: nameOfDaysOfWeek.slice(1, 6),
-		recurringEndAt: format(addMonths(now, 1), DATE),
-		recurringExceptions: [],
-		startTime: format(now, TIME),
-	};
 }
