@@ -13,7 +13,9 @@ export function getTaskDate(task: Task): Date | null {
 	return task.date ? parse(task.date, DATE, new Date()) : null;
 }
 
-export function getTaskDateTime(task: Task): Date {
+export function getTaskDateTime(task: Task): Date | null {
+	if (!task.date) return null;
+
 	if (isTimed(task)) {
 		return parse(`${task.date} ${task.startTime}`, `${DATE} ${TIME}`, new Date());
 	} else {

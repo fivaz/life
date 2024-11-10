@@ -3,10 +3,10 @@
 
 	import DayTasksList from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/tasks-summary/day-tasks-list/DayTasksList.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import type { Task } from '$lib/task/utils';
+	import type { CalendarTask, Task } from '$lib/task/utils';
 
 	interface Props {
-		tasks: Task[];
+		tasks: CalendarTask[];
 		class?: string;
 		style?: string;
 		date: Date;
@@ -16,14 +16,9 @@
 
 	let isOpen = $state(false);
 
-	let workTasks = $derived(getValidWorks(tasks));
+	let workTasks = $derived(tasks.filter((task) => task.category.type === 'work'));
 
 	let hasPendingToDos = $derived(workTasks.some((task) => task.isDone === false));
-
-	function getValidWorks(tasks: Task[]): Task[] {
-		// accept only category work tasks
-		return tasks.filter((task) => task.category.type === 'work');
-	}
 
 	function getLabel(tasks: Task[]): string {
 		if (tasks.length === 0) {

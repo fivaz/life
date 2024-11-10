@@ -58,16 +58,23 @@ function getDatesInRange(interval: ReportInterval, startDate: Date, endDate: Dat
 	}
 }
 
-function getEndAt(tasks: Task[]) {
-	const sortedTasks = sortTasks(tasks);
-	return getTaskDateTime(sortedTasks[sortedTasks.length - 1]);
-}
+/**
+ convert a list of tasks into an object in which the keys are dates in a given interval and the
+ values are the amount of uncompleted tasks in each date
 
+ {
+	 '01.01.2024': 3,
+	 '01.02.2024': 2,
+	 '01.03.2024': 5,
+	 ...
+ }
+ */
 export function getUncompletedTasksByDate(
 	tasks: Task[],
 	interval: ReportInterval,
 ): UncompletedTasksByDate {
 	const uncompletedTasksByDate: UncompletedTasksByDate = {
+		// the iterator is to make sure the objects keys are always sorted by date
 		[Symbol.iterator]() {
 			const entries = Object.entries(this)
 				.filter(([key]) => key !== Symbol.iterator.toString())
@@ -84,7 +91,7 @@ export function getUncompletedTasksByDate(
 
 	tasks.forEach((task) => {
 		const createdAt = parseISO(task.createdAt);
-		const endAt = task.isDone ? getTaskDateTime(task) : listEndAt;
+		const endAt = task.isDone ? getTaskDateTime(task) || new Date() : listEndAt;
 
 		const dateRange = getDatesInRange(interval, createdAt, endAt);
 
@@ -103,6 +110,22 @@ export function getUncompletedTasksByDate(
 	});
 
 	return uncompletedTasksByDate;
+}
+
+function getEndAt(tasks: Task[]) {
+	const sortedTasks = sortTasks(tasks);
+	//get the last task whose date isn't null
+	const firstDatedTask = sortedTasks.toReversed().find((task) => task.date);
+	if (!firstDatedTask) {
+		return new Date();
+	}
+
+	const date = getTaskDateTime(firstDatedTask);
+	if (!date) {
+		return new Date();
+	}
+
+	return date;
 }
 
 function getBeforeFirstDate(labels: string[], interval: ReportInterval) {

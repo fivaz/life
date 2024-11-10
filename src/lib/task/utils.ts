@@ -5,7 +5,7 @@ import type { Goal } from '$lib/goal/utils';
 import { convertTimeToMinutes, getTaskDateTime } from '$lib/task/time-utils';
 
 export const frequencies = ['daily', 'weekly', 'monthly', 'yearly'] as const;
-type Frequency = (typeof frequencies)[number];
+export type Frequency = (typeof frequencies)[number];
 
 export type Task = {
 	id: string;
@@ -14,11 +14,11 @@ export type Task = {
 	name: string;
 	isDone: boolean;
 	description: string;
-	image: string;
+	image: string | null;
 	category: Category;
 	goal: Goal | null;
 	// date in yyyy-MM-dd format
-	date: string;
+	date: string | null;
 	// time in HH:mm format
 	duration: string;
 	// time in HH:mm format
@@ -31,12 +31,15 @@ export type Task = {
 	recurringExceptions: string[] | never[];
 };
 
-export type TimedTask = Omit<Task, 'startTime'> & { startTime: string };
+export type CalendarTask = Omit<Task, 'date'> & { date: string };
+
+export type TimedTask = Omit<Task, 'startTime' | 'date'> & { startTime: string; date: string };
 export type UntimedTask = Omit<Task, 'startTime'> & { startTime: null };
 export type RecurringTask = Omit<
 	Task,
-	'recurringFrequency' | 'recurringEndAt' | 'recurringDaysOfWeek' | 'recurringExceptions'
+	'date' | 'recurringFrequency' | 'recurringEndAt' | 'recurringDaysOfWeek' | 'recurringExceptions'
 > & {
+	date: string;
 	recurringFrequency: Frequency;
 	recurringDaysOfWeek: string[];
 	recurringEndAt: string;
@@ -49,7 +52,7 @@ export const taskSchema = z.object({
 	name: z.string(),
 	isDone: z.boolean(),
 	description: z.string(),
-	image: z.string(),
+	image: z.string().nullable(),
 	category: z.object({
 		name: z.string(),
 		isDefault: z.boolean(),
@@ -60,12 +63,12 @@ export const taskSchema = z.object({
 		.object({
 			id: z.string(),
 			name: z.string(),
-			icon: z.null().nullable(),
+			icon: z.string().nullable(),
 			deadline: z.string(),
 			isDone: z.boolean(),
 		})
 		.nullable(),
-	date: z.string(),
+	date: z.string().nullable(),
 	duration: z.string(),
 	startTime: z.string().nullable(),
 	// TODO type recurringFrequency better
@@ -84,6 +87,10 @@ export function sortTasks<T extends Task>(tasks: T[]): T[] {
 		const dateA = getTaskDateTime(a);
 
 		const dateB = getTaskDateTime(b);
+
+		if (!dateA && !dateB) {
+			return 0;
+		}
 
 		if (!dateA) {
 			return 1;

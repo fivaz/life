@@ -8,11 +8,11 @@
 	import { DATE } from '$lib/consts';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import { getTotalDuration } from '$lib/task/time-utils';
-	import { isRecurring, isTimed, type Task } from '$lib/task/utils';
+	import { type CalendarTask, isRecurring, isTimed } from '$lib/task/utils';
 	import { isUntimed } from '$lib/task/utils';
 
 	interface Props {
-		tasks: Task[];
+		tasks: CalendarTask[];
 		close: () => void;
 		date: Date;
 	}

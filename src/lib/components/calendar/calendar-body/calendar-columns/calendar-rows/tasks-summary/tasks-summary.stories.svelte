@@ -2,7 +2,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import { birthdayToDo, toDos, workToDo } from '$lib/task/seed';
-	import { type Task } from '$lib/task/utils';
+	import { type CalendarTask } from '$lib/task/utils';
 
 	import TasksSummary from './TasksSummary.svelte';
 
@@ -11,7 +11,7 @@
 	});
 </script>
 
-{#snippet template(args: { tasks: Task[] })}
+{#snippet template(args: { tasks: CalendarTask[] })}
 	<div class="w-24">
 		<TasksSummary date={new Date()} {...args} />
 	</div>

@@ -18,14 +18,22 @@ import {
 } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
 import { DATE } from '$lib/consts';
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
-import { type RecurringTask, sortTasks, type Task, type TimedTask } from '$lib/task/utils';
+import {
+	type CalendarTask,
+	type RecurringTask,
+	sortTasks,
+	type Task,
+	type TimedTask,
+} from '$lib/task/utils';
 import { isRecurring } from '$lib/task/utils';
 
-export function getTasksForDate(tasks: Task[], date: Date): Task[] {
+export function getTasksForDate(tasks: Task[], date: Date): CalendarTask[] {
 	return tasks.filter((task) => isForDate(task, date));
 }
 
-export function isForDate(task: Task, date: Date) {
+export function isForDate(task: Task, date: Date): task is CalendarTask {
+	if (!task.date) return false;
+
 	if (isRecurring(task)) {
 		return isRecurringOnDay(task, date);
 	}
