@@ -54,9 +54,9 @@ export function editSingleRecurringEvent(
 	//remove all the recurring attributes from the event
 	const event: Omit<Task, 'id'> = {
 		...recurringEvent,
-		recurringFrequency: '',
+		recurringFrequency: null,
 		recurringDaysOfWeek: [],
-		recurringEndAt: '',
+		recurringEndAt: null,
 		recurringExceptions: [],
 	};
 

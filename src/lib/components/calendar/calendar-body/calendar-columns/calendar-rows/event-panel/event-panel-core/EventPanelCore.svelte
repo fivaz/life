@@ -8,10 +8,15 @@
 	import { TIME } from '$lib/consts';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import { roundTo15 } from '$lib/task/time-utils';
-	import { getCompletedTasks, getDurationInMinutes, getSubTasks, type Task } from '$lib/task/utils';
+	import {
+		getCompletedTasks,
+		getDurationInMinutes,
+		getSubTasks,
+		type TimedTask,
+	} from '$lib/task/utils';
 
 	interface Props {
-		event: Task;
+		event: TimedTask;
 		targetDate: string;
 		isSelected: boolean;
 	}

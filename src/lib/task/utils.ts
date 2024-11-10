@@ -4,6 +4,9 @@ import type { Category } from '$lib/category/utils';
 import type { Goal } from '$lib/goal/utils';
 import { convertTimeToMinutes, getTaskDateTime } from '$lib/task/time-utils';
 
+export const frequencies = ['daily', 'weekly', 'monthly', 'yearly'] as const;
+type Frequency = (typeof frequencies)[number];
+
 export type Task = {
 	id: string;
 	// date in ISO format
@@ -19,16 +22,26 @@ export type Task = {
 	// time in HH:mm format
 	duration: string;
 	// time in HH:mm format
-	startTime: string;
-	recurringFrequency: (typeof frequencies)[number];
+	startTime: string | null;
+	recurringFrequency: Frequency | null;
 	// days of the week in (sun, mon, tue) format
-	recurringDaysOfWeek: string[];
-	recurringEndAt: string;
+	recurringDaysOfWeek: string[] | never[];
+	recurringEndAt: string | null;
 	// list of dates in yyyy-MM-dd format
-	recurringExceptions: string[];
+	recurringExceptions: string[] | never[];
 };
 
-export const frequencies = ['daily', 'weekly', 'monthly', 'yearly', ''] as const;
+export type TimedTask = Omit<Task, 'startTime'> & { startTime: string };
+export type UntimedTask = Omit<Task, 'startTime'> & { startTime: null };
+export type RecurringTask = Omit<
+	Task,
+	'recurringFrequency' | 'recurringEndAt' | 'recurringDaysOfWeek' | 'recurringExceptions'
+> & {
+	recurringFrequency: Frequency;
+	recurringDaysOfWeek: string[];
+	recurringEndAt: string;
+	recurringExceptions: string[];
+};
 
 export const taskSchema = z.object({
 	id: z.string(),
@@ -45,20 +58,20 @@ export const taskSchema = z.object({
 	}),
 	goal: z
 		.object({
-			deadline: z.string(),
-			icon: z.null().nullable(),
 			id: z.string(),
-			isDone: z.boolean(),
 			name: z.string(),
+			icon: z.null().nullable(),
+			deadline: z.string(),
+			isDone: z.boolean(),
 		})
 		.nullable(),
 	date: z.string(),
 	duration: z.string(),
-	startTime: z.string(),
+	startTime: z.string().nullable(),
 	// TODO type recurringFrequency better
-	recurringFrequency: z.string(),
+	recurringFrequency: z.string().nullable(),
 	recurringDaysOfWeek: z.array(z.string()),
-	recurringEndAt: z.string(),
+	recurringEndAt: z.string().nullable(),
 	recurringExceptions: z.array(z.string()),
 });
 
@@ -66,7 +79,7 @@ export function getDurationInMinutes(task: Task) {
 	return convertTimeToMinutes(task.duration);
 }
 
-export function sortTasks(tasks: Task[]) {
+export function sortTasks<T extends Task>(tasks: T[]): T[] {
 	return tasks.toSorted((a, b) => {
 		const dateA = getTaskDateTime(a);
 
@@ -84,15 +97,15 @@ export function sortTasks(tasks: Task[]) {
 	});
 }
 
-export function isRecurring(task: Omit<Task, 'id'> | Task) {
+export function isRecurring(task: Omit<Task, 'id'> | Task): task is RecurringTask {
 	return !!task.recurringFrequency;
 }
 
-export function isUntimed(task: Omit<Task, 'id'> | Task) {
+export function isUntimed(task: Omit<Task, 'id'> | Task): task is UntimedTask {
 	return !task.startTime;
 }
 
-export function isTimed(task: Omit<Task, 'id'> | Task) {
+export function isTimed(task: Omit<Task, 'id'> | Task): task is TimedTask {
 	return !!task.startTime;
 }
 

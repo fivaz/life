@@ -40,9 +40,9 @@ export function buildUntimedTask(
 		date: format(date, DATE),
 		duration: '00:15',
 		image: '',
-		recurringFrequency: '',
+		recurringFrequency: null,
 		recurringDaysOfWeek: [],
-		recurringEndAt: '',
+		recurringEndAt: null,
 		recurringExceptions: [],
 		startTime: '',
 	};

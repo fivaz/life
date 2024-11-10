@@ -18,7 +18,7 @@ import {
 } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
 import { DATE } from '$lib/consts';
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
-import { sortTasks, type Task } from '$lib/task/utils';
+import { type RecurringTask, sortTasks, type Task, type TimedTask } from '$lib/task/utils';
 import { isRecurring } from '$lib/task/utils';
 
 export function getTasksForDate(tasks: Task[], date: Date): Task[] {
@@ -33,7 +33,7 @@ export function isForDate(task: Task, date: Date) {
 	return isSameDay(parse(task.date, DATE, new Date()), date);
 }
 
-function isRecurringOnDay(event: Task, date: Date): boolean {
+function isRecurringOnDay(event: RecurringTask, date: Date): boolean {
 	if (isAfter(date, parse(event.recurringEndAt, DATE, new Date()))) {
 		return false;
 	}
@@ -64,7 +64,7 @@ function isRecurringOnDay(event: Task, date: Date): boolean {
 
 	return false;
 
-	function isDateAnException(event: Task, date: Date): boolean {
+	function isDateAnException(event: RecurringTask, date: Date): boolean {
 		return event.recurringExceptions.some((exceptionDate) => {
 			return isWithinInterval(parse(exceptionDate, DATE, new Date()), {
 				end: endOfDay(date),
@@ -73,21 +73,21 @@ function isRecurringOnDay(event: Task, date: Date): boolean {
 		});
 	}
 
-	function isDailyRecurringOnDay(event: Task, date: Date): boolean {
+	function isDailyRecurringOnDay(event: RecurringTask, date: Date): boolean {
 		// Check if today is one of the recurring days of the week
 		const dayOfWeek = getDay(date);
 		return event.recurringDaysOfWeek.includes(nameOfDaysOfWeek[dayOfWeek]);
 	}
 
-	function isWeeklyRecurringOnDay(event: Task, date: Date): boolean {
+	function isWeeklyRecurringOnDay(event: RecurringTask, date: Date): boolean {
 		return getDay(event.date) === getDay(date);
 	}
 
-	function isMonthlyRecurringOnDay(event: Task, date: Date): boolean {
+	function isMonthlyRecurringOnDay(event: RecurringTask, date: Date): boolean {
 		return getDate(event.date) === getDate(date);
 	}
 
-	function isYearlyRecurringOnDay(event: Task, date: Date): boolean {
+	function isYearlyRecurringOnDay(event: RecurringTask, date: Date): boolean {
 		return getDate(event.date) === getDate(date) && getMonth(event.date) === getMonth(date);
 	}
 }
@@ -109,7 +109,7 @@ function isRecurringOnDay(event: Task, date: Date): boolean {
 	 	95:{0:'eventId99', 1: 'eventId100',...},
 	 ]
  */
-export function getEventGrid(events: Task[]): EventsGrid {
+export function getEventGrid(events: TimedTask[]): EventsGrid {
 	// the algorithm only works if events are sorted by time
 	const sortedEvents = sortTasks(events);
 
@@ -141,7 +141,7 @@ export function getEventGrid(events: Task[]): EventsGrid {
 	 	95:[eventId99, eventId100,...],
 	 ]
 	 */
-	function getTimeSlots(events: Task[]): string[][] {
+	function getTimeSlots(events: TimedTask[]): string[][] {
 		const timeSlots = new Array(NUMBER_OF_CELLS).fill(null).map<string[]>(() => []);
 
 		for (const event of events) {
@@ -170,7 +170,7 @@ export function getEventGrid(events: Task[]): EventsGrid {
 
 	 this is used to guarantee that if two events are taking place simultaneously they will never occupy the same column
 	 */
-	function assignColumns(events: Task[]): Record<string, number> {
+	function assignColumns(events: TimedTask[]): Record<string, number> {
 		const columnEndTimes: number[] = [];
 		const eventColumns: Record<string, number> = {};
 

@@ -7,11 +7,23 @@ import { isTimed, type Task } from '$lib/task/utils';
 import { isRecurring } from '$lib/task/utils';
 
 // TaskIn is a super type that has all the attributes of possible Tasks together
-export type TaskIn = Task & {
+export type TaskIn = Omit<
+	Task,
+	| 'startTime'
+	| 'recurringFrequency'
+	| 'recurringExceptions'
+	| 'recurringDaysOfWeek'
+	| 'recurringEndAt'
+> & {
 	endTime: string;
 	image: string;
 	isEvent: boolean;
 	isRecurring: boolean;
+	startTime: string;
+	recurringFrequency: string;
+	recurringExceptions: string[];
+	recurringEndAt: string;
+	recurringDaysOfWeek: string[];
 };
 
 function checkDuration(taskIn: TaskIn): string {
@@ -41,16 +53,18 @@ export function checkErrors(taskIn: TaskIn): string {
 export function convertToTask(taskIn: TaskIn): Task {
 	taskIn.name = taskIn.name || taskIn.category.name;
 
-	const { endTime, ...task } = taskIn;
+	const { endTime, ...rest } = taskIn;
+
+	const task = rest as Task;
 
 	if (!taskIn.isEvent) {
-		task.startTime = '';
+		task.startTime = null;
 	}
 
 	if (!taskIn.isRecurring) {
-		task.recurringFrequency = '';
+		task.recurringFrequency = null;
 		task.recurringDaysOfWeek = [];
-		task.recurringEndAt = '';
+		task.recurringEndAt = null;
 		task.recurringExceptions = [];
 	}
 
@@ -58,12 +72,12 @@ export function convertToTask(taskIn: TaskIn): Task {
 }
 
 export function convertToTaskIn(task: Task): TaskIn {
-	const taskIn: TaskIn = {
+	const taskIn = {
 		...task,
 		isEvent: false,
 		isRecurring: false,
 		endTime: '',
-	};
+	} as TaskIn;
 
 	if (isTimed(task)) {
 		taskIn.isEvent = true;
