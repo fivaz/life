@@ -24,8 +24,6 @@ const final = [...precache_list, ...self.__WB_MANIFEST];
 
 cleanupOutdatedCaches();
 
-console.log('final', final);
-
 precacheAndRoute(final);
 
 self.skipWaiting();
