@@ -4,6 +4,6 @@ export default defineConfig({
 	headLinkOptions: {
 		preset: '2023',
 	},
-	images: ['static/favicon.svg'],
 	preset,
+	images: ['static/favicon.svg'],
 });

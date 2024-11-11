@@ -1,6 +1,6 @@
 {
 	"name": "life",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"scripts": {
 		"dev": "PUBLIC_COMMIT_HASH=$(git rev-parse --short HEAD) vite dev --port 5175",
 		"build": "PUBLIC_COMMIT_HASH=$(git rev-parse --short HEAD) vite build",
@@ -46,6 +46,7 @@
 		"@tailwindcss/forms": "^0.5.9",
 		"@types/eslint": "^9.6.0",
 		"@vite-pwa/assets-generator": "^0.2.6",
+		"@vite-pwa/sveltekit": "^0.6.6",
 		"autoprefixer": "^10.4.20",
 		"chart.js": "^4.4.5",
 		"clsx": "^2.1.1",
@@ -78,7 +79,6 @@
 		"typescript-eslint": "^8.0.0",
 		"vite": "^5.4.4",
 		"vitest": "^2.0.4",
-		"workbox-precaching": "^7.1.0",
 		"zod": "^3.23.8"
 	},
 	"type": "module"
