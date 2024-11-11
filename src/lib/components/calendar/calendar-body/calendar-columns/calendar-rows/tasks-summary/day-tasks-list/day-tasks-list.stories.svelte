@@ -6,7 +6,6 @@
 	const { Story } = defineMeta({
 		component: ToDoList,
 	});
-
-	</script>
+</script>
 
 <Story args={{ tasks: [], close: () => console.log('close'), date: new Date() }} name="Primary" />

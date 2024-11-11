@@ -6,6 +6,9 @@ export default defineConfig({
 	plugins: [
 		sveltekit(),
 		SvelteKitPWA({
+			strategies: 'injectManifest',
+			srcDir: 'src',
+			filename: 'service-worker.ts',
 			registerType: 'autoUpdate',
 			injectRegister: false,
 
@@ -21,15 +24,13 @@ export default defineConfig({
 				theme_color: '#4f46e5',
 				background_color: '#ffffff',
 			},
-			workbox: {
-				globPatterns: ['client/**/*.{js,css,ico,png,svg,webp,woff,woff2,avif}'],
 
-				cleanupOutdatedCaches: true,
-				clientsClaim: true,
+			injectManifest: {
+				globPatterns: ['client/**/*.{js,css,ico,png,svg,webp,avif}'],
 			},
 
 			devOptions: {
-				enabled: false,
+				enabled: true,
 				suppressWarnings: true,
 				navigateFallback: '/',
 				navigateFallbackAllowlist: [/^\/$/],

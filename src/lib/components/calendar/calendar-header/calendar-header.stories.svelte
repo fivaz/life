@@ -1,7 +1,7 @@
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
-import CalendarHeader from './CalendarHeader.svelte';
+	import CalendarHeader from './CalendarHeader.svelte';
 
 	const { Story } = defineMeta({
 		component: CalendarHeader,

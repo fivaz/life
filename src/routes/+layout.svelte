@@ -27,12 +27,4 @@
 	{@html webManifest}
 </svelte:head>
 
-<div class="app">
-	<main>
-		{@render children()}
-	</main>
-
-	{#await import('$lib/PWABadge.svelte') then { default: PWABadge }}
-		<PWABadge />
-	{/await}
-</div>
+{@render children()}

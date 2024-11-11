@@ -1,8 +1,6 @@
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
-	import { user } from '$lib/auth/seed';
-
 	import SideMenu from './SideMenu.svelte';
 
 	const { Story } = defineMeta({
@@ -13,4 +11,4 @@
 	});
 </script>
 
-<Story args={{ currentUser: user }} name="Primary" />
+<Story args={{}} name="Primary" />
