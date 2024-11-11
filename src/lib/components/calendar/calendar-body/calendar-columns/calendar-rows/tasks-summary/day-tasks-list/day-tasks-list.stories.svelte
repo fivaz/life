@@ -7,7 +7,6 @@
 		component: ToDoList,
 	});
 
-	import { toDos } from '$lib/task/seed';
-</script>
+	</script>
 
-<Story args={{ toDos }} name="Primary" />
+<Story args={{ tasks: [], close: () => console.log('close'), date: new Date() }} name="Primary" />

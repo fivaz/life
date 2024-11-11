@@ -10,34 +10,40 @@
 	});
 </script>
 
-{#snippet template(args: any)}
-	{#if !args.isOnlyIcon}
-		<Button {...args} }><Icon class="h-4 w-4" src={Trash} />Button</Button>
-	{:else}
-		<Button {...args} }><Icon class="h-4 w-4" src={Trash} /></Button>
-	{/if}
-{/snippet}
+<Story name="Primary">
+	<Button color="indigo" disabled={false} isLoading={false} onclick={() => console.log('clicked')}>
+		<Icon class="h-4 w-4" src={Trash} />Button
+	</Button>
+</Story>
 
-<Story
-	args={{
-		color: 'indigo',
-		disabled: false,
-		isLoading: false,
-		onclick: () => console.log('clicked'),
-		isOnlyIcon: false,
-	}}
-	name="Primary"
-	children={template}
-/>
+<!--{#snippet template(args: any)}-->
+<!--	{#if !args.isOnlyIcon}-->
+<!--		<Button {...args} }><Icon class="h-4 w-4" src={Trash} />Button</Button>-->
+<!--	{:else}-->
+<!--		<Button {...args} }><Icon class="h-4 w-4" src={Trash} /></Button>-->
+<!--	{/if}-->
+<!--{/snippet}-->
 
-<Story
-	args={{
-		color: 'indigo',
-		disabled: false,
-		isLoading: false,
-		onclick: () => console.log('clicked'),
-		isOnlyIcon: true,
-	}}
-	name="With only Icon"
-	children={template}
-/>
+<!--<Story-->
+<!--	args={{-->
+<!--		color: 'indigo',-->
+<!--		disabled: false,-->
+<!--		isLoading: false,-->
+<!--		onclick: () => console.log('clicked'),-->
+<!--		isOnlyIcon: false,-->
+<!--	}}-->
+<!--	name="Primary"-->
+<!--	children={template}-->
+<!--/>-->
+
+<!--<Story-->
+<!--	args={{-->
+<!--		color: 'indigo',-->
+<!--		disabled: false,-->
+<!--		isLoading: false,-->
+<!--		onclick: () => console.log('clicked'),-->
+<!--		isOnlyIcon: true,-->
+<!--	}}-->
+<!--	name="With only Icon"-->
+<!--	children={template}-->
+<!--/>-->
