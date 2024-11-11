@@ -22,7 +22,7 @@ export default defineConfig({
 				background_color: '#ffffff',
 			},
 			workbox: {
-				globPatterns: ['client/**/*.{js,css,ico,png,svg,webp,woff,woff2}'],
+				globPatterns: ['client/**/*.{js,css,ico,png,svg,webp,woff,woff2,avif}'],
 
 				cleanupOutdatedCaches: true,
 				clientsClaim: true,
