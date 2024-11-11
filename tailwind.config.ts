@@ -10,4 +10,4 @@ export default {
 	},
 
 	plugins: [forms, containerQueries],
-} as Config;
+} satisfies Config;

@@ -1,17 +1,15 @@
 <script lang="ts">
 	import '../app.css';
 
-	import { type Snippet } from 'svelte';
+	import type { Snippet } from 'svelte';
 	import { pwaAssetsHead } from 'virtual:pwa-assets/head';
 	import { pwaInfo } from 'virtual:pwa-info';
 
-	
-interface Props {
+	interface Props {
 		children: Snippet;
 	}
 
 	let { children }: Props = $props();
-
 	let webManifest = $derived(pwaInfo ? pwaInfo.webManifest.linkTag : '');
 </script>
 
@@ -27,4 +25,12 @@ interface Props {
 	{@html webManifest}
 </svelte:head>
 
-{@render children()}
+<div class="app">
+	<main>
+		{@render children()}
+	</main>
+
+	{#await import('$lib/PWABadge.svelte') then { default: PWABadge }}
+		<PWABadge />
+	{/await}
+</div>

@@ -1,6 +1,6 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { SvelteKitPWA } from '@vite-pwa/sveltekit';
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
 	plugins: [
@@ -37,10 +37,4 @@ export default defineConfig({
 			},
 		}),
 	],
-	define: {
-		'process.env.NODE_ENV': '"production"',
-	},
-	test: {
-		include: ['src/**/*.{test,spec}.{js,ts}'],
-	},
 });
