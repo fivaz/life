@@ -4,8 +4,7 @@
 	import { pwaAssetsHead } from 'virtual:pwa-assets/head';
 	import { pwaInfo } from 'virtual:pwa-info';
 
-	
-let webManifest = $derived(pwaInfo ? pwaInfo.webManifest.linkTag : '');
+	let webManifest = $derived(pwaInfo ? pwaInfo.webManifest.linkTag : '');
 </script>
 
 <svelte:head>

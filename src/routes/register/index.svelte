@@ -1,4 +1,3 @@
-<!--routify:meta reset="dashboard+" -->
 <script lang="ts">
 	import Register from './register/Register.svelte';
 </script>
