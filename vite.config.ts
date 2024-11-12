@@ -7,11 +7,10 @@ import { VitePWA } from 'vite-plugin-pwa';
 // const production = process.env.NODE_ENV === 'production'
 
 export default defineConfig({
-	clearScreen: false,
 	resolve: { alias: { $lib: resolve('src/lib') } },
 	envPrefix: 'PUBLIC_',
 	plugins: [
-		routify({}),
+		routify(),
 		svelte(),
 		VitePWA({
 			strategies: 'injectManifest',
@@ -34,17 +33,15 @@ export default defineConfig({
 			},
 
 			injectManifest: {
-				globPatterns: ['**/*.{js,css,ico,png,svg,webp,avif}'],
+				globPatterns: ['**/*.{js,css,html,svg,png,ico,avif}'],
 			},
 
 			devOptions: {
-				enabled: true,
+				enabled: false,
 				navigateFallback: 'index.html',
 				suppressWarnings: true,
 				type: 'module',
 			},
 		}),
 	],
-
-	server: { port: 1337 },
 });
