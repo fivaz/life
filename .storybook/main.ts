@@ -1,5 +1,6 @@
-/** @type { import('@storybook/sveltekit').StorybookConfig } */
-const config = {
+import type { StorybookConfig } from '@storybook/svelte-vite';
+
+const config: StorybookConfig = {
 	stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|ts|svelte)'],
 	addons: [
 		'@storybook/addon-svelte-csf',
@@ -8,7 +9,7 @@ const config = {
 		'@storybook/addon-interactions',
 	],
 	framework: {
-		name: '@storybook/sveltekit',
+		name: '@storybook/svelte-vite',
 		options: {},
 	},
 	staticDirs: ['../static'],

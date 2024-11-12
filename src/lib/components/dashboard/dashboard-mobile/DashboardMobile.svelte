@@ -1,7 +1,7 @@
 <script lang="ts">
+	import { afterUrlChange } from '@roxi/routify';
 	import { Menu } from 'lucide-svelte';
 
-	import { afterNavigate } from '$app/navigation';
 	import SideMenu from '$lib/components/dashboard/side-menu/SideMenu.svelte';
 	import Logo from '$lib/components/Logo.svelte';
 	import { title } from '$lib/utils.svelte';
@@ -14,12 +14,20 @@
 
 	let showMenu = $state(false);
 
-	afterNavigate(() => {
+	//TODO implement it later with routify or vanilla js
+	$afterUrlChange(() => {
 		// make sure the SideMenu is closed whenever the user uses it to navigate to another page
 		if (showMenu) {
 			showMenu = false;
 		}
 	});
+
+	// afterNavigate(() => {
+	// 	// make sure the SideMenu is closed whenever the user uses it to navigate to another page
+	// 	if (showMenu) {
+	// 		showMenu = false;
+	// 	}
+	// });
 </script>
 
 <div class={klass}>

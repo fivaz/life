@@ -1,3 +1,4 @@
+<!--routify:meta reset="dashboard+" -->
 <script lang="ts">
 	import DBCategories from '$lib/category/DBCategories.svelte';
 	import { type Category, CategoryTypes } from '$lib/category/utils';

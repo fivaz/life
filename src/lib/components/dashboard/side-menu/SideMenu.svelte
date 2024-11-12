@@ -8,8 +8,6 @@
 		Tags,
 	} from 'lucide-svelte';
 
-	import { page } from '$app/stores';
-	import { PUBLIC_COMMIT_HASH } from '$env/static/public';
 	import ProfileDropUp from '$lib/components/dashboard/profile-drop-up/ProfileDropUp.svelte';
 	import Logo from '$lib/components/Logo.svelte';
 	import { tooltip } from '$lib/components/tooltip/tooltip.action';
@@ -34,7 +32,10 @@
 <div class="{klass} flex h-full w-64 flex-col items-stretch gap-5 bg-white p-3">
 	<div class="flex items-center gap-2 text-indigo-600">
 		<Logo class="h-8 w-auto self-start" />
-		<h2 class="text-lg font-semibold" use:tooltip={`current commit: ${PUBLIC_COMMIT_HASH}`}>
+		<h2
+			class="text-lg font-semibold"
+			use:tooltip={`current commit: ${import.meta.env.PUBLIC_COMMIT_HASH}`}
+		>
 			Life
 		</h2>
 	</div>
@@ -45,7 +46,7 @@
 				<li>
 					<a
 						class="flex items-center gap-3 rounded-lg p-2
-							{$page.url.pathname === item.href
+							{window.location.pathname === item.href
 							? 'bg-gray-50 text-indigo-600'
 							: 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600'}"
 						href={item.href}

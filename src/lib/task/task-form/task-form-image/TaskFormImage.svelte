@@ -15,7 +15,7 @@
 
 	function handleChange(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (event.currentTarget.files) {
-			[file] = event.currentTarget.files;
+			file = event.currentTarget.files[0];
 			taskIn.value.image = URL.createObjectURL(file);
 		}
 	}

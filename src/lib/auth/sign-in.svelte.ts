@@ -3,8 +3,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { minidenticon } from 'minidenticons';
 
-import { goto } from '$app/navigation';
-import { DB_PATH, Routes } from '$lib/consts';
+import { DB_PATH } from '$lib/consts';
 import { auth, db, storage } from '$lib/firebase';
 
 import { parseErrors } from '../../routes/login/login/service';
@@ -28,12 +27,12 @@ export const isLoading = $state<{ email: boolean; google: boolean; github: boole
 	github: false,
 });
 
-export async function googleSignIn() {
+export async function googleSignIn(): Promise<void> {
 	isLoading.google = true;
 	try {
 		const provider = new GoogleAuthProvider();
 		const result = await signInWithPopup(auth, provider);
-		await handleProviderLogin(result.user);
+		return handleProviderLogin(result.user);
 	} catch (error) {
 		errorMessage.value = parseErrors(error);
 	} finally {
@@ -53,16 +52,14 @@ async function handleProviderLogin(user: User) {
 
 		await createUser(user, user.displayName || 'unnamed user', user.email, avatar);
 	}
-
-	return goto(Routes.ROOT);
 }
 
-export async function githubSignIn() {
+export async function githubSignIn(): Promise<void> {
 	isLoading.github = true;
 	try {
 		const provider = new GithubAuthProvider();
 		const result = await signInWithPopup(auth, provider);
-		await handleProviderLogin(result.user);
+		return handleProviderLogin(result.user);
 	} catch (error) {
 		errorMessage.value = parseErrors(error);
 	} finally {

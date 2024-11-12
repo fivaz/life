@@ -1,24 +1,14 @@
-test-results
 node_modules
+.idea/dataSources.xml
 
-# Output
-.output
-.vercel
-/.svelte-kit
-/build
+.routify
 
-# OS
-.DS_Store
-Thumbs.db
+dist
+*storybook.log
 
-# Env
 .env
 .env.*
 !.env.example
 !.env.test
 
-# Vite
-vite.config.js.timestamp-*
-vite.config.ts.timestamp-*
-
-.idea/dataSources.xml
+.DS_Store

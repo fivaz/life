@@ -8,7 +8,7 @@
 	import { demoLogin } from '$lib/consts';
 
 	interface Props {
-		children: Snippet;
+		children?: Snippet;
 	}
 
 	let { children }: Props = $props();
@@ -24,6 +24,6 @@
 			<Banner />
 		{/if}
 
-		{@render children()}
+		{@render children?.()}
 	</main>
 </div>

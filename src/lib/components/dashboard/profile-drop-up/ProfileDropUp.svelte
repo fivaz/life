@@ -1,19 +1,18 @@
 <script lang="ts">
 	import { signOut } from 'firebase/auth';
 
-	import { goto } from '$app/navigation';
 	import { currentUser } from '$lib/auth/utils.svelte';
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';
 	import { Routes } from '$lib/consts';
 	import { auth } from '$lib/firebase';
 
 	const list = [
-		{ label: 'Profile', onclick: () => goto(Routes.PROFILE) },
+		{ label: 'Profile', onclick: () => history.pushState({}, '', Routes.PROFILE) },
 		{
 			label: 'Sign out',
 			onclick: async () => {
 				await signOut(auth);
-				void goto(Routes.LOGIN);
+				history.pushState({}, '', Routes.LOGIN);
 			},
 		},
 	];

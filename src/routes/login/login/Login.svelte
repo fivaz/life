@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 
-	import { goto } from '$app/navigation';
 	import { errorMessage, githubSignIn, googleSignIn, isLoading } from '$lib/auth/sign-in.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
@@ -28,7 +27,7 @@
 		try {
 			isLoading.email = true;
 			await signInWithEmailAndPassword(auth, email, password);
-			void goto(Routes.ROOT);
+			history.pushState({}, '', Routes.ROOT);
 		} catch (error) {
 			errorMessage.value = parseErrors(error);
 		} finally {
@@ -50,9 +49,13 @@
 				</h2>
 				<p class="mt-2 text-sm leading-6 text-gray-500">
 					Not a member?{' '}
-					<a class="font-semibold text-indigo-600 hover:text-indigo-500" href={Routes.REGISTER}>
+					<button
+						type="button"
+						onclick={() => history.pushState({}, '', Routes.REGISTER)}
+						class="font-semibold text-indigo-600 hover:text-indigo-500"
+					>
 						Register
-					</a>
+					</button>
 				</p>
 			</div>
 
@@ -142,7 +145,7 @@
 					<Button
 						type="button"
 						color="none"
-						onclick={googleSignIn}
+						onclick={() => googleSignIn().then(() => history.pushState({}, '', Routes.ROOT))}
 						isLoading={isLoading.google}
 						disabled={isDisabled}
 						class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
@@ -156,7 +159,7 @@
 						color="none"
 						isLoading={isLoading.github}
 						disabled={isDisabled}
-						onclick={githubSignIn}
+						onclick={() => githubSignIn().then(() => history.pushState({}, '', Routes.ROOT))}
 						class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
 					>
 						<GithubIcon />

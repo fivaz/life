@@ -1,3 +1,4 @@
+<!--routify:meta reset="dashboard+" -->
 <script lang="ts">
 	import { where } from 'firebase/firestore';
 
@@ -5,7 +6,7 @@
 	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { type Task } from '$lib/task/utils';
-	import { title } from '$lib/utils.svelte';
+	import { title } from '$lib/utils.svelte.js';
 
 	import ReportTasksByTime from './report-tasks-by-time/ReportTasksByTime.svelte';
 

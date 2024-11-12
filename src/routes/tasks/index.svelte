@@ -1,3 +1,4 @@
+<!--routify:meta reset="dashboard+" -->
 <script lang="ts">
 	import { DocumentText } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -11,7 +12,7 @@
 	import DBUndoneTasks from '$lib/task/DBUndoneTasks.svelte';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 	import { type Task } from '$lib/task/utils';
-	import { title } from '$lib/utils.svelte';
+	import { title } from '$lib/utils.svelte.js';
 
 	import { getTasksByDateSorted } from './service';
 	import TaskList from './task-list/TaskList.svelte';

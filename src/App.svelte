@@ -1,15 +1,11 @@
 <script lang="ts">
-	import '../app.css';
-
-	import type { Snippet } from 'svelte';
+	import { createRouter, Router } from '@roxi/routify';
 	import { pwaAssetsHead } from 'virtual:pwa-assets/head';
 	import { pwaInfo } from 'virtual:pwa-info';
 
-	interface Props {
-		children: Snippet;
-	}
+	import routes from '../.routify/routes.default.js';
 
-	let { children }: Props = $props();
+	const router = createRouter({ routes });
 	let webManifest = $derived(pwaInfo ? pwaInfo.webManifest.linkTag : '');
 </script>
 
@@ -27,4 +23,4 @@
 	{@html webManifest}
 </svelte:head>
 
-{@render children()}
+<Router {router} />

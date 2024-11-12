@@ -5,6 +5,9 @@ yarn.lock
 
 *.hbs
 
+# Ignore artifacts:
 .husky
-.vercel
-.svelte-kit
+.routify
+dist
+
+

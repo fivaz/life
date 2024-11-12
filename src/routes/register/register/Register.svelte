@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { minidenticon } from 'minidenticons';
 
-	import { goto } from '$app/navigation';
 	import { githubSignIn, googleSignIn, isLoading } from '$lib/auth/sign-in.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
@@ -34,7 +33,7 @@
 		try {
 			isLoading.email = true;
 			await register(name, email, password, avatar);
-			void goto(Routes.ROOT);
+			history.pushState({}, '', Routes.ROOT);
 		} catch (error) {
 			errorMessage = parseErrors(error);
 		} finally {
@@ -136,7 +135,7 @@
 
 				<div class="mt-6 grid grid-cols-2 gap-4">
 					<Button
-						onclick={googleSignIn}
+						onclick={() => googleSignIn().then(() => history.pushState({}, '', Routes.ROOT))}
 						isLoading={isLoading.google}
 						disabled={isDisabled}
 						type="button"
@@ -150,7 +149,7 @@
 					<Button
 						isLoading={isLoading.github}
 						disabled={isDisabled}
-						onclick={githubSignIn}
+						onclick={() => githubSignIn().then(() => history.pushState({}, '', Routes.ROOT))}
 						type="button"
 						color="none"
 						class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"

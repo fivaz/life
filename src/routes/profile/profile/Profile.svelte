@@ -4,7 +4,7 @@
 	import { minidenticon } from 'minidenticons';
 
 	import { storeAvatar } from '$lib/auth/sign-in.svelte.js';
-	import { updateUser, type User } from '$lib/auth/utils.svelte';
+	import { updateUser, type User } from '$lib/auth/utils.svelte.js';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Input from '$lib/components/form/input/Input.svelte';
@@ -31,7 +31,7 @@
 
 	function handleChange(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (event.currentTarget.files) {
-			[file] = event.currentTarget.files;
+			file = event.currentTarget.files[0];
 			photoURL = URL.createObjectURL(file);
 		}
 	}

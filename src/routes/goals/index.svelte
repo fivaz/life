@@ -1,3 +1,4 @@
+<!--routify:meta reset="dashboard+" -->
 <script lang="ts">
 	import { Plus } from 'lucide-svelte';
 
@@ -11,7 +12,7 @@
 	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 	import type { Task } from '$lib/task/utils';
-	import { title } from '$lib/utils.svelte';
+	import { title } from '$lib/utils.svelte.js';
 
 	import GoalForm from './goal-form/GoalForm.svelte';
 	import GoalRow from './goal-row/GoalRow.svelte';

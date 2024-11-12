@@ -1,33 +1,26 @@
 <script lang="ts">
 	import { onAuthStateChanged } from 'firebase/auth';
-	import { onMount, type Snippet } from 'svelte';
+	import { onMount } from 'svelte';
 
-	import { goto } from '$app/navigation';
-	import { setUser } from '$lib/auth/utils.svelte';
+	import { setUser } from '$lib/auth/utils.svelte.js';
 	import Dashboard from '$lib/components/dashboard/Dashboard.svelte';
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
-	import { dialog } from '$lib/components/dialog/service.svelte';
+	import { dialog } from '$lib/components/dialog/service.svelte.js';
 	import { Routes } from '$lib/consts';
 	import { auth } from '$lib/firebase';
-
-	interface Props {
-		children: Snippet;
-	}
-
-	let { children }: Props = $props();
 
 	onMount(() => {
 		onAuthStateChanged(auth, (user) => {
 			setUser(user);
 			if (!user) {
-				goto(Routes.LOGIN);
+				history.pushState({}, '', Routes.LOGIN);
 			}
 		});
 	});
 </script>
 
 <Dashboard>
-	{@render children()}
+	<slot />
 </Dashboard>
 
 <Dialog

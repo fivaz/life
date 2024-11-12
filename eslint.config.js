@@ -53,6 +53,6 @@ export default ts.config(
 		},
 	},
 	{
-		ignores: ['build/', '.svelte-kit/', 'dist/', '.vercel/'],
+		ignores: ['.svelte-kit/', 'dist/', '.vercel/', '.routify'],
 	},
 );

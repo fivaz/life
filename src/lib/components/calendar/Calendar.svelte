@@ -5,7 +5,7 @@
 	import { currentDate, getNextRoundedTime } from '$lib/components/calendar/service.svelte';
 	import type { Task } from '$lib/task/utils';
 
-	import type { Context } from '../../../app';
+	import type { Context } from '../../../vite-env';
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
 

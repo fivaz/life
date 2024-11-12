@@ -1,3 +1,4 @@
+<!--routify:meta reset="dashboard+" -->
 <script lang="ts">
 	import { addDays, startOfWeek } from 'date-fns';
 	import { Calendar1, Plus } from 'lucide-svelte';
@@ -6,7 +7,7 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 	import DBRoutines from '$lib/routine/DBRoutines.svelte';
-	import { title } from '$lib/utils.svelte';
+	import { title } from '$lib/utils.svelte.js';
 
 	import RoutineForm from './routine-form/RoutineForm.svelte';
 	import { buildEmptyRoutine } from './routine-form/service';
