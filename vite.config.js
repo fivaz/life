@@ -12,13 +12,11 @@ export default defineConfig({
 	envPrefix: 'PUBLIC_',
 	plugins: [
 		routify({}),
-		svelte({
-			// TODO check it later
-			// compilerOptions: {
-			//     dev: !production,
-			// },
-		}),
+		svelte(),
 		VitePWA({
+			strategies: 'injectManifest',
+			srcDir: 'src',
+			filename: 'sw.ts',
 			registerType: 'autoUpdate',
 			injectRegister: false,
 
@@ -28,16 +26,15 @@ export default defineConfig({
 			},
 
 			manifest: {
-				name: 'life-spa',
-				short_name: 'life-spa',
-				description: 'life-spa',
-				theme_color: '#ffffff',
+				name: 'Life-spa',
+				short_name: 'Life-spa',
+				description: 'rich-feature day planner',
+				theme_color: '#4f46e5',
+				background_color: '#ffffff',
 			},
 
-			workbox: {
-				globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
-				cleanupOutdatedCaches: true,
-				clientsClaim: true,
+			injectManifest: {
+				globPatterns: ['**/*.{js,css,ico,png,svg,webp,avif}'],
 			},
 
 			devOptions: {

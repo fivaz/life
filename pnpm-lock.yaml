@@ -171,6 +171,15 @@ importers:
       vite-plugin-pwa:
         specifier: ^0.20.5
         version: 0.20.5(@vite-pwa/assets-generator@0.2.6)(vite@5.4.11(@types/node@22.9.0)(terser@5.36.0))(workbox-build@7.3.0)(workbox-window@7.3.0)
+      workbox-core:
+        specifier: ^7.3.0
+        version: 7.3.0
+      workbox-precaching:
+        specifier: ^7.3.0
+        version: 7.3.0
+      workbox-routing:
+        specifier: ^7.3.0
+        version: 7.3.0
       zod:
         specifier: ^3.23.8
         version: 3.23.8
