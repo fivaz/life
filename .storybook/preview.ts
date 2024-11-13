@@ -1,7 +1,8 @@
 import '../src/app.css';
 
-/** @type { import('@storybook/svelte').Preview } */
-const preview = {
+import type { Preview } from '@storybook/svelte';
+
+const preview: Preview = {
 	parameters: {
 		controls: {
 			matchers: {

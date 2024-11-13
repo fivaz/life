@@ -30,7 +30,7 @@ export default defineConfig({
 			},
 
 			devOptions: {
-				enabled: true,
+				enabled: false,
 				suppressWarnings: true,
 				navigateFallback: '/',
 				navigateFallbackAllowlist: [/^\/$/],

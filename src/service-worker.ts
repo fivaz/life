@@ -1,4 +1,7 @@
 /// <reference types="@sveltejs/kit" />
+/// <reference no-default-lib="true"/>
+/// <reference lib="esnext" />
+/// <reference lib="webworker" />
 import { clientsClaim } from 'workbox-core';
 import { cleanupOutdatedCaches, precacheAndRoute } from 'workbox-precaching';
 
@@ -6,7 +9,7 @@ import { version } from '$service-worker';
 
 declare let self: ServiceWorkerGlobalScope;
 
-const precache_list = [
+const precacheRoutes = [
 	'/',
 	'/demo',
 	'/categories',
@@ -20,11 +23,13 @@ const precache_list = [
 	url: s,
 }));
 
-const final = [...precache_list, ...self.__WB_MANIFEST];
+const final = [...precacheRoutes, ...self.__WB_MANIFEST];
+
+console.log(final);
 
 cleanupOutdatedCaches();
 
 precacheAndRoute(final);
 
-self.skipWaiting();
+void self.skipWaiting();
 clientsClaim();
