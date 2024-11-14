@@ -1,51 +1,50 @@
 <script module lang="ts">
-	import { defineMeta } from '@storybook/addon-svelte-csf';
+	import { type Args, defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 
 	import Dialog from './Dialog.svelte';
 
 	const { Story } = defineMeta({
 		component: Dialog,
+		args: {
+			cancelText: 'Cancel',
+			confirmText: 'Confirm',
+			resolve: (value) => {
+				if (value === true) {
+					console.log('accepted');
+				} else if (value === false) {
+					console.log('rejected');
+				} else {
+					console.log('cancel');
+				}
+			},
+		},
 	});
 </script>
 
+<script lang="ts">
+	setTemplate(template);
+</script>
+
+{#snippet template(args: Args<typeof Story> | any)}
+	<Dialog {...args} />
+{/snippet}
+
 <Story
 	args={{
-		cancelText: 'Cancel',
-		confirmText: 'Confirm',
+		cancelText: 'Custom Cancel',
+		confirmText: 'Custom Confirm',
 		message: 'Are you sure you want to delete this event ?',
+		isOpen: true,
 		title: 'Delete event ?',
 	}}
+	children={template}
 	name="Primary"
 />
 
-<!--{#snippet template(args: any)}-->
-<!--	<Dialog-->
-<!--		{...args}-->
-<!--		cancel={() => console.log('cancel')}-->
-<!--		close={() => console.log('close')}-->
-<!--		confirm={() => console.log('confirm')}-->
-<!--	/>-->
-<!--{/snippet}-->
-
-<!--<Story-->
-<!--	args={{-->
-<!--		cancelText: 'Cancel',-->
-<!--		confirmText: 'Confirm',-->
-<!--		message: 'Are you sure you want to delete this event ?',-->
-<!--		show: true,-->
-<!--		title: 'Delete event ?',-->
-<!--	}}-->
-<!--	name="Primary"-->
-<!--	children={template}-->
-<!--/>-->
-
-<!--<Story-->
-<!--	args={{-->
-<!--		cancelText: 'Cancel',-->
-<!--		confirmText: 'Confirm',-->
-<!--		show: true,-->
-<!--		title: 'Delete?',-->
-<!--	}}-->
-<!--	name="No Message"-->
-<!--	children={template}-->
-<!--/>-->
+<Story
+	args={{
+		isOpen: true,
+		title: 'Delete?',
+	}}
+	name="No Message"
+/>

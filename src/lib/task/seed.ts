@@ -4,7 +4,7 @@ import { routine, sleep, work } from '$lib/category/seed';
 import { DATE, TIME } from '$lib/consts';
 import { sleepEarly } from '$lib/goal/seed';
 import { buildDate } from '$lib/task/time-utils';
-import type { Task } from '$lib/task/utils';
+import type { CalendarTask } from '$lib/task/utils';
 
 function getTodayAtTime(time: string): Date {
 	const date = new Date();
@@ -17,7 +17,7 @@ const longText =
 
 let id = 0;
 
-export const normalWithoutDescriptionWithGoal: Task = {
+export const normalWithoutDescriptionWithGoal: CalendarTask = {
 	category: sleep,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(getTodayAtTime('00:00'), DATE),
@@ -35,7 +35,7 @@ export const normalWithoutDescriptionWithGoal: Task = {
 	recurringExceptions: [],
 };
 
-export const normalWithoutDescriptionWithoutGoal: Task = {
+export const normalWithoutDescriptionWithoutGoal: CalendarTask = {
 	category: sleep,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(getTodayAtTime('00:00'), DATE),
@@ -53,7 +53,7 @@ export const normalWithoutDescriptionWithoutGoal: Task = {
 	recurringExceptions: [],
 };
 
-export const normalWithDescription: Task = {
+export const normalWithDescription: CalendarTask = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(startOfYesterday(), DATE),
@@ -71,7 +71,7 @@ export const normalWithDescription: Task = {
 	recurringExceptions: [],
 };
 
-export const normalWithSubTasks: Task = {
+export const normalWithSubTasks: CalendarTask = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(startOfYesterday(), DATE),
@@ -95,7 +95,7 @@ export const normalWithSubTasks: Task = {
 	recurringExceptions: [],
 };
 
-export const shortWithoutDescription: Task = {
+export const shortWithoutDescription: CalendarTask = {
 	category: routine,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(getTodayAtTime('07:00'), DATE),
@@ -113,7 +113,7 @@ export const shortWithoutDescription: Task = {
 	recurringExceptions: [],
 };
 
-export const shortWithDescription: Task = {
+export const shortWithDescription: CalendarTask = {
 	category: routine,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(getTodayAtTime('07:00'), DATE),
@@ -131,7 +131,7 @@ export const shortWithDescription: Task = {
 	recurringExceptions: [],
 };
 
-export const shortWithSubTasks: Task = {
+export const shortWithSubTasks: CalendarTask = {
 	category: routine,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(getTodayAtTime('07:00'), DATE),
@@ -155,7 +155,7 @@ export const shortWithSubTasks: Task = {
 	recurringExceptions: [],
 };
 
-export const longRecurring: Task = {
+export const longRecurring: CalendarTask = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(getTodayAtTime('10:15'), DATE),
@@ -173,7 +173,7 @@ export const longRecurring: Task = {
 	image: '',
 };
 
-export const events: Task[] = [
+export const events: CalendarTask[] = [
 	normalWithoutDescriptionWithGoal,
 	normalWithoutDescriptionWithoutGoal,
 	normalWithDescription,
@@ -184,7 +184,7 @@ export const events: Task[] = [
 	longRecurring,
 ];
 
-export const workToDo: Task = {
+export const workToDo: CalendarTask = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(startOfWeek(new Date(), { weekStartsOn: 1 }), DATE),
@@ -202,7 +202,7 @@ export const workToDo: Task = {
 	startTime: format(getTodayAtTime('15:15'), TIME),
 };
 
-export const birthdayToDo: Task = {
+export const birthdayToDo: CalendarTask = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
 	date: format(startOfTomorrow(), DATE),
@@ -220,6 +220,6 @@ export const birthdayToDo: Task = {
 	startTime: format(getTodayAtTime('15:15'), TIME),
 };
 
-export const toDos: Task[] = [workToDo, birthdayToDo];
+export const toDos: CalendarTask[] = [workToDo, birthdayToDo];
 
-export const tasks: Task[] = [...events, ...toDos];
+export const tasks: CalendarTask[] = [...events, ...toDos];

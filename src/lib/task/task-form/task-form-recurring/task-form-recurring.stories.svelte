@@ -1,18 +1,24 @@
 <script module lang="ts">
-	import { defineMeta } from '@storybook/addon-svelte-csf';
+	import {
+		defineMeta,
+		setTemplate,
+	} from '@storybook/addon-svelte-csf';
 
-	// import { longRecurring } from '$lib/task/seed';
+import { longRecurring } from '$lib/task/seed';
+	import { taskIn } from '$lib/task/task-form/service.svelte';
+	import { convertToTaskIn } from '$lib/task/task-in-utils';
+
 	import TaskFormRecurring from './TaskFormRecurring.svelte';
 
 	const { Story } = defineMeta({
 		component: TaskFormRecurring,
 	});
 
-	// import { convertToTaskIn } from '$lib/task/task-in-utils';
+	taskIn.value = convertToTaskIn(longRecurring);
+</script>
 
-	// let taskInDaily = $state(convertToTaskIn(longRecurring));
-
-	// let taskInWeekly = $state({ ...convertToTaskIn(longRecurring), recurringFrequency: 'weekly' });
+<script lang="ts">
+	setTemplate(template);
 </script>
 
 {#snippet template()}
@@ -22,7 +28,3 @@
 {/snippet}
 
 <Story args={{}} name="Primary" children={template} />
-
-<!--<Story args={{ taskIn: taskInDaily }} name="Daily frequency" children={template} />-->
-
-<!--<Story args={{ taskIn: taskInWeekly }} name="Weekly frequency" children={template} />-->

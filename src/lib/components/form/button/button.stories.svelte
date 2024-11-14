@@ -3,7 +3,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { type Args, defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 
-	import type { IncreaseArgs } from '../../../../../.storybook/special-types';
+	import type { IncreaseArgs } from '../../../../../.storybook/utils';
 	import Button from './Button.svelte';
 
 	const { Story } = defineMeta<IncreaseArgs<typeof Button, { isOnlyIcon: boolean }>>({
@@ -40,7 +40,6 @@
 		isOnlyIcon: false,
 	}}
 	name="Primary"
-	children={template}
 />
 
 <Story
@@ -51,5 +50,4 @@
 		isOnlyIcon: true,
 	}}
 	name="With only Icon"
-	children={template}
 />

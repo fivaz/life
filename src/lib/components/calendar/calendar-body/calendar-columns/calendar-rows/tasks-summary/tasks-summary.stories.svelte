@@ -1,24 +1,30 @@
 <script module lang="ts">
-	// import { defineMeta } from '@storybook/addon-svelte-csf';
-	//
-	// import { birthdayToDo, toDos, workToDo } from '$lib/task/seed';
-	// import { type CalendarTask } from '$lib/task/utils';
-	//
-	// import TasksSummary from './TasksSummary.svelte';
-	//
-	// const { Story } = defineMeta({
-	// 	component: TasksSummary,
-	// });
+	import { type Args, defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
+
+	import { birthdayToDo, toDos, workToDo } from '$lib/task/seed';
+
+import TasksSummary from './TasksSummary.svelte';
+
+	const { Story } = defineMeta({
+		component: TasksSummary,
+		args: {
+			date: new Date(),
+		},
+	});
 </script>
 
-<!--{#snippet template(args: { tasks: CalendarTask[] })}-->
-<!--	<div class="w-24">-->
-<!--		<TasksSummary date={new Date()} {...args} />-->
-<!--	</div>-->
-<!--{/snippet}-->
+<script lang="ts">
+	setTemplate(template);
+</script>
 
-<!--<Story args={{ tasks: [workToDo] }} name="OneDueToDo" children={template} />-->
+{#snippet template(args: Args<typeof Story> | any)}
+	<div class="w-24">
+		<TasksSummary {...args} />
+	</div>
+{/snippet}
 
-<!--<Story args={{ tasks: [birthdayToDo] }} name="OneToDo" children={template} />-->
+<Story args={{ tasks: [workToDo] }} name="OneDueToDo" />
 
-<!--<Story args={{ tasks: toDos }} name="ManyToDos" children={template} />-->
+<Story args={{ tasks: [birthdayToDo] }} name="OneToDo" />
+
+<Story args={{ tasks: toDos }} name="ManyToDos" />
