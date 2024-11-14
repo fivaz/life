@@ -9,6 +9,10 @@
 		argTypes: {
 			children: { control: 'text' },
 		},
+		args: {
+			isVisible: true,
+			close: () => console.log('close'),
+		},
 	});
 
 	// TODO check what is their solution for this
@@ -26,9 +30,7 @@
 
 <Story
 	args={{
-		isVisible: true,
 		type: 'success',
-		close: () => console.log('close'),
 		children: textAsSnippet('Successfully uploaded'),
 	}}
 	name="Success"
@@ -36,9 +38,7 @@
 
 <Story
 	args={{
-		isVisible: true,
 		type: 'info',
-		close: () => console.log('close'),
 		children: textAsSnippet('A new software update is available. See what’s new in version 2.0.4'),
 	}}
 	name="Info"
@@ -46,9 +46,7 @@
 
 <Story
 	args={{
-		isVisible: true,
 		type: 'warning',
-		close: () => console.log('close'),
 		children: textAsSnippet('You have no credits left'),
 	}}
 	name="Warning"
@@ -56,9 +54,7 @@
 
 <Story
 	args={{
-		isVisible: true,
 		type: 'error',
-		close: () => console.log('close'),
 		children: textAsSnippet('There were 2 errors with your submission'),
 	}}
 	name="Error"

@@ -3,7 +3,7 @@
 
 	import { birthdayToDo, toDos, workToDo } from '$lib/task/seed';
 
-import TasksSummary from './TasksSummary.svelte';
+	import TasksSummary from './TasksSummary.svelte';
 
 	const { Story } = defineMeta({
 		component: TasksSummary,

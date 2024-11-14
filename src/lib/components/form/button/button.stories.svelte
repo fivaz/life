@@ -15,7 +15,7 @@
 		},
 		args: {
 			isOnlyIcon: true,
-			onclick: () => console.log('clicked1'),
+			onclick: () => console.log('clicked'),
 		},
 	});
 </script>
