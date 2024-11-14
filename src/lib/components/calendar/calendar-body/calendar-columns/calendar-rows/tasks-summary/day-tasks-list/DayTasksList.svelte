@@ -6,8 +6,8 @@
 	import { DATE } from '$lib/consts';
 	import { getTotalDuration } from '$lib/task/time-utils';
 	import { type CalendarTask, isRecurring, isTimed } from '$lib/task/utils';
-	
-interface Props {
+
+	interface Props {
 		tasks: CalendarTask[];
 		close: () => void;
 		date: Date;
@@ -58,7 +58,7 @@ interface Props {
 		</div>
 	</div>
 
-	<ul class="py-3">
+	<ul class="overflow-auto py-3">
 		{#each tasks as task, index (task)}
 			<DayTaskItem {task} {index} {date} />
 		{/each}
