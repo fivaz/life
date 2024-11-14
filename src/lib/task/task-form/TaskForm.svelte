@@ -43,6 +43,8 @@
 
 	taskIn.value = convertToTaskIn(task);
 
+	$inspect(taskIn.value.id);
+
 	const wasRecurring = isRecurring(task);
 
 	const formerGoal = task.goal;

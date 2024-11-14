@@ -22,14 +22,14 @@ export function getEventSlots(event: TimedTask): { endSlot: number; startSlot: n
 	return { endSlot, startSlot };
 }
 
-export type EventsGrid = { [column: number]: string }[];
+export type EventsGrid = Array<Record<number, string>>;
 
-function getMaxOverlap(eventGrid: EventsGrid) {
+function getMaxOverlap(eventGrid: EventsGrid): number {
 	const overlapList = eventGrid.map((eventsObject) => Object.keys(eventsObject).length);
 	return Math.max(...overlapList);
 }
 
-function getColumn(eventIdToFind: string, eventGrid: EventsGrid[0]) {
+function getColumn(eventIdToFind: string, eventGrid: EventsGrid[number]): number {
 	// it gets the key in the object whose value is the eventIdToFind
 	const column = Object.keys(eventGrid).find((key) => eventGrid[Number(key)] === eventIdToFind);
 	if (!column) {
@@ -42,12 +42,26 @@ function getColumn(eventIdToFind: string, eventGrid: EventsGrid[0]) {
 
 export function getDivision(event: TimedTask, eventsGrid: EventsGrid) {
 	const { endSlot, startSlot } = getEventSlots(event);
-	const eventGrid = eventsGrid.slice(startSlot, endSlot);
-	const maxOverlap = getMaxOverlap(eventGrid);
 
-	if (maxOverlap <= 1) {
-		return 'width: 100%; left: 0%;';
-	}
+	/**
+	 * eventsGrid
+	 * [
+	 *   0: {0: eventId1},
+	 *   1: {0: eventId2, 1: eventId3},
+	 *   2: {0: eventId2, 1: eventId3},
+	 *   3: {0: eventId4},
+	 * ]
+	 */
+	const eventGrid = eventsGrid.slice(startSlot, endSlot);
+
+	/**
+	 * eventGrid
+	 * [
+	 *   0: {0: eventId2, 1: eventId3},
+	 *   1: {0: eventId2, 1: eventId3},
+	 * ]
+	 */
+	const maxOverlap = getMaxOverlap(eventGrid);
 
 	const column = getColumn(event.id, eventGrid[0]);
 

@@ -20,12 +20,12 @@ import { DATE } from '$lib/consts';
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 import {
 	type CalendarTask,
+	isRecurring,
 	type RecurringTask,
 	sortTasks,
 	type Task,
 	type TimedTask,
 } from '$lib/task/utils';
-import { isRecurring } from '$lib/task/utils';
 
 export function getTasksForDate(tasks: Task[], date: Date): CalendarTask[] {
 	return tasks.filter((task) => isForDate(task, date));
@@ -122,16 +122,8 @@ export function getEventGrid(events: TimedTask[]): EventsGrid {
 	const sortedEvents = sortTasks(events);
 
 	const timeSlotsByEvents = getTimeSlots(sortedEvents);
-	const columnByEvent = assignColumns(sortedEvents);
-	const eventGrid: EventsGrid = Array.from({ length: 96 }, () => ({}));
 
-	timeSlotsByEvents.forEach((eventIds, timeSlot) => {
-		eventIds.forEach((eventId) => {
-			const column = columnByEvent[eventId];
-			eventGrid[timeSlot][column] = eventId;
-		});
-	});
-	return eventGrid;
+	return assignColumnsToEvents(timeSlotsByEvents);
 
 	/**
 	 Convert a list of events into a list of time slots in which each index represents 15 minutes,
@@ -163,36 +155,39 @@ export function getEventGrid(events: TimedTask[]): EventsGrid {
 	}
 
 	/**
-	 Convert a list of events into an Object in which the keys are events ids and the values are the colum in which the event should start its placement,
-	 events can spread to other columns if they exist. So in case there two events take place at the same moment one will start at the column 0
-	 and the other at column 1 but if there is only one event at a certain moment it will also be placed at column 0
+	 Assign columns to each event from the timeslots list:
 
-	 [
-	 	eventId1:0,
-	 	eventId2:1,
-	  eventId3:0,
-	 	eventId4:0,
-	  eventId5:1,
-	  ...
+	 timeSlots list :
+	  [
+	 	0:[eventId1],
+	 	1:[eventId2, eventId3,...],
+	 	...
+	 	94:[eventId99, eventId100,...],
+	 	95:[eventId99, eventId100,...],
 	 ]
 
-	 this is used to guarantee that if two events are taking place simultaneously they will never occupy the same column
+	 result:
+		[
+	 	0:[{0:eventId1}],
+	 	1:[{0:eventId2}, {1:eventId3},...],
+	 	...
+	 	94:[{0:eventId99}, {1:eventId100},...],
+	 	95:[{0:eventId99}, {1:eventId100},...],
+	 ]
 	 */
-	function assignColumns(events: TimedTask[]): Record<string, number> {
-		const columnEndTimes: number[] = [];
-		const eventColumns: Record<string, number> = {};
+	function assignColumnsToEvents(timeSlotsByEvents: string[][]): EventsGrid {
+		const eventColumns = new Map<string, number>();
 
-		for (const event of events) {
-			const { endSlot, startSlot } = getEventSlots(event);
-
-			let column = 0;
-			while (column < columnEndTimes.length && columnEndTimes[column] > startSlot) {
-				column++;
-			}
-			eventColumns[event.id] = column;
-			columnEndTimes[column] = endSlot;
-		}
-
-		return eventColumns;
+		return timeSlotsByEvents.map((eventIds) => {
+			return eventIds.reduce<Record<number, string>>((object, eventId, index) => {
+				// with this I guarantee that once a column was set for an event, it will always keep its column
+				if (!eventColumns.has(eventId)) {
+					eventColumns.set(eventId, index);
+				}
+				const column = eventColumns.get(eventId)!;
+				object[column] = eventId;
+				return object;
+			}, {});
+		});
 	}
 }
