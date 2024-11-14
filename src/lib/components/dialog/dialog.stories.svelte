@@ -37,7 +37,6 @@
 		isOpen: true,
 		title: 'Delete event ?',
 	}}
-	children={template}
 	name="Primary"
 />
 

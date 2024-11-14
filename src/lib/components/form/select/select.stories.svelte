@@ -1,5 +1,5 @@
 <script module lang="ts">
-	import { defineMeta } from '@storybook/addon-svelte-csf';
+	import { type Args, defineMeta } from '@storybook/addon-svelte-csf';
 
 	import { categories } from '$lib/category/seed';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
@@ -13,7 +13,7 @@
 	let selectedCategory = $state(categories[0]);
 </script>
 
-{#snippet template(args: any)}
+{#snippet template(args: Args<typeof Story>)}
 	<div class="w-96">
 		<Select {...args} bind:value={selectedCategory}>
 			{#snippet placeholder()}

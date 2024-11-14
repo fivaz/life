@@ -15,6 +15,7 @@
 		name: 'endTime',
 		type: 'time',
 		value: '10:00',
+		label: 'Time',
 	}}
 	name="Primary"
 />
