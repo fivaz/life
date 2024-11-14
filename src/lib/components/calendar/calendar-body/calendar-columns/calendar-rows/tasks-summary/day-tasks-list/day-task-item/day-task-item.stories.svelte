@@ -1,0 +1,14 @@
+<script module lang="ts">
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+
+	import DayTaskItem from './DayTaskItem.svelte';
+
+	const { Story } = defineMeta({
+		component: DayTaskItem,
+		parameters: {
+			layout: 'fullscreen',
+		},
+	});
+</script>
+
+<Story args={{}} name="Primary" />
