@@ -1,11 +1,10 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
 
+	import CalendarDay from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/CalendarDay.svelte';
 	import { selectedDate, weekDays } from '$lib/components/calendar/service.svelte';
 	import { buildDate } from '$lib/task/time-utils';
 	import type { Task } from '$lib/task/utils';
-
-	import CalendarRows from './calendar-rows/CalendarRows.svelte';
 
 	interface Props {
 		tasks: Task[];
@@ -19,7 +18,7 @@
 <div class="hidden grow md:flex">
 	<div class="grid w-full grid-cols-7 divide-x border-x">
 		{#each weekDays.value as date (date)}
-			<CalendarRows
+			<CalendarDay
 				class="hidden md:flex"
 				{date}
 				{tasks}
@@ -31,7 +30,7 @@
 </div>
 
 <div class="mb-5 block grow border border-b md:hidden">
-	<CalendarRows
+	<CalendarDay
 		{tasks}
 		class="block md:hidden"
 		date={selectedDate.value}

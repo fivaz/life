@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { setContext } from 'svelte';
 
-	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
+	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 	import { currentDate, getNextRoundedTime } from '$lib/components/calendar/service.svelte';
 	import type { Task } from '$lib/task/utils';
 

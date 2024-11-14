@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	import { isScrollingUp } from '$lib/components/calendar/calendar-body/calendar-columns/service.svelte';
+	import CalendarWeekView from '$lib/components/calendar/calendar-body/calendar-week-view/CalendarWeekView.svelte';
+	import { isScrollingUp } from '$lib/components/calendar/calendar-body/calendar-week-view/service.svelte';
 	import type { Task } from '$lib/task/utils';
 
-	import CalendarColumns from './calendar-columns/CalendarColumns.svelte';
 	import HorizontalTime from './horizontal-time/HorizontalTime.svelte';
 	import WeekList from './week-list/WeekList.svelte';
 
@@ -76,7 +76,7 @@
 			<HorizontalTime>
 				<div bind:this={containerOffset}></div>
 			</HorizontalTime>
-			<CalendarColumns {tasks} />
+			<CalendarWeekView {tasks} />
 		</div>
 	</div>
 </div>

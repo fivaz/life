@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { clsx } from 'clsx';
 
-	import DayTasksList from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/tasks-summary/day-tasks-list/DayTasksList.svelte';
+	import DayTasksList from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/tasks-summary/day-tasks-list/DayTasksList.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import type { CalendarTask, Task } from '$lib/task/utils';
 

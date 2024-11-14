@@ -11,11 +11,11 @@ import {
 	startOfDay,
 } from 'date-fns';
 
-import { NUMBER_OF_CELLS } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
+import { NUMBER_OF_CELLS } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 import {
 	type EventsGrid,
 	getEventSlots,
-} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
+} from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
 import { DATE } from '$lib/consts';
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 import {

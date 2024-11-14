@@ -3,10 +3,10 @@
 
 	import { events } from '$lib/task/seed';
 
-	import CalendarColumns from './CalendarColumns.svelte';
+	import CalendarWeekView from './CalendarWeekView.svelte';
 
 	const { Story } = defineMeta({
-		component: CalendarColumns,
+		component: CalendarWeekView,
 		parameters: {
 			layout: 'fullscreen',
 		},

@@ -4,7 +4,7 @@
 	import {
 		GRID_CELL_HEIGHT,
 		SUMMARY_GRID_CELL_HEIGHT,
-	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
+	} from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 
 	interface Props {
 		children?: Snippet;

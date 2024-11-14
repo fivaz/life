@@ -4,8 +4,8 @@ import {
 	GRID_CELL_HEIGHT,
 	GRID_CELL_TIME,
 	GRID_CLASS,
-} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
-import { EVENT_PANEL_CLASS } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
+} from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
+import { EVENT_PANEL_CLASS } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
 import { TIME } from '$lib/consts';
 import type { Task } from '$lib/task/utils';
 import { getDurationInMinutes } from '$lib/task/utils';

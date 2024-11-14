@@ -6,18 +6,18 @@
 	import {
 		GRID_CELL_HEIGHT,
 		isSomethingDragging,
-	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
+	} from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 	import {
 		EVENT_PANEL_CLASS,
 		type EventsGrid,
 		getDivision,
 		getHeight,
 		getTop,
-	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/placement-service';
+	} from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
 	import {
 		getCellSizeFromDuration,
 		hasMoved,
-	} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/event-panel/service';
+	} from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/service';
 	import type { TimedTask } from '$lib/task/utils';
 
 	import EventPanelCore from './event-panel-core/EventPanelCore.svelte';

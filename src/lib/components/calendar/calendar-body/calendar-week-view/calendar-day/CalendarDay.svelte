@@ -2,8 +2,8 @@
 	import { format } from 'date-fns';
 	import { onMount } from 'svelte';
 
-	import TasksSummary from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/tasks-summary/TasksSummary.svelte';
-	import { isScrollingUp } from '$lib/components/calendar/calendar-body/calendar-columns/service.svelte';
+	import TasksSummary from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/tasks-summary/TasksSummary.svelte';
+	import { isScrollingUp } from '$lib/components/calendar/calendar-body/calendar-week-view/service.svelte';
 	import { DATE } from '$lib/consts';
 	import type { Task } from '$lib/task/utils';
 	import { isTimed } from '$lib/task/utils.js';

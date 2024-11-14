@@ -1,6 +1,6 @@
 import { add, format, isSameDay, parse, set } from 'date-fns';
 
-import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
+import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 import { DATE, TIME } from '$lib/consts';
 import { getDurationInMinutes, isTimed, type Task } from '$lib/task/utils';
 

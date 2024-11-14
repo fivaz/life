@@ -2,7 +2,7 @@ import {
 	GRID_CELL_HEIGHT,
 	GRID_CELL_TIME,
 	NUMBER_OF_CELLS,
-} from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/calendar-grid/service.svelte';
+} from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 import { convertTimeToMinutes } from '$lib/task/time-utils';
 import { type TimedTask } from '$lib/task/utils';
 

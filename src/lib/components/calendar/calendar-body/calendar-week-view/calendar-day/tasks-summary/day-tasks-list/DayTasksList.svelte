@@ -2,7 +2,7 @@
 	import { addDays, format, parse } from 'date-fns';
 	import { getContext } from 'svelte';
 
-	import DayTaskItem from '$lib/components/calendar/calendar-body/calendar-columns/calendar-rows/tasks-summary/day-tasks-list/day-task-item/DayTaskItem.svelte';
+	import DayTaskItem from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/tasks-summary/day-tasks-list/day-task-item/DayTaskItem.svelte';
 	import { DATE } from '$lib/consts';
 	import { getTotalDuration } from '$lib/task/time-utils';
 	import { type CalendarTask, isRecurring, isTimed } from '$lib/task/utils';
