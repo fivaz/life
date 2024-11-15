@@ -6,7 +6,7 @@
 	import DBCategories from '$lib/category/DBCategories.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import DBGoals from '$lib/goal/DBGoals.svelte';
+	import DBGoalsForTaskForm from '$lib/goal/DBGoalsForTaskForm.svelte';
 	import { buildUntimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
 	import DBUndoneTasks from '$lib/task/DBUndoneTasks.svelte';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
@@ -91,13 +91,13 @@
 					{/snippet}
 				</DBUndoneTasks>
 
-				<DBGoals>
+				<DBGoalsForTaskForm>
 					{#snippet data(goals)}
 						<Modal bind:isOpen={isFormShown}>
 							<TaskForm {userId} {categories} {goals} close={closeForm} task={editingTask} />
 						</Modal>
 					{/snippet}
-				</DBGoals>
+				</DBGoalsForTaskForm>
 			</div>
 		</div>
 	{/snippet}

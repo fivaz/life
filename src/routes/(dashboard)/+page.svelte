@@ -3,7 +3,7 @@
 	import { type Category, CategoryTypes } from '$lib/category/utils';
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import DBGoals from '$lib/goal/DBGoals.svelte';
+	import DBGoalsForTaskForm from '$lib/goal/DBGoalsForTaskForm.svelte';
 	import { buildTimedTask, buildTimedTaskWithTimeSet } from '$lib/task/build-utils';
 	import TaskCompletedNotificationStack from '$lib/task/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
@@ -66,7 +66,7 @@
 			tasks={tasks.value}
 			toggleEvent={(event, targetDate) => toggleCompletion(userId, event, targetDate)}
 		/>
-		<DBGoals>
+		<DBGoalsForTaskForm>
 			{#snippet data(goals)}
 				<Modal bind:isOpen={isFormShown}>
 					<TaskForm
@@ -79,7 +79,7 @@
 					/>
 				</Modal>
 			{/snippet}
-		</DBGoals>
+		</DBGoalsForTaskForm>
 		<TaskCompletedNotificationStack bind:completedTasks {userId} />
 	{/snippet}
 </DBCategories>

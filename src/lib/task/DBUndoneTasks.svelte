@@ -15,7 +15,7 @@
 	let taskType: Task;
 </script>
 
-<DBCollection constrain={where('isDone', '==', false)} collection={DB_PATH.TASKS} type={taskType}>
+<DBCollection constrains={where('isDone', '==', false)} collection={DB_PATH.TASKS} type={taskType}>
 	{#snippet data(items, userId)}
 		{@render typedData(items, userId)}
 	{/snippet}

@@ -16,7 +16,7 @@
 
 <DBCollection
 	collection={DB_PATH.TASKS}
-	constrain={where('category.type', '==', CategoryTypes.WORK)}
+	constrains={where('category.type', '==', CategoryTypes.WORK)}
 	type={taskType}
 >
 	{#snippet data(tasks)}

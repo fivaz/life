@@ -15,7 +15,7 @@
 	let goalType: Goal;
 </script>
 
-<DBCollection collection={DB_PATH.GOALS} type={goalType} constrain={orderBy('deadline')}>
+<DBCollection collection={DB_PATH.GOALS} type={goalType} constrains={orderBy('deadline')}>
 	{#snippet data(items, userId)}
 		{@render typedData(items, userId)}
 	{/snippet}

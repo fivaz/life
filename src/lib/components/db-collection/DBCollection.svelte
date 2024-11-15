@@ -16,14 +16,14 @@
 
 	interface Props {
 		collection: string;
-		constrain?: QueryConstraint;
+		constrains?: QueryConstraint[] | QueryConstraint;
 		// eslint-disable-next-line no-undef
 		data: Snippet<[T[], string]>;
 		// eslint-disable-next-line no-undef
 		type: T;
 	}
 
-	let { data, collection: segment, constrain }: Props = $props();
+	let { data, collection: segment, constrains }: Props = $props();
 
 	// eslint-disable-next-line no-undef
 	let items = $state<T[]>([]);
@@ -33,8 +33,12 @@
 	function getQuery(userId: string): Query {
 		const collectionRef = collection(db, `${DB_PATH.USERS}/${userId}/${segment}`);
 
-		if (constrain) {
-			return query(collectionRef, constrain);
+		if (constrains) {
+			if (Array.isArray(constrains)) {
+				return query(collectionRef, ...constrains);
+			} else {
+				return query(collectionRef, constrains);
+			}
 		} else {
 			return collectionRef;
 		}
