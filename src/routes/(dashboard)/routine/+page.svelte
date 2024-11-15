@@ -38,8 +38,9 @@
 					<div
 						class="flex flex-grow items-center justify-between gap-5 md:flex-grow-0 md:justify-start"
 					>
+						<Streak {routines} />
 						<div>
-							<h1 class="flex items-center text-base font-semibold leading-6 text-gray-900">
+							<h1 class="flex items-center gap-2 text-base font-semibold leading-6 text-gray-900">
 								<time class="sm:hidden" dateTime={format(selectedDate, DATE)}>
 									{format(selectedDate, 'MMM, yyyy')}
 								</time>
@@ -48,8 +49,6 @@
 								</time>
 							</h1>
 						</div>
-
-						<Streak {routines} />
 
 						<WeekChanger bind:selectedDate bind:weekStart />
 
