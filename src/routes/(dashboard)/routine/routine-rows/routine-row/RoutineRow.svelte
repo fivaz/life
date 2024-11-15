@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { format, parse, subDays } from 'date-fns';
 	import { Check, GripVertical, Undo2 } from 'lucide-svelte';
 	import { Flame } from 'lucide-svelte';
 	import { dragHandle } from 'svelte-dnd-action';
 
-	import { DATE } from '$lib/consts';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { toggleRoutineCompletion } from '$lib/routine/routine.repository';
+
+	import { getStatusColor, getStreak, statusColor } from '../service';
 
 	interface Props {
 		routine: Routine;
@@ -20,48 +20,14 @@
 
 	let { routine, selectedDate, userId, edit }: Props = $props();
 
-	let status = $derived.by<keyof typeof statusColor>(() => {
-		const existingRoutine = routine.completeHistory.find(({ date }) => date === selectedDate);
+	let status = $derived<keyof typeof statusColor>(getStatusColor(routine, selectedDate));
 
-		if (existingRoutine) {
-			return existingRoutine.isCompleted ? 'completed' : 'uncompleted';
-		} else {
-			return 'none';
-		}
-	});
-
-	let streak = $derived.by<number>(() => {
-		let streakValue = 0;
-		let selectedDateObj = parse(selectedDate, DATE, new Date());
-
-		while (true) {
-			const dateStr = format(selectedDateObj, DATE);
-
-			if (
-				routine.completeHistory.length === 0 ||
-				!routine.completeHistory.find((entry) => entry.date === dateStr)?.isCompleted
-			) {
-				break;
-			}
-
-			streakValue++;
-			selectedDateObj = subDays(selectedDateObj, 1);
-		}
-
-		return streakValue;
-	});
-
-	const statusColor = {
-		none: 'bg-red-100 text-red-500',
-		uncompleted: 'bg-yellow-100 text-yellow-500',
-		completed: 'bg-green-100 text-green-500',
-	};
+	let streak = $derived<number>(getStreak(routine, selectedDate));
 </script>
 
 <div
-	class="{statusColor[
-		status
-	]} flex justify-between rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-200"
+	class="{statusColor[status]}
+	flex justify-between rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-200"
 >
 	<div class="flex flex-1 items-center gap-2 truncate">
 		<div aria-label="drag-handle for {routine.name}" use:dragHandle>
