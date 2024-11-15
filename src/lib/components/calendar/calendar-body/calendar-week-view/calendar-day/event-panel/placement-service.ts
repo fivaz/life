@@ -4,7 +4,7 @@ import {
 	NUMBER_OF_CELLS,
 } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 import { type TimedTask } from '$lib/task/task.model';
-import { convertTimeToMinutes } from '$lib/task/time-utils';
+import { convertTimeToMinutes } from '$lib/task/time.utils';
 
 export const EVENT_PANEL_CLASS = 'event-panel-class';
 

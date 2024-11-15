@@ -7,7 +7,7 @@
 	import { DATE_FR } from '$lib/consts.js';
 	import type { Task } from '$lib/task/task.model';
 	import { sortTasks } from '$lib/task/task.utils';
-	import { getTaskDate } from '$lib/task/time-utils';
+	import { getTaskDate } from '$lib/task/time.utils';
 
 	interface Props {
 		tasks: Task[];

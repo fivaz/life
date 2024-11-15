@@ -1,5 +1,5 @@
 import type { SubTask, Task } from '$lib/task/task.model';
-import { convertTimeToMinutes, getTaskDateTime } from '$lib/task/time-utils';
+import { convertTimeToMinutes, getTaskDateTime } from '$lib/task/time.utils';
 
 export function getSubTasks(task: Task): SubTask[] {
 	// \[\s?([x ])\s?\] matches either [x] or [ ] (with optional spaces inside).

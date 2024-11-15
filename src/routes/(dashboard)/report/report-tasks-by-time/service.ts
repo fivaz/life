@@ -19,7 +19,7 @@ import {
 import { DATE } from '$lib/consts';
 import { type Task } from '$lib/task/task.model';
 import { sortTasks } from '$lib/task/task.utils';
-import { getTaskDateTime } from '$lib/task/time-utils';
+import { getTaskDateTime } from '$lib/task/time.utils';
 
 export type UncompletedTasksByDate = {
 	[Symbol.iterator](): IterableIterator<[string, number]>;

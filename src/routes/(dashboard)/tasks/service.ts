@@ -12,7 +12,7 @@ import {
 import { DATE_FR } from '$lib/consts';
 import type { Task } from '$lib/task/task.model';
 import { isRecurring } from '$lib/task/task.model';
-import { getTaskDate } from '$lib/task/time-utils';
+import { getTaskDate } from '$lib/task/time.utils';
 
 export type SortedTaskType = Record<string, Task[]> & Iterable<string>;
 

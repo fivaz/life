@@ -28,7 +28,7 @@
 	import TaskFormImage from '$lib/task/task-form/task-form-image/TaskFormImage.svelte';
 	import TaskFormRecurring from '$lib/task/task-form/task-form-recurring/TaskFormRecurring.svelte';
 	import { checkErrors, convertToTask, convertToTaskIn } from '$lib/task/task-in-utils';
-	import { sumTimes } from '$lib/task/time-utils';
+	import { sumTimes } from '$lib/task/time.utils';
 
 	interface Props {
 		userId: string;

@@ -5,7 +5,7 @@
 	import DayTaskItem from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/tasks-summary/day-tasks-list/day-task-item/DayTaskItem.svelte';
 	import { DATE } from '$lib/consts';
 	import { type CalendarTask, isRecurring, isTimed } from '$lib/task/task.model';
-	import { getTotalDuration } from '$lib/task/time-utils';
+	import { getTotalDuration } from '$lib/task/time.utils';
 
 	interface Props {
 		tasks: CalendarTask[];

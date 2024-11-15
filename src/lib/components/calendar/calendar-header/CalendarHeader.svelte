@@ -7,7 +7,7 @@
 	import Button from '$lib/components/form/button/Button.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 	import { DATE } from '$lib/consts';
-	import { getCurrentRoundedDate } from '$lib/task/time-utils';
+	import { getCurrentRoundedDate } from '$lib/task/time.utils';
 
 	const createTask = getContext('createTask');
 

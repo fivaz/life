@@ -4,7 +4,7 @@
 	import CalendarDay from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/CalendarDay.svelte';
 	import { selectedDate, weekDays } from '$lib/components/calendar/service.svelte';
 	import type { Task } from '$lib/task/task.model';
-	import { buildDate } from '$lib/task/time-utils';
+	import { buildDate } from '$lib/task/time.utils';
 
 	interface Props {
 		tasks: Task[];
