@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import type { Category } from '$lib/category/category.model';
-import type { Goal } from '$lib/goal/goal.utils';
+import type { Goal } from '$lib/goal/goal.model';
 
 export const frequencies = ['daily', 'weekly', 'monthly', 'yearly'] as const;
 export type Frequency = (typeof frequencies)[number];

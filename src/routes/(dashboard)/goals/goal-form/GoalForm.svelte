@@ -7,7 +7,7 @@
 	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
-	import type { Goal } from '$lib/goal/goal.utils';
+	import type { Goal } from '$lib/goal/goal.model';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import { getIcon } from '$lib/goal/goal-icon/service';
 

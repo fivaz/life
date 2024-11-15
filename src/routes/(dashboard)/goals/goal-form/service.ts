@@ -2,7 +2,7 @@ import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestor
 
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
-import type { Goal } from '$lib/goal/goal.utils';
+import type { Goal } from '$lib/goal/goal.model';
 
 // EDIT
 export function editGoal(id: string, data: Omit<Goal, 'id'>, userId: string) {

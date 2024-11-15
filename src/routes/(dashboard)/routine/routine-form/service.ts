@@ -2,7 +2,7 @@ import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestor
 
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
-import { type Routine } from '$lib/routine/utils';
+import { type Routine } from '$lib/routine/routine.model';
 
 export function buildEmptyRoutine(): Routine {
 	return {

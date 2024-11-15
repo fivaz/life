@@ -3,7 +3,7 @@
 	import { Flame } from 'lucide-svelte';
 
 	import { DATE } from '$lib/consts';
-	import type { Routine } from '$lib/routine/utils';
+	import type { Routine } from '$lib/routine/routine.model';
 
 	interface Props {
 		routines: Routine[];

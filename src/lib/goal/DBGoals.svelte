@@ -4,7 +4,7 @@
 
 	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
-	import type { Goal } from '$lib/goal/goal.utils';
+	import type { Goal } from '$lib/goal/goal.model';
 
 	interface Props {
 		data: Snippet<[Goal[], string]>;

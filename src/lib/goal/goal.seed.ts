@@ -1,7 +1,7 @@
 import { format, lastDayOfQuarter, lastDayOfYear } from 'date-fns';
 
 import { DATE } from '$lib/consts';
-import type { Goal } from '$lib/goal/goal.utils';
+import type { Goal } from '$lib/goal/goal.model';
 
 let id = 0;
 export const learnToDrive: Goal = {

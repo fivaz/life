@@ -8,7 +8,7 @@
 
 	import { DATE } from '$lib/consts';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
-	import type { Routine } from '$lib/routine/utils';
+	import type { Routine } from '$lib/routine/routine.model';
 
 	import { toggleRoutineCompletion } from '../../routine-form/service';
 

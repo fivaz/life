@@ -4,7 +4,7 @@
 
 	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
-	import type { Routine } from '$lib/routine/utils';
+	import type { Routine } from '$lib/routine/routine.model';
 
 	interface Props {
 		data: Snippet<[Routine[], string]>;

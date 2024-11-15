@@ -7,7 +7,7 @@
 
 	import { DB_PATH } from '$lib/consts';
 	import { db } from '$lib/firebase';
-	import { getCompletedTasks, type Goal } from '$lib/goal/goal.utils';
+	import { getCompletedTasks, type Goal } from '$lib/goal/goal.model';
 	import type { Task } from '$lib/task/task.model';
 
 	interface Props {

@@ -10,7 +10,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 import { DB_PATH } from '$lib/consts';
 import { db, storage } from '$lib/firebase';
-import type { Goal } from '$lib/goal/goal.utils';
+import type { Goal } from '$lib/goal/goal.model';
 import type { Task } from '$lib/task/task.model';
 
 export async function addTask(data: Omit<Task, 'id'>, userId: string, file?: File | null) {

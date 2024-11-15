@@ -4,7 +4,7 @@
 	import { dragHandleZone } from 'svelte-dnd-action';
 
 	import { DATE } from '$lib/consts';
-	import type { Routine } from '$lib/routine/utils';
+	import type { Routine } from '$lib/routine/routine.model';
 
 	import { updateRoutines } from '../service';
 	import RoutineRow from './routine-row/RoutineRow.svelte';
