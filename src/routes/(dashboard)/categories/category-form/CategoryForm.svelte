@@ -3,6 +3,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 
 	import { type Category, CategoryTypes } from '$lib/category/category.model';
+	import { addCategory, deleteCategory, editCategory } from '$lib/category/category.respository';
 	import { tailwindColors } from '$lib/category/category.utils';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
@@ -11,8 +12,6 @@
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
-
-	import { addCategory, deleteCategory, editCategory } from './service';
 
 	interface Props {
 		userId: string;
