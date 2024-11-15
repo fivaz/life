@@ -1,10 +1,10 @@
 import { FirebaseError } from 'firebase/app';
 import { createUserWithEmailAndPassword, updateProfile, type User } from 'firebase/auth';
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 
-import { checkEmail, storeAvatar } from '$lib/auth/sign-in.svelte.js';
-import { DB_PATH } from '$lib/consts';
-import { auth, db } from '$lib/firebase';
+import { auth } from '$lib/firebase';
+import { checkEmail } from '$lib/user/sign-in.utils.svelte.js';
+import { storeAvatar } from '$lib/user/user.repository';
+import { createUserInDB } from '$lib/user/user.repository';
 
 export function validateFields(email: string, password: string): string {
 	if (!email) {
@@ -57,43 +57,4 @@ export async function createUser(user: User, displayName: string, email: string,
 	await updateProfile(user, { displayName, photoURL });
 
 	await createUserInDB(user.uid, displayName, email, photoURL);
-}
-
-async function createUserInDB(
-	userId: string,
-	displayName: string,
-	email: string,
-	photoURL: string,
-) {
-	const userRef = doc(db, DB_PATH.USERS, userId);
-
-	await setDoc(userRef, {
-		displayName,
-		email,
-		photoURL,
-	});
-
-	await addDefaultCategories(userId);
-}
-
-export async function addDefaultCategories(userId: string) {
-	const categoriesCollectionRef = collection(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES);
-	void addDoc(categoriesCollectionRef, {
-		color: 'green',
-		isDefault: true,
-		name: 'work',
-		type: 'work',
-	});
-	void addDoc(categoriesCollectionRef, {
-		color: 'blue',
-		isDefault: false,
-		name: 'sleep',
-		type: 'sleep',
-	});
-	void addDoc(categoriesCollectionRef, {
-		color: 'red',
-		isDefault: false,
-		name: 'fun',
-		type: 'fun',
-	});
 }

@@ -1,6 +1,3 @@
-
-
-
 import { createDialog } from '$lib/components/dialog/service.svelte.js';
 import type { Goal } from '$lib/goal/goal.utils';
 import { isTimed, type Task } from '$lib/task/task.model';

@@ -9,10 +9,10 @@
 	import { type Unsubscribe } from 'firebase/firestore';
 	import { type Snippet } from 'svelte';
 
-	import { currentUser } from '$lib/auth/utils.svelte';
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { db } from '$lib/firebase';
+	import { currentUser } from '$lib/user/user.utils.svelte.js';
 
 	interface Props {
 		collection: string;

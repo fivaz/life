@@ -3,12 +3,12 @@
 	import { onMount, type Snippet } from 'svelte';
 
 	import { goto } from '$app/navigation';
-	import { setUser } from '$lib/auth/utils.svelte';
 	import Dashboard from '$lib/components/dashboard/Dashboard.svelte';
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
 	import { dialog } from '$lib/components/dialog/service.svelte';
 	import { Routes } from '$lib/consts';
 	import { auth } from '$lib/firebase';
+	import { setUser } from '$lib/user/user.utils.svelte.js';
 
 	interface Props {
 		children: Snippet;

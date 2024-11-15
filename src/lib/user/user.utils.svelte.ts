@@ -1,6 +1,6 @@
 import { type User as FirebaseUser } from 'firebase/auth';
 
-export type User = { displayName: string; email: string; uid: string; photoURL: string };
+import type { User } from '$lib/user/user.model';
 
 export const currentUser = $state<User>({
 	displayName: '',

@@ -3,13 +3,14 @@
 	import { doc, updateDoc } from 'firebase/firestore';
 	import { minidenticon } from 'minidenticons';
 
-	import { storeAvatar } from '$lib/auth/sign-in.svelte.js';
-	import { updateUser, type User } from '$lib/auth/utils.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Input from '$lib/components/form/input/Input.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { auth, db } from '$lib/firebase';
+	import { type User } from '$lib/user/user.model';
+	import { storeAvatar } from '$lib/user/user.repository';
+	import { updateUser } from '$lib/user/user.utils.svelte.js';
 
 	interface Props {
 		user: User;

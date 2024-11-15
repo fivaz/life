@@ -1,4 +1,5 @@
 import {
+	addDoc,
 	collection,
 	deleteDoc,
 	doc,
@@ -74,4 +75,26 @@ export function deleteCategory(id: string | undefined, userId: string, closeForm
 		void deleteDoc(categoryDocRef);
 		closeForm();
 	}
+}
+
+export async function addDefaultCategories(userId: string) {
+	const categoriesCollectionRef = collection(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES);
+	void addDoc(categoriesCollectionRef, {
+		color: 'green',
+		isDefault: true,
+		name: 'work',
+		type: 'work',
+	});
+	void addDoc(categoriesCollectionRef, {
+		color: 'blue',
+		isDefault: false,
+		name: 'sleep',
+		type: 'sleep',
+	});
+	void addDoc(categoriesCollectionRef, {
+		color: 'red',
+		isDefault: false,
+		name: 'fun',
+		type: 'fun',
+	});
 }

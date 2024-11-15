@@ -2,7 +2,6 @@
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 
 	import { goto } from '$app/navigation';
-	import { errorMessage, githubSignIn, googleSignIn, isLoading } from '$lib/auth/sign-in.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import GithubIcon from '$lib/components/icons/GithubIcon.svelte';
@@ -10,6 +9,12 @@
 	import Logo from '$lib/components/Logo.svelte';
 	import { Routes } from '$lib/consts';
 	import { auth } from '$lib/firebase';
+	import {
+		errorMessage,
+		githubSignIn,
+		googleSignIn,
+		isLoading,
+	} from '$lib/user/sign-in.utils.svelte.js';
 
 	import { parseErrors, validateFields } from './service';
 

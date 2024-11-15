@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { type Snippet } from 'svelte';
 
-	import { currentUser } from '$lib/auth/utils.svelte';
 	import Banner from '$lib/components/banner/Banner.svelte';
 	import DashboardDesktop from '$lib/components/dashboard/dashboard-desktop/DashboardDesktop.svelte';
 	import DashboardMobile from '$lib/components/dashboard/dashboard-mobile/DashboardMobile.svelte';
 	import { demoLogin } from '$lib/consts';
+	import { currentUser } from '$lib/user/user.utils.svelte.js';
 
 	interface Props {
 		children: Snippet;
