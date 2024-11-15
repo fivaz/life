@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { addDays, startOfWeek } from 'date-fns';
+	import { addDays, format, startOfWeek } from 'date-fns';
 	import { Calendar1, Plus } from 'lucide-svelte';
 
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
+	import { DATE } from '$lib/consts';
 	import DBRoutines from '$lib/routine/DBRoutines.svelte';
 	import { buildEmptyRoutine } from '$lib/routine/routine.model';
 	import { title } from '$lib/utils.svelte';
@@ -37,22 +38,32 @@
 					<div
 						class="flex flex-grow items-center justify-between gap-5 md:flex-grow-0 md:justify-start"
 					>
-						<Streak {routines} />
-						<div class="flex gap-5">
-							<WeekChanger bind:selectedDate bind:weekStart />
-
-							<div class="h-7 border-r border-gray-300"></div>
-
-							<Button
-								onclick={() => {
-									showForm = true;
-									editingRoutine = buildEmptyRoutine();
-								}}
-							>
-								<Plus class="h-4 w-auto" />
-								<span class="hidden md:block">New Routine</span>
-							</Button>
+						<div>
+							<h1 class="flex items-center text-base font-semibold leading-6 text-gray-900">
+								<time class="sm:hidden" dateTime={format(selectedDate, DATE)}>
+									{format(selectedDate, 'MMM, yyyy')}
+								</time>
+								<time class="hidden sm:inline" dateTime={format(selectedDate, DATE)}>
+									{format(selectedDate, 'MMMM dd, yyyy')}
+								</time>
+							</h1>
 						</div>
+
+						<Streak {routines} />
+
+						<WeekChanger bind:selectedDate bind:weekStart />
+
+						<div class="hidden h-7 border-r border-gray-300 sm:inline"></div>
+
+						<Button
+							onclick={() => {
+								showForm = true;
+								editingRoutine = buildEmptyRoutine();
+							}}
+						>
+							<Plus class="h-4 w-auto" />
+							<span class="hidden md:block">New Routine</span>
+						</Button>
 					</div>
 				</div>
 
