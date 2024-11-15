@@ -3,7 +3,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Copy, ListTodo } from 'lucide-svelte';
 
-	import type { Category } from '$lib/category/utils';
+	import type { Category } from '$lib/category/category.model';
 	import { tailwindColors } from '$lib/category/utils';
 	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';

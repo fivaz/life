@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import type { Category } from '$lib/category/utils';
+import type { Category } from '$lib/category/category.model';
 import type { Goal } from '$lib/goal/utils';
 import { convertTimeToMinutes, getTaskDateTime } from '$lib/task/time-utils';
 

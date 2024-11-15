@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { where } from 'firebase/firestore';
 
-	import { CategoryTypes } from '$lib/category/utils';
+	import { CategoryTypes } from '$lib/category/category.model';
 	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { type Task } from '$lib/task/utils';

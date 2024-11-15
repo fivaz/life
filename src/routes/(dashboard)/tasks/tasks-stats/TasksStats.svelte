@@ -2,7 +2,7 @@
 	import { Grid3x3, LayoutGrid } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
-	import { CategoryTypes } from '$lib/category/utils';
+	import { CategoryTypes } from '$lib/category/category.model';
 	import { getTotalDuration } from '$lib/task/time-utils';
 
 	import type { SortedTaskType } from '../service';

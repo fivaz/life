@@ -1,6 +1,6 @@
 <script lang="ts">
+	import { type Category, CategoryTypes } from '$lib/category/category.model';
 	import DBCategories from '$lib/category/DBCategories.svelte';
-	import { type Category, CategoryTypes } from '$lib/category/utils';
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import DBGoalsForTaskForm from '$lib/goal/DBGoalsForTaskForm.svelte';

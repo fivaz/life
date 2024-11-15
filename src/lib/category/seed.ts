@@ -1,4 +1,4 @@
-import type { Category } from '$lib/category/utils';
+import type { Category } from '$lib/category/category.model';
 
 let id = 0;
 

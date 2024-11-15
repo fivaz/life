@@ -2,7 +2,7 @@
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
-	import { type Category, CategoryTypes } from '$lib/category/utils';
+	import { type Category, CategoryTypes } from '$lib/category/category.model';
 	import { tailwindColors } from '$lib/category/utils';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';

@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Plus } from 'lucide-svelte';
 
+	import type { Category } from '$lib/category/category.model';
 	import DBCategories from '$lib/category/DBCategories.svelte';
-	import type { Category } from '$lib/category/utils';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { title } from '$lib/utils.svelte';

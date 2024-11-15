@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 
-import type { Category } from '$lib/category/utils';
+import type { Category } from '$lib/category/category.model';
 import { DATE, TIME } from '$lib/consts';
 import type { Goal } from '$lib/goal/utils';
 import type { Task } from '$lib/task/utils';
