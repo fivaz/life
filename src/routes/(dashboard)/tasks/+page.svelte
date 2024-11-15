@@ -9,8 +9,8 @@
 	import DBGoalsForTaskForm from '$lib/goal/DBGoalsForTaskForm.svelte';
 	import { buildUntimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
 	import DBUndoneTasks from '$lib/task/DBUndoneTasks.svelte';
+	import { type Task } from '$lib/task/task.model';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
-	import { type Task } from '$lib/task/utils';
 	import { title } from '$lib/utils.svelte';
 
 	import { getTasksByDateSorted } from './service';

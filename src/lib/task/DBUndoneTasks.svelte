@@ -4,7 +4,7 @@
 
 	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
-	import type { Task } from '$lib/task/utils';
+	import type { Task } from '$lib/task/task.model';
 
 	interface Props {
 		data: Snippet<[Task[], string]>;

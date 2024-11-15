@@ -9,8 +9,8 @@
 	import DBGoals from '$lib/goal/DBGoals.svelte';
 	import { type Goal } from '$lib/goal/goal.utils';
 	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
+	import type { Task } from '$lib/task/task.model';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
-	import type { Task } from '$lib/task/utils';
 	import { title } from '$lib/utils.svelte';
 
 	import GoalForm from './goal-form/GoalForm.svelte';

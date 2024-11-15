@@ -17,15 +17,15 @@ import {
 	getEventSlots,
 } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
 import { DATE } from '$lib/consts';
-import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 import {
 	type CalendarTask,
 	isRecurring,
 	type RecurringTask,
-	sortTasks,
 	type Task,
 	type TimedTask,
-} from '$lib/task/utils';
+} from '$lib/task/task.model';
+import { sortTasks } from '$lib/task/task.utils';
+import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 
 export function getTasksForDate(tasks: Task[], date: Date): CalendarTask[] {
 	return tasks.filter((task) => isForDate(task, date));

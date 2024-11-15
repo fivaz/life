@@ -10,8 +10,8 @@ import {
 
 import { DATE, DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
+import { isRecurring, type Task, taskSchema } from '$lib/task/task.model';
 import { editSingleRecurringEvent, editTask } from '$lib/task/task-form/db-service';
-import { isRecurring, type Task, taskSchema } from '$lib/task/utils';
 
 export function moveEvent(
 	userId: string,

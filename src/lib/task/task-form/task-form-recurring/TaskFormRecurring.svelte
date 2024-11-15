@@ -8,8 +8,8 @@
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
+	import { frequencies } from '$lib/task/task.model';
 	import { taskIn } from '$lib/task/task-form/service.svelte';
-	import { frequencies } from '$lib/task/utils';
 
 	import DaysCheckbox from './days-checkbox/DaysCheckbox.svelte';
 

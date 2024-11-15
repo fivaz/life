@@ -7,8 +7,8 @@ import {
 } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 import { EVENT_PANEL_CLASS } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
 import { TIME } from '$lib/consts';
-import type { Task } from '$lib/task/utils';
-import { getDurationInMinutes } from '$lib/task/utils';
+import type { Task } from '$lib/task/task.model';
+import { getDurationInMinutes } from '$lib/task/task.utils';
 
 function getElementBeneath(draggedElement: HTMLElement, gridCellY: number, gridCellX: number) {
 	draggedElement.style.visibility = 'hidden';

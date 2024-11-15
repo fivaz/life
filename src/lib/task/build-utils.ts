@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import type { Category } from '$lib/category/category.model';
 import { DATE, TIME } from '$lib/consts';
 import type { Goal } from '$lib/goal/goal.utils';
-import type { Task } from '$lib/task/utils';
+import type { Task } from '$lib/task/task.model';
 
 export function buildTimedTask(categories: Category[], goal: Goal | null = null): Task {
 	const now = new Date();

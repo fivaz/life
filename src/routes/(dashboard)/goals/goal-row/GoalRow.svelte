@@ -6,7 +6,7 @@
 	import type { Goal } from '$lib/goal/goal.utils';
 	import { getCompletedTasks } from '$lib/goal/goal.utils';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
-	import type { Task } from '$lib/task/utils';
+	import type { Task } from '$lib/task/task.model';
 
 	import GoalTasks from './goal-tasks/GoalTasks.svelte';
 

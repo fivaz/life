@@ -5,8 +5,8 @@
 	import { addDays, addWeeks, format, lastDayOfWeek, parse, subDays } from 'date-fns';
 
 	import { DATE, DATE_FR } from '$lib/consts';
+	import type { Task } from '$lib/task/task.model';
 	import { getTotalDuration } from '$lib/task/time-utils';
-	import type { Task } from '$lib/task/utils';
 
 	import { GROUPS } from '../service';
 	import { TASK_LIST_CLASS } from './task-row/service';

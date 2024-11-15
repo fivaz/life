@@ -7,13 +7,9 @@
 	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 	import { TIME } from '$lib/consts';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
+	import type { TimedTask } from '$lib/task/task.model';
+	import { getCompletedTasks, getDurationInMinutes, getSubTasks } from '$lib/task/task.utils';
 	import { roundTo15 } from '$lib/task/time-utils';
-	import {
-		getCompletedTasks,
-		getDurationInMinutes,
-		getSubTasks,
-		type TimedTask,
-	} from '$lib/task/utils';
 
 	interface Props {
 		event: TimedTask;

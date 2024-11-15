@@ -4,7 +4,7 @@
 	import { CategoryTypes } from '$lib/category/category.model';
 	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
-	import { type Task } from '$lib/task/utils';
+	import { type Task } from '$lib/task/task.model';
 	import { title } from '$lib/utils.svelte';
 
 	import ReportTasksByTime from './report-tasks-by-time/ReportTasksByTime.svelte';

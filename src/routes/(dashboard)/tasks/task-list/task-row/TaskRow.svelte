@@ -6,7 +6,7 @@
 
 	import { tailwindColors } from '$lib/category/category.utils';
 	import { DATE_FR, DATE_FR_SHORT } from '$lib/consts';
-	import type { Task } from '$lib/task/utils';
+	import type { Task } from '$lib/task/task.model';
 
 	import { formatDate, HANDLE, hasMoved, startDrag } from './service';
 

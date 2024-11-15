@@ -5,8 +5,8 @@
 	import TasksSummary from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/tasks-summary/TasksSummary.svelte';
 	import { isScrollingUp } from '$lib/components/calendar/calendar-body/calendar-week-view/service.svelte';
 	import { DATE } from '$lib/consts';
-	import type { Task } from '$lib/task/utils';
-	import { isTimed } from '$lib/task/utils.js';
+	import type { Task } from '$lib/task/task.model';
+	import { isTimed } from '$lib/task/task.model.js';
 
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
 	import { SUMMARY_GRID_CELL_HEIGHT } from './calendar-grid/service.svelte';

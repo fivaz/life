@@ -10,9 +10,9 @@ import {
 } from 'date-fns';
 
 import { DATE_FR } from '$lib/consts';
+import type { Task } from '$lib/task/task.model';
+import { isRecurring } from '$lib/task/task.model';
 import { getTaskDate } from '$lib/task/time-utils';
-import type { Task } from '$lib/task/utils';
-import { isRecurring } from '$lib/task/utils';
 
 export type SortedTaskType = Record<string, Task[]> & Iterable<string>;
 

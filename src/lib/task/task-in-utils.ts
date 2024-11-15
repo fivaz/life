@@ -1,9 +1,9 @@
 import { addMonths, format, isAfter, parse } from 'date-fns';
 
 import { DATE, TIME } from '$lib/consts';
+import { type Frequency, isRecurring, isTimed, type Task } from '$lib/task/task.model';
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 import { convertTimeToMinutes, sumTimes } from '$lib/task/time-utils';
-import { type Frequency, isRecurring, isTimed, type Task } from '$lib/task/utils';
 
 // TaskIn is a super type that has all the attributes of possible Tasks together
 export type TaskIn = Omit<

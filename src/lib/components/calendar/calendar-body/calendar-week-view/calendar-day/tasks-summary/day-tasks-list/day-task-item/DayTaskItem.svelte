@@ -7,7 +7,7 @@
 
 	import { DATE } from '$lib/consts';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
-	import { type CalendarTask, isUntimed } from '$lib/task/utils';
+	import { type CalendarTask, isUntimed } from '$lib/task/task.model';
 
 	interface Props {
 		task: CalendarTask;

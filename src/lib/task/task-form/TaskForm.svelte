@@ -15,6 +15,8 @@
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import type { Goal } from '$lib/goal/goal.utils';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
+	import { isTimed, type Task } from '$lib/task/task.model';
+	import { isRecurring, isUntimed } from '$lib/task/task.model.js';
 	import {
 		addTask,
 		deletePossibleSingleRecurringEvent,
@@ -27,8 +29,6 @@
 	import TaskFormRecurring from '$lib/task/task-form/task-form-recurring/TaskFormRecurring.svelte';
 	import { checkErrors, convertToTask, convertToTaskIn } from '$lib/task/task-in-utils';
 	import { sumTimes } from '$lib/task/time-utils';
-	import { isTimed, type Task } from '$lib/task/utils';
-	import { isRecurring, isUntimed } from '$lib/task/utils.js';
 
 	interface Props {
 		userId: string;

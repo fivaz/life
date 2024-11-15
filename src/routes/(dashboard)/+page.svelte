@@ -5,9 +5,9 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import DBGoalsForTaskForm from '$lib/goal/DBGoalsForTaskForm.svelte';
 	import { buildTimedTask, buildTimedTaskWithTimeSet } from '$lib/task/build-utils';
+	import type { Task } from '$lib/task/task.model';
 	import TaskCompletedNotificationStack from '$lib/task/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
-	import type { Task } from '$lib/task/utils';
 
 	import { buildEmptyCategory } from './categories/category-form/service';
 	import {

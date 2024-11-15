@@ -1,4 +1,4 @@
-import { type Task } from '$lib/task/utils';
+import { type Task } from '$lib/task/task.model';
 
 export type Goal = {
 	deadline: string;
