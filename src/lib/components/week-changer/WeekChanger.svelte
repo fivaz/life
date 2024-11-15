@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { ChevronLeft, ChevronRight } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { addDays, isSameWeek, startOfWeek } from 'date-fns';
+	import { addDays, format, isSameWeek, parse } from 'date-fns';
 	import { CalendarCheck } from 'lucide-svelte';
+
+	import { DATE } from '$lib/consts';
 
 	interface Props {
 		weekStart: Date;
@@ -14,9 +16,16 @@
 
 	const currentDate = new Date();
 
-	function goToToday() {
-		selectedDate = currentDate;
-		weekStart = startOfWeek(selectedDate, { weekStartsOn: 1 });
+	let datePicker2 = $state<HTMLInputElement | null>(null);
+
+	let dateString = $state<string>(format(selectedDate, DATE));
+
+	$effect(() => {
+		selectedDate = parse(dateString, DATE, new Date());
+	});
+
+	function openDatePicker() {
+		datePicker2?.showPicker();
 	}
 
 	function goToNextWeek() {
@@ -45,13 +54,18 @@
 			<Icon aria-hidden="true" class="h-5 w-5" src={ChevronLeft} />
 		</button>
 
+		<input
+			bind:this={datePicker2}
+			type="date"
+			class="pointer-events-none absolute opacity-0"
+			bind:value={dateString}
+		/>
+
 		<button
+			onclick={openDatePicker}
 			class="border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative"
-			onclick={goToToday}
-			type="button"
 		>
-			<span class="hidden md:block">Today</span>
-			<span class="block md:hidden"><CalendarCheck class="h-5 w-5 text-gray-400" /></span>
+			<CalendarCheck class="h-5 w-5 text-gray-400" />
 		</button>
 
 		<span class="relative -mx-px hidden h-5 w-px bg-gray-300"></span>
