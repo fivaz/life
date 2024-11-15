@@ -1,13 +1,10 @@
 import { format } from 'date-fns';
-import {
-	onSnapshot,
-	type QuerySnapshot,
-} from 'firebase/firestore';
+import { onSnapshot, type QuerySnapshot } from 'firebase/firestore';
 
 import { DATE } from '$lib/consts';
 import { isRecurring, type Task, taskSchema } from '$lib/task/task.model';
 import { editTask, queryWeekTasks } from '$lib/task/task.repository';
-import { editSingleRecurringEvent } from '$lib/task/task-form/db-service';
+import { editSingleRecurringEvent } from '$lib/task/task-form/service.svelte';
 
 export function moveEvent(
 	userId: string,

@@ -1,13 +1,6 @@
 import { type CategoryType, CategoryTypes } from '$lib/category/category.model';
 import { tailwindColors } from '$lib/category/category.utils';
 
-// EDIT
-
-// ADD
-
-// DELETE
-
-// OTHERS
 export function buildEmptyCategory() {
 	return {
 		color: Object.keys(tailwindColors)[0],

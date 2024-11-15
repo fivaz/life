@@ -1,4 +1,3 @@
-
 import { type Routine } from '$lib/routine/routine.model';
 
 export function buildEmptyRoutine(): Routine {
