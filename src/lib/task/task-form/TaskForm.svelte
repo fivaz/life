@@ -17,8 +17,8 @@
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import { isTimed, type Task } from '$lib/task/task.model';
 	import { isRecurring, isUntimed } from '$lib/task/task.model.js';
+	import { addTask } from '$lib/task/task.repository';
 	import {
-		addTask,
 		deletePossibleSingleRecurringEvent,
 		duplicateTask,
 		editTaskWithPrompt,

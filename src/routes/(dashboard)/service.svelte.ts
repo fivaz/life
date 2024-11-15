@@ -11,7 +11,8 @@ import {
 import { DATE, DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
 import { isRecurring, type Task, taskSchema } from '$lib/task/task.model';
-import { editSingleRecurringEvent, editTask } from '$lib/task/task-form/db-service';
+import { editTask } from '$lib/task/task.repository';
+import { editSingleRecurringEvent } from '$lib/task/task-form/db-service';
 
 export function moveEvent(
 	userId: string,
