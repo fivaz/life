@@ -16,7 +16,7 @@
 
 	interface Props {
 		collection: string;
-		constrains?: QueryConstraint[] | QueryConstraint;
+		constrains?: QueryConstraint;
 		// eslint-disable-next-line no-undef
 		data: Snippet<[T[], string]>;
 		// eslint-disable-next-line no-undef
@@ -34,11 +34,7 @@
 		const collectionRef = collection(db, `${DB_PATH.USERS}/${userId}/${segment}`);
 
 		if (constrains) {
-			if (Array.isArray(constrains)) {
-				return query(collectionRef, ...constrains);
-			} else {
-				return query(collectionRef, constrains);
-			}
+			return query(collectionRef, constrains);
 		} else {
 			return collectionRef;
 		}
