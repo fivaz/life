@@ -1,7 +1,7 @@
 <script module lang="ts">
 	import { type Args, defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 
-	import { birthdayToDo, toDos, workToDo } from '$lib/task/seed';
+	import { birthdayToDo, toDos, workToDo } from '$lib/task/task.seed';
 
 	import TasksSummary from './TasksSummary.svelte';
 

@@ -9,7 +9,7 @@
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import type { TimedTask } from '$lib/task/task.model';
 	import { getCompletedTasks, getDurationInMinutes, getSubTasks } from '$lib/task/task.utils';
-	import { roundTo15 } from '$lib/task/time.utils';
+	import { roundTo15 } from '$lib/task/time-utils';
 
 	interface Props {
 		event: TimedTask;

@@ -3,7 +3,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 
 	import { CategoryTypes } from '$lib/category/category.model';
-	import { getTotalDuration } from '$lib/task/time.utils';
+	import { getTotalDuration } from '$lib/task/time-utils';
 
 	import type { SortedTaskType } from '../service';
 

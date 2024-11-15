@@ -1,7 +1,7 @@
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
-	import { tasks } from '$lib/task/seed';
+	import { tasks } from '$lib/task/task.seed';
 
 	import Calendar from './Calendar.svelte';
 

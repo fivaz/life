@@ -6,7 +6,7 @@
 	import { dialog } from '$lib/components/dialog/service.svelte.js';
 	import { goals } from '$lib/goal/goal.seed';
 	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
-	import { normalWithSubTasks } from '$lib/task/seed';
+	import { normalWithSubTasks } from '$lib/task/task.seed';
 
 	import TaskForm from './TaskForm.svelte';
 

@@ -4,7 +4,7 @@ import { routine, sleep, work } from '$lib/category/category.seed';
 import { DATE, TIME } from '$lib/consts';
 import { sleepEarly } from '$lib/goal/goal.seed';
 import type { CalendarTask } from '$lib/task/task.model';
-import { buildDate } from '$lib/task/time.utils';
+import { buildDate } from '$lib/task/time-utils';
 
 function getTodayAtTime(time: string): Date {
 	const date = new Date();

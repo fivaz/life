@@ -6,7 +6,7 @@
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import { TIME } from '$lib/consts';
 	import { taskIn } from '$lib/task/task-form/service.svelte';
-	import { sumTimes } from '$lib/task/time.utils';
+	import { sumTimes } from '$lib/task/time-utils';
 
 	let isEventOpen = $state(true);
 

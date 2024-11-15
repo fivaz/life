@@ -1,7 +1,7 @@
 <script module lang="ts">
 	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 
-	import { longRecurring } from '$lib/task/seed';
+	import { longRecurring } from '$lib/task/task.seed';
 	import { taskIn } from '$lib/task/task-form/service.svelte';
 	import { convertToTaskIn } from '$lib/task/task-in-utils';
 

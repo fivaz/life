@@ -6,7 +6,7 @@
 
 	import { DATE, DATE_FR } from '$lib/consts';
 	import type { Task } from '$lib/task/task.model';
-	import { getTotalDuration } from '$lib/task/time.utils';
+	import { getTotalDuration } from '$lib/task/time-utils';
 
 	import { GROUPS } from '../service';
 	import { TASK_LIST_CLASS } from './task-row/service';
