@@ -9,8 +9,7 @@
 	import { DATE } from '$lib/consts';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
-
-	import { toggleRoutineCompletion } from '../../routine-form/service';
+	import { toggleRoutineCompletion } from '$lib/routine/routine.repository';
 
 	interface Props {
 		routine: Routine;

@@ -1,6 +1,3 @@
-
-
-
 import { type CategoryType, CategoryTypes } from '$lib/category/category.model';
 import { tailwindColors } from '$lib/category/category.utils';
 
