@@ -75,7 +75,7 @@ export function convertToTaskIn(task: Task): TaskIn {
 		isRecurring: isRecurring(task),
 		startTime: task.startTime || format(new Date(), TIME),
 		endTime: sumTimes(task.startTime || format(new Date(), TIME), task.duration),
-		date: task.date || format(new Date(), DATE),
+		date: task.date || '',
 		image: task.image || '',
 		recurringFrequency: task.recurringFrequency || 'daily',
 		recurringDaysOfWeek: task.recurringDaysOfWeek || nameOfDaysOfWeek.slice(1, 6),
