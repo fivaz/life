@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { type Category, CategoryTypes } from '$lib/category/category.model';
+	import { buildEmptyCategory, type Category, CategoryTypes } from '$lib/category/category.model';
 	import DBCategories from '$lib/category/DBCategories.svelte';
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
@@ -9,7 +9,6 @@
 	import TaskCompletedNotificationStack from '$lib/task/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 
-	import { buildEmptyCategory } from './categories/category-form/service';
 	import {
 		editPossibleSingleRecurringEvent,
 		getWeekTasks,

@@ -7,3 +7,14 @@ export type Routine = {
 	name: string;
 	order: number;
 };
+
+export function buildEmptyRoutine(): Routine {
+	return {
+		completeHistory: [],
+		createdAt: new Date().toISOString(),
+		icon: 'Fire',
+		id: '',
+		name: '',
+		order: 0,
+	};
+}

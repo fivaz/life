@@ -7,7 +7,7 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import DBGoals from '$lib/goal/DBGoals.svelte';
-	import { type Goal } from '$lib/goal/goal.model';
+	import { buildEmptyGoal, type Goal } from '$lib/goal/goal.model';
 	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
 	import type { Task } from '$lib/task/task.model';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
@@ -15,7 +15,7 @@
 
 	import GoalForm from './goal-form/GoalForm.svelte';
 	import GoalRow from './goal-row/GoalRow.svelte';
-	import { buildEmptyGoal, sortGoalsByDate } from './service';
+	import { sortGoalsByDate } from './service';
 
 	let editingGoal = $state<Goal>(buildEmptyGoal());
 

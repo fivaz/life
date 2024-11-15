@@ -13,6 +13,8 @@
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 
+	import { checkErrors } from './service';
+
 	interface Props {
 		userId: string;
 		category: Category;
@@ -26,14 +28,6 @@
 	let errorMessage = $state('');
 
 	let categoryIn = $state({ ...category });
-
-	function checkErrors(category: Category): string {
-		if (!category.name) {
-			return 'name is required';
-		}
-
-		return '';
-	}
 
 	function onSubmit(event: SubmitEvent) {
 		event.preventDefault();

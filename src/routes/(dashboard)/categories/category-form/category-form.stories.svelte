@@ -2,11 +2,12 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import CategoryForm from './CategoryForm.svelte';
-	import { buildEmptyCategory } from './service';
 
 	const { Story } = defineMeta({
 		component: CategoryForm,
 	});
+
+	import { buildEmptyCategory } from '$lib/category/category.model';
 </script>
 
 <Story

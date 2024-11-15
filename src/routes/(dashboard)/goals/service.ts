@@ -1,17 +1,7 @@
-import { format, getQuarter, isPast, isThisYear, lastDayOfQuarter, parse } from 'date-fns';
+import { format, getQuarter, isPast, isThisYear, parse } from 'date-fns';
 
 import { DATE, DATE_FR } from '$lib/consts';
 import type { Goal } from '$lib/goal/goal.model';
-
-export function buildEmptyGoal(): Goal {
-	return {
-		deadline: format(lastDayOfQuarter(new Date()), DATE),
-		icon: 'Fire',
-		id: '',
-		isDone: false,
-		name: '',
-	};
-}
 
 enum GROUPS {
 	Done = 'Done',

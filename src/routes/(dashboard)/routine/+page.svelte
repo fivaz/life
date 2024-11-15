@@ -6,10 +6,10 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 	import DBRoutines from '$lib/routine/DBRoutines.svelte';
+	import { buildEmptyRoutine } from '$lib/routine/routine.model';
 	import { title } from '$lib/utils.svelte';
 
 	import RoutineForm from './routine-form/RoutineForm.svelte';
-	import { buildEmptyRoutine } from './routine-form/service';
 	import RoutineRows from './routine-rows/RoutineRows.svelte';
 	import Streak from './streak/Streak.svelte';
 	import WeekListSelector from './week-list-selector/WeekListSelector.svelte';

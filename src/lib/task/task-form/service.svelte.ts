@@ -1,3 +1,4 @@
+import { buildEmptyCategory } from '$lib/category/category.model';
 import { createDialog } from '$lib/components/dialog/service.svelte.js';
 import type { Goal } from '$lib/goal/goal.model';
 import { buildTimedTask } from '$lib/task/build-utils';
@@ -6,8 +7,6 @@ import { isRecurring } from '$lib/task/task.model';
 import { addExceptionToRecurring, addTask, deleteTask, editTask } from '$lib/task/task.repository';
 import { convertToTaskIn, type TaskIn } from '$lib/task/task-in-utils';
 import { getHalfTime, sumTimes } from '$lib/task/time-utils';
-
-import { buildEmptyCategory } from '../../../routes/(dashboard)/categories/category-form/service';
 
 export const taskIn = $state<{ value: TaskIn }>({
 	value: convertToTaskIn(buildTimedTask([buildEmptyCategory()])),
