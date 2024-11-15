@@ -13,6 +13,29 @@
 
 	let streak = $derived(getRoutinesStreak(routines));
 
+	function getRoutinesStreak(routines: Routine[]): number {
+		let streak = 0;
+		let currentDate = new Date();
+		const todayStr = format(currentDate, DATE);
+
+		if (allRoutinesHaveEntryForDate(routines, todayStr)) {
+			streak++;
+		}
+
+		while (true) {
+			currentDate = subDays(currentDate, 1);
+			const dateStr = format(currentDate, DATE);
+
+			if (!allRoutinesHaveEntryForDate(routines, dateStr)) {
+				break;
+			}
+
+			streak++;
+		}
+
+		return streak;
+	}
+
 	function allRoutinesHaveEntryForDate(routines: Routine[], date: string): boolean {
 		// otherwise the loop doesn't end cause .every returns true in case the list is empty
 		if (routines.length === 0) {
@@ -22,24 +45,6 @@
 		return routines.every((routine) =>
 			routine.completeHistory.some((entry) => entry.date === date),
 		);
-	}
-
-	function getRoutinesStreak(routines: Routine[]): number {
-		let streak = 0;
-		let currentDate = new Date();
-
-		while (true) {
-			const dateStr = format(currentDate, DATE);
-
-			if (!allRoutinesHaveEntryForDate(routines, dateStr)) {
-				break;
-			}
-
-			streak++;
-			currentDate = subDays(currentDate, 1);
-		}
-
-		return streak;
 	}
 </script>
 
