@@ -1,17 +1,12 @@
-import { endOfWeek, format } from 'date-fns';
+import { format } from 'date-fns';
 import {
-	collection,
 	onSnapshot,
-	type Query,
-	query,
 	type QuerySnapshot,
-	where,
 } from 'firebase/firestore';
 
-import { DATE, DB_PATH } from '$lib/consts';
-import { db } from '$lib/firebase';
+import { DATE } from '$lib/consts';
 import { isRecurring, type Task, taskSchema } from '$lib/task/task.model';
-import { editTask } from '$lib/task/task.repository';
+import { editTask, queryWeekTasks } from '$lib/task/task.repository';
 import { editSingleRecurringEvent } from '$lib/task/task-form/db-service';
 
 export function moveEvent(
@@ -55,20 +50,6 @@ export function getWeekTasks(userId: string, startOfWeek: Date): void {
 	if (!tasksWeekHashMap[weekStartString]) {
 		subscribeToWeekTasks(userId, startOfWeek);
 	}
-}
-
-function queryWeekTasks(userId: string, startOfWeek: Date): [Query<Task>, Query<Task>] {
-	const startOfWeekString = format(startOfWeek, DATE);
-	const endOfWeekString = format(endOfWeek(startOfWeek, { weekStartsOn: 1 }), DATE);
-	const tasksRef = collection(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}`);
-	return [
-		query(tasksRef, where('recurringFrequency', '!=', '')) as Query<Task>,
-		query(
-			tasksRef,
-			where('date', '>=', startOfWeekString),
-			where('date', '<=', endOfWeekString),
-		) as Query<Task>,
-	];
 }
 
 export function subscribeToWeekTasks(userId: string, startOfWeek: Date) {

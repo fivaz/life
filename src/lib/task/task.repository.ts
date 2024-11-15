@@ -1,14 +1,18 @@
+import { endOfWeek, format } from 'date-fns';
 import {
 	collection,
 	deleteDoc,
 	doc,
 	type DocumentReference,
+	type Query,
+	query,
 	setDoc,
 	updateDoc,
+	where,
 } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
-import { DB_PATH } from '$lib/consts';
+import { DATE, DB_PATH } from '$lib/consts';
 import { db, storage } from '$lib/firebase';
 import type { Goal } from '$lib/goal/goal.model';
 import type { Task } from '$lib/task/task.model';
@@ -119,4 +123,18 @@ export function addExceptionToRecurring(
 
 	const taskDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.TASKS, id);
 	void updateDoc(taskDocRef, { recurringExceptions: exceptions });
+}
+
+export function queryWeekTasks(userId: string, startOfWeek: Date): [Query<Task>, Query<Task>] {
+	const startOfWeekString = format(startOfWeek, DATE);
+	const endOfWeekString = format(endOfWeek(startOfWeek, { weekStartsOn: 1 }), DATE);
+	const tasksRef = collection(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}`);
+	return [
+		query(tasksRef, where('recurringFrequency', '!=', '')) as Query<Task>,
+		query(
+			tasksRef,
+			where('date', '>=', startOfWeekString),
+			where('date', '<=', endOfWeekString),
+		) as Query<Task>,
+	];
 }

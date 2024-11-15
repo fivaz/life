@@ -5,8 +5,8 @@
 
 	import { DATE } from '$lib/consts';
 	import type { Routine } from '$lib/routine/routine.model';
+	import { updateRoutines } from '$lib/routine/routine.repository';
 
-	import { updateRoutines } from '../service';
 	import RoutineRow from './routine-row/RoutineRow.svelte';
 
 	interface Props {
