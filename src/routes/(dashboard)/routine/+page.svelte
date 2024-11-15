@@ -31,6 +31,7 @@
 	{#snippet data(routines, userId)}
 		<div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
 			<div class="flex h-full w-full flex-col gap-5">
+				<!--button panel-->
 				<div class="flex items-center justify-between">
 					<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
 					<div

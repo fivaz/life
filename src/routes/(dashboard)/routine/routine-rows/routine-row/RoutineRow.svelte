@@ -63,15 +63,15 @@
 		status
 	]} flex justify-between rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-200"
 >
-	<div class="flex w-[calc(100%-64px)] items-center gap-2">
+	<div class="flex flex-1 items-center gap-2 truncate">
 		<div aria-label="drag-handle for {routine.name}" use:dragHandle>
-			<GripVertical class="h-5 w-5" />
+			<GripVertical class="h-5 w-auto" />
 		</div>
-		<GoalIcon class="h-5 w-5" name={routine.icon} />
-		<span class="w-[calc(100%-48px)] truncate text-sm font-semibold">{routine.name}</span>
+		<GoalIcon class="h-5 w-auto" name={routine.icon} />
+		<span class="flex-1 truncate text-sm font-semibold">{routine.name}</span>
 	</div>
 
-	<div class="flex w-24 justify-end gap-2">
+	<div class="flex w-28 justify-end gap-2">
 		<div class="flex items-center gap-1">
 			<span>{streak}</span>
 			<Flame class="h-4 w-auto text-red-500" />
