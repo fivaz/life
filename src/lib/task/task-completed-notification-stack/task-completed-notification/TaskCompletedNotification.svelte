@@ -40,7 +40,7 @@
 		return getCompletedPercentage(tasks);
 	}
 
-	export function slideFromRight(node: Element, { delay = 0, duration = 400 }) {
+	function slideFromRight(node: Element, { delay = 0, duration = 400 }) {
 		return {
 			css: (t: number) => {
 				const opacity = t;
