@@ -3,7 +3,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 
 	import type { Category } from '$lib/category/category.model';
-	import { tailwindColors } from '$lib/category/utils';
+	import { tailwindColors } from '$lib/category/category.utils';
 
 	interface Props {
 		category: Category;

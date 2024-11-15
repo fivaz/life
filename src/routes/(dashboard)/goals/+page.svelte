@@ -7,7 +7,7 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import DBGoals from '$lib/goal/DBGoals.svelte';
-	import { type Goal } from '$lib/goal/utils';
+	import { type Goal } from '$lib/goal/goal.utils';
 	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 	import type { Task } from '$lib/task/utils';

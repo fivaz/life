@@ -11,7 +11,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { createDialog } from '$lib/components/dialog/service.svelte.js';
 import { DB_PATH } from '$lib/consts';
 import { db, storage } from '$lib/firebase';
-import type { Goal } from '$lib/goal/utils';
+import type { Goal } from '$lib/goal/goal.utils';
 import { getHalfTime, sumTimes } from '$lib/task/time-utils';
 import { isTimed, type Task } from '$lib/task/utils';
 import { isRecurring } from '$lib/task/utils';

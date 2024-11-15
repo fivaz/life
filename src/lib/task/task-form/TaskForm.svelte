@@ -4,7 +4,7 @@
 	import { Copy, ListTodo } from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';
-	import { tailwindColors } from '$lib/category/utils';
+	import { tailwindColors } from '$lib/category/category.utils';
 	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
@@ -13,8 +13,8 @@
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
+	import type { Goal } from '$lib/goal/goal.utils';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
-	import type { Goal } from '$lib/goal/utils';
 	import {
 		addTask,
 		deletePossibleSingleRecurringEvent,

@@ -1,7 +1,7 @@
 import { format, getQuarter, isPast, isThisYear, lastDayOfQuarter, parse } from 'date-fns';
 
 import { DATE, DATE_FR } from '$lib/consts';
-import type { Goal } from '$lib/goal/utils';
+import type { Goal } from '$lib/goal/goal.utils';
 
 export function buildEmptyGoal(): Goal {
 	return {

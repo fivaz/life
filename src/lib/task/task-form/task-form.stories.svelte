@@ -1,10 +1,10 @@
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
-	import { categories } from '$lib/category/seed';
+	import { categories } from '$lib/category/category.seed';
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
 	import { dialog } from '$lib/components/dialog/service.svelte.js';
-	import { goals } from '$lib/goal/seed';
+	import { goals } from '$lib/goal/goal.seed';
 	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
 	import { normalWithSubTasks } from '$lib/task/seed';
 

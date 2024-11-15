@@ -4,7 +4,7 @@
 	import interact from 'interactjs';
 	import { onDestroy, onMount } from 'svelte';
 
-	import { tailwindColors } from '$lib/category/utils';
+	import { tailwindColors } from '$lib/category/category.utils';
 	import { DATE_FR, DATE_FR_SHORT } from '$lib/consts';
 	import type { Task } from '$lib/task/utils';
 
