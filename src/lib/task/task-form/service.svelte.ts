@@ -12,6 +12,7 @@ export const taskIn = $state<{ value: TaskIn }>({
 	value: convertToTaskIn(buildTimedTask([buildEmptyCategory()])),
 });
 
+// EDIT
 export function editSingleRecurringEvent(
 	id: string,
 	recurringEvent: Omit<Task, 'id'>,
@@ -36,6 +37,7 @@ export function editSingleRecurringEvent(
 	addExceptionToRecurring(id, recurringEvent, targetDate, userId);
 }
 
+//EDIT
 export async function editTaskWithPrompt({
 	data,
 	file,
@@ -77,7 +79,6 @@ export async function editTaskWithPrompt({
 }
 
 // DELETE
-
 export async function deletePossibleSingleRecurringEvent(
 	task: Task,
 	userId: string,

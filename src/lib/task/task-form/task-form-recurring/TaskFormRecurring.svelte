@@ -1,10 +1,8 @@
 <script lang="ts">
-	import 'flatpickr/dist/themes/airbnb.css';
-
-	import flatpickr from 'flatpickr';
 	import { fade, slide } from 'svelte/transition';
 
 	import Input from '$lib/components/form/input/Input.svelte';
+	import MultiDatePicker from '$lib/components/form/multi-date-picker/MultiDatePicker.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
@@ -14,20 +12,6 @@
 	import DaysCheckbox from './days-checkbox/DaysCheckbox.svelte';
 
 	let isRecurringOpen = $state(false);
-
-	let ref = $state<HTMLInputElement | null>(null);
-
-	$effect(() => {
-		if (ref) {
-			flatpickr(ref, {
-				dateFormat: 'Y-m-d',
-				mode: 'multiple',
-				onValueUpdate: (_, datesStr) => {
-					taskIn.value.recurringExceptions = datesStr.split(',');
-				},
-			});
-		}
-	});
 
 	function togglePanel() {
 		if (!taskIn.value.isRecurring) {
@@ -67,16 +51,7 @@
 
 				<Input bind:value={taskIn.value.recurringEndAt} label="End at" type="date" />
 
-				<div>
-					<label class="mb-1 block text-sm text-gray-700">
-						Exceptions on
-						<input
-							class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-							bind:this={ref}
-							value={taskIn.value.recurringExceptions}
-						/>
-					</label>
-				</div>
+				<MultiDatePicker label="Exceptions on" bind:value={taskIn.value.recurringExceptions} />
 			</div>
 		</div>
 	{/if}

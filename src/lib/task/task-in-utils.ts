@@ -78,7 +78,9 @@ export function convertToTaskIn(task: Task): TaskIn {
 		date: task.date || '',
 		image: task.image || '',
 		recurringFrequency: task.recurringFrequency || 'daily',
-		recurringDaysOfWeek: task.recurringDaysOfWeek || nameOfDaysOfWeek.slice(1, 6),
+		recurringDaysOfWeek: task.recurringDaysOfWeek.length
+			? task.recurringDaysOfWeek
+			: nameOfDaysOfWeek.slice(1, 6),
 		recurringEndAt: task.recurringEndAt || format(addMonths(new Date(), 1), DATE),
 	};
 }
