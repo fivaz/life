@@ -13,6 +13,8 @@
 	const { Story } = defineMeta({
 		component: TaskForm,
 	});
+
+	import { formatDate } from '$lib/utils.svelte';
 </script>
 
 {#snippet template(args: any)}
@@ -31,7 +33,7 @@
 
 <Story
 	args={{
-		targetDate: new Date().toISOString(),
+		targetDate: formatDate(new Date()),
 		task: buildTimedTask(categories),
 	}}
 	name="Create Event"
@@ -40,7 +42,7 @@
 
 <Story
 	args={{
-		targetDate: new Date().toISOString(),
+		targetDate: formatDate(new Date()),
 		task: normalWithSubTasks,
 	}}
 	name="Edit event"

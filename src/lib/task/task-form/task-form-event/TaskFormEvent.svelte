@@ -14,6 +14,7 @@
 		if (!startTime || !endTime) {
 			return '';
 		}
+
 		const [startTimeHours, startTimeMinutes] = startTime.split(':').map(Number);
 		const [endTimeHours, endTimeMinutes] = endTime.split(':').map(Number);
 

@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { format } from 'date-fns';
 	import { onMount } from 'svelte';
 
+	import type { EventsGrid } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
 	import TasksSummary from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/tasks-summary/TasksSummary.svelte';
 	import { isScrollingUp } from '$lib/components/calendar/calendar-body/calendar-week-view/service.svelte';
-	import { DATE } from '$lib/consts';
-	import type { Task } from '$lib/task/task.model';
+	import type { CalendarTask, Task, TimedTask, yyyyMMdd } from '$lib/task/task.model';
 	import { isTimed } from '$lib/task/task.model.js';
+	import { formatDate } from '$lib/utils.svelte';
 
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
 	import { SUMMARY_GRID_CELL_HEIGHT } from './calendar-grid/service.svelte';
@@ -22,19 +22,19 @@
 
 	let { tasks, date, create, class: klass }: Props = $props();
 
-	let formattedDate = $derived(format(date, DATE));
+	let formattedDate = $derived<yyyyMMdd>(formatDate(date));
 
-	let tasksOnDate = $derived(getTasksForDate(tasks, date));
+	let tasksOnDate = $derived<CalendarTask[]>(getTasksForDate(tasks, date));
 
-	let timedTasks = $derived(tasksOnDate.filter((task) => isTimed(task)));
+	let timedTasks = $derived<TimedTask[]>(tasksOnDate.filter((task) => isTimed(task)));
 
-	let eventsGrid = $derived(getEventGrid(timedTasks));
+	let eventsGrid = $derived<EventsGrid>(getEventGrid(timedTasks));
 
 	let container = $state<HTMLDivElement | null>(null);
 
-	let containerWidth = $state(0);
+	let containerWidth = $state<number>(0);
 
-	let ticking = $state(false);
+	let ticking = $state<boolean>(false);
 
 	function updateContainerWidth() {
 		if (!container) return;

@@ -1,9 +1,10 @@
-import { add, format, isSameDay, parse, set } from 'date-fns';
+import { add, isSameDay, parse, set } from 'date-fns';
 
 import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 import { DATE, TIME } from '$lib/consts';
-import { isTimed, type Task } from '$lib/task/task.model';
+import { type HHmm, isTimed, type Task } from '$lib/task/task.model';
 import { getDurationInMinutes } from '$lib/task/task.utils';
+import { formatTime } from '$lib/utils.svelte';
 
 export function getTotalDuration(tasks: Task[]): string {
 	const totalDurationInMinutes = tasks.reduce((sum, task) => sum + getDurationInMinutes(task), 0);
@@ -60,7 +61,7 @@ export function roundTo15(date: Date) {
 	return new Date(Math.round(date.getTime() / milliseconds) * milliseconds);
 }
 
-export function sumTimes(startTime: string, duration: string): string {
+export function sumTimes(startTime: string, duration: string): HHmm | '' {
 	if (!startTime || !duration) {
 		return '';
 	}
@@ -73,13 +74,13 @@ export function sumTimes(startTime: string, duration: string): string {
 	const endDate = add(startTimeDate, { hours: durationHours, minutes: durationMinutes });
 
 	if (isSameDay(startTimeDate, endDate)) {
-		return format(endDate, TIME);
+		return formatTime(endDate);
 	}
 
 	return '23:59';
 }
 
-export function getHalfTime(time: string) {
+export function getHalfTime(time: string): HHmm {
 	const [hours, minutes] = time.split(':').map(Number);
 	const totalMinutes = hours * 60 + minutes;
 	const halfMinutes = totalMinutes / 2;
@@ -90,5 +91,5 @@ export function getHalfTime(time: string) {
 
 	const remainingInMinutes = Math.round(roundedHalfMinutes % 60);
 
-	return `${String(halfHours).padStart(2, '0')}:${String(remainingInMinutes).padStart(2, '0')}`;
+	return `${String(halfHours).padStart(2, '0')}:${String(remainingInMinutes).padStart(2, '0')}` as HHmm;
 }

@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { onSnapshot, type QuerySnapshot } from 'firebase/firestore';
 
 import { DATE } from '$lib/consts';
-import { isRecurring, type Task, taskSchema } from '$lib/task/task.model';
+import { type HHmm, isRecurring, type Task, taskSchema, type yyyyMMdd } from '$lib/task/task.model';
 import { editTask, queryWeekTasks } from '$lib/task/task.repository';
 import { editSingleRecurringEvent } from '$lib/task/task-form/service.svelte';
 
@@ -14,7 +14,7 @@ export function moveEvent(
 		duration,
 		oldDate,
 		startTime,
-	}: { date: string; duration: string; oldDate: string; startTime: string },
+	}: { date: yyyyMMdd; duration: HHmm; oldDate: yyyyMMdd; startTime: HHmm },
 ) {
 	const newEvent = { ...event, date, duration, startTime };
 	editPossibleSingleRecurringEvent(newEvent, userId, oldDate);
@@ -89,7 +89,11 @@ function updateTasksFromSnapshot(
 	});
 }
 
-export function editPossibleSingleRecurringEvent(event: Task, userId: string, targetDate: string) {
+export function editPossibleSingleRecurringEvent(
+	event: Task,
+	userId: string,
+	targetDate: yyyyMMdd,
+) {
 	const { id, ...data } = event;
 	if (isRecurring(data)) {
 		void editSingleRecurringEvent(id, data, userId, targetDate);

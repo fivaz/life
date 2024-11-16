@@ -7,8 +7,9 @@ import {
 } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 import { EVENT_PANEL_CLASS } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
 import { TIME } from '$lib/consts';
-import type { Task } from '$lib/task/task.model';
+import type { HHmm, Task, yyyyMMdd } from '$lib/task/task.model';
 import { getDurationInMinutes } from '$lib/task/task.utils';
+import { formatTime } from '$lib/utils.svelte';
 
 function getElementBeneath(draggedElement: HTMLElement, gridCellY: number, gridCellX: number) {
 	draggedElement.style.visibility = 'hidden';
@@ -101,7 +102,7 @@ export function getDurationFromCellSize(height: number) {
 	const numberOfFilledCells = height / GRID_CELL_HEIGHT;
 	const roundedNumberOfFilledCells = Math.round(numberOfFilledCells);
 	const resultDate = addMinutes(new Date(0, 0, 0), roundedNumberOfFilledCells * GRID_CELL_TIME);
-	return format(resultDate, TIME);
+	return formatTime(resultDate);
 }
 
 export function getCellSizeFromDuration(event: Task) {
@@ -113,8 +114,8 @@ export function getCellSizeFromDuration(event: Task) {
 export function hasMoved(
 	panel: HTMLDivElement,
 	event: Task,
-): { date: string; duration: string; startTime: string } | false {
-	const dateTime = getDateTimeBeneath(panel);
+): { date: yyyyMMdd; duration: HHmm; startTime: HHmm } | false {
+	const dateTime = getDateTimeBeneath(panel) as void | { date: yyyyMMdd; startTime: HHmm };
 	if (!dateTime) return false;
 	const duration = getDurationFromCellSize(panel.getBoundingClientRect().height);
 

@@ -1,7 +1,14 @@
 import { addMonths, format, isAfter, parse } from 'date-fns';
 
 import { DATE, TIME } from '$lib/consts';
-import { type Frequency, isRecurring, isTimed, type Task } from '$lib/task/task.model';
+import {
+	type Frequency,
+	type HHmm,
+	isRecurring,
+	isTimed,
+	type Task,
+	type yyyyMMdd,
+} from '$lib/task/task.model';
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 import { convertTimeToMinutes, sumTimes } from '$lib/task/time-utils';
 
@@ -10,12 +17,14 @@ export type TaskIn = Omit<
 	Task,
 	| 'startTime'
 	| 'date'
+	| 'duration'
 	| 'recurringFrequency'
 	| 'recurringExceptions'
 	| 'recurringDaysOfWeek'
 	| 'recurringEndAt'
 > & {
 	startTime: string;
+	duration: string;
 	endTime: string;
 	date: string;
 	image: string;
@@ -58,13 +67,14 @@ export function convertToTask(taskIn: TaskIn): Task {
 
 	return {
 		...rest,
+		duration: rest.duration as HHmm,
 		image: rest.image || null,
-		startTime: isEvent ? rest.startTime : null,
-		date: rest.date || null,
+		startTime: isEvent ? (rest.startTime as HHmm) : null,
+		date: (rest.date as yyyyMMdd) || null,
 		recurringFrequency: isRecurring && rest.recurringFrequency ? rest.recurringFrequency : null,
 		recurringDaysOfWeek: isRecurring ? rest.recurringDaysOfWeek : [],
-		recurringEndAt: isRecurring ? rest.recurringEndAt : null,
-		recurringExceptions: isRecurring ? rest.recurringExceptions : [],
+		recurringEndAt: isRecurring ? (rest.recurringEndAt as yyyyMMdd) : null,
+		recurringExceptions: isRecurring ? (rest.recurringExceptions as yyyyMMdd[]) : [],
 	};
 }
 

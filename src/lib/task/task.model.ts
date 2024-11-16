@@ -6,43 +6,44 @@ import type { Goal } from '$lib/goal/goal.model';
 export const frequencies = ['daily', 'weekly', 'monthly', 'yearly'] as const;
 export type Frequency = (typeof frequencies)[number];
 
+export type yyyyMMdd = `${number}.${number}.${number}`;
+export type HHmm = `${number}:${number}`;
+export type dateISO = string;
+
 export type Task = {
 	id: string;
-	// date in ISO format
-	createdAt: string;
+	createdAt: dateISO;
 	name: string;
 	isDone: boolean;
 	description: string;
 	image: string | null;
 	category: Category;
 	goal: Goal | null;
-	// date in yyyy-MM-dd format
-	date: string | null;
-	// time in HH:mm format
-	duration: string;
-	// time in HH:mm format
-	startTime: string | null;
+	date: yyyyMMdd | null;
+	duration: HHmm;
+	startTime: HHmm | null;
 	recurringFrequency: Frequency | null;
 	// days of the week in (sun, mon, tue) format
 	recurringDaysOfWeek: string[] | never[];
-	recurringEndAt: string | null;
-	// list of dates in yyyy-MM-dd format
-	recurringExceptions: string[] | never[];
+	recurringEndAt: yyyyMMdd | null;
+	recurringExceptions: yyyyMMdd[] | never[];
 };
 
-export type CalendarTask = Omit<Task, 'date'> & { date: string };
+export type CalendarTask = Omit<Task, 'date'> & { date: yyyyMMdd };
 
-export type TimedTask = Omit<Task, 'startTime' | 'date'> & { startTime: string; date: string };
+export type TimedTask = Omit<Task, 'startTime' | 'date'> & { startTime: HHmm; date: yyyyMMdd };
+
 export type UntimedTask = Omit<Task, 'startTime'> & { startTime: null };
+
 export type RecurringTask = Omit<
 	Task,
 	'date' | 'recurringFrequency' | 'recurringEndAt' | 'recurringDaysOfWeek' | 'recurringExceptions'
 > & {
-	date: string;
+	date: yyyyMMdd;
 	recurringFrequency: Frequency;
 	recurringDaysOfWeek: string[];
-	recurringEndAt: string;
-	recurringExceptions: string[];
+	recurringEndAt: yyyyMMdd;
+	recurringExceptions: yyyyMMdd[];
 };
 
 export const taskSchema = z.object({

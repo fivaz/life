@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { addDays, format, parse } from 'date-fns';
+	import { addDays, parse } from 'date-fns';
 	import { getContext } from 'svelte';
 
 	import DayTaskItem from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/tasks-summary/day-tasks-list/day-task-item/DayTaskItem.svelte';
 	import { DATE } from '$lib/consts';
 	import { type CalendarTask, isRecurring, isTimed } from '$lib/task/task.model';
 	import { getTotalDuration } from '$lib/task/time-utils';
+	import { formatDate } from '$lib/utils.svelte';
 
 	interface Props {
 		tasks: CalendarTask[];
@@ -32,9 +33,9 @@
 
 		const untimedTasksUpdated = untimedTasks.map((task) => {
 			if (isRecurring(task)) {
-				return { ...task, recurringExceptions: [...task.recurringExceptions, format(date, DATE)] };
+				return { ...task, recurringExceptions: [...task.recurringExceptions, formatDate(date)] };
 			} else {
-				const dayAfter = format(addDays(parse(task.date, DATE, new Date()), 1), DATE);
+				const dayAfter = formatDate(addDays(parse(task.date, DATE, new Date()), 1));
 				return { ...task, date: dayAfter };
 			}
 		});

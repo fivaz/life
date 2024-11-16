@@ -1,10 +1,10 @@
-import { format, startOfTomorrow, startOfWeek, startOfYesterday } from 'date-fns';
+import { startOfTomorrow, startOfWeek, startOfYesterday } from 'date-fns';
 
 import { routine, sleep, work } from '$lib/category/category.seed';
-import { DATE, TIME } from '$lib/consts';
 import { sleepEarly } from '$lib/goal/goal.seed';
-import type { CalendarTask } from '$lib/task/task.model';
+import type { TimedTask } from '$lib/task/task.model';
 import { buildDate } from '$lib/task/time-utils';
+import { formatDate, formatTime } from '$lib/utils.svelte';
 
 function getTodayAtTime(time: string): Date {
 	const date = new Date();
@@ -17,17 +17,17 @@ const longText =
 
 let id = 0;
 
-export const normalWithoutDescriptionWithGoal: CalendarTask = {
+export const normalWithoutDescriptionWithGoal: TimedTask = {
 	category: sleep,
 	createdAt: startOfTomorrow().toISOString(),
-	date: format(getTodayAtTime('00:00'), DATE),
+	date: formatDate(getTodayAtTime('00:00')),
 	description: '',
 	duration: '07:00',
 	goal: sleepEarly,
 	id: `${id++}`,
 	isDone: false,
 	name: 'sleep',
-	startTime: format(getTodayAtTime('00:00'), TIME),
+	startTime: formatTime(getTodayAtTime('00:00')),
 	image: '',
 	recurringFrequency: null,
 	recurringDaysOfWeek: [],
@@ -35,17 +35,17 @@ export const normalWithoutDescriptionWithGoal: CalendarTask = {
 	recurringExceptions: [],
 };
 
-export const normalWithoutDescriptionWithoutGoal: CalendarTask = {
+export const normalWithoutDescriptionWithoutGoal: TimedTask = {
 	category: sleep,
 	createdAt: startOfTomorrow().toISOString(),
-	date: format(getTodayAtTime('00:00'), DATE),
+	date: formatDate(getTodayAtTime('00:00')),
 	description: '',
 	duration: '07:00',
 	goal: null,
 	id: `${id++}`,
 	isDone: false,
 	name: 'sleep',
-	startTime: format(getTodayAtTime('00:00'), TIME),
+	startTime: formatTime(getTodayAtTime('00:00')),
 	image: '',
 	recurringFrequency: null,
 	recurringDaysOfWeek: [],
@@ -53,17 +53,17 @@ export const normalWithoutDescriptionWithoutGoal: CalendarTask = {
 	recurringExceptions: [],
 };
 
-export const normalWithDescription: CalendarTask = {
+export const normalWithDescription: TimedTask = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
-	date: format(startOfYesterday(), DATE),
+	date: formatDate(startOfYesterday()),
 	description: longText,
 	duration: '00:30',
 	goal: null,
 	id: `${id++}`,
 	isDone: true,
 	name: 'Put away apartment',
-	startTime: format(getTodayAtTime('15:15'), TIME),
+	startTime: formatTime(getTodayAtTime('15:15')),
 	image: '',
 	recurringFrequency: null,
 	recurringDaysOfWeek: [],
@@ -71,10 +71,10 @@ export const normalWithDescription: CalendarTask = {
 	recurringExceptions: [],
 };
 
-export const normalWithSubTasks: CalendarTask = {
+export const normalWithSubTasks: TimedTask = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
-	date: format(startOfYesterday(), DATE),
+	date: formatDate(startOfYesterday()),
 	description: `
 		[x] - Dusting a room \n' },
 		[ ] - Emptying the trash \n' },
@@ -87,7 +87,7 @@ export const normalWithSubTasks: CalendarTask = {
 	id: `${id++}`,
 	isDone: true,
 	name: 'Put away apartment',
-	startTime: format(getTodayAtTime('15:15'), TIME),
+	startTime: formatTime(getTodayAtTime('15:15')),
 	image: '',
 	recurringFrequency: null,
 	recurringDaysOfWeek: [],
@@ -95,17 +95,17 @@ export const normalWithSubTasks: CalendarTask = {
 	recurringExceptions: [],
 };
 
-export const shortWithoutDescription: CalendarTask = {
+export const shortWithoutDescription: TimedTask = {
 	category: routine,
 	createdAt: startOfTomorrow().toISOString(),
-	date: format(getTodayAtTime('07:00'), DATE),
+	date: formatDate(getTodayAtTime('07:00')),
 	description: '',
 	duration: '00:15',
 	goal: null,
 	id: `${id++}`,
 	isDone: false,
 	name: 'Breakfast',
-	startTime: format(getTodayAtTime('07:00'), TIME),
+	startTime: formatTime(getTodayAtTime('07:00')),
 	image: '',
 	recurringFrequency: null,
 	recurringDaysOfWeek: [],
@@ -113,17 +113,17 @@ export const shortWithoutDescription: CalendarTask = {
 	recurringExceptions: [],
 };
 
-export const shortWithDescription: CalendarTask = {
+export const shortWithDescription: TimedTask = {
 	category: routine,
 	createdAt: startOfTomorrow().toISOString(),
-	date: format(getTodayAtTime('07:00'), DATE),
+	date: formatDate(getTodayAtTime('07:00')),
 	description: longText,
 	duration: '00:15',
 	goal: null,
 	id: `${id++}`,
 	isDone: false,
 	name: 'Breakfast',
-	startTime: format(getTodayAtTime('07:00'), TIME),
+	startTime: formatTime(getTodayAtTime('07:00')),
 	image: '',
 	recurringFrequency: null,
 	recurringDaysOfWeek: [],
@@ -131,10 +131,10 @@ export const shortWithDescription: CalendarTask = {
 	recurringExceptions: [],
 };
 
-export const shortWithSubTasks: CalendarTask = {
+export const shortWithSubTasks: TimedTask = {
 	category: routine,
 	createdAt: startOfTomorrow().toISOString(),
-	date: format(getTodayAtTime('07:00'), DATE),
+	date: formatDate(getTodayAtTime('07:00')),
 	description: `
 		[x] - Dusting a room \n' },
 		[ ] - Emptying the trash \n' },
@@ -147,7 +147,7 @@ export const shortWithSubTasks: CalendarTask = {
 	id: `${id++}`,
 	isDone: false,
 	name: 'Breakfast',
-	startTime: format(getTodayAtTime('07:00'), TIME),
+	startTime: formatTime(getTodayAtTime('07:00')),
 	image: '',
 	recurringFrequency: null,
 	recurringDaysOfWeek: [],
@@ -155,10 +155,10 @@ export const shortWithSubTasks: CalendarTask = {
 	recurringExceptions: [],
 };
 
-export const longRecurring: CalendarTask = {
+export const longRecurring: TimedTask = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
-	date: format(getTodayAtTime('10:15'), DATE),
+	date: formatDate(getTodayAtTime('10:15')),
 	description: longText,
 	duration: '02:15',
 	goal: null,
@@ -169,11 +169,11 @@ export const longRecurring: CalendarTask = {
 	recurringEndAt: null,
 	recurringExceptions: [],
 	recurringFrequency: 'daily',
-	startTime: format(getTodayAtTime('10:15'), TIME),
+	startTime: formatTime(getTodayAtTime('10:15')),
 	image: '',
 };
 
-export const events: CalendarTask[] = [
+export const events: TimedTask[] = [
 	normalWithoutDescriptionWithGoal,
 	normalWithoutDescriptionWithoutGoal,
 	normalWithDescription,
@@ -184,12 +184,12 @@ export const events: CalendarTask[] = [
 	longRecurring,
 ];
 
-export const workToDo: CalendarTask = {
+export const workToDo: TimedTask = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
-	date: format(startOfWeek(new Date(), { weekStartsOn: 1 }), DATE),
+	date: formatDate(startOfWeek(new Date(), { weekStartsOn: 1 })),
 	description: '',
-	duration: '',
+	duration: '00:15',
 	goal: null,
 	id: `${id++}`,
 	isDone: false,
@@ -199,13 +199,13 @@ export const workToDo: CalendarTask = {
 	recurringDaysOfWeek: [],
 	recurringEndAt: null,
 	recurringExceptions: [],
-	startTime: format(getTodayAtTime('15:15'), TIME),
+	startTime: formatTime(getTodayAtTime('15:15')),
 };
 
-export const birthdayToDo: CalendarTask = {
+export const birthdayToDo: TimedTask = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
-	date: format(startOfTomorrow(), DATE),
+	date: formatDate(startOfTomorrow()),
 	description: '',
 	duration: '01:15',
 	goal: null,
@@ -217,9 +217,9 @@ export const birthdayToDo: CalendarTask = {
 	recurringDaysOfWeek: [],
 	recurringEndAt: null,
 	recurringExceptions: [],
-	startTime: format(getTodayAtTime('15:15'), TIME),
+	startTime: formatTime(getTodayAtTime('15:15')),
 };
 
-export const toDos: CalendarTask[] = [workToDo, birthdayToDo];
+export const toDos: TimedTask[] = [workToDo, birthdayToDo];
 
-export const tasks: CalendarTask[] = [...events, ...toDos];
+export const tasks: TimedTask[] = [...events, ...toDos];

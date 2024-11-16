@@ -11,6 +11,7 @@
 		shortWithoutDescription,
 		shortWithSubTasks,
 	} from '$lib/task/task.seed';
+	import { formatDate } from '$lib/utils.svelte';
 
 	import EventPanelCore from './EventPanelCore.svelte';
 
@@ -18,7 +19,7 @@
 		component: EventPanelCore,
 		args: {
 			isSelected: false,
-			targetDate: new Date().toISOString(),
+			targetDate: formatDate(new Date()),
 		},
 	});
 </script>

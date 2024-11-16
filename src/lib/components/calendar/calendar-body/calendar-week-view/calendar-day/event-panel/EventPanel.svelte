@@ -18,14 +18,14 @@
 		getCellSizeFromDuration,
 		hasMoved,
 	} from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/service';
-	import type { TimedTask } from '$lib/task/task.model';
+	import type { TimedTask, yyyyMMdd } from '$lib/task/task.model';
 
 	import EventPanelCore from './event-panel-core/EventPanelCore.svelte';
 
 	interface Props {
 		event: TimedTask;
 		eventsGrid: EventsGrid;
-		targetDate: string;
+		targetDate: yyyyMMdd;
 		class?: string;
 	}
 

@@ -2,7 +2,7 @@ import 'vite-plugin-pwa/svelte';
 import 'vite-plugin-pwa/info';
 import 'vite-plugin-pwa/pwa-assets';
 
-import type { Task } from '$lib/task/task.model';
+import type { HHmm, Task, yyyyMMdd } from '$lib/task/task.model';
 
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
@@ -21,18 +21,18 @@ export {};
 export type Context = {
 	changeWeek: (weekStart: Date) => void;
 	createTask: (date: Date) => void;
-	editTask: (task: Task, date: string) => void;
+	editTask: (task: Task, date: yyyyMMdd) => void;
 	moveEvent: (
 		event: Task,
 		moveObject: {
-			date: string;
-			duration: string;
-			oldDate: string;
-			startTime: string;
+			date: yyyyMMdd;
+			duration: HHmm;
+			oldDate: yyyyMMdd;
+			startTime: HHmm;
 		},
 	) => void;
 	persistTasks: (tasks: Task[]) => void;
-	toggleEvent: (event: Task, targetDate: string) => void;
+	toggleEvent: (event: Task, targetDate: yyyyMMdd) => void;
 };
 
 declare module 'svelte' {

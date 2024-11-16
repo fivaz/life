@@ -5,7 +5,7 @@
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import DBGoalsForTaskForm from '$lib/goal/DBGoalsForTaskForm.svelte';
 	import { buildTimedTask, buildTimedTaskWithTimeSet } from '$lib/task/build-utils';
-	import type { Task } from '$lib/task/task.model';
+	import type { Task, yyyyMMdd } from '$lib/task/task.model';
 	import TaskCompletedNotificationStack from '$lib/task/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 
@@ -17,7 +17,7 @@
 		tasks,
 	} from './service.svelte.js';
 
-	let targetDate = $state<string | undefined>();
+	let targetDate = $state<yyyyMMdd | undefined>();
 
 	let isFormShown = $state<boolean>(false);
 
@@ -32,14 +32,14 @@
 	}
 
 	//EDIT
-	function openFormToEditTask(task: Task, date: string) {
+	function openFormToEditTask(task: Task, date: yyyyMMdd) {
 		isFormShown = true;
 		targetDate = date;
 		editingTask = task;
 	}
 
 	//TOGGLE
-	function toggleCompletion(userId: string, event: Task, targetDate: string) {
+	function toggleCompletion(userId: string, event: Task, targetDate: yyyyMMdd) {
 		const newEvent = { ...event, isDone: !event.isDone };
 		editPossibleSingleRecurringEvent(newEvent, userId, targetDate);
 		updateNotification(newEvent);

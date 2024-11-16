@@ -1,6 +1,9 @@
 <script module lang="ts">
 	import { type Args, defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
+	import { format } from 'date-fns';
 
+	import { DATE } from '$lib/consts';
+	import type { yyyyMMdd } from '$lib/task/task.model';
 	import {
 		longRecurring,
 		normalWithDescription,
@@ -18,7 +21,7 @@
 		component: EventPanel,
 		args: {
 			class: '!static',
-			targetDate: new Date(),
+			targetDate: format(new Date(), DATE) as yyyyMMdd,
 		},
 	});
 </script>

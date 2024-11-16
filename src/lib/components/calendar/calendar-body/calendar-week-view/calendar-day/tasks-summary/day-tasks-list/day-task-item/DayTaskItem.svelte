@@ -2,12 +2,11 @@
 	import { CalendarClock, CalendarDays } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
-	import { format } from 'date-fns';
 	import { getContext } from 'svelte';
 
-	import { DATE } from '$lib/consts';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import { type CalendarTask, isUntimed } from '$lib/task/task.model';
+	import { formatDate } from '$lib/utils.svelte';
 
 	interface Props {
 		task: CalendarTask;
@@ -23,7 +22,7 @@
 <li class="hover:bg-gray-100 hover:underline">
 	<button
 		class="flex w-full items-center px-6 py-3 text-left"
-		onclick={() => editTask(task, format(date, DATE))}
+		onclick={() => editTask(task, formatDate(date))}
 	>
 		<span class="w-5 pr-3 font-medium text-gray-500">{index + 1}</span>
 		<Icon

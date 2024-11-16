@@ -15,7 +15,7 @@
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
-	import { isTimed, type Task } from '$lib/task/task.model';
+	import { isTimed, type Task, type yyyyMMdd } from '$lib/task/task.model';
 	import { isRecurring, isUntimed } from '$lib/task/task.model.js';
 	import { addTask } from '$lib/task/task.repository';
 	import {
@@ -35,7 +35,7 @@
 		task: Task;
 		goals: Goal[];
 		categories: Category[];
-		targetDate?: string;
+		targetDate?: yyyyMMdd;
 		close: () => void;
 	}
 
