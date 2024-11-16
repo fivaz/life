@@ -4,12 +4,12 @@
 	import { addDays, format, isSameWeek, parse } from 'date-fns';
 	import { CalendarCheck } from 'lucide-svelte';
 
-import { DATE } from '$lib/consts';
+	import { DATE } from '$lib/consts';
 
 	interface Props {
 		weekStart: Date;
 		selectedDate: Date;
-		hasDatesIncreased: boolean;
+		hasDatesIncreased?: boolean;
 	}
 
 	let {
