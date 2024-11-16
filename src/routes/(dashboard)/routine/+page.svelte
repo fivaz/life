@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { addDays, format, startOfWeek } from 'date-fns';
+	import { format, startOfWeek } from 'date-fns';
 	import { Calendar1, Plus } from 'lucide-svelte';
 
 	import Button from '$lib/components/form/button/Button.svelte';
@@ -7,7 +7,7 @@
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 	import { DATE } from '$lib/consts';
 	import DBRoutines from '$lib/routine/DBRoutines.svelte';
-	import { buildEmptyRoutine } from '$lib/routine/routine.model';
+	import { buildEmptyRoutine, type Routine } from '$lib/routine/routine.model';
 	import { title } from '$lib/utils.svelte';
 
 	import RoutineForm from './routine-form/RoutineForm.svelte';
@@ -15,17 +15,25 @@
 	import Streak from './streak/Streak.svelte';
 	import WeekListSelector from './week-list-selector/WeekListSelector.svelte';
 
-	let weekStart = $state(startOfWeek(new Date(), { weekStartsOn: 1 }));
+	let _weekStart = $state<Date>(startOfWeek(new Date(), { weekStartsOn: 1 }));
 
-	const dates = $derived(Array.from({ length: 7 }, (_, i) => addDays(weekStart, i)));
+	let previousWeekStart = $state<Date>(startOfWeek(new Date(), { weekStartsOn: 1 }));
 
-	let editingRoutine = $state(buildEmptyRoutine());
+	const weekStart = {
+		get value() {
+			return _weekStart;
+		},
+		set value(value) {
+			previousWeekStart = _weekStart;
+			_weekStart = value;
+		},
+	};
 
-	let showForm = $state(false);
+	let editingRoutine = $state<Routine>(buildEmptyRoutine());
 
-	let selectedDate: Date = $state(new Date());
+	let showForm = $state<boolean>(false);
 
-	let hasDatesIncreased = $state<boolean>(true);
+	let selectedDate: Date = $state<Date>(new Date());
 
 	title.value = 'Routine';
 </script>
@@ -52,7 +60,7 @@
 							</h1>
 						</div>
 
-						<WeekChanger bind:selectedDate bind:weekStart bind:hasDatesIncreased />
+						<WeekChanger bind:selectedDate bind:weekStart={weekStart.value} />
 
 						<div class="hidden h-7 border-r border-gray-300 sm:inline"></div>
 
@@ -68,7 +76,12 @@
 					</div>
 				</div>
 
-				<WeekListSelector bind:selectedDate {dates} {routines} {hasDatesIncreased} />
+				<WeekListSelector
+					bind:selectedDate
+					{routines}
+					weekStart={weekStart.value}
+					{previousWeekStart}
+				/>
 
 				<RoutineRows
 					edit={(routine) => {

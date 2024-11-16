@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { clsx } from 'clsx';
-	import { format, isSameDay, isToday } from 'date-fns';
+	import { addDays, format, isSameDay, isToday } from 'date-fns';
 	import { CheckCheck } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
 
@@ -9,12 +9,14 @@
 
 	interface Props {
 		routines: Routine[];
-		dates: Date[];
+		weekStart: Date;
+		previousWeekStart: Date;
 		selectedDate: Date;
-		hasDatesIncreased: boolean;
 	}
 
-	let { routines, dates, selectedDate = $bindable(), hasDatesIncreased }: Props = $props();
+	let { routines, weekStart, previousWeekStart, selectedDate = $bindable() }: Props = $props();
+
+	const dates = $derived<Date[]>(Array.from({ length: 7 }, (_, i) => addDays(weekStart, i)));
 
 	function isCompleted(selectedDate: Date, routines: Routine[]): boolean {
 		const dateString = format(selectedDate, DATE);
@@ -23,7 +25,7 @@
 		);
 	}
 
-	const slideDirection = $derived(hasDatesIncreased ? 1 : -1);
+	const slideDirection = $derived(weekStart.getTime() > previousWeekStart.getTime() ? 1 : -1);
 </script>
 
 <div class="relative h-14">

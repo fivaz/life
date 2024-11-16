@@ -9,14 +9,9 @@
 	interface Props {
 		weekStart: Date;
 		selectedDate: Date;
-		hasDatesIncreased?: boolean;
 	}
 
-	let {
-		weekStart = $bindable(),
-		selectedDate = $bindable(),
-		hasDatesIncreased = $bindable(),
-	}: Props = $props();
+	let { weekStart = $bindable(), selectedDate = $bindable() }: Props = $props();
 
 	const currentDate = new Date();
 
@@ -33,7 +28,6 @@
 	}
 
 	function goToNextWeek() {
-		hasDatesIncreased = true;
 		weekStart = addDays(weekStart, 7);
 		selectedDate = isSameWeek(currentDate, weekStart, { weekStartsOn: 1 })
 			? currentDate
@@ -41,7 +35,6 @@
 	}
 
 	function goToPreviousWeek() {
-		hasDatesIncreased = false;
 		weekStart = addDays(weekStart, -7);
 		selectedDate = isSameWeek(currentDate, weekStart, { weekStartsOn: 1 })
 			? currentDate

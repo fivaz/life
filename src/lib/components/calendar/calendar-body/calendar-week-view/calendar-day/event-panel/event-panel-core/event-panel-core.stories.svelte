@@ -1,58 +1,60 @@
 <script module lang="ts">
-	// import { defineMeta } from '@storybook/addon-svelte-csf';
+	import {
+		type Args,
+		defineMeta,
+		setTemplate,
+	} from '@storybook/addon-svelte-csf';
 
-	// import {
-	// 	longRecurring,
-	// 	normalWithDescription,
-	// 	normalWithoutDescriptionWithGoal,
-	// 	normalWithoutDescriptionWithoutGoal,
-	// 	normalWithSubTasks,
-	// 	shortWithDescription,
-	// 	shortWithoutDescription,
-	// 	shortWithSubTasks,
-	// } from '$lib/task/seed';
+	import {
+		longRecurring,
+		normalWithDescription,
+		normalWithoutDescriptionWithGoal,
+		normalWithoutDescriptionWithoutGoal,
+		normalWithSubTasks,
+		shortWithDescription,
+		shortWithoutDescription,
+		shortWithSubTasks,
+	} from '$lib/task/task.seed';
 
-	// import EventPanelCore from './EventPanelCore.svelte';
+	import EventPanelCore from './EventPanelCore.svelte';
 
-	// const { Story } = defineMeta({
-	// 	component: EventPanelCore,
-	// });
+	const { Story } = defineMeta({
+		component: EventPanelCore,
+		args: {
+			isSelected: false,
+			targetDate: new Date().toISOString(),
+		},
+	});
 </script>
 
-<!--{#snippet template(args: any)}-->
-<!--	<div class="relative h-48 w-48">-->
-<!--		<EventPanelCore isSelected={false} targetDate={new Date()} {...args} />-->
-<!--	</div>-->
-<!--{/snippet}-->
+<script>
+	setTemplate(template);
+</script>
 
-<!--<Story-->
-<!--	args={{ event: normalWithoutDescriptionWithGoal }}-->
-<!--	name="Normal without description with goal"-->
-<!--	children={template}-->
-<!--/>-->
+{#snippet template({ event, ...args }: Args<typeof Story>)}
+	<div class="relative h-48 w-48">
+		<EventPanelCore {event} {...args} />
+	</div>
+{/snippet}
 
-<!--<Story-->
-<!--	args={{ event: normalWithoutDescriptionWithoutGoal }}-->
-<!--	name="Normal without description without goal"-->
-<!--	children={template}-->
-<!--/>-->
+<Story
+	args={{ event: normalWithoutDescriptionWithGoal }}
+	name="Normal without description with goal"
+/>
 
-<!--<Story-->
-<!--	args={{ event: normalWithDescription }}-->
-<!--	name="Normal with a description"-->
-<!--	children={template}-->
-<!--/>-->
+<Story
+	args={{ event: normalWithoutDescriptionWithoutGoal }}
+	name="Normal without description without goal"
+/>
 
-<!--<Story args={{ event: normalWithSubTasks }} name="Normal with sub tasks" children={template} />-->
+<Story args={{ event: normalWithDescription }} name="Normal with a description" />
 
-<!--<Story-->
-<!--	args={{ event: shortWithoutDescription }}-->
-<!--	name="Short without description"-->
-<!--	children={template}-->
-<!--/>-->
+<Story args={{ event: normalWithSubTasks }} name="Normal with sub tasks" />
 
-<!--<Story args={{ event: shortWithDescription }} name="Short with a description" children={template} />-->
+<Story args={{ event: shortWithoutDescription }} name="Short without description" />
 
-<!--<Story args={{ event: shortWithSubTasks }} name="Short with sub tasks" children={template} />-->
+<Story args={{ event: shortWithDescription }} name="Short with a description" />
 
-<!--<Story args={{ event: longRecurring }} name="Long recurring" children={template} />-->
+<Story args={{ event: shortWithSubTasks }} name="Short with sub tasks" />
+
+<Story args={{ event: longRecurring }} name="Long recurring" />
