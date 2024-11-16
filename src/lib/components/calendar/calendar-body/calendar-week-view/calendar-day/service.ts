@@ -176,18 +176,40 @@ export function getEventGrid(events: TimedTask[]): EventsGrid {
 	 ]
 	 */
 	function assignColumnsToEvents(timeSlotsByEvents: string[][]): EventsGrid {
-		const eventColumns = new Map<string, number>();
+		let eventColumns = new Map<string, number>();
 
 		return timeSlotsByEvents.map((eventIds) => {
-			return eventIds.reduce<Record<number, string>>((object, eventId, index) => {
-				// with this I guarantee that once a column was set for an event, it will always keep its column
-				if (!eventColumns.has(eventId)) {
-					eventColumns.set(eventId, index);
-				}
-				const column = eventColumns.get(eventId)!;
-				object[column] = eventId;
-				return object;
+			return eventIds.reduce<Record<number, string>>((object, eventId) => {
+				const [newObject, newEventColumns] = addToAvailableColumn(object, eventId, eventColumns);
+				eventColumns = newEventColumns;
+				return newObject;
 			}, {});
 		});
+	}
+
+	// with this I guarantee that once a column was set for an event, it will always keep its column
+	function addToAvailableColumn(
+		object: Record<number, string>,
+		eventId: string,
+		eventColumns: Map<string, number>,
+	): [Record<number, string>, Map<string, number>] {
+		let column = eventColumns.get(eventId);
+
+		if (!column) {
+			const existingColumns = Object.keys(object).map(Number);
+			existingColumns.sort();
+			column = 0;
+			for (const existingColumn of existingColumns) {
+				if (column === existingColumn) {
+					column++;
+				} else if (column > existingColumn) {
+					break;
+				}
+			}
+		}
+
+		eventColumns.set(eventId, column);
+		object[column] = eventId;
+		return [object, eventColumns];
 	}
 }

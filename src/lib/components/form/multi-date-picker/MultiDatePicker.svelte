@@ -3,8 +3,7 @@
 
 	import flatpickr from 'flatpickr';
 
-	
-let ref = $state<HTMLInputElement | null>(null);
+	let ref = $state<HTMLInputElement | null>(null);
 
 	interface Props {
 		label: string;
