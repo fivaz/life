@@ -1,7 +1,6 @@
 import 'vite-plugin-pwa/svelte';
 import 'vite-plugin-pwa/info';
 import 'vite-plugin-pwa/pwa-assets';
-import '@storybook/addon-svelte-csf';
 
 import type { Task } from '$lib/task/task.model';
 

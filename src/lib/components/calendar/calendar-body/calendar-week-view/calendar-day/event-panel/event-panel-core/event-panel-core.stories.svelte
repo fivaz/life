@@ -1,9 +1,5 @@
 <script module lang="ts">
-	import {
-		type Args,
-		defineMeta,
-		setTemplate,
-	} from '@storybook/addon-svelte-csf';
+	import { type Args, defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 
 	import {
 		longRecurring,
@@ -31,9 +27,9 @@
 	setTemplate(template);
 </script>
 
-{#snippet template({ event, ...args }: Args<typeof Story>)}
+{#snippet template(args: Args<typeof Story> | any)}
 	<div class="relative h-48 w-48">
-		<EventPanelCore {event} {...args} />
+		<EventPanelCore {...args} />
 	</div>
 {/snippet}
 
