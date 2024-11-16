@@ -19,12 +19,6 @@ declare global {
 
 export {};
 
-declare module '@storybook/addon-svelte-csf' {
-	interface StoryProps {
-		args: Record<string, unknown>;
-	}
-}
-
 export type Context = {
 	changeWeek: (weekStart: Date) => void;
 	createTask: (date: Date) => void;
