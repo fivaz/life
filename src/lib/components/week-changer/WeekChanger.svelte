@@ -4,15 +4,19 @@
 	import { addDays, format, isSameWeek, parse } from 'date-fns';
 	import { CalendarCheck } from 'lucide-svelte';
 
-	import { DATE } from '$lib/consts';
+import { DATE } from '$lib/consts';
 
 	interface Props {
 		weekStart: Date;
 		selectedDate: Date;
-		onchange?: (weekStart: Date) => void;
+		hasDatesIncreased: boolean;
 	}
 
-	let { weekStart = $bindable(), selectedDate = $bindable() }: Props = $props();
+	let {
+		weekStart = $bindable(),
+		selectedDate = $bindable(),
+		hasDatesIncreased = $bindable(),
+	}: Props = $props();
 
 	const currentDate = new Date();
 
@@ -20,15 +24,16 @@
 
 	let dateString = $state<string>(format(selectedDate, DATE));
 
-	$effect(() => {
-		selectedDate = parse(dateString, DATE, new Date());
-	});
+	function updateDate(e: Event & { currentTarget: HTMLInputElement }): void {
+		selectedDate = parse(e.currentTarget.value, DATE, new Date());
+	}
 
 	function openDatePicker() {
 		datePicker2?.showPicker();
 	}
 
 	function goToNextWeek() {
+		hasDatesIncreased = true;
 		weekStart = addDays(weekStart, 7);
 		selectedDate = isSameWeek(currentDate, weekStart, { weekStartsOn: 1 })
 			? currentDate
@@ -36,6 +41,7 @@
 	}
 
 	function goToPreviousWeek() {
+		hasDatesIncreased = false;
 		weekStart = addDays(weekStart, -7);
 		selectedDate = isSameWeek(currentDate, weekStart, { weekStartsOn: 1 })
 			? currentDate
@@ -58,7 +64,8 @@
 			bind:this={datePicker2}
 			type="date"
 			class="pointer-events-none absolute opacity-0"
-			bind:value={dateString}
+			oninput={updateDate}
+			value={dateString}
 		/>
 
 		<button

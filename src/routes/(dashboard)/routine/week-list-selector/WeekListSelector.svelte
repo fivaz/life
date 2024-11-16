@@ -2,8 +2,6 @@
 	import { clsx } from 'clsx';
 	import { format, isSameDay, isToday } from 'date-fns';
 	import { CheckCheck } from 'lucide-svelte';
-	import { cubicOut } from 'svelte/easing';
-	import { slide } from 'svelte/transition';
 	import { fly } from 'svelte/transition';
 
 	import { DATE } from '$lib/consts';
@@ -13,9 +11,10 @@
 		routines: Routine[];
 		dates: Date[];
 		selectedDate: Date;
+		hasDatesIncreased: boolean;
 	}
 
-	let { routines, dates, selectedDate = $bindable() }: Props = $props();
+	let { routines, dates, selectedDate = $bindable(), hasDatesIncreased }: Props = $props();
 
 	function isCompleted(selectedDate: Date, routines: Routine[]): boolean {
 		const dateString = format(selectedDate, DATE);
@@ -23,14 +22,16 @@
 			routine.completeHistory.some(({ date, isCompleted }) => date === dateString && isCompleted),
 		);
 	}
+
+	const slideDirection = $derived(hasDatesIncreased ? 1 : -1);
 </script>
 
 <div class="relative h-14">
 	{#key dates}
 		<div
 			class="absolute grid w-full grid-cols-7 divide-gray-100 border border-gray-100 text-sm leading-6 text-gray-500 md:divide-x"
-			in:fly={{ x: -900, duration: 800 }}
-			out:fly={{ x: 900, duration: 800 }}
+			in:fly={{ x: 900 * slideDirection, duration: 800 }}
+			out:fly={{ x: 900 * slideDirection * -1, duration: 800 }}
 		>
 			{#each dates as date (date)}
 				<button

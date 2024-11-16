@@ -25,6 +25,8 @@
 
 	let selectedDate: Date = $state(new Date());
 
+	let hasDatesIncreased = $state<boolean>(true);
+
 	title.value = 'Routine';
 </script>
 
@@ -50,7 +52,7 @@
 							</h1>
 						</div>
 
-						<WeekChanger bind:selectedDate bind:weekStart />
+						<WeekChanger bind:selectedDate bind:weekStart bind:hasDatesIncreased />
 
 						<div class="hidden h-7 border-r border-gray-300 sm:inline"></div>
 
@@ -66,7 +68,7 @@
 					</div>
 				</div>
 
-				<WeekListSelector bind:selectedDate {dates} {routines} />
+				<WeekListSelector bind:selectedDate {dates} {routines} {hasDatesIncreased} />
 
 				<RoutineRows
 					edit={(routine) => {
