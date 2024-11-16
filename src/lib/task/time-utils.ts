@@ -30,12 +30,13 @@ export function buildDate(date: Date, time: string): Date {
 	return set(date, { hours, minutes });
 }
 
+// convert time from HH:mm format to the number of minutes
 export function convertTimeToMinutes(time: string): number {
-	if (/^([01]\d|2[0-3]):([0-5]\d)$/.test(time)) {
-		const [hours, minutes] = time.split(':').map(Number);
+	const [hours, minutes] = time.split(':').map(Number);
+	if (!isNaN(hours) && !isNaN(minutes)) {
 		return hours * 60 + minutes;
 	}
-	throw new Error("Time isn't in the format hh:mm");
+	throw new Error("Time isn't in the format HH:mm");
 }
 
 export function convertMinutesToTime(timeInMinutes: number): string {

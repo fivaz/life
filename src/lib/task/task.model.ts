@@ -78,7 +78,7 @@ export const taskSchema = z.object({
 });
 
 export function isRecurring(task: Omit<Task, 'id'> | Task): task is RecurringTask {
-	return !!task.recurringFrequency;
+	return task.recurringFrequency !== null;
 }
 
 export function isUntimed(task: Omit<Task, 'id'> | Task): task is UntimedTask {
@@ -86,7 +86,7 @@ export function isUntimed(task: Omit<Task, 'id'> | Task): task is UntimedTask {
 }
 
 export function isTimed(task: Omit<Task, 'id'> | Task): task is TimedTask {
-	return !!task.startTime;
+	return task.startTime !== null;
 }
 
 export type SubTask = { isDone: boolean; title: string };

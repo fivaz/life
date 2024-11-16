@@ -124,8 +124,9 @@ export function getEventGrid(events: TimedTask[]): EventsGrid {
 	const timeSlotsByEvents = getTimeSlots(sortedEvents);
 
 	return assignColumnsToEvents(timeSlotsByEvents);
+}
 
-	/**
+/**
 	 Convert a list of events into a list of time slots in which each index represents 15 minutes,
 	 and it contains a list of events ids that take place in that time slot:
 
@@ -140,21 +141,21 @@ export function getEventGrid(events: TimedTask[]): EventsGrid {
 		 // 95 = 23:45
 	 	95:[eventId99, eventId100,...],
 	 ]
-	 */
-	function getTimeSlots(events: TimedTask[]): string[][] {
-		const timeSlots = new Array(NUMBER_OF_CELLS).fill(null).map<string[]>(() => []);
+ */
+function getTimeSlots(events: TimedTask[]): string[][] {
+	const timeSlots = Array.from({ length: NUMBER_OF_CELLS }, () => [] as string[]);
 
-		for (const event of events) {
-			const { endSlot, startSlot } = getEventSlots(event);
-			for (let i = startSlot; i < endSlot; i++) {
-				timeSlots[i].push(event.id);
-			}
+	events.forEach((event) => {
+		const { startSlot, endSlot } = getEventSlots(event);
+		for (let i = startSlot; i < endSlot; i++) {
+			timeSlots[i].push(event.id);
 		}
+	});
 
-		return timeSlots;
-	}
+	return timeSlots;
+}
 
-	/**
+/**
 	 Assign columns to each event from the timeslots list:
 
 	 timeSlots list :
@@ -174,42 +175,21 @@ export function getEventGrid(events: TimedTask[]): EventsGrid {
 	 	94:[{0:eventId99}, {1:eventId100},...],
 	 	95:[{0:eventId99}, {1:eventId100},...],
 	 ]
-	 */
-	function assignColumnsToEvents(timeSlotsByEvents: string[][]): EventsGrid {
-		let eventColumns = new Map<string, number>();
-
-		return timeSlotsByEvents.map((eventIds) => {
-			return eventIds.reduce<Record<number, string>>((object, eventId) => {
-				const [newObject, newEventColumns] = addToAvailableColumn(object, eventId, eventColumns);
-				eventColumns = newEventColumns;
-				return newObject;
-			}, {});
-		});
-	}
-
+ */
+function assignColumnsToEvents(timeSlotsByEvents: string[][]): EventsGrid {
 	// with this I guarantee that once a column was set for an event, it will always keep its column
-	function addToAvailableColumn(
-		object: Record<number, string>,
-		eventId: string,
-		eventColumns: Map<string, number>,
-	): [Record<number, string>, Map<string, number>] {
-		let column = eventColumns.get(eventId);
+	const eventColumns = new Map<string, number>();
 
-		if (!column) {
-			const existingColumns = Object.keys(object).map(Number);
-			existingColumns.sort();
-			column = 0;
-			for (const existingColumn of existingColumns) {
-				if (column === existingColumn) {
-					column++;
-				} else if (column > existingColumn) {
-					break;
-				}
+	return timeSlotsByEvents.map((eventIds) => {
+		const columnMap: Record<number, string> = {};
+		eventIds.forEach((eventId) => {
+			let column = eventColumns.get(eventId) ?? 0;
+			while (columnMap[column] !== undefined) {
+				column++;
 			}
-		}
-
-		eventColumns.set(eventId, column);
-		object[column] = eventId;
-		return [object, eventColumns];
-	}
+			eventColumns.set(eventId, column);
+			columnMap[column] = eventId;
+		});
+		return columnMap;
+	});
 }

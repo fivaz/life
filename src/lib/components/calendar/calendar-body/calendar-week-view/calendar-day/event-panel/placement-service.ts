@@ -8,17 +8,14 @@ import { convertTimeToMinutes } from '$lib/task/time-utils';
 
 export const EVENT_PANEL_CLASS = 'event-panel-class';
 
-export function getSlot(date: string) {
-	return Math.round(convertTimeToMinutes(date) / GRID_CELL_TIME);
+export function getSlot(time: string) {
+	return Math.round(convertTimeToMinutes(time) / GRID_CELL_TIME);
 }
 
 export function getEventSlots(event: TimedTask): { endSlot: number; startSlot: number } {
 	const startSlot = getSlot(event.startTime);
-	let endSlot = startSlot + getSlot(event.duration);
-	if (endSlot > NUMBER_OF_CELLS) {
-		endSlot = NUMBER_OF_CELLS;
-	}
-
+	// if startSlot + getSlot > 96 then return 96
+	const endSlot = Math.min(startSlot + getSlot(event.duration), NUMBER_OF_CELLS);
 	return { endSlot, startSlot };
 }
 

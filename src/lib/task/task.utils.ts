@@ -29,23 +29,7 @@ export function getDurationInMinutes(task: Task) {
 }
 
 export function sortTasks<T extends Task>(tasks: T[]): T[] {
-	return tasks.toSorted((a, b) => {
-		const dateA = getTaskDateTime(a);
-
-		const dateB = getTaskDateTime(b);
-
-		if (!dateA && !dateB) {
-			return 0;
-		}
-
-		if (!dateA) {
-			return 1;
-		}
-
-		if (!dateB) {
-			return -1;
-		}
-
-		return dateA.getTime() - dateB.getTime();
-	});
+	return tasks.toSorted(
+		(a, b) => (getTaskDateTime(a)?.getTime() ?? 0) - (getTaskDateTime(b)?.getTime() ?? 0),
+	);
 }
