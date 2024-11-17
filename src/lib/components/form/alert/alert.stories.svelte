@@ -32,7 +32,7 @@
 <Story
 	args={{
 		type: 'success',
-		children: 'Successfully uploaded',
+		children: textAsSnippet('Successfully uploaded'),
 	}}
 	name="Success"
 />

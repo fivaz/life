@@ -2,8 +2,7 @@
 	import { XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
-	
-interface Props {
+	interface Props {
 		close: () => void;
 	}
 

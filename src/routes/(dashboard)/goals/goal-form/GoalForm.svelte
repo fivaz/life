@@ -1,6 +1,5 @@
 <script lang="ts">
-	
-import CloseX from '$lib/components/close-x/CloseX.svelte';
+	import CloseX from '$lib/components/close-x/CloseX.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';

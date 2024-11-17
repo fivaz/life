@@ -15,8 +15,7 @@
 </script>
 
 <script lang="ts">
-	
-setTemplate(template as any);
+	setTemplate(template as any);
 </script>
 
 {#snippet template({ ...args }: ComponentProps<typeof TasksSummary>)}
