@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { EllipsisVertical, XMark } from '@steeze-ui/heroicons';
+	import { EllipsisVertical } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Copy, ListTodo } from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';
 	import { tailwindColors } from '$lib/category/category.utils';
+	import CloseX from '$lib/components/close-x/CloseX.svelte';
 	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
@@ -153,14 +154,7 @@
 							<Icon class="h-5 w-auto" src={EllipsisVertical} />
 						</div>
 					</DropDown>
-					<button
-						class="rounded-md p-1 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
-						onclick={close}
-						type="button"
-					>
-						<span class="sr-only">Dismiss</span>
-						<Icon aria-hidden="true" class="h-5 w-5" src={XMark} />
-					</button>
+					<CloseX {close} />
 				</div>
 			</div>
 

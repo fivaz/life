@@ -1,10 +1,9 @@
 <script lang="ts">
-	import { XMark } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
-
-	import { type Category, CategoryTypes } from '$lib/category/category.model';
+	
+import { type Category, CategoryTypes } from '$lib/category/category.model';
 	import { addCategory, deleteCategory, editCategory } from '$lib/category/category.respository';
 	import { tailwindColors } from '$lib/category/category.utils';
+	import CloseX from '$lib/components/close-x/CloseX.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';
@@ -53,14 +52,8 @@
 			<h2 class="text-lg font-medium text-gray-900">
 				{isEditing ? 'Edit Category' : 'Add Category'}
 			</h2>
-			<button
-				class="inline-flex rounded-md p-1.5 pl-2 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-50"
-				onclick={close}
-				type="button"
-			>
-				<span class="sr-only">Dismiss</span>
-				<Icon aria-hidden="true" class="h-5 w-5" src={XMark} />
-			</button>
+
+			<CloseX {close} />
 		</div>
 
 		<Alert hasCloseButton={false} isVisible={!!errorMessage} type="error">
