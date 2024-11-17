@@ -1,47 +1,38 @@
 export default function (plop) {
 	plop.setGenerator('component', {
-		actions: [
-			{
-				path: '../src/lib/components/{{dashCase name}}/{{pascalCase name}}.svelte',
-				templateFile: 'templates/component.hbs',
-				type: 'add',
-			},
-			{
-				path: '../src/lib/components/{{dashCase name}}/{{dashCase name}}.stories.svelte',
-				templateFile: 'templates/component-stories.hbs',
-				type: 'add',
-			},
-		],
-		description: 'create new component structure',
+		description: 'A UI Component',
 		prompts: [
 			{
-				message: 'Component name',
-				name: 'name',
 				type: 'input',
+				name: 'name',
+				message: 'Enter the component path (relative to src/, e.g., components/my-awesome-button):',
 			},
 		],
-	});
+		actions: (data) => {
+			// Extracting the component name from the path
+			const parts = data.name.split('/');
+			const componentName = parts[parts.length - 1];
 
-	plop.setGenerator('page', {
-		actions: [
-			{
-				path: '../src/routes/{{dashCase name}}/+page.svelte',
-				templateFile: 'templates/page.hbs',
-				type: 'add',
-			},
-			{
-				path: '../src/routes/{{dashCase name}}/+page.server.ts',
-				templateFile: 'templates/page-server.hbs',
-				type: 'add',
-			},
-		],
-		description: 'create new page structure',
-		prompts: [
-			{
-				message: 'page name',
-				name: 'name',
-				type: 'input',
-			},
-		],
+			data.pathPath = parts
+				.map((part) =>
+					part.startsWith('(') && part.endsWith(')') ? part : plop.getHelper('dashCase')(part),
+				)
+				.join('/');
+			data.componentName = plop.getHelper('pascalCase')(componentName);
+			data.storyName = plop.getHelper('dashCase')(componentName);
+
+			return [
+				{
+					type: 'add',
+					path: '../src/{{pathPath}}/{{componentName}}.svelte',
+					templateFile: 'templates/Component.svelte.hbs',
+				},
+				{
+					type: 'add',
+					path: '../src/{{pathPath}}/{{storyName}}.stories.svelte',
+					templateFile: 'templates/Component.stories.svelte.hbs',
+				},
+			];
+		},
 	});
 }
