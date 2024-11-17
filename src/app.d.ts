@@ -43,3 +43,9 @@ declare module 'svelte' {
 		context: Context[T],
 	): void;
 }
+
+import type { ComponentProps } from 'svelte';
+
+declare module '@storybook/addon-svelte-csf' {
+	export type Args = ComponentProps;
+}

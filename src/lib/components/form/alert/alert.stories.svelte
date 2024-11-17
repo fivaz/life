@@ -1,6 +1,7 @@
 <script module lang="ts">
-	import { type Args, defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
+	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 	import type { Snippet } from 'svelte';
+	import type { ComponentProps } from 'svelte';
 
 	import Alert from './Alert.svelte';
 
@@ -20,18 +21,18 @@
 </script>
 
 <script lang="ts">
-	setTemplate(template);
+	setTemplate(template as any);
 </script>
 
 <!--TODO check their solution for this-->
-{#snippet template(args: Args<typeof Story> | any)}
-	<Alert {...args}>{args.children}</Alert>
+{#snippet template({ children, ...args }: ComponentProps<typeof Alert>)}
+	<Alert {...args}>{children}</Alert>
 {/snippet}
 
 <Story
 	args={{
 		type: 'success',
-		children: textAsSnippet('Successfully uploaded'),
+		children: 'Successfully uploaded',
 	}}
 	name="Success"
 />

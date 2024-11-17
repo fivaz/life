@@ -1,5 +1,6 @@
 <script module lang="ts">
-	import { type Args, defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
+	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
+	import type { ComponentProps } from 'svelte';
 
 	import { birthdayToDo, toDos, workToDo } from '$lib/task/task.seed';
 
@@ -14,10 +15,11 @@
 </script>
 
 <script lang="ts">
-	setTemplate(template);
+	
+setTemplate(template as any);
 </script>
 
-{#snippet template(args: Args<typeof Story> | any)}
+{#snippet template({ ...args }: ComponentProps<typeof TasksSummary>)}
 	<div class="w-24">
 		<TasksSummary {...args} />
 	</div>

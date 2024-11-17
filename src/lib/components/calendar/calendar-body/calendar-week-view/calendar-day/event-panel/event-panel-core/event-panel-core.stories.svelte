@@ -1,5 +1,6 @@
 <script module lang="ts">
-	import { type Args, defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
+	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
+	import type { ComponentProps } from 'svelte';
 
 	import {
 		longRecurring,
@@ -24,11 +25,11 @@
 	});
 </script>
 
-<script>
-	setTemplate(template);
+<script lang="ts">
+	setTemplate(template as any);
 </script>
 
-{#snippet template(args: Args<typeof Story> | any)}
+{#snippet template({ ...args }: ComponentProps<typeof EventPanelCore>)}
 	<div class="relative h-48 w-48">
 		<EventPanelCore {...args} />
 	</div>

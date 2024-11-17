@@ -1,6 +1,7 @@
 <script module lang="ts">
-	import { type Args, defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
+	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 	import { format } from 'date-fns';
+	import type { ComponentProps } from 'svelte';
 
 	import { DATE } from '$lib/consts';
 	import type { yyyyMMdd } from '$lib/task/task.model';
@@ -16,7 +17,6 @@
 	} from '$lib/task/task.seed';
 
 	import EventPanel from './EventPanel.svelte';
-
 	const { Story } = defineMeta({
 		component: EventPanel,
 		args: {
@@ -26,11 +26,12 @@
 	});
 </script>
 
-<script>
-	setTemplate(template);
+<script lang="ts">
+	
+setTemplate(template as any);
 </script>
 
-{#snippet template(args: Args<typeof Story> | any)}
+{#snippet template({ ...args }: ComponentProps<typeof EventPanel>)}
 	<div class="!relative w-52">
 		<EventPanel {...args} />
 	</div>

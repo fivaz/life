@@ -1,5 +1,6 @@
 <script module lang="ts">
-	import { type Args, defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
+	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
+	import type { ComponentProps } from 'svelte';
 
 	import Dialog from './Dialog.svelte';
 
@@ -22,10 +23,11 @@
 </script>
 
 <script lang="ts">
-	setTemplate(template);
+	
+setTemplate(template as any);
 </script>
 
-{#snippet template(args: Args<typeof Story> | any)}
+{#snippet template(args: ComponentProps<typeof Dialog>)}
 	<Dialog {...args} />
 {/snippet}
 
