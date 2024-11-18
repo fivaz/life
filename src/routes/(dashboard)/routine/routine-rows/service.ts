@@ -61,13 +61,3 @@ export function getToggleRoutineCompletion(): (routine: Routine) => void {
 export function setToggleRoutineCompletion(value: (routine: Routine) => void) {
 	setContext(toggleRoutineCompletionKey, value);
 }
-
-const routineDateKey = Symbol('routineDate');
-
-export function getRoutineDate(): yyyyMMdd {
-	return getContext(routineDateKey) as yyyyMMdd;
-}
-
-export function setRoutineDate(value: yyyyMMdd) {
-	setContext(routineDateKey, value);
-}

@@ -37,7 +37,7 @@
 
 	let showForm = $state<boolean>(false);
 
-	let selectedDate: Date = $state<Date>(new Date());
+	let selectedDate = $state<Date>(new Date());
 
 	title.value = 'Routine';
 

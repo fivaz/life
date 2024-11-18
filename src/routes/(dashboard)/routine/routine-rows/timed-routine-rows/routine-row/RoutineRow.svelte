@@ -7,27 +7,26 @@
 
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
+	import type { yyyyMMdd } from '$lib/task/task.model';
 
 	import {
 		getOpenRoutineForm,
-		getRoutineDate,
 		getStatusColor,
 		getStreak,
 		getToggleRoutineCompletion,
 		statusColor,
-	} from '../service';
+	} from '../../service';
 
 	interface Props {
 		routine: Routine;
+		selectedDate: yyyyMMdd;
 	}
 
-	let { routine }: Props = $props();
+	let { routine, selectedDate }: Props = $props();
 
-	const routineDate = getRoutineDate();
+	let status = $derived<keyof typeof statusColor>(getStatusColor(routine, selectedDate));
 
-	let status = $derived<keyof typeof statusColor>(getStatusColor(routine, routineDate));
-
-	let streak = $derived<number>(getStreak(routine, routineDate));
+	let streak = $derived<number>(getStreak(routine, selectedDate));
 
 	const openRoutineForm = getOpenRoutineForm();
 

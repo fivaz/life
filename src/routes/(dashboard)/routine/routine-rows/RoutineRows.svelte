@@ -3,7 +3,7 @@
 	import { toggleRoutineCompletion, updateRoutines } from '$lib/routine/routine.repository';
 	import { formatDate } from '$lib/utils.svelte';
 
-	import { setRoutineDate, setToggleRoutineCompletion } from './service';
+	import { setToggleRoutineCompletion } from './service';
 	import TimedRoutineRows from './timed-routine-rows/TimedRoutineRows.svelte';
 
 	interface Props {
@@ -13,12 +13,10 @@
 
 	let { selectedDate, userId }: Props = $props();
 
-	let routineDate = $state(formatDate(selectedDate));
-
-	setRoutineDate(routineDate);
+	let selectedDateString = $derived(formatDate(selectedDate));
 
 	setToggleRoutineCompletion((routine: Routine) =>
-		toggleRoutineCompletion(routine, routineDate, userId),
+		toggleRoutineCompletion(routine, selectedDateString, userId),
 	);
 
 	function update(routines: Routine[]) {
@@ -26,10 +24,27 @@
 	}
 </script>
 
-<TimedRoutineRows updateRoutines={update} time="morning" title="Morning Routine" />
-
-<TimedRoutineRows updateRoutines={update} time="afternoon" title="Afternoon Routine" />
-
-<TimedRoutineRows updateRoutines={update} time="evening" title="Evening Routine" />
-
-<TimedRoutineRows updateRoutines={update} time="all-day" title="All day Routine" />
+<TimedRoutineRows
+	selectedDate={selectedDateString}
+	updateRoutines={update}
+	time="morning"
+	title="Morning Routine"
+/>
+<TimedRoutineRows
+	selectedDate={selectedDateString}
+	updateRoutines={update}
+	time="afternoon"
+	title="Afternoon Routine"
+/>
+<TimedRoutineRows
+	selectedDate={selectedDateString}
+	updateRoutines={update}
+	time="evening"
+	title="Evening Routine"
+/>
+<TimedRoutineRows
+	selectedDate={selectedDateString}
+	updateRoutines={update}
+	time="all-day"
+	title="All day Routine"
+/>
