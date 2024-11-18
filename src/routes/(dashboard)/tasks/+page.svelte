@@ -40,7 +40,7 @@
 			<div class="flex items-center justify-between">
 				<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
 
-				<div class="flex items-center gap-5">
+				<div class="flex w-full items-center justify-between gap-5 md:w-auto">
 					<button
 						class="rounded bg-white p-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
 						onclick={() => (isStatsShown = true)}

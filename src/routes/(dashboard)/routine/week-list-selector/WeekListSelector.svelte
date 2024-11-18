@@ -28,7 +28,7 @@
 	const slideDirection = $derived(weekStart.getTime() > previousWeekStart.getTime() ? 1 : -1);
 </script>
 
-<div class="relative h-14">
+<div class="relative h-20 md:h-14">
 	{#key dates}
 		<div
 			class="absolute grid w-full grid-cols-7 divide-gray-100 border border-gray-100 text-sm leading-6 text-gray-500 md:divide-x"

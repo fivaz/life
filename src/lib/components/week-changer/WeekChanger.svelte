@@ -28,7 +28,6 @@
 	};
 
 	function openDatePicker() {
-		console.log('click');
 		datePicker?.showPicker();
 	}
 
@@ -63,7 +62,7 @@
 			bind:this={datePicker}
 			bind:value={selectedDateString.value}
 			type="date"
-			class="pointer-events-none absolute opacity-0"
+			class="pointer-events-none absolute touch-none opacity-0"
 		/>
 
 		<button
