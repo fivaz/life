@@ -1,6 +1,6 @@
-import { addMonths, format, isAfter, parse } from 'date-fns';
+import { addMonths, isAfter, parse } from 'date-fns';
 
-import { DATE, TIME } from '$lib/consts';
+import { TIME } from '$lib/consts';
 import {
 	type Frequency,
 	type HHmm,
@@ -10,7 +10,8 @@ import {
 	type yyyyMMdd,
 } from '$lib/task/task.model';
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
-import { convertTimeToMinutes, sumTimes } from '$lib/task/time-utils';
+import { convertTimeToMinutes, roundTo15, sumTimes } from '$lib/task/time-utils';
+import { formatDate, formatTime } from '$lib/utils.svelte';
 
 // TaskIn is a super type that has all the attributes of possible Tasks together
 export type TaskIn = Omit<
@@ -79,18 +80,20 @@ export function convertToTask(taskIn: TaskIn): Task {
 }
 
 export function convertToTaskIn(task: Task): TaskIn {
+	const time = formatTime(roundTo15(new Date()));
+
 	return {
 		...task,
 		isEvent: isTimed(task),
 		isRecurring: isRecurring(task),
-		startTime: task.startTime || format(new Date(), TIME),
-		endTime: sumTimes(task.startTime || format(new Date(), TIME), task.duration),
+		startTime: task.startTime || time,
+		endTime: sumTimes(task.startTime || time, task.duration),
 		date: task.date || '',
 		image: task.image || '',
 		recurringFrequency: task.recurringFrequency || 'daily',
 		recurringDaysOfWeek: task.recurringDaysOfWeek.length
 			? task.recurringDaysOfWeek
 			: nameOfDaysOfWeek.slice(1, 6),
-		recurringEndAt: task.recurringEndAt || format(addMonths(new Date(), 1), DATE),
+		recurringEndAt: task.recurringEndAt || formatDate(addMonths(new Date(), 1)),
 	};
 }
