@@ -9,10 +9,9 @@
 	interface Props {
 		selectedDate: Date;
 		userId: string;
-		routinesMap: Record<Routine['time'], Routine[]>;
 	}
 
-	let { selectedDate, userId, routinesMap }: Props = $props();
+	let { selectedDate, userId }: Props = $props();
 
 	let routineDate = $state(formatDate(selectedDate));
 
@@ -27,15 +26,10 @@
 	}
 </script>
 
-<TimedRoutineRows updateRoutines={update} bind:routinesMap time="morning" title="Morning Routine" />
+<TimedRoutineRows updateRoutines={update} time="morning" title="Morning Routine" />
 
-<TimedRoutineRows
-	updateRoutines={update}
-	bind:routinesMap
-	time="afternoon"
-	title="Afternoon Routine"
-/>
+<TimedRoutineRows updateRoutines={update} time="afternoon" title="Afternoon Routine" />
 
-<TimedRoutineRows updateRoutines={update} bind:routinesMap time="evening" title="Evening Routine" />
+<TimedRoutineRows updateRoutines={update} time="evening" title="Evening Routine" />
 
-<TimedRoutineRows updateRoutines={update} bind:routinesMap time="all-day" title="All day Routine" />
+<TimedRoutineRows updateRoutines={update} time="all-day" title="All day Routine" />

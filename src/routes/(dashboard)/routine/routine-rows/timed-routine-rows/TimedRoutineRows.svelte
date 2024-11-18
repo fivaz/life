@@ -4,29 +4,29 @@
 
 	import { type Routine, routineTimeMap } from '$lib/routine/routine.model';
 
+	import { routinesMap } from '../../service.svelte';
 	import RoutineRow from '../routine-row/RoutineRow.svelte';
 
 	interface Props {
 		time: Routine['time'];
-		routinesMap: Record<Routine['time'], Routine[]>;
 		title: string;
 		updateRoutines: (routines: Routine[]) => void;
 	}
 
-	let { time, updateRoutines, routinesMap = $bindable(), title }: Props = $props();
+	let { time, updateRoutines, title }: Props = $props();
 
 	function handleConsider({ detail }: { detail: { items: Routine[] } }) {
-		routinesMap[time] = detail.items;
+		routinesMap.value[time] = detail.items;
 	}
 
 	function handleFinalize({ detail }: { detail: { items: Routine[] } }) {
-		routinesMap[time] = detail.items.map((routine, index) => {
+		routinesMap.value[time] = detail.items.map((routine, index) => {
 			routine.time = time;
 			routine.order = index;
 			return routine;
 		});
 
-		updateRoutines(routinesMap[time]);
+		updateRoutines(routinesMap.value[time]);
 	}
 
 	let Icon = routineTimeMap[time].icon;
@@ -44,9 +44,9 @@
 		class="flex flex-col gap-1 rounded-md border p-2"
 		onconsider={handleConsider}
 		onfinalize={handleFinalize}
-		use:dragHandleZone={{ flipDurationMs: flipDurationMs, items: routinesMap[time] }}
+		use:dragHandleZone={{ flipDurationMs: flipDurationMs, items: routinesMap.value[time] }}
 	>
-		{#each routinesMap[time] as routine (routine)}
+		{#each routinesMap.value[time] as routine (routine)}
 			<div animate:flip={{ duration: flipDurationMs }}>
 				<RoutineRow {routine} />
 			</div>
