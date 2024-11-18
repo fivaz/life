@@ -65,7 +65,7 @@
 		<animateTransform
 			additive="sum"
 			attributeName="transform"
-			dur="0.6s"
+			dur="2s"
 			repeatCount="indefinite"
 			type="rotate"
 			values="-15 96.24 96.24; 9 96.24 96.24; -15 96.24 96.24"
@@ -80,7 +80,7 @@
 		<animateTransform
 			additive="sum"
 			attributeName="transform"
-			dur="3s"
+			dur="2s"
 			repeatCount="indefinite"
 			type="translate"
 			values="-6 0; 6 0; -6 0"

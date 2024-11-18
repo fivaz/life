@@ -7,8 +7,6 @@ export const routines: Routine[] = [
 		id: '1',
 		name: 'Read a Book',
 		order: 1,
-		startAt: '2024.11.01',
-		endAt: null,
 		time: 'evening',
 	},
 	{
@@ -18,8 +16,6 @@ export const routines: Routine[] = [
 		id: '2',
 		name: 'Workout',
 		order: 2,
-		startAt: null,
-		endAt: null,
 		time: 'morning',
 	},
 	{
@@ -29,8 +25,6 @@ export const routines: Routine[] = [
 		id: '3',
 		name: 'Healthy Snack',
 		order: 3,
-		startAt: '2024.10.01',
-		endAt: '2024.12.31',
 		time: 'afternoon',
 	},
 	{
@@ -40,8 +34,6 @@ export const routines: Routine[] = [
 		id: '4',
 		name: 'Meditation',
 		order: 4,
-		startAt: null,
-		endAt: null,
 		time: 'morning',
 	},
 	{
@@ -51,8 +43,6 @@ export const routines: Routine[] = [
 		id: '5',
 		name: 'Make the Bed',
 		order: 5,
-		startAt: '2024.07.10',
-		endAt: null,
 		time: 'morning',
 	},
 	{
@@ -62,8 +52,6 @@ export const routines: Routine[] = [
 		id: '6',
 		name: 'Clean Desk',
 		order: 6,
-		startAt: '2024.06.20',
-		endAt: '2025.01.01',
 		time: 'all-day',
 	},
 	{
@@ -73,8 +61,6 @@ export const routines: Routine[] = [
 		id: '7',
 		name: 'Plan Day',
 		order: 7,
-		startAt: null,
-		endAt: null,
 		time: 'morning',
 	},
 	{
@@ -84,8 +70,6 @@ export const routines: Routine[] = [
 		id: '8',
 		name: 'Water Plants',
 		order: 8,
-		startAt: null,
-		endAt: null,
 		time: 'afternoon',
 	},
 	{
@@ -95,8 +79,6 @@ export const routines: Routine[] = [
 		id: '9',
 		name: 'Prepare Dinner',
 		order: 9,
-		startAt: null,
-		endAt: null,
 		time: 'evening',
 	},
 	{
@@ -106,8 +88,6 @@ export const routines: Routine[] = [
 		id: '10',
 		name: 'Skincare Routine',
 		order: 10,
-		startAt: '2024.01.01',
-		endAt: null,
 		time: 'evening',
 	},
 ];

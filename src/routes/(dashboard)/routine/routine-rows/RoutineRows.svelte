@@ -42,18 +42,21 @@
 	time="morning"
 	title="Morning Routine"
 />
+
 <TimedRoutineRows
 	updateRoutines={update}
 	bind:routines={afternoonRoutines}
 	time="afternoon"
 	title="Afternoon Routine"
 />
+
 <TimedRoutineRows
 	updateRoutines={update}
 	bind:routines={eveningRoutines}
 	time="evening"
 	title="Evening Routine"
 />
+
 <TimedRoutineRows
 	updateRoutines={update}
 	bind:routines={allDayRoutines}

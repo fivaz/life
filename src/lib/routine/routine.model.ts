@@ -14,8 +14,6 @@ export type Routine = {
 	id: string;
 	name: string;
 	order: number;
-	startAt: yyyyMMdd | null;
-	endAt: yyyyMMdd | null;
 	time: (typeof times)[number];
 };
 
@@ -27,8 +25,6 @@ export function buildEmptyRoutine(): Routine {
 		id: '',
 		name: '',
 		order: 0,
-		startAt: null,
-		endAt: null,
 		time: 'all-day',
 	};
 }
