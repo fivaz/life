@@ -1,7 +1,6 @@
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
-	import type { Routine } from '$lib/routine/routine.model';
 	import { routines } from '$lib/routine/routine.seed';
 
 	import RoutineRows from './RoutineRows.svelte';
@@ -12,7 +11,6 @@
 			routines,
 			userId: '',
 			selectedDate: new Date(),
-			edit: (routine: Routine) => console.log(`routine ${routine.name} edited`),
 		},
 	});
 </script>

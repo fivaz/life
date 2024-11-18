@@ -12,6 +12,7 @@
 
 	import RoutineForm from './routine-form/RoutineForm.svelte';
 	import RoutineRows from './routine-rows/RoutineRows.svelte';
+	import { setOpenRoutineForm } from './routine-rows/service';
 	import Streak from './streak/Streak.svelte';
 	import WeekListSelector from './week-list-selector/WeekListSelector.svelte';
 
@@ -36,6 +37,13 @@
 	let selectedDate: Date = $state<Date>(new Date());
 
 	title.value = 'Routine';
+
+	function openForm(routine: Routine) {
+		showForm = true;
+		editingRoutine = routine;
+	}
+
+	setOpenRoutineForm(openForm);
 </script>
 
 <DBRoutines>
@@ -83,15 +91,7 @@
 					{previousWeekStart}
 				/>
 
-				<RoutineRows
-					edit={(routine) => {
-						showForm = true;
-						editingRoutine = routine;
-					}}
-					{routines}
-					{selectedDate}
-					{userId}
-				/>
+				<RoutineRows {routines} {userId} {selectedDate} />
 
 				{#if routines.length === 0}
 					<div class="flex flex-1 items-center justify-center text-center">

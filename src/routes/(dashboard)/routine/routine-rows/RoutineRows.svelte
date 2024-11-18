@@ -1,43 +1,29 @@
 <script lang="ts">
-	import { flip } from 'svelte/animate';
-	import { dragHandleZone } from 'svelte-dnd-action';
-
 	import type { Routine } from '$lib/routine/routine.model';
-	import { updateRoutines } from '$lib/routine/routine.repository';
+	import { toggleRoutineCompletion } from '$lib/routine/routine.repository';
 	import { formatDate } from '$lib/utils.svelte';
 
-	import RoutineRow from './routine-row/RoutineRow.svelte';
+	import { setRoutineDate, setToggleRoutineCompletion } from './service';
+	import TimedRoutineRows from './timed-routine-rows/TimedRoutineRows.svelte';
 
 	interface Props {
 		selectedDate: Date;
 		userId: string;
 		routines: Routine[];
-		edit: (routine: Routine) => void;
 	}
 
-	let { selectedDate, userId, edit, routines = $bindable() }: Props = $props();
+	let { selectedDate, userId, routines }: Props = $props();
 
-	let dateString = $derived(formatDate(selectedDate));
+	let routineDate = $state(formatDate(selectedDate));
 
-	function updateRoutineLocally({ detail }: { detail: { items: Routine[] } }) {
-		routines = detail.items;
-	}
+	setRoutineDate(routineDate);
 
-	function persistChanges({ detail }: { detail: { items: Routine[] } }) {
-		routines = detail.items;
-		updateRoutines(userId, routines);
-	}
+	setToggleRoutineCompletion((routine: Routine) =>
+		toggleRoutineCompletion(routine, routineDate, userId),
+	);
 </script>
 
-<ul
-	class="flex flex-col gap-1"
-	onconsider={updateRoutineLocally}
-	onfinalize={persistChanges}
-	use:dragHandleZone={{ flipDurationMs: 200, items: routines }}
->
-	{#each routines as routine (routine.id)}
-		<li animate:flip={{ duration: 200 }}>
-			<RoutineRow {edit} {routine} selectedDate={dateString} {userId} />
-		</li>
-	{/each}
-</ul>
+<TimedRoutineRows {routines} time="morning" title="Morning Routine" />
+<TimedRoutineRows {routines} time="afternoon" title="Afternoon Routine" />
+<TimedRoutineRows {routines} time="evening" title="Evening Routine" />
+<TimedRoutineRows special={true} {routines} time="all-day" title="All day Routine" />

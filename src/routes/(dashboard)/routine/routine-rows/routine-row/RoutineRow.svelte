@@ -7,23 +7,31 @@
 
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
-	import { toggleRoutineCompletion } from '$lib/routine/routine.repository';
-	import type { yyyyMMdd } from '$lib/task/task.model';
 
-	import { getStatusColor, getStreak, statusColor } from '../service';
+	import {
+		getOpenRoutineForm,
+		getRoutineDate,
+		getStatusColor,
+		getStreak,
+		getToggleRoutineCompletion,
+		statusColor,
+	} from '../service';
 
 	interface Props {
 		routine: Routine;
-		selectedDate: yyyyMMdd;
-		userId: string;
-		edit: (routine: Routine) => void;
 	}
 
-	let { routine, selectedDate, userId, edit }: Props = $props();
+	let { routine }: Props = $props();
 
-	let status = $derived<keyof typeof statusColor>(getStatusColor(routine, selectedDate));
+	const routineDate = getRoutineDate();
 
-	let streak = $derived<number>(getStreak(routine, selectedDate));
+	let status = $derived<keyof typeof statusColor>(getStatusColor(routine, routineDate));
+
+	let streak = $derived<number>(getStreak(routine, routineDate));
+
+	const openRoutineForm = getOpenRoutineForm();
+
+	const toggleRoutineCompletion = getToggleRoutineCompletion();
 </script>
 
 <div
@@ -46,7 +54,7 @@
 
 		<button
 			class="rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
-			onclick={() => toggleRoutineCompletion(routine, selectedDate, userId)}
+			onclick={() => toggleRoutineCompletion(routine)}
 			type="button"
 		>
 			{#if status === 'completed'}
@@ -57,7 +65,7 @@
 		</button>
 		<button
 			class="rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
-			onclick={() => edit(routine)}
+			onclick={() => openRoutineForm(routine)}
 			type="button"
 		>
 			<Icon class="h-4 w-4" src={Settings2} />

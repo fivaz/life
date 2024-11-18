@@ -1,4 +1,5 @@
 import { format, parse, subDays } from 'date-fns';
+import { getContext, setContext } from 'svelte';
 
 import { DATE } from '$lib/consts';
 import type { Routine } from '$lib/routine/routine.model';
@@ -39,4 +40,34 @@ export function getStreak(routine: Routine, selectedDate: yyyyMMdd): number {
 	}
 
 	return streakValue;
+}
+
+const openRoutineFormKey = Symbol('openRoutineForm');
+
+export function getOpenRoutineForm(): (routine: Routine) => void {
+	return getContext(openRoutineFormKey) as (routine: Routine) => void;
+}
+
+export function setOpenRoutineForm(value: (routine: Routine) => void) {
+	setContext(openRoutineFormKey, value);
+}
+
+const toggleRoutineCompletionKey = Symbol('toggleRoutineCompletion');
+
+export function getToggleRoutineCompletion(): (routine: Routine) => void {
+	return getContext(toggleRoutineCompletionKey) as (routine: Routine) => void;
+}
+
+export function setToggleRoutineCompletion(value: (routine: Routine) => void) {
+	setContext(toggleRoutineCompletionKey, value);
+}
+
+const routineDateKey = Symbol('routineDate');
+
+export function getRoutineDate(): yyyyMMdd {
+	return getContext(routineDateKey) as yyyyMMdd;
+}
+
+export function setRoutineDate(value: yyyyMMdd) {
+	setContext(routineDateKey, value);
 }

@@ -5,14 +5,10 @@
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
-	import { type Routine, times } from '$lib/routine/routine.model';
+	import { type Routine, routineTimeMap, times } from '$lib/routine/routine.model';
 	import { addRoutine, deleteRoutine, editRoutine } from '$lib/routine/routine.repository';
 
 	import IconSelector from '../../goals/goal-form/icon-selector/IconSelector.svelte';
-	import Afternoon from '../time-icons/afternoon/Afternoon.svelte';
-	import AllDay from '../time-icons/all-day/AllDay.svelte';
-	import Evening from '../time-icons/evening/Evening.svelte';
-	import Morning from '../time-icons/morning/Morning.svelte';
 
 	interface Props {
 		userId: string;
@@ -37,13 +33,6 @@
 		}
 		close();
 	}
-
-	const timeMap = {
-		morning: { label: 'morning', icon: Morning },
-		afternoon: { label: 'afternoon', icon: Afternoon },
-		evening: { label: 'evening', icon: Evening },
-		'all-day': { label: 'all day', icon: AllDay },
-	};
 </script>
 
 <form
@@ -62,12 +51,16 @@
 			<!--name-->
 			<Input autocomplete="off" bind:value={routineIn.name} class="flex-1" placeholder="Name" />
 
-			{#snippet item(time: (typeof times)[number])}
-				{@const item = timeMap[time]}
-				<div class="flex items-center gap-3">
-					<item.icon class="h-6 w-6" />
-					{item.label}
-				</div>
+			{#snippet item(time: Routine['time'])}
+				{@const item = routineTimeMap[time]}
+				{#if item}
+					<div class="flex items-center gap-3">
+						<item.icon class="h-6 w-6" />
+						{item.label}
+					</div>
+				{:else}
+					<div>no time set</div>
+				{/if}
 			{/snippet}
 
 			<!--time-->
