@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { ChevronLeft, ChevronRight } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { addDays, format, isSameWeek, parse } from 'date-fns';
+	import { addDays, isSameWeek, parse } from 'date-fns';
 	import { CalendarCheck } from 'lucide-svelte';
 
 	import { DATE } from '$lib/consts';
+	import { formatDate } from '$lib/utils.svelte';
 
 	interface Props {
 		weekStart: Date;
@@ -15,16 +16,20 @@
 
 	const currentDate = new Date();
 
-	let datePicker2 = $state<HTMLInputElement | null>(null);
+	let datePicker = $state<HTMLInputElement | null>(null);
 
-	let dateString = $state<string>(format(selectedDate, DATE));
-
-	function updateDate(e: Event & { currentTarget: HTMLInputElement }): void {
-		selectedDate = parse(e.currentTarget.value, DATE, new Date());
-	}
+	const selectedDateString = {
+		get value() {
+			return formatDate(selectedDate);
+		},
+		set value(value: string) {
+			selectedDate = parse(value, DATE, new Date());
+		},
+	};
 
 	function openDatePicker() {
-		datePicker2?.showPicker();
+		console.log('click');
+		datePicker?.showPicker();
 	}
 
 	function goToNextWeek() {
@@ -53,12 +58,12 @@
 			<Icon aria-hidden="true" class="h-5 w-5" src={ChevronLeft} />
 		</button>
 
+		<!--this input is triggered by the button below-->
 		<input
-			bind:this={datePicker2}
+			bind:this={datePicker}
+			bind:value={selectedDateString.value}
 			type="date"
 			class="pointer-events-none absolute opacity-0"
-			oninput={updateDate}
-			value={dateString}
 		/>
 
 		<button

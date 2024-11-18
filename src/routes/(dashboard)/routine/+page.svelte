@@ -7,10 +7,9 @@
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
-	import { DATE } from '$lib/consts';
 	import { buildEmptyRoutine, type Routine } from '$lib/routine/routine.model';
 	import { currentUser } from '$lib/user/user.utils.svelte';
-	import { title } from '$lib/utils.svelte';
+	import { formatDate, title } from '$lib/utils.svelte';
 
 	import RoutineForm from './routine-form/RoutineForm.svelte';
 	import RoutineRows from './routine-rows/RoutineRows.svelte';
@@ -73,10 +72,10 @@
 					<Streak {routines} />
 					<div>
 						<h1 class="flex items-center gap-2 text-base font-semibold leading-6 text-gray-900">
-							<time class="sm:hidden" dateTime={format(selectedDate, DATE)}>
+							<time class="sm:hidden" dateTime={formatDate(selectedDate)}>
 								{format(selectedDate, 'MMM, yyyy')}
 							</time>
-							<time class="hidden sm:inline" dateTime={format(selectedDate, DATE)}>
+							<time class="hidden sm:inline" dateTime={formatDate(selectedDate)}>
 								{format(selectedDate, 'MMMM dd, yyyy')}
 							</time>
 						</h1>
