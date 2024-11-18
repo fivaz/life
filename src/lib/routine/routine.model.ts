@@ -1,11 +1,17 @@
+import type { dateISO, yyyyMMdd } from '$lib/task/task.model';
+
+export const times = ['morning', 'afternoon', 'evening', 'all-day'] as const;
+
 export type Routine = {
 	completeHistory: { date: string; isCompleted: boolean }[];
-	// date in ISO format
-	createdAt: string;
+	createdAt: dateISO;
 	icon: string;
 	id: string;
 	name: string;
 	order: number;
+	startAt: yyyyMMdd | null;
+	endAt: yyyyMMdd | null;
+	time: (typeof times)[number];
 };
 
 export function buildEmptyRoutine(): Routine {
@@ -16,5 +22,8 @@ export function buildEmptyRoutine(): Routine {
 		id: '',
 		name: '',
 		order: 0,
+		startAt: null,
+		endAt: null,
+		time: 'all-day',
 	};
 }

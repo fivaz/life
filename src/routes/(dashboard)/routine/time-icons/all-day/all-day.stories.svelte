@@ -6,7 +6,7 @@
 	const { Story } = defineMeta({
 		component: AllDay,
 		args: {
-			class: 'h-20 w-auto',
+			class: 'h-20 w-20',
 		},
 	});
 </script>

@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { SVGAttributes } from 'svelte/elements';
 
-import Evening from '../evening/Evening.svelte';
+	import Evening from '../evening/Evening.svelte';
 	import Morning from '../morning/Morning.svelte';
 
-	type Props = SVGAttributes<SVGSVGElement>;
+	interface Props {
+		class?: string;
+	}
 
-	let props: Props = $props();
+	let { class: klass }: Props = $props();
 
 	import { cubicOut } from 'svelte/easing';
 	import { tweened } from 'svelte/motion';
@@ -39,12 +40,12 @@ import Evening from '../evening/Evening.svelte';
 	});
 </script>
 
-<div class="relative h-20 w-20 overflow-hidden">
-	<div class="absolute h-20 w-20" style="transform: translateY({$redY}px);">
-		<Morning {...props} />
+<div class="relative overflow-hidden {klass}">
+	<div class="absolute {klass}" style="transform: translateY({$redY}px);">
+		<Morning class={klass} />
 	</div>
 
-	<div class="absolute h-20 w-20" style="transform: translateY({$blueY}px);">
-		<Evening {...props} />
+	<div class="absolute {klass}" style="transform: translateY({$blueY}px);">
+		<Evening class={klass} />
 	</div>
 </div>

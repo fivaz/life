@@ -1,13 +1,18 @@
 <script lang="ts">
-	
-import CloseX from '$lib/components/close-x/CloseX.svelte';
+	import CloseX from '$lib/components/close-x/CloseX.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';
 	import Input from '$lib/components/form/input/Input.svelte';
-	import { type Routine } from '$lib/routine/routine.model';
+	import Select from '$lib/components/form/select/Select.svelte';
+	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
+	import { type Routine, times } from '$lib/routine/routine.model';
 	import { addRoutine, deleteRoutine, editRoutine } from '$lib/routine/routine.repository';
 
 	import IconSelector from '../../goals/goal-form/icon-selector/IconSelector.svelte';
+	import Afternoon from '../time-icons/afternoon/Afternoon.svelte';
+	import AllDay from '../time-icons/all-day/AllDay.svelte';
+	import Evening from '../time-icons/evening/Evening.svelte';
+	import Morning from '../time-icons/morning/Morning.svelte';
 
 	interface Props {
 		userId: string;
@@ -32,6 +37,13 @@ import CloseX from '$lib/components/close-x/CloseX.svelte';
 		}
 		close();
 	}
+
+	const timeMap = {
+		morning: { label: 'morning', icon: Morning },
+		afternoon: { label: 'afternoon', icon: Afternoon },
+		evening: { label: 'evening', icon: Evening },
+		'all-day': { label: 'all day', icon: AllDay },
+	};
 </script>
 
 <form
@@ -47,8 +59,34 @@ import CloseX from '$lib/components/close-x/CloseX.svelte';
 		</div>
 
 		<div class="flex flex-col gap-2 text-gray-700">
+			<!--name-->
 			<Input autocomplete="off" bind:value={routineIn.name} class="flex-1" placeholder="Name" />
 
+			{#snippet item(time: (typeof times)[number])}
+				{@const item = timeMap[time]}
+				<div class="flex items-center gap-3">
+					<item.icon class="h-6 w-6" />
+					{item.label}
+				</div>
+			{/snippet}
+
+			<!--time-->
+			<Select
+				bind:value={routineIn.time}
+				class="flex items-center"
+				label="Time"
+				labelClass="w-1/5"
+				selectClass="flex-1"
+			>
+				{#snippet placeholder()}
+					{@render item(routineIn.time)}
+				{/snippet}
+				{#each times as time (time)}
+					<SelectItem value={time}>{@render item(time)}</SelectItem>
+				{/each}
+			</Select>
+
+			<!--icon-->
 			<IconSelector bind:value={routineIn.icon} name="icon" />
 		</div>
 	</div>

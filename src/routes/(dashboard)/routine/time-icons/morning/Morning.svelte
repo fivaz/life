@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { SVGAttributes } from 'svelte/elements';
+	interface Props {
+		class?: string;
+	}
 
-	type Props = SVGAttributes<SVGSVGElement>;
-
-	let props: Props = $props();
+	let { class: klass }: Props = $props();
 </script>
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" {...props}>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class={klass}>
 	<defs>
 		<linearGradient
 			id="meteoconsTimeLateMorningFill0"
@@ -44,7 +44,7 @@
 				<animateTransform
 					additive="sum"
 					attributeName="transform"
-					dur="6s"
+					dur="3s"
 					repeatCount="indefinite"
 					type="rotate"
 					values="0 147.2 147.2; 45 147.2 147.2"
