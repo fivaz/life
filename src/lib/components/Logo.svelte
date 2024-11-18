@@ -6,12 +6,13 @@
 	let { class: klass }: Props = $props();
 </script>
 
-<svg class={klass} fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class={klass}>
 	<path
-		d="M16 15.2V16.8875L16.9 17.9M9 11H4M20 9V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V19C4 20.1046 4.89543 21 6 21H9M15 3V7M9 3V7M20.5 17C20.5 19.4853 18.4853 21.5 16 21.5C13.5147 21.5 11.5 19.4853 11.5 17C11.5 14.5147 13.5147 12.5 16 12.5C18.4853 12.5 20.5 14.5147 20.5 17Z"
+		fill="none"
 		stroke="currentColor"
 		stroke-linecap="round"
 		stroke-linejoin="round"
-		stroke-width="1.5"
+		stroke-width="2"
+		d="M13.5 21H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5m-4-9v4M8 3v4m-4 4h16m-1 5l-2 3h4l-2 3"
 	/>
 </svg>
