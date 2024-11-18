@@ -45,9 +45,9 @@ export async function deleteRoutine(id: string | undefined, userId: string, clos
 export async function updateRoutines(userId: string, routines: Routine[]) {
 	const batch = writeBatch(db);
 
-	routines.forEach((routine, index) => {
-		const routineRef = doc(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.ROUTINES}/${routine.id}`);
-		batch.update(routineRef, { order: index });
+	routines.forEach(({ id, time, order }) => {
+		const routineRef = doc(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.ROUTINES}/${id}`);
+		batch.update(routineRef, { time, order });
 	});
 
 	try {

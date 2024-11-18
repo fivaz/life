@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Routine } from '$lib/routine/routine.model';
-	import { toggleRoutineCompletion } from '$lib/routine/routine.repository';
+	import { toggleRoutineCompletion, updateRoutines } from '$lib/routine/routine.repository';
 	import { formatDate } from '$lib/utils.svelte';
 
 	import { setRoutineDate, setToggleRoutineCompletion } from './service';
@@ -21,9 +21,42 @@
 	setToggleRoutineCompletion((routine: Routine) =>
 		toggleRoutineCompletion(routine, routineDate, userId),
 	);
+
+	function filterBy(time: Routine['time']) {
+		return routines.filter((routine) => routine.time === time);
+	}
+
+	let morningRoutines = $state(filterBy('morning'));
+	let afternoonRoutines = $state(filterBy('afternoon'));
+	let eveningRoutines = $state(filterBy('evening'));
+	let allDayRoutines = $state(filterBy('all-day'));
+
+	function update(routines: Routine[]) {
+		updateRoutines(userId, routines);
+	}
 </script>
 
-<TimedRoutineRows {routines} time="morning" title="Morning Routine" />
-<TimedRoutineRows {routines} time="afternoon" title="Afternoon Routine" />
-<TimedRoutineRows {routines} time="evening" title="Evening Routine" />
-<TimedRoutineRows special={true} {routines} time="all-day" title="All day Routine" />
+<TimedRoutineRows
+	updateRoutines={update}
+	bind:routines={morningRoutines}
+	time="morning"
+	title="Morning Routine"
+/>
+<TimedRoutineRows
+	updateRoutines={update}
+	bind:routines={afternoonRoutines}
+	time="afternoon"
+	title="Afternoon Routine"
+/>
+<TimedRoutineRows
+	updateRoutines={update}
+	bind:routines={eveningRoutines}
+	time="evening"
+	title="Evening Routine"
+/>
+<TimedRoutineRows
+	updateRoutines={update}
+	bind:routines={allDayRoutines}
+	time="all-day"
+	title="All day Routine"
+/>

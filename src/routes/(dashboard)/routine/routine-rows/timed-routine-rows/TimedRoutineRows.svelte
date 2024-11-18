@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { flip } from 'svelte/animate';
-	import { dndzone } from 'svelte-dnd-action';
+	import { dragHandleZone } from 'svelte-dnd-action';
 
 	import { type Routine, routineTimeMap } from '$lib/routine/routine.model';
 
@@ -10,25 +10,23 @@
 		time: Routine['time'];
 		routines: Routine[];
 		title: string;
-		special?: boolean;
+		updateRoutines: (routines: Routine[]) => void;
 	}
 
-	let { time, routines, title, special }: Props = $props();
+	let { time, updateRoutines, routines = $bindable(), title }: Props = $props();
 
-	function filterRoutes(routines: Routine[]): Routine[] {
-		return routines.filter((routine) => {
-			if (special) {
-				return routine.time === undefined;
-			}
-			return routine.time === time;
+	function handleConsider({ detail }: { detail: { items: Routine[] } }) {
+		routines = detail.items;
+	}
+
+	function handleFinalize({ detail }: { detail: { items: Routine[] } }) {
+		routines = detail.items.map((routine, index) => {
+			routine.time = time;
+			routine.order = index;
+			return routine;
 		});
-	}
 
-	let timedRoutines = $state(filterRoutes(routines));
-
-	function handleSort({ detail }: { detail: { items: Routine[] } }) {
-		console.log(detail.items);
-		timedRoutines = detail.items;
+		updateRoutines(routines);
 	}
 
 	let Icon = routineTimeMap[time].icon;
@@ -44,11 +42,11 @@
 
 	<div
 		class="flex flex-col gap-1 rounded-md border p-2"
-		onconsider={handleSort}
-		onfinalize={handleSort}
-		use:dndzone={{ flipDurationMs: flipDurationMs, items: timedRoutines }}
+		onconsider={handleConsider}
+		onfinalize={handleFinalize}
+		use:dragHandleZone={{ flipDurationMs: flipDurationMs, items: routines }}
 	>
-		{#each timedRoutines as routine (routine)}
+		{#each routines as routine (routine)}
 			<div animate:flip={{ duration: flipDurationMs }}>
 				<RoutineRow {routine} />
 			</div>
