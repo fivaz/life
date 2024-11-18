@@ -37,7 +37,7 @@
 		>
 			{#each dates as date (date)}
 				<button
-					class="flex min-w-28 flex-col items-center justify-center gap-1 pb-3 pt-2 md:flex-row"
+					class="flex flex-col items-center justify-center gap-1 pb-3 pt-2 md:flex-row"
 					onclick={() => (selectedDate = date)}
 					type="button"
 				>

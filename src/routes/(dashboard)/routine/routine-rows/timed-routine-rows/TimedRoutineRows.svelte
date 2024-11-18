@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { ClipboardCopy } from 'lucide-svelte';
 	import { flip } from 'svelte/animate';
 	import { dragHandleZone } from 'svelte-dnd-action';
 
@@ -51,5 +52,10 @@
 				<RoutineRow {routine} />
 			</div>
 		{/each}
+		<div
+			class="relative flex h-10 select-none items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 p-1 text-indigo-600 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+		>
+			<ClipboardCopy class="h-5 w-5" /> drop a task here
+		</div>
 	</div>
 </div>
