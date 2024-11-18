@@ -3,10 +3,11 @@ import { addDoc, collection, deleteDoc, doc, updateDoc, writeBatch } from 'fireb
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
 import type { Routine } from '$lib/routine/routine.model';
+import type { yyyyMMdd } from '$lib/task/task.model';
 
 export function toggleRoutineCompletion(
 	routine: Routine,
-	selectedDate: string,
+	selectedDate: yyyyMMdd,
 	userId: string,
 ): void {
 	const item = routine.completeHistory.find(({ date }) => date === selectedDate);

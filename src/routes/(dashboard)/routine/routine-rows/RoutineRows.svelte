@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { format } from 'date-fns';
 	import { flip } from 'svelte/animate';
 	import { dragHandleZone } from 'svelte-dnd-action';
 
-	import { DATE } from '$lib/consts';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { updateRoutines } from '$lib/routine/routine.repository';
+	import { formatDate } from '$lib/utils.svelte';
 
 	import RoutineRow from './routine-row/RoutineRow.svelte';
 
@@ -18,7 +17,7 @@
 
 	let { selectedDate, userId, edit, routines = $bindable() }: Props = $props();
 
-	let dateString = $derived(format(selectedDate, DATE));
+	let dateString = $derived(formatDate(selectedDate));
 
 	function updateRoutineLocally({ detail }: { detail: { items: Routine[] } }) {
 		routines = detail.items;

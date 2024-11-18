@@ -3,7 +3,7 @@ import type { dateISO, yyyyMMdd } from '$lib/task/task.model';
 export const times = ['morning', 'afternoon', 'evening', 'all-day'] as const;
 
 export type Routine = {
-	completeHistory: { date: string; isCompleted: boolean }[];
+	completeHistory: { date: yyyyMMdd; isCompleted: boolean }[];
 	createdAt: dateISO;
 	icon: string;
 	id: string;

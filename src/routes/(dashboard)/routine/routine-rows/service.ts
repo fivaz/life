@@ -2,6 +2,7 @@ import { format, parse, subDays } from 'date-fns';
 
 import { DATE } from '$lib/consts';
 import type { Routine } from '$lib/routine/routine.model';
+import type { yyyyMMdd } from '$lib/task/task.model';
 
 export const statusColor = {
 	none: 'bg-red-100 text-red-500',
@@ -9,7 +10,7 @@ export const statusColor = {
 	completed: 'bg-green-100 text-green-500',
 };
 
-export function getStatusColor(routine: Routine, selectedDate: string): keyof typeof statusColor {
+export function getStatusColor(routine: Routine, selectedDate: yyyyMMdd): keyof typeof statusColor {
 	const existingRoutine = routine.completeHistory.find(({ date }) => date === selectedDate);
 
 	if (existingRoutine) {
@@ -19,7 +20,7 @@ export function getStatusColor(routine: Routine, selectedDate: string): keyof ty
 	}
 }
 
-export function getStreak(routine: Routine, selectedDate: string): number {
+export function getStreak(routine: Routine, selectedDate: yyyyMMdd): number {
 	let streakValue = 0;
 	let selectedDateObj = parse(selectedDate, DATE, new Date());
 

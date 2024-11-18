@@ -3,15 +3,16 @@
 
 	import type { Routine } from '$lib/routine/routine.model';
 	import { routines } from '$lib/routine/routine.seed';
+	import { formatDate } from '$lib/utils.svelte';
 
-	import RoutineRows from './RoutineRows.svelte';
+	import RoutineRow from './RoutineRow.svelte';
 
 	const { Story } = defineMeta({
-		component: RoutineRows,
+		component: RoutineRow,
 		args: {
-			routines,
+			routine: routines[0],
 			userId: '',
-			selectedDate: new Date(),
+			selectedDate: formatDate(new Date()),
 			edit: (routine: Routine) => console.log(`routine ${routine.name} edited`),
 		},
 	});

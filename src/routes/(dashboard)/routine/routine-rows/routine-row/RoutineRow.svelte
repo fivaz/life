@@ -8,12 +8,13 @@
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { toggleRoutineCompletion } from '$lib/routine/routine.repository';
+	import type { yyyyMMdd } from '$lib/task/task.model';
 
 	import { getStatusColor, getStreak, statusColor } from '../service';
 
 	interface Props {
 		routine: Routine;
-		selectedDate: string;
+		selectedDate: yyyyMMdd;
 		userId: string;
 		edit: (routine: Routine) => void;
 	}
