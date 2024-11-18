@@ -91,3 +91,11 @@ export const routines: Routine[] = [
 		time: 'evening',
 	},
 ];
+
+export const routinesMap = routines.reduce<Record<Routine['time'], Routine[]>>(
+	(map, routine) => {
+		map[routine.time].push(routine);
+		return map;
+	},
+	{ morning: [], afternoon: [], evening: [], 'all-day': [] },
+);

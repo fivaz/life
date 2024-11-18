@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { collection, onSnapshot, orderBy, type Unsubscribe } from 'firebase/firestore';
+	import { collection, onSnapshot, type Unsubscribe } from 'firebase/firestore';
 	import type { Snippet } from 'svelte';
 
-	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { db } from '$lib/firebase';
@@ -15,12 +14,14 @@
 
 	let { data }: Props = $props();
 
-	let routines = $state<Record<Routine['time'], Routine[]>>({
+	const emptyRoutineMap: Record<Routine['time'], Routine[]> = {
 		morning: [],
 		afternoon: [],
 		evening: [],
 		'all-day': [],
-	});
+	};
+
+	let routinesMap = $state<Record<Routine['time'], Routine[]>>(emptyRoutineMap);
 
 	let isLoading = $state(true);
 
@@ -32,9 +33,18 @@
 			unsubscribe = onSnapshot(
 				collection(db, `${DB_PATH.USERS}/${currentUser.uid}/${DB_PATH.ROUTINES}`),
 				(snapshot) => {
+					// Clear existing routines
+					routinesMap = emptyRoutineMap;
+
+					// Populate routines from the snapshot
 					snapshot.docs.forEach((doc) => {
 						const routine = { ...doc.data(), id: doc.id } as Routine;
-						routines[routine.time].push(routine);
+						try {
+							routinesMap[routine.time].push(routine);
+						} catch (e) {
+							console.log(e);
+							console.log(routine);
+						}
 					});
 					isLoading = false;
 				},
@@ -48,5 +58,5 @@
 {#if isLoading}
 	<Loading />
 {:else if currentUser.uid}
-	{@render data(routines, currentUser.uid)}
+	{@render data(routinesMap, currentUser.uid)}
 {/if}

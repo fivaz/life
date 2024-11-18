@@ -47,7 +47,8 @@
 </script>
 
 <DBRoutines>
-	{#snippet data(routines, userId)}
+	{#snippet data(routinesMap, userId)}
+		{@const routines = Object.values(routinesMap).flat()}
 		<div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
 			<div class="flex h-full w-full flex-col gap-5">
 				<!--button panel-->
@@ -91,7 +92,7 @@
 					{previousWeekStart}
 				/>
 
-				<RoutineRows {routines} {userId} {selectedDate} />
+				<RoutineRows {routinesMap} {userId} {selectedDate} />
 
 				{#if routines.length === 0}
 					<div class="flex flex-1 items-center justify-center text-center">

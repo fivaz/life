@@ -8,25 +8,25 @@
 
 	interface Props {
 		time: Routine['time'];
-		routines: Routine[];
+		routinesMap: Record<Routine['time'], Routine[]>;
 		title: string;
 		updateRoutines: (routines: Routine[]) => void;
 	}
 
-	let { time, updateRoutines, routines = $bindable(), title }: Props = $props();
+	let { time, updateRoutines, routinesMap = $bindable(), title }: Props = $props();
 
 	function handleConsider({ detail }: { detail: { items: Routine[] } }) {
-		routines = detail.items;
+		routinesMap[time] = detail.items;
 	}
 
 	function handleFinalize({ detail }: { detail: { items: Routine[] } }) {
-		routines = detail.items.map((routine, index) => {
+		routinesMap[time] = detail.items.map((routine, index) => {
 			routine.time = time;
 			routine.order = index;
 			return routine;
 		});
 
-		updateRoutines(routines);
+		updateRoutines(routinesMap[time]);
 	}
 
 	let Icon = routineTimeMap[time].icon;
@@ -44,9 +44,9 @@
 		class="flex flex-col gap-1 rounded-md border p-2"
 		onconsider={handleConsider}
 		onfinalize={handleFinalize}
-		use:dragHandleZone={{ flipDurationMs: flipDurationMs, items: routines }}
+		use:dragHandleZone={{ flipDurationMs: flipDurationMs, items: routinesMap[time] }}
 	>
-		{#each routines as routine (routine)}
+		{#each routinesMap[time] as routine (routine)}
 			<div animate:flip={{ duration: flipDurationMs }}>
 				<RoutineRow {routine} />
 			</div>

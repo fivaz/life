@@ -9,10 +9,10 @@
 	interface Props {
 		selectedDate: Date;
 		userId: string;
-		routines: Routine[];
+		routinesMap: Record<Routine['time'], Routine[]>;
 	}
 
-	let { selectedDate, userId, routines }: Props = $props();
+	let { selectedDate, userId, routinesMap }: Props = $props();
 
 	let routineDate = $state(formatDate(selectedDate));
 
@@ -22,44 +22,20 @@
 		toggleRoutineCompletion(routine, routineDate, userId),
 	);
 
-	function filterBy(time: Routine['time']) {
-		return routines.filter((routine) => routine.time === time);
-	}
-
-	let morningRoutines = $state(filterBy('morning'));
-	let afternoonRoutines = $state(filterBy('afternoon'));
-	let eveningRoutines = $state(filterBy('evening'));
-	let allDayRoutines = $state(filterBy('all-day'));
-
 	function update(routines: Routine[]) {
 		updateRoutines(userId, routines);
 	}
 </script>
 
-<TimedRoutineRows
-	updateRoutines={update}
-	bind:routines={morningRoutines}
-	time="morning"
-	title="Morning Routine"
-/>
+<TimedRoutineRows updateRoutines={update} bind:routinesMap time="morning" title="Morning Routine" />
 
 <TimedRoutineRows
 	updateRoutines={update}
-	bind:routines={afternoonRoutines}
+	bind:routinesMap
 	time="afternoon"
 	title="Afternoon Routine"
 />
 
-<TimedRoutineRows
-	updateRoutines={update}
-	bind:routines={eveningRoutines}
-	time="evening"
-	title="Evening Routine"
-/>
+<TimedRoutineRows updateRoutines={update} bind:routinesMap time="evening" title="Evening Routine" />
 
-<TimedRoutineRows
-	updateRoutines={update}
-	bind:routines={allDayRoutines}
-	time="all-day"
-	title="All day Routine"
-/>
+<TimedRoutineRows updateRoutines={update} bind:routinesMap time="all-day" title="All day Routine" />

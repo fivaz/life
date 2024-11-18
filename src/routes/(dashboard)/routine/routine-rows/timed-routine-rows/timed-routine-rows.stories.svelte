@@ -2,17 +2,17 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import type { Routine } from '$lib/routine/routine.model';
-	import { routines } from '$lib/routine/routine.seed';
+	import { routinesMap } from '$lib/routine/routine.seed';
 
 	import TimedRoutineRows from './TimedRoutineRows.svelte';
 
 	const { Story } = defineMeta({
 		component: TimedRoutineRows,
 		args: {
-			routines: routines.filter((routine) => routine.time === 'morning'),
-			userId: '',
-			selectedDate: new Date(),
-			edit: (routine: Routine) => console.log(`routine ${routine.name} edited`),
+			routinesMap,
+			time: 'morning',
+			title: 'Morning Routine',
+			updateRoutines: (routines: Routine[]) => console.log('routines', routines),
 		},
 	});
 </script>
