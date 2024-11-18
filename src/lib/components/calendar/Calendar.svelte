@@ -41,7 +41,7 @@
 	});
 </script>
 
-<div class="flex h-screen flex-col md:h-[calc(100vh-20px)]">
+<div class="flex h-[calc(100vh-56px)] flex-col md:h-[calc(100vh-20px)]">
 	<CalendarHeader />
 	<CalendarBody {tasks} />
 </div>

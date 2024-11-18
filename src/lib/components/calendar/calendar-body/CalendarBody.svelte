@@ -60,10 +60,7 @@
 	});
 </script>
 
-<div
-	bind:this={container}
-	class="isolate flex flex-auto flex-col overflow-auto border-b border-l bg-white"
->
+<div bind:this={container} class="isolate flex flex-auto flex-col overflow-auto border-b bg-white">
 	<div class="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full">
 		<div
 			bind:this={containerNav}
