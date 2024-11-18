@@ -1,22 +1,52 @@
 <script lang="ts">
-	import { orderBy } from 'firebase/firestore';
+	import { collection, onSnapshot, orderBy, type Unsubscribe } from 'firebase/firestore';
 	import type { Snippet } from 'svelte';
 
 	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
+	import Loading from '$lib/components/loading/Loading.svelte';
 	import { DB_PATH } from '$lib/consts';
+	import { db } from '$lib/firebase';
 	import type { Routine } from '$lib/routine/routine.model';
+	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	interface Props {
-		data: Snippet<[Routine[], string]>;
+		data: Snippet<[Record<Routine['time'], Routine[]>, string]>;
 	}
 
-	let { data: typedData }: Props = $props();
+	let { data }: Props = $props();
 
-	let routineType: Routine;
+	let routines = $state<Record<Routine['time'], Routine[]>>({
+		morning: [],
+		afternoon: [],
+		evening: [],
+		'all-day': [],
+	});
+
+	let isLoading = $state(true);
+
+	$effect(() => {
+		isLoading = true;
+		let unsubscribe: Unsubscribe = () => {};
+
+		if (currentUser.uid) {
+			unsubscribe = onSnapshot(
+				collection(db, `${DB_PATH.USERS}/${currentUser.uid}/${DB_PATH.ROUTINES}`),
+				(snapshot) => {
+					snapshot.docs.forEach((doc) => {
+						const routine = { ...doc.data(), id: doc.id } as Routine;
+						routines[routine.time].push(routine);
+					});
+					isLoading = false;
+				},
+			);
+		}
+
+		return () => unsubscribe();
+	});
 </script>
 
-<DBCollection collection={DB_PATH.ROUTINES} type={routineType} constrains={orderBy('order')}>
-	{#snippet data(items, userId)}
-		{@render typedData(items, userId)}
-	{/snippet}
-</DBCollection>
+{#if isLoading}
+	<Loading />
+{:else if currentUser.uid}
+	{@render data(routines, currentUser.uid)}
+{/if}
