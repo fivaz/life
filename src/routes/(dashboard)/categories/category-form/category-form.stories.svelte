@@ -13,7 +13,6 @@
 <Story
 	args={{
 		category: buildEmptyCategory(),
-		close: () => console.log('closed'),
 		userId: '0',
 	}}
 	name="Primary"

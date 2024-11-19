@@ -12,9 +12,7 @@
 
 <Story
 	args={{
-		close: () => console.log('closed'),
 		routine: buildEmptyRoutine(),
-		userId: '0',
 	}}
 	name="Primary"
 />

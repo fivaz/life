@@ -40,6 +40,8 @@
 
 	let selectedDate = $state<Date>(new Date());
 
+	const selectedDateString = $derived(formatDate(selectedDate));
+
 	title.value = 'Routine';
 
 	function openForm(routine: Routine) {
@@ -106,7 +108,10 @@
 				{previousWeekStart}
 			/>
 
-			<RoutineRows userId={currentUser.uid} {selectedDate} />
+			<RoutineRows selectedDate={selectedDateString} time="morning" title="Morning Routine" />
+			<RoutineRows selectedDate={selectedDateString} time="afternoon" title="Afternoon Routine" />
+			<RoutineRows selectedDate={selectedDateString} time="evening" title="Evening Routine" />
+			<RoutineRows selectedDate={selectedDateString} time="all-day" title="All day Routine" />
 
 			{#if routines.length === 0}
 				<div class="flex flex-1 items-center justify-center text-center">
@@ -132,11 +137,7 @@
 			{/if}
 
 			<Modal bind:isOpen={showForm}>
-				<RoutineForm
-					close={() => (showForm = false)}
-					routine={editingRoutine}
-					userId={currentUser.uid}
-				/>
+				<RoutineForm close={() => (showForm = false)} routine={editingRoutine} />
 			</Modal>
 		</div>
 	</div>

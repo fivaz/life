@@ -3,14 +3,14 @@
 
 	import { routinesMap as seed } from '$lib/routine/routine.seed';
 
-	import { routinesMap } from '../service.svelte';
+	import { routinesMap } from '../service.svelte.js';
 	import RoutineRows from './RoutineRows.svelte';
 
 	const { Story } = defineMeta({
 		component: RoutineRows,
 		args: {
-			userId: '',
-			selectedDate: new Date(),
+			time: 'morning',
+			title: 'Morning Routine',
 		},
 	});
 

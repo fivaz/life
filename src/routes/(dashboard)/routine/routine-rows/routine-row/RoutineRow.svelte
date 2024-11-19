@@ -7,15 +7,11 @@
 
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
+	import { toggleRoutineCompletion } from '$lib/routine/routine.repository';
 	import type { yyyyMMdd } from '$lib/task/task.model';
+	import { currentUser } from '$lib/user/user.utils.svelte.js';
 
-	import {
-		getOpenRoutineForm,
-		getStatusColor,
-		getStreak,
-		getToggleRoutineCompletion,
-		statusColor,
-	} from '../../service';
+	import { getOpenRoutineForm, getStatusColor, getStreak, statusColor } from '../service';
 
 	interface Props {
 		routine: Routine;
@@ -29,8 +25,6 @@
 	let streak = $derived<number>(getStreak(routine, selectedDate));
 
 	const openRoutineForm = getOpenRoutineForm();
-
-	const toggleRoutineCompletion = getToggleRoutineCompletion();
 </script>
 
 <div
@@ -53,7 +47,7 @@
 
 		<button
 			class="rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
-			onclick={() => toggleRoutineCompletion(routine)}
+			onclick={() => toggleRoutineCompletion(routine, selectedDate, currentUser.uid)}
 			type="button"
 		>
 			{#if status === 'completed'}

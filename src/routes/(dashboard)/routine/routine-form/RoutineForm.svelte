@@ -7,16 +7,16 @@
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import { type Routine, routineTimeMap, times } from '$lib/routine/routine.model';
 	import { addRoutine, deleteRoutine, editRoutine } from '$lib/routine/routine.repository';
+	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import IconSelector from '../../goals/goal-form/icon-selector/IconSelector.svelte';
 
 	interface Props {
-		userId: string;
 		routine: Routine;
 		close: () => void;
 	}
 
-	let { userId, routine, close }: Props = $props();
+	let { routine, close }: Props = $props();
 
 	let routineIn = $state({ ...routine });
 
@@ -27,9 +27,9 @@
 		const { id, ...data } = routineIn;
 
 		if (id) {
-			editRoutine(id, data, userId);
+			editRoutine(id, data, currentUser.uid);
 		} else {
-			addRoutine(data, userId);
+			addRoutine(data, currentUser.uid);
 		}
 		close();
 	}
@@ -89,7 +89,7 @@
 			<ConfirmButton
 				color="red"
 				confirmByKey="Delete"
-				confirm={() => deleteRoutine(routine.id, userId, close)}
+				confirm={() => deleteRoutine(routine.id, currentUser.uid, close)}
 				type="button"
 			>
 				Delete

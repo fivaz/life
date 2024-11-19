@@ -12,7 +12,9 @@ const preview: Preview = {
 		},
 		layout: 'centered',
 	},
-
+	args: {
+		close: () => console.log('closed'),
+	},
 	tags: ['autodocs'],
 };
 
