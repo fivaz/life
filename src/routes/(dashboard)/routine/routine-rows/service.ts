@@ -44,20 +44,10 @@ export function getStreak(routine: Routine, selectedDate: yyyyMMdd): number {
 
 const openRoutineFormKey = Symbol('openRoutineForm');
 
-export function getOpenRoutineForm(): (routine: Routine) => void {
-	return getContext(openRoutineFormKey) as (routine: Routine) => void;
+export function getOpenRoutineForm(): (routine?: Routine) => void {
+	return getContext(openRoutineFormKey) as (routine?: Routine) => void;
 }
 
-export function setOpenRoutineForm(value: (routine: Routine) => void) {
+export function setOpenRoutineForm(value: (routine?: Routine) => void) {
 	setContext(openRoutineFormKey, value);
-}
-
-const toggleRoutineCompletionKey = Symbol('toggleRoutineCompletion');
-
-export function getToggleRoutineCompletion(): (routine: Routine) => void {
-	return getContext(toggleRoutineCompletionKey) as (routine: Routine) => void;
-}
-
-export function setToggleRoutineCompletion(value: (routine: Routine) => void) {
-	setContext(toggleRoutineCompletionKey, value);
 }
