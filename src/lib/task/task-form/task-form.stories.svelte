@@ -14,7 +14,7 @@
 		component: TaskForm,
 	});
 
-	import { formatDate } from '$lib/utils.svelte';
+	import { formatDate } from '$lib/date.utils.svelte.js';
 </script>
 
 {#snippet template(args: any)}

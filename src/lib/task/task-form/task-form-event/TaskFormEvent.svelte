@@ -4,7 +4,7 @@
 
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
-	import { TIME } from '$lib/consts';
+	import { TIME } from '$lib/date.utils.svelte';
 	import { taskIn } from '$lib/task/task-form/service.svelte';
 	import { sumTimes } from '$lib/task/time-utils';
 

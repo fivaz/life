@@ -1,7 +1,7 @@
 import type { Routine } from '$lib/routine/routine.model';
 export const routines: Routine[] = [
 	{
-		completeHistory: [{ date: '2024.11.17', isCompleted: true }],
+		completeHistory: [{ date: '2024-11-17', isCompleted: true }],
 		createdAt: '2024-11-01T00:00:00.000Z',
 		icon: 'Book',
 		id: '1',
@@ -10,7 +10,7 @@ export const routines: Routine[] = [
 		time: 'evening',
 	},
 	{
-		completeHistory: [{ date: '2024.11.17', isCompleted: false }],
+		completeHistory: [{ date: '2024-11-17', isCompleted: false }],
 		createdAt: '2024-10-15T00:00:00.000Z',
 		icon: 'Weightlifting Barbell',
 		id: '2',
@@ -19,7 +19,7 @@ export const routines: Routine[] = [
 		time: 'morning',
 	},
 	{
-		completeHistory: [{ date: '2024.11.16', isCompleted: true }],
+		completeHistory: [{ date: '2024-11-16', isCompleted: true }],
 		createdAt: '2024-09-20T00:00:00.000Z',
 		icon: 'Food Plate',
 		id: '3',
@@ -28,7 +28,7 @@ export const routines: Routine[] = [
 		time: 'afternoon',
 	},
 	{
-		completeHistory: [{ date: '2024.11.17', isCompleted: true }],
+		completeHistory: [{ date: '2024-11-17', isCompleted: true }],
 		createdAt: '2024-08-05T00:00:00.000Z',
 		icon: 'Cross (Religion)',
 		id: '4',
@@ -37,7 +37,7 @@ export const routines: Routine[] = [
 		time: 'morning',
 	},
 	{
-		completeHistory: [{ date: '2024.11.15', isCompleted: true }],
+		completeHistory: [{ date: '2024-11-15', isCompleted: true }],
 		createdAt: '2024-07-10T00:00:00.000Z',
 		icon: 'Bed',
 		id: '5',
@@ -46,7 +46,7 @@ export const routines: Routine[] = [
 		time: 'morning',
 	},
 	{
-		completeHistory: [{ date: '2024.11.16', isCompleted: false }],
+		completeHistory: [{ date: '2024-11-16', isCompleted: false }],
 		createdAt: '2024-06-20T00:00:00.000Z',
 		icon: 'House',
 		id: '6',
@@ -55,7 +55,7 @@ export const routines: Routine[] = [
 		time: 'all-day',
 	},
 	{
-		completeHistory: [{ date: '2024.11.17', isCompleted: false }],
+		completeHistory: [{ date: '2024-11-17', isCompleted: false }],
 		createdAt: '2024-05-25T00:00:00.000Z',
 		icon: 'CalendarCheck',
 		id: '7',
@@ -64,7 +64,7 @@ export const routines: Routine[] = [
 		time: 'morning',
 	},
 	{
-		completeHistory: [{ date: '2024.11.16', isCompleted: true }],
+		completeHistory: [{ date: '2024-11-16', isCompleted: true }],
 		createdAt: '2024-04-15T00:00:00.000Z',
 		icon: 'Plant Sprout',
 		id: '8',
@@ -73,7 +73,7 @@ export const routines: Routine[] = [
 		time: 'afternoon',
 	},
 	{
-		completeHistory: [{ date: '2024.11.17', isCompleted: false }],
+		completeHistory: [{ date: '2024-11-17', isCompleted: false }],
 		createdAt: '2024-03-10T00:00:00.000Z',
 		icon: 'Food Plate',
 		id: '9',
@@ -82,7 +82,7 @@ export const routines: Routine[] = [
 		time: 'evening',
 	},
 	{
-		completeHistory: [{ date: '2024.11.17', isCompleted: true }],
+		completeHistory: [{ date: '2024-11-17', isCompleted: true }],
 		createdAt: '2024-01-01T00:00:00.000Z',
 		icon: 'Pills',
 		id: '10',

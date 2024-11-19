@@ -2,6 +2,7 @@
 	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 	import type { ComponentProps } from 'svelte';
 
+	import { formatDate } from '$lib/date.utils.svelte.js';
 	import {
 		longRecurring,
 		normalWithDescription,
@@ -12,7 +13,6 @@
 		shortWithoutDescription,
 		shortWithSubTasks,
 	} from '$lib/task/task.seed';
-	import { formatDate } from '$lib/utils.svelte';
 
 	import EventPanelCore from './EventPanelCore.svelte';
 

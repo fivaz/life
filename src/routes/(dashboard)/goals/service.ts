@@ -1,6 +1,6 @@
 import { format, getQuarter, isPast, isThisYear, parse } from 'date-fns';
 
-import { DATE, DATE_FR } from '$lib/consts';
+import { DATE, DATE_FR } from '$lib/date.utils.svelte';
 import type { Goal } from '$lib/goal/goal.model';
 
 enum GROUPS {

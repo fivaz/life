@@ -1,7 +1,7 @@
 import { addDays, differenceInMilliseconds, startOfWeek } from 'date-fns';
 
 import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
-import { weekStartsOn } from '$lib/consts';
+import { weekStartsOn } from '$lib/date.utils.svelte';
 import { getDateRoundDownTo15 } from '$lib/task/time-utils';
 
 // list of weekStarts in which the tasks have already been fetched

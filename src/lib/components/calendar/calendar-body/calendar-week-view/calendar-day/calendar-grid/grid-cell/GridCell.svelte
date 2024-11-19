@@ -3,7 +3,7 @@
 	import { format } from 'date-fns';
 
 	import { currentDate } from '$lib/components/calendar/service.svelte';
-	import { DATE, TIME } from '$lib/consts';
+	import { DATE, TIME } from '$lib/date.utils.svelte';
 	import { convertMinutesToTime } from '$lib/task/time-utils';
 
 	import { GRID_CELL_HEIGHT, GRID_CLASS, isSomethingDragging } from '../service.svelte';

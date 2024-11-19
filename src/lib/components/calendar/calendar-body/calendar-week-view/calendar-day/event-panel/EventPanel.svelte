@@ -18,7 +18,8 @@
 		getCellSizeFromDuration,
 		hasMoved,
 	} from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/service';
-	import type { TimedTask, yyyyMMdd } from '$lib/task/task.model';
+	import type { yyyyMMdd } from '$lib/date.utils.svelte.js';
+	import type { TimedTask } from '$lib/task/task.model';
 
 	import EventPanelCore from './event-panel-core/EventPanelCore.svelte';
 

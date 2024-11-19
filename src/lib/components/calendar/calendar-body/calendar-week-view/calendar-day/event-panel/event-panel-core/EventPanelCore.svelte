@@ -5,9 +5,10 @@
 
 	import { tailwindColors } from '$lib/category/category.utils';
 	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
-	import { TIME } from '$lib/consts';
+	import { TIME } from '$lib/date.utils.svelte';
+	import type { yyyyMMdd } from '$lib/date.utils.svelte.js';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
-	import type { TimedTask, yyyyMMdd } from '$lib/task/task.model';
+	import type { TimedTask } from '$lib/task/task.model';
 	import { getCompletedTasks, getDurationInMinutes, getSubTasks } from '$lib/task/task.utils';
 	import { roundTo15 } from '$lib/task/time-utils';
 

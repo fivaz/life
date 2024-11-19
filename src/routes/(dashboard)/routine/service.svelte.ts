@@ -2,7 +2,7 @@ import { collection, type Query, type QuerySnapshot } from 'firebase/firestore';
 
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
-import type { Routine } from '$lib/routine/routine.model';
+import { type Routine, routineSchema } from '$lib/routine/routine.model';
 
 const emptyRoutineMap: Record<Routine['time'], Routine[]> = {
 	morning: [],
@@ -23,13 +23,14 @@ export function populateRoutines(snapshot: QuerySnapshot<Routine>) {
 
 	// Populate routines from the snapshot
 	snapshot.docs.forEach((doc) => {
-		const routine = { ...doc.data(), id: doc.id } as Routine;
+		const routine = { ...doc.data(), id: doc.id };
 
-		try {
-			routinesMap.value[routine.time].push(routine);
-		} catch (e) {
-			console.log(e);
-			console.log(routine);
+		const validation = routineSchema.safeParse(routine);
+
+		if (!validation.success) {
+			console.warn(`validation failed for routine: ${routine.id}, ${validation.error}`);
+		} else {
+			routinesMap.value[routine.time].push(validation.data);
 		}
 	});
 

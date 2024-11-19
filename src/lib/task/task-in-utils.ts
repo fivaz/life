@@ -1,17 +1,11 @@
 import { addMonths, isAfter, parse } from 'date-fns';
 
-import { TIME } from '$lib/consts';
-import {
-	type Frequency,
-	type HHmm,
-	isRecurring,
-	isTimed,
-	type Task,
-	type yyyyMMdd,
-} from '$lib/task/task.model';
+import { TIME } from '$lib/date.utils.svelte';
+import type { HHmm, yyyyMMdd } from '$lib/date.utils.svelte.js';
+import { formatDate, formatTime } from '$lib/date.utils.svelte.js';
+import { type Frequency, isRecurring, isTimed, type Task } from '$lib/task/task.model';
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 import { convertTimeToMinutes, roundTo15, sumTimes } from '$lib/task/time-utils';
-import { formatDate, formatTime } from '$lib/utils.svelte';
 
 // TaskIn is a super type that has all the attributes of possible Tasks together
 export type TaskIn = Omit<

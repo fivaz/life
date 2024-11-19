@@ -16,7 +16,7 @@ import {
 	type EventsGrid,
 	getEventSlots,
 } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
-import { DATE } from '$lib/consts';
+import { DATE } from '$lib/date.utils.svelte';
 import {
 	type CalendarTask,
 	isRecurring,

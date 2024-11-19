@@ -4,7 +4,7 @@
 	import { CheckCheck } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
 
-	import { DATE } from '$lib/consts';
+	import { DATE } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 
 	interface Props {

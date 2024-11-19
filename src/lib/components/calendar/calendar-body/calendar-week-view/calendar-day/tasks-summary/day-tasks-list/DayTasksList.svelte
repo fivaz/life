@@ -3,10 +3,10 @@
 	import { getContext } from 'svelte';
 
 	import DayTaskItem from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/tasks-summary/day-tasks-list/day-task-item/DayTaskItem.svelte';
-	import { DATE } from '$lib/consts';
+	import { DATE } from '$lib/date.utils.svelte';
+	import { formatDate } from '$lib/date.utils.svelte.js';
 	import { type CalendarTask, isRecurring, isTimed } from '$lib/task/task.model';
 	import { getTotalDuration } from '$lib/task/time-utils';
-	import { formatDate } from '$lib/utils.svelte';
 
 	interface Props {
 		tasks: CalendarTask[];

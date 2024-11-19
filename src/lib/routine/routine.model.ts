@@ -1,4 +1,7 @@
-import type { dateISO, yyyyMMdd } from '$lib/task/task.model';
+import { z } from 'zod';
+
+import type { yyyyMMdd } from '$lib/date.utils.svelte.js';
+import { type dateISO, zDate } from '$lib/date.utils.svelte.js';
 
 import Afternoon from '../../routes/(dashboard)/routine/time-icons/afternoon/Afternoon.svelte';
 import AllDay from '../../routes/(dashboard)/routine/time-icons/all-day/AllDay.svelte';
@@ -35,3 +38,18 @@ export const routineTimeMap = {
 	evening: { label: 'evening', icon: Evening },
 	'all-day': { label: 'all day', icon: AllDay },
 };
+
+export const routineSchema = z.object({
+	id: z.string(),
+	createdAt: z.string(),
+	icon: z.string(),
+	name: z.string(),
+	order: z.number(),
+	time: z.enum(times),
+	completeHistory: z.array(
+		z.object({
+			date: zDate,
+			isCompleted: z.boolean(),
+		}),
+	),
+});

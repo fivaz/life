@@ -1,10 +1,11 @@
 import { add, isSameDay, parse, set } from 'date-fns';
 
 import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
-import { DATE, TIME } from '$lib/consts';
-import { type HHmm, isTimed, type Task } from '$lib/task/task.model';
+import { DATE, TIME } from '$lib/date.utils.svelte';
+import type { HHmm } from '$lib/date.utils.svelte.js';
+import { formatTime } from '$lib/date.utils.svelte.js';
+import { isTimed, type Task } from '$lib/task/task.model';
 import { getDurationInMinutes } from '$lib/task/task.utils';
-import { formatTime } from '$lib/utils.svelte';
 
 export function getTotalDuration(tasks: Task[]): string {
 	const totalDurationInMinutes = tasks.reduce((sum, task) => sum + getDurationInMinutes(task), 0);

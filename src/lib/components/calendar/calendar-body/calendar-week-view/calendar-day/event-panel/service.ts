@@ -6,10 +6,11 @@ import {
 	GRID_CLASS,
 } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 import { EVENT_PANEL_CLASS } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
-import { TIME } from '$lib/consts';
-import type { HHmm, Task, yyyyMMdd } from '$lib/task/task.model';
+import { TIME } from '$lib/date.utils.svelte';
+import type { HHmm, yyyyMMdd } from '$lib/date.utils.svelte.js';
+import { formatTime } from '$lib/date.utils.svelte.js';
+import type { Task } from '$lib/task/task.model';
 import { getDurationInMinutes } from '$lib/task/task.utils';
-import { formatTime } from '$lib/utils.svelte';
 
 function getElementBeneath(draggedElement: HTMLElement, gridCellY: number, gridCellX: number) {
 	draggedElement.style.visibility = 'hidden';

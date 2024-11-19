@@ -3,8 +3,8 @@
 	import { format } from 'date-fns';
 	import type { ComponentProps } from 'svelte';
 
-	import { DATE } from '$lib/consts';
-	import type { yyyyMMdd } from '$lib/task/task.model';
+	import { DATE } from '$lib/date.utils.svelte';
+	import type { yyyyMMdd } from '$lib/date.utils.svelte.js';
 	import {
 		longRecurring,
 		normalWithDescription,

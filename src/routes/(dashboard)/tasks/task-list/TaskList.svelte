@@ -4,7 +4,7 @@
 	import { clsx } from 'clsx';
 	import { addDays, addWeeks, format, lastDayOfWeek, parse, subDays } from 'date-fns';
 
-	import { DATE, DATE_FR, weekStartsOn } from '$lib/consts';
+	import { DATE, DATE_FR, weekStartsOn } from '$lib/date.utils.svelte';
 	import type { Task } from '$lib/task/task.model';
 	import { getTotalDuration } from '$lib/task/time-utils';
 

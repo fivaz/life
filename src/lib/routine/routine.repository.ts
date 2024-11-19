@@ -1,10 +1,9 @@
 import { addDoc, collection, deleteDoc, doc, updateDoc, writeBatch } from 'firebase/firestore';
 
 import { DB_PATH } from '$lib/consts';
+import type { yyyyMMdd } from '$lib/date.utils.svelte.js';
 import { db } from '$lib/firebase';
 import type { Routine } from '$lib/routine/routine.model';
-import type { yyyyMMdd } from '$lib/task/task.model';
-
 export function toggleRoutineCompletion(
 	routine: Routine,
 	selectedDate: yyyyMMdd,

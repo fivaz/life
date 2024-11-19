@@ -1,9 +1,9 @@
 import { format, parse, subDays } from 'date-fns';
 import { getContext, setContext } from 'svelte';
 
-import { DATE } from '$lib/consts';
+import { DATE } from '$lib/date.utils.svelte';
+import type { yyyyMMdd } from '$lib/date.utils.svelte.js';
 import type { Routine } from '$lib/routine/routine.model';
-import type { yyyyMMdd } from '$lib/task/task.model';
 
 export const statusColor = {
 	none: 'bg-red-100 text-red-500',

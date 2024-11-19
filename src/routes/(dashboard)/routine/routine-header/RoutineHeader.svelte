@@ -4,8 +4,8 @@
 
 	import Button from '$lib/components/form/button/Button.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
+	import { formatDate, title } from '$lib/date.utils.svelte.js';
 	import type { Routine } from '$lib/routine/routine.model';
-	import { formatDate, title } from '$lib/utils.svelte';
 
 	import { getOpenRoutineForm } from '../routine-rows/service';
 	import Streak from '../streak/Streak.svelte';

@@ -5,10 +5,10 @@
 	import { Flame } from 'lucide-svelte';
 	import { dragHandle } from 'svelte-dnd-action';
 
+	import type { yyyyMMdd } from '$lib/date.utils.svelte.js';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { toggleRoutineCompletion } from '$lib/routine/routine.repository';
-	import type { yyyyMMdd } from '$lib/task/task.model';
 	import { currentUser } from '$lib/user/user.utils.svelte.js';
 
 	import { getOpenRoutineForm, getStatusColor, getStreak, statusColor } from '../service';

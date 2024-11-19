@@ -1,11 +1,11 @@
 import { startOfTomorrow, startOfWeek, startOfYesterday } from 'date-fns';
 
 import { routine, sleep, work } from '$lib/category/category.seed';
-import { weekStartsOn } from '$lib/consts';
+import { weekStartsOn } from '$lib/date.utils.svelte';
+import { formatDate, formatTime } from '$lib/date.utils.svelte.js';
 import { sleepEarly } from '$lib/goal/goal.seed';
 import type { TimedTask } from '$lib/task/task.model';
 import { buildDate } from '$lib/task/time-utils';
-import { formatDate, formatTime } from '$lib/utils.svelte';
 
 function getTodayAtTime(time: string): Date {
 	const date = new Date();

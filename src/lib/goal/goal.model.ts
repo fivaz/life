@@ -1,6 +1,6 @@
 import { format, lastDayOfQuarter } from 'date-fns';
 
-import { DATE } from '$lib/consts';
+import { DATE } from '$lib/date.utils.svelte';
 import { type Task } from '$lib/task/task.model';
 
 export type Goal = {

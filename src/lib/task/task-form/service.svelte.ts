@@ -1,8 +1,9 @@
 import { buildEmptyCategory } from '$lib/category/category.model';
 import { createDialog } from '$lib/components/dialog/service.svelte.js';
+import type { HHmm, yyyyMMdd } from '$lib/date.utils.svelte.js';
 import type { Goal } from '$lib/goal/goal.model';
 import { buildTimedTask } from '$lib/task/build-utils';
-import { type HHmm, isTimed, type Task, type yyyyMMdd } from '$lib/task/task.model';
+import { isTimed, type Task } from '$lib/task/task.model';
 import { isRecurring } from '$lib/task/task.model';
 import { addExceptionToRecurring, addTask, deleteTask, editTask } from '$lib/task/task.repository';
 import { convertToTaskIn, type TaskIn } from '$lib/task/task-in-utils';

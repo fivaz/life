@@ -4,9 +4,9 @@
 	import { clsx } from 'clsx';
 	import { getContext } from 'svelte';
 
+	import { formatDate } from '$lib/date.utils.svelte.js';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import { type CalendarTask, isUntimed } from '$lib/task/task.model';
-	import { formatDate } from '$lib/utils.svelte';
 
 	interface Props {
 		task: CalendarTask;

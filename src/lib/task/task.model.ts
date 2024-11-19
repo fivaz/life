@@ -1,14 +1,11 @@
 import { z } from 'zod';
 
 import type { Category } from '$lib/category/category.model';
+import type { dateISO, HHmm, yyyyMMdd } from '$lib/date.utils.svelte.js';
 import type { Goal } from '$lib/goal/goal.model';
 
 export const frequencies = ['daily', 'weekly', 'monthly', 'yearly'] as const;
 export type Frequency = (typeof frequencies)[number];
-
-export type yyyyMMdd = `${number}.${number}.${number}`;
-export type HHmm = `${number}:${number}`;
-export type dateISO = string;
 
 export type Task = {
 	id: string;

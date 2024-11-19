@@ -4,8 +4,8 @@
 	import { addDays, isSameWeek, parse } from 'date-fns';
 	import { CalendarCheck } from 'lucide-svelte';
 
-	import { DATE, weekStartsOn } from '$lib/consts';
-	import { formatDate } from '$lib/utils.svelte';
+	import { DATE, weekStartsOn } from '$lib/date.utils.svelte';
+	import { formatDate } from '$lib/date.utils.svelte.js';
 
 	interface Props {
 		weekStart: Date;

@@ -2,7 +2,7 @@
 	import { format, subDays } from 'date-fns';
 	import { Flame } from 'lucide-svelte';
 
-	import { DATE } from '$lib/consts';
+	import { DATE } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 
 	interface Props {

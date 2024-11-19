@@ -3,9 +3,9 @@
 	import { flip } from 'svelte/animate';
 	import { dragHandleZone } from 'svelte-dnd-action';
 
+	import type { yyyyMMdd } from '$lib/date.utils.svelte.js';
 	import { type Routine, routineTimeMap } from '$lib/routine/routine.model';
 	import { updateRoutines } from '$lib/routine/routine.repository';
-	import type { yyyyMMdd } from '$lib/task/task.model';
 	import { currentUser } from '$lib/user/user.utils.svelte.js';
 
 	import { routinesMap } from '../service.svelte.js';

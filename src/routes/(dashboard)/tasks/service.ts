@@ -9,7 +9,7 @@ import {
 	startOfWeek,
 } from 'date-fns';
 
-import { DATE_FR, weekStartsOn } from '$lib/consts';
+import { DATE_FR, weekStartsOn } from '$lib/date.utils.svelte';
 import type { Task } from '$lib/task/task.model';
 import { isRecurring } from '$lib/task/task.model';
 import { getTaskDate } from '$lib/task/time-utils';
