@@ -3,8 +3,7 @@ import { createUserWithEmailAndPassword, updateProfile, type User } from 'fireba
 
 import { auth } from '$lib/firebase';
 import { checkEmail } from '$lib/user/sign-in.utils.svelte.js';
-import { storeAvatar } from '$lib/user/user.repository';
-import { createUserInDB } from '$lib/user/user.repository';
+import { createUserInDB, storeAvatar } from '$lib/user/user.repository';
 
 export function validateFields(email: string, password: string): string {
 	if (!email) {

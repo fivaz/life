@@ -24,8 +24,8 @@
 		deletePossibleSingleRecurringEvent,
 		duplicateTask,
 		editTaskWithPrompt,
+		taskIn,
 	} from '$lib/task/task-form/service.svelte';
-	import { taskIn } from '$lib/task/task-form/service.svelte';
 	import TaskFormEvent from '$lib/task/task-form/task-form-event/TaskFormEvent.svelte';
 	import TaskFormImage from '$lib/task/task-form/task-form-image/TaskFormImage.svelte';
 	import TaskFormRecurring from '$lib/task/task-form/task-form-recurring/TaskFormRecurring.svelte';

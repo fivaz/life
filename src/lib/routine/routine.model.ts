@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
-import type { yyyyMMdd } from '$lib/date.utils.svelte.js';
-import { type dateISO, zDate } from '$lib/date.utils.svelte.js';
+import { type dateISO, type yyyyMMdd, zDate } from '$lib/date.utils.svelte.js';
 
 import Afternoon from '../../routes/(dashboard)/routine/time-icons/afternoon/Afternoon.svelte';
 import AllDay from '../../routes/(dashboard)/routine/time-icons/all-day/AllDay.svelte';

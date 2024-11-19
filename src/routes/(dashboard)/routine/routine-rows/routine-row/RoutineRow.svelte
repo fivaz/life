@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { Check, GripVertical, Undo2 } from 'lucide-svelte';
-	import { Flame } from 'lucide-svelte';
+	import { Check, Flame, GripVertical, Undo2 } from 'lucide-svelte';
 	import { dragHandle } from 'svelte-dnd-action';
 
 	import type { yyyyMMdd } from '$lib/date.utils.svelte.js';

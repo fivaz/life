@@ -5,8 +5,8 @@
 		type Query,
 		query,
 		type QueryConstraint,
+		type Unsubscribe,
 	} from 'firebase/firestore';
-	import { type Unsubscribe } from 'firebase/firestore';
 	import { type Snippet } from 'svelte';
 	import { ZodSchema } from 'zod';
 

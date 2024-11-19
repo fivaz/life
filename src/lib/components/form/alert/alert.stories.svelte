@@ -1,7 +1,6 @@
 <script module lang="ts">
 	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
-	import type { Snippet } from 'svelte';
-	import type { ComponentProps } from 'svelte';
+	import type { ComponentProps, Snippet } from 'svelte';
 
 	import Alert from './Alert.svelte';
 
