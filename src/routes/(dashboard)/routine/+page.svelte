@@ -7,6 +7,7 @@
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
+	import { weekStartsOn } from '$lib/consts';
 	import { buildEmptyRoutine, type Routine } from '$lib/routine/routine.model';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 	import { formatDate, title } from '$lib/utils.svelte';
@@ -18,9 +19,10 @@
 	import Streak from './streak/Streak.svelte';
 	import WeekListSelector from './week-list-selector/WeekListSelector.svelte';
 
-	let _weekStart = $state<Date>(startOfWeek(new Date(), { weekStartsOn: 1 }));
+	let _weekStart = $state<Date>(startOfWeek(new Date(), { weekStartsOn }));
 
-	let previousWeekStart = $state<Date>(startOfWeek(new Date(), { weekStartsOn: 1 }));
+	// this is used in WeekListSelector to know the right direction for the slide animation
+	let previousWeekStart = $state<Date>(startOfWeek(new Date(), { weekStartsOn }));
 
 	const weekStart = {
 		get value() {

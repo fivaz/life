@@ -4,7 +4,7 @@
 	import { clsx } from 'clsx';
 	import { addDays, addWeeks, format, lastDayOfWeek, parse, subDays } from 'date-fns';
 
-	import { DATE, DATE_FR } from '$lib/consts';
+	import { DATE, DATE_FR, weekStartsOn } from '$lib/consts';
 	import type { Task } from '$lib/task/task.model';
 	import { getTotalDuration } from '$lib/task/time-utils';
 
@@ -41,10 +41,10 @@
 			return format(addDays(new Date(), 1), DATE);
 		}
 		if (label === GROUPS.ThisWeek) {
-			return format(lastDayOfWeek(new Date(), { weekStartsOn: 1 }), DATE);
+			return format(lastDayOfWeek(new Date(), { weekStartsOn }), DATE);
 		}
 		if (label === GROUPS.NextWeek) {
-			return format(lastDayOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }), DATE);
+			return format(lastDayOfWeek(addWeeks(new Date(), 1), { weekStartsOn }), DATE);
 		}
 		if (label === GROUPS.Someday) {
 			return '';

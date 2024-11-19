@@ -12,7 +12,7 @@ import {
 } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
-import { DATE, DB_PATH } from '$lib/consts';
+import { DATE, DB_PATH, weekStartsOn } from '$lib/consts';
 import { db, storage } from '$lib/firebase';
 import type { Goal } from '$lib/goal/goal.model';
 import type { Task } from '$lib/task/task.model';
@@ -127,7 +127,7 @@ export function addExceptionToRecurring(
 
 export function queryWeekTasks(userId: string, startOfWeek: Date): [Query<Task>, Query<Task>] {
 	const startOfWeekString = format(startOfWeek, DATE);
-	const endOfWeekString = format(endOfWeek(startOfWeek, { weekStartsOn: 1 }), DATE);
+	const endOfWeekString = format(endOfWeek(startOfWeek, { weekStartsOn }), DATE);
 	const tasksRef = collection(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}`);
 	return [
 		query(tasksRef, where('recurringFrequency', '!=', '')) as Query<Task>,

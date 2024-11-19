@@ -4,7 +4,7 @@
 	import { addDays, isSameWeek, parse } from 'date-fns';
 	import { CalendarCheck } from 'lucide-svelte';
 
-	import { DATE } from '$lib/consts';
+	import { DATE, weekStartsOn } from '$lib/consts';
 	import { formatDate } from '$lib/utils.svelte';
 
 	interface Props {
@@ -33,16 +33,12 @@
 
 	function goToNextWeek() {
 		weekStart = addDays(weekStart, 7);
-		selectedDate = isSameWeek(currentDate, weekStart, { weekStartsOn: 1 })
-			? currentDate
-			: weekStart;
+		selectedDate = isSameWeek(currentDate, weekStart, { weekStartsOn }) ? currentDate : weekStart;
 	}
 
 	function goToPreviousWeek() {
 		weekStart = addDays(weekStart, -7);
-		selectedDate = isSameWeek(currentDate, weekStart, { weekStartsOn: 1 })
-			? currentDate
-			: weekStart;
+		selectedDate = isSameWeek(currentDate, weekStart, { weekStartsOn }) ? currentDate : weekStart;
 	}
 </script>
 

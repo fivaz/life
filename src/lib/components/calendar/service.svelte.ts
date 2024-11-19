@@ -1,11 +1,12 @@
 import { addDays, differenceInMilliseconds, startOfWeek } from 'date-fns';
 
 import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
+import { weekStartsOn } from '$lib/consts';
 import { getDateRoundDownTo15 } from '$lib/task/time-utils';
 
 // list of weekStarts in which the tasks have already been fetched
 export const weekStart = $state<{ value: Date }>({
-	value: startOfWeek(new Date(), { weekStartsOn: 1 }),
+	value: startOfWeek(new Date(), { weekStartsOn }),
 });
 
 const _weekDays = $derived(Array.from({ length: 7 }, (_, i) => addDays(weekStart.value, i)));
