@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
-	import type { Category } from '$lib/category/category.model';
+	import { type Category, categorySchema } from '$lib/category/category.model';
 	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
 
@@ -14,7 +14,7 @@
 	let categoryType: Category;
 </script>
 
-<DBCollection collection={DB_PATH.CATEGORIES} type={categoryType}>
+<DBCollection schema={categorySchema} collection={DB_PATH.CATEGORIES} type={categoryType}>
 	{#snippet data(items, userId)}
 		{@render typedData(items, userId)}
 	{/snippet}

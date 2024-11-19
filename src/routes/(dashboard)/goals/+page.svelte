@@ -10,7 +10,7 @@
 	import DBGoals from '$lib/goal/DBGoals.svelte';
 	import { buildEmptyGoal, type Goal } from '$lib/goal/goal.model';
 	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
-	import type { Task } from '$lib/task/task.model';
+	import { type Task, taskSchema } from '$lib/task/task.model';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 
 	import GoalForm from './goal-form/GoalForm.svelte';
@@ -60,6 +60,7 @@
 										<DBCollection
 											collection="{DB_PATH.GOALS}/{goal.id}/{DB_PATH.TASKS}"
 											type={taskType}
+											schema={taskSchema}
 										>
 											{#snippet data(tasks)}
 												<GoalRow

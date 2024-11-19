@@ -4,7 +4,7 @@
 	import interact from 'interactjs';
 	import { onDestroy, onMount } from 'svelte';
 
-	import { tailwindColors } from '$lib/category/category.utils';
+	import { tailwindColorMap } from '$lib/category/category.utils';
 	import { DATE_FR, DATE_FR_SHORT } from '$lib/date.utils.svelte';
 	import type { Task } from '$lib/task/task.model';
 
@@ -79,7 +79,7 @@
 
 <li
 	bind:this={container}
-	class="{tailwindColors[task.category.color].darkBg}
+	class="{tailwindColorMap[task.category.color].darkBg}
 		flex select-none justify-between gap-3 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-50 sm:touch-none"
 >
 	<div class="flex gap-3">
@@ -98,7 +98,7 @@
 	<div class="flex items-center gap-x-3">
 		<div class="w-12 text-center">{'duration' in task ? task.duration : '-'}</div>
 		<button
-			class="{tailwindColors[task.category.color].hoverBg} {tailwindColors[task.category.color]
+			class="{tailwindColorMap[task.category.color].hoverBg} {tailwindColorMap[task.category.color]
 				.hoverText}
 				rounded px-1.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300"
 			onclick={() => edit(task)}

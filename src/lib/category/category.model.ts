@@ -1,27 +1,35 @@
-import { tailwindColors } from '$lib/category/category.utils';
+import { z } from 'zod';
 
-export const CategoryTypes = {
-	FUN: 'fun',
-	SLEEP: 'sleep',
-	WORK: 'work',
-};
+import { type TailwindColor, tailwindColors } from '$lib/category/category.utils';
 
-export type CategoryType = (typeof CategoryTypes)[keyof typeof CategoryTypes];
+export const CATEGORY_WORK = 'work';
+
+export const categoryTypes = ['fun', 'sleep', CATEGORY_WORK] as const;
+
+export type CategoryType = (typeof categoryTypes)[number];
 
 export type Category = {
-	color: string;
+	color: TailwindColor;
 	id: string;
 	isDefault: boolean;
 	name: string;
 	type: CategoryType;
 };
 
-export function buildEmptyCategory() {
+export function buildEmptyCategory(): Category {
 	return {
-		color: Object.keys(tailwindColors)[0],
+		color: tailwindColors[0],
 		id: '',
 		isDefault: false,
 		name: '',
-		type: Object.values(CategoryTypes)[0] as CategoryType,
+		type: categoryTypes[0],
 	};
 }
+
+export const categorySchema = z.object({
+	id: z.string(),
+	name: z.string(),
+	isDefault: z.boolean(),
+	type: z.enum(categoryTypes),
+	color: z.enum(tailwindColors),
+});

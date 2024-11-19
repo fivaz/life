@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
-import type { Category } from '$lib/category/category.model';
-import type { dateISO, HHmm, yyyyMMdd } from '$lib/date.utils.svelte.js';
-import type { Goal } from '$lib/goal/goal.model';
+import { type Category, categorySchema } from '$lib/category/category.model';
+import { type dateISO, type HHmm, type yyyyMMdd, zDate, zTime } from '$lib/date.utils.svelte.js';
+import { type Goal, goalSchema } from '$lib/goal/goal.model';
 
 export const frequencies = ['daily', 'weekly', 'monthly', 'yearly'] as const;
 export type Frequency = (typeof frequencies)[number];
@@ -45,34 +45,20 @@ export type RecurringTask = Omit<
 
 export const taskSchema = z.object({
 	id: z.string(),
-	createdAt: z.string(),
+	createdAt: z.string().datetime(),
 	name: z.string(),
 	isDone: z.boolean(),
 	description: z.string(),
 	image: z.string().nullable(),
-	category: z.object({
-		name: z.string(),
-		isDefault: z.boolean(),
-		type: z.string(),
-		color: z.string(),
-	}),
-	goal: z
-		.object({
-			id: z.string(),
-			name: z.string(),
-			icon: z.string().nullable(),
-			deadline: z.string(),
-			isDone: z.boolean(),
-		})
-		.nullable(),
-	date: z.string().nullable(),
-	duration: z.string(),
-	startTime: z.string().nullable(),
-	// TODO type recurringFrequency better
-	recurringFrequency: z.string().nullable(),
+	category: categorySchema,
+	goal: goalSchema.nullable(),
+	date: zDate.nullable(),
+	duration: zTime,
+	startTime: zTime.nullable(),
+	recurringFrequency: z.enum(frequencies).nullable(),
 	recurringDaysOfWeek: z.array(z.string()),
-	recurringEndAt: z.string().nullable(),
-	recurringExceptions: z.array(z.string()),
+	recurringEndAt: zDate.nullable(),
+	recurringExceptions: z.array(zDate),
 });
 
 export function isRecurring(task: Omit<Task, 'id'> | Task): task is RecurringTask {

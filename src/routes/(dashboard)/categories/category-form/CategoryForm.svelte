@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { type Category, CategoryTypes } from '$lib/category/category.model';
+	import { type Category, categoryTypes } from '$lib/category/category.model';
 	import { addCategory, deleteCategory, editCategory } from '$lib/category/category.respository';
-	import { tailwindColors } from '$lib/category/category.utils';
+	import { tailwindColorMap, tailwindColors } from '$lib/category/category.utils';
 	import CloseX from '$lib/components/close-x/CloseX.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
@@ -62,6 +62,13 @@
 		<div class="flex flex-col gap-2 text-sm font-medium text-gray-700">
 			<Input autocomplete="off" class="flex-1" placeholder="Name" bind:value={categoryIn.name} />
 
+			{#snippet categoryItem(color: Category['color'])}
+				<div class="flex items-center gap-3">
+					<div class="h-5 w-5 rounded-md {tailwindColorMap[color].darkBg}"></div>
+					{color}
+				</div>
+			{/snippet}
+
 			<Select
 				bind:value={categoryIn.color}
 				class="flex items-center"
@@ -70,19 +77,11 @@
 				selectClass="flex-1"
 			>
 				{#snippet placeholder()}
-					<div class="flex items-center gap-3">
-						<div class="h-5 w-5 rounded-md {tailwindColors[categoryIn?.color]?.darkBg}"></div>
-						{categoryIn.color}
-					</div>
+					{@render categoryItem(categoryIn.color)}
 				{/snippet}
 
-				{#each Object.keys(tailwindColors) as color (color)}
-					<SelectItem value={color}>
-						<div class="flex items-center gap-3">
-							<div class="h-5 w-5 rounded-md {tailwindColors[color]?.darkBg}"></div>
-							{color}
-						</div>
-					</SelectItem>
+				{#each tailwindColors as color (color)}
+					<SelectItem value={color}>{@render categoryItem(color)}</SelectItem>
 				{/each}
 			</Select>
 
@@ -97,7 +96,7 @@
 					<div class="flex items-center gap-5">{categoryIn.type}</div>
 				{/snippet}
 
-				{#each Object.values(CategoryTypes) as categoryType (categoryType)}
+				{#each Object.values(categoryTypes) as categoryType (categoryType)}
 					<SelectItem class="flex items-center gap-5" value={categoryType}>
 						{categoryType}
 					</SelectItem>

@@ -8,6 +8,7 @@
 	} from 'firebase/firestore';
 	import { type Unsubscribe } from 'firebase/firestore';
 	import { type Snippet } from 'svelte';
+	import { ZodSchema } from 'zod';
 
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import { DB_PATH } from '$lib/consts';
@@ -21,9 +22,10 @@
 		data: Snippet<[T[], string]>;
 		// eslint-disable-next-line no-undef
 		type: T;
+		schema: ZodSchema;
 	}
 
-	let { data, collection: segment, constrains }: Props = $props();
+	let { data, collection: segment, constrains, schema }: Props = $props();
 
 	// eslint-disable-next-line no-undef
 	let items = $state<T[]>([]);
@@ -46,8 +48,18 @@
 
 		if (currentUser.uid) {
 			unsubscribe = onSnapshot(getQuery(currentUser.uid), (snapshot) => {
-				// eslint-disable-next-line no-undef
-				items = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }) as T);
+				snapshot.docs.forEach((doc) => {
+					const item = { ...doc.data(), id: doc.id };
+
+					const validation = schema.safeParse(item);
+
+					if (!validation.success) {
+						console.warn(`validation failed for ${segment}: ${item.id}, ${validation.error}`);
+					} else {
+						items.push(validation.data);
+					}
+				});
+
 				isLoading = false;
 			});
 		}

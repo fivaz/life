@@ -1,14 +1,8 @@
-export type TailwindColor = {
-	darkBg: string;
-	hoverBg: string;
-	hoverLightBg: string;
-	hoverText: string;
-	lightBg: string;
-	lightText: string;
-	text: string;
-};
+export const tailwindColors = ['red', 'green', 'blue', 'lime', 'yellow', 'purple'] as const;
 
-export const tailwindColors: Record<string, TailwindColor> = {
+export type TailwindColor = (typeof tailwindColors)[number];
+
+export const tailwindColorMap: Record<TailwindColor, Record<string, string>> = {
 	blue: {
 		darkBg: 'bg-blue-500',
 		hoverBg: 'hover:bg-blue-300',

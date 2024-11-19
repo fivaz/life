@@ -3,7 +3,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 
 	import type { Category } from '$lib/category/category.model';
-	import { tailwindColors } from '$lib/category/category.utils';
+	import { tailwindColorMap } from '$lib/category/category.utils';
 
 	interface Props {
 		category: Category;
@@ -14,8 +14,8 @@
 </script>
 
 <li
-	class="{tailwindColors[category.color]
-		.darkBg} flex justify-between gap-x-3 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-white"
+	class="{tailwindColorMap[category.color].darkBg}
+		flex justify-between gap-x-3 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-white"
 >
 	<div class="flex items-center gap-x-2">
 		<Icon class="h-5 w-5 text-white" src={Tag} />
@@ -27,8 +27,8 @@
 
 	<div>
 		<button
-			class="{tailwindColors[category.color].hoverBg} {tailwindColors[category.color]
-				.hoverText} rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
+			class="{tailwindColorMap[category.color].hoverBg} {tailwindColorMap[category.color].hoverText}
+				rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
 			onclick={() => edit(category)}
 			type="button"
 		>

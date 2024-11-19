@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { where } from 'firebase/firestore';
 
-	import { CategoryTypes } from '$lib/category/category.model';
+	import { categorySchema } from '$lib/category/category.model';
 	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { title } from '$lib/date.utils.svelte.js';
@@ -16,8 +16,9 @@
 
 <DBCollection
 	collection={DB_PATH.TASKS}
-	constrains={where('category.type', '==', CategoryTypes.WORK)}
+	constrains={where('category.type', '==', 'work')}
 	type={taskType}
+	schema={categorySchema}
 >
 	{#snippet data(tasks)}
 		<div class="py-4">

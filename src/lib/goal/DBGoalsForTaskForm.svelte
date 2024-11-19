@@ -4,7 +4,7 @@
 
 	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
-	import type { Goal } from '$lib/goal/goal.model';
+	import { type Goal, goalSchema } from '$lib/goal/goal.model';
 
 	interface Props {
 		data: Snippet<[Goal[], string]>;
@@ -19,7 +19,12 @@
 	}
 </script>
 
-<DBCollection collection={DB_PATH.GOALS} type={goalType} constrains={where('isDone', '==', false)}>
+<DBCollection
+	schema={goalSchema}
+	collection={DB_PATH.GOALS}
+	type={goalType}
+	constrains={where('isDone', '==', false)}
+>
 	{#snippet data(items, userId)}
 		{@render typedData(sortGoals(items), userId)}
 	{/snippet}

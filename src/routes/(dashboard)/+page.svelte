@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { buildEmptyCategory, type Category, CategoryTypes } from '$lib/category/category.model';
+	import { buildEmptyCategory, type Category, CATEGORY_WORK } from '$lib/category/category.model';
 	import DBCategories from '$lib/category/DBCategories.svelte';
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
@@ -47,7 +47,7 @@
 	}
 
 	function updateNotification(task: Task) {
-		if (task.category.type === CategoryTypes.WORK && task.isDone) {
+		if (task.category.type === CATEGORY_WORK && task.isDone) {
 			completedTasks = [...completedTasks, task];
 		} else {
 			completedTasks = completedTasks.filter((completedTask) => completedTask.id !== task.id);

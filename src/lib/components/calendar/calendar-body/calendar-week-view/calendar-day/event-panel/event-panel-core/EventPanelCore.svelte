@@ -3,7 +3,7 @@
 	import { format, parse } from 'date-fns';
 	import { getContext } from 'svelte';
 
-	import { tailwindColors } from '$lib/category/category.utils';
+	import { tailwindColorMap } from '$lib/category/category.utils';
 	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 	import { TIME } from '$lib/date.utils.svelte';
 	import type { yyyyMMdd } from '$lib/date.utils.svelte.js';
@@ -68,9 +68,9 @@
 		{
 			'border-1 touch-none border border-black': isSelected,
 		},
-		tailwindColors[event.category.color].text,
-		tailwindColors[event.category.color].lightBg,
-		tailwindColors[event.category.color].hoverLightBg,
+		tailwindColorMap[event.category.color].text,
+		tailwindColorMap[event.category.color].lightBg,
+		tailwindColorMap[event.category.color].hoverLightBg,
 	)}
 >
 	<div class="flex items-center gap-1">
@@ -99,7 +99,7 @@
 	<div class="overflow-hidden">
 		<div>
 			<time
-				class="{tailwindColors[event.category.color].lightText} {tailwindColors[
+				class="{tailwindColorMap[event.category.color].lightText} {tailwindColorMap[
 					event.category.color
 				].hoverText}"
 				dateTime={`${event.date}T${event.startTime}`}

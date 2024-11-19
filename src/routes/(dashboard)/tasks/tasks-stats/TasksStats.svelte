@@ -2,7 +2,7 @@
 	import { Grid3x3, LayoutGrid } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
-	import { CategoryTypes } from '$lib/category/category.model';
+	import { CATEGORY_WORK } from '$lib/category/category.model';
 	import { getTotalDuration } from '$lib/task/time-utils';
 
 	import type { SortedTaskType } from '../service';
@@ -17,7 +17,7 @@
 
 	let total = $derived(Object.values(netSortedTasks).flat());
 
-	let workTasks = $derived(total.filter((task) => task.category.type === CategoryTypes.WORK));
+	let workTasks = $derived(total.filter((task) => task.category.type === CATEGORY_WORK));
 
 	function prepareSortedTasks(sortedTasks: SortedTaskType): SortedTaskType {
 		let copiedObject = { ...sortedTasks };

@@ -11,7 +11,7 @@ import {
 	writeBatch,
 } from 'firebase/firestore';
 
-import type { Category } from '$lib/category/category.model';
+import { type Category, CATEGORY_WORK } from '$lib/category/category.model';
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
 
@@ -79,22 +79,29 @@ export function deleteCategory(id: string | undefined, userId: string, closeForm
 
 export async function addDefaultCategories(userId: string) {
 	const categoriesCollectionRef = collection(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES);
-	void addDoc(categoriesCollectionRef, {
-		color: 'green',
-		isDefault: true,
-		name: 'work',
-		type: 'work',
-	});
-	void addDoc(categoriesCollectionRef, {
-		color: 'blue',
-		isDefault: false,
-		name: 'sleep',
-		type: 'sleep',
-	});
-	void addDoc(categoriesCollectionRef, {
-		color: 'red',
-		isDefault: false,
-		name: 'fun',
-		type: 'fun',
+
+	const defaultCategories: Omit<Category, 'id'>[] = [
+		{
+			color: 'green',
+			isDefault: true,
+			name: 'work',
+			type: CATEGORY_WORK,
+		},
+		{
+			color: 'blue',
+			isDefault: false,
+			name: 'sleep',
+			type: 'sleep',
+		},
+		{
+			color: 'red',
+			isDefault: false,
+			name: 'fun',
+			type: 'fun',
+		},
+	];
+
+	defaultCategories.forEach((category) => {
+		addDoc(categoriesCollectionRef, category);
 	});
 }

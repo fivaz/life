@@ -4,7 +4,7 @@
 	import { Copy, ListTodo } from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';
-	import { tailwindColors } from '$lib/category/category.utils';
+	import { tailwindColorMap } from '$lib/category/category.utils';
 	import CloseX from '$lib/components/close-x/CloseX.svelte';
 	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';
@@ -194,7 +194,7 @@
 				{#snippet placeholder()}
 					<div class="flex items-center gap-3">
 						<div
-							class="h-5 w-5 rounded-md {tailwindColors[taskIn.value.category.color]?.darkBg}"
+							class="h-5 w-5 rounded-md {tailwindColorMap[taskIn.value.category.color]?.darkBg}"
 						></div>
 						{taskIn.value.category.name}
 					</div>
@@ -202,7 +202,7 @@
 				{#each categories as category (category)}
 					<SelectItem value={category}>
 						<div class="flex items-center gap-3">
-							<div class="h-5 w-5 rounded-md {tailwindColors[category.color]?.darkBg}"></div>
+							<div class="h-5 w-5 rounded-md {tailwindColorMap[category.color]?.darkBg}"></div>
 							{category.name}
 						</div>
 					</SelectItem>
