@@ -4,17 +4,16 @@
 	import { CheckCheck } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
 
-	import { formatDate } from '$lib/date.utils.svelte';
+	import { formatDate, selectedDate } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 
 	interface Props {
 		routines: Routine[];
 		weekStart: Date;
 		previousWeekStart: Date;
-		selectedDate: Date;
 	}
 
-	let { routines, weekStart, previousWeekStart, selectedDate = $bindable() }: Props = $props();
+	let { routines, weekStart, previousWeekStart }: Props = $props();
 
 	const dates = $derived<Date[]>(Array.from({ length: 7 }, (_, i) => addDays(weekStart, i)));
 
@@ -38,7 +37,7 @@
 			{#each dates as date (date)}
 				<button
 					class="flex flex-col items-center justify-center gap-1 pb-3 pt-2 hover:bg-indigo-50 md:flex-row"
-					onclick={() => (selectedDate = date)}
+					onclick={() => (selectedDate.value = date)}
 					type="button"
 				>
 					<span class="hidden md:block">
@@ -52,8 +51,8 @@
 					<span
 						class={clsx(
 							{
-								'bg-indigo-300 text-white': isToday(date) && !isSameDay(selectedDate, date),
-								'bg-indigo-600 text-white': isSameDay(selectedDate, date),
+								'bg-indigo-300 text-white': isToday(date) && !isSameDay(selectedDate.value, date),
+								'bg-indigo-600 text-white': isSameDay(selectedDate.value, date),
 							},
 							'flex h-8 w-8 items-center justify-center rounded-full font-semibold text-gray-900',
 						)}

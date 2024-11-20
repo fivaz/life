@@ -4,7 +4,7 @@
 
 	import Button from '$lib/components/form/button/Button.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
-	import { formatDate, title } from '$lib/date.utils.svelte';
+	import { formatDate, selectedDate, title } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 
 	import { getOpenRoutineForm } from '../routine-rows/service';
@@ -12,11 +12,10 @@
 
 	interface Props {
 		routines: Routine[];
-		selectedDate: Date;
 		weekStart: Date;
 	}
 
-	let { routines, selectedDate = $bindable(), weekStart = $bindable() }: Props = $props();
+	let { routines, weekStart = $bindable() }: Props = $props();
 
 	const openForm = getOpenRoutineForm();
 </script>
@@ -27,16 +26,16 @@
 		<Streak {routines} />
 		<div>
 			<h1 class="flex items-center gap-2 text-base font-semibold leading-6 text-gray-900">
-				<time class="sm:hidden" dateTime={formatDate(selectedDate)}>
-					{format(selectedDate, 'MMM, yyyy')}
+				<time class="sm:hidden" dateTime={formatDate(selectedDate.value)}>
+					{format(selectedDate.value, 'MMM, yyyy')}
 				</time>
-				<time class="hidden sm:inline" dateTime={formatDate(selectedDate)}>
-					{format(selectedDate, 'MMMM dd, yyyy')}
+				<time class="hidden sm:inline" dateTime={formatDate(selectedDate.value)}>
+					{format(selectedDate.value, 'MMMM dd, yyyy')}
 				</time>
 			</h1>
 		</div>
 
-		<WeekChanger bind:selectedDate bind:weekStart />
+		<WeekChanger bind:weekStart bind:selectedDate={selectedDate.value} />
 
 		<div class="hidden h-7 border-r border-gray-300 sm:inline"></div>
 

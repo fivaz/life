@@ -5,7 +5,8 @@
 
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import { formatDate, title, weekStartsOn } from '$lib/date.utils.svelte';
+	import type { yyyyMMdd } from '$lib/date.utils.svelte';
+	import { formatDate, selectedDate, title, weekStartsOn } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { buildEmptyRoutine } from '$lib/routine/routine.model';
 	import { currentUser } from '$lib/user/user.utils.svelte';
@@ -37,9 +38,7 @@
 
 	let showForm = $state<boolean>(false);
 
-	let selectedDate = $state<Date>(new Date());
-
-	const selectedDateString = $derived(formatDate(selectedDate));
+	const selectedDateString = $derived<yyyyMMdd>(formatDate(selectedDate.value));
 
 	title.value = 'Routine';
 
@@ -67,14 +66,9 @@
 
 	<div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
 		<div class="flex h-full w-full flex-col gap-5">
-			<RoutineHeader {routines} bind:weekStart={weekStart.value} bind:selectedDate />
+			<RoutineHeader {routines} bind:weekStart={weekStart.value} />
 
-			<WeekListSelector
-				{previousWeekStart}
-				{routines}
-				weekStart={weekStart.value}
-				bind:selectedDate
-			/>
+			<WeekListSelector {previousWeekStart} {routines} weekStart={weekStart.value} />
 
 			{#if routines.length}
 				<RoutineRows selectedDate={selectedDateString} time="morning" title="Morning Routine" />
