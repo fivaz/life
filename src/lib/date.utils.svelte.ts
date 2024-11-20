@@ -1,5 +1,4 @@
 import { format } from 'date-fns';
-import { z } from 'zod';
 
 import { getDateRoundDownTo15 } from '$lib/task/time-utils';
 
@@ -26,14 +25,6 @@ export function formatTime(date: Date): HHmm {
 export type yyyyMMdd = `${number}-${number}-${number}`;
 export type HHmm = `${number}:${number}`;
 export type dateISO = string;
-
-export const zDate = z.custom<yyyyMMdd>((val) => {
-	return typeof val === 'string' ? /^\d{4}-\d{2}-\d{2}$/.test(val) : false;
-});
-
-export const zTime = z.custom<HHmm>((val) => {
-	return typeof val === 'string' ? /^\d{2}:\d{2}$/.test(val) : false;
-});
 
 export const currentDate = $state<{ value: Date }>({ value: getDateRoundDownTo15() });
 

@@ -1,7 +1,8 @@
 import { lastDayOfQuarter } from 'date-fns';
 import { z } from 'zod';
 
-import { formatDate, zDate } from '$lib/date.utils.svelte';
+import { zDate } from '$lib/date.utils';
+import { formatDate } from '$lib/date.utils.svelte';
 
 export type Goal = {
 	deadline: string;
