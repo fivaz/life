@@ -30,20 +30,20 @@
 	let taskType: Task;
 
 	title.value = 'Goals';
+
+	function openForm(goal = buildEmptyGoal()) {
+		isFormOpen = true;
+		editingGoal = goal;
+	}
 </script>
 
 <DBCategories>
-	{#snippet data(categories, userId)}
+	{#snippet data(categories)}
 		<div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
 			<div class="flex items-center justify-between">
 				<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
 				<span></span>
-				<Button
-					onclick={() => {
-						isFormOpen = true;
-						editingGoal = buildEmptyGoal();
-					}}
-				>
+				<Button onclick={() => openForm()}>
 					<Plus class="h-4 w-auto" />
 					New Goal
 				</Button>
@@ -58,7 +58,7 @@
 							{#each goalsByDate as date (date)}
 								<div class="flex justify-between p-2 font-semibold">{date}</div>
 								<div class="flex flex-col gap-3">
-									{#each goalsByDate[date] as goal (goal)}
+									{#each goalsByDate[date] as goal (goal.id)}
 										<DBCollection
 											collection="{DB_PATH.GOALS}/{goal.id}/{DB_PATH.TASKS}"
 											schema={taskSchema}
@@ -70,10 +70,7 @@
 														isTaskFormOpen = true;
 														editingTask = buildTimedTask(categories, goal);
 													}}
-													editGoal={(goal) => {
-														isFormOpen = true;
-														editingGoal = goal;
-													}}
+													editGoal={openForm}
 													editTask={(task) => {
 														isTaskFormOpen = true;
 														editingTask = task;
@@ -93,7 +90,6 @@
 									close={() => (isTaskFormOpen = false)}
 									{goals}
 									task={editingTask}
-									{userId}
 								/>
 							</Modal>
 						{/snippet}
@@ -101,7 +97,7 @@
 				</ul>
 
 				<Modal bind:isOpen={isFormOpen}>
-					<GoalForm close={() => (isFormOpen = false)} goal={editingGoal} {userId} />
+					<GoalForm close={() => (isFormOpen = false)} goal={editingGoal} />
 				</Modal>
 			</div>
 		</div>

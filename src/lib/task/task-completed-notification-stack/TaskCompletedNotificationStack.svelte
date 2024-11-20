@@ -4,10 +4,9 @@
 
 	interface Props {
 		completedTasks?: Task[];
-		userId: string;
 	}
 
-	let { userId, completedTasks = $bindable([]) }: Props = $props();
+	let { completedTasks = $bindable([]) }: Props = $props();
 
 	function removeNotification(index: number) {
 		completedTasks = completedTasks.filter((_, i) => i !== index);
@@ -20,7 +19,7 @@
 >
 	<div class="flex w-full flex-col items-center space-y-4 sm:items-end">
 		{#each completedTasks as task, index (task.id)}
-			<TaskCompletedNotification onRemove={() => removeNotification(index)} {task} {userId} />
+			<TaskCompletedNotification onRemove={() => removeNotification(index)} {task} />
 		{/each}
 	</div>
 </div>

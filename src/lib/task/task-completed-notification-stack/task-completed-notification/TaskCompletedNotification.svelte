@@ -1,66 +1,28 @@
 <script lang="ts">
 	import { CheckCircle, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { collection, getDocs } from 'firebase/firestore';
 	import { onMount } from 'svelte';
-	import { cubicOut } from 'svelte/easing';
 
-	import { DB_PATH } from '$lib/consts';
-	import { db } from '$lib/firebase';
 	import type { Goal } from '$lib/goal/goal.model';
-	import { getCompletedTasks } from '$lib/goal/goal.utils';
 	import type { Task } from '$lib/task/task.model';
+	import {
+		fetchPercentageComplete,
+		slideFromRight,
+	} from '$lib/task/task-completed-notification-stack/task-completed-notification/service';
+	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	interface Props {
 		task: Task;
 		onRemove: () => void;
-		userId: string;
 	}
 
-	let { task, onRemove, userId }: Props = $props();
+	let { task, onRemove }: Props = $props();
 
 	let percentage = $state(0);
 
-	function getCompletedPercentage(tasks: Task[]): number {
-		const completedTasks = getCompletedTasks(tasks);
-		const total = tasks.length;
-		return Number(((completedTasks / total) * 100).toFixed(0));
-	}
-
-	async function fetchPercentageComplete(task: Task & { goal: Goal }) {
-		const tasksRef = collection(
-			db,
-			DB_PATH.USERS,
-			userId,
-			DB_PATH.GOALS,
-			task.goal.id,
-			DB_PATH.TASKS,
-		);
-		const tasksSnapshot = await getDocs(tasksRef);
-		const tasks = tasksSnapshot.docs.map((doc) => doc.data()) as Task[];
-		return getCompletedPercentage(tasks);
-	}
-
-	function slideFromRight(node: Element, { delay = 0, duration = 400 }) {
-		return {
-			css: (t: number) => {
-				const opacity = t;
-				const transform = `translateX(${(1 - t) * 100}%)`;
-
-				return `
-					opacity: ${opacity};
-					transform: ${transform};
-				`;
-			},
-			delay,
-			duration,
-			easing: cubicOut,
-		};
-	}
-
 	onMount(async () => {
 		if (task.goal) {
-			percentage = await fetchPercentageComplete(task as Task & { goal: Goal });
+			percentage = await fetchPercentageComplete(task as Task & { goal: Goal }, currentUser.uid);
 		}
 
 		setTimeout(() => {

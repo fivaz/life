@@ -9,17 +9,17 @@
 	import { addGoal, deleteGoal, editGoal } from '$lib/goal/goal.repository';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import { getIcon } from '$lib/goal/goal-icon/service';
+	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import IconSelector from './icon-selector/IconSelector.svelte';
 	import { checkErrors } from './service';
 
 	interface Props {
-		userId: string;
 		goal: Goal;
 		close: () => void;
 	}
 
-	let { userId, goal, close }: Props = $props();
+	let { goal, close }: Props = $props();
 
 	let isEditing = $derived(!!goal.id);
 
@@ -37,9 +37,9 @@
 		const { id, ...data } = goalIn;
 
 		if (id) {
-			editGoal(id, data, userId);
+			editGoal(id, data, currentUser.uid);
 		} else {
-			addGoal(data, userId);
+			addGoal(data, currentUser.uid);
 		}
 		close();
 	}
@@ -90,7 +90,7 @@
 		{#if isEditing}
 			<ConfirmButton
 				color="red"
-				confirm={() => deleteGoal(goal.id, userId, close)}
+				confirm={() => deleteGoal(goal.id, currentUser.uid, close)}
 				confirmByKey="Delete"
 				type="button"
 			>

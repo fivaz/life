@@ -14,6 +14,5 @@
 	name="Primary"
 	args={{
 		category: buildEmptyCategory(),
-		userId: '0',
 	}}
 />

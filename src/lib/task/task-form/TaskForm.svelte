@@ -34,7 +34,6 @@
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	interface Props {
-		userId: string;
 		task: Task;
 		goals: Goal[];
 		categories: Category[];
@@ -42,7 +41,7 @@
 		close: () => void;
 	}
 
-	let { task, goals, categories, targetDate, userId, close }: Props = $props();
+	let { task, goals, categories, targetDate, close }: Props = $props();
 
 	taskIn.value = convertToTaskIn(task);
 
@@ -135,7 +134,7 @@
 				icon: Copy,
 				label: 'Duplicate task',
 				onclick: () => {
-					duplicateTask(task, userId);
+					duplicateTask(task, currentUser.uid);
 					close();
 				},
 			});

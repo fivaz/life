@@ -11,16 +11,16 @@
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
+	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import { checkErrors } from './service';
 
 	interface Props {
-		userId: string;
 		category: Category;
 		close: () => void;
 	}
 
-	let { userId, category, close }: Props = $props();
+	let { category, close }: Props = $props();
 
 	let isEditing = $derived(!!category.id);
 
@@ -38,9 +38,9 @@
 		const { id, ...data } = categoryIn;
 
 		if (id) {
-			editCategory(id, data, userId);
+			editCategory(id, data, currentUser.uid);
 		} else {
-			addCategory(data, userId);
+			addCategory(data, currentUser.uid);
 		}
 		close();
 	}
@@ -114,7 +114,7 @@
 		{#if isEditing}
 			<ConfirmButton
 				color="red"
-				confirm={() => deleteCategory(category.id, userId, close)}
+				confirm={() => deleteCategory(category.id, currentUser.uid, close)}
 				confirmByKey="Delete"
 				type="button"
 			>

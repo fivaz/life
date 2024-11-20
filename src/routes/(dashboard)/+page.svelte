@@ -10,6 +10,7 @@
 	import type { Task } from '$lib/task/task.model';
 	import TaskCompletedNotificationStack from '$lib/task/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
+	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import {
 		editPossibleSingleRecurringEvent,
@@ -57,15 +58,15 @@
 </script>
 
 <DBCategories>
-	{#snippet data(categories, userId)}
+	{#snippet data(categories)}
 		<Calendar
-			changeWeek={(weekStart) => getWeekTasks(userId, weekStart)}
+			changeWeek={(weekStart) => getWeekTasks(currentUser.uid, weekStart)}
 			createTask={(date) => openFormToCreateTask(categories, date)}
 			editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
-			moveEvent={(event, moveObject) => moveEvent(userId, event, moveObject)}
-			persistTasks={(tasks) => persistTasks(userId, tasks)}
+			moveEvent={(event, moveObject) => moveEvent(currentUser.uid, event, moveObject)}
+			persistTasks={(tasks) => persistTasks(currentUser.uid, tasks)}
 			tasks={tasks.value}
-			toggleEvent={(event, targetDate) => toggleCompletion(userId, event, targetDate)}
+			toggleEvent={(event, targetDate) => toggleCompletion(currentUser.uid, event, targetDate)}
 		/>
 		<DBGoalsForTaskForm>
 			{#snippet data(goals)}
@@ -76,11 +77,10 @@
 						{goals}
 						{targetDate}
 						task={editingTask}
-						{userId}
 					/>
 				</Modal>
 			{/snippet}
 		</DBGoalsForTaskForm>
-		<TaskCompletedNotificationStack {userId} bind:completedTasks />
+		<TaskCompletedNotificationStack bind:completedTasks />
 	{/snippet}
 </DBCategories>

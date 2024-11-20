@@ -10,7 +10,4 @@
 	import { buildEmptyGoal } from '$lib/goal/goal.model';
 </script>
 
-<Story
-	name="Primary"
-	args={{ userId: '0', goal: buildEmptyGoal(), close: () => console.log('closed') }}
-/>
+<Story name="Primary" args={{ goal: buildEmptyGoal(), close: () => console.log('closed') }} />
