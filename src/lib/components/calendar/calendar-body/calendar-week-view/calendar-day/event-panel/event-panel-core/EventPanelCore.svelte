@@ -75,7 +75,7 @@
 >
 	<div class="flex items-center gap-1">
 		{#if event.goal?.icon}
-			<GoalIcon class="h-4 w-4" name={event.goal.icon} />
+			<GoalIcon name={event.goal.icon} class="h-4 w-4" />
 		{/if}
 		<span class="truncate pr-3 font-semibold">
 			{getTitle()}
@@ -89,8 +89,8 @@
 		onclick={(e) => e.stopPropagation()}
 	>
 		<input
-			checked={event.isDone}
 			class="rounded border-gray-300 focus:ring-indigo-600"
+			checked={event.isDone}
 			onchange={() => toggleEvent(event, targetDate)}
 			type="checkbox"
 		/>

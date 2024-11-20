@@ -27,8 +27,8 @@
 		<span class={labelClass}>{label}</span>
 	{/if}
 	<input
-		class:cursor-not-allowed={disabled}
 		class="{inputClass} block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+		class:cursor-not-allowed={disabled}
 		bind:value
 		{...rest}
 		oninput={(e) => oninput?.(e.currentTarget.value)}

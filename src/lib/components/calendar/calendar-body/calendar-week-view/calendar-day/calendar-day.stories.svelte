@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import CalendarDay from './CalendarDay.svelte';
@@ -12,9 +12,9 @@
 </script>
 
 <Story
+	name="Primary"
 	args={{
 		date: new Date(),
 		create: (time: string) => console.log('time', time),
 	}}
-	name="Primary"
 />

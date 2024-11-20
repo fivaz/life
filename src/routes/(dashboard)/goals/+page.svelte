@@ -59,12 +59,11 @@
 									{#each goalsByDate[date] as goal (goal)}
 										<DBCollection
 											collection="{DB_PATH.GOALS}/{goal.id}/{DB_PATH.TASKS}"
-											type={taskType}
 											schema={taskSchema}
+											type={taskType}
 										>
 											{#snippet data(tasks)}
 												<GoalRow
-													{goal}
 													addTask={() => {
 														isTaskFormOpen = true;
 														editingTask = buildTimedTask(categories, goal);
@@ -77,6 +76,7 @@
 														isTaskFormOpen = true;
 														editingTask = task;
 													}}
+													{goal}
 													{tasks}
 												/>
 											{/snippet}
@@ -87,11 +87,11 @@
 
 							<Modal bind:isOpen={isTaskFormOpen}>
 								<TaskForm
-									{userId}
 									{categories}
-									{goals}
 									close={() => (isTaskFormOpen = false)}
+									{goals}
 									task={editingTask}
+									{userId}
 								/>
 							</Modal>
 						{/snippet}
@@ -99,7 +99,7 @@
 				</ul>
 
 				<Modal bind:isOpen={isFormOpen}>
-					<GoalForm goal={editingGoal} close={() => (isFormOpen = false)} {userId} />
+					<GoalForm close={() => (isFormOpen = false)} goal={editingGoal} {userId} />
 				</Modal>
 			</div>
 		</div>

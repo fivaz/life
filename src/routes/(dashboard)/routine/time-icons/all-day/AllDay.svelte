@@ -41,11 +41,11 @@
 </script>
 
 <div class="relative overflow-hidden {klass}">
-	<div class="absolute {klass}" style="transform: translateY({$redY}px);">
+	<div style="transform: translateY({$redY}px);" class="absolute {klass}">
 		<Morning class={klass} />
 	</div>
 
-	<div class="absolute {klass}" style="transform: translateY({$blueY}px);">
+	<div style="transform: translateY({$blueY}px);" class="absolute {klass}">
 		<Evening class={klass} />
 	</div>
 </div>

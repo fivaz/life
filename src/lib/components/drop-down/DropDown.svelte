@@ -52,7 +52,7 @@
 </script>
 
 <div class="relative flex text-left">
-	<button bind:this={button} type="button" class="w-full" onclick={toggleIsOpen}>
+	<button bind:this={button} class="w-full" onclick={toggleIsOpen} type="button">
 		{@render children()}
 	</button>
 
@@ -66,9 +66,9 @@
 			{#each list as item}
 				<li>
 					<button
-						type="button"
 						class="{itemClass} flex w-full items-center gap-2 px-3 py-1 text-left text-sm leading-6 hover:bg-gray-50"
 						onclick={item.onclick}
+						type="button"
 					>
 						{#if item.icon}
 							<item.icon class="h-4 w-auto" />

@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import GoalForm from './GoalForm.svelte';
@@ -11,6 +11,6 @@
 </script>
 
 <Story
-	args={{ userId: '0', goal: buildEmptyGoal(), close: () => console.log('closed') }}
 	name="Primary"
+	args={{ userId: '0', goal: buildEmptyGoal(), close: () => console.log('closed') }}
 />

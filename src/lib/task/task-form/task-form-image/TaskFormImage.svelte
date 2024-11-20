@@ -31,8 +31,8 @@
 				<!--normally I wouldn't need to restate the z-index of the Modal to its children, but due to an unknown bug I have to-->
 				<div class="z-20 rounded-lg bg-white p-2 shadow">
 					<img
-						alt="event description"
 						class="max-w-11/12 h-auto max-h-[90vh] w-auto object-contain"
+						alt="event description"
 						src={taskIn.value.image}
 					/>
 				</div>
@@ -46,7 +46,7 @@
 	<label
 		class="inline-flex w-full justify-center gap-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 	>
-		<input accept="image/*" class="hidden" name="avatar" onchange={handleChange} type="file" />
+		<input name="avatar" class="hidden" accept="image/*" onchange={handleChange} type="file" />
 		{#if taskIn.value.image}
 			Change image
 		{:else}

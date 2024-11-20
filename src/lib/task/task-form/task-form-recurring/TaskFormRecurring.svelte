@@ -31,7 +31,7 @@
 	{#if taskIn.value.isRecurring && isRecurringOpen}
 		<div transition:slide>
 			<div class="flex flex-col gap-3 pt-2">
-				<Select bind:value={taskIn.value.recurringFrequency} label="Frequency">
+				<Select label="Frequency" bind:value={taskIn.value.recurringFrequency}>
 					{#snippet placeholder()}
 						<div class="flex items-center gap-3">{taskIn.value.recurringFrequency}</div>
 					{/snippet}
@@ -49,7 +49,7 @@
 					</div>
 				{/if}
 
-				<Input bind:value={taskIn.value.recurringEndAt} label="End at" type="date" />
+				<Input label="End at" type="date" bind:value={taskIn.value.recurringEndAt} />
 
 				<MultiDatePicker label="Exceptions on" bind:value={taskIn.value.recurringExceptions} />
 			</div>

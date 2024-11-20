@@ -33,8 +33,8 @@
 <Dialog
 	cancelText={dialog.value.cancelText}
 	confirmText={dialog.value.confirmText}
+	isOpen={dialog.value.show}
 	message={dialog.value.message}
 	resolve={dialog.value.resolve}
-	isOpen={dialog.value.show}
 	title={dialog.value.title}
 />

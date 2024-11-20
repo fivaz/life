@@ -63,7 +63,7 @@
 
 		<div class="flex flex-col gap-2 text-gray-700">
 			<div class="relative">
-				<Input inputClass="pr-10 w-full" bind:value={goalIn.name} placeholder="Name" />
+				<Input inputClass="pr-10 w-full" placeholder="Name" bind:value={goalIn.name} />
 				<div class="absolute right-0 top-0 p-2.5">
 					<GoalIcon class="h-5 w-5" icon={getIcon(goalIn.icon)} />
 				</div>
@@ -73,16 +73,16 @@
 				class="flex items-center gap-2"
 				inputClass="flex-1"
 				label="Deadline"
-				bind:value={goalIn.deadline}
 				required
 				type="date"
+				bind:value={goalIn.deadline}
 			/>
 
 			<div class="rounded-lg border border-gray-200 p-2">
-				<Toggle bind:value={goalIn.isDone} label="Is complete" />
+				<Toggle label="Is complete" bind:value={goalIn.isDone} />
 			</div>
 
-			<IconSelector bind:value={goalIn.icon} name="icon" />
+			<IconSelector name="icon" bind:value={goalIn.icon} />
 		</div>
 	</div>
 
@@ -90,8 +90,8 @@
 		{#if isEditing}
 			<ConfirmButton
 				color="red"
-				confirmByKey="Delete"
 				confirm={() => deleteGoal(goal.id, userId, close)}
+				confirmByKey="Delete"
 				type="button"
 			>
 				Delete

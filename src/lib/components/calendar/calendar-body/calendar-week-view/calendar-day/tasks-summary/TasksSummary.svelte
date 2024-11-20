@@ -49,5 +49,5 @@
 {/if}
 
 <Modal bind:isOpen>
-	<DayTasksList {date} close={() => (isOpen = false)} tasks={workTasks} />
+	<DayTasksList close={() => (isOpen = false)} {date} tasks={workTasks} />
 </Modal>

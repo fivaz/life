@@ -40,7 +40,7 @@
 	}}
 />
 
-<Modal {close} {isOpen} isDialog>
+<Modal {close} isDialog {isOpen}>
 	<div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
 		<div
 			class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6"
@@ -52,14 +52,14 @@
 					type="button"
 				>
 					<span class="sr-only">Close</span>
-					<Icon aria-hidden="true" class="h-6 w-6" src={XMark} />
+					<Icon class="h-6 w-6" aria-hidden="true" src={XMark} />
 				</button>
 			</div>
 			<div class="flex flex-col items-center sm:flex-row">
 				<div
 					class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
 				>
-					<Icon aria-hidden="true" class="h-6 w-6 text-red-600" src={ExclamationTriangle} />
+					<Icon class="h-6 w-6 text-red-600" aria-hidden="true" src={ExclamationTriangle} />
 				</div>
 				<div class="mt-3 flex flex-col gap-2 text-center sm:ml-4 sm:mt-0 sm:text-left">
 					<!--pr-6 to prevent the X button to cover the end of the title-->

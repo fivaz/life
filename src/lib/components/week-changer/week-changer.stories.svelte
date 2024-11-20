@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import WeekChanger from './WeekChanger.svelte';
@@ -13,4 +13,4 @@
 	import { startOfWeek } from 'date-fns';
 </script>
 
-<Story args={{ weekStart: startOfWeek(new Date()), selectedDate: new Date() }} name="Primary" />
+<Story name="Primary" args={{ weekStart: startOfWeek(new Date()), selectedDate: new Date() }} />

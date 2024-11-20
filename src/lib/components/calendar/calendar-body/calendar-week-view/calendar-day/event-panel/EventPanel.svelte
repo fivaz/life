@@ -147,8 +147,8 @@
 
 <div
 	bind:this={container}
-	class={clsx(klass, EVENT_PANEL_CLASS, 'absolute rounded-lg')}
 	style="{getHeight(event)} {getTop(event)} {getDivision(event, eventsGrid)}"
+	class={clsx(klass, EVENT_PANEL_CLASS, 'absolute rounded-lg')}
 >
 	<EventPanelCore {event} {isSelected} {targetDate} />
 </div>

@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import MultiDatePicker from './MultiDatePicker.svelte';
@@ -10,4 +10,4 @@
 	const value = $state([]);
 </script>
 
-<Story args={{ label: 'Label', value }} name="Primary" />
+<Story name="Primary" args={{ label: 'Label', value }} />

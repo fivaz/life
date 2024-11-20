@@ -17,9 +17,9 @@
 
 <DBCollection
 	collection={DB_PATH.GOALS}
+	constrains={orderBy('deadline')}
 	schema={goalSchema}
 	type={goalType}
-	constrains={orderBy('deadline')}
 >
 	{#snippet data(items, userId)}
 		{@render typedData(items, userId)}

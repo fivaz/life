@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import RoutineForm from './RoutineForm.svelte';
@@ -11,8 +11,8 @@
 </script>
 
 <Story
+	name="Primary"
 	args={{
 		routine: buildEmptyRoutine(),
 	}}
-	name="Primary"
 />

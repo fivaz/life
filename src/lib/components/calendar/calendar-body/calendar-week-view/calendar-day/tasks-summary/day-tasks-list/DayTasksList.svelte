@@ -61,7 +61,7 @@
 
 	<ul class="overflow-auto py-3">
 		{#each tasks as task, index (task)}
-			<DayTaskItem {task} {index} {date} />
+			<DayTaskItem {date} {index} {task} />
 		{/each}
 	</ul>
 

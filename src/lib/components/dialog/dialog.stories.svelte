@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 	import type { ComponentProps } from 'svelte';
 
@@ -31,6 +31,7 @@
 {/snippet}
 
 <Story
+	name="Primary"
 	args={{
 		cancelText: 'Custom Cancel',
 		confirmText: 'Custom Confirm',
@@ -38,13 +39,12 @@
 		isOpen: true,
 		title: 'Delete event ?',
 	}}
-	name="Primary"
 />
 
 <Story
+	name="No Message"
 	args={{
 		isOpen: true,
 		title: 'Delete?',
 	}}
-	name="No Message"
 />

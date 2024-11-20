@@ -14,7 +14,7 @@
 	let categoryType: Category;
 </script>
 
-<DBCollection schema={categorySchema} collection={DB_PATH.CATEGORIES} type={categoryType}>
+<DBCollection collection={DB_PATH.CATEGORIES} schema={categorySchema} type={categoryType}>
 	{#snippet data(items, userId)}
 		{@render typedData(items, userId)}
 	{/snippet}

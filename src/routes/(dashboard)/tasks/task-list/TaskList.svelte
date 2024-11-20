@@ -97,7 +97,7 @@
 	>
 		{#each tasks as task (task.id)}
 			<!--recurring tasks shouldn't be draggable-->
-			<TaskRow isDraggable={isNotRecurrent} {edit} {task} {userId} />
+			<TaskRow {edit} isDraggable={isNotRecurrent} {task} {userId} />
 		{/each}
 		{#if isDroppable}
 			<li

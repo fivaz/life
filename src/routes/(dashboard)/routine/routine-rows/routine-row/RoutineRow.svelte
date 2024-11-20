@@ -34,7 +34,7 @@
 		<div aria-label="drag-handle for {routine.name}" use:dragHandle>
 			<GripVertical class="h-5 w-auto" />
 		</div>
-		<GoalIcon class="h-5 w-auto" name={routine.icon} />
+		<GoalIcon name={routine.icon} class="h-5 w-auto" />
 		<span class="flex-1 truncate text-sm font-semibold">{routine.name}</span>
 	</div>
 

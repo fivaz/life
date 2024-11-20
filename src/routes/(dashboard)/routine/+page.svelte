@@ -66,13 +66,13 @@
 
 	<div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
 		<div class="flex h-full w-full flex-col gap-5">
-			<RoutineHeader bind:weekStart={weekStart.value} {routines} bind:selectedDate />
+			<RoutineHeader {routines} bind:weekStart={weekStart.value} bind:selectedDate />
 
 			<WeekListSelector
-				bind:selectedDate
+				{previousWeekStart}
 				{routines}
 				weekStart={weekStart.value}
-				{previousWeekStart}
+				bind:selectedDate
 			/>
 
 			{#if routines.length}

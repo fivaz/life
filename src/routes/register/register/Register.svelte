@@ -52,7 +52,7 @@
 	</div>
 
 	<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-		<Alert class="mb-3" isVisible={!!errorMessage} close={() => (errorMessage = '')} type="error">
+		<Alert class="mb-3" close={() => (errorMessage = '')} isVisible={!!errorMessage} type="error">
 			{errorMessage}
 		</Alert>
 
@@ -63,7 +63,7 @@
 						<h3 class="block text-center text-sm font-medium leading-6 text-gray-900">
 							Your Avatar
 						</h3>
-						<img alt="your avatar" class="h-10 w-auto" src={photoURL} />
+						<img class="h-10 w-auto" alt="your avatar" src={photoURL} />
 					</div>
 				{/if}
 				<div>
@@ -72,9 +72,9 @@
 					</label>
 					<div class="mt-2">
 						<input
-							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							id="name"
 							name="displayName"
+							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							type="text"
 							bind:value={name}
 						/>
@@ -86,12 +86,12 @@
 					</label>
 					<div class="mt-2">
 						<input
-							autocomplete="email"
-							bind:value={email}
-							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							id="email"
 							name="email"
+							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+							autocomplete="email"
 							type="email"
+							bind:value={email}
 						/>
 					</div>
 				</div>
@@ -102,10 +102,10 @@
 					</label>
 					<div class="mt-2">
 						<input
-							autocomplete="current-password"
-							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							id="password"
 							name="password"
+							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+							autocomplete="current-password"
 							type="password"
 							bind:value={password}
 						/>
@@ -136,24 +136,24 @@
 
 				<div class="mt-6 grid grid-cols-2 gap-4">
 					<Button
-						onclick={googleSignIn}
-						isLoading={isLoading.google}
-						disabled={isDisabled}
-						type="button"
-						color="none"
 						class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
+						color="none"
+						disabled={isDisabled}
+						isLoading={isLoading.google}
+						onclick={googleSignIn}
+						type="button"
 					>
 						<GoogleIcon />
 						<span class="text-sm/6 font-semibold">Google</span>
 					</Button>
 
 					<Button
-						isLoading={isLoading.github}
+						class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
+						color="none"
 						disabled={isDisabled}
+						isLoading={isLoading.github}
 						onclick={githubSignIn}
 						type="button"
-						color="none"
-						class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
 					>
 						<GithubIcon />
 						<span class="text-sm/6 font-semibold">GitHub</span>

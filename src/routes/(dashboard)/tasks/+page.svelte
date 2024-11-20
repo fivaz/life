@@ -70,7 +70,6 @@
 						<ul class="flex flex-col gap-3">
 							{#each sortedTasksByDate as dateGroup (dateGroup)}
 								<TaskList
-									label={dateGroup}
 									create={(date) => {
 										openForm();
 										editingTask = buildUntimedTaskWithDateSet(categories, date);
@@ -79,6 +78,7 @@
 										openForm();
 										editingTask = task;
 									}}
+									label={dateGroup}
 									tasks={sortedTasksByDate[dateGroup]}
 									{userId}
 								/>
@@ -94,7 +94,7 @@
 				<DBGoalsForTaskForm>
 					{#snippet data(goals)}
 						<Modal bind:isOpen={isFormShown}>
-							<TaskForm {userId} {categories} {goals} close={closeForm} task={editingTask} />
+							<TaskForm {categories} close={closeForm} {goals} task={editingTask} {userId} />
 						</Modal>
 					{/snippet}
 				</DBGoalsForTaskForm>

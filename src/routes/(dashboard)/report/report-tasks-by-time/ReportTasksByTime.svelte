@@ -59,10 +59,10 @@
 	<div class="flex items-center justify-between">
 		<h2 class="text-base font-semibold leading-5 text-gray-600">Tasks by {intervalKey}</h2>
 		<Select
-			bind:value={interval}
 			class="flex w-40 items-center gap-2"
 			label="Interval"
 			selectClass="grow"
+			bind:value={interval}
 		>
 			{#snippet placeholder()}
 				<span class="lowercase">{intervalKey}</span>

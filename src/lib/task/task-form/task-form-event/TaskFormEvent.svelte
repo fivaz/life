@@ -46,23 +46,23 @@
 		<div transition:slide>
 			<div class="flex gap-3">
 				<Input
-					bind:value={taskIn.value.startTime}
+					name="startTime"
 					class="w-1/2"
 					label="Start at"
-					name="startTime"
 					oninput={(value) => (taskIn.value.endTime = sumTimes(value, taskIn.value.duration))}
 					required
 					type="time"
+					bind:value={taskIn.value.startTime}
 				/>
 
 				<Input
-					bind:value={taskIn.value.endTime}
+					name="endTime"
 					class="w-1/2"
 					label="End at"
-					name="endTime"
 					oninput={(value) => (taskIn.value.duration = getDuration(taskIn.value.startTime, value))}
 					required
 					type="time"
+					bind:value={taskIn.value.endTime}
 				/>
 			</div>
 		</div>

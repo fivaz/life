@@ -15,12 +15,12 @@
 </script>
 
 <div class="rounded-lg bg-white p-2">
-	<button type="button" class="flex w-full justify-between" onclick={() => (isOpen = !isOpen)}>
+	<button class="flex w-full justify-between" onclick={() => (isOpen = !isOpen)} type="button">
 		<span>{title}</span>
 		<Icon class="h-5 w-5 {isOpen ? 'rotate-90 transform' : ''}" src={ChevronRight} />
 	</button>
 	{#if isOpen}
-		<div transition:slide class="flex flex-col gap-2 pt-2 text-gray-500">
+		<div class="flex flex-col gap-2 pt-2 text-gray-500" transition:slide>
 			{@render children()}
 		</div>
 	{/if}

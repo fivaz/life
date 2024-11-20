@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 	import type { ComponentProps, Snippet } from 'svelte';
 
@@ -29,33 +29,33 @@
 {/snippet}
 
 <Story
+	name="Success"
 	args={{
 		type: 'success',
 		children: textAsSnippet('Successfully uploaded'),
 	}}
-	name="Success"
 />
 
 <Story
+	name="Info"
 	args={{
 		type: 'info',
 		children: textAsSnippet('A new software update is available. See what’s new in version 2.0.4'),
 	}}
-	name="Info"
 />
 
 <Story
+	name="Warning"
 	args={{
 		type: 'warning',
 		children: textAsSnippet('You have no credits left'),
 	}}
-	name="Warning"
 />
 
 <Story
+	name="Error"
 	args={{
 		type: 'error',
 		children: textAsSnippet('There were 2 errors with your submission'),
 	}}
-	name="Error"
 />

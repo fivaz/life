@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import { categories } from '$lib/category/category.seed';
@@ -21,38 +21,38 @@
 	<Dialog
 		cancelText={dialog.value.cancelText}
 		confirmText={dialog.value.confirmText}
+		isOpen={dialog.value.show}
 		message={dialog.value.message}
 		resolve={dialog.value.resolve}
-		isOpen={dialog.value.show}
 		title={dialog.value.title}
 	/>
 	<div class="w-96">
-		<TaskForm {goals} {categories} userId="" close={() => console.log('closed')} {...args} />
+		<TaskForm {categories} close={() => console.log('closed')} {goals} userId="" {...args} />
 	</div>
 {/snippet}
 
 <Story
+	name="Create Event"
 	args={{
 		targetDate: formatDate(new Date()),
 		task: buildTimedTask(categories),
 	}}
-	name="Create Event"
 	children={template}
 />
 
 <Story
+	name="Edit event"
 	args={{
 		targetDate: formatDate(new Date()),
 		task: normalWithSubTasks,
 	}}
-	name="Edit event"
 	children={template}
 />
 
 <Story
+	name="Create ToDo"
 	args={{
 		task: buildUntimedTask(categories),
 	}}
-	name="Create ToDo"
 	children={template}
 />

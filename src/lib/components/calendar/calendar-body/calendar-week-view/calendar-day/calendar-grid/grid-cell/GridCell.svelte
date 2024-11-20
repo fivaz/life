@@ -30,6 +30,7 @@
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
+	style="height: {GRID_CELL_HEIGHT}px"
 	class={clsx(GRID_CLASS, klass, {
 		'border-b': isSomethingDragging.value,
 		'rounded-md border border-dashed border-violet-500': isSameTime,
@@ -37,7 +38,6 @@
 	data-date={targetDate}
 	data-time={time}
 	onclick={() => !isSomethingDragging.value && create(time)}
-	style="height: {GRID_CELL_HEIGHT}px"
 ></div>
 
 <style>

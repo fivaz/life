@@ -20,9 +20,9 @@
 		{#each weekDays.value as date (date)}
 			<CalendarDay
 				class="hidden md:flex"
+				create={(time) => createTask(buildDate(date, time))}
 				{date}
 				{tasks}
-				create={(time) => createTask(buildDate(date, time))}
 			/>
 		{/each}
 	</div>
@@ -31,9 +31,9 @@
 
 <div class="mb-5 block grow border border-b md:hidden">
 	<CalendarDay
-		{tasks}
 		class="block md:hidden"
-		date={selectedDate.value}
 		create={(time) => createTask(buildDate(selectedDate.value, time))}
+		date={selectedDate.value}
+		{tasks}
 	/>
 </div>

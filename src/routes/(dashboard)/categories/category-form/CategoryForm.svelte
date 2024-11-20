@@ -60,7 +60,7 @@
 		</Alert>
 
 		<div class="flex flex-col gap-2 text-sm font-medium text-gray-700">
-			<Input autocomplete="off" class="flex-1" placeholder="Name" bind:value={categoryIn.name} />
+			<Input class="flex-1" autocomplete="off" placeholder="Name" bind:value={categoryIn.name} />
 
 			{#snippet categoryItem(color: Category['color'])}
 				<div class="flex items-center gap-3">
@@ -70,11 +70,11 @@
 			{/snippet}
 
 			<Select
-				bind:value={categoryIn.color}
 				class="flex items-center"
 				label="Category"
 				labelClass="w-1/5"
 				selectClass="flex-1"
+				bind:value={categoryIn.color}
 			>
 				{#snippet placeholder()}
 					{@render categoryItem(categoryIn.color)}
@@ -86,11 +86,11 @@
 			</Select>
 
 			<Select
-				bind:value={categoryIn.type}
 				class="flex items-center"
 				label="Type"
 				labelClass="w-1/5"
 				selectClass="flex-1"
+				bind:value={categoryIn.type}
 			>
 				{#snippet placeholder()}
 					<div class="flex items-center gap-5">{categoryIn.type}</div>
@@ -104,7 +104,7 @@
 			</Select>
 
 			<div class="rounded-lg bg-white p-2">
-				<Toggle bind:value={categoryIn.isDefault} label="default" />
+				<Toggle label="default" bind:value={categoryIn.isDefault} />
 			</div>
 		</div>
 	</div>
@@ -114,8 +114,8 @@
 			<ConfirmButton
 				color="red"
 				confirm={() => deleteCategory(category.id, userId, close)}
-				type="button"
 				confirmByKey="Delete"
+				type="button"
 			>
 				Delete
 			</ConfirmButton>

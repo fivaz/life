@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 
 	import { longRecurring } from '$lib/task/task.seed';
@@ -24,4 +24,4 @@
 	</div>
 {/snippet}
 
-<Story args={{}} name="Primary" children={template} />
+<Story name="Primary" args={{}} children={template} />

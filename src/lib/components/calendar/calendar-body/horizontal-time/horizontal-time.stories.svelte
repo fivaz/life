@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import HorizontalTime from './HorizontalTime.svelte';
@@ -8,6 +8,6 @@
 	});
 </script>
 
-<Story args={{}} name="Primary">
+<Story name="Primary" args={{}}>
 	<HorizontalTime><div></div></HorizontalTime>
 </Story>

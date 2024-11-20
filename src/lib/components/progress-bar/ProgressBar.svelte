@@ -14,8 +14,8 @@
 	<div class="font-semibold">{percentage}%</div>
 	<div class="{klass} h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
 		<div
-			class="h-2.5 rounded-full bg-indigo-600 dark:bg-indigo-500"
 			style={`width: ${percentage}%`}
+			class="h-2.5 rounded-full bg-indigo-600 dark:bg-indigo-500"
 		></div>
 	</div>
 </div>

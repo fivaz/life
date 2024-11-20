@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import ToDoList from './DayTasksList.svelte';
@@ -8,4 +8,4 @@
 	});
 </script>
 
-<Story args={{ tasks: [], close: () => console.log('close'), date: new Date() }} name="Primary" />
+<Story name="Primary" args={{ tasks: [], close: () => console.log('close'), date: new Date() }} />

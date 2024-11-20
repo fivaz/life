@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import Loading from './Loading.svelte';
@@ -11,7 +11,7 @@
 	});
 </script>
 
-<Story args={{}} name="Primary">
+<Story name="Primary" args={{}}>
 	<div class="h-screen w-full">
 		<Loading />
 	</div>

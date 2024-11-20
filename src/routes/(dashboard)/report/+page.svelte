@@ -17,8 +17,8 @@
 <DBCollection
 	collection={DB_PATH.TASKS}
 	constrains={where('category.type', '==', 'work')}
-	type={taskType}
 	schema={categorySchema}
+	type={taskType}
 >
 	{#snippet data(tasks)}
 		<div class="py-4">

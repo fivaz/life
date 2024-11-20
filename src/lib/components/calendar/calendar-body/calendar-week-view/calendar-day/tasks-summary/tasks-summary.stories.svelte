@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 	import type { ComponentProps } from 'svelte';
 
@@ -24,8 +24,8 @@
 	</div>
 {/snippet}
 
-<Story args={{ tasks: [workToDo] }} name="OneDueToDo" />
+<Story name="OneDueToDo" args={{ tasks: [workToDo] }} />
 
-<Story args={{ tasks: [birthdayToDo] }} name="OneToDo" />
+<Story name="OneToDo" args={{ tasks: [birthdayToDo] }} />
 
-<Story args={{ tasks: toDos }} name="ManyToDos" />
+<Story name="ManyToDos" args={{ tasks: toDos }} />

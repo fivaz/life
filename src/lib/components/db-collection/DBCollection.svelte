@@ -1,4 +1,4 @@
-<script lang="ts" generics="T">
+<script generics="T" lang="ts">
 	import {
 		collection,
 		onSnapshot,

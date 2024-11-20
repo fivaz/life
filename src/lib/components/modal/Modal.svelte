@@ -41,8 +41,8 @@
 	<Portal target="body">
 		<div class="fixed inset-0 z-20 flex items-center justify-center">
 			<button
-				aria-label="modal background"
 				class="absolute inset-0 bg-black opacity-50"
+				aria-label="modal background"
 				onclick={close}
 			></button>
 			{@render children()}

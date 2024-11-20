@@ -75,7 +75,7 @@
 	<div class="p-4">
 		<div class="flex items-start">
 			<div class="flex-shrink-0">
-				<Icon aria-hidden="true" class="h-6 w-6 text-green-400" src={CheckCircle} />
+				<Icon class="h-6 w-6 text-green-400" aria-hidden="true" src={CheckCircle} />
 			</div>
 			<div class="ml-3 w-0 flex-1 pt-0.5">
 				{#if task.goal}
@@ -103,7 +103,7 @@
 					type="button"
 				>
 					<span class="sr-only">Close</span>
-					<Icon aria-hidden="true" class="h-5 w-5" src={XMark} />
+					<Icon class="h-5 w-5" aria-hidden="true" src={XMark} />
 				</button>
 			</div>
 		</div>

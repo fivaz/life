@@ -70,16 +70,16 @@
 			{#snippet data(goals)}
 				<Modal bind:isOpen={isFormShown}>
 					<TaskForm
-						{userId}
 						{categories}
-						{goals}
 						close={() => (isFormShown = false)}
-						task={editingTask}
+						{goals}
 						{targetDate}
+						task={editingTask}
+						{userId}
 					/>
 				</Modal>
 			{/snippet}
 		</DBGoalsForTaskForm>
-		<TaskCompletedNotificationStack bind:completedTasks {userId} />
+		<TaskCompletedNotificationStack {userId} bind:completedTasks />
 	{/snippet}
 </DBCategories>

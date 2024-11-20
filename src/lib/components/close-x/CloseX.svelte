@@ -15,5 +15,5 @@
 	type="button"
 >
 	<span class="sr-only">Dismiss</span>
-	<Icon aria-hidden="true" class="h-5 w-5" src={XMark} />
+	<Icon class="h-5 w-5" aria-hidden="true" src={XMark} />
 </button>

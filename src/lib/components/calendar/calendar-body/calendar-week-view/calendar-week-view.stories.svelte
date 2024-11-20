@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import { events } from '$lib/task/task.seed';
@@ -14,8 +14,8 @@
 </script>
 
 <Story
+	name="Primary"
 	args={{
 		tasks: events,
 	}}
-	name="Primary"
 />

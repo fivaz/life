@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import Button from '$lib/components/form/button/Button.svelte';
@@ -23,13 +23,13 @@
 {/snippet}
 
 <Story
-	args={{ position: 'top-right', list, itemClass: 'text-center' }}
 	name="Top right"
+	args={{ position: 'top-right', list, itemClass: 'text-center' }}
 	children={template}
 />
 
-<Story args={{ position: 'top-left', list }} name="Top left" children={template} />
+<Story name="Top left" args={{ position: 'top-left', list }} children={template} />
 
-<Story args={{ position: 'bottom-right', list }} name="Bottom right" children={template} />
+<Story name="Bottom right" args={{ position: 'bottom-right', list }} children={template} />
 
-<Story args={{ position: 'bottom-left', list }} name="Bottom left" children={template} />
+<Story name="Bottom left" args={{ position: 'bottom-left', list }} children={template} />

@@ -36,8 +36,8 @@
 				onclick={() => editTask(task)}
 			>
 				<span
-					class:line-through={task.isDone}
 					class="flex w-[calc(100%-64px)] items-center gap-3 truncate"
+					class:line-through={task.isDone}
 				>
 					<Icon class="h-6 w-6 text-gray-400" src={CalendarDays} theme="solid" />
 					<span class="hidden w-20 md:block">{showDate(task)}</span>

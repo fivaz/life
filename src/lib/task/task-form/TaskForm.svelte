@@ -147,9 +147,9 @@
 				<div class="flex items-center">
 					<DropDown
 						class="w-48"
-						position="bottom-left"
 						itemClass="text-gray-700"
 						list={optionsList}
+						position="bottom-left"
 					>
 						<div class="rounded-md p-1 hover:bg-gray-200">
 							<Icon class="h-5 w-auto" src={EllipsisVertical} />
@@ -164,7 +164,7 @@
 			</Alert>
 
 			<!--name-->
-			<Input autocomplete="off" bind:value={taskIn.value.name} class="flex-1" placeholder="Name" />
+			<Input class="flex-1" autocomplete="off" placeholder="Name" bind:value={taskIn.value.name} />
 
 			<!--image-->
 			<Collapsable title="Image">
@@ -175,21 +175,21 @@
 			<Collapsable title="Description">
 				<label class="block text-sm text-gray-700">
 					<textarea
-						value={taskIn.value.description}
 						class="block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 						oninput={(e) => (taskIn.value.description = formatSubTasks(e.currentTarget.value))}
 						placeholder="Create subtasks for this task using bullet points with `-`. Fill in the boxes to mark them as completed."
+						value={taskIn.value.description}
 					></textarea>
 				</label>
 			</Collapsable>
 
 			<!--category-->
 			<Select
-				bind:value={taskIn.value.category}
 				class="flex items-center"
 				label="Category"
 				labelClass="w-1/5"
 				selectClass="flex-1"
+				bind:value={taskIn.value.category}
 			>
 				{#snippet placeholder()}
 					<div class="flex items-center gap-3">
@@ -211,11 +211,11 @@
 
 			<!--goal-->
 			<Select
-				bind:value={taskIn.value.goal}
 				class="flex items-center"
 				label="Goal"
 				labelClass="w-1/5"
 				selectClass="flex-1"
+				bind:value={taskIn.value.goal}
 			>
 				{#snippet placeholder()}
 					{taskIn.value.goal?.name || 'no goal'}
@@ -223,7 +223,7 @@
 				<SelectItem value={null}>no goal</SelectItem>
 				{#each goals as goal (goal)}
 					<SelectItem class="flex gap-2" value={goal}>
-						<GoalIcon class="h-5 w-5" name={goal.icon} />
+						<GoalIcon name={goal.icon} class="h-5 w-5" />
 						<span class="w-[calc(100%-20px)] truncate">{goal.name}</span>
 					</SelectItem>
 				{/each}
@@ -231,15 +231,15 @@
 
 			<!--date AND duration-->
 			<div class="flex gap-3">
-				<Input bind:value={taskIn.value.date} class="w-1/2" label="Date" type="date" />
+				<Input class="w-1/2" label="Date" type="date" bind:value={taskIn.value.date} />
 
 				<Input
-					bind:value={taskIn.value.duration}
 					class="w-1/2"
 					label="Duration"
 					oninput={(input) => (taskIn.value.endTime = sumTimes(taskIn.value.startTime, input))}
 					required
 					type="time"
+					bind:value={taskIn.value.duration}
 				/>
 			</div>
 
@@ -251,7 +251,7 @@
 
 	<div class="flex justify-between bg-gray-50 px-4 py-3 text-right sm:px-6">
 		{#if isEditing}
-			<ConfirmButton color="red" confirmByKey="Delete" confirm={removeTask} type="button">
+			<ConfirmButton color="red" confirm={removeTask} confirmByKey="Delete" type="button">
 				Delete
 			</ConfirmButton>
 		{:else}

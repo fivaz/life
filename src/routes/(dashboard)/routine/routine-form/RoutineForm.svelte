@@ -49,7 +49,7 @@
 
 		<div class="flex flex-col gap-2 text-gray-700">
 			<!--name-->
-			<Input autocomplete="off" bind:value={routineIn.name} class="flex-1" placeholder="Name" />
+			<Input class="flex-1" autocomplete="off" placeholder="Name" bind:value={routineIn.name} />
 
 			{#snippet item(time: Routine['time'])}
 				{@const item = routineTimeMap[time]}
@@ -65,11 +65,11 @@
 
 			<!--time-->
 			<Select
-				bind:value={routineIn.time}
 				class="flex items-center"
 				label="Time"
 				labelClass="w-1/5"
 				selectClass="flex-1"
+				bind:value={routineIn.time}
 			>
 				{#snippet placeholder()}
 					{@render item(routineIn.time)}
@@ -80,7 +80,7 @@
 			</Select>
 
 			<!--icon-->
-			<IconSelector bind:value={routineIn.icon} name="icon" />
+			<IconSelector name="icon" bind:value={routineIn.icon} />
 		</div>
 	</div>
 
@@ -88,8 +88,8 @@
 		{#if isEditing}
 			<ConfirmButton
 				color="red"
-				confirmByKey="Delete"
 				confirm={() => deleteRoutine(routine.id, currentUser.uid, close)}
+				confirmByKey="Delete"
 				type="button"
 			>
 				Delete

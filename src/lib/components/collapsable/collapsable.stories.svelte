@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import Collapsable from './Collapsable.svelte';
@@ -8,7 +8,7 @@
 	});
 </script>
 
-<Story args={{}} name="Primary">
+<Story name="Primary" args={{}}>
 	<div class="bg-gray-100 p-2">
 		<div class="h-96 w-96">
 			<Collapsable title="Test">

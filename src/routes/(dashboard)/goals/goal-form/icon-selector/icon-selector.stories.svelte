@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import IconSelector from './IconSelector.svelte';
@@ -11,4 +11,4 @@
 	});
 </script>
 
-<Story args={{ name: 'Fire' }} name="Primary" />
+<Story name="Primary" args={{ name: 'Fire' }} />

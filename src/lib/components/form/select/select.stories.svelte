@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { type Args, defineMeta } from '@storybook/addon-svelte-csf';
 
 	import { categories } from '$lib/category/category.seed';
@@ -28,6 +28,6 @@
 	</div>
 {/snippet}
 
-<Story args={{ label: 'Label' }} name="With Label" children={template} />
+<Story name="With Label" args={{ label: 'Label' }} children={template} />
 
-<Story args={{}} name="Without Label" children={template} />
+<Story name="Without Label" args={{}} children={template} />

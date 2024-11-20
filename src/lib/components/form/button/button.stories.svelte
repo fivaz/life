@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { Trash } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { type Args, defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
@@ -33,21 +33,21 @@
 {/snippet}
 
 <Story
+	name="Primary"
 	args={{
 		color: 'indigo',
 		disabled: false,
 		isLoading: false,
 		isOnlyIcon: false,
 	}}
-	name="Primary"
 />
 
 <Story
+	name="With only Icon"
 	args={{
 		color: 'indigo',
 		disabled: false,
 		isLoading: false,
 		isOnlyIcon: true,
 	}}
-	name="With only Icon"
 />

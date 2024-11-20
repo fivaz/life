@@ -85,7 +85,7 @@
 		</h2>
 	</div>
 	<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-		<Alert isVisible={!!success} close={() => (success = false)} type="success">
+		<Alert close={() => (success = false)} isVisible={!!success} type="success">
 			Profile successfully edited
 		</Alert>
 		<div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
@@ -93,14 +93,14 @@
 				<div class="col-span-full">
 					<h3 class="block text-sm font-medium leading-6 text-gray-900">Avatar</h3>
 					<div class="flex items-center gap-x-3">
-						<img alt="Your avatar" class="inline-block h-12 w-12" src={photoURL} />
+						<img class="inline-block h-12 w-12" alt="Your avatar" src={photoURL} />
 						<label
 							class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
 						>
 							<input
-								accept="image/*"
-								class="hidden"
 								name="avatar"
+								class="hidden"
+								accept="image/*"
 								onchange={handleChange}
 								type="file"
 							/>
@@ -113,12 +113,12 @@
 				<div>
 					<div class="mt-2">
 						<Input
-							bind:value={displayName}
 							id="name"
-							label="Full name"
 							name="name"
+							label="Full name"
 							required
 							type="text"
+							bind:value={displayName}
 						/>
 					</div>
 				</div>
@@ -126,10 +126,10 @@
 				<div>
 					<div class="mt-2">
 						<Input
-							disabled
 							id="username"
-							label="Email address"
 							name="username"
+							disabled
+							label="Email address"
 							required
 							type="email"
 							value={user.email || ''}

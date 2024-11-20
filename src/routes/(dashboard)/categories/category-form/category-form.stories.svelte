@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import CategoryForm from './CategoryForm.svelte';
@@ -11,9 +11,9 @@
 </script>
 
 <Story
+	name="Primary"
 	args={{
 		category: buildEmptyCategory(),
 		userId: '0',
 	}}
-	name="Primary"
 />

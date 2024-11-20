@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import Toggle from './Toggle.svelte';
@@ -9,16 +9,16 @@
 </script>
 
 <Story
+	name="Enable"
 	args={{
 		value: true,
 	}}
-	name="Enable"
 />
 
 <Story
+	name="Disabled"
 	args={{
 		label: 'Toggle',
 		value: false,
 	}}
-	name="Disabled"
 />

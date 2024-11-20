@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import WeekList from './WeekList.svelte';
@@ -8,4 +8,4 @@
 	});
 </script>
 
-<Story args={{}} name="Primary" />
+<Story name="Primary" args={{}} />

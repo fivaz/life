@@ -1,6 +1,5 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
-	import type { ComponentProps } from 'svelte';
 
 	import { formatDate } from '$lib/date.utils.svelte.js';
 	import {
@@ -23,6 +22,8 @@
 			targetDate: formatDate(new Date()),
 		},
 	});
+
+	import type { ComponentProps } from 'svelte';
 </script>
 
 <script lang="ts">
@@ -36,23 +37,23 @@
 {/snippet}
 
 <Story
-	args={{ event: normalWithoutDescriptionWithGoal }}
 	name="Normal without description with goal"
+	args={{ event: normalWithoutDescriptionWithGoal }}
 />
 
 <Story
-	args={{ event: normalWithoutDescriptionWithoutGoal }}
 	name="Normal without description without goal"
+	args={{ event: normalWithoutDescriptionWithoutGoal }}
 />
 
-<Story args={{ event: normalWithDescription }} name="Normal with a description" />
+<Story name="Normal with a description" args={{ event: normalWithDescription }} />
 
-<Story args={{ event: normalWithSubTasks }} name="Normal with sub tasks" />
+<Story name="Normal with sub tasks" args={{ event: normalWithSubTasks }} />
 
-<Story args={{ event: shortWithoutDescription }} name="Short without description" />
+<Story name="Short without description" args={{ event: shortWithoutDescription }} />
 
-<Story args={{ event: shortWithDescription }} name="Short with a description" />
+<Story name="Short with a description" args={{ event: shortWithDescription }} />
 
-<Story args={{ event: shortWithSubTasks }} name="Short with sub tasks" />
+<Story name="Short with sub tasks" args={{ event: shortWithSubTasks }} />
 
-<Story args={{ event: longRecurring }} name="Long recurring" />
+<Story name="Long recurring" args={{ event: longRecurring }} />

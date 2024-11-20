@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import TaskFormEvent from './TaskFormEvent.svelte';
@@ -8,7 +8,7 @@
 	});
 </script>
 
-<Story args={{}} name="Primary">
+<Story name="Primary" args={{}}>
 	<div class="w-72">
 		<TaskFormEvent />
 	</div>

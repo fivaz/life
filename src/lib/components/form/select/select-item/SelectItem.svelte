@@ -29,7 +29,7 @@
 		<span
 			class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600 group-hover:text-white"
 		>
-			<Icon aria-hidden="true" class="h-5 w-5 group-hover:text-white" src={Check} />
+			<Icon class="h-5 w-5 group-hover:text-white" aria-hidden="true" src={Check} />
 		</span>
 	{/if}
 </li>

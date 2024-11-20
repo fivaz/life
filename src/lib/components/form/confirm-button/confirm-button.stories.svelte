@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { type Args, defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
@@ -19,13 +19,13 @@
 	<Dialog
 		cancelText={dialog.value.cancelText}
 		confirmText={dialog.value.confirmText}
+		isOpen={dialog.value.show}
 		message={dialog.value.message}
 		resolve={dialog.value.resolve}
-		isOpen={dialog.value.show}
 		title={dialog.value.title}
 	/>
 
 	<ConfirmButton {...args} confirm={() => console.log('confirmed')}>button</ConfirmButton>
 {/snippet}
 
-<Story args={{}} name="Primary" />
+<Story name="Primary" args={{}} />

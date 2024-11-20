@@ -19,9 +19,9 @@
 	];
 </script>
 
-<DropDown class="w-32" position="top-right" {list}>
+<DropDown class="w-32" {list} position="top-right">
 	<span class="flex items-center gap-2 rounded-lg p-2 hover:bg-gray-50">
-		<img alt="avatar" class="h-8 w-8 rounded-full" src={currentUser.photoURL} />
+		<img class="h-8 w-8 rounded-full" alt="avatar" src={currentUser.photoURL} />
 		<span class="text-sm font-semibold text-gray-900">{currentUser.displayName}</span>
 	</span>
 </DropDown>

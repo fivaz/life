@@ -16,9 +16,9 @@
 </script>
 
 <DBCollection
-	schema={taskSchema}
-	constrains={where('isDone', '==', false)}
 	collection={DB_PATH.TASKS}
+	constrains={where('isDone', '==', false)}
+	schema={taskSchema}
 	type={taskType}
 >
 	{#snippet data(items, userId)}

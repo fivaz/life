@@ -40,7 +40,7 @@
 		</span>
 
 		{#if task.goal?.icon}
-			<GoalIcon class="h-4 w-8 pr-3 text-gray-400" name={task.goal.icon} />
+			<GoalIcon name={task.goal.icon} class="h-4 w-8 pr-3 text-gray-400" />
 		{/if}
 		<span class="w-12">{task.duration}</span>
 		<span class="flex w-16 justify-center">

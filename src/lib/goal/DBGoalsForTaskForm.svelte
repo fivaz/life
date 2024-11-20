@@ -20,10 +20,10 @@
 </script>
 
 <DBCollection
-	schema={goalSchema}
 	collection={DB_PATH.GOALS}
-	type={goalType}
 	constrains={where('isDone', '==', false)}
+	schema={goalSchema}
+	type={goalType}
 >
 	{#snippet data(items, userId)}
 		{@render typedData(sortGoals(items), userId)}

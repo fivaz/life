@@ -39,10 +39,10 @@
 	<div class="w-full">
 		<div class={'flex items-center justify-between px-3 pb-2'}>
 			<div
-				class:line-through={goal.isDone}
 				class="flex w-[calc(100%-70px)] items-center gap-2 truncate"
+				class:line-through={goal.isDone}
 			>
-				<GoalIcon class="h-5 w-5 text-indigo-600" name={goal.icon} />
+				<GoalIcon name={goal.icon} class="h-5 w-5 text-indigo-600" />
 				<span>{goal.name}</span>
 			</div>
 

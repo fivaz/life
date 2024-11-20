@@ -58,8 +58,8 @@
 		<div class="flex">
 			<div class="flex-shrink-0">
 				<Icon
-					aria-hidden="true"
 					class="{typeElements[type].button} h-5 w-5"
+					aria-hidden="true"
 					src={typeElements[type].icon}
 				/>
 			</div>
@@ -76,7 +76,7 @@
 							type="button"
 						>
 							<span class="sr-only">Dismiss</span>
-							<Icon aria-hidden="true" class="h-5 w-5" src={XMark} />
+							<Icon class="h-5 w-5" aria-hidden="true" src={XMark} />
 						</button>
 					</div>
 				</div>

@@ -25,9 +25,9 @@
 		<div class="flex flex-col items-center gap-1">
 			<label class="text-sm font-medium text-gray-700" for={day}>{day}</label>
 			<input
-				checked={taskIn.value.recurringDaysOfWeek.includes(day)}
-				class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
 				id={day}
+				class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+				checked={taskIn.value.recurringDaysOfWeek.includes(day)}
 				onchange={() => handleCheckboxChange(day)}
 				type="checkbox"
 			/>
