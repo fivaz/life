@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { clsx } from 'clsx';
 	import interact from 'interactjs';
-	import { getContext, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
 	import {
 		GRID_CELL_HEIGHT,
@@ -18,6 +18,7 @@
 		getCellSizeFromDuration,
 		hasMoved,
 	} from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/service';
+	import { getEditTask, getMoveEvent } from '$lib/components/calendar/service.svelte';
 	import type { yyyyMMdd } from '$lib/date.utils.svelte';
 	import type { TimedTask } from '$lib/task/task.model';
 
@@ -44,9 +45,9 @@
 		interactivePanel?.styleCursor(isSelected);
 	});
 
-	const editTask = getContext('editTask');
+	const editTask = getEditTask();
 
-	const moveEvent = getContext('moveEvent');
+	const moveEvent = getMoveEvent();
 
 	function onMove({ dx, dy, target }: { dx: number; dy: number; target: HTMLElement }) {
 		if (!isSelected) return;

@@ -1,20 +1,16 @@
 <script lang="ts">
 	import { format } from 'date-fns';
 	import { Plus } from 'lucide-svelte';
-	import { getContext } from 'svelte';
 
+import { getChangeWeek, getCreateTask } from '$lib/components/calendar/service.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 	import { currentDate, formatDate, selectedDate, weekStart } from '$lib/date.utils.svelte';
 	import { getCurrentRoundedDate } from '$lib/task/time-utils';
 
-	const createTask = getContext('createTask');
+	const createTask = getCreateTask();
 
-	function createEvent() {
-		createTask(getCurrentRoundedDate());
-	}
-
-	const changeWeekCallback = getContext('changeWeek');
+	const changeWeekCallback = getChangeWeek();
 
 	$effect(() => {
 		changeWeekCallback(weekStart.value);
@@ -44,7 +40,7 @@
 
 		<div class="hidden h-7 border-r border-gray-300 md:block"></div>
 
-		<Button onclick={createEvent} type="button">
+		<Button onclick={() => createTask(getCurrentRoundedDate())} type="button">
 			<Plus class="h-4 w-auto" />
 			<span class="hidden md:block">Add event</span>
 		</Button>

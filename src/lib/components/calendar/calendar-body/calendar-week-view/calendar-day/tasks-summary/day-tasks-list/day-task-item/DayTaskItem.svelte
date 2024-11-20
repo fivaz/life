@@ -2,8 +2,8 @@
 	import { CalendarClock, CalendarDays } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
-	import { getContext } from 'svelte';
 
+import { getEditTask } from '$lib/components/calendar/service.svelte';
 	import { formatDate } from '$lib/date.utils.svelte';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import type { CalendarTask } from '$lib/task/task.model';
@@ -15,7 +15,7 @@
 		index: number;
 	}
 
-	const editTask = getContext('editTask');
+	const editTask = getEditTask();
 
 	let { task, date, index }: Props = $props();
 </script>

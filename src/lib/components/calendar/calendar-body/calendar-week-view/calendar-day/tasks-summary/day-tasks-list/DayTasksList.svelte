@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { addDays, parse } from 'date-fns';
-	import { getContext } from 'svelte';
 
-	import DayTaskItem from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/tasks-summary/day-tasks-list/day-task-item/DayTaskItem.svelte';
+import DayTaskItem from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/tasks-summary/day-tasks-list/day-task-item/DayTaskItem.svelte';
+	import { getPersistTasks } from '$lib/components/calendar/service.svelte';
 	import { DATE, formatDate } from '$lib/date.utils.svelte';
 	import type { CalendarTask } from '$lib/task/task.model';
 	import { isRecurring, isTimed } from '$lib/task/task.model';
@@ -21,6 +21,8 @@
 	let uncompletedDuration = $derived(getTotalDuration(uncompletedTasks));
 
 	let doneDuration = $derived(getTotalDuration(tasks.filter((toDo) => toDo.isDone === true)));
+
+	const persistTasks = getPersistTasks();
 
 	$effect(() => {
 		if (tasks.length === 0) {
@@ -42,8 +44,6 @@
 
 		persistTasks(untimedTasksUpdated);
 	}
-
-	const persistTasks = getContext('persistTasks');
 </script>
 
 <div

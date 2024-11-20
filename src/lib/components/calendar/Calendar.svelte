@@ -1,23 +1,31 @@
 <script lang="ts">
-	import { setContext } from 'svelte';
-
-	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
-	import { getNextRoundedTime } from '$lib/components/calendar/service.svelte';
+	
+import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
+	import type { MoveEventType } from '$lib/components/calendar/service.svelte';
+	import {
+		getNextRoundedTime,
+		setChangeWeek,
+		setCreateTask,
+		setEditTask,
+		setMoveEvent,
+		setPersistTasks,
+		setToggleEvent,
+	} from '$lib/components/calendar/service.svelte';
+	import type { yyyyMMdd } from '$lib/date.utils.svelte';
 	import { currentDate } from '$lib/date.utils.svelte';
 	import type { Task } from '$lib/task/task.model';
 
-	import type { Context } from '../../../app';
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
 
 	interface Props {
 		tasks: Task[];
-		changeWeek: Context['changeWeek'];
-		createTask: Context['createTask'];
-		editTask: Context['editTask'];
-		persistTasks: Context['persistTasks'];
-		toggleEvent: Context['toggleEvent'];
-		moveEvent: Context['moveEvent'];
+		changeWeek: (weekStart: Date) => void;
+		createTask: (date: Date) => void;
+		editTask: (task: Task, date: yyyyMMdd) => void;
+		persistTasks: (tasks: Task[]) => void;
+		toggleEvent: (event: Task, targetDate: yyyyMMdd) => void;
+		moveEvent: MoveEventType;
 	}
 
 	let { tasks, changeWeek, createTask, editTask, persistTasks, toggleEvent, moveEvent }: Props =
@@ -25,12 +33,12 @@
 
 	let timeUntilNextUpdate = $state(getNextRoundedTime());
 
-	setContext('createTask', createTask);
-	setContext('editTask', editTask);
-	setContext('moveEvent', moveEvent);
-	setContext('persistTasks', persistTasks);
-	setContext('toggleEvent', toggleEvent);
-	setContext('changeWeek', changeWeek);
+	setChangeWeek(changeWeek);
+	setCreateTask(createTask);
+	setEditTask(editTask);
+	setMoveEvent(moveEvent);
+	setPersistTasks(persistTasks);
+	setToggleEvent(toggleEvent);
 
 	$effect(() => {
 		const interval = setInterval(() => {

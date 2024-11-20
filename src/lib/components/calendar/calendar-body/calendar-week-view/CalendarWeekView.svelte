@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
-
-	import CalendarDay from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/CalendarDay.svelte';
+	
+import CalendarDay from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/CalendarDay.svelte';
+	import { getCreateTask } from '$lib/components/calendar/service.svelte';
 	import { selectedDate, weekDates } from '$lib/date.utils.svelte';
 	import type { Task } from '$lib/task/task.model';
 	import { buildDate } from '$lib/task/time-utils';
@@ -12,7 +12,7 @@
 
 	let { tasks }: Props = $props();
 
-	const createTask = getContext('createTask');
+	const createTask = getCreateTask();
 </script>
 
 <div class="hidden grow md:flex">
