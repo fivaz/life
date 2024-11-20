@@ -2,6 +2,7 @@
 	import { Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Check, Flame, GripVertical, Undo2 } from 'lucide-svelte';
+	import { fly } from 'svelte/transition';
 	import { dragHandle } from 'svelte-dnd-action';
 
 	import type { yyyyMMdd } from '$lib/date.utils.svelte';
@@ -24,43 +25,53 @@
 	let streak = $derived<number>(getStreak(routine, selectedDate));
 
 	const openRoutineForm = getOpenRoutineForm();
+
+	const slideDuration = 200;
+
+	const slideDirection = 1;
 </script>
 
-<div
-	class="{statusColor[status]}
-	flex justify-between rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-200"
->
-	<div class="flex flex-1 items-center gap-2 truncate">
-		<div aria-label="drag-handle for {routine.name}" use:dragHandle>
-			<GripVertical class="h-5 w-auto" />
-		</div>
-		<GoalIcon name={routine.icon} class="h-5 w-auto" />
-		<span class="flex-1 truncate text-sm font-semibold">{routine.name}</span>
-	</div>
-
-	<div class="flex w-28 justify-end gap-2">
-		<div class="flex items-center gap-1">
-			<span>{streak}</span>
-			<Flame class="h-4 w-auto text-red-500" />
-		</div>
-
-		<button
-			class="rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
-			onclick={() => toggleRoutineCompletion(routine, selectedDate, currentUser.uid)}
-			type="button"
+<div class="relative h-10">
+	{#key selectedDate}
+		<div
+			class="{statusColor[status]}
+	absolute flex w-full justify-between rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-200"
+			in:fly={{ x: 900 * slideDirection, duration: slideDuration }}
+			out:fly={{ x: 900 * slideDirection * -1, duration: slideDuration }}
 		>
-			{#if status === 'completed'}
-				<Undo2 class="h-4 w-4" />
-			{:else}
-				<Check class="h-4 w-4" />
-			{/if}
-		</button>
-		<button
-			class="rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
-			onclick={() => openRoutineForm(routine)}
-			type="button"
-		>
-			<Icon class="h-4 w-4" src={Settings2} />
-		</button>
-	</div>
+			<div class="flex flex-1 items-center gap-2 truncate">
+				<div aria-label="drag-handle for {routine.name}" use:dragHandle>
+					<GripVertical class="h-5 w-auto" />
+				</div>
+				<GoalIcon name={routine.icon} class="h-5 w-auto" />
+				<span class="flex-1 truncate text-sm font-semibold">{routine.name}</span>
+			</div>
+
+			<div class="flex w-28 justify-end gap-2">
+				<div class="flex items-center gap-1">
+					<span>{streak}</span>
+					<Flame class="h-4 w-auto text-red-500" />
+				</div>
+
+				<button
+					class="rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
+					onclick={() => toggleRoutineCompletion(routine, selectedDate, currentUser.uid)}
+					type="button"
+				>
+					{#if status === 'completed'}
+						<Undo2 class="h-4 w-4" />
+					{:else}
+						<Check class="h-4 w-4" />
+					{/if}
+				</button>
+				<button
+					class="rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
+					onclick={() => openRoutineForm(routine)}
+					type="button"
+				>
+					<Icon class="h-4 w-4" src={Settings2} />
+				</button>
+			</div>
+		</div>
+	{/key}
 </div>
