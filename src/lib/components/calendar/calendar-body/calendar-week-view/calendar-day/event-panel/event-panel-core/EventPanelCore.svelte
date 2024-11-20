@@ -9,7 +9,7 @@
 	import type { yyyyMMdd } from '$lib/date.utils.svelte.js';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import type { TimedTask } from '$lib/task/task.model';
-	import { getCompletedTasks, getDurationInMinutes, getSubTasks } from '$lib/task/task.utils';
+	import { getDurationInMinutes, getSubTasks, getSubTasksCompleted } from '$lib/task/task.utils';
 	import { roundTo15 } from '$lib/task/time-utils';
 
 	interface Props {
@@ -49,7 +49,7 @@
 		const subtasks = getSubTasks(event);
 
 		if (subtasks?.length) {
-			const completedTasks = getCompletedTasks(subtasks);
+			const completedTasks = getSubTasksCompleted(subtasks);
 
 			title += ` + ${completedTasks}/${subtasks.length}`;
 		} else if (event.description) {
@@ -99,9 +99,8 @@
 	<div class="overflow-hidden">
 		<div>
 			<time
-				class="{tailwindColorMap[event.category.color].lightText} {tailwindColorMap[
-					event.category.color
-				].hoverText}"
+				class="{tailwindColorMap[event.category.color].lightText}
+								{tailwindColorMap[event.category.color].hoverText}"
 				dateTime={`${event.date}T${event.startTime}`}
 			>
 				{format(parse(event.startTime, TIME, new Date()), 'p')}

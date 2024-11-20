@@ -1,7 +1,5 @@
-import { format } from 'date-fns';
-
 import type { Category } from '$lib/category/category.model';
-import { TIME } from '$lib/date.utils.svelte';
+import { formatTime } from '$lib/date.utils.svelte';
 import { formatDate } from '$lib/date.utils.svelte.js';
 import type { Goal } from '$lib/goal/goal.model';
 import type { Task } from '$lib/task/task.model';
@@ -9,7 +7,7 @@ import type { Task } from '$lib/task/task.model';
 export function buildTimedTask(categories: Category[], goal: Goal | null = null): Task {
 	const now = new Date();
 	return Object.assign(buildUntimedTask(categories, now, goal), {
-		startTime: format(now, TIME),
+		startTime: formatTime(now),
 	});
 }
 
@@ -19,7 +17,7 @@ export function buildUntimedTaskWithDateSet(categories: Category[], date: Date):
 
 export function buildTimedTaskWithTimeSet(categories: Category[], date: Date): Task {
 	return Object.assign(buildUntimedTask(categories, date), {
-		startTime: format(date, TIME),
+		startTime: formatTime(date),
 	});
 }
 

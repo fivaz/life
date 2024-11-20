@@ -20,7 +20,7 @@ export function getSubTasks(task: Task): SubTask[] {
 	return subTasks;
 }
 
-export function getCompletedTasks(subtasks: SubTask[]): number {
+export function getSubTasksCompleted(subtasks: SubTask[]): number {
 	return subtasks.filter((subtask) => subtask.isDone).length;
 }
 
