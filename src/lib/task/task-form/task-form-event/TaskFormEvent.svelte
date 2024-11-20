@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { differenceInMinutes, format } from 'date-fns';
+	import { differenceInMinutes } from 'date-fns';
 	import { slide } from 'svelte/transition';
 
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
-	import { TIME } from '$lib/date.utils.svelte';
+	import { formatTime } from '$lib/date.utils.svelte';
 	import { taskIn } from '$lib/task/task-form/service.svelte';
 	import { sumTimes } from '$lib/task/time-utils';
 
@@ -25,7 +25,7 @@
 		const totalHours = Math.floor(totalMinutes / 60);
 		const remainingMinutes = totalMinutes % 60;
 
-		return format(new Date(0, 0, 0, totalHours, remainingMinutes), TIME);
+		return formatTime(new Date(0, 0, 0, totalHours, remainingMinutes));
 	}
 
 	function togglePanel() {

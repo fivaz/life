@@ -4,7 +4,7 @@
 	import { CheckCheck } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
 
-	import { DATE } from '$lib/date.utils.svelte';
+	import { formatDate } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 
 	interface Props {
@@ -19,7 +19,7 @@
 	const dates = $derived<Date[]>(Array.from({ length: 7 }, (_, i) => addDays(weekStart, i)));
 
 	function isCompleted(selectedDate: Date, routines: Routine[]): boolean {
-		const dateString = format(selectedDate, DATE);
+		const dateString = formatDate(selectedDate);
 		return routines.every((routine) =>
 			routine.completeHistory.some(({ date, isCompleted }) => date === dateString && isCompleted),
 		);

@@ -16,7 +16,7 @@ import {
 	subYears,
 } from 'date-fns';
 
-import { DATE } from '$lib/date.utils.svelte';
+import { DATE, formatDate } from '$lib/date.utils.svelte';
 import type { Task } from '$lib/task/task.model';
 import { sortTasks } from '$lib/task/task.utils';
 import { getTaskDateTime } from '$lib/task/time-utils';
@@ -85,7 +85,7 @@ export function getUncompletedTasksByDate(
 	};
 
 	if (!tasks.length) {
-		return { ...uncompletedTasksByDate, [format(new Date(), DATE)]: 0 };
+		return { ...uncompletedTasksByDate, [formatDate(new Date())]: 0 };
 	}
 
 	const listEndAt = getEndAt(tasks);
@@ -97,7 +97,7 @@ export function getUncompletedTasksByDate(
 		const dateRange = getDatesInRange(interval, createdAt, endAt);
 
 		dateRange.forEach((date) => {
-			const dateString = format(date, DATE);
+			const dateString = formatDate(date);
 
 			if (!uncompletedTasksByDate[dateString]) {
 				uncompletedTasksByDate[dateString] = 0;
@@ -149,7 +149,7 @@ function getBeforeFirstDate(labels: string[], interval: ReportInterval) {
 			return format(subYears(firstDate, 1), interval);
 		default:
 			console.error('Invalid interval:', interval);
-			return format(subDays(firstDate, 1), DATE);
+			return formatDate(subDays(firstDate, 1));
 	}
 }
 

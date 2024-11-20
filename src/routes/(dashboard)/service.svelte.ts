@@ -1,9 +1,8 @@
-import { format } from 'date-fns';
 import type { QuerySnapshot } from 'firebase/firestore';
 import { onSnapshot } from 'firebase/firestore';
 
 import type { HHmm, yyyyMMdd } from '$lib/date.utils.svelte';
-import { DATE } from '$lib/date.utils.svelte';
+import { formatDate } from '$lib/date.utils.svelte';
 import type { Task } from '$lib/task/task.model';
 import { isRecurring, taskSchema } from '$lib/task/task.model';
 import { editTask, queryWeekTasks } from '$lib/task/task.repository';
@@ -45,7 +44,7 @@ export const tasks = {
 };
 
 export function getWeekTasks(userId: string, startOfWeek: Date): void {
-	const weekStartString = format(startOfWeek, DATE);
+	const weekStartString = formatDate(startOfWeek);
 	// only fetch tasks for other weeks that haven't been fetched previously
 	if (!tasksWeekHashMap[weekStartString]) {
 		subscribeToWeekTasks(userId, startOfWeek);
@@ -53,7 +52,7 @@ export function getWeekTasks(userId: string, startOfWeek: Date): void {
 }
 
 export function subscribeToWeekTasks(userId: string, startOfWeek: Date) {
-	const startOfWeekString = format(startOfWeek, DATE);
+	const startOfWeekString = formatDate(startOfWeek);
 	tasksWeekHashMap[startOfWeekString] = { unique: [], recurring: [] };
 
 	const [recurringQuery, uniqueQuery] = queryWeekTasks(userId, startOfWeek);

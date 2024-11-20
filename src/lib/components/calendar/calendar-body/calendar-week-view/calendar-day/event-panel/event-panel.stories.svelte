@@ -1,10 +1,9 @@
 <script lang="ts" module>
 	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
-	import { format } from 'date-fns';
 	import type { ComponentProps } from 'svelte';
 
 	import type { yyyyMMdd } from '$lib/date.utils.svelte';
-	import { DATE } from '$lib/date.utils.svelte';
+	import { formatDate } from '$lib/date.utils.svelte';
 	import {
 		longRecurring,
 		normalWithDescription,
@@ -22,7 +21,7 @@
 		component: EventPanel,
 		args: {
 			class: '!static',
-			targetDate: format(new Date(), DATE) as yyyyMMdd,
+			targetDate: formatDate(new Date()) as yyyyMMdd,
 		},
 	});
 </script>

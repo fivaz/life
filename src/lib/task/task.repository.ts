@@ -1,10 +1,10 @@
-import { endOfWeek, format } from 'date-fns';
+import { endOfWeek } from 'date-fns';
 import type { DocumentReference, Query } from 'firebase/firestore';
 import { collection, deleteDoc, doc, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 import { DB_PATH } from '$lib/consts';
-import { DATE, weekStartsOn } from '$lib/date.utils.svelte';
+import { formatDate, weekStartsOn } from '$lib/date.utils.svelte';
 import { db, storage } from '$lib/firebase';
 import type { Goal } from '$lib/goal/goal.model';
 import type { Task } from '$lib/task/task.model';
@@ -118,8 +118,8 @@ export function addExceptionToRecurring(
 }
 
 export function queryWeekTasks(userId: string, startOfWeek: Date): [Query<Task>, Query<Task>] {
-	const startOfWeekString = format(startOfWeek, DATE);
-	const endOfWeekString = format(endOfWeek(startOfWeek, { weekStartsOn }), DATE);
+	const startOfWeekString = formatDate(startOfWeek);
+	const endOfWeekString = formatDate(endOfWeek(startOfWeek, { weekStartsOn }));
 	const tasksRef = collection(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}`);
 	return [
 		query(tasksRef, where('recurringFrequency', '!=', '')) as Query<Task>,

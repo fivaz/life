@@ -1,7 +1,7 @@
-import { format, lastDayOfQuarter } from 'date-fns';
+import { lastDayOfQuarter } from 'date-fns';
 import { z } from 'zod';
 
-import { DATE, zDate } from '$lib/date.utils.svelte';
+import { formatDate, zDate } from '$lib/date.utils.svelte';
 
 export type Goal = {
 	deadline: string;
@@ -13,7 +13,7 @@ export type Goal = {
 
 export function buildEmptyGoal(): Goal {
 	return {
-		deadline: format(lastDayOfQuarter(new Date()), DATE),
+		deadline: formatDate(lastDayOfQuarter(new Date())),
 		icon: 'Fire',
 		id: '',
 		isDone: false,

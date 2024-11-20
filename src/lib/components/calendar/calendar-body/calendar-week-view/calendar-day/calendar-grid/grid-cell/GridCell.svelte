@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { clsx } from 'clsx';
-	import { format } from 'date-fns';
 
-	import { currentDate, DATE, TIME } from '$lib/date.utils.svelte';
+import { currentDate, formatDate, formatTime } from '$lib/date.utils.svelte';
 	import { convertMinutesToTime } from '$lib/task/time-utils';
 
 	import { GRID_CELL_HEIGHT, GRID_CLASS, isSomethingDragging } from '../service.svelte';
@@ -19,8 +18,8 @@
 	let time = $derived(convertMinutesToTime(cellNumber * 15));
 
 	let isSameTime = $derived.by(() => {
-		const currentDateValue = format(currentDate.value, DATE);
-		const currentTime = format(currentDate.value, TIME);
+		const currentDateValue = formatDate(currentDate.value);
+		const currentTime = formatTime(currentDate.value);
 		return currentTime === time && currentDateValue === targetDate;
 	});
 </script>

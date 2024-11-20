@@ -1,4 +1,4 @@
-import { addMinutes, format, subMinutes } from 'date-fns';
+import { addMinutes, subMinutes } from 'date-fns';
 
 import {
 	GRID_CELL_HEIGHT,
@@ -7,7 +7,7 @@ import {
 } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 import { EVENT_PANEL_CLASS } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
 import type { HHmm, yyyyMMdd } from '$lib/date.utils.svelte';
-import { formatTime, TIME } from '$lib/date.utils.svelte';
+import { formatTime } from '$lib/date.utils.svelte';
 import type { Task } from '$lib/task/task.model';
 import { getDurationInMinutes } from '$lib/task/task.utils';
 
@@ -73,7 +73,7 @@ function getDateTimeFromLastGridCell(
 	const totalTime = totalGrids * GRID_CELL_TIME;
 
 	const startTimeDate = subMinutes(endTimeDate, totalTime);
-	return { date: dateTime.date, startTime: format(startTimeDate, TIME) };
+	return { date: dateTime.date, startTime: formatTime(startTimeDate) };
 }
 
 function getDateTimeFromFirstGridCell(

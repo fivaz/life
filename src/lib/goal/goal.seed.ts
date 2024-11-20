@@ -1,11 +1,11 @@
-import { format, lastDayOfQuarter, lastDayOfYear } from 'date-fns';
+import { lastDayOfQuarter, lastDayOfYear } from 'date-fns';
 
-import { DATE } from '$lib/date.utils.svelte';
+import { formatDate } from '$lib/date.utils.svelte';
 import type { Goal } from '$lib/goal/goal.model';
 
 let id = 0;
 export const learnToDrive: Goal = {
-	deadline: format(lastDayOfQuarter(new Date()), DATE),
+	deadline: formatDate(lastDayOfQuarter(new Date())),
 	icon: 'Car',
 	id: `${id++}`,
 	isDone: true,
@@ -13,7 +13,7 @@ export const learnToDrive: Goal = {
 };
 
 export const sleepEarly: Goal = {
-	deadline: format(lastDayOfQuarter(new Date()), DATE),
+	deadline: formatDate(lastDayOfQuarter(new Date())),
 	icon: 'Bed',
 	id: `${id++}`,
 	isDone: false,
@@ -21,7 +21,7 @@ export const sleepEarly: Goal = {
 };
 
 export const investMoney: Goal = {
-	deadline: format(lastDayOfYear(new Date()), DATE),
+	deadline: formatDate(lastDayOfYear(new Date())),
 	icon: 'MoneyBill1Wave',
 	id: `${id++}`,
 	isDone: true,
@@ -29,7 +29,7 @@ export const investMoney: Goal = {
 };
 
 export const readTheGospelOfJohn: Goal = {
-	deadline: format(lastDayOfQuarter(new Date()), DATE),
+	deadline: formatDate(lastDayOfQuarter(new Date())),
 	icon: 'Cross',
 	id: `${id++}`,
 	isDone: false,

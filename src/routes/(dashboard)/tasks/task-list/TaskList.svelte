@@ -2,9 +2,9 @@
 	import { Clipboard, ClipboardCopy, ClipboardList, Plus } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
-	import { addDays, addWeeks, format, lastDayOfWeek, parse, subDays } from 'date-fns';
+	import { addDays, addWeeks, lastDayOfWeek, parse, subDays } from 'date-fns';
 
-	import { DATE, DATE_FR, weekStartsOn } from '$lib/date.utils.svelte';
+	import { DATE, DATE_FR, formatDate, weekStartsOn } from '$lib/date.utils.svelte';
 	import type { Task } from '$lib/task/task.model';
 	import { getTotalDuration } from '$lib/task/time-utils';
 
@@ -31,25 +31,25 @@
 
 	function getDate(label: string): string {
 		if (label === GROUPS.Overdue) {
-			return format(subDays(new Date(), 1), DATE);
+			return formatDate(subDays(new Date(), 1));
 		}
 		if (label === GROUPS.Today) {
-			return format(new Date(), DATE);
+			return formatDate(new Date());
 		}
 		if (label === GROUPS.Tomorrow) {
-			return format(addDays(new Date(), 1), DATE);
+			return formatDate(addDays(new Date(), 1));
 		}
 		if (label === GROUPS.ThisWeek) {
-			return format(lastDayOfWeek(new Date(), { weekStartsOn }), DATE);
+			return formatDate(lastDayOfWeek(new Date(), { weekStartsOn }));
 		}
 		if (label === GROUPS.NextWeek) {
-			return format(lastDayOfWeek(addWeeks(new Date(), 1), { weekStartsOn }), DATE);
+			return formatDate(lastDayOfWeek(addWeeks(new Date(), 1), { weekStartsOn }));
 		}
 		if (label === GROUPS.Someday) {
 			return '';
 		}
 
-		return format(parse(label, DATE_FR, new Date()), DATE);
+		return formatDate(parse(label, DATE_FR, new Date()));
 	}
 
 	export function getNumberOfTasks(tasks: Task[]) {

@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { format, subDays } from 'date-fns';
+	import { subDays } from 'date-fns';
 	import { Flame } from 'lucide-svelte';
 
-	import { DATE } from '$lib/date.utils.svelte';
+	import { formatDate } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 
 	interface Props {
@@ -16,7 +16,7 @@
 	function getRoutinesStreak(routines: Routine[]): number {
 		let streak = 0;
 		let currentDate = new Date();
-		const todayStr = format(currentDate, DATE);
+		const todayStr = formatDate(currentDate);
 
 		if (allRoutinesHaveEntryForDate(routines, todayStr)) {
 			streak++;
@@ -24,7 +24,7 @@
 
 		while (true) {
 			currentDate = subDays(currentDate, 1);
-			const dateStr = format(currentDate, DATE);
+			const dateStr = formatDate(currentDate);
 
 			if (!allRoutinesHaveEntryForDate(routines, dateStr)) {
 				break;

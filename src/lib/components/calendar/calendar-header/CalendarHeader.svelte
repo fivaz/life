@@ -6,7 +6,7 @@
 	import { weekStart } from '$lib/components/calendar/service.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
-	import { currentDate, DATE, selectedDate } from '$lib/date.utils.svelte';
+	import { currentDate, formatDate, selectedDate } from '$lib/date.utils.svelte';
 	import { getCurrentRoundedDate } from '$lib/task/time-utils';
 
 	const createTask = getContext('createTask');
@@ -25,16 +25,16 @@
 <header class="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">
 	<div>
 		<h1 class="flex items-center gap-2 text-base font-semibold leading-6 text-gray-900">
-			<time class="sm:hidden" dateTime={format(selectedDate.value, DATE)}>
+			<time class="sm:hidden" dateTime={formatDate(selectedDate.value)}>
 				{format(selectedDate.value, 'MMM dd, yyyy')}
 			</time>
-			<time class="hidden sm:inline" dateTime={format(selectedDate.value, DATE)}>
+			<time class="hidden sm:inline" dateTime={formatDate(selectedDate.value)}>
 				{format(selectedDate.value, 'MMMM dd, yyyy')}
 			</time>
 		</h1>
 		<div class="mt-1 flex items-center gap-1 text-sm text-gray-500">
 			<p>{format(selectedDate.value, 'eeee')}</p>
-			<time dateTime={format(selectedDate.value, DATE)}>
+			<time dateTime={formatDate(selectedDate.value)}>
 				{format(currentDate.value, 'hh:mm')}
 			</time>
 		</div>
