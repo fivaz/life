@@ -1,6 +1,8 @@
 import { format } from 'date-fns';
 import { z } from 'zod';
 
+import { getDateRoundDownTo15 } from '$lib/task/time-utils';
+
 export const DATE = 'yyyy-MM-dd';
 export const TIME = 'HH:mm';
 
@@ -32,3 +34,7 @@ export const zDate = z.custom<yyyyMMdd>((val) => {
 export const zTime = z.custom<HHmm>((val) => {
 	return typeof val === 'string' ? /^\d{2}:\d{2}$/.test(val) : false;
 });
+
+export const currentDate = $state<{ value: Date }>({ value: getDateRoundDownTo15() });
+
+export const selectedDate = $state<{ value: Date }>({ value: new Date() });
