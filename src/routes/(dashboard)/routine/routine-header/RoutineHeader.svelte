@@ -4,7 +4,7 @@
 
 	import Button from '$lib/components/form/button/Button.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
-	import { formatDate, selectedDate, title } from '$lib/date.utils.svelte';
+	import { formatDate, selectedDate, title, weekStart } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 
 	import { getOpenRoutineForm } from '../routine-rows/service';
@@ -12,10 +12,9 @@
 
 	interface Props {
 		routines: Routine[];
-		weekStart: Date;
 	}
 
-	let { routines, weekStart = $bindable() }: Props = $props();
+	let { routines }: Props = $props();
 
 	const openForm = getOpenRoutineForm();
 </script>
@@ -35,7 +34,7 @@
 			</h1>
 		</div>
 
-		<WeekChanger bind:weekStart bind:selectedDate={selectedDate.value} />
+		<WeekChanger bind:weekStart={weekStart.value} bind:selectedDate={selectedDate.value} />
 
 		<div class="hidden h-7 border-r border-gray-300 sm:inline"></div>
 

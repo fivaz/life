@@ -3,10 +3,9 @@
 	import { Plus } from 'lucide-svelte';
 	import { getContext } from 'svelte';
 
-	import { weekStart } from '$lib/components/calendar/service.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
-	import { currentDate, formatDate, selectedDate } from '$lib/date.utils.svelte';
+	import { currentDate, formatDate, selectedDate, weekStart } from '$lib/date.utils.svelte';
 	import { getCurrentRoundedDate } from '$lib/task/time-utils';
 
 	const createTask = getContext('createTask');

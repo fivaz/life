@@ -1,21 +1,23 @@
 <script lang="ts">
 	import { clsx } from 'clsx';
-	import { addDays, format, isSameDay, isToday } from 'date-fns';
+	import { format, isSameDay, isToday } from 'date-fns';
 	import { CheckCheck } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
 
-	import { formatDate, selectedDate } from '$lib/date.utils.svelte';
+	import {
+		formatDate,
+		previousWeekStart,
+		selectedDate,
+		weekDates,
+		weekStart,
+	} from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 
 	interface Props {
 		routines: Routine[];
-		weekStart: Date;
-		previousWeekStart: Date;
 	}
 
-	let { routines, weekStart, previousWeekStart }: Props = $props();
-
-	const dates = $derived<Date[]>(Array.from({ length: 7 }, (_, i) => addDays(weekStart, i)));
+	let { routines }: Props = $props();
 
 	function isCompleted(selectedDate: Date, routines: Routine[]): boolean {
 		const dateString = formatDate(selectedDate);
@@ -24,17 +26,19 @@
 		);
 	}
 
-	const slideDirection = $derived(weekStart.getTime() > previousWeekStart.getTime() ? 1 : -1);
+	const slideDirection = $derived(
+		weekStart.value.getTime() > previousWeekStart.value.getTime() ? 1 : -1,
+	);
 </script>
 
 <div class="relative h-20 md:h-14">
-	{#key dates}
+	{#key weekDates.value}
 		<div
 			class="absolute grid w-full grid-cols-7 divide-gray-100 border border-gray-100 text-sm leading-6 text-gray-500 md:divide-x"
 			in:fly={{ x: 900 * slideDirection, duration: 800 }}
 			out:fly={{ x: 900 * slideDirection * -1, duration: 800 }}
 		>
-			{#each dates as date (date)}
+			{#each weekDates.value as date (date)}
 				<button
 					class="flex flex-col items-center justify-center gap-1 pb-3 pt-2 hover:bg-indigo-50 md:flex-row"
 					onclick={() => (selectedDate.value = date)}

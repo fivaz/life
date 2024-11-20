@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { addDays, format, startOfWeek } from 'date-fns';
 
 import { getDateRoundDownTo15 } from '$lib/task/time-utils';
 
@@ -28,4 +28,39 @@ export type dateISO = string;
 
 export const currentDate = $state<{ value: Date }>({ value: getDateRoundDownTo15() });
 
-export const selectedDate = $state<{ value: Date }>({ value: new Date() });
+let _selectedDate = $state<Date>(new Date());
+
+// this is used in WeekListSelector to know the right direction for the slide animation
+export const previousDate = $state<{ value: Date }>({ value: new Date() });
+
+export const selectedDate = {
+	get value() {
+		return _selectedDate;
+	},
+	set value(newDate: Date) {
+		previousDate.value = _selectedDate;
+		_selectedDate = newDate;
+	},
+};
+
+let _weekStart = $state<Date>(startOfWeek(currentDate.value, { weekStartsOn }));
+
+export const previousWeekStart = $state<{ value: Date }>({ value: _weekStart });
+
+export const weekStart = {
+	get value() {
+		return _weekStart;
+	},
+	set value(newWeekStart) {
+		previousWeekStart.value = _weekStart;
+		_weekStart = newWeekStart;
+	},
+};
+
+const _weekDates = $derived<Date[]>(Array.from({ length: 7 }, (_, i) => addDays(_weekStart, i)));
+
+export const weekDates = {
+	get value() {
+		return _weekDates;
+	},
+};

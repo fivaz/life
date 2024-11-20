@@ -1,12 +1,11 @@
 <script lang="ts">
-	import { startOfWeek } from 'date-fns';
 	import type { Unsubscribe } from 'firebase/firestore';
 	import { onSnapshot } from 'firebase/firestore';
 
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import type { yyyyMMdd } from '$lib/date.utils.svelte';
-	import { formatDate, selectedDate, title, weekStartsOn } from '$lib/date.utils.svelte';
+	import { formatDate, selectedDate, title } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { buildEmptyRoutine } from '$lib/routine/routine.model';
 	import { currentUser } from '$lib/user/user.utils.svelte';
@@ -18,21 +17,6 @@
 	import { setOpenRoutineForm } from './routine-rows/service';
 	import { getRoutinePath, isLoading, populateRoutines, routinesMap } from './service.svelte';
 	import WeekListSelector from './week-list-selector/WeekListSelector.svelte';
-
-	let _weekStart = $state<Date>(startOfWeek(new Date(), { weekStartsOn }));
-
-	// this is used in WeekListSelector to know the right direction for the slide animation
-	let previousWeekStart = $state<Date>(startOfWeek(new Date(), { weekStartsOn }));
-
-	const weekStart = {
-		get value() {
-			return _weekStart;
-		},
-		set value(value) {
-			previousWeekStart = _weekStart;
-			_weekStart = value;
-		},
-	};
 
 	let editingRoutine = $state<Routine>(buildEmptyRoutine());
 
@@ -66,9 +50,9 @@
 
 	<div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
 		<div class="flex h-full w-full flex-col gap-5">
-			<RoutineHeader {routines} bind:weekStart={weekStart.value} />
+			<RoutineHeader {routines} />
 
-			<WeekListSelector {previousWeekStart} {routines} weekStart={weekStart.value} />
+			<WeekListSelector {routines} />
 
 			{#if routines.length}
 				<RoutineRows selectedDate={selectedDateString} time="morning" title="Morning Routine" />
