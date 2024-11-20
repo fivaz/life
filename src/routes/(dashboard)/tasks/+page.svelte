@@ -80,7 +80,6 @@
 									}}
 									label={dateGroup}
 									tasks={sortedTasksByDate[dateGroup]}
-									{userId}
 								/>
 							{/each}
 						</ul>

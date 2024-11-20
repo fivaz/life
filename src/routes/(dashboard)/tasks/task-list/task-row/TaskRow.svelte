@@ -7,17 +7,17 @@
 	import { tailwindColorMap } from '$lib/category/category.utils';
 	import { DATE_FR, DATE_FR_SHORT } from '$lib/date.utils.svelte';
 	import type { Task } from '$lib/task/task.model';
+	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import { formatDate, HANDLE, hasMoved, startDrag } from './service';
 
 	interface Props {
 		task: Task;
-		userId: string;
 		isDraggable: boolean;
 		edit: (task: Task) => void;
 	}
 
-	let { task, userId, isDraggable, edit }: Props = $props();
+	let { task, isDraggable, edit }: Props = $props();
 
 	let container = $state<HTMLLIElement | null>(null);
 
@@ -35,7 +35,7 @@
 	function endDrag({ client }: { client: { x: number; y: number } }) {
 		if (!container) return;
 
-		const hasChanged = hasMoved(container, task, userId, client);
+		const hasChanged = hasMoved(container, task, currentUser.uid, client);
 
 		if (!hasChanged) {
 			Object.assign(container.style, {

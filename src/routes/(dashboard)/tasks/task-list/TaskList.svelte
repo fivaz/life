@@ -15,12 +15,11 @@
 	interface Props {
 		label: string;
 		tasks: Task[];
-		userId: string;
 		create: (date: Date) => void;
 		edit: (task: Task) => void;
 	}
 
-	let { label, tasks, userId, create, edit }: Props = $props();
+	let { label, tasks, create, edit }: Props = $props();
 
 	let isNotRecurrent = $derived(
 		label !== GROUPS.DailyRecurring &&
@@ -97,7 +96,7 @@
 	>
 		{#each tasks as task (task.id)}
 			<!--recurring tasks shouldn't be draggable-->
-			<TaskRow {edit} isDraggable={isNotRecurrent} {task} {userId} />
+			<TaskRow {edit} isDraggable={isNotRecurrent} {task} />
 		{/each}
 		{#if isDroppable}
 			<li

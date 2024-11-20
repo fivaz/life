@@ -31,6 +31,7 @@
 	import TaskFormRecurring from '$lib/task/task-form/task-form-recurring/TaskFormRecurring.svelte';
 	import { checkErrors, convertToTask, convertToTaskIn } from '$lib/task/task-in-utils';
 	import { sumTimes } from '$lib/task/time-utils';
+	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	interface Props {
 		userId: string;
@@ -60,20 +61,28 @@
 	let formName = $derived(`${isEditing ? 'Edit' : 'Add'} ${isUntimed(task) ? 'Task' : 'Event'}`);
 
 	function handleCreateTask(data: Omit<Task, 'id'>) {
-		addTask(data, userId, file);
+		addTask(data, currentUser.uid, file);
 		close();
 	}
 
 	async function handleEditTask(data: Omit<Task, 'id'>, id: string) {
 		if (
-			await editTaskWithPrompt({ data, id, file, userId, targetDate, formerGoal, wasRecurring })
+			await editTaskWithPrompt({
+				data,
+				id,
+				file,
+				userId: currentUser.uid,
+				targetDate,
+				formerGoal,
+				wasRecurring,
+			})
 		) {
 			close();
 		}
 	}
 
 	async function removeTask() {
-		if (await deletePossibleSingleRecurringEvent(task, userId, targetDate)) {
+		if (await deletePossibleSingleRecurringEvent(task, currentUser.uid, targetDate)) {
 			close();
 		}
 	}
