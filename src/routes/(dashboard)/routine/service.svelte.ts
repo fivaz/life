@@ -48,3 +48,6 @@ export function populateRoutines(snapshot: QuerySnapshot<Routine>) {
 export function getRoutinePath(userId: string) {
 	return collection(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.ROUTINES}`) as Query<Routine>;
 }
+
+// duration of the animation of the week changing in milliseconds
+export const weekChangeDuration = 800;

@@ -4,8 +4,7 @@
 
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import type { yyyyMMdd } from '$lib/date.utils.svelte';
-	import { formatDate, selectedDate, title } from '$lib/date.utils.svelte';
+	import { title } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { buildEmptyRoutine } from '$lib/routine/routine.model';
 	import { currentUser } from '$lib/user/user.utils.svelte';
@@ -21,8 +20,6 @@
 	let editingRoutine = $state<Routine>(buildEmptyRoutine());
 
 	let showForm = $state<boolean>(false);
-
-	const selectedDateString = $derived<yyyyMMdd>(formatDate(selectedDate.value));
 
 	title.value = 'Routine';
 
@@ -55,10 +52,10 @@
 			<WeekListSelector {routines} />
 
 			{#if routines.length}
-				<RoutineRows selectedDate={selectedDateString} time="morning" title="Morning Routine" />
-				<RoutineRows selectedDate={selectedDateString} time="afternoon" title="Afternoon Routine" />
-				<RoutineRows selectedDate={selectedDateString} time="evening" title="Evening Routine" />
-				<RoutineRows selectedDate={selectedDateString} time="all-day" title="All day Routine" />
+				<RoutineRows time="morning" title="Morning Routine" />
+				<RoutineRows time="afternoon" title="Afternoon Routine" />
+				<RoutineRows time="evening" title="Evening Routine" />
+				<RoutineRows time="all-day" title="All day Routine" />
 			{:else}
 				<RoutineEmptyState />
 			{/if}

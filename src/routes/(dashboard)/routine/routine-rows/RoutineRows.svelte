@@ -3,7 +3,6 @@
 	import { flip } from 'svelte/animate';
 	import { dragHandleZone } from 'svelte-dnd-action';
 
-	import type { yyyyMMdd } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { routineTimeMap } from '$lib/routine/routine.model';
 	import { updateRoutines } from '$lib/routine/routine.repository';
@@ -15,10 +14,9 @@
 	interface Props {
 		time: Routine['time'];
 		title: string;
-		selectedDate: yyyyMMdd;
 	}
 
-	let { time, selectedDate, title }: Props = $props();
+	let { time, title }: Props = $props();
 
 	function handleConsider({ detail }: { detail: { items: Routine[] } }) {
 		routinesMap.value[time] = detail.items;
@@ -36,7 +34,7 @@
 
 	let Icon = routineTimeMap[time].icon;
 
-	const flipDurationMs = 200;
+	const flipDuration = 200;
 </script>
 
 <div class="flex flex-col gap-3">
@@ -49,11 +47,11 @@
 		class="flex flex-col gap-1 rounded-md border p-2"
 		onconsider={handleConsider}
 		onfinalize={handleFinalize}
-		use:dragHandleZone={{ flipDurationMs: flipDurationMs, items: routinesMap.value[time] }}
+		use:dragHandleZone={{ flipDurationMs: flipDuration, items: routinesMap.value[time] }}
 	>
 		{#each routinesMap.value[time] as routine (routine.id)}
-			<div animate:flip={{ duration: flipDurationMs }}>
-				<RoutineRow {routine} {selectedDate} />
+			<div animate:flip={{ duration: flipDuration }}>
+				<RoutineRow {routine} />
 			</div>
 		{/each}
 		<div

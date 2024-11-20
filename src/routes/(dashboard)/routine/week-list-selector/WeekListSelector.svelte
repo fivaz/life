@@ -13,6 +13,8 @@
 	} from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 
+	import { weekChangeDuration } from '../service.svelte';
+
 	interface Props {
 		routines: Routine[];
 	}
@@ -35,8 +37,8 @@
 	{#key weekDates.value}
 		<div
 			class="absolute grid w-full grid-cols-7 divide-gray-100 border border-gray-100 text-sm leading-6 text-gray-500 md:divide-x"
-			in:fly={{ x: 900 * slideDirection, duration: 800 }}
-			out:fly={{ x: 900 * slideDirection * -1, duration: 800 }}
+			in:fly={{ x: 900 * slideDirection, duration: weekChangeDuration }}
+			out:fly={{ x: 900 * slideDirection * -1, duration: weekChangeDuration }}
 		>
 			{#each weekDates.value as date (date)}
 				<button

@@ -1,38 +1,54 @@
 <script lang="ts">
 	import { Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { startOfWeek } from 'date-fns';
 	import { Check, Flame, GripVertical, Undo2 } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
 	import { dragHandle } from 'svelte-dnd-action';
 
 	import type { yyyyMMdd } from '$lib/date.utils.svelte';
+	import {
+		formatDate,
+		previousDate,
+		selectedDate,
+		weekStartsOn,
+	} from '$lib/date.utils.svelte';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { toggleRoutineCompletion } from '$lib/routine/routine.repository';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
+	import { weekChangeDuration } from '../../service.svelte';
 	import { getOpenRoutineForm, getStatusColor, getStreak, statusColor } from '../service';
 
 	interface Props {
 		routine: Routine;
-		selectedDate: yyyyMMdd;
 	}
 
-	let { routine, selectedDate }: Props = $props();
+	let { routine }: Props = $props();
 
-	let status = $derived<keyof typeof statusColor>(getStatusColor(routine, selectedDate));
+	const selectedDateString = $derived<yyyyMMdd>(formatDate(selectedDate.value));
 
-	let streak = $derived<number>(getStreak(routine, selectedDate));
+	let status = $derived<keyof typeof statusColor>(getStatusColor(routine, selectedDateString));
+
+	let streak = $derived<number>(getStreak(routine, selectedDateString));
 
 	const openRoutineForm = getOpenRoutineForm();
 
-	const slideDuration = 200;
+	const slideDuration = $derived(
+		startOfWeek(selectedDate.value, { weekStartsOn }).getTime() ===
+			startOfWeek(previousDate.value, { weekStartsOn }).getTime()
+			? 200
+			: weekChangeDuration,
+	);
 
-	const slideDirection = 1;
+	const slideDirection = $derived(
+		selectedDate.value.getTime() > previousDate.value.getTime() ? 1 : -1,
+	);
 </script>
 
 <div class="relative h-10">
-	{#key selectedDate}
+	{#key selectedDate.value}
 		<div
 			class="{statusColor[status]}
 	absolute flex w-full justify-between rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-200"
@@ -55,7 +71,7 @@
 
 				<button
 					class="rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
-					onclick={() => toggleRoutineCompletion(routine, selectedDate, currentUser.uid)}
+					onclick={() => toggleRoutineCompletion(routine, selectedDateString, currentUser.uid)}
 					type="button"
 				>
 					{#if status === 'completed'}
