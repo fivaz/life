@@ -1,5 +1,6 @@
 <script lang="ts" module>
-	import { type Args, defineMeta } from '@storybook/addon-svelte-csf';
+	import type { Args } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import { categories } from '$lib/category/category.seed';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';

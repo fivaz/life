@@ -5,7 +5,7 @@
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';
 	import { Routes } from '$lib/consts';
 	import { auth } from '$lib/firebase';
-	import { currentUser } from '$lib/user/user.utils.svelte.js';
+	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	const list = [
 		{ label: 'Profile', onclick: () => goto(Routes.PROFILE) },

@@ -1,11 +1,5 @@
-import {
-	arrow,
-	computePosition,
-	type ComputePositionConfig,
-	flip,
-	offset,
-	shift,
-} from '@floating-ui/dom';
+import type { ComputePositionConfig } from '@floating-ui/dom';
+import { arrow, computePosition, flip, offset, shift } from '@floating-ui/dom';
 
 const tailwindColor = {
 	green: 'text-green-500 bg-green-50',

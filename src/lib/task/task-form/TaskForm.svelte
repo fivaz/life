@@ -14,11 +14,11 @@
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
-	import type { yyyyMMdd } from '$lib/date.utils.svelte.js';
+	import type { yyyyMMdd } from '$lib/date.utils.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
-	import { isTimed, type Task } from '$lib/task/task.model';
-	import { isRecurring, isUntimed } from '$lib/task/task.model.js';
+	import type { Task } from '$lib/task/task.model';
+	import { isRecurring, isTimed, isUntimed } from '$lib/task/task.model';
 	import { addTask } from '$lib/task/task.repository';
 	import {
 		deletePossibleSingleRecurringEvent,

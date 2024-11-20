@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { updateProfile, type User as FirebaseUser } from 'firebase/auth';
+	import type { User as FirebaseUser } from 'firebase/auth';
+	import { updateProfile } from 'firebase/auth';
 	import { doc, updateDoc } from 'firebase/firestore';
 	import { minidenticon } from 'minidenticons';
 
@@ -8,9 +9,9 @@
 	import Input from '$lib/components/form/input/Input.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { auth, db } from '$lib/firebase';
-	import { type User } from '$lib/user/user.model';
+	import type { User } from '$lib/user/user.model';
 	import { storeAvatar } from '$lib/user/user.repository';
-	import { updateUser } from '$lib/user/user.utils.svelte.js';
+	import { updateUser } from '$lib/user/user.utils.svelte';
 
 	interface Props {
 		user: User;

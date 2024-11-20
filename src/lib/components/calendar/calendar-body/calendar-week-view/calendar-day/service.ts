@@ -12,18 +12,11 @@ import {
 } from 'date-fns';
 
 import { NUMBER_OF_CELLS } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
-import {
-	type EventsGrid,
-	getEventSlots,
-} from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
+import type { EventsGrid } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
+import { getEventSlots } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
 import { DATE } from '$lib/date.utils.svelte';
-import {
-	type CalendarTask,
-	isRecurring,
-	type RecurringTask,
-	type Task,
-	type TimedTask,
-} from '$lib/task/task.model';
+import type { CalendarTask, RecurringTask, Task, TimedTask } from '$lib/task/task.model';
+import { isRecurring } from '$lib/task/task.model';
 import { sortTasks } from '$lib/task/task.utils';
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 

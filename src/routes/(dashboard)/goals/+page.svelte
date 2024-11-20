@@ -6,11 +6,13 @@
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { DB_PATH } from '$lib/consts';
-	import { title } from '$lib/date.utils.svelte.js';
+	import { title } from '$lib/date.utils.svelte';
 	import DBGoals from '$lib/goal/DBGoals.svelte';
-	import { buildEmptyGoal, type Goal } from '$lib/goal/goal.model';
+	import type { Goal } from '$lib/goal/goal.model';
+	import { buildEmptyGoal } from '$lib/goal/goal.model';
 	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
-	import { type Task, taskSchema } from '$lib/task/task.model';
+	import type { Task } from '$lib/task/task.model';
+	import { taskSchema } from '$lib/task/task.model';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 
 	import GoalForm from './goal-form/GoalForm.svelte';

@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { Plus } from 'lucide-svelte';
 
-	import { buildEmptyCategory, type Category } from '$lib/category/category.model';
+	import type { Category } from '$lib/category/category.model';
+	import { buildEmptyCategory } from '$lib/category/category.model';
 	import DBCategories from '$lib/category/DBCategories.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import { title } from '$lib/date.utils.svelte.js';
+	import { title } from '$lib/date.utils.svelte';
 
 	import CategoryForm from './category-form/CategoryForm.svelte';
 	import CategoryRow from './category-row/CategoryRow.svelte';

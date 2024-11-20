@@ -5,8 +5,8 @@
 
 	import { tailwindColorMap } from '$lib/category/category.utils';
 	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
+	import type { yyyyMMdd } from '$lib/date.utils.svelte';
 	import { TIME } from '$lib/date.utils.svelte';
-	import type { yyyyMMdd } from '$lib/date.utils.svelte.js';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import type { TimedTask } from '$lib/task/task.model';
 	import { getDurationInMinutes, getSubTasks, getSubTasksCompleted } from '$lib/task/task.utils';

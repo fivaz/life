@@ -51,7 +51,7 @@ import {
 	PencilLine,
 	Smartphone,
 } from '@steeze-ui/lucide-icons';
-import { type IconSource } from '@steeze-ui/svelte-icon';
+import type { IconSource } from '@steeze-ui/svelte-icon';
 
 const defaultIcon: GoalIconType = { component: Fire, name: 'Fire' };
 

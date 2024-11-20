@@ -2,7 +2,8 @@
 	import { ChevronUpDown } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
-	import { onMount, setContext, type Snippet } from 'svelte';
+	import type { Snippet } from 'svelte';
+	import { onMount, setContext } from 'svelte';
 
 	interface Props {
 		label?: string;

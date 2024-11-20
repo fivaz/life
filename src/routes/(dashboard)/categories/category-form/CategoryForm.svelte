@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { type Category, categoryTypes } from '$lib/category/category.model';
+	import type { Category } from '$lib/category/category.model';
+	import { categoryTypes } from '$lib/category/category.model';
 	import { addCategory, deleteCategory, editCategory } from '$lib/category/category.respository';
 	import { tailwindColorMap, tailwindColors } from '$lib/category/category.utils';
 	import CloseX from '$lib/components/close-x/CloseX.svelte';

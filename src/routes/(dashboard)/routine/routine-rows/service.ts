@@ -1,8 +1,8 @@
 import { format, parse, subDays } from 'date-fns';
 import { getContext, setContext } from 'svelte';
 
+import type { yyyyMMdd } from '$lib/date.utils.svelte';
 import { DATE } from '$lib/date.utils.svelte';
-import type { yyyyMMdd } from '$lib/date.utils.svelte.js';
 import type { Routine } from '$lib/routine/routine.model';
 
 export const statusColor = {

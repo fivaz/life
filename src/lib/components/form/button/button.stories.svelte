@@ -1,7 +1,8 @@
 <script lang="ts" module>
 	import { Trash } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { type Args, defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
+	import type { Args } from '@storybook/addon-svelte-csf';
+	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 
 	import type { IncreaseArgs } from '../../../../../.storybook/utils';
 	import Button from './Button.svelte';

@@ -1,4 +1,5 @@
-import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup, type User } from 'firebase/auth';
+import type { User } from 'firebase/auth';
+import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { minidenticon } from 'minidenticons';
 

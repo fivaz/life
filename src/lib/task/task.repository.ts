@@ -1,15 +1,6 @@
 import { endOfWeek, format } from 'date-fns';
-import {
-	collection,
-	deleteDoc,
-	doc,
-	type DocumentReference,
-	type Query,
-	query,
-	setDoc,
-	updateDoc,
-	where,
-} from 'firebase/firestore';
+import type { DocumentReference, Query } from 'firebase/firestore';
+import { collection, deleteDoc, doc, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 import { DB_PATH } from '$lib/consts';

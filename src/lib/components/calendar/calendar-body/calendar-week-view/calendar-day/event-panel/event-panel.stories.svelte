@@ -3,8 +3,8 @@
 	import { format } from 'date-fns';
 	import type { ComponentProps } from 'svelte';
 
+	import type { yyyyMMdd } from '$lib/date.utils.svelte';
 	import { DATE } from '$lib/date.utils.svelte';
-	import type { yyyyMMdd } from '$lib/date.utils.svelte.js';
 	import {
 		longRecurring,
 		normalWithDescription,
@@ -17,6 +17,7 @@
 	} from '$lib/task/task.seed';
 
 	import EventPanel from './EventPanel.svelte';
+
 	const { Story } = defineMeta({
 		component: EventPanel,
 		args: {

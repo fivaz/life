@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 
-import type { yyyyMMdd } from '$lib/date.utils.svelte.js';
-import { type Task } from '$lib/task/task.model';
+import type { yyyyMMdd } from '$lib/date.utils.svelte';
+import type { Task } from '$lib/task/task.model';
 import { editTask } from '$lib/task/task.repository';
 import { getTaskDate } from '$lib/task/time-utils';
 

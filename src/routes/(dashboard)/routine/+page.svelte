@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { startOfWeek } from 'date-fns';
-	import { onSnapshot, type Unsubscribe } from 'firebase/firestore';
+	import type { Unsubscribe } from 'firebase/firestore';
+	import { onSnapshot } from 'firebase/firestore';
 
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import { weekStartsOn } from '$lib/date.utils.svelte';
-	import { formatDate, title } from '$lib/date.utils.svelte.js';
-	import { buildEmptyRoutine, type Routine } from '$lib/routine/routine.model';
+	import { formatDate, title, weekStartsOn } from '$lib/date.utils.svelte';
+	import type { Routine } from '$lib/routine/routine.model';
+	import { buildEmptyRoutine } from '$lib/routine/routine.model';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import RoutineEmptyState from './routine-empty-state/RoutineEmptyState.svelte';

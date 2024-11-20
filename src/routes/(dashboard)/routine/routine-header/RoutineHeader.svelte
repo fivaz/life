@@ -4,7 +4,7 @@
 
 	import Button from '$lib/components/form/button/Button.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
-	import { formatDate, title } from '$lib/date.utils.svelte.js';
+	import { formatDate, title } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 
 	import { getOpenRoutineForm } from '../routine-rows/service';

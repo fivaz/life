@@ -1,5 +1,6 @@
 <script lang="ts" module>
-	import { type Args, defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
+	import type { Args } from '@storybook/addon-svelte-csf';
+	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
 	import { dialog } from '$lib/components/dialog/service.svelte';

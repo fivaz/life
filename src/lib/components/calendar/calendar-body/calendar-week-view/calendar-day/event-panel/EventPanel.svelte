@@ -7,9 +7,9 @@
 		GRID_CELL_HEIGHT,
 		isSomethingDragging,
 	} from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
+	import type { EventsGrid } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
 	import {
 		EVENT_PANEL_CLASS,
-		type EventsGrid,
 		getDivision,
 		getHeight,
 		getTop,
@@ -18,7 +18,7 @@
 		getCellSizeFromDuration,
 		hasMoved,
 	} from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/service';
-	import type { yyyyMMdd } from '$lib/date.utils.svelte.js';
+	import type { yyyyMMdd } from '$lib/date.utils.svelte';
 	import type { TimedTask } from '$lib/task/task.model';
 
 	import EventPanelCore from './event-panel-core/EventPanelCore.svelte';

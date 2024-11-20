@@ -3,7 +3,7 @@
 
 	import { categories } from '$lib/category/category.seed';
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
-	import { dialog } from '$lib/components/dialog/service.svelte.js';
+	import { dialog } from '$lib/components/dialog/service.svelte';
 	import { goals } from '$lib/goal/goal.seed';
 	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
 	import { normalWithSubTasks } from '$lib/task/task.seed';
@@ -14,7 +14,7 @@
 		component: TaskForm,
 	});
 
-	import { formatDate } from '$lib/date.utils.svelte.js';
+	import { formatDate } from '$lib/date.utils.svelte';
 </script>
 
 {#snippet template(args: any)}

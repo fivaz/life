@@ -1,4 +1,5 @@
 import type { Routine } from '$lib/routine/routine.model';
+
 export const routines: Routine[] = [
 	{
 		completeHistory: [{ date: '2024-11-17', isCompleted: true }],

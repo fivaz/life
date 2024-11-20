@@ -1,9 +1,9 @@
 import { addMonths, isAfter, parse } from 'date-fns';
 
-import { TIME } from '$lib/date.utils.svelte';
-import type { HHmm, yyyyMMdd } from '$lib/date.utils.svelte.js';
-import { formatDate, formatTime } from '$lib/date.utils.svelte.js';
-import { type Frequency, isRecurring, isTimed, type Task } from '$lib/task/task.model';
+import type { HHmm, yyyyMMdd } from '$lib/date.utils.svelte';
+import { formatDate, formatTime, TIME } from '$lib/date.utils.svelte';
+import type { Frequency, Task } from '$lib/task/task.model';
+import { isRecurring, isTimed } from '$lib/task/task.model';
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 import { convertTimeToMinutes, roundTo15, sumTimes } from '$lib/task/time-utils';
 

@@ -1,19 +1,13 @@
 <script generics="T" lang="ts">
-	import {
-		collection,
-		onSnapshot,
-		type Query,
-		query,
-		type QueryConstraint,
-		type Unsubscribe,
-	} from 'firebase/firestore';
-	import { type Snippet } from 'svelte';
+	import type { Query, QueryConstraint, Unsubscribe } from 'firebase/firestore';
+	import { collection, onSnapshot, query } from 'firebase/firestore';
+	import type { Snippet } from 'svelte';
 	import { ZodSchema } from 'zod';
 
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { db } from '$lib/firebase';
-	import { currentUser } from '$lib/user/user.utils.svelte.js';
+	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	interface Props {
 		collection: string;

@@ -14,7 +14,7 @@
 		githubSignIn,
 		googleSignIn,
 		isLoading,
-	} from '$lib/user/sign-in.utils.svelte.js';
+	} from '$lib/user/sign-in.utils.svelte';
 
 	import { parseErrors, validateFields } from './service';
 

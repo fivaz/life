@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { type Snippet } from 'svelte';
+	import type { Snippet } from 'svelte';
 
 	import { createDialog } from '$lib/components/dialog/service.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';

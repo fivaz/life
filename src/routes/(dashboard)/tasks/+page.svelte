@@ -6,11 +6,11 @@
 	import DBCategories from '$lib/category/DBCategories.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import { title } from '$lib/date.utils.svelte.js';
+	import { title } from '$lib/date.utils.svelte';
 	import DBGoalsForTaskForm from '$lib/goal/DBGoalsForTaskForm.svelte';
 	import { buildUntimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
 	import DBUndoneTasks from '$lib/task/DBUndoneTasks.svelte';
-	import { type Task } from '$lib/task/task.model';
+	import type { Task } from '$lib/task/task.model';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 
 	import { getTasksByDateSorted } from './service';

@@ -1,8 +1,9 @@
 import { FirebaseError } from 'firebase/app';
-import { createUserWithEmailAndPassword, updateProfile, type User } from 'firebase/auth';
+import type { User } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 import { auth } from '$lib/firebase';
-import { checkEmail } from '$lib/user/sign-in.utils.svelte.js';
+import { checkEmail } from '$lib/user/sign-in.utils.svelte';
 import { createUserInDB, storeAvatar } from '$lib/user/user.repository';
 
 export function validateFields(email: string, password: string): string {

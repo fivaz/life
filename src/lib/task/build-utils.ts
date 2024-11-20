@@ -1,6 +1,5 @@
 import type { Category } from '$lib/category/category.model';
-import { formatTime } from '$lib/date.utils.svelte';
-import { formatDate } from '$lib/date.utils.svelte.js';
+import { formatDate, formatTime } from '$lib/date.utils.svelte';
 import type { Goal } from '$lib/goal/goal.model';
 import type { Task } from '$lib/task/task.model';
 

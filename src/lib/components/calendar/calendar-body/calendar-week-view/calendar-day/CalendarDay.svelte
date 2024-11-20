@@ -4,10 +4,10 @@
 	import type { EventsGrid } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
 	import TasksSummary from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/tasks-summary/TasksSummary.svelte';
 	import { isScrollingUp } from '$lib/components/calendar/calendar-body/calendar-week-view/service.svelte';
-	import type { yyyyMMdd } from '$lib/date.utils.svelte.js';
-	import { formatDate } from '$lib/date.utils.svelte.js';
+	import type { yyyyMMdd } from '$lib/date.utils.svelte';
+	import { formatDate } from '$lib/date.utils.svelte';
 	import type { CalendarTask, Task, TimedTask } from '$lib/task/task.model';
-	import { isTimed } from '$lib/task/task.model.js';
+	import { isTimed } from '$lib/task/task.model';
 
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
 	import { SUMMARY_GRID_CELL_HEIGHT } from './calendar-grid/service.svelte';

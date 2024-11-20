@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { buildEmptyCategory, type Category, CATEGORY_WORK } from '$lib/category/category.model';
+	import type { Category } from '$lib/category/category.model';
+	import { buildEmptyCategory, CATEGORY_WORK } from '$lib/category/category.model';
 	import DBCategories from '$lib/category/DBCategories.svelte';
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import type { yyyyMMdd } from '$lib/date.utils.svelte.js';
+	import type { yyyyMMdd } from '$lib/date.utils.svelte';
 	import DBGoalsForTaskForm from '$lib/goal/DBGoalsForTaskForm.svelte';
 	import { buildTimedTask, buildTimedTaskWithTimeSet } from '$lib/task/build-utils';
 	import type { Task } from '$lib/task/task.model';
@@ -16,7 +17,7 @@
 		moveEvent,
 		persistTasks,
 		tasks,
-	} from './service.svelte.js';
+	} from './service.svelte';
 
 	let targetDate = $state<yyyyMMdd | undefined>();
 

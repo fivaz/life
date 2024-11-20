@@ -4,11 +4,11 @@
 	import { Check, Flame, GripVertical, Undo2 } from 'lucide-svelte';
 	import { dragHandle } from 'svelte-dnd-action';
 
-	import type { yyyyMMdd } from '$lib/date.utils.svelte.js';
+	import type { yyyyMMdd } from '$lib/date.utils.svelte';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { toggleRoutineCompletion } from '$lib/routine/routine.repository';
-	import { currentUser } from '$lib/user/user.utils.svelte.js';
+	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import { getOpenRoutineForm, getStatusColor, getStreak, statusColor } from '../service';
 

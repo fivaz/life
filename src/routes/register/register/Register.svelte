@@ -8,7 +8,7 @@
 	import GoogleIcon from '$lib/components/icons/GoogleIcon.svelte';
 	import Logo from '$lib/components/Logo.svelte';
 	import { Routes } from '$lib/consts';
-	import { githubSignIn, googleSignIn, isLoading } from '$lib/user/sign-in.utils.svelte.js';
+	import { githubSignIn, googleSignIn, isLoading } from '$lib/user/sign-in.utils.svelte';
 
 	import { parseErrors, register, validateFields } from './service';
 

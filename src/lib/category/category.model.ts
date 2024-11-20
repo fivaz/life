@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
-import { type TailwindColor, tailwindColors } from '$lib/category/category.utils';
+import type { TailwindColor } from '$lib/category/category.utils';
+import { tailwindColors } from '$lib/category/category.utils';
 
 export const CATEGORY_WORK = 'work';
 

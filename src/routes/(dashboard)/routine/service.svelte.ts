@@ -1,8 +1,10 @@
-import { collection, type Query, type QuerySnapshot } from 'firebase/firestore';
+import type { Query, QuerySnapshot } from 'firebase/firestore';
+import { collection } from 'firebase/firestore';
 
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
-import { type Routine, routineSchema } from '$lib/routine/routine.model';
+import type { Routine } from '$lib/routine/routine.model';
+import { routineSchema } from '$lib/routine/routine.model';
 
 const emptyRoutineMap: Record<Routine['time'], Routine[]> = {
 	morning: [],

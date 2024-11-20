@@ -2,6 +2,8 @@ import 'vite-plugin-pwa/svelte';
 import 'vite-plugin-pwa/info';
 import 'vite-plugin-pwa/pwa-assets';
 
+import type { ComponentProps } from 'svelte';
+
 import type { HHmm, Task, yyyyMMdd } from '$lib/task/task.model';
 
 // See https://svelte.dev/docs/kit/types#app.d.ts
@@ -43,8 +45,6 @@ declare module 'svelte' {
 		context: Context[T],
 	): void;
 }
-
-import type { ComponentProps } from 'svelte';
 
 declare module '@storybook/addon-svelte-csf' {
 	export type Args = ComponentProps;

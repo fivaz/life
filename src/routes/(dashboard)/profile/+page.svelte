@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { currentUser } from '$lib/user/user.utils.svelte.js';
+	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import Profile from './profile/Profile.svelte';
 </script>

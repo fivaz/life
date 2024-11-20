@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Chart, type ChartConfiguration } from 'chart.js/auto';
+	import type { ChartConfiguration } from 'chart.js/auto';
+	import { Chart } from 'chart.js/auto';
 	import { onDestroy, onMount } from 'svelte';
 
 	let { data, options } = $props<{

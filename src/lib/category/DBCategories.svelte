@@ -1,7 +1,8 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
-	import { type Category, categorySchema } from '$lib/category/category.model';
+	import type { Category } from '$lib/category/category.model';
+	import { categorySchema } from '$lib/category/category.model';
 	import DBCollection from '$lib/components/db-collection/DBCollection.svelte';
 	import { DB_PATH } from '$lib/consts';
 

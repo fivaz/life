@@ -1,7 +1,7 @@
 <script lang="ts" module>
 	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 
-	import { formatDate } from '$lib/date.utils.svelte.js';
+	import { formatDate } from '$lib/date.utils.svelte';
 	import {
 		longRecurring,
 		normalWithDescription,

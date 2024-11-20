@@ -2,7 +2,8 @@
 	import { Check } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
-	import { getContext, type Snippet } from 'svelte';
+	import type { Snippet } from 'svelte';
+	import { getContext } from 'svelte';
 
 	interface Props {
 		class?: string;
