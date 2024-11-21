@@ -3,6 +3,12 @@ import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestor
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
 import type { Goal } from '$lib/goal/goal.model';
+import { goalSchema } from '$lib/goal/goal.model';
+import { fetchItems } from '$lib/repository.svelte';
+
+export function fetchGoals(goals: Goal[]): void {
+	fetchItems(goals, DB_PATH.GOALS, goalSchema);
+}
 
 export function getGoalPath(userId: string) {
 	return `${DB_PATH.USERS}/${userId}/${DB_PATH.GOALS}`;
