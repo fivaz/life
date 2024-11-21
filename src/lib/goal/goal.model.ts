@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { zDate } from '$lib/date.utils';
 import { formatDate } from '$lib/date.utils.svelte';
 
+// TODO make deadline 	deadline: yyyyMMdd | null;
 export type Goal = {
 	deadline: string;
 	icon: null | string;

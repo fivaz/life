@@ -12,10 +12,15 @@ import {
 } from 'firebase/firestore';
 
 import type { Category } from '$lib/category/category.model';
-import { CATEGORY_WORK } from '$lib/category/category.model';
+import { CATEGORY_WORK, categorySchema } from '$lib/category/category.model';
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
+import { fetchItems } from '$lib/repository.svelte';
 import { getTaskPath } from '$lib/task/task.repository';
+
+export function fetchCategories(categories: Category[]): void {
+	fetchItems(categories, DB_PATH.CATEGORIES, categorySchema);
+}
 
 export function getCategoryPath(userId: string) {
 	return `${DB_PATH.USERS}/${userId}/${DB_PATH.CATEGORIES}`;
