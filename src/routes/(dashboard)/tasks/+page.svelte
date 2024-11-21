@@ -9,7 +9,8 @@
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { title } from '$lib/date.utils.svelte';
-	import DBGoalsForTaskForm from '$lib/goal/DBGoalsForTaskForm.svelte';
+	import type { Goal } from '$lib/goal/goal.model';
+	import { fetchGoals } from '$lib/goal/goal.repository';
 	import { buildUntimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
 	import type { Task } from '$lib/task/task.model';
 	import { fetchTasks } from '$lib/task/task.repository';
@@ -44,6 +45,10 @@
 	fetchCategories(categories);
 
 	const sortedTasksByDate = $derived(getTasksByDateSorted(tasks));
+
+	let goals = $state<Goal[]>([]);
+
+	fetchGoals(goals, where('isDone', '==', false));
 </script>
 
 <div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
@@ -95,12 +100,8 @@
 			<TasksStats tasks={sortedTasksByDate} />
 		</Modal>
 
-		<DBGoalsForTaskForm>
-			{#snippet data(goals)}
-				<Modal bind:isOpen={isFormShown}>
-					<TaskForm {categories} close={closeForm} {goals} task={editingTask} />
-				</Modal>
-			{/snippet}
-		</DBGoalsForTaskForm>
+		<Modal bind:isOpen={isFormShown}>
+			<TaskForm {categories} close={closeForm} {goals} task={editingTask} />
+		</Modal>
 	</div>
 </div>

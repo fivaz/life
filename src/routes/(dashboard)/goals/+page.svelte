@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { orderBy } from 'firebase/firestore';
 	import { Plus } from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';
@@ -39,7 +40,7 @@
 
 	let goals = $state<Goal[]>([]);
 
-	fetchGoals(goals);
+	fetchGoals(goals, orderBy('deadline'));
 
 	let goalsByDate = $derived(sortGoalsByDate(goals));
 

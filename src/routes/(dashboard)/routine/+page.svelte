@@ -1,6 +1,5 @@
 <script lang="ts">
-	
-import Loading from '$lib/components/loading/Loading.svelte';
+	import Loading from '$lib/components/loading/Loading.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { title } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';

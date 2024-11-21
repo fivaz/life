@@ -1,11 +1,14 @@
 <script lang="ts">
+	import { where } from 'firebase/firestore';
+
 	import type { Category } from '$lib/category/category.model';
 	import { buildEmptyCategory, CATEGORY_WORK } from '$lib/category/category.model';
 	import { fetchCategories } from '$lib/category/category.respository';
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import type { yyyyMMdd } from '$lib/date.utils.svelte';
-	import DBGoalsForTaskForm from '$lib/goal/DBGoalsForTaskForm.svelte';
+	import type { Goal } from '$lib/goal/goal.model';
+	import { fetchGoals } from '$lib/goal/goal.repository';
 	import { buildTimedTask, buildTimedTaskWithTimeSet } from '$lib/task/build-utils';
 	import type { Task } from '$lib/task/task.model';
 	import TaskCompletedNotificationStack from '$lib/task/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
@@ -59,6 +62,10 @@
 	let categories = $state<Category[]>([]);
 
 	fetchCategories(categories);
+
+	let goals = $state<Goal[]>([]);
+
+	fetchGoals(goals, where('isDone', '==', false));
 </script>
 
 <Calendar
@@ -70,17 +77,14 @@
 	tasks={tasks.value}
 	toggleEvent={(event, targetDate) => toggleCompletion(currentUser.uid, event, targetDate)}
 />
-<DBGoalsForTaskForm>
-	{#snippet data(goals)}
-		<Modal bind:isOpen={isFormShown}>
-			<TaskForm
-				{categories}
-				close={() => (isFormShown = false)}
-				{goals}
-				{targetDate}
-				task={editingTask}
-			/>
-		</Modal>
-	{/snippet}
-</DBGoalsForTaskForm>
+
+<Modal bind:isOpen={isFormShown}>
+	<TaskForm
+		{categories}
+		close={() => (isFormShown = false)}
+		{goals}
+		{targetDate}
+		task={editingTask}
+	/>
+</Modal>
 <TaskCompletedNotificationStack bind:completedTasks />
