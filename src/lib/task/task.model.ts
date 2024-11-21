@@ -37,12 +37,11 @@ export type UntimedTask = Omit<Task, 'startTime'> & { startTime: null };
 
 export type RecurringTask = Omit<
 	Task,
-	'date' | 'recurringFrequency' | 'recurringEndAt' | 'recurringDaysOfWeek' | 'recurringExceptions'
+	'date' | 'recurringFrequency' | 'recurringDaysOfWeek' | 'recurringExceptions'
 > & {
 	date: yyyyMMdd;
 	recurringFrequency: Frequency;
 	recurringDaysOfWeek: string[];
-	recurringEndAt: yyyyMMdd;
 	recurringExceptions: yyyyMMdd[];
 };
 

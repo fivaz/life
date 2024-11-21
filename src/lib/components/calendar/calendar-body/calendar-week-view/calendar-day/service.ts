@@ -35,7 +35,7 @@ export function isForDate(task: Task, date: Date): task is CalendarTask {
 }
 
 function isRecurringOnDay(event: RecurringTask, date: Date): boolean {
-	if (isAfter(date, parseDate(event.recurringEndAt))) {
+	if (event.recurringEndAt && isAfter(date, parseDate(event.recurringEndAt))) {
 		return false;
 	}
 
