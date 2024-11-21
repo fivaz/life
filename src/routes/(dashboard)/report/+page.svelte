@@ -15,9 +15,9 @@
 </script>
 
 <DBCollection
-	collection={DB_PATH.TASKS}
 	constrains={where('category.type', '==', 'work')}
 	schema={categorySchema}
+	segment={DB_PATH.TASKS}
 	type={taskType}
 >
 	{#snippet data(tasks)}

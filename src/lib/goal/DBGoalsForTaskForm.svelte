@@ -21,9 +21,9 @@
 </script>
 
 <DBCollection
-	collection={DB_PATH.GOALS}
 	constrains={where('isDone', '==', false)}
 	schema={goalSchema}
+	segment={DB_PATH.GOALS}
 	type={goalType}
 >
 	{#snippet data(items, userId)}

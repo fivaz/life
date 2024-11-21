@@ -60,8 +60,8 @@
 								<div class="flex flex-col gap-3">
 									{#each goalsByDate[date] as goal (goal.id)}
 										<DBCollection
-											collection="{DB_PATH.GOALS}/{goal.id}/{DB_PATH.TASKS}"
 											schema={taskSchema}
+											segment="{DB_PATH.GOALS}/{goal.id}/{DB_PATH.TASKS}"
 											type={taskType}
 										>
 											{#snippet data(tasks)}

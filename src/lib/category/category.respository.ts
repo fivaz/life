@@ -15,9 +15,14 @@ import type { Category } from '$lib/category/category.model';
 import { CATEGORY_WORK } from '$lib/category/category.model';
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
+import { getTaskPath } from '$lib/task/task.repository';
+
+export function getCategoryPath(userId: string) {
+	return `${DB_PATH.USERS}/${userId}/${DB_PATH.CATEGORIES}`;
+}
 
 export function editCategory(id: string, data: Omit<Category, 'id'>, userId: string) {
-	const categoryDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES, id);
+	const categoryDocRef = doc(db, getCategoryPath(userId), id);
 	void updateDoc(categoryDocRef, data);
 	void updateCategoryInTasks(id, data, userId);
 	if (data.isDefault) {
@@ -26,10 +31,7 @@ export function editCategory(id: string, data: Omit<Category, 'id'>, userId: str
 }
 
 async function updateCategoryInTasks(id: string, data: Omit<Category, 'id'>, userId: string) {
-	const tasksQuery = query(
-		collection(db, DB_PATH.USERS, userId, DB_PATH.TASKS),
-		where('category.id', '==', id),
-	);
+	const tasksQuery = query(collection(db, getTaskPath(userId)), where('category.id', '==', id));
 
 	const tasksSnapshot = await getDocs(tasksQuery);
 
@@ -44,7 +46,7 @@ async function updateCategoryInTasks(id: string, data: Omit<Category, 'id'>, use
 }
 
 export function addCategory(data: Omit<Category, 'id'>, userId: string) {
-	const newCategoryDocRef = doc(collection(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES));
+	const newCategoryDocRef = doc(collection(db, getCategoryPath(userId)));
 	void setDoc(newCategoryDocRef, data);
 	if (data.isDefault) {
 		void resetDefaultCategories(newCategoryDocRef.id, userId);
@@ -53,7 +55,7 @@ export function addCategory(data: Omit<Category, 'id'>, userId: string) {
 
 async function resetDefaultCategories(exceptId: string, userId: string) {
 	const categoryQuery = query(
-		collection(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES),
+		collection(db, getCategoryPath(userId)),
 		where('isDefault', '==', true),
 	);
 
@@ -72,14 +74,14 @@ async function resetDefaultCategories(exceptId: string, userId: string) {
 
 export function deleteCategory(id: string | undefined, userId: string, closeForm: () => void) {
 	if (id) {
-		const categoryDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES, id);
+		const categoryDocRef = doc(db, getCategoryPath(userId), id);
 		void deleteDoc(categoryDocRef);
 		closeForm();
 	}
 }
 
 export async function addDefaultCategories(userId: string) {
-	const categoriesCollectionRef = collection(db, DB_PATH.USERS, userId, DB_PATH.CATEGORIES);
+	const categoriesCollectionRef = collection(db, getCategoryPath(userId));
 
 	const defaultCategories: Omit<Category, 'id'>[] = [
 		{

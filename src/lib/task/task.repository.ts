@@ -9,6 +9,10 @@ import { db, storage } from '$lib/firebase';
 import type { Goal } from '$lib/goal/goal.model';
 import type { Task } from '$lib/task/task.model';
 
+export function getTaskPath(userId: string) {
+	return `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}`;
+}
+
 export async function addTask(data: Omit<Task, 'id'>, userId: string, file?: File | null) {
 	const newTaskRef = doc(collection(db, DB_PATH.USERS, userId, DB_PATH.TASKS));
 
@@ -122,7 +126,7 @@ export function queryWeekTasks(userId: string, startOfWeek: Date): [Query<Task>,
 	const endOfWeekString = formatDate(endOfWeek(startOfWeek, { weekStartsOn }));
 	const tasksRef = collection(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}`);
 	return [
-		query(tasksRef, where('recurringFrequency', '!=', '')) as Query<Task>,
+		query(tasksRef, where('recurringFrequency', '!=', null)) as Query<Task>,
 		query(
 			tasksRef,
 			where('date', '>=', startOfWeekString),

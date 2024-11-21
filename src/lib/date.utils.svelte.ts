@@ -1,4 +1,4 @@
-import { addDays, format, startOfWeek } from 'date-fns';
+import { addDays, format, parse, startOfWeek } from 'date-fns';
 
 import { getDateRoundDownTo15 } from '$lib/task/time-utils';
 
@@ -16,6 +16,10 @@ export const title = $state<{ value: string }>({ value: 'Dashboard' });
 
 export function formatDate(date: Date): yyyyMMdd {
 	return format(date, DATE) as yyyyMMdd;
+}
+
+export function parseDate(date: yyyyMMdd): Date {
+	return parse(date, DATE, new Date());
 }
 
 export function formatTime(date: Date): HHmm {

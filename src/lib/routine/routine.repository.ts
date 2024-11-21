@@ -5,6 +5,10 @@ import type { yyyyMMdd } from '$lib/date.utils.svelte';
 import { db } from '$lib/firebase';
 import type { Routine } from '$lib/routine/routine.model';
 
+export function getRoutinePath(userId: string) {
+	return `${DB_PATH.USERS}/${userId}/${DB_PATH.ROUTINES}`;
+}
+
 export function toggleRoutineCompletion(
 	routine: Routine,
 	selectedDate: yyyyMMdd,
@@ -20,23 +24,23 @@ export function toggleRoutineCompletion(
 
 	const { id, ...data } = routine;
 
-	const routineDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.ROUTINES, id);
+	const routineDocRef = doc(db, getRoutinePath(userId), id);
 	void updateDoc(routineDocRef, data);
 }
 
 export function editRoutine(id: string, data: Omit<Routine, 'id'>, userId: string) {
-	const routineDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.ROUTINES, id);
+	const routineDocRef = doc(db, getRoutinePath(userId), id);
 	void updateDoc(routineDocRef, data);
 }
 
 export function addRoutine(data: Omit<Routine, 'id'>, userId: string) {
-	const routinesCollectionRef = collection(db, DB_PATH.USERS, userId, DB_PATH.ROUTINES);
+	const routinesCollectionRef = collection(db, getRoutinePath(userId));
 	void addDoc(routinesCollectionRef, data);
 }
 
 export async function deleteRoutine(id: string | undefined, userId: string, close: () => void) {
 	if (id) {
-		const routineDocRef = doc(db, DB_PATH.USERS, userId, DB_PATH.ROUTINES, id);
+		const routineDocRef = doc(db, getRoutinePath(userId), id);
 		await deleteDoc(routineDocRef);
 		close();
 	}
@@ -46,7 +50,7 @@ export async function updateRoutines(userId: string, routines: Routine[]) {
 	const batch = writeBatch(db);
 
 	routines.forEach(({ id, time, order }) => {
-		const routineRef = doc(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.ROUTINES}/${id}`);
+		const routineRef = doc(db, getRoutinePath(userId), id);
 		batch.update(routineRef, { time, order });
 	});
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { addDays, parse } from 'date-fns';
 
-import DayTaskItem from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/tasks-summary/day-tasks-list/day-task-item/DayTaskItem.svelte';
+	import DayTaskItem from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/tasks-summary/day-tasks-list/day-task-item/DayTaskItem.svelte';
 	import { getPersistTasks } from '$lib/components/calendar/service.svelte';
 	import { DATE, formatDate } from '$lib/date.utils.svelte';
 	import type { CalendarTask } from '$lib/task/task.model';

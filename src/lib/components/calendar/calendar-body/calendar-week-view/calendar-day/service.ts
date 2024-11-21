@@ -14,7 +14,7 @@ import {
 import { NUMBER_OF_CELLS } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 import type { EventsGrid } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
 import { getEventSlots } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
-import { DATE } from '$lib/date.utils.svelte';
+import { DATE, parseDate } from '$lib/date.utils.svelte';
 import type { CalendarTask, RecurringTask, Task, TimedTask } from '$lib/task/task.model';
 import { isRecurring } from '$lib/task/task.model';
 import { sortTasks } from '$lib/task/task.utils';
@@ -31,11 +31,11 @@ export function isForDate(task: Task, date: Date): task is CalendarTask {
 		return isRecurringOnDay(task, date);
 	}
 
-	return isSameDay(parse(task.date, DATE, new Date()), date);
+	return isSameDay(parseDate(task.date), date);
 }
 
 function isRecurringOnDay(event: RecurringTask, date: Date): boolean {
-	if (isAfter(date, parse(event.recurringEndAt, DATE, new Date()))) {
+	if (isAfter(date, parseDate(event.recurringEndAt))) {
 		return false;
 	}
 

@@ -10,7 +10,7 @@
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	interface Props {
-		collection: string;
+		segment: string;
 		constrains?: QueryConstraint;
 		// eslint-disable-next-line no-undef
 		data: Snippet<[T[], string]>;
@@ -19,7 +19,7 @@
 		schema: ZodSchema;
 	}
 
-	let { data, collection: segment, constrains, schema }: Props = $props();
+	let { data, segment, constrains, schema }: Props = $props();
 
 	// eslint-disable-next-line no-undef
 	let items = $state<T[]>([]);

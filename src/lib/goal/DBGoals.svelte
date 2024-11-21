@@ -17,9 +17,9 @@
 </script>
 
 <DBCollection
-	collection={DB_PATH.GOALS}
 	constrains={orderBy('deadline')}
 	schema={goalSchema}
+	segment={DB_PATH.GOALS}
 	type={goalType}
 >
 	{#snippet data(items, userId)}

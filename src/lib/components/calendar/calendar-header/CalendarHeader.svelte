@@ -2,7 +2,7 @@
 	import { format } from 'date-fns';
 	import { Plus } from 'lucide-svelte';
 
-import { getChangeWeek, getCreateTask } from '$lib/components/calendar/service.svelte';
+	import { getChangeWeek, getCreateTask } from '$lib/components/calendar/service.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 	import { currentDate, formatDate, selectedDate, weekStart } from '$lib/date.utils.svelte';
