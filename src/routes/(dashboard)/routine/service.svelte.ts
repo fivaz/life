@@ -1,10 +1,11 @@
-import type { Query, QuerySnapshot } from 'firebase/firestore';
-import { collection } from 'firebase/firestore';
+import type { QuerySnapshot, Unsubscribe } from 'firebase/firestore';
+import { onSnapshot, orderBy } from 'firebase/firestore';
 
 import { DB_PATH } from '$lib/consts';
-import { db } from '$lib/firebase';
+import { getQuery } from '$lib/repository.svelte';
 import type { Routine } from '$lib/routine/routine.model';
 import { routineSchema } from '$lib/routine/routine.model';
+import { currentUser } from '$lib/user/user.utils.svelte';
 
 const emptyRoutineMap: Record<Routine['time'], Routine[]> = {
 	morning: [],
@@ -13,40 +14,38 @@ const emptyRoutineMap: Record<Routine['time'], Routine[]> = {
 	'all-day': [],
 };
 
-export const isLoading = $state<{ value: boolean }>({ value: true });
-
 export const routinesMap = $state<{ value: Record<Routine['time'], Routine[]> }>({
 	value: emptyRoutineMap,
 });
 
-export function populateRoutines(snapshot: QuerySnapshot<Routine>) {
-	// Clear existing routines
+export function fetchRoutines(): void {
+	$effect(() => {
+		let unsubscribe: Unsubscribe = () => {};
+
+		if (currentUser.uid) {
+			unsubscribe = onSnapshot(getQuery(DB_PATH.ROUTINES, orderBy('order')), (snapshot) =>
+				populateRoutineMap(snapshot),
+			);
+		}
+
+		return () => unsubscribe();
+	});
+}
+
+export function populateRoutineMap(snapshot: QuerySnapshot) {
 	routinesMap.value = emptyRoutineMap;
 
-	// Populate routines from the snapshot
 	snapshot.docs.forEach((doc) => {
 		const routine = { ...doc.data(), id: doc.id };
 
 		const validation = routineSchema.safeParse(routine);
 
 		if (!validation.success) {
-			console.warn(`validation failed for routine: ${routine.id}, ${validation.error}`);
+			console.warn(`validation failed: ${routine.id}, ${validation.error}`);
 		} else {
-			routinesMap.value[routine.time].push(validation.data);
+			routinesMap.value[validation.data.time].push(validation.data);
 		}
 	});
-
-	const keys = Object.keys(routinesMap.value) as Routine['time'][];
-
-	keys.forEach((time) => {
-		routinesMap.value[time].sort((a: Routine, b: Routine) => a.order - b.order);
-	});
-
-	isLoading.value = false;
-}
-
-export function getRoutinePath(userId: string) {
-	return collection(db, `${DB_PATH.USERS}/${userId}/${DB_PATH.ROUTINES}`) as Query<Routine>;
 }
 
 // duration of the animation of the week changing in milliseconds

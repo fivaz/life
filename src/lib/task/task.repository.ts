@@ -11,12 +11,12 @@ import { fetchItems } from '$lib/repository.svelte';
 import type { Task } from '$lib/task/task.model';
 import { taskSchema } from '$lib/task/task.model';
 
-export function getTaskPath(userId: string) {
-	return `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}`;
-}
-
 export function fetchTasks(tasks: Task[], constrains?: QueryConstraint): void {
 	fetchItems(tasks, DB_PATH.TASKS, taskSchema, constrains);
+}
+
+export function getTaskPath(userId: string) {
+	return `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}`;
 }
 
 export async function addTask(data: Omit<Task, 'id'>, userId: string, file?: File | null) {

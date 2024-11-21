@@ -1,8 +1,6 @@
 <script lang="ts">
-	import type { Unsubscribe } from 'firebase/firestore';
-	import { onSnapshot } from 'firebase/firestore';
-
-	import Loading from '$lib/components/loading/Loading.svelte';
+	
+import Loading from '$lib/components/loading/Loading.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { title } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
@@ -14,7 +12,7 @@
 	import RoutineHeader from './routine-header/RoutineHeader.svelte';
 	import RoutineRows from './routine-rows/RoutineRows.svelte';
 	import { setOpenRoutineForm } from './routine-rows/service';
-	import { getRoutinePath, isLoading, populateRoutines, routinesMap } from './service.svelte';
+	import { fetchRoutines, routinesMap } from './service.svelte';
 	import WeekListSelector from './week-list-selector/WeekListSelector.svelte';
 
 	let editingRoutine = $state<Routine>(buildEmptyRoutine());
@@ -30,21 +28,12 @@
 
 	setOpenRoutineForm(openForm);
 
-	$effect(() => {
-		let unsubscribe: Unsubscribe = () => {};
+	let routines = $derived(Object.values(routinesMap.value).flat());
 
-		if (currentUser.uid) {
-			isLoading.value = true;
-			unsubscribe = onSnapshot(getRoutinePath(currentUser.uid), populateRoutines);
-		}
-
-		return () => unsubscribe();
-	});
+	fetchRoutines();
 </script>
 
 {#if currentUser.uid}
-	{@const routines = Object.values(routinesMap.value).flat()}
-
 	<div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
 		<div class="flex h-full w-full flex-col gap-5">
 			<RoutineHeader {routines} />
