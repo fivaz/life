@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Category } from '$lib/category/category.model';
 	import { buildEmptyCategory, CATEGORY_WORK } from '$lib/category/category.model';
-	import DBCategories from '$lib/category/DBCategories.svelte';
+	import { fetchCategories } from '$lib/category/category.respository';
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import type { yyyyMMdd } from '$lib/date.utils.svelte';
@@ -55,32 +55,32 @@
 			completedTasks = completedTasks.filter((completedTask) => completedTask.id !== task.id);
 		}
 	}
+
+	let categories = $state<Category[]>([]);
+
+	fetchCategories(categories);
 </script>
 
-<DBCategories>
-	{#snippet data(categories)}
-		<Calendar
-			changeWeek={(weekStart) => getWeekTasks(currentUser.uid, weekStart)}
-			createTask={(date) => openFormToCreateTask(categories, date)}
-			editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
-			moveEvent={(event, moveObject) => moveEvent(currentUser.uid, event, moveObject)}
-			persistTasks={(tasks) => persistTasks(currentUser.uid, tasks)}
-			tasks={tasks.value}
-			toggleEvent={(event, targetDate) => toggleCompletion(currentUser.uid, event, targetDate)}
-		/>
-		<DBGoalsForTaskForm>
-			{#snippet data(goals)}
-				<Modal bind:isOpen={isFormShown}>
-					<TaskForm
-						{categories}
-						close={() => (isFormShown = false)}
-						{goals}
-						{targetDate}
-						task={editingTask}
-					/>
-				</Modal>
-			{/snippet}
-		</DBGoalsForTaskForm>
-		<TaskCompletedNotificationStack bind:completedTasks />
+<Calendar
+	changeWeek={(weekStart) => getWeekTasks(currentUser.uid, weekStart)}
+	createTask={(date) => openFormToCreateTask(categories, date)}
+	editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
+	moveEvent={(event, moveObject) => moveEvent(currentUser.uid, event, moveObject)}
+	persistTasks={(tasks) => persistTasks(currentUser.uid, tasks)}
+	tasks={tasks.value}
+	toggleEvent={(event, targetDate) => toggleCompletion(currentUser.uid, event, targetDate)}
+/>
+<DBGoalsForTaskForm>
+	{#snippet data(goals)}
+		<Modal bind:isOpen={isFormShown}>
+			<TaskForm
+				{categories}
+				close={() => (isFormShown = false)}
+				{goals}
+				{targetDate}
+				task={editingTask}
+			/>
+		</Modal>
 	{/snippet}
-</DBCategories>
+</DBGoalsForTaskForm>
+<TaskCompletedNotificationStack bind:completedTasks />

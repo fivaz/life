@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, orderBy, updateDoc } from 'firebase/firestore';
 
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
@@ -7,7 +7,7 @@ import { goalSchema } from '$lib/goal/goal.model';
 import { fetchItems } from '$lib/repository.svelte';
 
 export function fetchGoals(goals: Goal[]): void {
-	fetchItems(goals, DB_PATH.GOALS, goalSchema);
+	fetchItems(goals, DB_PATH.GOALS, goalSchema, orderBy('deadline'));
 }
 
 export function getGoalPath(userId: string) {
