@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { DocumentText } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { where } from 'firebase/firestore';
 	import { Plus } from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';
@@ -36,7 +37,7 @@
 
 	let tasks = $state<Task[]>([]);
 
-	fetchTasks(tasks);
+	fetchTasks(tasks, where('isDone', '==', false));
 
 	let categories = $state<Category[]>([]);
 

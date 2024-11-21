@@ -16,7 +16,7 @@ import {
 	subYears,
 } from 'date-fns';
 
-import { DATE, formatDate } from '$lib/date.utils.svelte';
+import { DATE, formatDate } from '$lib/date.utils.svelte.js';
 import type { Task } from '$lib/task/task.model';
 import { sortTasks } from '$lib/task/task.utils';
 import { getTaskDateTime } from '$lib/task/time-utils';
@@ -40,6 +40,15 @@ export const ReportIntervals: Record<string, string> = {
 };
 
 export type ReportInterval = (typeof ReportIntervals)[keyof typeof ReportIntervals];
+
+//if interval is day then intervalKey is dd.MM.yy
+export function getIntervalKey(interval: ReportInterval): string {
+	return (
+		Object.keys(ReportIntervals)
+			.find((key) => ReportIntervals[key] === interval)
+			?.toLowerCase() || 'day'
+	);
+}
 
 function getDatesInRange(interval: ReportInterval, startDate: Date, endDate: Date): Date[] {
 	switch (interval) {

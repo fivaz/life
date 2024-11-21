@@ -1,5 +1,5 @@
 import { endOfWeek } from 'date-fns';
-import type { DocumentReference, Query } from 'firebase/firestore';
+import type { DocumentReference, Query, QueryConstraint } from 'firebase/firestore';
 import { collection, deleteDoc, doc, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
@@ -15,8 +15,8 @@ export function getTaskPath(userId: string) {
 	return `${DB_PATH.USERS}/${userId}/${DB_PATH.TASKS}`;
 }
 
-export function fetchTasks(tasks: Task[]): void {
-	fetchItems(tasks, DB_PATH.TASKS, taskSchema, where('isDone', '==', false));
+export function fetchTasks(tasks: Task[], constrains?: QueryConstraint): void {
+	fetchItems(tasks, DB_PATH.TASKS, taskSchema, constrains);
 }
 
 export async function addTask(data: Omit<Task, 'id'>, userId: string, file?: File | null) {
