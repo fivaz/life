@@ -29,9 +29,9 @@ export const normalWithoutDescriptionWithGoal: TimedTask = {
 	name: 'sleep',
 	startTime: formatTime(getTodayAtTime('00:00')),
 	image: '',
-	recurringFrequency: null,
+	recurringFrequency: '',
 	recurringDaysOfWeek: [],
-	recurringEndAt: null,
+	recurringEndAt: '',
 	recurringExceptions: [],
 };
 
@@ -47,9 +47,9 @@ export const normalWithoutDescriptionWithoutGoal: TimedTask = {
 	name: 'sleep',
 	startTime: formatTime(getTodayAtTime('00:00')),
 	image: '',
-	recurringFrequency: null,
+	recurringFrequency: '',
 	recurringDaysOfWeek: [],
-	recurringEndAt: null,
+	recurringEndAt: '',
 	recurringExceptions: [],
 };
 
@@ -65,9 +65,9 @@ export const normalWithDescription: TimedTask = {
 	name: 'Put away apartment',
 	startTime: formatTime(getTodayAtTime('15:15')),
 	image: '',
-	recurringFrequency: null,
+	recurringFrequency: '',
 	recurringDaysOfWeek: [],
-	recurringEndAt: null,
+	recurringEndAt: '',
 	recurringExceptions: [],
 };
 
@@ -89,9 +89,9 @@ export const normalWithSubTasks: TimedTask = {
 	name: 'Put away apartment',
 	startTime: formatTime(getTodayAtTime('15:15')),
 	image: '',
-	recurringFrequency: null,
+	recurringFrequency: '',
 	recurringDaysOfWeek: [],
-	recurringEndAt: null,
+	recurringEndAt: '',
 	recurringExceptions: [],
 };
 
@@ -107,9 +107,9 @@ export const shortWithoutDescription: TimedTask = {
 	name: 'Breakfast',
 	startTime: formatTime(getTodayAtTime('07:00')),
 	image: '',
-	recurringFrequency: null,
+	recurringFrequency: '',
 	recurringDaysOfWeek: [],
-	recurringEndAt: null,
+	recurringEndAt: '',
 	recurringExceptions: [],
 };
 
@@ -125,9 +125,9 @@ export const shortWithDescription: TimedTask = {
 	name: 'Breakfast',
 	startTime: formatTime(getTodayAtTime('07:00')),
 	image: '',
-	recurringFrequency: null,
+	recurringFrequency: '',
 	recurringDaysOfWeek: [],
-	recurringEndAt: null,
+	recurringEndAt: '',
 	recurringExceptions: [],
 };
 
@@ -149,9 +149,9 @@ export const shortWithSubTasks: TimedTask = {
 	name: 'Breakfast',
 	startTime: formatTime(getTodayAtTime('07:00')),
 	image: '',
-	recurringFrequency: null,
+	recurringFrequency: '',
 	recurringDaysOfWeek: [],
-	recurringEndAt: null,
+	recurringEndAt: '',
 	recurringExceptions: [],
 };
 
@@ -166,7 +166,7 @@ export const longRecurring: TimedTask = {
 	isDone: false,
 	name: longText,
 	recurringDaysOfWeek: [],
-	recurringEndAt: null,
+	recurringEndAt: '',
 	recurringExceptions: [],
 	recurringFrequency: 'daily',
 	startTime: formatTime(getTodayAtTime('10:15')),
@@ -195,9 +195,9 @@ export const workToDo: TimedTask = {
 	isDone: false,
 	name: longText,
 	image: '',
-	recurringFrequency: null,
+	recurringFrequency: '',
 	recurringDaysOfWeek: [],
-	recurringEndAt: null,
+	recurringEndAt: '',
 	recurringExceptions: [],
 	startTime: formatTime(getTodayAtTime('15:15')),
 };
@@ -213,9 +213,9 @@ export const birthdayToDo: TimedTask = {
 	isDone: true,
 	name: "Friend's birthday",
 	image: '',
-	recurringFrequency: null,
+	recurringFrequency: '',
 	recurringDaysOfWeek: [],
-	recurringEndAt: null,
+	recurringEndAt: '',
 	recurringExceptions: [],
 	startTime: formatTime(getTodayAtTime('15:15')),
 };

@@ -191,6 +191,13 @@
 				</label>
 			</Collapsable>
 
+			{#snippet categoryItem(category: Category)}
+				<div class="flex items-center gap-3">
+					<div class="{tailwindColorMap[category.color]?.darkBg} h-5 w-5 rounded-md"></div>
+					{category.name}
+				</div>
+			{/snippet}
+
 			<!--category-->
 			<Select
 				class="flex items-center"
@@ -200,19 +207,11 @@
 				bind:value={taskIn.value.category}
 			>
 				{#snippet placeholder()}
-					<div class="flex items-center gap-3">
-						<div
-							class="h-5 w-5 rounded-md {tailwindColorMap[taskIn.value.category.color]?.darkBg}"
-						></div>
-						{taskIn.value.category.name}
-					</div>
+					{@render categoryItem(taskIn.value.category)}
 				{/snippet}
 				{#each categories as category (category)}
 					<SelectItem value={category}>
-						<div class="flex items-center gap-3">
-							<div class="h-5 w-5 rounded-md {tailwindColorMap[category.color]?.darkBg}"></div>
-							{category.name}
-						</div>
+						{@render categoryItem(category)}
 					</SelectItem>
 				{/each}
 			</Select>

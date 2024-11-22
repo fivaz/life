@@ -5,7 +5,12 @@ import { formatDate, formatTime, TIME } from '$lib/date.utils.svelte';
 import type { Frequency, Task } from '$lib/task/task.model';
 import { isRecurring, isTimed } from '$lib/task/task.model';
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
-import { convertTimeToMinutes, roundTo15, sumTimes } from '$lib/task/time-utils';
+import {
+	convertTimeToMinutes,
+	getCurrentRoundedDate,
+	roundTo15,
+	sumTimes,
+} from '$lib/task/time-utils';
 
 // TaskIn is a super type that has all the attributes of possible Tasks together
 export type TaskIn = Omit<
@@ -63,18 +68,17 @@ export function convertToTask(taskIn: TaskIn): Task {
 	return {
 		...rest,
 		duration: rest.duration as HHmm,
-		image: rest.image || null,
-		startTime: isEvent ? (rest.startTime as HHmm) : null,
+		startTime: isEvent ? (rest.startTime as HHmm) : '',
 		date: (rest.date as yyyyMMdd) || null,
-		recurringFrequency: isRecurring && rest.recurringFrequency ? rest.recurringFrequency : null,
+		recurringFrequency: isRecurring && rest.recurringFrequency ? rest.recurringFrequency : '',
 		recurringDaysOfWeek: isRecurring ? rest.recurringDaysOfWeek : [],
-		recurringEndAt: isRecurring ? (rest.recurringEndAt as yyyyMMdd) : null,
+		recurringEndAt: isRecurring ? (rest.recurringEndAt as yyyyMMdd) : '',
 		recurringExceptions: isRecurring ? (rest.recurringExceptions as yyyyMMdd[]) : [],
 	};
 }
 
 export function convertToTaskIn(task: Task): TaskIn {
-	const time = formatTime(roundTo15(new Date()));
+	const time = formatTime(getCurrentRoundedDate());
 
 	return {
 		...task,
@@ -82,8 +86,6 @@ export function convertToTaskIn(task: Task): TaskIn {
 		isRecurring: isRecurring(task),
 		startTime: task.startTime || time,
 		endTime: sumTimes(task.startTime || time, task.duration),
-		date: task.date || '',
-		image: task.image || '',
 		recurringFrequency: task.recurringFrequency || 'daily',
 		recurringDaysOfWeek: task.recurringDaysOfWeek.length
 			? task.recurringDaysOfWeek

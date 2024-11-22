@@ -2,9 +2,10 @@ import type { Category } from '$lib/category/category.model';
 import { formatDate, formatTime } from '$lib/date.utils.svelte';
 import type { Goal } from '$lib/goal/goal.model';
 import type { Task } from '$lib/task/task.model';
+import { getCurrentRoundedDate } from '$lib/task/time-utils';
 
 export function buildTimedTask(categories: Category[], goal: Goal | null = null): Task {
-	const now = new Date();
+	const now = getCurrentRoundedDate();
 	return Object.assign(buildUntimedTask(categories, now, goal), {
 		startTime: formatTime(now),
 	});
@@ -38,10 +39,10 @@ export function buildUntimedTask(
 		date: formatDate(date),
 		duration: '00:15',
 		image: '',
-		recurringFrequency: null,
+		recurringFrequency: '',
 		recurringDaysOfWeek: [],
-		recurringEndAt: null,
+		recurringEndAt: '',
 		recurringExceptions: [],
-		startTime: null,
+		startTime: '',
 	};
 }
