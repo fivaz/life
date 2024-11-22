@@ -1,9 +1,27 @@
-import { addDoc, collection, deleteDoc, doc, updateDoc, writeBatch } from 'firebase/firestore';
+import {
+	addDoc,
+	collection,
+	deleteDoc,
+	doc,
+	orderBy,
+	updateDoc,
+	writeBatch,
+} from 'firebase/firestore';
 
+import type { Category } from '$lib/category/category.model';
+import { categorySchema } from '$lib/category/category.model';
 import { DB_PATH } from '$lib/consts';
 import type { yyyyMMdd } from '$lib/date.utils.svelte';
 import { db } from '$lib/firebase';
+import { fetchItems } from '$lib/repository.svelte';
 import type { Routine } from '$lib/routine/routine.model';
+import { routineSchema } from '$lib/routine/routine.model';
+
+import { convertToMap } from '../../routes/(dashboard)/routine/service.svelte';
+
+export function fetchRoutines(): void {
+	fetchItems(convertToMap, DB_PATH.ROUTINES, routineSchema, orderBy('order'));
+}
 
 export function getRoutinePath(userId: string) {
 	return `${DB_PATH.USERS}/${userId}/${DB_PATH.ROUTINES}`;

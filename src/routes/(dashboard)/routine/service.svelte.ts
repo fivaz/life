@@ -18,33 +18,10 @@ export const routinesMap = $state<{ value: Record<Routine['time'], Routine[]> }>
 	value: emptyRoutineMap,
 });
 
-export function fetchRoutines(): void {
-	$effect(() => {
-		let unsubscribe: Unsubscribe = () => {};
-
-		if (currentUser.uid) {
-			unsubscribe = onSnapshot(getQuery(DB_PATH.ROUTINES, orderBy('order')), (snapshot) =>
-				populateRoutineMap(snapshot),
-			);
-		}
-
-		return () => unsubscribe();
-	});
-}
-
-export function populateRoutineMap(snapshot: QuerySnapshot) {
+export function convertToMap(newRoutines: Routine[]) {
 	routinesMap.value = emptyRoutineMap;
-
-	snapshot.docs.forEach((doc) => {
-		const routine = { ...doc.data(), id: doc.id };
-
-		const validation = routineSchema.safeParse(routine);
-
-		if (!validation.success) {
-			console.warn(`validation failed: ${routine.id}, ${validation.error}`);
-		} else {
-			routinesMap.value[validation.data.time].push(validation.data);
-		}
+	newRoutines.forEach((routine) => {
+		routinesMap.value[routine.time].push(routine);
 	});
 }
 

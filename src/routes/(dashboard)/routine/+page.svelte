@@ -8,6 +8,7 @@
 	import { fetchItems } from '$lib/repository.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { buildEmptyRoutine, routineSchema } from '$lib/routine/routine.model';
+	import { fetchRoutines } from '$lib/routine/routine.repository';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import RoutineEmptyState from './routine-empty-state/RoutineEmptyState.svelte';
@@ -31,14 +32,7 @@
 
 	setOpenRoutineForm(openForm);
 
-	function convertToMap(newRoutines: Routine[]) {
-		routinesMap.value = emptyRoutineMap;
-		newRoutines.forEach((routine) => {
-			routinesMap.value[routine.time].push(routine);
-		});
-	}
-
-	fetchItems(convertToMap, DB_PATH.ROUTINES, routineSchema, orderBy('order'));
+	fetchRoutines();
 
 	let routines = $derived(Object.values(routinesMap.value).flat());
 </script>
