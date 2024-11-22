@@ -11,6 +11,10 @@ import { fetchItems } from '$lib/repository.svelte';
 import type { Task } from '$lib/task/task.model';
 import { taskSchema } from '$lib/task/task.model';
 
+export function fetchGoalTasks(goalId: string, tasks: Task[], constrains?: QueryConstraint): void {
+	fetchItems(tasks, `${DB_PATH.GOALS}/${goalId}/${DB_PATH.TASKS}`, taskSchema, constrains);
+}
+
 export function fetchTasks(tasks: Task[], constrains?: QueryConstraint): void {
 	fetchItems(tasks, DB_PATH.TASKS, taskSchema, constrains);
 }

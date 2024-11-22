@@ -1,8 +1,8 @@
 import { lastDayOfQuarter } from 'date-fns';
 import { z } from 'zod';
 
-import { zDate } from '$lib/date.utils';
 import { formatDate } from '$lib/date.utils.svelte';
+import { zDate } from '$lib/utils';
 
 // TODO make deadline 	deadline: yyyyMMdd | null;
 export type Goal = {

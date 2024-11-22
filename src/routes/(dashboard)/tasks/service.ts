@@ -13,6 +13,7 @@ import { DATE_FR, weekStartsOn } from '$lib/date.utils.svelte';
 import type { Task } from '$lib/task/task.model';
 import { isRecurring } from '$lib/task/task.model';
 import { getTaskDate } from '$lib/task/time-utils';
+import { groupBy } from '$lib/utils';
 
 export type SortedTaskType = Record<string, Task[]> & Iterable<string>;
 
@@ -79,10 +80,10 @@ function getDateName(task: Task): GROUPS | string {
 }
 
 function groupTasksByDate(tasks: Task[]): Record<string, Task[]> {
-	const tasksByDate = Object.groupBy(tasks, getDateName) as Record<string, Task[]>;
+	const tasksByDate = groupBy(tasks, getDateName);
 
 	// minimum amount of groups I must have even if they will remain empty
-	const groupOfDates = {
+	const groupOfDates: Record<string, Task[]> = {
 		[GROUPS.Today]: [],
 		[GROUPS.Tomorrow]: [],
 		[GROUPS.ThisWeek]: [],

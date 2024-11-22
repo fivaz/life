@@ -2,6 +2,7 @@ import { format, getQuarter, isPast, isThisYear, parse } from 'date-fns';
 
 import { DATE, DATE_FR } from '$lib/date.utils.svelte';
 import type { Goal } from '$lib/goal/goal.model';
+import { groupBy } from '$lib/utils';
 
 enum GROUPS {
 	Done = 'Done',
@@ -82,6 +83,6 @@ function getGoalsByOrderedDate(goalsByDate: Record<string, Goal[]>) {
 }
 
 export function sortGoalsByDate(goals: Goal[]): Record<string, Goal[]> & Iterable<string> {
-	const goalsByDate = Object.groupBy(goals, getDateName) as Record<string, Goal[]>;
+	const goalsByDate = groupBy(goals, getDateName);
 	return getGoalsByOrderedDate(goalsByDate);
 }

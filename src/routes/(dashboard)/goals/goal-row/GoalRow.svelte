@@ -7,18 +7,18 @@
 	import { getCompletedTasks } from '$lib/goal/goal.utils';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import type { Task } from '$lib/task/task.model';
+	import { fetchGoalTasks } from '$lib/task/task.repository';
 
 	import GoalTasks from './goal-tasks/GoalTasks.svelte';
 
 	interface Props {
 		goal: Goal;
-		tasks: Task[];
 		addTask: () => void;
 		editGoal: (goal: Goal) => void;
 		editTask: (task: Task) => void;
 	}
 
-	let { goal, editGoal, tasks, addTask, editTask }: Props = $props();
+	let { goal, editGoal, addTask, editTask }: Props = $props();
 
 	let isTaskListOpen = $state(false);
 
@@ -31,6 +31,10 @@
 		}
 		return `${tasks.length} tasks`;
 	}
+
+	let tasks = $state<Task[]>([]);
+
+	fetchGoalTasks(goal.id, tasks);
 </script>
 
 <li

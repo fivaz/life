@@ -35,7 +35,7 @@ function populate<I>(snapshot: QuerySnapshot, schema: ZodSchema) {
 }
 
 export function fetchItems<I>(
-	callback: ((items: I[]) => void) | I[],
+	handleItems: I[] | ((items: I[]) => void),
 	segment: string,
 	zodSchema: ZodSchema,
 	constrains?: QueryConstraint,
@@ -46,10 +46,10 @@ export function fetchItems<I>(
 		if (currentUser.uid) {
 			unsubscribe = onSnapshot(getQuery(segment, constrains), (snapshot) => {
 				const items = populate<I>(snapshot, zodSchema);
-				if (typeof callback === 'function') {
-					callback(items);
+				if (typeof handleItems === 'function') {
+					handleItems(items);
 				} else {
-					callback.splice(0, callback.length, ...items);
+					handleItems.splice(0, handleItems.length, ...items);
 				}
 			});
 		}

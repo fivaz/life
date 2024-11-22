@@ -16,7 +16,7 @@ import {
 	subYears,
 } from 'date-fns';
 
-import { DATE, formatDate } from '$lib/date.utils.svelte.js';
+import { DATE, formatDate } from '$lib/date.utils.svelte';
 import type { Task } from '$lib/task/task.model';
 import { sortTasks } from '$lib/task/task.utils';
 import { getTaskDateTime } from '$lib/task/time-utils';
