@@ -10,7 +10,6 @@
 		},
 	});
 
-	import { startOfWeek } from 'date-fns';
-</script>
+	</script>
 
-<Story name="Primary" args={{ weekStart: startOfWeek(new Date()), selectedDate: new Date() }} />
+<Story name="Primary" args={{ selectedDate: new Date() }} />

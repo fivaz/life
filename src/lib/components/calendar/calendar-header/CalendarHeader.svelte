@@ -5,7 +5,7 @@
 	import { getChangeDate, getCreateTask } from '$lib/components/calendar/context.utils';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
-	import { currentDate, formatDate, selectedDate, weekStart } from '$lib/date.utils.svelte';
+	import { currentDate, formatDate, selectedDate } from '$lib/date.utils.svelte';
 	import { getCurrentRoundedDate } from '$lib/task/time-utils';
 
 	const createTask = getCreateTask();
@@ -35,7 +35,6 @@
 		<WeekChanger
 			onchange={(selectedDate) => handleChangeDate(selectedDate)}
 			bind:selectedDate={selectedDate.value}
-			bind:weekStart={weekStart.value}
 		/>
 
 		<div class="hidden h-7 border-r border-gray-300 md:block"></div>

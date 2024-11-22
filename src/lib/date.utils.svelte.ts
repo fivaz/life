@@ -47,17 +47,13 @@ export const selectedDate = {
 	},
 };
 
-let _weekStart = $state<Date>(startOfWeek(currentDate.value, { weekStartsOn }));
-
-export const previousWeekStart = $state<{ value: Date }>({ value: _weekStart });
+// weekStart needs to be a string because an object isn't the same as another object,
+// and it has animations tied to when the value changes
+const _weekStart = $derived<yyyyMMdd>(formatDate(startOfWeek(selectedDate.value)));
 
 export const weekStart = {
 	get value() {
 		return _weekStart;
-	},
-	set value(newWeekStart) {
-		previousWeekStart.value = _weekStart;
-		_weekStart = newWeekStart;
 	},
 };
 

@@ -65,8 +65,6 @@
 	fetchFirstTasks();
 
 	let tasks = $derived(convertTaskMapToList(tasksMap.value));
-
-	$inspect(tasksMap.value);
 </script>
 
 <Calendar

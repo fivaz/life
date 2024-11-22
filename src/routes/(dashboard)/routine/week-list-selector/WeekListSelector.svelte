@@ -1,15 +1,14 @@
 <script lang="ts">
 	import { clsx } from 'clsx';
-	import { format, isSameDay, isToday } from 'date-fns';
+	import { format, isSameDay, isToday, startOfWeek } from 'date-fns';
 	import { CheckCheck } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
 
 	import {
 		formatDate,
-		previousWeekStart,
+		previousDate,
 		selectedDate,
 		weekDates,
-		weekStart,
 	} from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 
@@ -28,9 +27,11 @@
 		);
 	}
 
-	const slideDirection = $derived(
-		weekStart.value.getTime() > previousWeekStart.value.getTime() ? 1 : -1,
-	);
+	const slideDirection = $derived.by(() => {
+		const weekStart = startOfWeek(selectedDate.value);
+		const previousWeekStart = startOfWeek(previousDate.value);
+		return weekStart.getTime() > previousWeekStart.getTime() ? 1 : -1;
+	});
 </script>
 
 <div class="relative h-20 md:h-14">

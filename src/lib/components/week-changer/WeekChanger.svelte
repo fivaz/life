@@ -1,18 +1,17 @@
 <script lang="ts">
 	import { ChevronLeft, ChevronRight } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { addDays, isSameWeek, parse } from 'date-fns';
+	import { addDays, isSameWeek, parse, startOfWeek } from 'date-fns';
 	import { CalendarCheck } from 'lucide-svelte';
 
-	import { DATE, formatDate, weekStartsOn } from '$lib/date.utils.svelte';
+	import { DATE, formatDate } from '$lib/date.utils.svelte';
 
 	interface Props {
-		weekStart: Date;
 		selectedDate: Date;
 		onchange?: (weekStart: Date) => void;
 	}
 
-	let { onchange, weekStart = $bindable(), selectedDate = $bindable() }: Props = $props();
+	let { onchange, selectedDate = $bindable() }: Props = $props();
 
 	const currentDate = new Date();
 
@@ -33,14 +32,16 @@
 	}
 
 	function goToNextWeek() {
+		let weekStart = startOfWeek(selectedDate);
 		weekStart = addDays(weekStart, 7);
-		selectedDate = isSameWeek(currentDate, weekStart, { weekStartsOn }) ? currentDate : weekStart;
+		selectedDate = isSameWeek(currentDate, weekStart) ? currentDate : weekStart;
 		onchange?.(selectedDate);
 	}
 
 	function goToPreviousWeek() {
+		let weekStart = startOfWeek(selectedDate);
 		weekStart = addDays(weekStart, -7);
-		selectedDate = isSameWeek(currentDate, weekStart, { weekStartsOn }) ? currentDate : weekStart;
+		selectedDate = isSameWeek(currentDate, weekStart) ? currentDate : weekStart;
 		onchange?.(selectedDate);
 	}
 </script>
