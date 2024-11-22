@@ -15,10 +15,7 @@
 	import RoutineHeader from './routine-header/RoutineHeader.svelte';
 	import RoutineRows from './routine-rows/RoutineRows.svelte';
 	import { setOpenRoutineForm } from './routine-rows/service';
-	import {
-		emptyRoutineMap,
-		routinesMap,
-	} from './service.svelte';
+	import { emptyRoutineMap, routinesMap } from './service.svelte';
 	import WeekListSelector from './week-list-selector/WeekListSelector.svelte';
 
 	let editingRoutine = $state<Routine>(buildEmptyRoutine());
@@ -44,10 +41,6 @@
 	fetchItems(convertToMap, DB_PATH.ROUTINES, routineSchema, orderBy('order'));
 
 	let routines = $derived(Object.values(routinesMap.value).flat());
-
-	$inspect(routines);
-
-	$inspect(routinesMap);
 </script>
 
 {#if currentUser.uid}

@@ -7,8 +7,21 @@ import type { Goal } from '$lib/goal/goal.model';
 import { goalSchema } from '$lib/goal/goal.model';
 import { fetchItems } from '$lib/repository.svelte';
 
-export function fetchGoals(goals: Goal[], constrains?: QueryConstraint): void {
-	fetchItems(goals, DB_PATH.GOALS, goalSchema, constrains);
+export function fetchGoals(
+	handleGoals: Goal[] | ((goals: Goal[]) => void),
+	constrains?: QueryConstraint,
+): void {
+	const handleGoalsSorted = (goals: Goal[]) => {
+		goals.sort((a, b) => a.deadline.localeCompare(b.deadline));
+
+		if (typeof handleGoals === 'function') {
+			handleGoals(goals);
+		} else {
+			handleGoals.splice(0, handleGoals.length, ...goals);
+		}
+	};
+
+	fetchItems(handleGoalsSorted, DB_PATH.GOALS, goalSchema, constrains);
 }
 
 export function getGoalPath(userId: string) {
