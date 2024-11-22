@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { doc, writeBatch } from 'firebase/firestore';
 	import { Plus } from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';
@@ -6,13 +7,17 @@
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { title } from '$lib/date.utils.svelte';
+	import { db } from '$lib/firebase';
 	import type { Goal } from '$lib/goal/goal.model';
 	import { buildEmptyGoal } from '$lib/goal/goal.model';
-	import { fetchGoals } from '$lib/goal/goal.repository';
+	import { fetchGoals, getGoalPath } from '$lib/goal/goal.repository';
 	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
 	import type { Task } from '$lib/task/task.model';
+	import { getTaskPath } from '$lib/task/task.repository';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
+	import { currentUser } from '$lib/user/user.utils.svelte';
 
+	import { tasks } from '../service.svelte';
 	import GoalForm from './goal-form/GoalForm.svelte';
 	import GoalRow from './goal-row/GoalRow.svelte';
 	import { sortGoalsByDate } from './service';

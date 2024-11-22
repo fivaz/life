@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { DocumentText } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { where } from 'firebase/firestore';
+	import { doc, where, writeBatch } from 'firebase/firestore';
 	import { Plus } from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';
@@ -9,12 +9,14 @@
 	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import { title } from '$lib/date.utils.svelte';
+	import { db } from '$lib/firebase';
 	import type { Goal } from '$lib/goal/goal.model';
-	import { fetchGoals } from '$lib/goal/goal.repository';
+	import { fetchGoals, getGoalPath } from '$lib/goal/goal.repository';
 	import { buildUntimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
 	import type { Task } from '$lib/task/task.model';
-	import { fetchTasks } from '$lib/task/task.repository';
+	import { fetchTasks, getTaskPath } from '$lib/task/task.repository';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
+	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import { getTasksByDateSorted } from './service';
 	import TaskList from './task-list/TaskList.svelte';

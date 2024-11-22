@@ -1,13 +1,23 @@
 <script lang="ts">
 	import { ChevronDown, ChevronUp, Plus, Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { doc, writeBatch } from 'firebase/firestore';
 
+	import type { Category } from '$lib/category/category.model';
+	import { fetchCategories } from '$lib/category/category.respository';
+	import Button from '$lib/components/form/button/Button.svelte';
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
+	import { DB_PATH } from '$lib/consts';
+	import { parseDate } from '$lib/date.utils.svelte';
+	import { db } from '$lib/firebase';
 	import type { Goal } from '$lib/goal/goal.model';
+	import { goals } from '$lib/goal/goal.seed';
 	import { getCompletedTasks } from '$lib/goal/goal.utils';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import type { Task } from '$lib/task/task.model';
-	import { fetchGoalTasks } from '$lib/task/task.repository';
+	import { fetchGoalTasks, getTaskPath } from '$lib/task/task.repository';
+	import { sortTasks } from '$lib/task/task.utils';
+	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import GoalTasks from './goal-tasks/GoalTasks.svelte';
 
@@ -34,7 +44,7 @@
 
 	let tasks = $state<Task[]>([]);
 
-	fetchGoalTasks(goal.id, tasks);
+	fetchGoalTasks(goal.id, (rawTasks) => (tasks = sortTasks(rawTasks)));
 </script>
 
 <li

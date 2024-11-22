@@ -16,8 +16,6 @@
 
 	let { tasks, editTask }: Props = $props();
 
-	let tasksByDate = $derived(sortTasks(tasks));
-
 	function showDate(task: Task) {
 		const date = getTaskDate(task);
 		if (!date) {
@@ -27,9 +25,8 @@
 	}
 </script>
 
-<!--TODO remove clsx-->
 <ul role="list">
-	{#each tasksByDate as task (task)}
+	{#each tasks as task (task)}
 		<li>
 			<button
 				class="flex w-full cursor-pointer items-center justify-between gap-3 px-3 py-2 hover:bg-gray-100 hover:underline"
