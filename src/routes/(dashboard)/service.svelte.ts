@@ -30,11 +30,20 @@ export function persistTasks(userId: string, toDos: Task[]) {
 	});
 }
 
-const tasksWeekHashMap = $state<Record<string, { unique: Task[]; recurring: Task[] }>>({});
+let tasksWeekMap = $state<Record<string, { unique: Task[]; recurring: Task[] }>>({});
+
+export const tasksMap = {
+	get value() {
+		return tasksWeekMap;
+	},
+	set value(newTaskMap: Record<string, { unique: Task[]; recurring: Task[] }>) {
+		tasksWeekMap = newTaskMap;
+	},
+};
 
 export const tasks = {
 	get value() {
-		const tasks = Object.values(tasksWeekHashMap).flatMap((entry) => [
+		const tasks = Object.values(tasksWeekMap).flatMap((entry) => [
 			...entry.unique,
 			...entry.recurring,
 		]);
@@ -49,14 +58,14 @@ export function getWeekTasks(userId: string, date: Date): void {
 	const weekStart = startOfWeek(date);
 	const weekStartString = formatDate(weekStart);
 	// only fetch tasks for other weeks that haven't been fetched previously
-	if (!tasksWeekHashMap[weekStartString]) {
+	if (!tasksWeekMap[weekStartString]) {
 		subscribeToWeekTasks(userId, weekStart);
 	}
 }
 
 export function subscribeToWeekTasks(userId: string, startOfWeek: Date) {
 	const startOfWeekString = formatDate(startOfWeek);
-	tasksWeekHashMap[startOfWeekString] = { unique: [], recurring: [] };
+	tasksWeekMap[startOfWeekString] = { unique: [], recurring: [] };
 
 	const [recurringQuery, uniqueQuery] = queryWeekTasks(userId, startOfWeek);
 
@@ -80,9 +89,9 @@ export function subscribeToWeekTasks(userId: string, startOfWeek: Date) {
 function updateTasksFromSnapshot(
 	snapshot: QuerySnapshot<Task>,
 	startOfWeek: string,
-	taskType: keyof (typeof tasksWeekHashMap)[string],
+	taskType: keyof (typeof tasksWeekMap)[string],
 ) {
-	tasksWeekHashMap[startOfWeek][taskType] = snapshot.docs.map((doc) => {
+	tasksWeekMap[startOfWeek][taskType] = snapshot.docs.map((doc) => {
 		const task = { ...doc.data(), id: doc.id };
 		const validation = taskSchema.safeParse(task);
 
