@@ -4,12 +4,7 @@
 	import { CheckCheck } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
 
-	import {
-		formatDate,
-		previousDate,
-		selectedDate,
-		weekDates,
-	} from '$lib/date.utils.svelte';
+	import { formatDate, previousDate, selectedDate, weekDates } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 
 	import { weekChangeDuration } from '../service.svelte';

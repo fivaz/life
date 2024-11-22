@@ -1,4 +1,3 @@
-
 import type { HHmm, yyyyMMdd } from '$lib/date.utils.svelte';
 import type { Task } from '$lib/task/task.model';
 import { isRecurring } from '$lib/task/task.model';

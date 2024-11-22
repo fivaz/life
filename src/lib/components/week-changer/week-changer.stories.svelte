@@ -9,7 +9,6 @@
 			layout: 'fullscreen',
 		},
 	});
-
-	</script>
+</script>
 
 <Story name="Primary" args={{ selectedDate: new Date() }} />

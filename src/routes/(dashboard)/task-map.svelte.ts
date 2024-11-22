@@ -3,7 +3,7 @@ import type { QueryConstraint } from 'firebase/firestore';
 import { where } from 'firebase/firestore';
 
 import { DB_PATH } from '$lib/consts';
-import { currentDate, formatDate, weekStartsOn } from '$lib/date.utils.svelte';
+import { currentDate, formatDate } from '$lib/date.utils.svelte';
 import { fetchItemsCore } from '$lib/repository.svelte';
 import type { CalendarTask, Task } from '$lib/task/task.model';
 import { taskSchema } from '$lib/task/task.model';
@@ -26,9 +26,7 @@ export function fetchFirstTasks() {
 }
 
 function populateTaskMap(tasks: CalendarTask[]): void {
-	const tasksByWeek = groupBy(tasks, (task) =>
-		formatDate(startOfWeek(task.date, { weekStartsOn })),
-	);
+	const tasksByWeek = groupBy(tasks, (task) => formatDate(startOfWeek(task.date)));
 
 	const weeks = Object.keys(tasksByWeek);
 
@@ -38,11 +36,11 @@ function populateTaskMap(tasks: CalendarTask[]): void {
 }
 
 export function getTaskDateConstrain(): QueryConstraint[] {
-	const currentWeekStart = startOfWeek(currentDate.value, { weekStartsOn });
+	const currentWeekStart = startOfWeek(currentDate.value);
 	const previousWeekStart = addDays(currentWeekStart, -7);
 	const nextWeekStart = addDays(currentWeekStart, 7);
 
-	const nextWeekEnd = endOfWeek(nextWeekStart, { weekStartsOn });
+	const nextWeekEnd = endOfWeek(nextWeekStart);
 
 	const startOfWeekString = formatDate(previousWeekStart);
 	const endOfWeekString = formatDate(nextWeekEnd);
@@ -65,7 +63,7 @@ export function convertTaskMapToList(taskMap: TaskMap): Task[] {
 }
 
 export function getWeekTasks(date: Date): void {
-	const weekStart = startOfWeek(date, { weekStartsOn });
+	const weekStart = startOfWeek(date);
 	const weekStartString = formatDate(weekStart);
 	// only fetch tasks for other weeks that haven't been fetched previously
 	if (!tasksMap.value.unique[weekStartString]) {
@@ -75,7 +73,7 @@ export function getWeekTasks(date: Date): void {
 
 function subscribeToWeekTasks(startOfWeek: Date) {
 	const startOfWeekString = formatDate(startOfWeek);
-	const endOfWeekString = formatDate(endOfWeek(startOfWeek, { weekStartsOn }));
+	const endOfWeekString = formatDate(endOfWeek(startOfWeek));
 
 	fetchItemsCore<Task>(
 		(tasks) => (tasksMap.value.unique[startOfWeekString] = tasks),

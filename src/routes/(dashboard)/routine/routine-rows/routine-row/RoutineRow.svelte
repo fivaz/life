@@ -7,7 +7,7 @@
 	import { dragHandle } from 'svelte-dnd-action';
 
 	import type { yyyyMMdd } from '$lib/date.utils.svelte';
-	import { formatDate, previousDate, selectedDate, weekStartsOn } from '$lib/date.utils.svelte';
+	import { formatDate, previousDate, selectedDate } from '$lib/date.utils.svelte';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { toggleRoutineCompletion } from '$lib/routine/routine.repository';
@@ -31,8 +31,7 @@
 	const openRoutineForm = getOpenRoutineForm();
 
 	const slideDuration = $derived(
-		startOfWeek(selectedDate.value, { weekStartsOn }).getTime() ===
-			startOfWeek(previousDate.value, { weekStartsOn }).getTime()
+		startOfWeek(selectedDate.value).getTime() === startOfWeek(previousDate.value).getTime()
 			? 200
 			: weekChangeDuration,
 	);

@@ -6,10 +6,8 @@
 	import { pwaAssetsHead } from 'virtual:pwa-assets/head';
 	import { pwaInfo } from 'virtual:pwa-info';
 
-	import { weekStartsOn } from '$lib/date.utils.svelte';
-
 	// set it for all
-	setDefaultOptions({ weekStartsOn });
+	setDefaultOptions({ weekStartsOn: 1 });
 
 	interface Props {
 		children: Snippet;

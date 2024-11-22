@@ -9,7 +9,7 @@ import {
 	startOfWeek,
 } from 'date-fns';
 
-import { DATE_FR, weekStartsOn } from '$lib/date.utils.svelte';
+import { DATE_FR } from '$lib/date.utils.svelte';
 import type { Task } from '$lib/task/task.model';
 import { isRecurring } from '$lib/task/task.model';
 import { getTaskDate } from '$lib/task/time-utils';
@@ -30,16 +30,13 @@ export enum GROUPS {
 }
 
 function isCurrentWeek(date: Date) {
-	return (
-		startOfWeek(new Date(), { weekStartsOn }).getTime() ===
-		startOfWeek(date, { weekStartsOn }).getTime()
-	);
+	return startOfWeek(new Date()).getTime() === startOfWeek(date).getTime();
 }
 
 function isNextWeek(date: Date): boolean {
 	const now = new Date();
-	const start = addWeeks(startOfWeek(now, { weekStartsOn }), 1);
-	const end = endOfWeek(start, { weekStartsOn });
+	const start = addWeeks(startOfWeek(now), 1);
+	const end = endOfWeek(start);
 
 	return isWithinInterval(date, { end, start });
 }

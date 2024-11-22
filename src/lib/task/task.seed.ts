@@ -1,7 +1,7 @@
 import { startOfTomorrow, startOfWeek, startOfYesterday } from 'date-fns';
 
 import { routine, sleep, work } from '$lib/category/category.seed';
-import { formatDate, formatTime, weekStartsOn } from '$lib/date.utils.svelte';
+import { formatDate, formatTime } from '$lib/date.utils.svelte';
 import { sleepEarly } from '$lib/goal/goal.seed';
 import type { TimedTask } from '$lib/task/task.model';
 import { buildDate } from '$lib/task/time-utils';
@@ -187,7 +187,7 @@ export const events: TimedTask[] = [
 export const workToDo: TimedTask = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
-	date: formatDate(startOfWeek(new Date(), { weekStartsOn })),
+	date: formatDate(startOfWeek(new Date())),
 	description: '',
 	duration: '00:15',
 	goal: null,
