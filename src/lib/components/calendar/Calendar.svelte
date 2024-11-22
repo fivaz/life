@@ -3,12 +3,12 @@
 	import type { MoveEventType } from '$lib/components/calendar/service.svelte';
 	import {
 		getNextRoundedTime,
-		setChangeWeek,
+		setChangeDate,
 		setCreateTask,
 		setEditTask,
 		setMoveEvent,
 		setPersistTasks,
-		setToggleEvent,
+		setToggleCompletion,
 	} from '$lib/components/calendar/service.svelte';
 	import type { yyyyMMdd } from '$lib/date.utils.svelte';
 	import { currentDate } from '$lib/date.utils.svelte';
@@ -19,25 +19,32 @@
 
 	interface Props {
 		tasks: Task[];
-		changeWeek: (weekStart: Date) => void;
+		changeDate: (date: Date) => void;
 		createTask: (date: Date) => void;
 		editTask: (task: Task, date: yyyyMMdd) => void;
 		persistTasks: (tasks: Task[]) => void;
-		toggleEvent: (event: Task, targetDate: yyyyMMdd) => void;
+		toggleCompletion: (event: Task, targetDate: yyyyMMdd) => void;
 		moveEvent: MoveEventType;
 	}
 
-	let { tasks, changeWeek, createTask, editTask, persistTasks, toggleEvent, moveEvent }: Props =
-		$props();
+	let {
+		tasks,
+		changeDate,
+		createTask,
+		editTask,
+		persistTasks,
+		toggleCompletion,
+		moveEvent,
+	}: Props = $props();
 
 	let timeUntilNextUpdate = $state(getNextRoundedTime());
 
-	setChangeWeek(changeWeek);
+	setChangeDate(changeDate);
 	setCreateTask(createTask);
 	setEditTask(editTask);
 	setMoveEvent(moveEvent);
 	setPersistTasks(persistTasks);
-	setToggleEvent(toggleEvent);
+	setToggleCompletion(toggleCompletion);
 
 	$effect(() => {
 		const interval = setInterval(() => {

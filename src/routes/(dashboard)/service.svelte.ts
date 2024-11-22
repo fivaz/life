@@ -1,3 +1,4 @@
+import { startOfWeek } from 'date-fns';
 import type { QuerySnapshot } from 'firebase/firestore';
 import { onSnapshot } from 'firebase/firestore';
 
@@ -43,11 +44,13 @@ export const tasks = {
 	},
 };
 
-export function getWeekTasks(userId: string, startOfWeek: Date): void {
-	const weekStartString = formatDate(startOfWeek);
+export function getWeekTasks(userId: string, date: Date): void {
+	if (!userId) return;
+	const weekStart = startOfWeek(date);
+	const weekStartString = formatDate(weekStart);
 	// only fetch tasks for other weeks that haven't been fetched previously
 	if (!tasksWeekHashMap[weekStartString]) {
-		subscribeToWeekTasks(userId, startOfWeek);
+		subscribeToWeekTasks(userId, weekStart);
 	}
 }
 

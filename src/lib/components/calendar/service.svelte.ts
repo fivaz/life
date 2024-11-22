@@ -17,14 +17,14 @@ export function getNextRoundedTime() {
 	return differenceInMilliseconds(nextTimeRounded, currentTimeMilliseconds);
 }
 
-const changeWeekKey = Symbol('changeWeek');
+const changeDateKey = Symbol('changeDate');
 
-export function setChangeWeek(fn: (weekStart: Date) => void) {
-	setContext(changeWeekKey, fn);
+export function setChangeDate(fn: (date: Date) => void) {
+	setContext(changeDateKey, fn);
 }
 
-export function getChangeWeek(): (weekStart: Date) => void {
-	return getContext(changeWeekKey) as (weekStart: Date) => void;
+export function getChangeDate(): (date: Date) => void {
+	return getContext(changeDateKey) as (date: Date) => void;
 }
 
 const createTaskKey = Symbol('createTask');
@@ -77,12 +77,12 @@ export function setPersistTasks(fn: (tasks: Task[]) => void) {
 	setContext(persistTasksKey, fn);
 }
 
-const toggleEventKey = Symbol('toggleEvent');
+const toggleCompletionKey = Symbol('toggleCompletion');
 
-export function getToggleEvent(): (event: Task, targetDate: yyyyMMdd) => void {
-	return getContext(toggleEventKey) as (event: Task, targetDate: yyyyMMdd) => void;
+export function getToggleCompletion(): (task: Task, targetDate: yyyyMMdd) => void {
+	return getContext(toggleCompletionKey) as (event: Task, targetDate: yyyyMMdd) => void;
 }
 
-export function setToggleEvent(fn: (event: Task, targetDate: yyyyMMdd) => void) {
-	setContext(toggleEventKey, fn);
+export function setToggleCompletion(fn: (task: Task, targetDate: yyyyMMdd) => void) {
+	setContext(toggleCompletionKey, fn);
 }

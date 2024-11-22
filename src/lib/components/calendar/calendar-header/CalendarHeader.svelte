@@ -2,7 +2,7 @@
 	import { format } from 'date-fns';
 	import { Plus } from 'lucide-svelte';
 
-	import { getChangeWeek, getCreateTask } from '$lib/components/calendar/service.svelte';
+	import { getChangeDate, getCreateTask } from '$lib/components/calendar/service.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 	import { currentDate, formatDate, selectedDate, weekStart } from '$lib/date.utils.svelte';
@@ -10,11 +10,7 @@
 
 	const createTask = getCreateTask();
 
-	const changeWeekCallback = getChangeWeek();
-
-	$effect(() => {
-		changeWeekCallback(weekStart.value);
-	});
+	const handleChangeDate = getChangeDate();
 </script>
 
 <header class="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">
@@ -36,7 +32,11 @@
 	</div>
 
 	<div class="flex items-center gap-5">
-		<WeekChanger bind:selectedDate={selectedDate.value} bind:weekStart={weekStart.value} />
+		<WeekChanger
+			onchange={(selectedDate) => handleChangeDate(selectedDate)}
+			bind:selectedDate={selectedDate.value}
+			bind:weekStart={weekStart.value}
+		/>
 
 		<div class="hidden h-7 border-r border-gray-300 md:block"></div>
 

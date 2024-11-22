@@ -9,9 +9,10 @@
 	interface Props {
 		weekStart: Date;
 		selectedDate: Date;
+		onchange?: (weekStart: Date) => void;
 	}
 
-	let { weekStart = $bindable(), selectedDate = $bindable() }: Props = $props();
+	let { onchange, weekStart = $bindable(), selectedDate = $bindable() }: Props = $props();
 
 	const currentDate = new Date();
 
@@ -23,6 +24,7 @@
 		},
 		set value(value: string) {
 			selectedDate = parse(value, DATE, new Date());
+			onchange?.(selectedDate);
 		},
 	};
 
@@ -33,11 +35,13 @@
 	function goToNextWeek() {
 		weekStart = addDays(weekStart, 7);
 		selectedDate = isSameWeek(currentDate, weekStart, { weekStartsOn }) ? currentDate : weekStart;
+		onchange?.(selectedDate);
 	}
 
 	function goToPreviousWeek() {
 		weekStart = addDays(weekStart, -7);
 		selectedDate = isSameWeek(currentDate, weekStart, { weekStartsOn }) ? currentDate : weekStart;
+		onchange?.(selectedDate);
 	}
 </script>
 

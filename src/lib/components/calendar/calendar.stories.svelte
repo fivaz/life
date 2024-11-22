@@ -16,13 +16,13 @@
 <Story name="Primary" args={{}}>
 	<div class="h-screen">
 		<Calendar
-			changeWeek={(week) => console.log('changeWeek', week)}
+			changeDate={(date) => console.log('changeDate', date)}
 			createTask={(date) => console.log('createTask', date)}
 			editTask={(task, date) => console.log('editTask', task, date)}
 			moveEvent={(event, moveObject) => console.log('moveEvent', event, moveObject)}
 			persistTasks={(tasks) => console.log('tasks', tasks)}
 			{tasks}
-			toggleEvent={(event, targetDate) => console.log('toggleEvent', event, targetDate)}
+			toggleCompletion={(task, targetDate) => console.log('toggleCompletion', task, targetDate)}
 		/>
 	</div>
 </Story>
