@@ -2,16 +2,17 @@ import { lastDayOfQuarter } from 'date-fns';
 import { z } from 'zod';
 
 import { formatDate } from '$lib/date.utils.svelte';
-import { zDate } from '$lib/utils';
+import { zDate, zDateOrEmpty } from '$lib/utils';
 
-// TODO make deadline 	deadline: yyyyMMdd | null;
-export type Goal = {
-	deadline: string;
-	icon: null | string;
-	id: string;
-	isDone: boolean;
-	name: string;
-};
+export const goalSchema = z.object({
+	id: z.string(),
+	name: z.string(),
+	icon: z.string(),
+	deadline: zDateOrEmpty,
+	isDone: z.boolean(),
+});
+
+export type Goal = z.infer<typeof goalSchema>;
 
 export function buildEmptyGoal(): Goal {
 	return {
@@ -22,11 +23,3 @@ export function buildEmptyGoal(): Goal {
 		name: '',
 	};
 }
-
-export const goalSchema = z.object({
-	id: z.string(),
-	name: z.string(),
-	icon: z.string().nullable(),
-	deadline: zDate.nullable(),
-	isDone: z.boolean(),
-});
