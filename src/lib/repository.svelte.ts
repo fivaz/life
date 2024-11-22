@@ -16,7 +16,9 @@ export function getQuery(segment: string, constrains?: QueryConstraint): Query {
 	}
 }
 
-function populate<T>(snapshot: QuerySnapshot, items: Array<T>, schema: ZodSchema) {
+function populate<I>(snapshot: QuerySnapshot, schema: ZodSchema) {
+	const items: I[] = [];
+
 	snapshot.docs.forEach((doc) => {
 		const item = { ...doc.data(), id: doc.id };
 
@@ -28,10 +30,12 @@ function populate<T>(snapshot: QuerySnapshot, items: Array<T>, schema: ZodSchema
 			items.push(validation.data);
 		}
 	});
+
+	return items;
 }
 
 export function fetchItems<I>(
-	items: Array<I>,
+	callback: ((items: I[]) => void) | I[],
 	segment: string,
 	zodSchema: ZodSchema,
 	constrains?: QueryConstraint,
@@ -40,9 +44,14 @@ export function fetchItems<I>(
 		let unsubscribe: Unsubscribe = () => {};
 
 		if (currentUser.uid) {
-			unsubscribe = onSnapshot(getQuery(segment, constrains), (snapshot) =>
-				populate(snapshot, items, zodSchema),
-			);
+			unsubscribe = onSnapshot(getQuery(segment, constrains), (snapshot) => {
+				const items = populate<I>(snapshot, zodSchema);
+				if (typeof callback === 'function') {
+					callback(items);
+				} else {
+					callback.splice(0, callback.length, ...items);
+				}
+			});
 		}
 
 		return () => unsubscribe();

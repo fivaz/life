@@ -7,7 +7,7 @@ import type { Routine } from '$lib/routine/routine.model';
 import { routineSchema } from '$lib/routine/routine.model';
 import { currentUser } from '$lib/user/user.utils.svelte';
 
-const emptyRoutineMap: Record<Routine['time'], Routine[]> = {
+export const emptyRoutineMap: Record<Routine['time'], Routine[]> = {
 	morning: [],
 	afternoon: [],
 	evening: [],
