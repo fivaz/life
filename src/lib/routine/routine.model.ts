@@ -10,15 +10,22 @@ import Morning from '../../routes/(dashboard)/routine/time-icons/morning/Morning
 
 export const times = ['morning', 'afternoon', 'evening', 'all-day'] as const;
 
-export type Routine = {
-	completeHistory: { date: yyyyMMdd; isCompleted: boolean }[];
-	createdAt: dateISO;
-	icon: string;
-	id: string;
-	name: string;
-	order: number;
-	time: (typeof times)[number];
-};
+export const routineSchema = z.object({
+	id: z.string(),
+	createdAt: z.string().datetime(),
+	icon: z.string(),
+	name: z.string(),
+	order: z.number(),
+	time: z.enum(times),
+	completeHistory: z.array(
+		z.object({
+			date: zDate,
+			isCompleted: z.boolean(),
+		}),
+	),
+});
+
+export type Routine = z.infer<typeof routineSchema>;
 
 export function buildEmptyRoutine(): Routine {
 	return {
@@ -38,18 +45,3 @@ export const routineTimeMap = {
 	evening: { label: 'evening', icon: Evening },
 	'all-day': { label: 'all day', icon: AllDay },
 };
-
-export const routineSchema = z.object({
-	id: z.string(),
-	createdAt: z.string(),
-	icon: z.string(),
-	name: z.string(),
-	order: z.number(),
-	time: z.enum(times),
-	completeHistory: z.array(
-		z.object({
-			date: zDate,
-			isCompleted: z.boolean(),
-		}),
-	),
-});
