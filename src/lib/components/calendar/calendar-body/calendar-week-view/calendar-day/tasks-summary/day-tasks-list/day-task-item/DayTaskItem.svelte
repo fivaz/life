@@ -3,7 +3,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 
-	import { getEditTask } from '$lib/components/calendar/service.svelte';
+	import { getEditTask } from '$lib/components/calendar/context.utils';
 	import { formatDate } from '$lib/date.utils.svelte';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import type { CalendarTask } from '$lib/task/task.model';

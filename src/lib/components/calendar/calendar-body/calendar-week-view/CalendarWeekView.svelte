@@ -1,7 +1,8 @@
 <script lang="ts">
 	import CalendarDay from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/CalendarDay.svelte';
-	import { getCreateTask } from '$lib/components/calendar/service.svelte';
-	import { selectedDate, weekDates } from '$lib/date.utils.svelte';
+	import { getCreateTask } from '$lib/components/calendar/context.utils';
+	import { weekDates } from '$lib/components/calendar/service.svelte';
+	import { selectedDate } from '$lib/date.utils.svelte';
 	import type { Task } from '$lib/task/task.model';
 	import { buildDate } from '$lib/task/time-utils';
 
@@ -14,6 +15,7 @@
 	const createTask = getCreateTask();
 </script>
 
+<!--Desktop-->
 <div class="hidden grow md:flex">
 	<div class="grid w-full grid-cols-7 divide-x border-x">
 		{#each weekDates.value as date (date)}
@@ -28,6 +30,7 @@
 	<div class="w-8"></div>
 </div>
 
+<!--Mobile-->
 <div class="mb-5 block grow border border-b md:hidden">
 	<CalendarDay
 		class="block md:hidden"

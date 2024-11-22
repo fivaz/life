@@ -4,7 +4,7 @@
 
 	import { tailwindColorMap } from '$lib/category/category.utils';
 	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
-	import { getToggleCompletion } from '$lib/components/calendar/service.svelte';
+	import { getToggleCompletion } from '$lib/components/calendar/context.utils';
 	import type { yyyyMMdd } from '$lib/date.utils.svelte';
 	import { TIME } from '$lib/date.utils.svelte';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';

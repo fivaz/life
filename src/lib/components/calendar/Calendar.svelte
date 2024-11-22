@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
-	import type { MoveEventType } from '$lib/components/calendar/service.svelte';
+	import type { MoveEventType } from '$lib/components/calendar/context.utils';
 	import {
-		getNextRoundedTime,
 		setChangeDate,
 		setCreateTask,
 		setEditTask,
 		setMoveEvent,
 		setPersistTasks,
 		setToggleCompletion,
-	} from '$lib/components/calendar/service.svelte';
+	} from '$lib/components/calendar/context.utils';
+	import { getNextRoundedTime } from '$lib/components/calendar/service.svelte.js';
 	import type { yyyyMMdd } from '$lib/date.utils.svelte';
 	import { currentDate } from '$lib/date.utils.svelte';
 	import type { Task } from '$lib/task/task.model';
