@@ -1,11 +1,4 @@
-import type { QuerySnapshot, Unsubscribe } from 'firebase/firestore';
-import { onSnapshot, orderBy } from 'firebase/firestore';
-
-import { DB_PATH } from '$lib/consts';
-import { getQuery } from '$lib/repository.svelte';
 import type { Routine } from '$lib/routine/routine.model';
-import { routineSchema } from '$lib/routine/routine.model';
-import { currentUser } from '$lib/user/user.utils.svelte';
 
 export const emptyRoutineMap: Record<Routine['time'], Routine[]> = {
 	morning: [],

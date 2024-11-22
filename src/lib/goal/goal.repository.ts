@@ -9,7 +9,7 @@ import { fetchItems } from '$lib/repository.svelte';
 
 export function fetchGoals(
 	handleGoals: Goal[] | ((goals: Goal[]) => void),
-	constrains?: QueryConstraint,
+	...constrains: QueryConstraint[]
 ): void {
 	const handleGoalsSorted = (goals: Goal[]) => {
 		goals.sort((a, b) => a.deadline.localeCompare(b.deadline));
@@ -21,7 +21,7 @@ export function fetchGoals(
 		}
 	};
 
-	fetchItems(handleGoalsSorted, DB_PATH.GOALS, goalSchema, constrains);
+	fetchItems(handleGoalsSorted, DB_PATH.GOALS, goalSchema, ...constrains);
 }
 
 export function getGoalPath(userId: string) {

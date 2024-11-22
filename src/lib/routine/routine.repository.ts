@@ -8,8 +8,6 @@ import {
 	writeBatch,
 } from 'firebase/firestore';
 
-import type { Category } from '$lib/category/category.model';
-import { categorySchema } from '$lib/category/category.model';
 import { DB_PATH } from '$lib/consts';
 import type { yyyyMMdd } from '$lib/date.utils.svelte';
 import { db } from '$lib/firebase';

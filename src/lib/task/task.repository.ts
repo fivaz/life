@@ -1,10 +1,8 @@
-import { endOfWeek } from 'date-fns';
-import type { DocumentReference, Query, QueryConstraint } from 'firebase/firestore';
-import { collection, deleteDoc, doc, query, setDoc, updateDoc, where } from 'firebase/firestore';
+import type { DocumentReference, QueryConstraint } from 'firebase/firestore';
+import { collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 import { DB_PATH } from '$lib/consts';
-import { formatDate, weekStartsOn } from '$lib/date.utils.svelte';
 import { db, storage } from '$lib/firebase';
 import type { Goal } from '$lib/goal/goal.model';
 import { fetchItems } from '$lib/repository.svelte';
@@ -14,13 +12,16 @@ import { taskSchema } from '$lib/task/task.model';
 export function fetchGoalTasks(
 	goalId: string,
 	handleTasks: Task[] | ((tasks: Task[]) => void),
-	constrains?: QueryConstraint,
+	...constrains: QueryConstraint[]
 ): void {
-	fetchItems(handleTasks, `${DB_PATH.GOALS}/${goalId}/${DB_PATH.TASKS}`, taskSchema, constrains);
+	fetchItems(handleTasks, `${DB_PATH.GOALS}/${goalId}/${DB_PATH.TASKS}`, taskSchema, ...constrains);
 }
 
-export function fetchTasks(tasks: Task[], constrains?: QueryConstraint): void {
-	fetchItems(tasks, DB_PATH.TASKS, taskSchema, constrains);
+export function fetchTasks<T extends Task>(
+	handleTasks: T[] | ((tasks: T[]) => void),
+	...constrains: QueryConstraint[]
+): void {
+	fetchItems(handleTasks, DB_PATH.TASKS, taskSchema, ...constrains);
 }
 
 export function getTaskPath(userId: string) {
@@ -133,18 +134,4 @@ export function addExceptionToRecurring(
 
 	const taskDocRef = doc(db, getTaskPath(userId), id);
 	void updateDoc(taskDocRef, { recurringExceptions: exceptions });
-}
-
-export function queryWeekTasks(userId: string, startOfWeek: Date): [Query<Task>, Query<Task>] {
-	const startOfWeekString = formatDate(startOfWeek);
-	const endOfWeekString = formatDate(endOfWeek(startOfWeek, { weekStartsOn }));
-	const tasksRef = collection(db, getTaskPath(userId));
-	return [
-		query(tasksRef, where('recurringFrequency', '!=', '')) as Query<Task>,
-		query(
-			tasksRef,
-			where('date', '>=', startOfWeekString),
-			where('date', '<=', endOfWeekString),
-		) as Query<Task>,
-	];
 }

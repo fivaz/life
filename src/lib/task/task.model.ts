@@ -1,9 +1,7 @@
 import { z } from 'zod';
 
-import type { Category } from '$lib/category/category.model';
 import { categorySchema } from '$lib/category/category.model';
-import type { dateISO, HHmm, yyyyMMdd } from '$lib/date.utils.svelte';
-import type { Goal } from '$lib/goal/goal.model';
+import type { HHmm, yyyyMMdd } from '$lib/date.utils.svelte';
 import { goalSchema } from '$lib/goal/goal.model';
 import { zDate, zDateOrEmpty, zTime, zTimeOrEmpty } from '$lib/utils';
 

@@ -6,11 +6,44 @@ import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
 import { currentUser } from '$lib/user/user.utils.svelte';
 
-export function getQuery(segment: string, constrains?: QueryConstraint): Query {
+export function fetchItems<I>(
+	handleItems: I[] | ((items: I[]) => void),
+	segment: string,
+	zodSchema: ZodSchema,
+	...constrains: QueryConstraint[]
+): void {
+	$effect(() => {
+		let unsubscribe: Unsubscribe = () => {};
+
+		if (currentUser.uid) {
+			unsubscribe = fetchItemsCore(handleItems, segment, zodSchema, ...constrains);
+		}
+
+		return () => unsubscribe();
+	});
+}
+
+export function fetchItemsCore<I>(
+	handleItems: I[] | ((items: I[]) => void),
+	segment: string,
+	zodSchema: ZodSchema,
+	...constrains: QueryConstraint[]
+) {
+	return onSnapshot(getQuery(segment, ...constrains), (snapshot) => {
+		const items = populate<I>(snapshot, zodSchema);
+		if (typeof handleItems === 'function') {
+			handleItems(items);
+		} else {
+			handleItems.splice(0, handleItems.length, ...items);
+		}
+	});
+}
+
+export function getQuery(segment: string, ...constrains: QueryConstraint[]): Query {
 	const collectionRef = collection(db, `${DB_PATH.USERS}/${currentUser.uid}/${segment}`);
 
 	if (constrains) {
-		return query(collectionRef, constrains);
+		return query(collectionRef, ...constrains);
 	} else {
 		return collectionRef;
 	}
@@ -32,28 +65,4 @@ function populate<I>(snapshot: QuerySnapshot, schema: ZodSchema) {
 	});
 
 	return items;
-}
-
-export function fetchItems<I>(
-	handleItems: I[] | ((items: I[]) => void),
-	segment: string,
-	zodSchema: ZodSchema,
-	constrains?: QueryConstraint,
-): void {
-	$effect(() => {
-		let unsubscribe: Unsubscribe = () => {};
-
-		if (currentUser.uid) {
-			unsubscribe = onSnapshot(getQuery(segment, constrains), (snapshot) => {
-				const items = populate<I>(snapshot, zodSchema);
-				if (typeof handleItems === 'function') {
-					handleItems(items);
-				} else {
-					handleItems.splice(0, handleItems.length, ...items);
-				}
-			});
-		}
-
-		return () => unsubscribe();
-	});
 }

@@ -1,6 +1,5 @@
 import { z } from 'zod';
 
-import type { dateISO, yyyyMMdd } from '$lib/date.utils.svelte';
 import { zDate } from '$lib/utils';
 
 import Afternoon from '../../routes/(dashboard)/routine/time-icons/afternoon/Afternoon.svelte';

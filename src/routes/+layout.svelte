@@ -1,9 +1,15 @@
 <script lang="ts">
 	import '../app.css';
 
+	import { setDefaultOptions } from 'date-fns';
 	import type { Snippet } from 'svelte';
 	import { pwaAssetsHead } from 'virtual:pwa-assets/head';
 	import { pwaInfo } from 'virtual:pwa-info';
+
+	import { weekStartsOn } from '$lib/date.utils.svelte';
+
+	// set it for all
+	setDefaultOptions({ weekStartsOn });
 
 	interface Props {
 		children: Snippet;

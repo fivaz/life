@@ -1,30 +1,22 @@
 <script lang="ts">
-	import { doc, where, writeBatch } from 'firebase/firestore';
+	import { where } from 'firebase/firestore';
 
 	import type { Category } from '$lib/category/category.model';
 	import { buildEmptyCategory, CATEGORY_WORK } from '$lib/category/category.model';
 	import { fetchCategories } from '$lib/category/category.respository';
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
-	import Button from '$lib/components/form/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 	import type { yyyyMMdd } from '$lib/date.utils.svelte';
-	import { db } from '$lib/firebase';
 	import type { Goal } from '$lib/goal/goal.model';
 	import { fetchGoals } from '$lib/goal/goal.repository';
 	import { buildTimedTask, buildTimedTaskWithTimeSet } from '$lib/task/build-utils';
 	import type { Task } from '$lib/task/task.model';
-	import { getTaskPath } from '$lib/task/task.repository';
 	import TaskCompletedNotificationStack from '$lib/task/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
-	import {
-		editPossibleSingleRecurringEvent,
-		getWeekTasks,
-		moveEvent,
-		persistTasks,
-		tasks,
-	} from './service.svelte';
+	import { editPossibleSingleRecurringEvent, moveEvent, persistTasks } from './service.svelte';
+	import { convertTaskMapToList, fetchFirstTasks, getWeekTasks, tasksMap } from './task-map.svelte';
 
 	let targetDate = $state<yyyyMMdd | undefined>();
 
@@ -70,40 +62,20 @@
 
 	fetchGoals(goals, where('isDone', '==', false));
 
-	async function migrate() {
-		const batch = writeBatch(db);
+	fetchFirstTasks();
 
-		tasks.value.forEach((task) => {
-			const taskRef = doc(db, getTaskPath(currentUser.uid), task.id);
+	let tasks = $derived(convertTaskMapToList(tasksMap.value));
 
-			const category = categories.find((category) => category.type === task.category.type);
-
-			if (!task.category.id) {
-				batch.update(taskRef, { category });
-			}
-		});
-
-		await batch.commit();
-	}
-
-	let wrongTasks = $derived(
-		tasks.value.filter((task) => {
-			return !task.category.id;
-		}),
-	);
-
-	$inspect(wrongTasks);
+	$inspect(tasksMap.value);
 </script>
 
-<Button onclick={migrate}>migrate {wrongTasks.length}</Button>
-
 <Calendar
-	changeDate={(date) => getWeekTasks(currentUser.uid, date)}
+	changeDate={(date) => getWeekTasks(date)}
 	createTask={(date) => openFormToCreateTask(categories, date)}
 	editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
 	moveEvent={(event, moveObject) => moveEvent(currentUser.uid, event, moveObject)}
 	persistTasks={(tasks) => persistTasks(currentUser.uid, tasks)}
-	tasks={tasks.value}
+	{tasks}
 	toggleCompletion={(task, targetDate) => toggleCompletion(currentUser.uid, task, targetDate)}
 />
 

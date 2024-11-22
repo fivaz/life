@@ -1,20 +1,12 @@
 <script lang="ts">
-	import { doc, where, writeBatch } from 'firebase/firestore';
+	import { where } from 'firebase/firestore';
 
-	import type { Category } from '$lib/category/category.model';
 	import { CATEGORY_WORK } from '$lib/category/category.model';
-	import { fetchCategories } from '$lib/category/category.respository';
-	import Button from '$lib/components/form/button/Button.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
-	import { DB_PATH } from '$lib/consts';
 	import { title } from '$lib/date.utils.svelte';
-	import { db } from '$lib/firebase';
-	import type { Goal } from '$lib/goal/goal.model';
-	import { fetchGoals } from '$lib/goal/goal.repository';
 	import type { Task } from '$lib/task/task.model';
-	import { fetchTasks, getTaskPath } from '$lib/task/task.repository';
-	import { currentUser } from '$lib/user/user.utils.svelte';
+	import { fetchTasks } from '$lib/task/task.repository';
 
 	import LineChart from './line-chart/LineChart.svelte';
 	import type { ReportInterval } from './service';

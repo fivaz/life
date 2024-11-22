@@ -2,7 +2,7 @@ import { lastDayOfQuarter } from 'date-fns';
 import { z } from 'zod';
 
 import { formatDate } from '$lib/date.utils.svelte';
-import { zDate, zDateOrEmpty } from '$lib/utils';
+import { zDateOrEmpty } from '$lib/utils';
 
 export const goalSchema = z.object({
 	id: z.string(),

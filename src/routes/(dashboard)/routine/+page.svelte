@@ -1,13 +1,9 @@
 <script lang="ts">
-	import { orderBy } from 'firebase/firestore';
-
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import { DB_PATH } from '$lib/consts';
 	import { title } from '$lib/date.utils.svelte';
-	import { fetchItems } from '$lib/repository.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
-	import { buildEmptyRoutine, routineSchema } from '$lib/routine/routine.model';
+	import { buildEmptyRoutine } from '$lib/routine/routine.model';
 	import { fetchRoutines } from '$lib/routine/routine.repository';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
@@ -16,7 +12,7 @@
 	import RoutineHeader from './routine-header/RoutineHeader.svelte';
 	import RoutineRows from './routine-rows/RoutineRows.svelte';
 	import { setOpenRoutineForm } from './routine-rows/service';
-	import { emptyRoutineMap, routinesMap } from './service.svelte';
+	import { routinesMap } from './service.svelte';
 	import WeekListSelector from './week-list-selector/WeekListSelector.svelte';
 
 	let editingRoutine = $state<Routine>(buildEmptyRoutine());
