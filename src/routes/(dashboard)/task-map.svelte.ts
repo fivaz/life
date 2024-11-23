@@ -3,7 +3,7 @@ import type { QueryConstraint } from 'firebase/firestore';
 import { where } from 'firebase/firestore';
 
 import { DB_PATH } from '$lib/consts';
-import { currentDate, formatDate } from '$lib/date.utils.svelte';
+import { formatDate } from '$lib/date.utils.svelte';
 import { fetchItemsCore } from '$lib/repository.svelte';
 import type { CalendarTask, Task } from '$lib/task/task.model';
 import { taskSchema } from '$lib/task/task.model';
@@ -36,7 +36,7 @@ function populateTaskMap(tasks: CalendarTask[]): void {
 }
 
 export function getTaskDateConstrain(): QueryConstraint[] {
-	const currentWeekStart = startOfWeek(currentDate.value);
+	const currentWeekStart = startOfWeek(new Date());
 	const previousWeekStart = addDays(currentWeekStart, -7);
 	const nextWeekStart = addDays(currentWeekStart, 7);
 

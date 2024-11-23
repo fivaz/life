@@ -6,8 +6,9 @@
 	import { fly } from 'svelte/transition';
 	import { dragHandle } from 'svelte-dnd-action';
 
+	import { previousDate, selectedDate } from '$lib/components/calendar/service.svelte';
 	import type { yyyyMMdd } from '$lib/date.utils.svelte';
-	import { formatDate, previousDate, selectedDate } from '$lib/date.utils.svelte';
+	import { formatDate } from '$lib/date.utils.svelte';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { toggleRoutineCompletion } from '$lib/routine/routine.repository';

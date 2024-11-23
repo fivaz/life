@@ -2,7 +2,7 @@
 	import { clsx } from 'clsx';
 	import { format, isSameDay, isToday } from 'date-fns';
 
-	import { selectedDate, weekDates } from '$lib/date.utils.svelte';
+	import { selectedDate, weekDates } from '$lib/components/calendar/service.svelte';
 </script>
 
 <!--Desktop-->
