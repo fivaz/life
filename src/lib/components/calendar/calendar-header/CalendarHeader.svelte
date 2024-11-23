@@ -3,10 +3,7 @@
 	import { Plus } from 'lucide-svelte';
 
 	import { getChangeDate, getCreateTask } from '$lib/components/calendar/context.utils';
-	import {
-		currentDate,
-		selectedDate,
-	} from '$lib/components/calendar/service.svelte';
+	import { currentDate, selectedDate } from '$lib/components/calendar/service.svelte';
 	import Button from '$lib/components/form/button/Button.svelte';
 	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 	import { formatDate } from '$lib/date.utils.svelte';

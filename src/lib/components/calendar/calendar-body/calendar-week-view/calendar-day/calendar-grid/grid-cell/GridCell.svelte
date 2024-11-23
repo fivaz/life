@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { clsx } from 'clsx';
 
-	import {
-		currentDate,
-	} from '$lib/components/calendar/service.svelte';
+	import { currentDate } from '$lib/components/calendar/service.svelte';
 	import { formatDate, formatTime } from '$lib/date.utils.svelte';
 	import { convertMinutesToTime } from '$lib/task/time-utils';
 

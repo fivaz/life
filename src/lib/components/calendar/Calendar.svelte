@@ -9,9 +9,7 @@
 		setPersistTasks,
 		setToggleCompletion,
 	} from '$lib/components/calendar/context.utils';
-	import {
-		currentDate,
-	} from '$lib/components/calendar/service.svelte';
+	import { currentDate } from '$lib/components/calendar/service.svelte';
 	import { getNextRoundedTime } from '$lib/components/calendar/service.svelte.js';
 	import type { yyyyMMdd } from '$lib/date.utils.svelte';
 	import type { Task } from '$lib/task/task.model';
