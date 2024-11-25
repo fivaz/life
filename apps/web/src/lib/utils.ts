@@ -1,14 +1,12 @@
 import { z } from 'zod';
 
-import type { HHmm, yyyyMMdd } from '$lib/date.utils.svelte';
-
-export const zDate = z.custom<yyyyMMdd>((val) => {
+export const zDate = z.custom<string>((val) => {
 	return typeof val === 'string' ? /^\d{4}-\d{2}-\d{2}$/.test(val) : false;
 });
 
 export const zDateOrEmpty = z.union([zDate, z.literal('')]);
 
-export const zTime = z.custom<HHmm>((val) => {
+export const zTime = z.custom<string>((val) => {
 	return typeof val === 'string' ? /^\d{2}:\d{2}$/.test(val) : false;
 });
 

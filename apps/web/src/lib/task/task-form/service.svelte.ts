@@ -1,6 +1,5 @@
 import { buildEmptyCategory } from '$lib/category/category.model';
 import { createDialog } from '$lib/components/dialog/service.svelte';
-import type { HHmm, yyyyMMdd } from '$lib/date.utils.svelte';
 import type { Goal } from '$lib/goal/goal.model';
 import { buildTimedTask } from '$lib/task/build-utils';
 import type { Task } from '$lib/task/task.model';
@@ -19,7 +18,7 @@ export function editSingleRecurringEvent(
 	id: string,
 	recurringEvent: Omit<Task, 'id'>,
 	userId: string,
-	targetDate: yyyyMMdd,
+	targetDate: string,
 	file?: File | null,
 ) {
 	//remove all the recurring attributes from the event
@@ -53,7 +52,7 @@ export async function editTaskWithPrompt({
 	file: File | null;
 	formerGoal: Goal | null;
 	id: string;
-	targetDate: yyyyMMdd | undefined;
+	targetDate: string | undefined;
 	userId: string;
 	wasRecurring: boolean;
 }): Promise<boolean> {
@@ -125,7 +124,7 @@ export function duplicateTask(task: Task, userId: string) {
 	};
 
 	if (isTimed(task)) {
-		copyData.startTime = sumTimes(task.startTime, halfDuration) as HHmm;
+		copyData.startTime = sumTimes(task.startTime, halfDuration);
 	}
 
 	void addTask(copyData, userId);

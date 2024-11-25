@@ -1,7 +1,6 @@
 import { parse, subDays } from 'date-fns';
 import { getContext, setContext } from 'svelte';
 
-import type { yyyyMMdd } from '$lib/date.utils.svelte';
 import { DATE, formatDate } from '$lib/date.utils.svelte';
 import type { Routine } from '$lib/routine/routine.model';
 
@@ -11,7 +10,7 @@ export const statusColor = {
 	completed: 'bg-green-100 text-green-500',
 };
 
-export function getStatusColor(routine: Routine, selectedDate: yyyyMMdd): keyof typeof statusColor {
+export function getStatusColor(routine: Routine, selectedDate: string): keyof typeof statusColor {
 	const existingRoutine = routine.completeHistory.find(({ date }) => date === selectedDate);
 
 	if (existingRoutine) {
@@ -21,7 +20,7 @@ export function getStatusColor(routine: Routine, selectedDate: yyyyMMdd): keyof 
 	}
 }
 
-export function getStreak(routine: Routine, selectedDate: yyyyMMdd): number {
+export function getStreak(routine: Routine, selectedDate: string): number {
 	let streakValue = 0;
 	let selectedDateObj = parse(selectedDate, DATE, new Date());
 

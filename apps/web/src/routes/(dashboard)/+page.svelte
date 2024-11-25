@@ -6,7 +6,6 @@
 	import { fetchCategories } from '$lib/category/category.respository';
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
-	import type { yyyyMMdd } from '$lib/date.utils.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
 	import { fetchGoals } from '$lib/goal/goal.repository';
 	import { buildTimedTask, buildTimedTaskWithTimeSet } from '$lib/task/build-utils';
@@ -18,7 +17,7 @@
 	import { editPossibleSingleRecurringEvent, moveEvent, persistTasks } from './service.svelte';
 	import { convertTaskMapToList, fetchFirstTasks, getWeekTasks, tasksMap } from './task-map.svelte';
 
-	let targetDate = $state<yyyyMMdd | undefined>();
+	let targetDate = $state<string | undefined>();
 
 	let isFormShown = $state<boolean>(false);
 
@@ -33,14 +32,14 @@
 	}
 
 	//EDIT
-	function openFormToEditTask(task: Task, date: yyyyMMdd) {
+	function openFormToEditTask(task: Task, date: string) {
 		isFormShown = true;
 		targetDate = date;
 		editingTask = task;
 	}
 
 	//TOGGLE
-	function toggleCompletion(userId: string, event: Task, targetDate: yyyyMMdd) {
+	function toggleCompletion(userId: string, event: Task, targetDate: string) {
 		const newEvent = { ...event, isDone: !event.isDone };
 		editPossibleSingleRecurringEvent(newEvent, userId, targetDate);
 		updateNotification(newEvent);

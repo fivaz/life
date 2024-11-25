@@ -1,4 +1,3 @@
-import type { HHmm, yyyyMMdd } from '$lib/date.utils.svelte';
 import type { Task } from '$lib/task/task.model';
 import { isRecurring } from '$lib/task/task.model';
 import { editTask } from '$lib/task/task.repository';
@@ -12,7 +11,7 @@ export function moveEvent(
 		duration,
 		oldDate,
 		startTime,
-	}: { date: yyyyMMdd; duration: HHmm; oldDate: yyyyMMdd; startTime: HHmm },
+	}: { date: string; duration: string; oldDate: string; startTime: string },
 ) {
 	const newEvent = { ...event, date, duration, startTime };
 	editPossibleSingleRecurringEvent(newEvent, userId, oldDate);
@@ -25,11 +24,7 @@ export function persistTasks(userId: string, toDos: Task[]) {
 	});
 }
 
-export function editPossibleSingleRecurringEvent(
-	event: Task,
-	userId: string,
-	targetDate: yyyyMMdd,
-) {
+export function editPossibleSingleRecurringEvent(event: Task, userId: string, targetDate: string) {
 	const { id, ...data } = event;
 	if (isRecurring(data)) {
 		void editSingleRecurringEvent(id, data, userId, targetDate);

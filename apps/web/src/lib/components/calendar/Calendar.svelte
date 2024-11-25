@@ -11,7 +11,6 @@
 	} from '$lib/components/calendar/context.utils';
 	import { currentDate } from '$lib/components/calendar/service.svelte';
 	import { getNextRoundedTime } from '$lib/components/calendar/service.svelte.js';
-	import type { yyyyMMdd } from '$lib/date.utils.svelte';
 	import type { Task } from '$lib/task/task.model';
 
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
@@ -21,9 +20,9 @@
 		tasks: Task[];
 		changeDate: (date: Date) => void;
 		createTask: (date: Date) => void;
-		editTask: (task: Task, date: yyyyMMdd) => void;
+		editTask: (task: Task, date: string) => void;
 		persistTasks: (tasks: Task[]) => void;
-		toggleCompletion: (event: Task, targetDate: yyyyMMdd) => void;
+		toggleCompletion: (event: Task, targetDate: string) => void;
 		moveEvent: MoveEventType;
 	}
 

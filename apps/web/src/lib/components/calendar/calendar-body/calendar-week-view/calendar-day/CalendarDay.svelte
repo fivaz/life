@@ -4,7 +4,6 @@
 	import type { EventsGrid } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
 	import TasksSummary from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/tasks-summary/TasksSummary.svelte';
 	import { isScrollingUp } from '$lib/components/calendar/calendar-body/calendar-week-view/service.svelte';
-	import type { yyyyMMdd } from '$lib/date.utils.svelte';
 	import { formatDate } from '$lib/date.utils.svelte';
 	import type { CalendarTask, Task, TimedTask } from '$lib/task/task.model';
 	import { isTimed } from '$lib/task/task.model';
@@ -23,7 +22,7 @@
 
 	let { tasks, date, create, class: klass }: Props = $props();
 
-	let formattedDate = $derived<yyyyMMdd>(formatDate(date));
+	let formattedDate = $derived<string>(formatDate(date));
 
 	let tasksOnDate = $derived<CalendarTask[]>(getTasksForDate(tasks, date));
 

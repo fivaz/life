@@ -2,7 +2,6 @@
 	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 	import type { ComponentProps } from 'svelte';
 
-	import type { yyyyMMdd } from '$lib/date.utils.svelte';
 	import { formatDate } from '$lib/date.utils.svelte';
 	import {
 		longRecurring,
@@ -21,7 +20,7 @@
 		component: EventPanel,
 		args: {
 			class: '!static',
-			targetDate: formatDate(new Date()) as yyyyMMdd,
+			targetDate: formatDate(new Date()),
 		},
 	});
 </script>

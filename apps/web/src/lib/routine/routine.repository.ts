@@ -9,7 +9,6 @@ import {
 } from 'firebase/firestore';
 
 import { DB_PATH } from '$lib/consts';
-import type { yyyyMMdd } from '$lib/date.utils.svelte';
 import { db } from '$lib/firebase';
 import { fetchItems } from '$lib/repository.svelte';
 import type { Routine } from '$lib/routine/routine.model';
@@ -27,7 +26,7 @@ export function getRoutinePath(userId: string) {
 
 export function toggleRoutineCompletion(
 	routine: Routine,
-	selectedDate: yyyyMMdd,
+	selectedDate: string,
 	userId: string,
 ): void {
 	const item = routine.completeHistory.find(({ date }) => date === selectedDate);

@@ -1,6 +1,5 @@
 import { addMonths, isAfter, parse } from 'date-fns';
 
-import type { HHmm, yyyyMMdd } from '$lib/date.utils.svelte';
 import { formatDate, formatTime, TIME } from '$lib/date.utils.svelte';
 import type { Frequency, Task } from '$lib/task/task.model';
 import { isRecurring, isTimed } from '$lib/task/task.model';
@@ -62,13 +61,11 @@ export function convertToTask(taskIn: TaskIn): Task {
 
 	return {
 		...rest,
-		duration: rest.duration as HHmm,
-		startTime: isEvent ? (rest.startTime as HHmm) : '',
-		date: (rest.date as yyyyMMdd) || null,
+		startTime: isEvent ? rest.startTime : '',
 		recurringFrequency: isRecurring && rest.recurringFrequency ? rest.recurringFrequency : '',
 		recurringDaysOfWeek: isRecurring ? rest.recurringDaysOfWeek : [],
-		recurringEndAt: isRecurring ? (rest.recurringEndAt as yyyyMMdd) : '',
-		recurringExceptions: isRecurring ? (rest.recurringExceptions as yyyyMMdd[]) : [],
+		recurringEndAt: isRecurring ? rest.recurringEndAt : '',
+		recurringExceptions: isRecurring ? rest.recurringExceptions : [],
 	};
 }
 

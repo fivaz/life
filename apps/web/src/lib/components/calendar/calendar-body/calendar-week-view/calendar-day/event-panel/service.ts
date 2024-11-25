@@ -6,7 +6,6 @@ import {
 	GRID_CLASS,
 } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 import { EVENT_PANEL_CLASS } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
-import type { HHmm, yyyyMMdd } from '$lib/date.utils.svelte';
 import { formatTime } from '$lib/date.utils.svelte';
 import type { Task } from '$lib/task/task.model';
 import { getDurationInMinutes } from '$lib/task/task.utils';
@@ -114,8 +113,8 @@ export function getCellSizeFromDuration(event: Task) {
 export function hasMoved(
 	panel: HTMLDivElement,
 	event: Task,
-): { date: yyyyMMdd; duration: HHmm; startTime: HHmm } | false {
-	const dateTime = getDateTimeBeneath(panel) as void | { date: yyyyMMdd; startTime: HHmm };
+): { date: string; duration: string; startTime: string } | false {
+	const dateTime = getDateTimeBeneath(panel) as void | { date: string; startTime: string };
 	if (!dateTime) return false;
 	const duration = getDurationFromCellSize(panel.getBoundingClientRect().height);
 

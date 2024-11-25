@@ -1,7 +1,6 @@
 import { addDays, differenceInMilliseconds, startOfWeek } from 'date-fns';
 
 import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
-import type { yyyyMMdd } from '$lib/date.utils.svelte';
 import { formatDate } from '$lib/date.utils.svelte';
 import { getDateRoundDownTo15 } from '$lib/task/time-utils';
 
@@ -36,7 +35,7 @@ export const selectedDate = {
 
 // weekStart needs to be a string because an object isn't the same as another object,
 // and it has animations tied to when the value changes
-const _weekStart = $derived<yyyyMMdd>(formatDate(startOfWeek(selectedDate.value)));
+const _weekStart = $derived<string>(formatDate(startOfWeek(selectedDate.value)));
 
 export const weekStart = {
 	get value() {

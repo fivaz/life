@@ -1,6 +1,5 @@
 import { getContext, setContext } from 'svelte';
 
-import type { HHmm, yyyyMMdd } from '$lib/date.utils.svelte';
 import type { Task } from '$lib/task/task.model';
 
 const changeDateKey = Symbol('changeDate');
@@ -25,11 +24,11 @@ export function setCreateTask(fn: (date: Date) => void) {
 
 const editTaskKey = Symbol('editTask');
 
-export function getEditTask(): (task: Task, date: yyyyMMdd) => void {
-	return getContext(editTaskKey) as (task: Task, date: yyyyMMdd) => void;
+export function getEditTask(): (task: Task, date: string) => void {
+	return getContext(editTaskKey) as (task: Task, date: string) => void;
 }
 
-export function setEditTask(fn: (task: Task, date: yyyyMMdd) => void) {
+export function setEditTask(fn: (task: Task, date: string) => void) {
 	setContext(editTaskKey, fn);
 }
 
@@ -38,10 +37,10 @@ const moveEventKey = Symbol('moveEvent');
 export type MoveEventType = (
 	event: Task,
 	moveObject: {
-		date: yyyyMMdd;
-		duration: HHmm;
-		oldDate: yyyyMMdd;
-		startTime: HHmm;
+		date: string;
+		duration: string;
+		oldDate: string;
+		startTime: string;
 	},
 ) => void;
 
@@ -65,10 +64,10 @@ export function setPersistTasks(fn: (tasks: Task[]) => void) {
 
 const toggleCompletionKey = Symbol('toggleCompletion');
 
-export function getToggleCompletion(): (task: Task, targetDate: yyyyMMdd) => void {
-	return getContext(toggleCompletionKey) as (event: Task, targetDate: yyyyMMdd) => void;
+export function getToggleCompletion(): (task: Task, targetDate: string) => void {
+	return getContext(toggleCompletionKey) as (event: Task, targetDate: string) => void;
 }
 
-export function setToggleCompletion(fn: (task: Task, targetDate: yyyyMMdd) => void) {
+export function setToggleCompletion(fn: (task: Task, targetDate: string) => void) {
 	setContext(toggleCompletionKey, fn);
 }

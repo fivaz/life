@@ -1,7 +1,7 @@
+import type { Task as ExternalTask } from '@life/shared/types';
 import { z } from 'zod';
 
 import { categorySchema } from '$lib/category/category.model';
-import type { HHmm, yyyyMMdd } from '$lib/date.utils.svelte';
 import { goalSchema } from '$lib/goal/goal.model';
 import { zDate, zDateOrEmpty, zTime, zTimeOrEmpty } from '$lib/utils';
 
@@ -26,22 +26,16 @@ export const taskSchema = z.object({
 	recurringExceptions: z.array(zDate),
 });
 
-export type Task = z.infer<typeof taskSchema>;
+export type Task = ExternalTask;
 
-export type CalendarTask = Omit<Task, 'date'> & { date: yyyyMMdd };
+export type CalendarTask = Task;
 
-export type TimedTask = Omit<Task, 'startTime' | 'date'> & { startTime: HHmm; date: yyyyMMdd };
+export type TimedTask = Task;
 
 export type UntimedTask = Omit<Task, 'startTime'> & { startTime: '' };
 
-export type RecurringTask = Omit<
-	Task,
-	'date' | 'recurringFrequency' | 'recurringDaysOfWeek' | 'recurringExceptions'
-> & {
-	date: yyyyMMdd;
+export type RecurringTask = Omit<Task, 'recurringFrequency'> & {
 	recurringFrequency: Frequency;
-	recurringDaysOfWeek: string[];
-	recurringExceptions: yyyyMMdd[];
 };
 
 export function isRecurring(task: Omit<Task, 'id'> | Task): task is RecurringTask {
@@ -52,7 +46,7 @@ export function isUntimed(task: Omit<Task, 'id'> | Task): task is UntimedTask {
 	return !task.startTime;
 }
 
-export function isTimed(task: Omit<Task, 'id'> | Task): task is TimedTask {
+export function isTimed(task: Omit<Task, 'id'> | Task) {
 	return !!task.startTime;
 }
 

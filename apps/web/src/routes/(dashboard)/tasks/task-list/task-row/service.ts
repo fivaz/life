@@ -1,6 +1,5 @@
 import { format } from 'date-fns';
 
-import type { yyyyMMdd } from '$lib/date.utils.svelte';
 import type { Task } from '$lib/task/task.model';
 import { editTask } from '$lib/task/task.repository';
 import { getTaskDate } from '$lib/task/time-utils';
@@ -33,7 +32,7 @@ export function getDateBeneath(draggedElement: HTMLLIElement, x: number, y: numb
 	return date;
 }
 
-export function moveTask(task: Task, userId: string, date: yyyyMMdd) {
+export function moveTask(task: Task, userId: string, date: string) {
 	if (task.date === date) return false;
 
 	task.date = date;
@@ -50,7 +49,7 @@ export function hasMoved(
 	userId: string,
 	{ x, y }: { x: number; y: number },
 ): boolean {
-	const date = getDateBeneath(container, x, y) as yyyyMMdd | void;
+	const date = getDateBeneath(container, x, y);
 	if (!date) return false;
 
 	return moveTask(task, userId, date);

@@ -7,7 +7,6 @@
 	import { dragHandle } from 'svelte-dnd-action';
 
 	import { previousDate, selectedDate } from '$lib/components/calendar/service.svelte';
-	import type { yyyyMMdd } from '$lib/date.utils.svelte';
 	import { formatDate } from '$lib/date.utils.svelte';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
@@ -23,7 +22,7 @@
 
 	let { routine }: Props = $props();
 
-	const selectedDateString = $derived<yyyyMMdd>(formatDate(selectedDate.value));
+	const selectedDateString = $derived<string>(formatDate(selectedDate.value));
 
 	let status = $derived<keyof typeof statusColor>(getStatusColor(routine, selectedDateString));
 
