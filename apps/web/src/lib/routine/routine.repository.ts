@@ -15,7 +15,7 @@ import { fetchItems } from '$lib/repository.svelte';
 import type { Routine } from '$lib/routine/routine.model';
 import { routineSchema } from '$lib/routine/routine.model';
 
-import { convertToMap } from '../../routes/(dashboard)/routine/service.svelte.js';
+import { convertToMap } from '../../routes/(dashboard)/routine/service.svelte';
 
 export function fetchRoutines(): void {
 	fetchItems(convertToMap, DB_PATH.ROUTINES, routineSchema, orderBy('order'));

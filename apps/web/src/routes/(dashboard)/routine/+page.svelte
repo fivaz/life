@@ -12,7 +12,7 @@
 	import RoutineHeader from './routine-header/RoutineHeader.svelte';
 	import RoutineRows from './routine-rows/RoutineRows.svelte';
 	import { setOpenRoutineForm } from './routine-rows/service';
-	import { routinesMap } from './service.svelte.js';
+	import { routinesMap } from './service.svelte';
 	import WeekListSelector from './week-list-selector/WeekListSelector.svelte';
 
 	let editingRoutine = $state<Routine>(buildEmptyRoutine());

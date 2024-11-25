@@ -1,0 +1,26 @@
+{
+  "name": "@life/eslint-config",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./index.js"
+  },
+  "scripts": {
+    "lint": ""
+  },
+  "dependencies": {
+    "eslint": "^9.7.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-turbo": "^2.0.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-svelte": "^2.36.0",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "globals": "^15.0.0",
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^8.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

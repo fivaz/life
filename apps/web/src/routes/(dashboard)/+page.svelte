@@ -15,8 +15,8 @@
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
-	import { editPossibleSingleRecurringEvent, moveEvent, persistTasks } from './service.svelte.js';
-	import { convertTaskMapToList, fetchFirstTasks, getWeekTasks, tasksMap } from './task-map.svelte.js';
+	import { editPossibleSingleRecurringEvent, moveEvent, persistTasks } from './service.svelte';
+	import { convertTaskMapToList, fetchFirstTasks, getWeekTasks, tasksMap } from './task-map.svelte';
 
 	let targetDate = $state<yyyyMMdd | undefined>();
 

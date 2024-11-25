@@ -8,7 +8,7 @@
 	import { formatDate } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 
-	import { weekChangeDuration } from '../service.svelte.js';
+	import { weekChangeDuration } from '../service.svelte';
 
 	interface Props {
 		routines: Routine[];

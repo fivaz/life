@@ -10,7 +10,7 @@
 	import { isTimed } from '$lib/task/task.model';
 
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
-	import { SUMMARY_GRID_CELL_HEIGHT } from './calendar-grid/service.svelte.js';
+	import { SUMMARY_GRID_CELL_HEIGHT } from './calendar-grid/service.svelte';
 	import EventPanel from './event-panel/EventPanel.svelte';
 	import { getEventGrid, getTasksForDate } from './service';
 

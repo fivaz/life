@@ -14,7 +14,7 @@
 	import { toggleRoutineCompletion } from '$lib/routine/routine.repository';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
-	import { weekChangeDuration } from '../../service.svelte.js';
+	import { weekChangeDuration } from '../../service.svelte';
 	import { getOpenRoutineForm, getStatusColor, getStreak, statusColor } from '../service';
 
 	interface Props {

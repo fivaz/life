@@ -5,7 +5,7 @@
 	import { formatDate, formatTime } from '$lib/date.utils.svelte';
 	import { convertMinutesToTime } from '$lib/task/time-utils';
 
-	import { GRID_CELL_HEIGHT, GRID_CLASS, isSomethingDragging } from '../service.svelte.js';
+	import { GRID_CELL_HEIGHT, GRID_CLASS, isSomethingDragging } from '../service.svelte';
 
 	interface Props {
 		class?: string;

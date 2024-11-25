@@ -3,6 +3,14 @@ import { SvelteKitPWA } from '@vite-pwa/sveltekit';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+	test: {
+		include: ['src/**/*.{test,spec}.{js,ts}'],
+	},
+	build: {
+		commonjsOptions: {
+			include: [/@life\/ui/, /node_modules/],
+		},
+	},
 	plugins: [
 		sveltekit(),
 		SvelteKitPWA({

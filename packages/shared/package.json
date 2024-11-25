@@ -1,0 +1,21 @@
+{
+  "name": "@life/shared",
+  "version": "0.0.0",
+  "type": "module",
+  "module": "index.ts",
+  "main": "index.ts",
+  "exports": {
+    ".": {
+      "types": "./index.ts",
+      "svelte": "./index.ts"
+    }
+  },
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@life/eslint-config": "workspace:*",
+    "eslint": "^9.15.0",
+    "svelte": "^5.2.7"
+  }
+}
