@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { Button } from '@life/shared/components';
+
 	import CloseX from '$lib/components/close-x/CloseX.svelte';
-	import Button from '$lib/components/form/button/Button.svelte';
 	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';

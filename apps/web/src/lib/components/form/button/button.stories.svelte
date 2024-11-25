@@ -1,11 +1,11 @@
 <script lang="ts" module>
+	import { Button } from '@life/shared/components';
 	import { Trash } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { Args } from '@storybook/addon-svelte-csf';
 	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 
 	import type { IncreaseArgs } from '../../../../../.storybook/utils';
-	import Button from './Button.svelte';
 
 	const { Story } = defineMeta<IncreaseArgs<typeof Button, { isOnlyIcon: boolean }>>({
 		component: Button,

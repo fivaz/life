@@ -1,7 +1,6 @@
 <script lang="ts">
+	import { Button } from '@life/shared/components';
 	import { Calendar1, Plus } from 'lucide-svelte';
-
-	import Button from '$lib/components/form/button/Button.svelte';
 
 	import { getOpenRoutineForm } from '../routine-rows/service';
 

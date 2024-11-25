@@ -1,7 +1,6 @@
 <script lang="ts" module>
+	import { Button } from '@life/shared/components';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
-
-	import Button from '$lib/components/form/button/Button.svelte';
 
 	import DropDown from './DropDown.svelte';
 
