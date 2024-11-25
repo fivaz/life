@@ -3,7 +3,7 @@
 
 	import CalendarWeekView from '$lib/components/calendar/calendar-body/calendar-week-view/CalendarWeekView.svelte';
 	import { isScrollingUp } from '$lib/components/calendar/calendar-body/calendar-week-view/service.svelte';
-	import type { Task } from '$lib/task/task.model';
+	import type { Task } from '@life/shared/types';
 
 	import HorizontalTime from './horizontal-time/HorizontalTime.svelte';
 	import WeekList from './week-list/WeekList.svelte';

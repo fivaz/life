@@ -1,11 +1,11 @@
 <script lang="ts">
+	import type { Task } from '@life/shared/types';
 	import { onMount } from 'svelte';
 
 	import type { EventsGrid } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
 	import TasksSummary from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/tasks-summary/TasksSummary.svelte';
 	import { isScrollingUp } from '$lib/components/calendar/calendar-body/calendar-week-view/service.svelte';
 	import { formatDate } from '$lib/date.utils.svelte';
-	import type { CalendarTask, Task, TimedTask } from '$lib/task/task.model';
 	import { isTimed } from '$lib/task/task.model';
 
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
@@ -24,9 +24,9 @@
 
 	let formattedDate = $derived<string>(formatDate(date));
 
-	let tasksOnDate = $derived<CalendarTask[]>(getTasksForDate(tasks, date));
+	let tasksOnDate = $derived<Task[]>(getTasksForDate(tasks, date));
 
-	let timedTasks = $derived<TimedTask[]>(tasksOnDate.filter((task) => isTimed(task)));
+	let timedTasks = $derived<Task[]>(tasksOnDate.filter((task) => isTimed(task)));
 
 	let eventsGrid = $derived<EventsGrid>(getEventGrid(timedTasks));
 

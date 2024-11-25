@@ -1,7 +1,8 @@
+import type { Task } from '@life/shared/types';
+
 import type { Category } from '$lib/category/category.model';
 import { formatDate, formatTime } from '$lib/date.utils.svelte';
 import type { Goal } from '$lib/goal/goal.model';
-import type { Task } from '$lib/task/task.model';
 import { getCurrentRoundedDate } from '$lib/task/time-utils';
 
 export function buildTimedTask(categories: Category[], goal: Goal | null = null): Task {

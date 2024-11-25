@@ -1,4 +1,4 @@
-import type { Task as ExternalTask } from '@life/shared/types';
+import type { Task } from '@life/shared/types';
 import { z } from 'zod';
 
 import { categorySchema } from '$lib/category/category.model';
@@ -26,23 +26,11 @@ export const taskSchema = z.object({
 	recurringExceptions: z.array(zDate),
 });
 
-export type Task = ExternalTask;
-
-export type CalendarTask = Task;
-
-export type TimedTask = Task;
-
-export type UntimedTask = Omit<Task, 'startTime'> & { startTime: '' };
-
-export type RecurringTask = Omit<Task, 'recurringFrequency'> & {
-	recurringFrequency: Frequency;
-};
-
-export function isRecurring(task: Omit<Task, 'id'> | Task): task is RecurringTask {
+export function isRecurring(task: Omit<Task, 'id'> | Task) {
 	return !!task.recurringFrequency;
 }
 
-export function isUntimed(task: Omit<Task, 'id'> | Task): task is UntimedTask {
+export function isUntimed(task: Omit<Task, 'id'> | Task) {
 	return !task.startTime;
 }
 

@@ -12,7 +12,7 @@
 	import type { Goal } from '$lib/goal/goal.model';
 	import { fetchGoals } from '$lib/goal/goal.repository';
 	import { buildUntimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
-	import type { Task } from '$lib/task/task.model';
+	import type { Task } from '@life/shared/types';
 	import { fetchTasks } from '$lib/task/task.repository';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 

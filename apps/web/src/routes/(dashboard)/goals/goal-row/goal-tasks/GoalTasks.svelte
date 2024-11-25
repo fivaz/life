@@ -1,11 +1,11 @@
 <script lang="ts">
+	import type { Task } from '@life/shared/types';
 	import { CalendarDays } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { format } from 'date-fns';
 
 	import { DATE_FR } from '$lib/date.utils.svelte';
-	import type { Task } from '$lib/task/task.model';
 	import { getTaskDate } from '$lib/task/time-utils';
 
 	interface Props {

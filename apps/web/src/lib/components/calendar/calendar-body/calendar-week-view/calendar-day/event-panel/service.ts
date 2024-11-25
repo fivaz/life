@@ -1,3 +1,4 @@
+import type { Task } from '@life/shared/types';
 import { addMinutes, subMinutes } from 'date-fns';
 
 import {
@@ -7,7 +8,6 @@ import {
 } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 import { EVENT_PANEL_CLASS } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
 import { formatTime } from '$lib/date.utils.svelte';
-import type { Task } from '$lib/task/task.model';
 import { getDurationInMinutes } from '$lib/task/task.utils';
 
 function getElementBeneath(draggedElement: HTMLElement, gridCellY: number, gridCellX: number) {

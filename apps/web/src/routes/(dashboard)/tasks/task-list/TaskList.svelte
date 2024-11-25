@@ -5,7 +5,7 @@
 	import { addDays, addWeeks, lastDayOfWeek, parse, subDays } from 'date-fns';
 
 	import { DATE, DATE_FR, formatDate } from '$lib/date.utils.svelte';
-	import type { Task } from '$lib/task/task.model';
+	import type { Task } from '@life/shared/types';
 	import { getTotalDuration } from '$lib/task/time-utils';
 
 	import { GROUPS } from '../service';

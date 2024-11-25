@@ -1,3 +1,4 @@
+import type { Task } from '@life/shared/types';
 import {
 	addWeeks,
 	endOfWeek,
@@ -10,7 +11,6 @@ import {
 } from 'date-fns';
 
 import { DATE_FR } from '$lib/date.utils.svelte';
-import type { Task } from '$lib/task/task.model';
 import { isRecurring } from '$lib/task/task.model';
 import { getTaskDate } from '$lib/task/time-utils';
 import { groupBy } from '$lib/utils';

@@ -1,9 +1,9 @@
+import type { Task } from '@life/shared/types';
 import { startOfTomorrow, startOfWeek, startOfYesterday } from 'date-fns';
 
 import { routine, sleep, work } from '$lib/category/category.seed';
 import { formatDate, formatTime } from '$lib/date.utils.svelte';
 import { sleepEarly } from '$lib/goal/goal.seed';
-import type { TimedTask } from '$lib/task/task.model';
 import { buildDate } from '$lib/task/time-utils';
 
 function getTodayAtTime(time: string): Date {
@@ -17,7 +17,7 @@ const longText =
 
 let id = 0;
 
-export const normalWithoutDescriptionWithGoal: TimedTask = {
+export const normalWithoutDescriptionWithGoal: Task = {
 	category: sleep,
 	createdAt: startOfTomorrow().toISOString(),
 	date: formatDate(getTodayAtTime('00:00')),
@@ -35,7 +35,7 @@ export const normalWithoutDescriptionWithGoal: TimedTask = {
 	recurringExceptions: [],
 };
 
-export const normalWithoutDescriptionWithoutGoal: TimedTask = {
+export const normalWithoutDescriptionWithoutGoal: Task = {
 	category: sleep,
 	createdAt: startOfTomorrow().toISOString(),
 	date: formatDate(getTodayAtTime('00:00')),
@@ -53,7 +53,7 @@ export const normalWithoutDescriptionWithoutGoal: TimedTask = {
 	recurringExceptions: [],
 };
 
-export const normalWithDescription: TimedTask = {
+export const normalWithDescription: Task = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
 	date: formatDate(startOfYesterday()),
@@ -71,7 +71,7 @@ export const normalWithDescription: TimedTask = {
 	recurringExceptions: [],
 };
 
-export const normalWithSubTasks: TimedTask = {
+export const normalWithSubTasks: Task = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
 	date: formatDate(startOfYesterday()),
@@ -95,7 +95,7 @@ export const normalWithSubTasks: TimedTask = {
 	recurringExceptions: [],
 };
 
-export const shortWithoutDescription: TimedTask = {
+export const shortWithoutDescription: Task = {
 	category: routine,
 	createdAt: startOfTomorrow().toISOString(),
 	date: formatDate(getTodayAtTime('07:00')),
@@ -113,7 +113,7 @@ export const shortWithoutDescription: TimedTask = {
 	recurringExceptions: [],
 };
 
-export const shortWithDescription: TimedTask = {
+export const shortWithDescription: Task = {
 	category: routine,
 	createdAt: startOfTomorrow().toISOString(),
 	date: formatDate(getTodayAtTime('07:00')),
@@ -131,7 +131,7 @@ export const shortWithDescription: TimedTask = {
 	recurringExceptions: [],
 };
 
-export const shortWithSubTasks: TimedTask = {
+export const shortWithSubTasks: Task = {
 	category: routine,
 	createdAt: startOfTomorrow().toISOString(),
 	date: formatDate(getTodayAtTime('07:00')),
@@ -155,7 +155,7 @@ export const shortWithSubTasks: TimedTask = {
 	recurringExceptions: [],
 };
 
-export const longRecurring: TimedTask = {
+export const longRecurring: Task = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
 	date: formatDate(getTodayAtTime('10:15')),
@@ -173,7 +173,7 @@ export const longRecurring: TimedTask = {
 	image: '',
 };
 
-export const events: TimedTask[] = [
+export const events: Task[] = [
 	normalWithoutDescriptionWithGoal,
 	normalWithoutDescriptionWithoutGoal,
 	normalWithDescription,
@@ -184,7 +184,7 @@ export const events: TimedTask[] = [
 	longRecurring,
 ];
 
-export const workToDo: TimedTask = {
+export const workToDo: Task = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
 	date: formatDate(startOfWeek(new Date())),
@@ -202,7 +202,7 @@ export const workToDo: TimedTask = {
 	startTime: formatTime(getTodayAtTime('15:15')),
 };
 
-export const birthdayToDo: TimedTask = {
+export const birthdayToDo: Task = {
 	category: work,
 	createdAt: startOfTomorrow().toISOString(),
 	date: formatDate(startOfTomorrow()),
@@ -220,6 +220,6 @@ export const birthdayToDo: TimedTask = {
 	startTime: formatTime(getTodayAtTime('15:15')),
 };
 
-export const toDos: TimedTask[] = [workToDo, birthdayToDo];
+export const toDos: Task[] = [workToDo, birthdayToDo];
 
-export const tasks: TimedTask[] = [...events, ...toDos];
+export const tasks: Task[] = [...events, ...toDos];

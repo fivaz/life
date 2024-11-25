@@ -1,15 +1,15 @@
 <script lang="ts">
+	import type { Task } from '@life/shared/types';
 	import { addDays, parse } from 'date-fns';
 
 	import DayTaskItem from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/tasks-summary/day-tasks-list/day-task-item/DayTaskItem.svelte';
 	import { getPersistTasks } from '$lib/components/calendar/context.utils';
 	import { DATE, formatDate } from '$lib/date.utils.svelte';
-	import type { CalendarTask } from '$lib/task/task.model';
 	import { isRecurring, isTimed } from '$lib/task/task.model';
 	import { getTotalDuration } from '$lib/task/time-utils';
 
 	interface Props {
-		tasks: CalendarTask[];
+		tasks: Task[];
 		close: () => void;
 		date: Date;
 	}

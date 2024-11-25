@@ -1,9 +1,10 @@
+import type { Task } from '@life/shared/types';
+
 import {
 	GRID_CELL_HEIGHT,
 	GRID_CELL_TIME,
 	NUMBER_OF_CELLS,
 } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
-import type { TimedTask } from '$lib/task/task.model';
 import { convertTimeToMinutes } from '$lib/task/time-utils';
 
 export const EVENT_PANEL_CLASS = 'event-panel-class';
@@ -12,7 +13,7 @@ export function getSlot(time: string) {
 	return Math.round(convertTimeToMinutes(time) / GRID_CELL_TIME);
 }
 
-export function getEventSlots(event: TimedTask): { endSlot: number; startSlot: number } {
+export function getEventSlots(event: Task): { endSlot: number; startSlot: number } {
 	const startSlot = getSlot(event.startTime);
 	// if startSlot + getSlot > 96 then return 96
 	const endSlot = Math.min(startSlot + getSlot(event.duration), NUMBER_OF_CELLS);
@@ -37,7 +38,7 @@ function getColumn(eventIdToFind: string, eventGrid: EventsGrid[number]): number
 	return Number(column);
 }
 
-export function getDivision(event: TimedTask, eventsGrid: EventsGrid) {
+export function getDivision(event: Task, eventsGrid: EventsGrid) {
 	const { endSlot, startSlot } = getEventSlots(event);
 
 	/**
@@ -68,7 +69,7 @@ export function getDivision(event: TimedTask, eventsGrid: EventsGrid) {
 	return `width: ${width}%; left: ${left}%;`;
 }
 
-export function getHeight(event: TimedTask) {
+export function getHeight(event: Task) {
 	const { endSlot, startSlot } = getEventSlots(event);
 	// the duration is calculated like this instead of just event.duration to sanitize the duration in case it overlaps 24h
 	const duration = endSlot - startSlot;
@@ -76,7 +77,7 @@ export function getHeight(event: TimedTask) {
 	return `height: ${duration * GRID_CELL_HEIGHT}px;`;
 }
 
-export function getTop(event: TimedTask): string {
+export function getTop(event: Task): string {
 	const startTimeMinutes = convertTimeToMinutes(event.startTime);
 
 	return `top: ${(startTimeMinutes / GRID_CELL_TIME) * GRID_CELL_HEIGHT}px;`;

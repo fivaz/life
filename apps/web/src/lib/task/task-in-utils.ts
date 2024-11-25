@@ -1,7 +1,8 @@
+import type { Task } from '@life/shared/types';
 import { addMonths, isAfter, parse } from 'date-fns';
 
 import { formatDate, formatTime, TIME } from '$lib/date.utils.svelte';
-import type { Frequency, Task } from '$lib/task/task.model';
+import type { Frequency } from '$lib/task/task.model';
 import { isRecurring, isTimed } from '$lib/task/task.model';
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 import { convertTimeToMinutes, getCurrentRoundedDate, sumTimes } from '$lib/task/time-utils';

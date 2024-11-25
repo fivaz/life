@@ -1,8 +1,8 @@
+import type { Task } from '@life/shared/types';
 import { add, isSameDay, parse, set } from 'date-fns';
 
 import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 import { DATE, formatTime, TIME } from '$lib/date.utils.svelte';
-import type { Task } from '$lib/task/task.model';
 import { isTimed } from '$lib/task/task.model';
 import { getDurationInMinutes } from '$lib/task/task.utils';
 

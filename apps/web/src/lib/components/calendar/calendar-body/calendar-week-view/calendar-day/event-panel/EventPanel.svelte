@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Task } from '@life/shared/types';
 	import { clsx } from 'clsx';
 	import interact from 'interactjs';
 	import { onMount } from 'svelte';
@@ -19,12 +20,11 @@
 		hasMoved,
 	} from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/service';
 	import { getEditTask, getMoveEvent } from '$lib/components/calendar/context.utils';
-	import type { TimedTask } from '$lib/task/task.model';
 
 	import EventPanelCore from './event-panel-core/EventPanelCore.svelte';
 
 	interface Props {
-		event: TimedTask;
+		event: Task;
 		eventsGrid: EventsGrid;
 		targetDate: string;
 		class?: string;

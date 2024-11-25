@@ -1,6 +1,6 @@
+import type { Task } from '@life/shared/types';
 import { format } from 'date-fns';
 
-import type { Task } from '$lib/task/task.model';
 import { editTask } from '$lib/task/task.repository';
 import { getTaskDate } from '$lib/task/time-utils';
 

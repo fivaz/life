@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Task } from '$lib/task/task.model';
+	import type { Task } from '@life/shared/types';
 	import TaskCompletedNotification from '$lib/task/task-completed-notification-stack/task-completed-notification/TaskCompletedNotification.svelte';
 
 	interface Props {

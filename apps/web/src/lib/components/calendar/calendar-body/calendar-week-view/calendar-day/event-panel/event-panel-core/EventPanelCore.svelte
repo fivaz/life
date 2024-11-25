@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Task } from '@life/shared/types';
 	import { clsx } from 'clsx';
 	import { format, parse } from 'date-fns';
 
@@ -7,12 +8,11 @@
 	import { getToggleCompletion } from '$lib/components/calendar/context.utils';
 	import { TIME } from '$lib/date.utils.svelte';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
-	import type { TimedTask } from '$lib/task/task.model';
 	import { getDurationInMinutes, getSubTasks, getSubTasksCompleted } from '$lib/task/task.utils';
 	import { roundTo15 } from '$lib/task/time-utils';
 
 	interface Props {
-		event: TimedTask;
+		event: Task;
 		targetDate: string;
 		isSelected: boolean;
 	}

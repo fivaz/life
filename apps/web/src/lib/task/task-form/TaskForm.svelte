@@ -16,7 +16,7 @@
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
-	import type { Task } from '$lib/task/task.model';
+	import type { Task } from '@life/shared/types';
 	import { isRecurring, isTimed, isUntimed } from '$lib/task/task.model';
 	import { addTask } from '$lib/task/task.repository';
 	import {

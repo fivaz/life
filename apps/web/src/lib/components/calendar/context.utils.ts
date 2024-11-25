@@ -1,6 +1,5 @@
+import type { Task } from '@life/shared/types';
 import { getContext, setContext } from 'svelte';
-
-import type { Task } from '$lib/task/task.model';
 
 const changeDateKey = Symbol('changeDate');
 

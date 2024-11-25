@@ -1,4 +1,6 @@
-import type { SubTask, Task } from '$lib/task/task.model';
+import type { Task } from '@life/shared/types';
+
+import type { SubTask } from '$lib/task/task.model';
 import { convertTimeToMinutes, getTaskDateTime } from '$lib/task/time-utils';
 
 export function getSubTasks(task: Task): SubTask[] {
@@ -28,7 +30,7 @@ export function getDurationInMinutes(task: Task) {
 	return convertTimeToMinutes(task.duration);
 }
 
-export function sortTasks<T extends Task>(tasks: T[]): T[] {
+export function sortTasks(tasks: Task[]): Task[] {
 	return tasks.toSorted(
 		(a, b) => (getTaskDateTime(a)?.getTime() ?? 0) - (getTaskDateTime(b)?.getTime() ?? 0),
 	);

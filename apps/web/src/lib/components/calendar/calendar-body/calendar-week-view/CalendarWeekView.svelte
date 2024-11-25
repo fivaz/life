@@ -2,7 +2,7 @@
 	import CalendarDay from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/CalendarDay.svelte';
 	import { getCreateTask } from '$lib/components/calendar/context.utils';
 	import { selectedDate, weekDates } from '$lib/components/calendar/service.svelte';
-	import type { Task } from '$lib/task/task.model';
+	import type { Task } from '@life/shared/types';
 	import { buildDate } from '$lib/task/time-utils';
 
 	interface Props {

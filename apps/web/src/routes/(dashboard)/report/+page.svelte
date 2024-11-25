@@ -1,11 +1,11 @@
 <script lang="ts">
+	import type { Task } from '@life/shared/types';
 	import { where } from 'firebase/firestore';
 
 	import { CATEGORY_WORK } from '$lib/category/category.model';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import { title } from '$lib/date.utils.svelte';
-	import type { Task } from '$lib/task/task.model';
 	import { fetchTasks } from '$lib/task/task.repository';
 
 	import LineChart from './line-chart/LineChart.svelte';

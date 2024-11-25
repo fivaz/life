@@ -1,3 +1,4 @@
+import type { Task } from '@life/shared/types';
 import { addDays, endOfWeek, startOfWeek } from 'date-fns';
 import type { QueryConstraint } from 'firebase/firestore';
 import { where } from 'firebase/firestore';
@@ -5,7 +6,6 @@ import { where } from 'firebase/firestore';
 import { DB_PATH } from '$lib/consts';
 import { formatDate } from '$lib/date.utils.svelte';
 import { fetchItemsCore } from '$lib/repository.svelte';
-import type { CalendarTask, Task } from '$lib/task/task.model';
 import { taskSchema } from '$lib/task/task.model';
 import { fetchTasks } from '$lib/task/task.repository';
 import { groupBy } from '$lib/utils';
@@ -25,7 +25,7 @@ export function fetchFirstTasks() {
 	fetchTasks(populateTaskMap, ...getTaskDateConstrain());
 }
 
-function populateTaskMap(tasks: CalendarTask[]): void {
+function populateTaskMap(tasks: Task[]): void {
 	const tasksByWeek = groupBy(tasks, (task) => formatDate(startOfWeek(task.date)));
 
 	const weeks = Object.keys(tasksByWeek);

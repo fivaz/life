@@ -1,3 +1,4 @@
+import type { Task } from '@life/shared/types';
 import type { DocumentReference, QueryConstraint } from 'firebase/firestore';
 import { collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
@@ -6,7 +7,6 @@ import { DB_PATH } from '$lib/consts';
 import { db, storage } from '$lib/firebase';
 import type { Goal } from '$lib/goal/goal.model';
 import { fetchItems } from '$lib/repository.svelte';
-import type { Task } from '$lib/task/task.model';
 import { taskSchema } from '$lib/task/task.model';
 
 export function fetchGoalTasks(

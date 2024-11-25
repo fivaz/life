@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Task } from '@life/shared/types';
 	import { GripVertical, Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import interact from 'interactjs';
@@ -6,7 +7,6 @@
 
 	import { tailwindColorMap } from '$lib/category/category.utils';
 	import { DATE_FR, DATE_FR_SHORT } from '$lib/date.utils.svelte';
-	import type { Task } from '$lib/task/task.model';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import { formatDate, HANDLE, hasMoved, startDrag } from './service';

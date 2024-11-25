@@ -11,7 +11,7 @@
 	} from '$lib/components/calendar/context.utils';
 	import { currentDate } from '$lib/components/calendar/service.svelte';
 	import { getNextRoundedTime } from '$lib/components/calendar/service.svelte.js';
-	import type { Task } from '$lib/task/task.model';
+	import type { Task } from '@life/shared/types';
 
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';

@@ -1,8 +1,9 @@
+import type { Task } from '@life/shared/types';
+
 import { buildEmptyCategory } from '$lib/category/category.model';
 import { createDialog } from '$lib/components/dialog/service.svelte';
 import type { Goal } from '$lib/goal/goal.model';
 import { buildTimedTask } from '$lib/task/build-utils';
-import type { Task } from '$lib/task/task.model';
 import { isRecurring, isTimed } from '$lib/task/task.model';
 import { addExceptionToRecurring, addTask, deleteTask, editTask } from '$lib/task/task.repository';
 import type { TaskIn } from '$lib/task/task-in-utils';

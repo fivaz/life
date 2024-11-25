@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Task } from '@life/shared/types';
 	import { where } from 'firebase/firestore';
 
 	import type { Category } from '$lib/category/category.model';
@@ -9,7 +10,6 @@
 	import type { Goal } from '$lib/goal/goal.model';
 	import { fetchGoals } from '$lib/goal/goal.repository';
 	import { buildTimedTask, buildTimedTaskWithTimeSet } from '$lib/task/build-utils';
-	import type { Task } from '$lib/task/task.model';
 	import TaskCompletedNotificationStack from '$lib/task/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
