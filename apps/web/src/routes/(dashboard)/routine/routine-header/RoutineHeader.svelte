@@ -1,10 +1,9 @@
 <script lang="ts">
-	import { Button } from '@life/shared/components';
+	import { Button, WeekChanger } from '@life/shared/components';
 	import { format } from 'date-fns';
 	import { Plus } from 'lucide-svelte';
 
 	import { selectedDate } from '$lib/components/calendar/service.svelte';
-	import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 	import { formatDate, title } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 

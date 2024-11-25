@@ -1,26 +1,18 @@
 {
-  "name": "@life/shared",
+  "name": "@life/calendar",
   "version": "0.0.0",
   "type": "module",
   "module": "index.ts",
   "main": "index.ts",
   "exports": {
-    "./components": {
-      "types": "./components/index.ts",
-      "svelte": "./components/index.ts"
-    },
-    "./types": {
-      "types": "./lib/types.ts"
-    },
-    "./date.utils": {
-      "types": "./lib/date.utils.ts"
+    "./index": {
+      "types": "./index.ts",
+      "svelte": "./index.ts"
     }
-  },
-  "scripts": {
-    "lint": "eslint ."
   },
   "devDependencies": {
     "@life/eslint-config": "workspace:*",
+    "@life/shared": "workspace:*",
     "@steeze-ui/heroicons": "^2.4.0",
     "@steeze-ui/svelte-icon": "^1.5.0",
     "clsx": "^2.1.1",

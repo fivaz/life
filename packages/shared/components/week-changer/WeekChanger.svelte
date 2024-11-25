@@ -4,7 +4,7 @@
 	import { addDays, isSameWeek, parse, startOfWeek } from 'date-fns';
 	import { CalendarCheck } from 'lucide-svelte';
 
-	import { DATE, formatDate } from '$lib/date.utils.svelte';
+	import { DATE,formatDate } from '../../lib/date.utils';
 
 	interface Props {
 		selectedDate: Date;
