@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Task } from '@life/lib/types';
+	import type { Task } from '@life/lib/task';
 	import { Modal } from '@life/ui';
 	import { clsx } from 'clsx';
 

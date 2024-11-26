@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { tailwindColorMap } from '@life/lib/category';
 	import { Check, Settings2, Tag } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
 	import type { Category } from '$lib/category/category.model';
-	import { tailwindColorMap } from '$lib/category/category.utils';
 
 	interface Props {
 		category: Category;

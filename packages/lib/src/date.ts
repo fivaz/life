@@ -31,3 +31,19 @@ export function buildDate(date: Date, time: string): Date {
 
   return set(date, { hours, minutes });
 }
+
+export function convertMinutesToTime(timeInMinutes: number): string {
+  const hours = Math.floor(timeInMinutes / 60);
+  const minutes = timeInMinutes % 60;
+
+  return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+}
+
+// convert time from HH:mm format to the number of minutes
+export function convertTimeToMinutes(time: string): number {
+  const [hours, minutes] = time.split(':').map(Number);
+  if (!isNaN(hours) && !isNaN(minutes)) {
+    return hours * 60 + minutes;
+  }
+  throw new Error("Time isn't in the format HH:mm");
+}

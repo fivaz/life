@@ -1,4 +1,4 @@
-import type { Task } from '@life/lib/types';
+import type { Task } from '@life/lib/task';
 import type { DocumentReference, QueryConstraint } from 'firebase/firestore';
 import { collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Task } from '@life/lib/types';
+	import type { Task } from '@life/lib/task';
 
 	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 	import type { MoveEventType } from '$lib/components/calendar/context.utils';

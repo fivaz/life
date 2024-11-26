@@ -1,4 +1,4 @@
-import type { Task } from '@life/lib/types';
+import type { Task } from '@life/lib/task';
 import { createDialog } from '@life/ui/dialog';
 
 import { buildEmptyCategory } from '$lib/category/category.model';

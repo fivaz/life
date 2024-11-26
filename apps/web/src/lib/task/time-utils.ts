@@ -1,10 +1,10 @@
-import type { Task } from '@life/lib/types';
+import { convertMinutesToTime, roundTo15 } from '@life/lib/date';
+import type { Task } from '@life/lib/task';
+import { getDurationInMinutes, isTimed } from '@life/lib/task';
 import { add, isSameDay, parse, set } from 'date-fns';
 
 import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 import { DATE, formatTime, TIME } from '$lib/date.utils.svelte';
-import { isTimed } from '$lib/task/task.model';
-import { getDurationInMinutes } from '$lib/task/task.utils';
 
 export function getTotalDuration(tasks: Task[]): string {
 	const totalDurationInMinutes = tasks.reduce((sum, task) => sum + getDurationInMinutes(task), 0);
@@ -25,28 +25,6 @@ export function getTaskDateTime(task: Task): Date | null {
 	}
 }
 
-export function buildDate(date: Date, time: string): Date {
-	const [hours, minutes] = time.split(':').map(Number);
-
-	return set(date, { hours, minutes });
-}
-
-// convert time from HH:mm format to the number of minutes
-export function convertTimeToMinutes(time: string): number {
-	const [hours, minutes] = time.split(':').map(Number);
-	if (!isNaN(hours) && !isNaN(minutes)) {
-		return hours * 60 + minutes;
-	}
-	throw new Error("Time isn't in the format HH:mm");
-}
-
-export function convertMinutesToTime(timeInMinutes: number): string {
-	const hours = Math.floor(timeInMinutes / 60);
-	const minutes = timeInMinutes % 60;
-
-	return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-}
-
 export function getCurrentRoundedDate() {
 	return roundTo15(new Date());
 }
@@ -54,11 +32,6 @@ export function getCurrentRoundedDate() {
 export function getDateRoundDownTo15() {
 	const milliseconds = 1000 * 60 * GRID_CELL_TIME;
 	return new Date(Math.floor(new Date().getTime() / milliseconds) * milliseconds);
-}
-
-export function roundTo15(date: Date) {
-	const milliseconds = 1000 * 60 * GRID_CELL_TIME;
-	return new Date(Math.round(date.getTime() / milliseconds) * milliseconds);
 }
 
 export function sumTimes(startTime: string, duration: string): string | '' {

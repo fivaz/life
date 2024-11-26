@@ -1,6 +1,5 @@
+import { tailwindColors } from '@life/lib/category';
 import { z } from 'zod';
-
-import { tailwindColors } from '$lib/category/category.utils';
 
 export const CATEGORY_WORK = 'work';
 

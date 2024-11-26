@@ -1,4 +1,4 @@
-import type { Task } from '@life/lib/types';
+import type { Task } from '@life/lib/task';
 import { z } from 'zod';
 
 import { categorySchema } from '$lib/category/category.model';
@@ -37,5 +37,3 @@ export function isUntimed(task: Omit<Task, 'id'> | Task) {
 export function isTimed(task: Omit<Task, 'id'> | Task) {
 	return !!task.startTime;
 }
-
-export type SubTask = { isDone: boolean; title: string };

@@ -1,10 +1,10 @@
 <script lang="ts">
+	import { tailwindColorMap, tailwindColors } from '@life/lib/category';
 	import { Button } from '@life/ui';
 
 	import type { Category } from '$lib/category/category.model';
 	import { categoryTypes } from '$lib/category/category.model';
 	import { addCategory, deleteCategory, editCategory } from '$lib/category/category.respository';
-	import { tailwindColorMap, tailwindColors } from '$lib/category/category.utils';
 	import CloseX from '$lib/components/close-x/CloseX.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';

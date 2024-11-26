@@ -1,4 +1,4 @@
-import type { Task } from '@life/lib/types';
+import type { Task } from '@life/lib/task';
 
 import type { Category } from '$lib/category/category.model';
 import { formatDate, formatTime } from '$lib/date.utils.svelte';

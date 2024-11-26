@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { Task } from '@life/lib/types';
+	import { tailwindColorMap } from '@life/lib/category';
+	import type { Task } from '@life/lib/task';
 	import { GripVertical, Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import interact from 'interactjs';
 	import { onDestroy, onMount } from 'svelte';
 
-	import { tailwindColorMap } from '$lib/category/category.utils';
 	import { DATE_FR, DATE_FR_SHORT } from '$lib/date.utils.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 

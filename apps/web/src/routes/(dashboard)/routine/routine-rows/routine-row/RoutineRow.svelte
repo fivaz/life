@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { GoalIcon } from '@life/ui';
 	import { Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { startOfWeek } from 'date-fns';
@@ -8,7 +9,6 @@
 
 	import { previousDate, selectedDate } from '$lib/components/calendar/service.svelte';
 	import { formatDate } from '$lib/date.utils.svelte';
-	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { toggleRoutineCompletion } from '$lib/routine/routine.repository';
 	import { currentUser } from '$lib/user/user.utils.svelte';

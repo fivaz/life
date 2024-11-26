@@ -1,4 +1,4 @@
-import type { Task } from '@life/lib/types';
+import type { Task } from '@life/lib/task';
 
 import { isRecurring } from '$lib/task/task.model';
 import { editTask } from '$lib/task/task.repository';

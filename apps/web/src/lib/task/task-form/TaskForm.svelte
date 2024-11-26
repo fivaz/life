@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { Task } from '@life/lib/types';
-	import { Button } from '@life/ui';
+	import { tailwindColorMap } from '@life/lib/category';
+	import type { Task } from '@life/lib/task';
+	import { Button, GoalIcon } from '@life/ui';
 	import { EllipsisVertical } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Copy, ListTodo } from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';
-	import { tailwindColorMap } from '$lib/category/category.utils';
 	import CloseX from '$lib/components/close-x/CloseX.svelte';
 	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';
@@ -16,7 +16,6 @@
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
-	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import { isRecurring, isTimed, isUntimed } from '$lib/task/task.model';
 	import { addTask } from '$lib/task/task.repository';
 	import {

@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Button } from '@life/ui';
+	import { getIcon } from '@life/lib/goal';
+	import { Button, GoalIcon } from '@life/ui';
 
 	import CloseX from '$lib/components/close-x/CloseX.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
@@ -8,8 +9,6 @@
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
 	import { addGoal, deleteGoal, editGoal } from '$lib/goal/goal.repository';
-	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
-	import { getIcon } from '$lib/goal/goal-icon/service';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import IconSelector from './icon-selector/IconSelector.svelte';

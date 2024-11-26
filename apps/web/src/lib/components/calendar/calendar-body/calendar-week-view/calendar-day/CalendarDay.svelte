@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { formatDate } from '@life/lib/date';
+	import type { Task } from '@life/lib/task';
 	import { isTimed } from '@life/lib/task';
-	import type { Task } from '@life/lib/types';
 	import { onMount } from 'svelte';
 
 	import type { EventsGrid } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';

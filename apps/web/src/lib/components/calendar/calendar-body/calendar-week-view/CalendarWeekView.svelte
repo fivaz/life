@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { buildDate } from '@life/lib/date';
-	import type { Task } from '@life/lib/types';
+	import type { Task } from '@life/lib/task';
 
 	import CalendarDay from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/CalendarDay.svelte';
 	import { getCreateTask } from '$lib/components/calendar/context.utils';

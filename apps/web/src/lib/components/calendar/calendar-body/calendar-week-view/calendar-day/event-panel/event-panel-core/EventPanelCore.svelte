@@ -1,15 +1,14 @@
 <script lang="ts">
-	import type { Task } from '@life/lib/types';
+	import { tailwindColorMap } from '@life/lib/category';
+	import { roundTo15, TIME } from '@life/lib/date';
+	import type { Task } from '@life/lib/task';
+	import { getDurationInMinutes, getSubTasks, getSubTasksCompleted } from '@life/lib/task';
+	import { GoalIcon } from '@life/ui';
 	import { clsx } from 'clsx';
 	import { format, parse } from 'date-fns';
 
-	import { tailwindColorMap } from '$lib/category/category.utils';
 	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 	import { getToggleCompletion } from '$lib/components/calendar/context.utils';
-	import { TIME } from '$lib/date.utils.svelte';
-	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
-	import { getDurationInMinutes, getSubTasks, getSubTasksCompleted } from '$lib/task/task.utils';
-	import { roundTo15 } from '$lib/task/time-utils';
 
 	interface Props {
 		event: Task;

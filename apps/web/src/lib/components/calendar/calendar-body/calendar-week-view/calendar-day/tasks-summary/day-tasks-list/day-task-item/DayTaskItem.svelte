@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { Task } from '@life/lib/types';
+	import type { Task } from '@life/lib/task';
+	import { GoalIcon } from '@life/ui';
 	import { CalendarClock, CalendarDays } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 
 	import { getEditTask } from '$lib/components/calendar/context.utils';
 	import { formatDate } from '$lib/date.utils.svelte';
-	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
 	import { isUntimed } from '$lib/task/task.model';
 
 	interface Props {

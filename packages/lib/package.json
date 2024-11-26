@@ -3,10 +3,6 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    "./types": {
-      "types": "./src/types.ts",
-      "default": "./dist/types.js"
-    },
     "./date": {
       "types": "./src/date.ts",
       "default": "./dist/date.js"
@@ -14,10 +10,21 @@
     "./task": {
       "types": "./src/task/index.ts",
       "default": "./dist/task/index.js"
+    },
+    "./category": {
+      "types": "./src/category/index.ts",
+      "default": "./dist/category/index.js"
+    },
+    "./goal": {
+      "types": "./src/goal/index.ts",
+      "default": "./dist/goal/index.js"
     }
   },
   "devDependencies": {
     "@life/eslint-config": "workspace:*",
+    "@steeze-ui/font-awesome": "^1.0.1",
+    "@steeze-ui/lucide-icons": "^1.3.0",
+    "@steeze-ui/svelte-icon": "^1.5.0",
     "date-fns": "^4.1.0",
     "eslint": "^9.15.0",
     "typescript": "^5.0.0"
