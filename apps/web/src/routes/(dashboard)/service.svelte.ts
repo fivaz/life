@@ -1,6 +1,6 @@
 import type { Task } from '@life/lib/task';
+import { isRecurring } from '@life/lib/task';
 
-import { isRecurring } from '$lib/task/task.model';
 import { editTask } from '$lib/task/task.repository';
 import { editSingleRecurringEvent } from '$lib/task/task-form/service.svelte';
 

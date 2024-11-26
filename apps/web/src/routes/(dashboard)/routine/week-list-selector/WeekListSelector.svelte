@@ -4,11 +4,10 @@
 	import { CheckCheck } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
 
-	import { previousDate, selectedDate, weekDates } from '$lib/components/calendar/service.svelte';
 	import { formatDate } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 
-	import { weekChangeDuration } from '../service.svelte';
+	import { previousDate, selectedDate, weekChangeDuration, weekDates } from '../service.svelte';
 
 	interface Props {
 		routines: Routine[];

@@ -1,4 +1,4 @@
-import { format, parse, set } from 'date-fns';
+import { differenceInMilliseconds, format, parse, set } from 'date-fns';
 
 export const DATE = 'yyyy-MM-dd';
 export const TIME = 'HH:mm';
@@ -46,4 +46,21 @@ export function convertTimeToMinutes(time: string): number {
     return hours * 60 + minutes;
   }
   throw new Error("Time isn't in the format HH:mm");
+}
+
+export function getDateRoundDownTo15() {
+  const milliseconds = 1000 * 60 * GRID_CELL_TIME;
+  return new Date(Math.floor(new Date().getTime() / milliseconds) * milliseconds);
+}
+
+export function getNextRoundedTime() {
+  const now = new Date();
+
+  const currentTimeMilliseconds = now.getTime();
+
+  const roundedMilliseconds = 1000 * 60 * GRID_CELL_TIME;
+  const nextTimeRounded =
+    Math.ceil(currentTimeMilliseconds / roundedMilliseconds) * roundedMilliseconds;
+
+  return differenceInMilliseconds(nextTimeRounded, currentTimeMilliseconds);
 }

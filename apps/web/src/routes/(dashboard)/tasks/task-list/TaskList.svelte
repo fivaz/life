@@ -1,12 +1,12 @@
 <script lang="ts">
 	import type { Task } from '@life/lib/task';
+	import { getTotalDuration } from '@life/lib/task';
 	import { Clipboard, ClipboardCopy, ClipboardList, Plus } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { addDays, addWeeks, lastDayOfWeek, parse, subDays } from 'date-fns';
 
 	import { DATE, DATE_FR, formatDate } from '$lib/date.utils.svelte';
-	import { getTotalDuration } from '$lib/task/time-utils';
 
 	import { GROUPS } from '../service';
 	import { TASK_LIST_CLASS } from './task-row/service';

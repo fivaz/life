@@ -26,14 +26,6 @@ export const taskSchema = z.object({
 	recurringExceptions: z.array(zDate),
 });
 
-export function isRecurring(task: Omit<Task, 'id'> | Task) {
-	return !!task.recurringFrequency;
-}
-
-export function isUntimed(task: Omit<Task, 'id'> | Task) {
-	return !task.startTime;
-}
-
 export function isTimed(task: Omit<Task, 'id'> | Task) {
 	return !!task.startTime;
 }

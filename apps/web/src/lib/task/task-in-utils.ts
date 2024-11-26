@@ -1,10 +1,10 @@
 import { convertTimeToMinutes } from '@life/lib/date';
 import type { Task } from '@life/lib/task';
+import { isRecurring, isTimed } from '@life/lib/task';
 import { addMonths, isAfter, parse } from 'date-fns';
 
 import { formatDate, formatTime, TIME } from '$lib/date.utils.svelte';
 import type { Frequency } from '$lib/task/task.model';
-import { isRecurring, isTimed } from '$lib/task/task.model';
 import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
 import { getCurrentRoundedDate, sumTimes } from '$lib/task/time-utils';
 

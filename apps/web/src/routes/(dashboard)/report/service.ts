@@ -1,4 +1,6 @@
+import { DATE, formatDate } from '@life/lib/date';
 import type { Task } from '@life/lib/task';
+import { getTaskDateTime, sortTasks } from '@life/lib/task';
 import {
 	eachDayOfInterval,
 	eachMonthOfInterval,
@@ -16,10 +18,6 @@ import {
 	subWeeks,
 	subYears,
 } from 'date-fns';
-
-import { DATE, formatDate } from '$lib/date.utils.svelte';
-import { sortTasks } from '$lib/task/task.utils';
-import { getTaskDateTime } from '$lib/task/time-utils';
 
 export type UncompletedTasksByDate = {
 	[Symbol.iterator](): IterableIterator<[string, number]>;

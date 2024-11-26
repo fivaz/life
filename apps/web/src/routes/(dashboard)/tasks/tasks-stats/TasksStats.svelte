@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { getTotalDuration } from '@life/lib/task';
 	import { Grid3x3, LayoutGrid } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
 	import { CATEGORY_WORK } from '$lib/category/category.model';
-	import { getTotalDuration } from '$lib/task/time-utils';
 
 	import type { SortedTaskType } from '../service';
 

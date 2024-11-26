@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Task } from '@life/lib/task';
+	import { sortTasks } from '@life/lib/task';
 	import { GoalIcon } from '@life/ui';
 	import { ChevronDown, ChevronUp, Plus, Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -8,7 +9,6 @@
 	import type { Goal } from '$lib/goal/goal.model';
 	import { getCompletedTasks } from '$lib/goal/goal.utils';
 	import { fetchGoalTasks } from '$lib/task/task.repository';
-	import { sortTasks } from '$lib/task/task.utils';
 
 	import GoalTasks from './goal-tasks/GoalTasks.svelte';
 

@@ -22,6 +22,7 @@
 	"devDependencies": {
 		"@life/ui": "workspace:*",
 		"@life/lib": "workspace:*",
+		"@life/calendar": "workspace:*",
 		"@chromatic-com/storybook": "^3.2.2",
 		"@floating-ui/dom": "^1.6.12",
 		"@fontsource/fira-mono": "^5.0.0",

@@ -1,4 +1,5 @@
 import type { Task } from '@life/lib/task';
+import { isRecurring } from '@life/lib/task';
 import {
 	addWeeks,
 	endOfWeek,
@@ -11,7 +12,6 @@ import {
 } from 'date-fns';
 
 import { DATE_FR } from '$lib/date.utils.svelte';
-import { isRecurring } from '$lib/task/task.model';
 import { getTaskDate } from '$lib/task/time-utils';
 import { groupBy } from '$lib/utils';
 

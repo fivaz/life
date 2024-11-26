@@ -7,13 +7,12 @@
 	import { fly } from 'svelte/transition';
 	import { dragHandle } from 'svelte-dnd-action';
 
-	import { previousDate, selectedDate } from '$lib/components/calendar/service.svelte';
 	import { formatDate } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { toggleRoutineCompletion } from '$lib/routine/routine.repository';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
-	import { weekChangeDuration } from '../../service.svelte';
+	import { previousDate, selectedDate, weekChangeDuration } from '../../service.svelte';
 	import { getOpenRoutineForm, getStatusColor, getStreak, statusColor } from '../service';
 
 	interface Props {

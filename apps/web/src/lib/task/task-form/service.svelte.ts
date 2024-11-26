@@ -1,14 +1,14 @@
 import type { Task } from '@life/lib/task';
+import { getHalfTime, isRecurring, isTimed } from '@life/lib/task';
 import { createDialog } from '@life/ui/dialog';
 
 import { buildEmptyCategory } from '$lib/category/category.model';
 import type { Goal } from '$lib/goal/goal.model';
 import { buildTimedTask } from '$lib/task/build-utils';
-import { isRecurring, isTimed } from '$lib/task/task.model';
 import { addExceptionToRecurring, addTask, deleteTask, editTask } from '$lib/task/task.repository';
 import type { TaskIn } from '$lib/task/task-in-utils';
 import { convertToTaskIn } from '$lib/task/task-in-utils';
-import { getHalfTime, sumTimes } from '$lib/task/time-utils';
+import { sumTimes } from '$lib/task/time-utils';
 
 export const taskIn = $state<{ value: TaskIn }>({
 	value: convertToTaskIn(buildTimedTask([buildEmptyCategory()])),

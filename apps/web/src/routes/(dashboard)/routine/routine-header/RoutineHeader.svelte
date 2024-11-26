@@ -3,11 +3,11 @@
 	import { format } from 'date-fns';
 	import { Plus } from 'lucide-svelte';
 
-	import { selectedDate } from '$lib/components/calendar/service.svelte';
 	import { formatDate, title } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 
 	import { getOpenRoutineForm } from '../routine-rows/service';
+	import { selectedDate } from '../service.svelte';
 	import Streak from '../streak/Streak.svelte';
 
 	interface Props {
