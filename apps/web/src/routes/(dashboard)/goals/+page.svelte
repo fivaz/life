@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Button } from '@life/shared/components';
+	import type { Task } from '@life/lib/types';
+	import { Button } from '@life/ui';
 	import { Plus } from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';
@@ -10,7 +11,6 @@
 	import { buildEmptyGoal } from '$lib/goal/goal.model';
 	import { fetchGoals } from '$lib/goal/goal.repository';
 	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
-	import type { Task } from '@life/shared/types';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 
 	import GoalForm from './goal-form/GoalForm.svelte';

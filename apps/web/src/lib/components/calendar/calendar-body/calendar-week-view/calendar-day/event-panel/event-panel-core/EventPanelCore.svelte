@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Task } from '@life/shared/types';
+	import type { Task } from '@life/lib/types';
 	import { clsx } from 'clsx';
 	import { format, parse } from 'date-fns';
 

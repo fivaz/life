@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Button } from '@life/shared/components';
+	import type { Task } from '@life/lib/types';
+	import { Button } from '@life/ui';
 	import { DocumentText } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { where } from 'firebase/firestore';
@@ -12,7 +13,6 @@
 	import type { Goal } from '$lib/goal/goal.model';
 	import { fetchGoals } from '$lib/goal/goal.repository';
 	import { buildUntimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
-	import type { Task } from '@life/shared/types';
 	import { fetchTasks } from '$lib/task/task.repository';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 

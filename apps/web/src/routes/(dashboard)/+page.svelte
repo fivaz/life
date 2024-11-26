@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Task } from '@life/shared/types';
+	import type { Task } from '@life/lib/types';
 	import { where } from 'firebase/firestore';
 
 	import type { Category } from '$lib/category/category.model';

@@ -1,4 +1,4 @@
-import type { Task } from '@life/shared/types';
+import type { Task } from '@life/lib/types';
 
 import type { SubTask } from '$lib/task/task.model';
 import { convertTimeToMinutes, getTaskDateTime } from '$lib/task/time-utils';

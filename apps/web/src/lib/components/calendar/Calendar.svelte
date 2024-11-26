@@ -1,4 +1,6 @@
 <script lang="ts">
+	import type { Task } from '@life/lib/types';
+
 	import { GRID_CELL_TIME } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte';
 	import type { MoveEventType } from '$lib/components/calendar/context.utils';
 	import {
@@ -11,7 +13,6 @@
 	} from '$lib/components/calendar/context.utils';
 	import { currentDate } from '$lib/components/calendar/service.svelte';
 	import { getNextRoundedTime } from '$lib/components/calendar/service.svelte.js';
-	import type { Task } from '@life/shared/types';
 
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';

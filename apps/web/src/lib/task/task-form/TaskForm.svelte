@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Button } from '@life/shared/components';
+	import type { Task } from '@life/lib/types';
+	import { Button } from '@life/ui';
 	import { EllipsisVertical } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Copy, ListTodo } from 'lucide-svelte';
@@ -16,7 +17,6 @@
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
 	import GoalIcon from '$lib/goal/goal-icon/GoalIcon.svelte';
-	import type { Task } from '@life/shared/types';
 	import { isRecurring, isTimed, isUntimed } from '$lib/task/task.model';
 	import { addTask } from '$lib/task/task.repository';
 	import {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from '@life/shared/components';
+	import { Button } from '@life/ui';
 	import type { Snippet } from 'svelte';
 
 	import { createDialog } from '$lib/components/dialog/service.svelte';

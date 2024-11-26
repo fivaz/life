@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from '@life/shared/components';
+	import { Button } from '@life/ui';
 
 	import type { Category } from '$lib/category/category.model';
 	import { categoryTypes } from '$lib/category/category.model';

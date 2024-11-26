@@ -1,4 +1,4 @@
-import type { Task } from '@life/shared/types';
+import type { Task } from '@life/lib/types';
 import { collection, getDocs } from 'firebase/firestore';
 import { cubicOut } from 'svelte/easing';
 

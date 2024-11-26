@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from '@life/shared/components';
+	import { Button } from '@life/ui';
 	import { Calendar1, Plus } from 'lucide-svelte';
 
 	import { getOpenRoutineForm } from '../routine-rows/service';

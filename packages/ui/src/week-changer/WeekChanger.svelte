@@ -1,10 +1,9 @@
 <script lang="ts">
+	import { DATE, formatDate } from '@life/lib/date';
 	import { ChevronLeft, ChevronRight } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { addDays, isSameWeek, parse, startOfWeek } from 'date-fns';
+	import { addDays, format, isSameWeek, parse, startOfWeek } from 'date-fns';
 	import { CalendarCheck } from 'lucide-svelte';
-
-	import { DATE,formatDate } from '../../lib/date.utils';
 
 	interface Props {
 		selectedDate: Date;

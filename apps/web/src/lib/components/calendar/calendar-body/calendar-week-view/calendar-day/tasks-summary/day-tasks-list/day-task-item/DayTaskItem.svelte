@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Task } from '@life/shared/types';
+	import type { Task } from '@life/lib/types';
 	import { CalendarClock, CalendarDays } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';

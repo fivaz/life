@@ -1,4 +1,4 @@
-import type { Task } from '@life/shared/types';
+import type { Task } from '@life/lib/types';
 import { startOfTomorrow, startOfWeek, startOfYesterday } from 'date-fns';
 
 import { routine, sleep, work } from '$lib/category/category.seed';

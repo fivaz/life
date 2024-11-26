@@ -1,0 +1,26 @@
+{
+  "name": "@life/lib",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    "./types": {
+      "types": "./src/types.ts",
+      "default": "./dist/types.js"
+    },
+    "./date": {
+      "types": "./src/date.ts",
+      "default": "./dist/date.js"
+    }
+  },
+  "devDependencies": {
+    "@life/eslint-config": "workspace:*",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
+    "eslint": "^9.15.0",
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc"
+  }
+}

@@ -1,5 +1,5 @@
 <script lang="ts" module>
-	import { Button } from '@life/shared/components';
+	import { Button } from '@life/ui';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import DropDown from './DropDown.svelte';

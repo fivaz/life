@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Task } from '@life/shared/types';
+	import type { Task } from '@life/lib/types';
 	import { GripVertical, Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import interact from 'interactjs';

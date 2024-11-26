@@ -1,4 +1,4 @@
-import type { Task } from '@life/shared/types';
+import type { Task } from '@life/lib/types';
 import { addMonths, isAfter, parse } from 'date-fns';
 
 import { formatDate, formatTime, TIME } from '$lib/date.utils.svelte';
