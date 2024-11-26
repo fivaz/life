@@ -4,4 +4,6 @@ import GoalIcon from './goal-icon/GoalIcon.svelte';
 import Modal from './modal/Modal.svelte';
 import WeekChanger from './week-changer/WeekChanger.svelte';
 
+export * from './dialog/service.svelte';
+
 export { Button, Dialog, GoalIcon, Modal, WeekChanger };

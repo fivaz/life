@@ -4,10 +4,7 @@
 	import WeekChanger from './WeekChanger.svelte';
 
 	const { Story } = defineMeta({
-		component: WeekChanger,
-		parameters: {
-			layout: 'fullscreen',
-		},
+		component: WeekChanger
 	});
 </script>
 

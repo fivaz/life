@@ -3,15 +3,11 @@ import forms from '@tailwindcss/forms';
 import type { Config } from 'tailwindcss';
 
 export default {
-	content: [
-		'./src/**/*.{html,js,svelte,ts}',
-		'../../packages/ui/src/**/*.svelte',
-		'../../packages/calendar/src/**/*.svelte',
-	],
+	content: ['./src/**/*.{html,js,svelte,ts}'],
 
 	theme: {
-		extend: {},
+		extend: {}
 	},
 
-	plugins: [forms, containerQueries],
+	plugins: [forms, containerQueries]
 } satisfies Config;

@@ -2,8 +2,8 @@
 	import { ExclamationTriangle, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
-	import Modal from '../modal/Modal.svelte'
-	import { closeDialog } from './service.svelte';
+	import Modal from '../modal/Modal.svelte';
+	import { closeDialog } from './service.svelte.js';
 
 	interface Props {
 		isOpen: boolean;

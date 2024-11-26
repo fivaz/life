@@ -2,7 +2,7 @@
 	import type { Snippet } from 'svelte';
 	import Portal from 'svelte-portal';
 
-	import { dialog } from '../dialog/service.svelte';
+	import { dialog } from '../dialog/service.svelte.js';
 
 	interface Props {
 		isOpen: boolean;
@@ -15,7 +15,7 @@
 		isDialog = false,
 		isOpen = $bindable(),
 		close = () => (isOpen = false),
-		children,
+		children
 	}: Props = $props();
 
 	// this makes sure that if there is a dialog on the screen, the only modal closed on Esc is the
