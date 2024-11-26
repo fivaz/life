@@ -1,0 +1,58 @@
+<script lang="ts" module>
+	import { formatDate } from '@life/lib/date';
+	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
+	import type { ComponentProps } from 'svelte';
+
+	import {
+		longRecurring,
+		normalWithDescription,
+		normalWithoutDescriptionWithGoal,
+		normalWithoutDescriptionWithoutGoal,
+		normalWithSubTasks,
+		shortWithDescription,
+		shortWithoutDescription,
+		shortWithSubTasks
+	} from '$lib/task/task.seed';
+
+	import EventPanel from './EventPanel.svelte';
+
+	const { Story } = defineMeta({
+		component: EventPanel,
+		args: {
+			class: '!static',
+			targetDate: formatDate(new Date())
+		}
+	});
+</script>
+
+<script lang="ts">
+	setTemplate(template as any);
+</script>
+
+{#snippet template({ ...args }: ComponentProps<typeof EventPanel>)}
+	<div class="!relative w-52">
+		<EventPanel {...args} />
+	</div>
+{/snippet}
+
+<Story
+	name="Normal without description with goal"
+	args={{ event: normalWithoutDescriptionWithGoal }}
+/>
+
+<Story
+	name="Normal without description without goal"
+	args={{ event: normalWithoutDescriptionWithoutGoal }}
+/>
+
+<Story name="Normal with a description" args={{ event: normalWithDescription }} />
+
+<Story name="Normal with sub tasks" args={{ event: normalWithSubTasks }} />
+
+<Story name="Short without description" args={{ event: shortWithoutDescription }} />
+
+<Story name="Short with a description" args={{ event: shortWithDescription }} />
+
+<Story name="Short with sub tasks" args={{ event: shortWithSubTasks }} />
+
+<Story name="Long recurring" args={{ event: longRecurring }} />

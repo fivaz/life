@@ -64,3 +64,5 @@ export function getNextRoundedTime() {
 
   return differenceInMilliseconds(nextTimeRounded, currentTimeMilliseconds);
 }
+
+export const nameOfDaysOfWeek: string[] = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
