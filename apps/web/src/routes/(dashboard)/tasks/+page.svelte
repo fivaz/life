@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Task } from '@life/lib/types';
-	import { Button } from '@life/ui';
+	import { Button, Modal } from '@life/ui';
 	import { DocumentText } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { where } from 'firebase/firestore';
@@ -8,7 +8,6 @@
 
 	import type { Category } from '$lib/category/category.model';
 	import { fetchCategories } from '$lib/category/category.respository';
-	import Modal from '$lib/components/modal/Modal.svelte';
 	import { title } from '$lib/date.utils.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
 	import { fetchGoals } from '$lib/goal/goal.repository';

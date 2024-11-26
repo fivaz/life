@@ -1,8 +1,8 @@
 <script lang="ts">
+	import { Modal } from '@life/ui';
 	import { Photo } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
-	import Modal from '$lib/components/modal/Modal.svelte';
 	import { taskIn } from '$lib/task/task-form/service.svelte';
 
 	interface Props {

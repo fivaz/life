@@ -1,9 +1,8 @@
 <script lang="ts" module>
+	import { Dialog } from '@life/ui';
+	import { dialog } from '@life/ui/dialog';
 	import type { Args } from '@storybook/addon-svelte-csf';
 	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
-
-	import Dialog from '$lib/components/dialog/Dialog.svelte';
-	import { dialog } from '$lib/components/dialog/service.svelte';
 
 	import ConfirmButton from './ConfirmButton.svelte';
 

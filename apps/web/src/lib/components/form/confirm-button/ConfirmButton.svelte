@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { Button } from '@life/ui';
+	import { createDialog } from '@life/ui/dialog';
 	import type { Snippet } from 'svelte';
-
-	import { createDialog } from '$lib/components/dialog/service.svelte';
 
 	interface Props {
 		title?: string;

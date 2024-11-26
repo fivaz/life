@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { Modal } from '@life/ui';
+
 	import Loading from '$lib/components/loading/Loading.svelte';
-	import Modal from '$lib/components/modal/Modal.svelte';
 	import { title } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { buildEmptyRoutine } from '$lib/routine/routine.model';

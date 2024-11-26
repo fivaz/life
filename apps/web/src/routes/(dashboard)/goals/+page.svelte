@@ -1,11 +1,10 @@
 <script lang="ts">
 	import type { Task } from '@life/lib/types';
-	import { Button } from '@life/ui';
+	import { Button, Modal } from '@life/ui';
 	import { Plus } from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';
 	import { fetchCategories } from '$lib/category/category.respository';
-	import Modal from '$lib/components/modal/Modal.svelte';
 	import { title } from '$lib/date.utils.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
 	import { buildEmptyGoal } from '$lib/goal/goal.model';

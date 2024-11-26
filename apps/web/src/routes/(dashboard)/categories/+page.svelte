@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { Button } from '@life/ui';
+	import { Button, Modal } from '@life/ui';
 	import { Plus } from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';
 	import { buildEmptyCategory } from '$lib/category/category.model';
 	import { fetchCategories } from '$lib/category/category.respository';
-	import Modal from '$lib/components/modal/Modal.svelte';
 	import { title } from '$lib/date.utils.svelte';
 
 	import CategoryForm from './category-form/CategoryForm.svelte';

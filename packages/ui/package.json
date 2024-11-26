@@ -6,20 +6,25 @@
     ".": {
       "types": "./src/index.ts",
       "svelte": "./src/index.ts"
+    },
+    "./dialog": {
+      "types": "./src/dialog/service.svelte.ts",
+      "svelte": "./src/dialog/service.svelte.ts"
     }
   },
   "scripts": {
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@life/lib": "workspace:*",
     "@life/eslint-config": "workspace:*",
+    "@life/lib": "workspace:*",
     "@steeze-ui/heroicons": "^2.4.0",
     "@steeze-ui/svelte-icon": "^1.5.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "eslint": "^9.15.0",
     "lucide-svelte": "^0.456.0",
-    "svelte": "^5.2.7"
+    "svelte": "^5.2.7",
+    "svelte-portal": "^2.2.1"
   }
 }

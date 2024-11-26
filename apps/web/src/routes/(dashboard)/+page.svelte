@@ -1,12 +1,12 @@
 <script lang="ts">
 	import type { Task } from '@life/lib/types';
+	import { Modal } from '@life/ui';
 	import { where } from 'firebase/firestore';
 
 	import type { Category } from '$lib/category/category.model';
 	import { buildEmptyCategory, CATEGORY_WORK } from '$lib/category/category.model';
 	import { fetchCategories } from '$lib/category/category.respository';
 	import Calendar from '$lib/components/calendar/Calendar.svelte';
-	import Modal from '$lib/components/modal/Modal.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
 	import { fetchGoals } from '$lib/goal/goal.repository';
 	import { buildTimedTask, buildTimedTaskWithTimeSet } from '$lib/task/build-utils';

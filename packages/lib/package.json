@@ -10,11 +10,14 @@
     "./date": {
       "types": "./src/date.ts",
       "default": "./dist/date.js"
+    },
+    "./task": {
+      "types": "./src/task/index.ts",
+      "default": "./dist/task/index.js"
     }
   },
   "devDependencies": {
     "@life/eslint-config": "workspace:*",
-    "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "eslint": "^9.15.0",
     "typescript": "^5.0.0"

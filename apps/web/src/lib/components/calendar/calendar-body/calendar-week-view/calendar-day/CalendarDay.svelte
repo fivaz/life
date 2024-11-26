@@ -1,12 +1,12 @@
 <script lang="ts">
+	import { formatDate } from '@life/lib/date';
+	import { isTimed } from '@life/lib/task';
 	import type { Task } from '@life/lib/types';
 	import { onMount } from 'svelte';
 
 	import type { EventsGrid } from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/event-panel/placement-service';
 	import TasksSummary from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/tasks-summary/TasksSummary.svelte';
 	import { isScrollingUp } from '$lib/components/calendar/calendar-body/calendar-week-view/service.svelte';
-	import { formatDate } from '$lib/date.utils.svelte';
-	import { isTimed } from '$lib/task/task.model';
 
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
 	import { SUMMARY_GRID_CELL_HEIGHT } from './calendar-grid/service.svelte';

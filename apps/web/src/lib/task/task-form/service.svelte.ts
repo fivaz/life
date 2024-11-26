@@ -1,7 +1,7 @@
 import type { Task } from '@life/lib/types';
+import { createDialog } from '@life/ui/dialog';
 
 import { buildEmptyCategory } from '$lib/category/category.model';
-import { createDialog } from '$lib/components/dialog/service.svelte';
 import type { Goal } from '$lib/goal/goal.model';
 import { buildTimedTask } from '$lib/task/build-utils';
 import { isRecurring, isTimed } from '$lib/task/task.model';

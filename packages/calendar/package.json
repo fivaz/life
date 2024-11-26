@@ -1,0 +1,24 @@
+{
+  "name": "@life/calendar",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "svelte": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@life/lib": "workspace:*",
+    "@life/ui": "workspace:*",
+    "@life/eslint-config": "workspace:*",
+    "date-fns": "^4.1.0",
+    "lucide-svelte": "^0.456.0",
+    "clsx": "^2.1.1",
+    "eslint": "^9.15.0",
+    "svelte": "^5.2.7"
+  }
+}

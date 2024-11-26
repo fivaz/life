@@ -1,10 +1,10 @@
 <script lang="ts">
+	import { buildDate } from '@life/lib/date';
 	import type { Task } from '@life/lib/types';
 
 	import CalendarDay from '$lib/components/calendar/calendar-body/calendar-week-view/calendar-day/CalendarDay.svelte';
 	import { getCreateTask } from '$lib/components/calendar/context.utils';
 	import { selectedDate, weekDates } from '$lib/components/calendar/service.svelte';
-	import { buildDate } from '$lib/task/time-utils';
 
 	interface Props {
 		tasks: Task[];

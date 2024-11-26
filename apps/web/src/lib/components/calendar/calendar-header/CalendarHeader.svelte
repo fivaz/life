@@ -1,12 +1,11 @@
 <script lang="ts">
+	import { formatDate, getCurrentRoundedDate } from '@life/lib/date';
 	import { Button, WeekChanger } from '@life/ui';
 	import { format } from 'date-fns';
 	import { Plus } from 'lucide-svelte';
 
 	import { getChangeDate, getCreateTask } from '$lib/components/calendar/context.utils';
 	import { currentDate, selectedDate } from '$lib/components/calendar/service.svelte';
-	import { formatDate } from '$lib/date.utils.svelte';
-	import { getCurrentRoundedDate } from '$lib/task/time-utils';
 
 	const createTask = getCreateTask();
 

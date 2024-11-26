@@ -1,12 +1,12 @@
 <script lang="ts">
+	import { Dialog } from '@life/ui';
+	import { dialog } from '@life/ui/dialog';
 	import { onAuthStateChanged } from 'firebase/auth';
 	import type { Snippet } from 'svelte';
 	import { onMount } from 'svelte';
 
 	import { goto } from '$app/navigation';
 	import Dashboard from '$lib/components/dashboard/Dashboard.svelte';
-	import Dialog from '$lib/components/dialog/Dialog.svelte';
-	import { dialog } from '$lib/components/dialog/service.svelte';
 	import { Routes } from '$lib/consts';
 	import { auth } from '$lib/firebase';
 	import { setUser } from '$lib/user/user.utils.svelte';

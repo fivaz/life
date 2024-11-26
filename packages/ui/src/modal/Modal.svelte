@@ -2,7 +2,7 @@
 	import type { Snippet } from 'svelte';
 	import Portal from 'svelte-portal';
 
-	import { dialog } from '$lib/components/dialog/service.svelte';
+	import { dialog } from '../dialog/service.svelte';
 
 	interface Props {
 		isOpen: boolean;
