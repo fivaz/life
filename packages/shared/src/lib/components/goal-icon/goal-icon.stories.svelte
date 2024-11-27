@@ -6,8 +6,8 @@
 	const { Story } = defineMeta({
 		component: GoalIcon,
 		parameters: {
-			layout: 'fullscreen'
-		}
+			layout: 'fullscreen',
+		},
 	});
 </script>
 

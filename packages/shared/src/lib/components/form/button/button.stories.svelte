@@ -6,7 +6,7 @@
 
 	export type IncreaseArgs<
 		ComponentType extends SvelteComponent | Component<any, any>,
-		AdditionalArgs
+		AdditionalArgs,
 	> = Component<AdditionalArgs & ComponentProps<ComponentType>>;
 
 	import Button from './Button.svelte';
@@ -15,13 +15,13 @@
 		component: Button,
 		argTypes: {
 			isOnlyIcon: {
-				control: { type: 'boolean' }
-			}
+				control: { type: 'boolean' },
+			},
 		},
 		args: {
 			isOnlyIcon: true,
-			onclick: () => console.log('clicked')
-		}
+			onclick: () => console.log('clicked'),
+		},
 	});
 </script>
 
@@ -43,7 +43,7 @@
 		color: 'indigo',
 		disabled: false,
 		isLoading: false,
-		isOnlyIcon: false
+		isOnlyIcon: false,
 	}}
 />
 
@@ -53,6 +53,6 @@
 		color: 'indigo',
 		disabled: false,
 		isLoading: false,
-		isOnlyIcon: true
+		isOnlyIcon: true,
 	}}
 />

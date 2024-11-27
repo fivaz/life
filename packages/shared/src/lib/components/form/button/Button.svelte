@@ -21,13 +21,13 @@
 		disabled = isLoading,
 		class: klass,
 		children,
-		onclick
+		onclick,
 	}: Props = $props();
 
 	const colors = {
 		indigo: 'focus-visible:outline-indigo-600 bg-indigo-600 hover:bg-indigo-500',
 		none: '',
-		red: 'focus-visible:outline-red-600 bg-red-600 hover:bg-red-500'
+		red: 'focus-visible:outline-red-600 bg-red-600 hover:bg-red-500',
 	} as const;
 
 	let child = $state<HTMLElement | null>(null);
@@ -40,10 +40,10 @@
 <button
 	class="{klass} {colors[color]}
 	{color === 'indigo'
-		? 'focus-visible:outline-indigo-600 bg-indigo-600 hover:bg-indigo-500 inline-flex justify-center gap-2 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
+		? 'inline-flex justify-center gap-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
 		: ''}
 	{color === 'red'
-		? 'focus-visible:outline-red-600 bg-red-600 hover:bg-red-500 inline-flex justify-center gap-2 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
+		? 'inline-flex justify-center gap-2 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600'
 		: ''}
 	"
 	class:opacity-70={disabled}

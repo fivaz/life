@@ -41,7 +41,7 @@ import {
 	Tree,
 	Trophy,
 	Tv,
-	Utensils
+	Utensils,
 } from '@steeze-ui/font-awesome';
 import {
 	BookOpenText,
@@ -49,7 +49,7 @@ import {
 	CalendarCheck,
 	GlassWater,
 	PencilLine,
-	Smartphone
+	Smartphone,
 } from '@steeze-ui/lucide-icons';
 import type { IconSource } from '@steeze-ui/svelte-icon';
 
@@ -110,7 +110,7 @@ export const icons: GoalIconType[] = [
 	{ component: BriefcaseBusiness, name: 'Work' },
 	{ component: Tv, name: 'Tv' },
 	{ component: GlassWater, name: 'Water' },
-	{ component: PencilLine, name: 'Pencil' }
+	{ component: PencilLine, name: 'Pencil' },
 ];
 
 export function getIcon(name: null | string) {

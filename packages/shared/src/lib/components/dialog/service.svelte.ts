@@ -4,7 +4,7 @@ const closedDialog: Dialog = {
 	message: '',
 	resolve: () => {},
 	show: false,
-	title: ''
+	title: '',
 };
 
 type Dialog = {
@@ -22,7 +22,7 @@ export function createDialog({
 	cancelText = 'cancel',
 	confirmText = 'confirm',
 	message = '',
-	title
+	title,
 }: {
 	cancelText?: string;
 	confirmText?: string;
@@ -36,7 +36,7 @@ export function createDialog({
 			message,
 			resolve,
 			show: true,
-			title
+			title,
 		};
 	});
 }

@@ -5,7 +5,7 @@ import {
 	convertTimeToMinutes,
 	DATE,
 	GRID_CELL_TIME,
-	TIME
+	TIME,
 } from '$lib/date.js';
 import type { SubTask, Task } from '$lib/task/task.model.js';
 
@@ -37,7 +37,7 @@ export function getSubTasks(task: Task): SubTask[] {
 	while ((match = regex.exec(task.description)) !== null) {
 		subTasks.push({
 			isDone: match[1].toLowerCase() === 'x',
-			title: match[2].trim()
+			title: match[2].trim(),
 		});
 	}
 
@@ -69,7 +69,7 @@ export function getHalfTime(time: string): string {
 
 export function sortTasks(tasks: Task[]): Task[] {
 	return tasks.toSorted(
-		(a, b) => (getTaskDateTime(a)?.getTime() ?? 0) - (getTaskDateTime(b)?.getTime() ?? 0)
+		(a, b) => (getTaskDateTime(a)?.getTime() ?? 0) - (getTaskDateTime(b)?.getTime() ?? 0),
 	);
 }
 

@@ -391,8 +391,8 @@ video {
 [hidden]:where(:not([hidden="until-found"])) {
   display: none;
 }
-			</style>`
-			)
+			</style>`,
+			),
 	});
 	return response;
 }

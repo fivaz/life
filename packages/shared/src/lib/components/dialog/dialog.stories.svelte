@@ -17,8 +17,8 @@
 				} else {
 					console.log('cancel');
 				}
-			}
-		}
+			},
+		},
 	});
 </script>
 
@@ -37,7 +37,7 @@
 		confirmText: 'Custom Confirm',
 		message: 'Are you sure you want to delete this event ?',
 		isOpen: true,
-		title: 'Delete event ?'
+		title: 'Delete event ?',
 	}}
 />
 
@@ -45,6 +45,6 @@
 	name="No Message"
 	args={{
 		isOpen: true,
-		title: 'Delete?'
+		title: 'Delete?',
 	}}
 />

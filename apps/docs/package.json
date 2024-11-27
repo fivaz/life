@@ -15,7 +15,6 @@
 	},
 	"devDependencies": {
 		"@life/shared": "workspace:*",
-		"@life/config-prettier": "workspace:*",
 		"@chromatic-com/storybook": "^3.2.2",
 		"@fontsource/fira-mono": "^5.0.0",
 		"@neoconfetti/svelte": "^2.0.0",

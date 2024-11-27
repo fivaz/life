@@ -9,7 +9,7 @@ export const learnToDrive: Goal = {
 	icon: 'Car',
 	id: `${id++}`,
 	isDone: true,
-	name: 'learn to drive'
+	name: 'learn to drive',
 };
 
 export const sleepEarly: Goal = {
@@ -17,7 +17,7 @@ export const sleepEarly: Goal = {
 	icon: 'Bed',
 	id: `${id++}`,
 	isDone: false,
-	name: 'sleep early'
+	name: 'sleep early',
 };
 
 export const investMoney: Goal = {
@@ -25,7 +25,7 @@ export const investMoney: Goal = {
 	icon: 'MoneyBill1Wave',
 	id: `${id++}`,
 	isDone: true,
-	name: 'invest Money'
+	name: 'invest Money',
 };
 
 export const readTheGospelOfJohn: Goal = {
@@ -33,7 +33,7 @@ export const readTheGospelOfJohn: Goal = {
 	icon: 'Cross',
 	id: `${id++}`,
 	isDone: false,
-	name: 'read the gospel of John'
+	name: 'read the gospel of John',
 };
 
 export const goals = [learnToDrive, sleepEarly, investMoney, readTheGospelOfJohn];

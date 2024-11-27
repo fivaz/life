@@ -25,7 +25,7 @@ export const tailwindColorMap: Record<TailwindColor, Record<string, string>> = {
 		hoverText: 'group-hover:text-blue-700',
 		lightBg: 'bg-blue-50',
 		lightText: 'text-blue-500',
-		text: 'text-blue-700'
+		text: 'text-blue-700',
 	},
 	green: {
 		darkBg: 'bg-green-500',
@@ -34,7 +34,7 @@ export const tailwindColorMap: Record<TailwindColor, Record<string, string>> = {
 		hoverText: 'group-hover:text-green-700',
 		lightBg: 'bg-green-50',
 		lightText: 'text-green-500',
-		text: 'text-green-700'
+		text: 'text-green-700',
 	},
 	lime: {
 		darkBg: 'bg-lime-500',
@@ -43,7 +43,7 @@ export const tailwindColorMap: Record<TailwindColor, Record<string, string>> = {
 		hoverText: 'group-hover:text-lime-700',
 		lightBg: 'bg-lime-50',
 		lightText: 'text-lime-500',
-		text: 'text-lime-700'
+		text: 'text-lime-700',
 	},
 	purple: {
 		darkBg: 'bg-purple-500',
@@ -52,7 +52,7 @@ export const tailwindColorMap: Record<TailwindColor, Record<string, string>> = {
 		hoverText: 'group-hover:text-purple-700',
 		lightBg: 'bg-purple-50',
 		lightText: 'text-purple-500',
-		text: 'text-purple-700'
+		text: 'text-purple-700',
 	},
 	red: {
 		darkBg: 'bg-red-500',
@@ -61,7 +61,7 @@ export const tailwindColorMap: Record<TailwindColor, Record<string, string>> = {
 		hoverText: 'group-hover:text-red-700',
 		lightBg: 'bg-red-50',
 		lightText: 'text-red-500',
-		text: 'text-red-700'
+		text: 'text-red-700',
 	},
 	yellow: {
 		darkBg: 'bg-yellow-500',
@@ -70,6 +70,6 @@ export const tailwindColorMap: Record<TailwindColor, Record<string, string>> = {
 		hoverText: 'group-hover:text-yellow-700',
 		lightBg: 'bg-yellow-50',
 		lightText: 'text-yellow-500',
-		text: 'text-yellow-700'
-	}
+		text: 'text-yellow-700',
+	},
 };

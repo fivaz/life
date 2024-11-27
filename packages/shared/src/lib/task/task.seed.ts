@@ -31,7 +31,7 @@ export const normalWithoutDescriptionWithGoal: Task = {
 	recurringFrequency: '',
 	recurringDaysOfWeek: [],
 	recurringEndAt: '',
-	recurringExceptions: []
+	recurringExceptions: [],
 };
 
 export const normalWithoutDescriptionWithoutGoal: Task = {
@@ -49,7 +49,7 @@ export const normalWithoutDescriptionWithoutGoal: Task = {
 	recurringFrequency: '',
 	recurringDaysOfWeek: [],
 	recurringEndAt: '',
-	recurringExceptions: []
+	recurringExceptions: [],
 };
 
 export const normalWithDescription: Task = {
@@ -67,7 +67,7 @@ export const normalWithDescription: Task = {
 	recurringFrequency: '',
 	recurringDaysOfWeek: [],
 	recurringEndAt: '',
-	recurringExceptions: []
+	recurringExceptions: [],
 };
 
 export const normalWithSubTasks: Task = {
@@ -91,7 +91,7 @@ export const normalWithSubTasks: Task = {
 	recurringFrequency: '',
 	recurringDaysOfWeek: [],
 	recurringEndAt: '',
-	recurringExceptions: []
+	recurringExceptions: [],
 };
 
 export const shortWithoutDescription: Task = {
@@ -109,7 +109,7 @@ export const shortWithoutDescription: Task = {
 	recurringFrequency: '',
 	recurringDaysOfWeek: [],
 	recurringEndAt: '',
-	recurringExceptions: []
+	recurringExceptions: [],
 };
 
 export const shortWithDescription: Task = {
@@ -127,7 +127,7 @@ export const shortWithDescription: Task = {
 	recurringFrequency: '',
 	recurringDaysOfWeek: [],
 	recurringEndAt: '',
-	recurringExceptions: []
+	recurringExceptions: [],
 };
 
 export const shortWithSubTasks: Task = {
@@ -151,7 +151,7 @@ export const shortWithSubTasks: Task = {
 	recurringFrequency: '',
 	recurringDaysOfWeek: [],
 	recurringEndAt: '',
-	recurringExceptions: []
+	recurringExceptions: [],
 };
 
 export const longRecurring: Task = {
@@ -169,7 +169,7 @@ export const longRecurring: Task = {
 	recurringExceptions: [],
 	recurringFrequency: 'daily',
 	startTime: formatTime(getTodayAtTime('10:15')),
-	image: ''
+	image: '',
 };
 
 export const events: Task[] = [
@@ -180,7 +180,7 @@ export const events: Task[] = [
 	shortWithoutDescription,
 	shortWithDescription,
 	shortWithSubTasks,
-	longRecurring
+	longRecurring,
 ];
 
 export const workToDo: Task = {
@@ -198,7 +198,7 @@ export const workToDo: Task = {
 	recurringDaysOfWeek: [],
 	recurringEndAt: '',
 	recurringExceptions: [],
-	startTime: formatTime(getTodayAtTime('15:15'))
+	startTime: formatTime(getTodayAtTime('15:15')),
 };
 
 export const birthdayToDo: Task = {
@@ -216,7 +216,7 @@ export const birthdayToDo: Task = {
 	recurringDaysOfWeek: [],
 	recurringEndAt: '',
 	recurringExceptions: [],
-	startTime: formatTime(getTodayAtTime('15:15'))
+	startTime: formatTime(getTodayAtTime('15:15')),
 };
 
 export const toDos: Task[] = [workToDo, birthdayToDo];

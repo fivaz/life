@@ -24,7 +24,7 @@
 		set value(value: string) {
 			selectedDate = parse(value, DATE, new Date());
 			onchange?.(selectedDate);
-		}
+		},
 	};
 
 	function openDatePicker() {
