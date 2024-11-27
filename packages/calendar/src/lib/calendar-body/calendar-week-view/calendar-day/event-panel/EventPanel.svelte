@@ -50,14 +50,14 @@
 		isSomethingDragging.value = true;
 		Object.assign(e.target.style, {
 			touchAction: 'none',
-			zIndex: '1'
+			zIndex: '1',
 		});
 	}
 
 	function onResize({
 		deltaRect,
 		rect,
-		target
+		target,
 	}: {
 		deltaRect: { left: string; top: string };
 		rect: { height: number; width: number };
@@ -89,7 +89,7 @@
 				height: `${getCellSizeFromDuration(event)}px`,
 				touchAction: '',
 				transform: '',
-				zIndex: ''
+				zIndex: '',
 			});
 			position = { x: 0, y: 0 };
 		}
@@ -126,9 +126,9 @@
 			listeners: { move: onResize },
 			modifiers: [
 				interact.modifiers.restrictSize({
-					min: { height: GRID_CELL_HEIGHT, width: 100 }
-				})
-			]
+					min: { height: GRID_CELL_HEIGHT, width: 100 },
+				}),
+			],
 		});
 	});
 </script>

@@ -20,12 +20,13 @@
 		"generate-pwa-assets": "pwa-assets-generator"
 	},
 	"devDependencies": {
+		"@life/calendar": "workspace:*",
+		"@life/config-prettier": "workspace:*",
+		"@life/config-eslint": "workspace:*",
+		"@life/shared": "workspace:*",
 		"@chromatic-com/storybook": "^3.2.2",
 		"@floating-ui/dom": "^1.6.12",
 		"@fontsource/fira-mono": "^5.0.0",
-		"@life/calendar": "workspace:*",
-		"@life/eslint-config": "workspace:*",
-		"@life/shared": "workspace:*",
 		"@neoconfetti/svelte": "^2.0.0",
 		"@playwright/test": "^1.45.3",
 		"@steeze-ui/font-awesome": "^1.0.1",

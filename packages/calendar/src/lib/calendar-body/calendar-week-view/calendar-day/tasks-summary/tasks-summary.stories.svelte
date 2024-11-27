@@ -8,8 +8,8 @@
 	const { Story } = defineMeta({
 		component: TasksSummary,
 		args: {
-			date: new Date()
-		}
+			date: new Date(),
+		},
 	});
 </script>
 

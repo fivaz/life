@@ -5,15 +5,15 @@ const preview: Preview = {
 		controls: {
 			matchers: {
 				color: /(background|color)$/i,
-				date: /Date$/i
-			}
+				date: /Date$/i,
+			},
 		},
-		layout: 'centered'
+		layout: 'centered',
 	},
 	args: {
-		close: () => console.log('closed')
+		close: () => console.log('closed'),
 	},
-	tags: ['autodocs']
+	tags: ['autodocs'],
 };
 
 export default preview;

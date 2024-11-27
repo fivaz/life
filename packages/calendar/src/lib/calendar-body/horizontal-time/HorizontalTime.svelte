@@ -3,7 +3,7 @@
 
 	import {
 		GRID_CELL_HEIGHT,
-		SUMMARY_GRID_CELL_HEIGHT
+		SUMMARY_GRID_CELL_HEIGHT,
 	} from '../calendar-week-view/calendar-day/calendar-grid/service.svelte.js';
 
 	interface Props {
@@ -36,7 +36,7 @@
 		'8PM',
 		'9PM',
 		'10PM',
-		'11PM'
+		'11PM',
 	];
 </script>
 

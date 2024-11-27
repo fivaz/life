@@ -4,7 +4,7 @@ import type { Task } from '@life/shared/task';
 import {
 	GRID_CELL_HEIGHT,
 	GRID_CELL_TIME,
-	NUMBER_OF_CELLS
+	NUMBER_OF_CELLS,
 } from '../calendar-grid/service.svelte.js';
 
 export const EVENT_PANEL_CLASS = 'event-panel-class';
@@ -32,7 +32,7 @@ function getColumn(eventIdToFind: string, eventGrid: EventsGrid[number]): number
 	const column = Object.keys(eventGrid).find((key) => eventGrid[Number(key)] === eventIdToFind);
 	if (!column) {
 		console.error(
-			`Internal Error, the eventId: ${eventIdToFind} can't be found in the eventGrid ${eventGrid}`
+			`Internal Error, the eventId: ${eventIdToFind} can't be found in the eventGrid ${eventGrid}`,
 		);
 	}
 	return Number(column);

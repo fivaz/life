@@ -35,7 +35,7 @@ function getGridCellBeneath(draggedElement: HTMLDivElement, gridCellY: number, g
 function getDateTimeFromGridCell(
 	draggedElement: HTMLDivElement,
 	gridCellY: number,
-	gridCellX: number
+	gridCellX: number,
 ): { date: string; time: string } | void {
 	const gridCell = getGridCellBeneath(draggedElement, gridCellY, gridCellX);
 
@@ -48,7 +48,7 @@ function getDateTimeFromGridCell(
 }
 
 function getDateTimeFromLastGridCell(
-	draggedElement: HTMLDivElement
+	draggedElement: HTMLDivElement,
 ): { date: string; startTime: string } | void {
 	const { bottom, height, left, width } = draggedElement.getBoundingClientRect();
 
@@ -72,7 +72,7 @@ function getDateTimeFromLastGridCell(
 }
 
 function getDateTimeFromFirstGridCell(
-	draggedElement: HTMLDivElement
+	draggedElement: HTMLDivElement,
 ): { date: string; startTime: string } | void {
 	const { left, top, width } = draggedElement.getBoundingClientRect();
 
@@ -86,7 +86,7 @@ function getDateTimeFromFirstGridCell(
 }
 
 export function getDateTimeBeneath(
-	draggedElement: HTMLDivElement
+	draggedElement: HTMLDivElement,
 ): { date: string; startTime: string } | void {
 	return (
 		getDateTimeFromFirstGridCell(draggedElement) || getDateTimeFromLastGridCell(draggedElement)
@@ -108,7 +108,7 @@ export function getCellSizeFromDuration(event: Task) {
 
 export function hasMoved(
 	panel: HTMLDivElement,
-	event: Task
+	event: Task,
 ): { date: string; duration: string; startTime: string } | false {
 	const dateTime = getDateTimeBeneath(panel) as void | { date: string; startTime: string };
 	if (!dateTime) return false;

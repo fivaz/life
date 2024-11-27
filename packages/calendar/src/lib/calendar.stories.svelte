@@ -7,8 +7,8 @@
 	const { Story } = defineMeta({
 		component: Calendar,
 		parameters: {
-			layout: 'fullscreen'
-		}
+			layout: 'fullscreen',
+		},
 	});
 </script>
 

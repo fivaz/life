@@ -15,7 +15,7 @@ export const selectedDate = {
 	set value(newDate: Date) {
 		previousDate.value = _selectedDate;
 		_selectedDate = newDate;
-	}
+	},
 };
 
 // weekStart needs to be a string because an object isn't the same as another object,
@@ -27,5 +27,5 @@ const _weekDates = $derived<Date[]>(Array.from({ length: 7 }, (_, i) => addDays(
 export const weekDates = {
 	get value() {
 		return _weekDates;
-	}
+	},
 };

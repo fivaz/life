@@ -36,7 +36,8 @@
 	},
 	"devDependencies": {
 		"@chromatic-com/storybook": "^3.2.2",
-		"@life/eslint-config": "workspace:*",
+		"@life/config-eslint": "workspace:*",
+		"@life/config-prettier": "workspace:*",
 		"@life/shared": "workspace:*",
 		"@storybook/addon-essentials": "^8.4.5",
 		"@storybook/addon-interactions": "^8.4.5",

@@ -11,7 +11,7 @@ import {
 	isSameDay,
 	isWithinInterval,
 	parse,
-	startOfDay
+	startOfDay,
 } from 'date-fns';
 
 import { NUMBER_OF_CELLS } from './calendar-grid/service.svelte.js';
@@ -67,7 +67,7 @@ function isRecurringOnDay(event: Task, date: Date): boolean {
 		return event.recurringExceptions.some((exceptionDate) => {
 			return isWithinInterval(parse(exceptionDate, DATE, new Date()), {
 				end: endOfDay(date),
-				start: startOfDay(date)
+				start: startOfDay(date),
 			});
 		});
 	}

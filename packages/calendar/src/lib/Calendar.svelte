@@ -12,7 +12,7 @@
 		setEditTask,
 		setMoveEvent,
 		setPersistTasks,
-		setToggleCompletion
+		setToggleCompletion,
 	} from './context.utils.js';
 	import { currentDate } from './service.svelte.js';
 
@@ -33,7 +33,7 @@
 		editTask,
 		persistTasks,
 		toggleCompletion,
-		moveEvent
+		moveEvent,
 	}: Props = $props();
 
 	let timeUntilNextUpdate = $state(getNextRoundedTime());

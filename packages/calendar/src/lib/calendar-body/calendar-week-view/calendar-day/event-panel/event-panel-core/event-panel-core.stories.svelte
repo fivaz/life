@@ -8,7 +8,7 @@
 		normalWithSubTasks,
 		shortWithDescription,
 		shortWithoutDescription,
-		shortWithSubTasks
+		shortWithSubTasks,
 	} from '@life/shared/task';
 	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 
@@ -18,8 +18,8 @@
 		component: EventPanelCore,
 		args: {
 			isSelected: false,
-			targetDate: formatDate(new Date())
-		}
+			targetDate: formatDate(new Date()),
+		},
 	});
 
 	import type { ComponentProps } from 'svelte';

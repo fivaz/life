@@ -40,7 +40,7 @@ export type MoveEventType = (
 		duration: string;
 		oldDate: string;
 		startTime: string;
-	}
+	},
 ) => void;
 
 export function getMoveEvent(): MoveEventType {

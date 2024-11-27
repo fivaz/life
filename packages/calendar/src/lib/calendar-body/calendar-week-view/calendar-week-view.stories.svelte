@@ -7,14 +7,14 @@
 	const { Story } = defineMeta({
 		component: CalendarWeekView,
 		parameters: {
-			layout: 'fullscreen'
-		}
+			layout: 'fullscreen',
+		},
 	});
 </script>
 
 <Story
 	name="Primary"
 	args={{
-		tasks: events
+		tasks: events,
 	}}
 />

@@ -1,12 +1,9 @@
 {
-  "name": "@life/eslint-config",
+  "name": "@life/config-eslint",
   "version": "0.0.0",
   "type": "module",
   "exports": {
     ".": "./index.js"
-  },
-  "scripts": {
-    "lint": ""
   },
   "dependencies": {
     "eslint": "^9.7.0",
