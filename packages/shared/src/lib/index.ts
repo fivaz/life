@@ -1,7 +1,8 @@
 // Reexport your entry components here
-import Button from './button/Button.svelte';
+import Button from './form/button/Button.svelte';
+import Dialog from './dialog/Dialog.svelte';
 
-export { Button };
+export { Button, Dialog };
 
 export function add(a: number, b: number) {
 	return a + b;

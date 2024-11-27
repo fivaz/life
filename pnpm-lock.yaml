@@ -593,6 +593,9 @@ importers:
       lucide-svelte:
         specifier: ^0.456.0
         version: 0.456.0(svelte@5.2.9)
+      svelte-portal:
+        specifier: ^2.2.1
+        version: 2.2.1
     devDependencies:
       '@chromatic-com/storybook':
         specifier: ^3.2.2

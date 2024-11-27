@@ -66,6 +66,7 @@
 	"dependencies": {
 		"@steeze-ui/heroicons": "^2.4.0",
 		"@steeze-ui/svelte-icon": "^1.5.0",
-		"lucide-svelte": "^0.456.0"
+		"lucide-svelte": "^0.456.0",
+		"svelte-portal": "^2.2.1"
 	}
 }
