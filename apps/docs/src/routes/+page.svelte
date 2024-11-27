@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Test } from '@life/shared';
-	import '@life/shared/dist/styles.css';
+	import { Test, add } from '@life/shared';
 </script>
 
 <Test />
 
+{add(7, 7)}
 <h1>test</h1>
