@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { getNextRoundedTime } from '@life/lib/date';
-	import type { Task } from '@life/lib/task';
+	import { getNextRoundedTime } from '@life/shared/date';
+	import type { Task } from '@life/shared/task';
 
 	import { GRID_CELL_TIME } from './calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte.js';
 	import CalendarBody from './calendar-body/CalendarBody.svelte';

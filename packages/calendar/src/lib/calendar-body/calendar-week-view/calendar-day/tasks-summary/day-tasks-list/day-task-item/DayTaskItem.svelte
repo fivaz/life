@@ -1,13 +1,12 @@
 <script lang="ts">
-	import { formatDate } from '@life/lib/date';
-	import type { Task } from '@life/lib/task';
-	import { isUntimed } from '@life/lib/task';
-	import { GoalIcon } from '@life/ui';
+	import { GoalIcon } from '@life/shared';
+	import { formatDate } from '@life/shared/date';
+	import type { Task } from '@life/shared/task';
+	import { isUntimed } from '@life/shared/task';
 	import { CalendarClock, CalendarDays } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { clsx } from 'clsx';
 
-	import { getEditTask } from '../../../../../../context.utils.js';
+	import { getEditTask } from '$lib/context.utils.js';
 
 	interface Props {
 		task: Task;
@@ -31,12 +30,7 @@
 			src={isUntimed(task) ? CalendarDays : CalendarClock}
 			theme="solid"
 		/>
-		<span
-			class={clsx(
-				{ 'line-through': task.isDone },
-				'flex-1 truncate pr-3 font-medium text-gray-500'
-			)}
-		>
+		<span class="flex-1 truncate pr-3 font-medium text-gray-500" class:line-through={task.isDone}>
 			{task.name}
 		</span>
 
@@ -46,12 +40,10 @@
 		<span class="w-12">{task.duration}</span>
 		<span class="flex w-16 justify-center">
 			<span
-				class={clsx(
-					task.isDone
-						? 'bg-green-50 text-green-700 ring-green-600/20'
-						: 'bg-red-50 text-red-700 ring-red-600/20',
-					'rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset'
-				)}
+				class="{task.isDone
+					? 'bg-green-50 text-green-700 ring-green-600/20'
+					: 'bg-red-50 text-red-700 ring-red-600/20'}
+					rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset"
 			>
 				{task.isDone ? 'Done' : 'Undone'}
 			</span>

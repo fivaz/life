@@ -1,8 +1,5 @@
 <script lang="ts" module>
-	import { formatDate } from '@life/lib/date';
-	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
-	import type { ComponentProps } from 'svelte';
-
+	import { formatDate } from '@life/shared/date';
 	import {
 		longRecurring,
 		normalWithDescription,
@@ -12,7 +9,9 @@
 		shortWithDescription,
 		shortWithoutDescription,
 		shortWithSubTasks
-	} from '$lib/task/task.seed';
+	} from '@life/shared/task';
+	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
+	import type { ComponentProps } from 'svelte';
 
 	import EventPanel from './EventPanel.svelte';
 

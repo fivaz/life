@@ -1,4 +1,4 @@
-import { formatDate, getDateRoundDownTo15 } from '@life/lib/date';
+import { formatDate, getDateRoundDownTo15 } from '@life/shared/date';
 import { addDays, startOfWeek } from 'date-fns';
 
 export const currentDate = $state<{ value: Date }>({ value: getDateRoundDownTo15() });

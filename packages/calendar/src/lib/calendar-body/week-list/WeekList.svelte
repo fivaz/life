@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { clsx } from 'clsx';
 	import { format, isSameDay, isToday } from 'date-fns';
 
 	import { selectedDate, weekDates } from '../../service.svelte.js';
@@ -15,11 +14,12 @@
 			<span class="flex items-baseline gap-1">
 				{format(date, 'E')}
 				<span
-					class={clsx('flex items-center justify-center font-semibold text-gray-900', {
-						'h-8 w-8 rounded-full bg-indigo-300 text-white':
-							isToday(date) && !isSameDay(selectedDate.value, date),
-						'h-8 w-8 rounded-full bg-indigo-600 text-white': isSameDay(selectedDate.value, date)
-					})}
+					class="flex items-center justify-center font-semibold text-gray-900
+								{isToday(date) && !isSameDay(selectedDate.value, date)
+						? 'h-8 w-8 rounded-full bg-indigo-300 text-white'
+						: ''}
+								{isSameDay(selectedDate.value, date) ? 'h-8 w-8 rounded-full bg-indigo-600 text-white' : ''}
+								"
 				>
 					{format(date, 'dd')}
 				</span>
@@ -40,14 +40,12 @@
 		>
 			{format(date, 'EEEEE')}
 			<span
-				class={clsx(
-					{
-						'h-8 w-8 rounded-full bg-indigo-300 text-white':
-							isToday(date) && !isSameDay(selectedDate.value, date),
-						'h-8 w-8 rounded-full bg-indigo-600 text-white': isSameDay(selectedDate.value, date)
-					},
-					'mt-1 flex items-center justify-center font-semibold text-gray-900'
-				)}
+				class="
+					{isToday(date) && !isSameDay(selectedDate.value, date)
+					? 'h-8 w-8 rounded-full bg-indigo-300 text-white'
+					: ''}
+						{isSameDay(selectedDate.value, date) ? 'h-8 w-8 rounded-full bg-indigo-600 text-white' : ''}
+					mt-1 flex items-center justify-center font-semibold text-gray-900"
 			>
 				{format(date, 'dd')}
 			</span>

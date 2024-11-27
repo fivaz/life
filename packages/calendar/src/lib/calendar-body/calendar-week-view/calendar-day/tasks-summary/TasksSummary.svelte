@@ -1,7 +1,6 @@
 <script lang="ts">
-	import type { Task } from '@life/lib/task';
-	import { Modal } from '@life/ui';
-	import { clsx } from 'clsx';
+	import { Modal } from '@life/shared';
+	import type { Task } from '@life/shared/task';
 
 	import DayTasksList from './day-tasks-list/DayTasksList.svelte';
 
@@ -35,13 +34,11 @@
 {#if workTasks.length}
 	<button
 		{style}
-		class={clsx(
-			klass,
-			hasPendingToDos
-				? 'bg-orange-50 text-orange-500 hover:bg-orange-100'
-				: 'bg-cyan-50 text-cyan-500 hover:bg-cyan-100',
-			'rounded-lg px-2 py-1 text-center text-xs leading-5 hover:font-semibold',
-		)}
+		class="{klass}
+			{hasPendingToDos
+			? 'bg-orange-50 text-orange-500 hover:bg-orange-100'
+			: 'bg-cyan-50 text-cyan-500 hover:bg-cyan-100'}
+			rounded-lg px-2 py-1 text-center text-xs leading-5 hover:font-semibold"
 		onclick={() => (isOpen = true)}
 	>
 		{getLabel(workTasks)}

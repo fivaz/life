@@ -1,4 +1,4 @@
-import type { Task } from '@life/lib/task';
+import type { Task } from '@life/shared/task';
 import { getContext, setContext } from 'svelte';
 
 const changeDateKey = Symbol('changeDate');
@@ -40,7 +40,7 @@ export type MoveEventType = (
 		duration: string;
 		oldDate: string;
 		startTime: string;
-	},
+	}
 ) => void;
 
 export function getMoveEvent(): MoveEventType {

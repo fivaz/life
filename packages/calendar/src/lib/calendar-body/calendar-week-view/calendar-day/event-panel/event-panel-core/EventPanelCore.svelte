@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { tailwindColorMap } from '@life/lib/category';
-	import { roundTo15, TIME } from '@life/lib/date';
-	import type { Task } from '@life/lib/task';
-	import { getDurationInMinutes, getSubTasks, getSubTasksCompleted } from '@life/lib/task';
-	import { GoalIcon } from '@life/ui';
-	import { clsx } from 'clsx';
+	import { GoalIcon } from '@life/shared';
+	import { tailwindColorMap } from '@life/shared/category';
+	import { roundTo15, TIME } from '@life/shared/date';
+	import type { Task } from '@life/shared/task';
+	import { getDurationInMinutes, getSubTasks, getSubTasksCompleted } from '@life/shared/task';
 	import { format, parse } from 'date-fns';
 
-	import { getToggleCompletion } from '../../../../../context.utils.js';
+	import { getToggleCompletion } from '$lib/context.utils.js';
+
 	import { GRID_CELL_TIME } from '../../calendar-grid/service.svelte.js';
 
 	interface Props {
@@ -61,15 +61,12 @@
 </script>
 
 <div
-	class={clsx(
-		'group absolute inset-px select-none overflow-y-auto rounded-lg px-2 py-1 text-xs leading-5',
-		{
-			'border-1 touch-none border border-black': isSelected
-		},
-		tailwindColorMap[event.category.color].text,
-		tailwindColorMap[event.category.color].lightBg,
-		tailwindColorMap[event.category.color].hoverLightBg
-	)}
+	class="group absolute inset-px select-none overflow-y-auto rounded-lg px-2 py-1 text-xs leading-5
+		{isSelected ? 'border-1 touch-none border border-black' : ''}
+		{tailwindColorMap[event.category.color].text}
+		{tailwindColorMap[event.category.color].lightBg}
+		{tailwindColorMap[event.category.color].hoverLightBg}
+	"
 >
 	<div class="flex items-center gap-1">
 		{#if event.goal?.icon}
@@ -83,7 +80,8 @@
 	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 	<label
-		class={clsx('absolute right-0 top-0 flex p-[5px] pl-3', { 'pb-3': isLong() })}
+		class="absolute right-0 top-0 flex p-[5px] pl-3"
+		class:pb-3={isLong()}
 		onclick={(e) => e.stopPropagation()}
 	>
 		<input

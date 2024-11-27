@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { convertMinutesToTime, formatDate, formatTime } from '@life/lib/date';
-	import { clsx } from 'clsx';
+	import { convertMinutesToTime, formatDate, formatTime } from '@life/shared/date';
 
-	import { currentDate } from '../../../../../service.svelte.js';
+	import { currentDate } from '$lib/service.svelte.js';
+
 	import { GRID_CELL_HEIGHT, GRID_CLASS, isSomethingDragging } from '../service.svelte.js';
 
 	interface Props {
@@ -28,10 +28,9 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
 	style="height: {GRID_CELL_HEIGHT}px"
-	class={clsx(GRID_CLASS, klass, {
-		'border-b': isSomethingDragging.value,
-		'rounded-md border border-dashed border-violet-500': isSameTime
-	})}
+	class="{GRID_CLASS} {klass}
+		{isSameTime ? 'rounded-md border border-dashed border-violet-500' : ''}"
+	class:border-b={isSomethingDragging.value}
 	data-date={targetDate}
 	data-time={time}
 	onclick={() => !isSomethingDragging.value && create(time)}

@@ -1,15 +1,14 @@
 <script lang="ts" module>
+	import { tasks } from '@life/shared/task';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
-
-	import { tasks } from '$lib/task/task.seed';
 
 	import Calendar from './Calendar.svelte';
 
 	const { Story } = defineMeta({
 		component: Calendar,
 		parameters: {
-			layout: 'fullscreen',
-		},
+			layout: 'fullscreen'
+		}
 	});
 </script>
 

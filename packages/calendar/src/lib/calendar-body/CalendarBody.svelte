@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Task } from '@life/lib/task';
+	import type { Task } from '@life/shared/task';
 	import { onMount } from 'svelte';
 
 	import CalendarWeekView from './calendar-week-view/CalendarWeekView.svelte';

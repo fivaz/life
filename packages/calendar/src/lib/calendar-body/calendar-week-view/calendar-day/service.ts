@@ -1,6 +1,6 @@
-import { DATE, nameOfDaysOfWeek, parseDate } from '@life/lib/date';
-import type { Task } from '@life/lib/task';
-import { isRecurring, sortTasks } from '@life/lib/task';
+import { DATE, nameOfDaysOfWeek, parseDate } from '@life/shared/date';
+import type { Task } from '@life/shared/task';
+import { isRecurring, sortTasks } from '@life/shared/task';
 import {
 	endOfDay,
 	getDate,

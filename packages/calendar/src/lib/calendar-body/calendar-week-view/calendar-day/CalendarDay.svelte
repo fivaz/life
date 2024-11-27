@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { formatDate } from '@life/lib/date';
-	import type { Task } from '@life/lib/task';
-	import { isTimed } from '@life/lib/task';
+	import { formatDate } from '@life/shared/date';
+	import type { Task } from '@life/shared/task';
+	import { isTimed } from '@life/shared/task';
 	import { onMount } from 'svelte';
 
 	import { isScrollingUp } from '../service.svelte.js';

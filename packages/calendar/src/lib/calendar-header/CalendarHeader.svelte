@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { formatDate, getCurrentRoundedDate } from '@life/lib/date';
-	import { Button, WeekChanger } from '@life/ui';
+	import { Button, WeekChanger } from '@life/shared';
+	import { formatDate, getCurrentRoundedDate } from '@life/shared/date';
 	import { format } from 'date-fns';
-	import { Plus } from 'lucide-svelte';
+	import Plus from 'lucide-svelte/icons/plus';
 
 	import { getChangeDate, getCreateTask } from '../context.utils.js';
 	import { currentDate, selectedDate } from '../service.svelte.js';

@@ -1,16 +1,15 @@
 <script lang="ts" module>
+	import { birthdayToDo, toDos, workToDo } from '@life/shared/task';
 	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 	import type { ComponentProps } from 'svelte';
-
-	import { birthdayToDo, toDos, workToDo } from '$lib/task/task.seed';
 
 	import TasksSummary from './TasksSummary.svelte';
 
 	const { Story } = defineMeta({
 		component: TasksSummary,
 		args: {
-			date: new Date(),
-		},
+			date: new Date()
+		}
 	});
 </script>
 

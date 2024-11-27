@@ -1,5 +1,5 @@
-import { convertTimeToMinutes } from '@life/lib/date';
-import type { Task } from '@life/lib/task';
+import { convertTimeToMinutes } from '@life/shared/date';
+import type { Task } from '@life/shared/task';
 
 import {
 	GRID_CELL_HEIGHT,

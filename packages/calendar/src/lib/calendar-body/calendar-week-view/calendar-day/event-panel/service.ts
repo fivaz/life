@@ -1,6 +1,6 @@
-import { formatTime } from '@life/lib/date';
-import type { Task } from '@life/lib/task';
-import { getDurationInMinutes } from '@life/lib/task';
+import { formatTime } from '@life/shared/date';
+import type { Task } from '@life/shared/task';
+import { getDurationInMinutes } from '@life/shared/task';
 import { addMinutes, subMinutes } from 'date-fns';
 
 import { GRID_CELL_HEIGHT, GRID_CELL_TIME, GRID_CLASS } from '../calendar-grid/service.svelte.js';

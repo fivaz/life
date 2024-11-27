@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { DATE, formatDate } from '@life/lib/date';
-	import type { Task } from '@life/lib/task';
-	import { getTotalDuration, isRecurring, isTimed } from '@life/lib/task';
+	import { DATE, formatDate } from '@life/shared/date';
+	import type { Task } from '@life/shared/task';
+	import { getTotalDuration, isRecurring, isTimed } from '@life/shared/task';
 	import { addDays, parse } from 'date-fns';
 
 	import { getPersistTasks } from '../../../../../context.utils.js';
