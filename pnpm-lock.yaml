@@ -16,7 +16,107 @@ importers:
         version: 3.3.2(prettier@3.4.1)(svelte@5.2.9)
       turbo:
         specifier: ^2.3.1
-        version: 2.3.2
+        version: 2.3.3
+
+  apps/docs:
+    dependencies:
+      '@tailwindcss/container-queries':
+        specifier: ^0.1.1
+        version: 0.1.1(tailwindcss@3.4.15)
+      '@tailwindcss/forms':
+        specifier: ^0.5.9
+        version: 0.5.9(tailwindcss@3.4.15)
+    devDependencies:
+      '@chromatic-com/storybook':
+        specifier: ^3.2.2
+        version: 3.2.2(react@18.3.1)(storybook@8.4.5(prettier@3.4.1))
+      '@fontsource/fira-mono':
+        specifier: ^5.0.0
+        version: 5.1.0
+      '@life/lib':
+        specifier: workspace:*
+        version: link:../../packages/lib
+      '@life/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      '@neoconfetti/svelte':
+        specifier: ^2.0.0
+        version: 2.2.1
+      '@storybook/addon-essentials':
+        specifier: ^8.4.5
+        version: 8.4.5(@types/react@18.3.12)(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/addon-interactions':
+        specifier: ^8.4.5
+        version: 8.4.5(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/addon-svelte-csf':
+        specifier: ^5.0.0-next.11
+        version: 5.0.0-next.11(@storybook/svelte@8.4.5(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.9))(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.9)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0)))(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.9)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0))
+      '@storybook/blocks':
+        specifier: ^8.4.5
+        version: 8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/svelte':
+        specifier: ^8.4.5
+        version: 8.4.5(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.9)
+      '@storybook/sveltekit':
+        specifier: ^8.4.5
+        version: 8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.9)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0)))(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.9)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0))
+      '@storybook/test':
+        specifier: ^8.4.5
+        version: 8.4.5(storybook@8.4.5(prettier@3.4.1))
+      '@sveltejs/adapter-auto':
+        specifier: ^3.0.0
+        version: 3.3.1(@sveltejs/kit@2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.9)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0)))(svelte@5.2.9)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0)))
+      '@sveltejs/kit':
+        specifier: ^2.0.0
+        version: 2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.9)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0)))(svelte@5.2.9)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0))
+      '@sveltejs/vite-plugin-svelte':
+        specifier: ^4.0.0
+        version: 4.0.2(svelte@5.2.9)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0))
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.49)
+      eslint:
+        specifier: ^9.7.0
+        version: 9.15.0(jiti@1.21.6)
+      eslint-config-prettier:
+        specifier: ^9.1.0
+        version: 9.1.0(eslint@9.15.0(jiti@1.21.6))
+      eslint-plugin-svelte:
+        specifier: ^2.36.0
+        version: 2.46.0(eslint@9.15.0(jiti@1.21.6))(svelte@5.2.9)
+      globals:
+        specifier: ^15.0.0
+        version: 15.12.0
+      prettier:
+        specifier: ^3.3.2
+        version: 3.4.1
+      prettier-plugin-svelte:
+        specifier: ^3.2.6
+        version: 3.3.2(prettier@3.4.1)(svelte@5.2.9)
+      prettier-plugin-tailwindcss:
+        specifier: ^0.6.5
+        version: 0.6.9(prettier-plugin-svelte@3.3.2(prettier@3.4.1)(svelte@5.2.9))(prettier@3.4.1)
+      storybook:
+        specifier: ^8.4.5
+        version: 8.4.5(prettier@3.4.1)
+      svelte:
+        specifier: ^5.0.0
+        version: 5.2.9
+      svelte-check:
+        specifier: ^4.0.0
+        version: 4.1.0(picomatch@4.0.2)(svelte@5.2.9)(typescript@5.7.2)
+      tailwindcss:
+        specifier: ^3.4.9
+        version: 3.4.15
+      typescript:
+        specifier: ^5.0.0
+        version: 5.7.2
+      typescript-eslint:
+        specifier: ^8.0.0
+        version: 8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
+      vite:
+        specifier: ^5.0.3
+        version: 5.4.11(@types/node@22.10.0)(terser@5.36.0)
 
   apps/web:
     devDependencies:
@@ -338,7 +438,7 @@ importers:
         version: 9.1.0(eslint@9.15.0(jiti@1.21.6))
       eslint-config-turbo:
         specifier: ^2.0.0
-        version: 2.3.2(eslint@9.15.0(jiti@1.21.6))
+        version: 2.3.3(eslint@9.15.0(jiti@1.21.6))
       eslint-plugin-import:
         specifier: ^2.31.0
         version: 2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2))(eslint@9.15.0(jiti@1.21.6))
@@ -362,28 +462,122 @@ importers:
         version: 8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
 
   packages/lib:
+    dependencies:
+      '@tailwindcss/container-queries':
+        specifier: ^0.1.1
+        version: 0.1.1(tailwindcss@3.4.15)
+      '@tailwindcss/forms':
+        specifier: ^0.5.9
+        version: 0.5.9(tailwindcss@3.4.15)
     devDependencies:
+      '@chromatic-com/storybook':
+        specifier: ^3.2.2
+        version: 3.2.2(react@18.3.1)(storybook@8.4.5(prettier@3.4.1))
       '@life/eslint-config':
         specifier: workspace:*
         version: link:../config-eslint
       '@steeze-ui/font-awesome':
         specifier: ^1.0.1
         version: 1.0.1
+      '@steeze-ui/heroicons':
+        specifier: ^2.4.0
+        version: 2.4.2
       '@steeze-ui/lucide-icons':
         specifier: ^1.3.0
         version: 1.4.1
       '@steeze-ui/svelte-icon':
         specifier: ^1.5.0
         version: 1.6.2(svelte@5.2.9)
+      '@storybook/addon-essentials':
+        specifier: ^8.4.5
+        version: 8.4.5(@types/react@18.3.12)(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/addon-interactions':
+        specifier: ^8.4.5
+        version: 8.4.5(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/addon-svelte-csf':
+        specifier: ^5.0.0-next.11
+        version: 5.0.0-next.11(@storybook/svelte@8.4.5(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.9))(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.9)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0)))(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.9)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0))
+      '@storybook/blocks':
+        specifier: ^8.4.5
+        version: 8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/svelte':
+        specifier: ^8.4.5
+        version: 8.4.5(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.9)
+      '@storybook/sveltekit':
+        specifier: ^8.4.5
+        version: 8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.9)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0)))(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.9)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0))
+      '@storybook/test':
+        specifier: ^8.4.5
+        version: 8.4.5(storybook@8.4.5(prettier@3.4.1))
+      '@sveltejs/adapter-auto':
+        specifier: ^3.0.0
+        version: 3.3.1(@sveltejs/kit@2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.9)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0)))(svelte@5.2.9)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0)))
+      '@sveltejs/kit':
+        specifier: ^2.0.0
+        version: 2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.9)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0)))(svelte@5.2.9)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0))
+      '@sveltejs/package':
+        specifier: ^2.0.0
+        version: 2.3.7(svelte@5.2.9)(typescript@5.7.2)
+      '@sveltejs/vite-plugin-svelte':
+        specifier: ^4.0.0
+        version: 4.0.2(svelte@5.2.9)(vite@5.4.11(@types/node@22.10.0)(terser@5.36.0))
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.49)
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
       eslint:
-        specifier: ^9.15.0
+        specifier: ^9.7.0
         version: 9.15.0(jiti@1.21.6)
+      eslint-config-prettier:
+        specifier: ^9.1.0
+        version: 9.1.0(eslint@9.15.0(jiti@1.21.6))
+      eslint-plugin-svelte:
+        specifier: ^2.36.0
+        version: 2.46.0(eslint@9.15.0(jiti@1.21.6))(svelte@5.2.9)
+      globals:
+        specifier: ^15.0.0
+        version: 15.12.0
+      lucide-svelte:
+        specifier: ^0.456.0
+        version: 0.456.0(svelte@5.2.9)
+      prettier:
+        specifier: ^3.3.2
+        version: 3.4.1
+      prettier-plugin-svelte:
+        specifier: ^3.2.6
+        version: 3.3.2(prettier@3.4.1)(svelte@5.2.9)
+      publint:
+        specifier: ^0.2.0
+        version: 0.2.12
+      storybook:
+        specifier: ^8.4.5
+        version: 8.4.5(prettier@3.4.1)
+      svelte:
+        specifier: ^5.0.0
+        version: 5.2.9
+      svelte-check:
+        specifier: ^4.0.0
+        version: 4.1.0(picomatch@4.0.2)(svelte@5.2.9)(typescript@5.7.2)
+      svelte-portal:
+        specifier: ^2.2.1
+        version: 2.2.1
+      tailwindcss:
+        specifier: ^3.4.9
+        version: 3.4.15
       typescript:
         specifier: ^5.0.0
         version: 5.7.2
+      typescript-eslint:
+        specifier: ^8.0.0
+        version: 8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
+      vite:
+        specifier: ^5.0.11
+        version: 5.4.11(@types/node@22.10.0)(terser@5.36.0)
 
   packages/ui:
     dependencies:
@@ -2989,8 +3183,8 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
 
-  eslint-config-turbo@2.3.2:
-    resolution: {integrity: sha512-gIH/BQdbfWNa9uw/Obo7PZa/NNilZNP8STD0ppVKd8ekSVFONm2GebvOxNiSr5zHregRzokfynnHjZfB5ngJig==}
+  eslint-config-turbo@2.3.3:
+    resolution: {integrity: sha512-cM9wSBYowQIrjx2MPCzFE6jTnG4vpTPJKZ/O+Ps3CqrmGK/wtNOsY6WHGMwLtKY/nNbgRahAJH6jGVF6k2coOg==}
     peerDependencies:
       eslint: '>6.6.0'
 
@@ -3043,8 +3237,8 @@ packages:
       svelte:
         optional: true
 
-  eslint-plugin-turbo@2.3.2:
-    resolution: {integrity: sha512-NoGxnaFi/8KotvKdbwR+VJOB3nVvIOjS193qCjHz2eBKhnO+Wr3cFgw9IZvk1rBIqg3a6VtJQmxkwNIYo2yWOw==}
+  eslint-plugin-turbo@2.3.3:
+    resolution: {integrity: sha512-j8UEA0Z+NNCsjZep9G5u5soDQHcXq/x4amrwulk6eHF1U91H2qAjp5I4jQcvJewmccCJbVp734PkHHTRnosjpg==}
     peerDependencies:
       eslint: '>6.6.0'
 
@@ -5042,38 +5236,38 @@ packages:
   tunnel-agent@0.6.0:
     resolution: {integrity: sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==}
 
-  turbo-darwin-64@2.3.2:
-    resolution: {integrity: sha512-B1lS/UqjXNsG+kx1uzJNwXMuw2i5wavcyNy8opvSLjfuECdsqQU9B1wPqkSTU+mZjFTJcEfiGKyJ/I2EVk8vdw==}
+  turbo-darwin-64@2.3.3:
+    resolution: {integrity: sha512-bxX82xe6du/3rPmm4aCC5RdEilIN99VUld4HkFQuw+mvFg6darNBuQxyWSHZTtc25XgYjQrjsV05888w1grpaA==}
     cpu: [x64]
     os: [darwin]
 
-  turbo-darwin-arm64@2.3.2:
-    resolution: {integrity: sha512-XHeuEdk9tHaw2Bsr3rTzFtZyldeSyagDZkOSPIJ1zioavMjWEFPA75vdgy4j8ns96EBpZMaPXVEnODuEHfiZfQ==}
+  turbo-darwin-arm64@2.3.3:
+    resolution: {integrity: sha512-DYbQwa3NsAuWkCUYVzfOUBbSUBVQzH5HWUFy2Kgi3fGjIWVZOFk86ss+xsWu//rlEAfYwEmopigsPYSmW4X15A==}
     cpu: [arm64]
     os: [darwin]
 
-  turbo-linux-64@2.3.2:
-    resolution: {integrity: sha512-oKDsO5+flqpPx5tNLFGVUYpJ/sBc3KvaGpyNzXl2u3epzyafgblFKWMG5YsSiU1ruouPpcC6YG5SN5chA7Abfg==}
+  turbo-linux-64@2.3.3:
+    resolution: {integrity: sha512-eHj9OIB0dFaP6BxB88jSuaCLsOQSYWBgmhy2ErCu6D2GG6xW3b6e2UWHl/1Ho9FsTg4uVgo4DB9wGsKa5erjUA==}
     cpu: [x64]
     os: [linux]
 
-  turbo-linux-arm64@2.3.2:
-    resolution: {integrity: sha512-luyvTl3wQ1hF+ljK7ljH4TL7rg4pmx5pQ2mzvfMvPo5eaLuKr/tImmbdH6/vr56iffUIISkIsLVhVxgZeAsUOw==}
+  turbo-linux-arm64@2.3.3:
+    resolution: {integrity: sha512-NmDE/NjZoDj1UWBhMtOPmqFLEBKhzGS61KObfrDEbXvU3lekwHeoPvAMfcovzswzch+kN2DrtbNIlz+/rp8OCg==}
     cpu: [arm64]
     os: [linux]
 
-  turbo-windows-64@2.3.2:
-    resolution: {integrity: sha512-yw7BnTU5cE7GdUnZEW3jIAI98hh4dcWk+Jwza8X7CXpxpill2zteq7VPf+a/B3o/xm+oVXzLmP83YP91Bm0SaA==}
+  turbo-windows-64@2.3.3:
+    resolution: {integrity: sha512-O2+BS4QqjK3dOERscXqv7N2GXNcqHr9hXumkMxDj/oGx9oCatIwnnwx34UmzodloSnJpgSqjl8iRWiY65SmYoQ==}
     cpu: [x64]
     os: [win32]
 
-  turbo-windows-arm64@2.3.2:
-    resolution: {integrity: sha512-Hgp6V7jaIYlDcy5xpKN+XXyYCf5afT690GmXcEsMoUawd5dStvZe0QHWcGxuqho497BAlx0XGAWftm0KelNePA==}
+  turbo-windows-arm64@2.3.3:
+    resolution: {integrity: sha512-dW4ZK1r6XLPNYLIKjC4o87HxYidtRRcBeo/hZ9Wng2XM/MqqYkAyzJXJGgRMsc0MMEN9z4+ZIfnSNBrA0b08ag==}
     cpu: [arm64]
     os: [win32]
 
-  turbo@2.3.2:
-    resolution: {integrity: sha512-vCJPoy8/3KkqY3W0cX2nrwhmtBQSZhEyrVgeJ4NlEXwGxu5vNRQDyV6se5VVAQMwfBsBJswlo87B7ai7Dr1MpQ==}
+  turbo@2.3.3:
+    resolution: {integrity: sha512-DUHWQAcC8BTiUZDRzAYGvpSpGLiaOQPfYXlCieQbwUvmml/LRGIe3raKdrOPOoiX0DYlzxs2nH6BoWJoZrj8hA==}
     hasBin: true
 
   tween-functions@1.2.0:
@@ -8329,10 +8523,10 @@ snapshots:
     dependencies:
       eslint: 9.15.0(jiti@1.21.6)
 
-  eslint-config-turbo@2.3.2(eslint@9.15.0(jiti@1.21.6)):
+  eslint-config-turbo@2.3.3(eslint@9.15.0(jiti@1.21.6)):
     dependencies:
       eslint: 9.15.0(jiti@1.21.6)
-      eslint-plugin-turbo: 2.3.2(eslint@9.15.0(jiti@1.21.6))
+      eslint-plugin-turbo: 2.3.3(eslint@9.15.0(jiti@1.21.6))
 
   eslint-import-resolver-node@0.3.9:
     dependencies:
@@ -8404,7 +8598,7 @@ snapshots:
     transitivePeerDependencies:
       - ts-node
 
-  eslint-plugin-turbo@2.3.2(eslint@9.15.0(jiti@1.21.6)):
+  eslint-plugin-turbo@2.3.3(eslint@9.15.0(jiti@1.21.6)):
     dependencies:
       dotenv: 16.0.3
       eslint: 9.15.0(jiti@1.21.6)
@@ -8450,7 +8644,7 @@ snapshots:
       eslint-scope: 7.2.2
       eslint-utils: 3.0.0(eslint@8.4.1)
       eslint-visitor-keys: 3.4.3
-      espree: 9.6.1
+      espree: 9.2.0
       esquery: 1.6.0
       esutils: 2.0.3
       fast-deep-equal: 3.1.3
@@ -10484,32 +10678,32 @@ snapshots:
     dependencies:
       safe-buffer: 5.2.1
 
-  turbo-darwin-64@2.3.2:
+  turbo-darwin-64@2.3.3:
     optional: true
 
-  turbo-darwin-arm64@2.3.2:
+  turbo-darwin-arm64@2.3.3:
     optional: true
 
-  turbo-linux-64@2.3.2:
+  turbo-linux-64@2.3.3:
     optional: true
 
-  turbo-linux-arm64@2.3.2:
+  turbo-linux-arm64@2.3.3:
     optional: true
 
-  turbo-windows-64@2.3.2:
+  turbo-windows-64@2.3.3:
     optional: true
 
-  turbo-windows-arm64@2.3.2:
+  turbo-windows-arm64@2.3.3:
     optional: true
 
-  turbo@2.3.2:
+  turbo@2.3.3:
     optionalDependencies:
-      turbo-darwin-64: 2.3.2
-      turbo-darwin-arm64: 2.3.2
-      turbo-linux-64: 2.3.2
-      turbo-linux-arm64: 2.3.2
-      turbo-windows-64: 2.3.2
-      turbo-windows-arm64: 2.3.2
+      turbo-darwin-64: 2.3.3
+      turbo-darwin-arm64: 2.3.3
+      turbo-linux-64: 2.3.3
+      turbo-linux-arm64: 2.3.3
+      turbo-windows-64: 2.3.3
+      turbo-windows-arm64: 2.3.3
 
   tween-functions@1.2.0: {}
 
