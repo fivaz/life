@@ -1,14 +1,25 @@
 <script lang="ts">
 	import CalendarCheck from 'lucide-svelte/icons/check-check';
 
-	// import Button from '$lib/components/form/button/Button.svelte';
-	// import { formatDate } from '$lib/date.js';
+	import Button from '$lib/components/button/Button.svelte';
+	import Dialog from '$lib/components/dialog/Dialog.svelte';
+	import { createDialog, dialog } from '$lib/components/dialog/service.svelte.js';
 </script>
 
-<CalendarCheck></CalendarCheck>
-<!--<Button>-->
-<!--	&lt;!&ndash;	<CalendarCheck />&ndash;&gt;-->
-<!--	test-->
-<!--</Button>-->
-<!--{formatDate(new Date())}-->
-test
+<Dialog
+	cancelText={dialog.value.cancelText}
+	confirmText={dialog.value.confirmText}
+	isOpen={dialog.value.show}
+	message={dialog.value.message}
+	resolve={dialog.value.resolve}
+	title={dialog.value.title}
+/>
+
+<Button
+	onclick={() =>
+		createDialog({
+			title: 'Delete event ?',
+		})}
+>
+	open dialog
+</Button>

@@ -6,7 +6,7 @@
 
 	interface Props {
 		isLoading?: boolean;
-		color?: keyof typeof colors;
+		color?: 'indigo' | 'red' | 'white' | 'none';
 		type?: 'button' | 'submit' | undefined;
 		disabled?: boolean;
 		class?: string;
@@ -24,12 +24,6 @@
 		onclick,
 	}: Props = $props();
 
-	const colors = {
-		indigo: 'focus-visible:outline-indigo-600 bg-indigo-600 hover:bg-indigo-500',
-		none: '',
-		red: 'focus-visible:outline-red-600 bg-red-600 hover:bg-red-500',
-	} as const;
-
 	let child = $state<HTMLElement | null>(null);
 
 	let slotText = $derived(child?.innerText || '');
@@ -38,12 +32,15 @@
 </script>
 
 <button
-	class="{klass} {colors[color]}
+	class="{klass}
 	{color === 'indigo'
-		? 'inline-flex justify-center gap-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+		? 'inline-flex justify-center gap-2 rounded-md border bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
 		: ''}
 	{color === 'red'
-		? 'inline-flex justify-center gap-2 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600'
+		? 'inline-flex justify-center gap-2 rounded-md border bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600'
+		: ''}
+	{color === 'white'
+		? 'inline-flex justify-center gap-2 rounded-md border bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white'
 		: ''}
 	"
 	class:opacity-70={disabled}
@@ -62,3 +59,6 @@
 		</span>
 	{/if}
 </button>
+
+<style>
+</style>
