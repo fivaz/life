@@ -1,4 +1,4 @@
-import type { Task } from '@life/lib/task';
+import type { Task } from '@life/shared/task';
 import { z } from 'zod';
 
 import { categorySchema } from '$lib/category/category.model';

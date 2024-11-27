@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { Task } from '@life/lib/task';
-	import { Button, Modal } from '@life/ui';
+	import { Button, Modal } from '@life/shared';
+	import type { Task } from '@life/shared/task';
 	import { DocumentText } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { where } from 'firebase/firestore';

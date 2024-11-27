@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Modal } from '@life/ui';
+	import { Modal } from '@life/shared';
 	import { Photo } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 

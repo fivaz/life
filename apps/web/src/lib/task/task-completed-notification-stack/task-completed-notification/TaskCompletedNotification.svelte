@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Task } from '@life/lib/task';
+	import type { Task } from '@life/shared/task';
 	import { CheckCircle, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { onMount } from 'svelte';

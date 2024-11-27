@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getTotalDuration } from '@life/lib/task';
+	import { getTotalDuration } from '@life/shared/task';
 	import { Grid3x3, LayoutGrid } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 

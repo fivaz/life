@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from '@life/ui';
+	import { Button } from '@life/shared';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 
 	import { goto } from '$app/navigation';

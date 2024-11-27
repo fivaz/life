@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from '@life/ui';
+	import { Button } from '@life/shared';
 	import { minidenticon } from 'minidenticons';
 
 	import { goto } from '$app/navigation';

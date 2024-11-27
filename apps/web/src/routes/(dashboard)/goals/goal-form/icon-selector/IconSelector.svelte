@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { icons } from '@life/lib/goal';
-	import { GoalIcon } from '@life/ui';
+	import { GoalIcon } from '@life/shared';
+	import { icons } from '@life/shared/goal';
 
 	import Input from '$lib/components/form/input/Input.svelte';
 

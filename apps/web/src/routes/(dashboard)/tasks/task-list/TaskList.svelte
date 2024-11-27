@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { Task } from '@life/lib/task';
-	import { getTotalDuration } from '@life/lib/task';
+	import type { Task } from '@life/shared/task';
+	import { getTotalDuration } from '@life/shared/task';
 	import { Clipboard, ClipboardCopy, ClipboardList, Plus } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';

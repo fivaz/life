@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, createDialog } from '@life/ui';
+	import { Button, createDialog } from '@life/shared';
 	import type { Snippet } from 'svelte';
 
 	interface Props {

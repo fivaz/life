@@ -1,7 +1,14 @@
 <script lang="ts">
-	import Button from '$lib/form/button/Button.svelte';
-	import { add } from '$lib';
+	import CalendarCheck from 'lucide-svelte/icons/check-check';
+
+	// import Button from '$lib/components/form/button/Button.svelte';
+	// import { formatDate } from '$lib/date.js';
 </script>
 
-<Button>test</Button>
-{add(1, 3)}
+<CalendarCheck></CalendarCheck>
+<!--<Button>-->
+<!--	&lt;!&ndash;	<CalendarCheck />&ndash;&gt;-->
+<!--	test-->
+<!--</Button>-->
+<!--{formatDate(new Date())}-->
+test

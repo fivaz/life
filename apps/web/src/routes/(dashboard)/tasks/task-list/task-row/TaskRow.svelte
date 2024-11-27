@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { tailwindColorMap } from '@life/lib/category';
-	import type { Task } from '@life/lib/task';
+	import { tailwindColorMap } from '@life/shared/category';
+	import type { Task } from '@life/shared/task';
 	import { GripVertical, Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import interact from 'interactjs';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from '@life/ui';
+	import { Button } from '@life/shared';
 
 	import CloseX from '$lib/components/close-x/CloseX.svelte';
 	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';

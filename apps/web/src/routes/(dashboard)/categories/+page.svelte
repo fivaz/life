@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Modal } from '@life/ui';
+	import { Button, Modal } from '@life/shared';
 	import { Plus } from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';

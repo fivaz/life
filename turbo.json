@@ -13,6 +13,9 @@
     "format": {
       "outputs": []
     },
+    "check:watch": {
+      "outputs": []
+    },
     "dev": {
       "cache": false,
       "persistent": true

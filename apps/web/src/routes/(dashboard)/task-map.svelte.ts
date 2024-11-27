@@ -1,4 +1,4 @@
-import type { Task } from '@life/lib/task';
+import type { Task } from '@life/shared/task';
 import { addDays, endOfWeek, startOfWeek } from 'date-fns';
 import type { QueryConstraint } from 'firebase/firestore';
 import { where } from 'firebase/firestore';

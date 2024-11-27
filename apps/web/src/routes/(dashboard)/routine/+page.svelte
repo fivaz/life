@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Modal } from '@life/ui';
+	import { Modal } from '@life/shared';
 
 	import Loading from '$lib/components/loading/Loading.svelte';
 	import { title } from '$lib/date.utils.svelte';

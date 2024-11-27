@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { tailwindColorMap } from '@life/lib/category';
-	import type { Task } from '@life/lib/task';
-	import { isRecurring, isTimed, isUntimed } from '@life/lib/task';
-	import { Button, GoalIcon } from '@life/ui';
+	import { Button, GoalIcon } from '@life/shared';
+	import { tailwindColorMap } from '@life/shared/category';
+	import type { Task } from '@life/shared/task';
+	import { isRecurring, isTimed, isUntimed } from '@life/shared/task';
 	import { EllipsisVertical } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Copy, ListTodo } from 'lucide-svelte';

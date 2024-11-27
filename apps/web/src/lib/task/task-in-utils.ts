@@ -1,6 +1,6 @@
-import { convertTimeToMinutes } from '@life/lib/date';
-import type { Task } from '@life/lib/task';
-import { isRecurring, isTimed } from '@life/lib/task';
+import { convertTimeToMinutes } from '@life/shared/date';
+import type { Task } from '@life/shared/task';
+import { isRecurring, isTimed } from '@life/shared/task';
 import { addMonths, isAfter, parse } from 'date-fns';
 
 import { formatDate, formatTime, TIME } from '$lib/date.utils.svelte';

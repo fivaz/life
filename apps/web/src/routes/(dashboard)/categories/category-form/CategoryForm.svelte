@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { tailwindColorMap, tailwindColors } from '@life/lib/category';
-	import { Button } from '@life/ui';
+	import { Button } from '@life/shared';
+	import { tailwindColorMap, tailwindColors } from '@life/shared/category';
 
 	import type { Category } from '$lib/category/category.model';
 	import { categoryTypes } from '$lib/category/category.model';

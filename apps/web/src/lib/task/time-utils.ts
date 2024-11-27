@@ -1,5 +1,5 @@
-import { roundTo15 } from '@life/lib/date';
-import type { Task } from '@life/lib/task';
+import { roundTo15 } from '@life/shared/date';
+import type { Task } from '@life/shared/task';
 import { add, isSameDay, parse } from 'date-fns';
 
 import { DATE, formatTime } from '$lib/date.utils.svelte';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, WeekChanger } from '@life/ui';
+	import { Button, WeekChanger } from '@life/shared';
 	import { format } from 'date-fns';
 	import { Plus } from 'lucide-svelte';
 

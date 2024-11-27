@@ -1,9 +1,9 @@
-// Reexport your entry components here
-import Button from './form/button/Button.svelte';
-import Dialog from './dialog/Dialog.svelte';
+import Dialog from '$lib/components/dialog/Dialog.svelte';
+import Button from '$lib/components/form/button/Button.svelte';
+import GoalIcon from '$lib/components/goal-icon/GoalIcon.svelte';
+import Modal from '$lib/components/modal/Modal.svelte';
+import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 
-export { Button, Dialog };
+export * from '$lib/components/dialog/service.svelte';
 
-export function add(a: number, b: number) {
-	return a + b;
-}
+export { Button, Dialog, GoalIcon, Modal, WeekChanger };

@@ -1,4 +1,4 @@
-import { formatDate } from '@life/lib/date';
+import { formatDate } from '@life/shared/date';
 import { addDays, startOfWeek } from 'date-fns';
 
 import type { Routine } from '$lib/routine/routine.model';

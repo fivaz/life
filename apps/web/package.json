@@ -20,8 +20,7 @@
 		"generate-pwa-assets": "pwa-assets-generator"
 	},
 	"devDependencies": {
-		"@life/ui": "workspace:*",
-		"@life/lib": "workspace:*",
+		"@life/shared": "workspace:*",
 		"@life/calendar": "workspace:*",
 		"@chromatic-com/storybook": "^3.2.2",
 		"@floating-ui/dom": "^1.6.12",

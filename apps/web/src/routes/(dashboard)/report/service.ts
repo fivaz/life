@@ -1,6 +1,6 @@
-import { DATE, formatDate } from '@life/lib/date';
-import type { Task } from '@life/lib/task';
-import { getTaskDateTime, sortTasks } from '@life/lib/task';
+import { DATE, formatDate } from '@life/shared/date';
+import type { Task } from '@life/shared/task';
+import { getTaskDateTime, sortTasks } from '@life/shared/task';
 import {
 	eachDayOfInterval,
 	eachMonthOfInterval,

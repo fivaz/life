@@ -1,5 +1,5 @@
-import { buildDate } from '@life/lib/date';
-import type { Task } from '@life/lib/task';
+import { buildDate } from '@life/shared/date';
+import type { Task } from '@life/shared/task';
 import { startOfTomorrow, startOfWeek, startOfYesterday } from 'date-fns';
 
 import { routine, sleep, work } from '$lib/category/category.seed';

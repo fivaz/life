@@ -1,5 +1,5 @@
-import type { Task } from '@life/lib/task';
-import { isRecurring } from '@life/lib/task';
+import type { Task } from '@life/shared/task';
+import { isRecurring } from '@life/shared/task';
 import {
 	addWeeks,
 	endOfWeek,

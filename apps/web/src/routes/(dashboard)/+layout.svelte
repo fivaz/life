@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Dialog, dialog } from '@life/ui';
+	import { Dialog, dialog } from '@life/shared';
 	import { onAuthStateChanged } from 'firebase/auth';
 	import type { Snippet } from 'svelte';
 	import { onMount } from 'svelte';

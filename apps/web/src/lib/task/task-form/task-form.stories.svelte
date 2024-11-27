@@ -1,5 +1,5 @@
 <script lang="ts" module>
-	import { Dialog, dialog } from '@life/ui';
+	import { Dialog, dialog } from '@life/shared';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import { categories } from '$lib/category/category.seed';

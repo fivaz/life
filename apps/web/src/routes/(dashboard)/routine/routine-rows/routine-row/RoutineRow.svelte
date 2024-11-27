@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { GoalIcon } from '@life/ui';
+	import { GoalIcon } from '@life/shared';
 	import { Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { startOfWeek } from 'date-fns';

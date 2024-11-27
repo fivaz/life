@@ -1,6 +1,6 @@
-import type { Task } from '@life/lib/task';
-import { getHalfTime, isRecurring, isTimed } from '@life/lib/task';
-import { createDialog } from '@life/ui';
+import { createDialog } from '@life/shared';
+import type { Task } from '@life/shared/task';
+import { getHalfTime, isRecurring, isTimed } from '@life/shared/task';
 
 import { buildEmptyCategory } from '$lib/category/category.model';
 import type { Goal } from '$lib/goal/goal.model';

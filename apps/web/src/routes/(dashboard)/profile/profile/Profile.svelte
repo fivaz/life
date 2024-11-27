@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from '@life/ui';
+	import { Button } from '@life/shared';
 	import type { User as FirebaseUser } from 'firebase/auth';
 	import { updateProfile } from 'firebase/auth';
 	import { doc, updateDoc } from 'firebase/firestore';

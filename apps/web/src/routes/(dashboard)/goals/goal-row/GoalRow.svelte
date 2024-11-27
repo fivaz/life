@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { Task } from '@life/lib/task';
-	import { sortTasks } from '@life/lib/task';
-	import { GoalIcon } from '@life/ui';
+	import { GoalIcon } from '@life/shared';
+	import type { Task } from '@life/shared/task';
+	import { sortTasks } from '@life/shared/task';
 	import { ChevronDown, ChevronUp, Plus, Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 

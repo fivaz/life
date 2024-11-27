@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Task } from '@life/lib/task';
+	import type { Task } from '@life/shared/task';
 
 	import TaskCompletedNotification from '$lib/task/task-completed-notification-stack/task-completed-notification/TaskCompletedNotification.svelte';
 

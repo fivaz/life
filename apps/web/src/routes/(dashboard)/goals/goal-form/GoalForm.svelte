@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { getIcon } from '@life/lib/goal';
-	import { Button, GoalIcon } from '@life/ui';
+	import { Button, GoalIcon } from '@life/shared';
+	import { getIcon } from '@life/shared/goal';
 
 	import CloseX from '$lib/components/close-x/CloseX.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
