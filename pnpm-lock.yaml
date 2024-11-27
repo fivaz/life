@@ -583,6 +583,16 @@ importers:
         version: 5.4.11(@types/node@22.10.0)(terser@5.36.0)
 
   packages/shared:
+    dependencies:
+      '@steeze-ui/heroicons':
+        specifier: ^2.4.0
+        version: 2.4.2
+      '@steeze-ui/svelte-icon':
+        specifier: ^1.5.0
+        version: 1.6.2(svelte@5.2.9)
+      lucide-svelte:
+        specifier: ^0.456.0
+        version: 0.456.0(svelte@5.2.9)
     devDependencies:
       '@chromatic-com/storybook':
         specifier: ^3.2.2

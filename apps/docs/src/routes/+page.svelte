@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Test, add } from '@life/shared';
+	import { Button, add } from '@life/shared';
 </script>
 
-<Test />
+<Button>test</Button>
 
 {add(7, 7)}
 <h1>test</h1>

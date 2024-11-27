@@ -1,7 +1,7 @@
 // Reexport your entry components here
-import Test from './Test.svelte';
+import Button from './button/Button.svelte';
 
-export { Test };
+export { Button };
 
 export function add(a: number, b: number) {
 	return a + b;
