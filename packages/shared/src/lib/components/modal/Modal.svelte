@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import Portal from 'svelte-portal';
+	import { portal } from 'svelte-portal';
 
-	import { dialog } from '$lib/components/dialog/service.svelte.js';
+	import { dialog } from '$lib/components/dialog/service.svelte';
 
 	interface Props {
 		isOpen: boolean;
@@ -38,14 +38,12 @@
 <svelte:window onkeydown={showBeClosed} />
 
 {#if isOpen}
-	<Portal target="body">
-		<div class="fixed inset-0 z-20 flex items-center justify-center">
-			<button
-				class="absolute inset-0 bg-black opacity-50"
-				aria-label="modal background"
-				onclick={close}
-			></button>
-			{@render children()}
-		</div>
-	</Portal>
+	<div class="fixed inset-0 z-20 flex items-center justify-center" use:portal={'body'}>
+		<button
+			class="absolute inset-0 bg-black opacity-50"
+			aria-label="modal background"
+			onclick={close}
+		></button>
+		{@render children()}
+	</div>
 {/if}

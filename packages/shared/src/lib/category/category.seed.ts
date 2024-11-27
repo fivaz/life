@@ -1,4 +1,4 @@
-import type { Category } from '$lib/category/category.model';
+import type { Category } from '$lib/category/category.model.js';
 
 let id = 0;
 
@@ -7,7 +7,7 @@ export const work: Category = {
 	id: `${id++}`,
 	isDefault: true,
 	name: 'Work',
-	type: 'work',
+	type: 'work'
 };
 
 export const fun: Category = {
@@ -15,7 +15,7 @@ export const fun: Category = {
 	id: `${id++}`,
 	isDefault: false,
 	name: 'Free time',
-	type: 'fun',
+	type: 'fun'
 };
 
 export const routine: Category = {
@@ -23,7 +23,7 @@ export const routine: Category = {
 	id: `${id++}`,
 	isDefault: false,
 	name: 'Routine',
-	type: 'fun',
+	type: 'fun'
 };
 
 export const sleep: Category = {
@@ -31,7 +31,7 @@ export const sleep: Category = {
 	id: `${id++}`,
 	isDefault: false,
 	name: 'Sleep',
-	type: 'sleep',
+	type: 'sleep'
 };
 
 export const categories: Category[] = [work, fun, routine, sleep];

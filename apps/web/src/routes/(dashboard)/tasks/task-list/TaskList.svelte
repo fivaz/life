@@ -9,8 +9,8 @@
 	import { DATE, DATE_FR, formatDate } from '$lib/date.utils.svelte';
 
 	import { GROUPS } from '../service';
+	import TaskRow from './task-row/goal.utils.ts';
 	import { TASK_LIST_CLASS } from './task-row/service';
-	import TaskRow from './task-row/TaskRow.svelte';
 
 	interface Props {
 		label: string;
