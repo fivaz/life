@@ -1,5 +1,8 @@
 <script lang="ts">
-	import { Button } from '@life/ui';
+	import { Test } from '@life/shared';
+	import '@life/shared/dist/styles.css';
 </script>
 
-<Button>test</Button>
+<Test />
+
+<h1>test</h1>
