@@ -1,4 +1,6 @@
 <script lang="ts">
+	import 'svelendar/styles.css';
+
 	import { Modal } from '@life/shared';
 	import type { Task } from '@life/shared/task';
 	import { where } from 'firebase/firestore';
