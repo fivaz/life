@@ -12,9 +12,11 @@
 
 	let { label, value = $bindable() }: Props = $props();
 
+	let instance = $state<flatpickr.Instance | null>(null);
+
 	$effect(() => {
 		if (ref) {
-			flatpickr(ref, {
+			instance = flatpickr(ref, {
 				dateFormat: 'Y-m-d',
 				mode: 'multiple',
 				onValueUpdate: (_, datesStr) => {
@@ -22,6 +24,8 @@
 				},
 			});
 		}
+
+		return () => instance?.destroy();
 	});
 </script>
 
