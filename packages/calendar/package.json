@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build && npm run package && build:css",
+		"build": "vite build && npm run package && pnpm run build:css",
 		"build:css": "tailwindcss -i src/lib/styles.css -o ./dist/styles.css --minify",
 		"preview": "vite preview",
 		"package": "svelte-kit sync && svelte-package && publint",
