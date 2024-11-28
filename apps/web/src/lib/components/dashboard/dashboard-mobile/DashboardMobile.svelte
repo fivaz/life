@@ -41,11 +41,11 @@
 	/>
 
 	<!--background-->
-	<button
-		class="fixed left-0 right-0 top-0 z-10 h-full bg-black transition-opacity duration-300 {showMenu
-			? 'bg-opacity-50'
-			: 'pointer-events-none bg-opacity-0'}"
-		aria-label="menu modal background"
-		onclick={() => (showMenu = false)}
-	></button>
+	{#if showMenu}
+		<button
+			class="fixed left-0 right-0 top-0 z-10 h-full bg-black/50"
+			aria-label="menu modal background"
+			onclick={() => (showMenu = false)}
+		></button>
+	{/if}
 </div>
