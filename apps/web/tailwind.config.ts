@@ -5,7 +5,7 @@ import type { Config } from 'tailwindcss';
 export default {
 	content: [
 		'./src/**/*.{html,js,svelte,ts}',
-		'../../packages/ui/src/**/*.svelte',
+		'../../packages/shared/src/**/*.svelte',
 		'../../packages/calendar/src/**/*.svelte',
 	],
 
