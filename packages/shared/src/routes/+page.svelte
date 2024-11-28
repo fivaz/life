@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '@unocss/reset/tailwind.css';
+	import '../app.css';
 
 	import CalendarCheck from 'lucide-svelte/icons/check-check';
 
