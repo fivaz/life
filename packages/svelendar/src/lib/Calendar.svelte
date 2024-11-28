@@ -56,7 +56,6 @@
 </script>
 
 <div class="flex h-[calc(100vh-56px)] flex-col md:h-[calc(100vh-20px)]">
-	<h1>test</h1>
 	<CalendarHeader />
 	<CalendarBody {tasks} />
 </div>
