@@ -90,8 +90,8 @@ importers:
         specifier: ^8.4.5
         version: 8.4.5(prettier@3.4.1)
       svelendar:
-        specifier: workspace:*
-        version: link:../../packages/svelendar
+        specifier: ^0.1.0
+        version: 0.1.0(svelte@5.2.10)
       svelte:
         specifier: ^5.0.0
         version: 5.2.10
@@ -4916,6 +4916,11 @@ packages:
   supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+
+  svelendar@0.1.0:
+    resolution: {integrity: sha512-QlUAdrQoIcOIdOi86z7GD0cl6f1RG+QWWqqnr+xuYo0l/yp7dogSiMIHyHsjgKHfad4UeZ0xcEtEBzkPDFtdvg==}
+    peerDependencies:
+      svelte: ^5.0.0
 
   svelte-ast-print@0.4.2:
     resolution: {integrity: sha512-hRHHufbJoArFmDYQKCpCvc0xUuIEfwYksvyLYEQyH+1xb5LD5sM/IthfooCdXZQtOIqXz6xm7NmaqdfwG4kh6w==}
@@ -11189,6 +11194,17 @@ snapshots:
       has-flag: 4.0.0
 
   supports-preserve-symlinks-flag@1.0.0: {}
+
+  svelendar@0.1.0(svelte@5.2.10):
+    dependencies:
+      '@steeze-ui/heroicons': 2.4.2
+      '@steeze-ui/lucide-icons': 1.4.1
+      '@steeze-ui/svelte-icon': 1.6.2(svelte@5.2.10)
+      date-fns: 4.1.0
+      interactjs: 1.10.27
+      lucide-svelte: 0.456.0(svelte@5.2.10)
+      svelte: 5.2.10
+      svelte-portal: 2.2.1
 
   svelte-ast-print@0.4.2(svelte@5.2.10):
     dependencies:
