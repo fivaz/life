@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '../app.css';
+	import '$lib/styles.css';
 
 	import { tasks } from '@life/shared/task';
 
