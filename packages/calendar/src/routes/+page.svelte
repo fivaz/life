@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '../app.css';
+	import '@unocss/reset/tailwind.css';
 
 	import { tasks } from '@life/shared/task';
 

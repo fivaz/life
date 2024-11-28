@@ -1,4 +1,6 @@
 <script lang="ts">
+	import '@unocss/reset/tailwind.css';
+
 	import CalendarCheck from 'lucide-svelte/icons/check-check';
 
 	import Button from '$lib/components/button/Button.svelte';
@@ -16,6 +18,7 @@
 />
 
 <Button
+	color="white"
 	onclick={() =>
 		createDialog({
 			title: 'Delete event ?',

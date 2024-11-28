@@ -59,6 +59,3 @@
 		</span>
 	{/if}
 </button>
-
-<style>
-</style>

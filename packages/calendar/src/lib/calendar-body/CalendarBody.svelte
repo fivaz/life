@@ -76,3 +76,11 @@
 		</div>
 	</div>
 </div>
+
+<style uno-preflights>
+	div {
+		--un-shadow-inset: ;
+		--un-ring-offset-shadow: 0 0 rgba(0, 0, 0, 0);
+		--un-ring-shadow: 0 0 rgba(0, 0, 0, 0);
+	}
+</style>
