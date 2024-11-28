@@ -1,4 +1,4 @@
-import '@unocss/reset/tailwind.css';
+import '../src/app.css';
 
 import type { Preview } from '@storybook/svelte';
 
