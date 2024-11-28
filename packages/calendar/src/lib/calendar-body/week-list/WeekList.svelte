@@ -14,11 +14,13 @@
 			<span class="flex items-baseline gap-1">
 				{format(date, 'E')}
 				<span
-					class="flex items-center justify-center font-semibold text-gray-900
-								{isToday(date) && !isSameDay(selectedDate.value, date)
-						? 'h-8 w-8 rounded-full bg-indigo-300 text-white'
-						: ''}
-								{isSameDay(selectedDate.value, date) ? 'h-8 w-8 rounded-full bg-indigo-600 text-white' : ''}
+					class="flex items-center justify-center font-semibold
+
+					{isToday(date) || isSameDay(selectedDate.value, date)
+						? 'h-8 w-8 rounded-full text-white'
+						: 'text-gray-900'}
+								{isToday(date) ? ' bg-indigo-300' : ''}
+								{isSameDay(selectedDate.value, date) ? ' bg-indigo-600' : ''}
 								"
 				>
 					{format(date, 'dd')}
