@@ -1,4 +1,4 @@
-import '../src/lib/styles.css';
+import '../src/input.css';
 
 import type { Preview } from '@storybook/svelte';
 
