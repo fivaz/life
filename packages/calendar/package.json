@@ -1,6 +1,7 @@
 {
-	"name": "@life/calendar",
+	"name": "svelendar",
 	"version": "0.0.1",
+	"private": false,
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package && pnpm run build:css",

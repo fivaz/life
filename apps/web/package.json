@@ -23,7 +23,7 @@
 		"@chromatic-com/storybook": "^3.2.2",
 		"@floating-ui/dom": "^1.6.12",
 		"@fontsource/fira-mono": "^5.0.0",
-		"@life/calendar": "workspace:*",
+		"svelendar": "workspace:*",
 		"@life/config-eslint": "workspace:*",
 		"@life/config-prettier": "workspace:*",
 		"@life/shared": "workspace:*",

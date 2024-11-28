@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { tasks } from '@life/shared/task';
-	import { Calendar } from '@life/calendar';
-	import '@life/calendar/styles.css';
+	import { Calendar } from 'svelendar';
+	import 'svelendar/styles.css';
 </script>
 
 <div style="height: 100vh">

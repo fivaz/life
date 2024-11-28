@@ -23,13 +23,10 @@ importers:
     devDependencies:
       '@chromatic-com/storybook':
         specifier: ^3.2.2
-        version: 3.2.2(react@18.3.1)(storybook@8.4.5)
+        version: 3.2.2(react@18.3.1)(storybook@8.4.5(prettier@3.4.1))
       '@fontsource/fira-mono':
         specifier: ^5.0.0
         version: 5.1.0
-      '@life/calendar':
-        specifier: workspace:*
-        version: link:../../packages/calendar
       '@life/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -38,46 +35,46 @@ importers:
         version: 2.2.1
       '@storybook/addon-essentials':
         specifier: ^8.4.5
-        version: 8.4.5(@types/react@18.3.12)(storybook@8.4.5)
+        version: 8.4.5(@types/react@18.3.12)(storybook@8.4.5(prettier@3.4.1))
       '@storybook/addon-interactions':
         specifier: ^8.4.5
-        version: 8.4.5(storybook@8.4.5)
+        version: 8.4.5(storybook@8.4.5(prettier@3.4.1))
       '@storybook/addon-svelte-csf':
         specifier: ^5.0.0-next.11
-        version: 5.0.0-next.11(@storybook/svelte@8.4.5)(@sveltejs/vite-plugin-svelte@4.0.2)(storybook@8.4.5)(svelte@5.2.10)(vite@5.4.11)
+        version: 5.0.0-next.11(@storybook/svelte@8.4.5(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.10))(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       '@storybook/blocks':
         specifier: ^8.4.5
-        version: 8.4.5(react-dom@18.3.1)(react@18.3.1)(storybook@8.4.5)
+        version: 8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@3.4.1))
       '@storybook/svelte':
         specifier: ^8.4.5
-        version: 8.4.5(storybook@8.4.5)(svelte@5.2.10)
+        version: 8.4.5(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.10)
       '@storybook/sveltekit':
         specifier: ^8.4.5
-        version: 8.4.5(@sveltejs/vite-plugin-svelte@4.0.2)(postcss@8.4.49)(storybook@8.4.5)(svelte@5.2.10)(vite@5.4.11)
+        version: 8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       '@storybook/test':
         specifier: ^8.4.5
-        version: 8.4.5(storybook@8.4.5)
+        version: 8.4.5(storybook@8.4.5(prettier@3.4.1))
       '@sveltejs/adapter-auto':
         specifier: ^3.0.0
-        version: 3.3.1(@sveltejs/kit@2.8.5)
+        version: 3.3.1(@sveltejs/kit@2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))
       '@sveltejs/kit':
         specifier: ^2.0.0
-        version: 2.8.5(@sveltejs/vite-plugin-svelte@4.0.2)(svelte@5.2.10)(vite@5.4.11)
+        version: 2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       '@sveltejs/vite-plugin-svelte':
         specifier: ^4.0.0
-        version: 4.0.2(svelte@5.2.10)(vite@5.4.11)
+        version: 4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.49)
       eslint:
         specifier: ^9.7.0
-        version: 9.15.0
+        version: 9.15.0(jiti@1.21.6)
       eslint-config-prettier:
         specifier: ^9.1.0
-        version: 9.1.0(eslint@9.15.0)
+        version: 9.1.0(eslint@9.15.0(jiti@1.21.6))
       eslint-plugin-svelte:
         specifier: ^2.36.0
-        version: 2.46.0(eslint@9.15.0)(svelte@5.2.10)
+        version: 2.46.0(eslint@9.15.0(jiti@1.21.6))(svelte@5.2.10)
       globals:
         specifier: ^15.0.0
         version: 15.12.0
@@ -89,16 +86,19 @@ importers:
         version: 3.3.2(prettier@3.4.1)(svelte@5.2.10)
       prettier-plugin-tailwindcss:
         specifier: ^0.6.5
-        version: 0.6.9(prettier-plugin-svelte@3.3.2)(prettier@3.4.1)
+        version: 0.6.9(prettier-plugin-svelte@3.3.2(prettier@3.4.1)(svelte@5.2.10))(prettier@3.4.1)
       storybook:
         specifier: ^8.4.5
         version: 8.4.5(prettier@3.4.1)
+      svelendar:
+        specifier: workspace:*
+        version: link:../../packages/calendar
       svelte:
         specifier: ^5.0.0
         version: 5.2.10
       svelte-check:
         specifier: ^4.0.0
-        version: 4.1.0(svelte@5.2.10)(typescript@5.7.2)
+        version: 4.1.0(picomatch@4.0.2)(svelte@5.2.10)(typescript@5.7.2)
       tailwindcss:
         specifier: ^3.4.9
         version: 3.4.15
@@ -107,25 +107,22 @@ importers:
         version: 5.7.2
       typescript-eslint:
         specifier: ^8.0.0
-        version: 8.16.0(eslint@9.15.0)(typescript@5.7.2)
+        version: 8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
       vite:
         specifier: ^5.0.3
-        version: 5.4.11
+        version: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
 
   apps/web:
     devDependencies:
       '@chromatic-com/storybook':
         specifier: ^3.2.2
-        version: 3.2.2(react@18.3.1)(storybook@8.4.5)
+        version: 3.2.2(react@18.3.1)(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
       '@floating-ui/dom':
         specifier: ^1.6.12
         version: 1.6.12
       '@fontsource/fira-mono':
         specifier: ^5.0.0
         version: 5.1.0
-      '@life/calendar':
-        specifier: workspace:*
-        version: link:../../packages/calendar
       '@life/config-eslint':
         specifier: workspace:*
         version: link:../../packages/config-eslint
@@ -155,37 +152,37 @@ importers:
         version: 1.6.2(svelte@5.2.10)
       '@storybook/addon-essentials':
         specifier: ^8.4.4
-        version: 8.4.5(@types/react@18.3.12)(storybook@8.4.5)
+        version: 8.4.5(@types/react@18.3.12)(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
       '@storybook/addon-interactions':
         specifier: ^8.4.4
-        version: 8.4.5(storybook@8.4.5)
+        version: 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
       '@storybook/addon-svelte-csf':
         specifier: ^5.0.0-next.11
-        version: 5.0.0-next.11(@storybook/svelte@8.4.5)(@sveltejs/vite-plugin-svelte@4.0.2)(storybook@8.4.5)(svelte@5.2.10)(vite@5.4.11)
+        version: 5.0.0-next.11(@storybook/svelte@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))(svelte@5.2.10))(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(storybook@8.4.5(prettier@apps+web+@life+config-prettier))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       '@storybook/blocks':
         specifier: ^8.4.4
-        version: 8.4.5(react-dom@18.3.1)(react@18.3.1)(storybook@8.4.5)
+        version: 8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
       '@storybook/svelte':
         specifier: ^8.4.4
-        version: 8.4.5(storybook@8.4.5)(svelte@5.2.10)
+        version: 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))(svelte@5.2.10)
       '@storybook/sveltekit':
         specifier: ^8.4.4
-        version: 8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2)(postcss@8.4.49)(storybook@8.4.5)(svelte@5.2.10)(vite@5.4.11)
+        version: 8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(storybook@8.4.5(prettier@apps+web+@life+config-prettier))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       '@storybook/test':
         specifier: ^8.4.4
-        version: 8.4.5(storybook@8.4.5)
+        version: 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
       '@sveltejs/adapter-auto':
         specifier: ^3.0.0
-        version: 3.3.1(@sveltejs/kit@2.8.5)
+        version: 3.3.1(@sveltejs/kit@2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))
       '@sveltejs/adapter-vercel':
         specifier: ^5.4.7
-        version: 5.4.8(@sveltejs/kit@2.8.5)
+        version: 5.4.8(@sveltejs/kit@2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))
       '@sveltejs/kit':
         specifier: ^2.0.0
-        version: 2.8.5(@sveltejs/vite-plugin-svelte@4.0.2)(svelte@5.2.10)(vite@5.4.11)
+        version: 2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       '@sveltejs/vite-plugin-svelte':
         specifier: ^4.0.0
-        version: 4.0.2(svelte@5.2.10)(vite@5.4.11)
+        version: 4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       '@tailwindcss/container-queries':
         specifier: ^0.1.1
         version: 0.1.1(tailwindcss@3.4.15)
@@ -197,7 +194,7 @@ importers:
         version: 0.2.6
       '@vite-pwa/sveltekit':
         specifier: ^0.6.6
-        version: 0.6.6(@sveltejs/kit@2.8.5)(@vite-pwa/assets-generator@0.2.6)(vite-plugin-pwa@0.20.5)
+        version: 0.6.6(@sveltejs/kit@2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(@vite-pwa/assets-generator@0.2.6)(vite-plugin-pwa@0.20.5(@vite-pwa/assets-generator@0.2.6)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))(workbox-build@7.3.0)(workbox-window@7.3.0))
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.49)
@@ -212,7 +209,7 @@ importers:
         version: 4.1.0
       eslint:
         specifier: ^9.15.0
-        version: 9.15.0
+        version: 9.15.0(jiti@1.21.6)
       firebase:
         specifier: ^11.0.1
         version: 11.0.2
@@ -246,12 +243,15 @@ importers:
       storybook:
         specifier: ^8.4.4
         version: 8.4.5(prettier@apps+web+@life+config-prettier)
+      svelendar:
+        specifier: workspace:*
+        version: link:../../packages/calendar
       svelte:
         specifier: ^5.0.0
         version: 5.2.10
       svelte-check:
         specifier: ^4.0.0
-        version: 4.1.0(svelte@5.2.10)(typescript@5.7.2)
+        version: 4.1.0(picomatch@4.0.2)(svelte@5.2.10)(typescript@5.7.2)
       svelte-dnd-action:
         specifier: ^0.9.52
         version: 0.9.52(svelte@5.2.10)
@@ -269,13 +269,13 @@ importers:
         version: 5.7.2
       vite:
         specifier: ^5.0.3
-        version: 5.4.11
+        version: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
       vite-plugin-pwa:
         specifier: ^0.20.5
-        version: 0.20.5(@vite-pwa/assets-generator@0.2.6)(vite@5.4.11)(workbox-build@7.3.0)(workbox-window@7.3.0)
+        version: 0.20.5(@vite-pwa/assets-generator@0.2.6)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))(workbox-build@7.3.0)(workbox-window@7.3.0)
       vitest:
         specifier: ^2.0.4
-        version: 2.1.6
+        version: 2.1.6(@types/node@22.10.1)(terser@5.36.0)
       workbox-core:
         specifier: ^7.3.0
         version: 7.3.0
@@ -318,7 +318,7 @@ importers:
     devDependencies:
       '@chromatic-com/storybook':
         specifier: ^3.2.2
-        version: 3.2.2(react@18.3.1)(storybook@8.4.5)
+        version: 3.2.2(react@18.3.1)(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
       '@life/config-eslint':
         specifier: workspace:*
         version: link:../config-eslint
@@ -330,37 +330,37 @@ importers:
         version: link:../shared
       '@storybook/addon-essentials':
         specifier: ^8.4.5
-        version: 8.4.5(@types/react@18.3.12)(storybook@8.4.5)
+        version: 8.4.5(@types/react@18.3.12)(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
       '@storybook/addon-interactions':
         specifier: ^8.4.5
-        version: 8.4.5(storybook@8.4.5)
+        version: 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
       '@storybook/addon-svelte-csf':
         specifier: ^5.0.0-next.11
-        version: 5.0.0-next.11(@storybook/svelte@8.4.5)(@sveltejs/vite-plugin-svelte@4.0.2)(storybook@8.4.5)(svelte@5.2.10)(vite@5.4.11)
+        version: 5.0.0-next.11(@storybook/svelte@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))(svelte@5.2.10))(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       '@storybook/blocks':
         specifier: ^8.4.5
-        version: 8.4.5(react-dom@18.3.1)(react@18.3.1)(storybook@8.4.5)
+        version: 8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
       '@storybook/svelte':
         specifier: ^8.4.5
-        version: 8.4.5(storybook@8.4.5)(svelte@5.2.10)
+        version: 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))(svelte@5.2.10)
       '@storybook/sveltekit':
         specifier: ^8.4.5
-        version: 8.4.5(@sveltejs/vite-plugin-svelte@4.0.2)(postcss@8.4.49)(storybook@8.4.5)(svelte@5.2.10)(vite@5.4.11)
+        version: 8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       '@storybook/test':
         specifier: ^8.4.5
-        version: 8.4.5(storybook@8.4.5)
+        version: 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
       '@sveltejs/adapter-auto':
         specifier: ^3.0.0
-        version: 3.3.1(@sveltejs/kit@2.8.5)
+        version: 3.3.1(@sveltejs/kit@2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))
       '@sveltejs/kit':
         specifier: ^2.0.0
-        version: 2.8.5(@sveltejs/vite-plugin-svelte@4.0.2)(svelte@5.2.10)(vite@5.4.11)
+        version: 2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       '@sveltejs/package':
         specifier: ^2.0.0
         version: 2.3.7(svelte@5.2.10)(typescript@5.7.2)
       '@sveltejs/vite-plugin-svelte':
         specifier: ^4.0.0
-        version: 4.0.2(svelte@5.2.10)(vite@5.4.11)
+        version: 4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       '@tailwindcss/container-queries':
         specifier: ^0.1.1
         version: 0.1.1(tailwindcss@3.4.15)
@@ -372,13 +372,13 @@ importers:
         version: 10.4.20(postcss@8.4.49)
       eslint:
         specifier: ^9.7.0
-        version: 9.15.0
+        version: 9.15.0(jiti@1.21.6)
       eslint-config-prettier:
         specifier: ^9.1.0
-        version: 9.1.0(eslint@9.15.0)
+        version: 9.1.0(eslint@9.15.0(jiti@1.21.6))
       eslint-plugin-svelte:
         specifier: ^2.36.0
-        version: 2.46.0(eslint@9.15.0)(svelte@5.2.10)
+        version: 2.46.0(eslint@9.15.0(jiti@1.21.6))(svelte@5.2.10)
       globals:
         specifier: ^15.0.0
         version: 15.12.0
@@ -399,7 +399,7 @@ importers:
         version: 5.2.10
       svelte-check:
         specifier: ^4.0.0
-        version: 4.1.0(svelte@5.2.10)(typescript@5.7.2)
+        version: 4.1.0(picomatch@4.0.2)(svelte@5.2.10)(typescript@5.7.2)
       tailwindcss:
         specifier: ^3.4.9
         version: 3.4.15
@@ -408,34 +408,34 @@ importers:
         version: 5.7.2
       typescript-eslint:
         specifier: ^8.0.0
-        version: 8.16.0(eslint@9.15.0)(typescript@5.7.2)
+        version: 8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
       vite:
         specifier: ^5.0.11
-        version: 5.4.11
+        version: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
 
   packages/config-eslint:
     dependencies:
       eslint:
         specifier: ^9.7.0
-        version: 9.15.0
+        version: 9.15.0(jiti@1.21.6)
       eslint-config-prettier:
         specifier: ^9.1.0
-        version: 9.1.0(eslint@9.15.0)
+        version: 9.1.0(eslint@9.15.0(jiti@1.21.6))
       eslint-config-turbo:
         specifier: ^2.0.0
-        version: 2.3.3(eslint@9.15.0)
+        version: 2.3.3(eslint@9.15.0(jiti@1.21.6))
       eslint-plugin-import:
         specifier: ^2.31.0
-        version: 2.31.0(@typescript-eslint/parser@8.16.0)(eslint@9.15.0)
+        version: 2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2))(eslint@9.15.0(jiti@1.21.6))
       eslint-plugin-simple-import-sort:
         specifier: ^12.1.1
-        version: 12.1.1(eslint@9.15.0)
+        version: 12.1.1(eslint@9.15.0(jiti@1.21.6))
       eslint-plugin-svelte:
         specifier: ^2.36.0
-        version: 2.46.0(eslint@9.15.0)(svelte@5.2.10)
+        version: 2.46.0(eslint@9.15.0(jiti@1.21.6))(svelte@5.2.10)
       eslint-plugin-unused-imports:
         specifier: ^4.1.4
-        version: 4.1.4(eslint@9.15.0)
+        version: 4.1.4(@typescript-eslint/eslint-plugin@8.16.0(@typescript-eslint/parser@8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2))(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2))(eslint@9.15.0(jiti@1.21.6))
       globals:
         specifier: ^15.0.0
         version: 15.12.0
@@ -444,7 +444,7 @@ importers:
         version: 5.7.2
       typescript-eslint:
         specifier: ^8.0.0
-        version: 8.16.0(eslint@9.15.0)(typescript@5.7.2)
+        version: 8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
 
   packages/config-prettier:
     dependencies:
@@ -453,7 +453,7 @@ importers:
         version: 3.3.2(prettier@3.4.1)(svelte@5.2.10)
       prettier-plugin-tailwindcss:
         specifier: ^0.6.5
-        version: 0.6.9(prettier-plugin-svelte@3.3.2)(prettier@3.4.1)
+        version: 0.6.9(prettier-plugin-svelte@3.3.2(prettier@3.4.1)(svelte@5.2.10))(prettier@3.4.1)
     devDependencies:
       prettier:
         specifier: ^3.3.2
@@ -485,7 +485,7 @@ importers:
     devDependencies:
       '@chromatic-com/storybook':
         specifier: ^3.2.2
-        version: 3.2.2(react@18.3.1)(storybook@8.4.5)
+        version: 3.2.2(react@18.3.1)(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
       '@life/config-eslint':
         specifier: workspace:*
         version: link:../config-eslint
@@ -494,37 +494,37 @@ importers:
         version: link:../config-prettier
       '@storybook/addon-essentials':
         specifier: ^8.4.5
-        version: 8.4.5(@types/react@18.3.12)(storybook@8.4.5)
+        version: 8.4.5(@types/react@18.3.12)(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
       '@storybook/addon-interactions':
         specifier: ^8.4.5
-        version: 8.4.5(storybook@8.4.5)
+        version: 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
       '@storybook/addon-svelte-csf':
         specifier: ^5.0.0-next.11
-        version: 5.0.0-next.11(@storybook/svelte@8.4.5)(@sveltejs/vite-plugin-svelte@4.0.2)(storybook@8.4.5)(svelte@5.2.10)(vite@5.4.11)
+        version: 5.0.0-next.11(@storybook/svelte@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))(svelte@5.2.10))(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       '@storybook/blocks':
         specifier: ^8.4.5
-        version: 8.4.5(react-dom@18.3.1)(react@18.3.1)(storybook@8.4.5)
+        version: 8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
       '@storybook/svelte':
         specifier: ^8.4.5
-        version: 8.4.5(storybook@8.4.5)(svelte@5.2.10)
+        version: 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))(svelte@5.2.10)
       '@storybook/sveltekit':
         specifier: ^8.4.5
-        version: 8.4.5(@sveltejs/vite-plugin-svelte@4.0.2)(postcss@8.4.49)(storybook@8.4.5)(svelte@5.2.10)(vite@5.4.11)
+        version: 8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       '@storybook/test':
         specifier: ^8.4.5
-        version: 8.4.5(storybook@8.4.5)
+        version: 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
       '@sveltejs/adapter-auto':
         specifier: ^3.0.0
-        version: 3.3.1(@sveltejs/kit@2.8.5)
+        version: 3.3.1(@sveltejs/kit@2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))
       '@sveltejs/kit':
         specifier: ^2.0.0
-        version: 2.8.5(@sveltejs/vite-plugin-svelte@4.0.2)(svelte@5.2.10)(vite@5.4.11)
+        version: 2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       '@sveltejs/package':
         specifier: ^2.0.0
         version: 2.3.7(svelte@5.2.10)(typescript@5.7.2)
       '@sveltejs/vite-plugin-svelte':
         specifier: ^4.0.0
-        version: 4.0.2(svelte@5.2.10)(vite@5.4.11)
+        version: 4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       '@tailwindcss/container-queries':
         specifier: ^0.1.1
         version: 0.1.1(tailwindcss@3.4.15)
@@ -539,13 +539,13 @@ importers:
         version: 2.1.1
       eslint:
         specifier: ^9.7.0
-        version: 9.15.0
+        version: 9.15.0(jiti@1.21.6)
       eslint-config-prettier:
         specifier: ^9.1.0
-        version: 9.1.0(eslint@9.15.0)
+        version: 9.1.0(eslint@9.15.0(jiti@1.21.6))
       eslint-plugin-svelte:
         specifier: ^2.36.0
-        version: 2.46.0(eslint@9.15.0)(svelte@5.2.10)
+        version: 2.46.0(eslint@9.15.0(jiti@1.21.6))(svelte@5.2.10)
       globals:
         specifier: ^15.0.0
         version: 15.12.0
@@ -566,7 +566,7 @@ importers:
         version: 5.2.10
       svelte-check:
         specifier: ^4.0.0
-        version: 4.1.0(svelte@5.2.10)(typescript@5.7.2)
+        version: 4.1.0(picomatch@4.0.2)(svelte@5.2.10)(typescript@5.7.2)
       tailwindcss:
         specifier: ^3.4.9
         version: 3.4.15
@@ -575,10 +575,10 @@ importers:
         version: 5.7.2
       typescript-eslint:
         specifier: ^8.0.0
-        version: 8.16.0(eslint@9.15.0)(typescript@5.7.2)
+        version: 8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
       vite:
         specifier: ^5.0.11
-        version: 5.4.11
+        version: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
 
 packages:
 
@@ -2227,8 +2227,8 @@ packages:
   '@types/mdx@2.0.13':
     resolution: {integrity: sha512-+OWZQfAYyio6YkJb3HLxDrvnx6SWWDbC0zVPfBRzUk0/nqoDyf6dNxQi3eArPe8rJ473nobTMQ/8Zk+LxJ+Yuw==}
 
-  '@types/node@22.10.0':
-    resolution: {integrity: sha512-XC70cRZVElFHfIUB40FgZOBbgJYFKKMa5nb9lxcwYstFG/Mi+/Y0bGS+rs6Dmhmkpq4pnNiLiuZAbc02YCOnmA==}
+  '@types/node@22.10.1':
+    resolution: {integrity: sha512-qKgsUwfHZV2WCWLAnVP1JqnpE6Im6h3Y0+fYgMTasNQ7V++CBX5OT1as0g0f+OyubbFqhf6XVNIsmN4IIhEgGQ==}
 
   '@types/prop-types@15.7.13':
     resolution: {integrity: sha512-hCZTSvwbzWGvhqxp/RqVqwU999pBf2vp7hzIjiYOsl8wqOmUxkQ6ddw1cV3l8811+kdUFus/q4d1Y3E3SyEifA==}
@@ -6234,13 +6234,52 @@ snapshots:
 
   '@canvas/image-data@1.0.0': {}
 
-  '@chromatic-com/storybook@3.2.2(react@18.3.1)(storybook@8.4.5)':
+  '@chromatic-com/storybook@3.2.2(react@18.3.1)(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       chromatic: 11.19.0
       filesize: 10.1.6
       jsonfile: 6.1.0
       react-confetti: 6.1.0(react@18.3.1)
       storybook: 8.4.5(prettier@3.4.1)
+      strip-ansi: 7.1.0
+    transitivePeerDependencies:
+      - '@chromatic-com/cypress'
+      - '@chromatic-com/playwright'
+      - react
+
+  '@chromatic-com/storybook@3.2.2(react@18.3.1)(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
+    dependencies:
+      chromatic: 11.19.0
+      filesize: 10.1.6
+      jsonfile: 6.1.0
+      react-confetti: 6.1.0(react@18.3.1)
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+      strip-ansi: 7.1.0
+    transitivePeerDependencies:
+      - '@chromatic-com/cypress'
+      - '@chromatic-com/playwright'
+      - react
+
+  '@chromatic-com/storybook@3.2.2(react@18.3.1)(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      chromatic: 11.19.0
+      filesize: 10.1.6
+      jsonfile: 6.1.0
+      react-confetti: 6.1.0(react@18.3.1)
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+      strip-ansi: 7.1.0
+    transitivePeerDependencies:
+      - '@chromatic-com/cypress'
+      - '@chromatic-com/playwright'
+      - react
+
+  '@chromatic-com/storybook@3.2.2(react@18.3.1)(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      chromatic: 11.19.0
+      filesize: 10.1.6
+      jsonfile: 6.1.0
+      react-confetti: 6.1.0(react@18.3.1)
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
       strip-ansi: 7.1.0
     transitivePeerDependencies:
       - '@chromatic-com/cypress'
@@ -6388,9 +6427,9 @@ snapshots:
   '@esbuild/win32-x64@0.24.0':
     optional: true
 
-  '@eslint-community/eslint-utils@4.4.1(eslint@9.15.0)':
+  '@eslint-community/eslint-utils@4.4.1(eslint@9.15.0(jiti@1.21.6))':
     dependencies:
-      eslint: 9.15.0
+      eslint: 9.15.0(jiti@1.21.6)
       eslint-visitor-keys: 3.4.3
 
   '@eslint-community/regexpp@4.12.1': {}
@@ -6774,7 +6813,7 @@ snapshots:
   '@grpc/grpc-js@1.9.15':
     dependencies:
       '@grpc/proto-loader': 0.7.13
-      '@types/node': 22.10.0
+      '@types/node': 22.10.1
 
   '@grpc/proto-loader@0.7.13':
     dependencies:
@@ -6926,6 +6965,7 @@ snapshots:
       deepmerge: 4.3.1
       is-module: 1.0.0
       resolve: 1.22.8
+    optionalDependencies:
       rollup: 2.79.2
 
   '@rollup/plugin-replace@2.4.2(rollup@2.79.2)':
@@ -6936,10 +6976,11 @@ snapshots:
 
   '@rollup/plugin-terser@0.4.4(rollup@2.79.2)':
     dependencies:
-      rollup: 2.79.2
       serialize-javascript: 6.0.2
       smob: 1.5.0
       terser: 5.36.0
+    optionalDependencies:
+      rollup: 2.79.2
 
   '@rollup/pluginutils@3.1.0(rollup@2.79.2)':
     dependencies:
@@ -6958,6 +6999,7 @@ snapshots:
       '@types/estree': 1.0.6
       estree-walker: 2.0.2
       picomatch: 4.0.2
+    optionalDependencies:
       rollup: 2.79.2
 
   '@rollup/rollup-android-arm-eabi@4.27.4':
@@ -7026,7 +7068,7 @@ snapshots:
     dependencies:
       svelte: 5.2.10
 
-  '@storybook/addon-actions@8.4.5(storybook@8.4.5)':
+  '@storybook/addon-actions@8.4.5(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       '@storybook/global': 5.0.0
       '@types/uuid': 9.0.8
@@ -7035,26 +7077,95 @@ snapshots:
       storybook: 8.4.5(prettier@3.4.1)
       uuid: 9.0.1
 
-  '@storybook/addon-backgrounds@8.4.5(storybook@8.4.5)':
+  '@storybook/addon-actions@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      '@types/uuid': 9.0.8
+      dequal: 2.0.3
+      polished: 4.3.1
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+      uuid: 9.0.1
+
+  '@storybook/addon-actions@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      '@types/uuid': 9.0.8
+      dequal: 2.0.3
+      polished: 4.3.1
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+      uuid: 9.0.1
+
+  '@storybook/addon-actions@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      '@types/uuid': 9.0.8
+      dequal: 2.0.3
+      polished: 4.3.1
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+      uuid: 9.0.1
+
+  '@storybook/addon-backgrounds@8.4.5(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       '@storybook/global': 5.0.0
       memoizerific: 1.11.3
       storybook: 8.4.5(prettier@3.4.1)
       ts-dedent: 2.2.0
 
-  '@storybook/addon-controls@8.4.5(storybook@8.4.5)':
+  '@storybook/addon-backgrounds@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      memoizerific: 1.11.3
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+      ts-dedent: 2.2.0
+
+  '@storybook/addon-backgrounds@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      memoizerific: 1.11.3
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+      ts-dedent: 2.2.0
+
+  '@storybook/addon-backgrounds@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      memoizerific: 1.11.3
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+      ts-dedent: 2.2.0
+
+  '@storybook/addon-controls@8.4.5(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       '@storybook/global': 5.0.0
       dequal: 2.0.3
       storybook: 8.4.5(prettier@3.4.1)
       ts-dedent: 2.2.0
 
-  '@storybook/addon-docs@8.4.5(@types/react@18.3.12)(storybook@8.4.5)':
+  '@storybook/addon-controls@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      dequal: 2.0.3
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+      ts-dedent: 2.2.0
+
+  '@storybook/addon-controls@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      dequal: 2.0.3
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+      ts-dedent: 2.2.0
+
+  '@storybook/addon-controls@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      dequal: 2.0.3
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+      ts-dedent: 2.2.0
+
+  '@storybook/addon-docs@8.4.5(@types/react@18.3.12)(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       '@mdx-js/react': 3.1.0(@types/react@18.3.12)(react@18.3.1)
-      '@storybook/blocks': 8.4.5(react-dom@18.3.1)(react@18.3.1)(storybook@8.4.5)
-      '@storybook/csf-plugin': 8.4.5(storybook@8.4.5)
-      '@storybook/react-dom-shim': 8.4.5(react-dom@18.3.1)(react@18.3.1)(storybook@8.4.5)
+      '@storybook/blocks': 8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/csf-plugin': 8.4.5(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/react-dom-shim': 8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@3.4.1))
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       storybook: 8.4.5(prettier@3.4.1)
@@ -7062,97 +7173,416 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
-  '@storybook/addon-essentials@8.4.5(@types/react@18.3.12)(storybook@8.4.5)':
+  '@storybook/addon-docs@8.4.5(@types/react@18.3.12)(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
     dependencies:
-      '@storybook/addon-actions': 8.4.5(storybook@8.4.5)
-      '@storybook/addon-backgrounds': 8.4.5(storybook@8.4.5)
-      '@storybook/addon-controls': 8.4.5(storybook@8.4.5)
-      '@storybook/addon-docs': 8.4.5(@types/react@18.3.12)(storybook@8.4.5)
-      '@storybook/addon-highlight': 8.4.5(storybook@8.4.5)
-      '@storybook/addon-measure': 8.4.5(storybook@8.4.5)
-      '@storybook/addon-outline': 8.4.5(storybook@8.4.5)
-      '@storybook/addon-toolbars': 8.4.5(storybook@8.4.5)
-      '@storybook/addon-viewport': 8.4.5(storybook@8.4.5)
+      '@mdx-js/react': 3.1.0(@types/react@18.3.12)(react@18.3.1)
+      '@storybook/blocks': 8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      '@storybook/csf-plugin': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      '@storybook/react-dom-shim': 8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+      ts-dedent: 2.2.0
+    transitivePeerDependencies:
+      - '@types/react'
+
+  '@storybook/addon-docs@8.4.5(@types/react@18.3.12)(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      '@mdx-js/react': 3.1.0(@types/react@18.3.12)(react@18.3.1)
+      '@storybook/blocks': 8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      '@storybook/csf-plugin': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      '@storybook/react-dom-shim': 8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+      ts-dedent: 2.2.0
+    transitivePeerDependencies:
+      - '@types/react'
+
+  '@storybook/addon-docs@8.4.5(@types/react@18.3.12)(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      '@mdx-js/react': 3.1.0(@types/react@18.3.12)(react@18.3.1)
+      '@storybook/blocks': 8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      '@storybook/csf-plugin': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      '@storybook/react-dom-shim': 8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+      ts-dedent: 2.2.0
+    transitivePeerDependencies:
+      - '@types/react'
+
+  '@storybook/addon-essentials@8.4.5(@types/react@18.3.12)(storybook@8.4.5(prettier@3.4.1))':
+    dependencies:
+      '@storybook/addon-actions': 8.4.5(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/addon-backgrounds': 8.4.5(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/addon-controls': 8.4.5(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/addon-docs': 8.4.5(@types/react@18.3.12)(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/addon-highlight': 8.4.5(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/addon-measure': 8.4.5(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/addon-outline': 8.4.5(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/addon-toolbars': 8.4.5(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/addon-viewport': 8.4.5(storybook@8.4.5(prettier@3.4.1))
       storybook: 8.4.5(prettier@3.4.1)
       ts-dedent: 2.2.0
     transitivePeerDependencies:
       - '@types/react'
 
-  '@storybook/addon-highlight@8.4.5(storybook@8.4.5)':
+  '@storybook/addon-essentials@8.4.5(@types/react@18.3.12)(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
+    dependencies:
+      '@storybook/addon-actions': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      '@storybook/addon-backgrounds': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      '@storybook/addon-controls': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      '@storybook/addon-docs': 8.4.5(@types/react@18.3.12)(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      '@storybook/addon-highlight': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      '@storybook/addon-measure': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      '@storybook/addon-outline': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      '@storybook/addon-toolbars': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      '@storybook/addon-viewport': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+      ts-dedent: 2.2.0
+    transitivePeerDependencies:
+      - '@types/react'
+
+  '@storybook/addon-essentials@8.4.5(@types/react@18.3.12)(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      '@storybook/addon-actions': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      '@storybook/addon-backgrounds': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      '@storybook/addon-controls': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      '@storybook/addon-docs': 8.4.5(@types/react@18.3.12)(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      '@storybook/addon-highlight': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      '@storybook/addon-measure': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      '@storybook/addon-outline': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      '@storybook/addon-toolbars': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      '@storybook/addon-viewport': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+      ts-dedent: 2.2.0
+    transitivePeerDependencies:
+      - '@types/react'
+
+  '@storybook/addon-essentials@8.4.5(@types/react@18.3.12)(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      '@storybook/addon-actions': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      '@storybook/addon-backgrounds': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      '@storybook/addon-controls': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      '@storybook/addon-docs': 8.4.5(@types/react@18.3.12)(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      '@storybook/addon-highlight': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      '@storybook/addon-measure': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      '@storybook/addon-outline': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      '@storybook/addon-toolbars': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      '@storybook/addon-viewport': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+      ts-dedent: 2.2.0
+    transitivePeerDependencies:
+      - '@types/react'
+
+  '@storybook/addon-highlight@8.4.5(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       '@storybook/global': 5.0.0
       storybook: 8.4.5(prettier@3.4.1)
 
-  '@storybook/addon-interactions@8.4.5(storybook@8.4.5)':
+  '@storybook/addon-highlight@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
     dependencies:
       '@storybook/global': 5.0.0
-      '@storybook/instrumenter': 8.4.5(storybook@8.4.5)
-      '@storybook/test': 8.4.5(storybook@8.4.5)
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+
+  '@storybook/addon-highlight@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+
+  '@storybook/addon-highlight@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+
+  '@storybook/addon-interactions@8.4.5(storybook@8.4.5(prettier@3.4.1))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      '@storybook/instrumenter': 8.4.5(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/test': 8.4.5(storybook@8.4.5(prettier@3.4.1))
       polished: 4.3.1
       storybook: 8.4.5(prettier@3.4.1)
       ts-dedent: 2.2.0
 
-  '@storybook/addon-measure@8.4.5(storybook@8.4.5)':
+  '@storybook/addon-interactions@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      '@storybook/instrumenter': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      '@storybook/test': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      polished: 4.3.1
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+      ts-dedent: 2.2.0
+
+  '@storybook/addon-interactions@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      '@storybook/instrumenter': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      '@storybook/test': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      polished: 4.3.1
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+      ts-dedent: 2.2.0
+
+  '@storybook/addon-interactions@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      '@storybook/instrumenter': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      '@storybook/test': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      polished: 4.3.1
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+      ts-dedent: 2.2.0
+
+  '@storybook/addon-measure@8.4.5(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       '@storybook/global': 5.0.0
       storybook: 8.4.5(prettier@3.4.1)
       tiny-invariant: 1.3.3
 
-  '@storybook/addon-outline@8.4.5(storybook@8.4.5)':
+  '@storybook/addon-measure@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+      tiny-invariant: 1.3.3
+
+  '@storybook/addon-measure@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+      tiny-invariant: 1.3.3
+
+  '@storybook/addon-measure@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+      tiny-invariant: 1.3.3
+
+  '@storybook/addon-outline@8.4.5(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       '@storybook/global': 5.0.0
       storybook: 8.4.5(prettier@3.4.1)
       ts-dedent: 2.2.0
 
-  '@storybook/addon-svelte-csf@5.0.0-next.11(@storybook/svelte@8.4.5)(@sveltejs/vite-plugin-svelte@4.0.2)(storybook@8.4.5)(svelte@5.2.10)(vite@5.4.11)':
+  '@storybook/addon-outline@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+      ts-dedent: 2.2.0
+
+  '@storybook/addon-outline@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+      ts-dedent: 2.2.0
+
+  '@storybook/addon-outline@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+      ts-dedent: 2.2.0
+
+  '@storybook/addon-svelte-csf@5.0.0-next.11(@storybook/svelte@8.4.5(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.10))(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))':
     dependencies:
       '@storybook/csf': 0.1.11
-      '@storybook/docs-tools': 8.4.5(storybook@8.4.5)
-      '@storybook/node-logger': 8.4.5(storybook@8.4.5)
-      '@storybook/svelte': 8.4.5(storybook@8.4.5)(svelte@5.2.10)
-      '@storybook/types': 8.4.5(storybook@8.4.5)
-      '@sveltejs/vite-plugin-svelte': 4.0.2(svelte@5.2.10)(vite@5.4.11)
+      '@storybook/docs-tools': 8.4.5(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/node-logger': 8.4.5(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/svelte': 8.4.5(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.10)
+      '@storybook/types': 8.4.5(storybook@8.4.5(prettier@3.4.1))
+      '@sveltejs/vite-plugin-svelte': 4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       dedent: 1.5.3
       es-toolkit: 1.27.0
       esrap: 1.2.2
       magic-string: 0.30.14
       svelte: 5.2.10
       svelte-ast-print: 0.4.2(svelte@5.2.10)
-      vite: 5.4.11
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
       zimmerframe: 1.1.2
     transitivePeerDependencies:
       - babel-plugin-macros
       - storybook
 
-  '@storybook/addon-toolbars@8.4.5(storybook@8.4.5)':
+  '@storybook/addon-svelte-csf@5.0.0-next.11(@storybook/svelte@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))(svelte@5.2.10))(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(storybook@8.4.5(prettier@apps+web+@life+config-prettier))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))':
+    dependencies:
+      '@storybook/csf': 0.1.11
+      '@storybook/docs-tools': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      '@storybook/node-logger': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      '@storybook/svelte': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))(svelte@5.2.10)
+      '@storybook/types': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      '@sveltejs/vite-plugin-svelte': 4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
+      dedent: 1.5.3
+      es-toolkit: 1.27.0
+      esrap: 1.2.2
+      magic-string: 0.30.14
+      svelte: 5.2.10
+      svelte-ast-print: 0.4.2(svelte@5.2.10)
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
+      zimmerframe: 1.1.2
+    transitivePeerDependencies:
+      - babel-plugin-macros
+      - storybook
+
+  '@storybook/addon-svelte-csf@5.0.0-next.11(@storybook/svelte@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))(svelte@5.2.10))(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))':
+    dependencies:
+      '@storybook/csf': 0.1.11
+      '@storybook/docs-tools': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      '@storybook/node-logger': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      '@storybook/svelte': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))(svelte@5.2.10)
+      '@storybook/types': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      '@sveltejs/vite-plugin-svelte': 4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
+      dedent: 1.5.3
+      es-toolkit: 1.27.0
+      esrap: 1.2.2
+      magic-string: 0.30.14
+      svelte: 5.2.10
+      svelte-ast-print: 0.4.2(svelte@5.2.10)
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
+      zimmerframe: 1.1.2
+    transitivePeerDependencies:
+      - babel-plugin-macros
+      - storybook
+
+  '@storybook/addon-svelte-csf@5.0.0-next.11(@storybook/svelte@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))(svelte@5.2.10))(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))':
+    dependencies:
+      '@storybook/csf': 0.1.11
+      '@storybook/docs-tools': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      '@storybook/node-logger': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      '@storybook/svelte': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))(svelte@5.2.10)
+      '@storybook/types': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      '@sveltejs/vite-plugin-svelte': 4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
+      dedent: 1.5.3
+      es-toolkit: 1.27.0
+      esrap: 1.2.2
+      magic-string: 0.30.14
+      svelte: 5.2.10
+      svelte-ast-print: 0.4.2(svelte@5.2.10)
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
+      zimmerframe: 1.1.2
+    transitivePeerDependencies:
+      - babel-plugin-macros
+      - storybook
+
+  '@storybook/addon-toolbars@8.4.5(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       storybook: 8.4.5(prettier@3.4.1)
 
-  '@storybook/addon-viewport@8.4.5(storybook@8.4.5)':
+  '@storybook/addon-toolbars@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+
+  '@storybook/addon-toolbars@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+
+  '@storybook/addon-toolbars@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+
+  '@storybook/addon-viewport@8.4.5(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       memoizerific: 1.11.3
       storybook: 8.4.5(prettier@3.4.1)
 
-  '@storybook/blocks@8.4.5(react-dom@18.3.1)(react@18.3.1)(storybook@8.4.5)':
+  '@storybook/addon-viewport@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
+    dependencies:
+      memoizerific: 1.11.3
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+
+  '@storybook/addon-viewport@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      memoizerific: 1.11.3
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+
+  '@storybook/addon-viewport@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      memoizerific: 1.11.3
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+
+  '@storybook/blocks@8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       '@storybook/csf': 0.1.11
-      '@storybook/icons': 1.2.12(react-dom@18.3.1)(react@18.3.1)
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      '@storybook/icons': 1.2.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       storybook: 8.4.5(prettier@3.4.1)
       ts-dedent: 2.2.0
+    optionalDependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
-  '@storybook/builder-vite@8.4.5(storybook@8.4.5)(vite@5.4.11)':
+  '@storybook/blocks@8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
     dependencies:
-      '@storybook/csf-plugin': 8.4.5(storybook@8.4.5)
+      '@storybook/csf': 0.1.11
+      '@storybook/icons': 1.2.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+      ts-dedent: 2.2.0
+    optionalDependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
+  '@storybook/blocks@8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      '@storybook/csf': 0.1.11
+      '@storybook/icons': 1.2.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+      ts-dedent: 2.2.0
+    optionalDependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
+  '@storybook/blocks@8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      '@storybook/csf': 0.1.11
+      '@storybook/icons': 1.2.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+      ts-dedent: 2.2.0
+    optionalDependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
+  '@storybook/builder-vite@8.4.5(storybook@8.4.5(prettier@3.4.1))(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))':
+    dependencies:
+      '@storybook/csf-plugin': 8.4.5(storybook@8.4.5(prettier@3.4.1))
       browser-assert: 1.2.1
       storybook: 8.4.5(prettier@3.4.1)
       ts-dedent: 2.2.0
-      vite: 5.4.11
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
 
-  '@storybook/components@8.4.5(storybook@8.4.5)':
+  '@storybook/builder-vite@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))':
+    dependencies:
+      '@storybook/csf-plugin': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      browser-assert: 1.2.1
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+      ts-dedent: 2.2.0
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
+
+  '@storybook/builder-vite@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))':
+    dependencies:
+      '@storybook/csf-plugin': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      browser-assert: 1.2.1
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+      ts-dedent: 2.2.0
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
+
+  '@storybook/builder-vite@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))':
+    dependencies:
+      '@storybook/csf-plugin': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      browser-assert: 1.2.1
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+      ts-dedent: 2.2.0
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
+
+  '@storybook/components@8.4.5(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       storybook: 8.4.5(prettier@3.4.1)
+
+  '@storybook/components@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+
+  '@storybook/components@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+
+  '@storybook/components@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
 
   '@storybook/core@8.4.5(prettier@3.4.1)':
     dependencies:
@@ -7162,12 +7592,13 @@ snapshots:
       esbuild: 0.24.0
       esbuild-register: 3.6.0(esbuild@0.24.0)
       jsdoc-type-pratt-parser: 4.1.0
-      prettier: 3.4.1
       process: 0.11.10
       recast: 0.23.9
       semver: 7.6.3
       util: 0.12.5
       ws: 8.18.0
+    optionalDependencies:
+      prettier: 3.4.1
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -7181,12 +7612,13 @@ snapshots:
       esbuild: 0.24.0
       esbuild-register: 3.6.0(esbuild@0.24.0)
       jsdoc-type-pratt-parser: 4.1.0
-      prettier: link:apps/web/@life/config-prettier
       process: 0.11.10
       recast: 0.23.9
       semver: 7.6.3
       util: 0.12.5
       ws: 8.18.0
+    optionalDependencies:
+      prettier: link:apps/web/@life/config-prettier
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -7200,12 +7632,13 @@ snapshots:
       esbuild: 0.24.0
       esbuild-register: 3.6.0(esbuild@0.24.0)
       jsdoc-type-pratt-parser: 4.1.0
-      prettier: link:packages/calendar/@life/config-prettier
       process: 0.11.10
       recast: 0.23.9
       semver: 7.6.3
       util: 0.12.5
       ws: 8.18.0
+    optionalDependencies:
+      prettier: link:packages/calendar/@life/config-prettier
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -7219,101 +7652,175 @@ snapshots:
       esbuild: 0.24.0
       esbuild-register: 3.6.0(esbuild@0.24.0)
       jsdoc-type-pratt-parser: 4.1.0
-      prettier: link:packages/shared/@life/config-prettier
       process: 0.11.10
       recast: 0.23.9
       semver: 7.6.3
       util: 0.12.5
       ws: 8.18.0
+    optionalDependencies:
+      prettier: link:packages/shared/@life/config-prettier
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@storybook/csf-plugin@8.4.5(storybook@8.4.5)':
+  '@storybook/csf-plugin@8.4.5(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       storybook: 8.4.5(prettier@3.4.1)
+      unplugin: 1.16.0
+
+  '@storybook/csf-plugin@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+      unplugin: 1.16.0
+
+  '@storybook/csf-plugin@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+      unplugin: 1.16.0
+
+  '@storybook/csf-plugin@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
       unplugin: 1.16.0
 
   '@storybook/csf@0.1.11':
     dependencies:
       type-fest: 2.19.0
 
-  '@storybook/docs-tools@8.4.5(storybook@8.4.5)':
+  '@storybook/docs-tools@8.4.5(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       storybook: 8.4.5(prettier@3.4.1)
 
+  '@storybook/docs-tools@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+
+  '@storybook/docs-tools@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+
+  '@storybook/docs-tools@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+
   '@storybook/global@5.0.0': {}
 
-  '@storybook/icons@1.2.12(react-dom@18.3.1)(react@18.3.1)':
+  '@storybook/icons@1.2.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@storybook/instrumenter@8.4.5(storybook@8.4.5)':
+  '@storybook/instrumenter@8.4.5(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       '@storybook/global': 5.0.0
       '@vitest/utils': 2.1.6
       storybook: 8.4.5(prettier@3.4.1)
 
-  '@storybook/manager-api@8.4.5(storybook@8.4.5)':
+  '@storybook/instrumenter@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      '@vitest/utils': 2.1.6
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+
+  '@storybook/instrumenter@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      '@vitest/utils': 2.1.6
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+
+  '@storybook/instrumenter@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      '@vitest/utils': 2.1.6
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+
+  '@storybook/manager-api@8.4.5(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       storybook: 8.4.5(prettier@3.4.1)
 
-  '@storybook/node-logger@8.4.5(storybook@8.4.5)':
+  '@storybook/manager-api@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+
+  '@storybook/manager-api@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+
+  '@storybook/manager-api@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+
+  '@storybook/node-logger@8.4.5(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       storybook: 8.4.5(prettier@3.4.1)
 
-  '@storybook/preview-api@8.4.5(storybook@8.4.5)':
+  '@storybook/node-logger@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+
+  '@storybook/node-logger@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+
+  '@storybook/node-logger@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+
+  '@storybook/preview-api@8.4.5(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       storybook: 8.4.5(prettier@3.4.1)
 
-  '@storybook/react-dom-shim@8.4.5(react-dom@18.3.1)(react@18.3.1)(storybook@8.4.5)':
+  '@storybook/preview-api@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+
+  '@storybook/preview-api@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+
+  '@storybook/preview-api@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+
+  '@storybook/react-dom-shim@8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       storybook: 8.4.5(prettier@3.4.1)
 
-  '@storybook/svelte-vite@8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2)(postcss@8.4.49)(storybook@8.4.5)(svelte@5.2.10)(vite@5.4.11)':
+  '@storybook/react-dom-shim@8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
     dependencies:
-      '@storybook/builder-vite': 8.4.5(storybook@8.4.5)(vite@5.4.11)
-      '@storybook/svelte': 8.4.5(storybook@8.4.5)(svelte@5.2.10)
-      '@sveltejs/vite-plugin-svelte': 4.0.2(svelte@5.2.10)(vite@5.4.11)
-      magic-string: 0.30.14
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
       storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
-      svelte: 5.2.10
-      svelte-preprocess: 5.1.4(@babel/core@7.26.0)(postcss@8.4.49)(svelte@5.2.10)(typescript@5.7.2)
-      svelte2tsx: 0.7.28(svelte@5.2.10)(typescript@5.7.2)
-      sveltedoc-parser: 4.2.1
-      ts-dedent: 2.2.0
-      typescript: 5.7.2
-      vite: 5.4.11
-    transitivePeerDependencies:
-      - '@babel/core'
-      - coffeescript
-      - less
-      - postcss
-      - postcss-load-config
-      - pug
-      - sass
-      - stylus
-      - sugarss
-      - supports-color
 
-  '@storybook/svelte-vite@8.4.5(@sveltejs/vite-plugin-svelte@4.0.2)(postcss@8.4.49)(storybook@8.4.5)(svelte@5.2.10)(vite@5.4.11)':
+  '@storybook/react-dom-shim@8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
     dependencies:
-      '@storybook/builder-vite': 8.4.5(storybook@8.4.5)(vite@5.4.11)
-      '@storybook/svelte': 8.4.5(storybook@8.4.5)(svelte@5.2.10)
-      '@sveltejs/vite-plugin-svelte': 4.0.2(svelte@5.2.10)(vite@5.4.11)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+
+  '@storybook/react-dom-shim@8.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+
+  '@storybook/svelte-vite@8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))':
+    dependencies:
+      '@storybook/builder-vite': 8.4.5(storybook@8.4.5(prettier@3.4.1))(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
+      '@storybook/svelte': 8.4.5(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.10)
+      '@sveltejs/vite-plugin-svelte': 4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       magic-string: 0.30.14
       storybook: 8.4.5(prettier@3.4.1)
       svelte: 5.2.10
-      svelte-preprocess: 5.1.4(@babel/core@7.26.0)(postcss@8.4.49)(svelte@5.2.10)(typescript@5.7.2)
+      svelte-preprocess: 5.1.4(@babel/core@7.26.0)(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(svelte@5.2.10)(typescript@5.7.2)
       svelte2tsx: 0.7.28(svelte@5.2.10)(typescript@5.7.2)
       sveltedoc-parser: 4.2.1
       ts-dedent: 2.2.0
       typescript: 5.7.2
-      vite: 5.4.11
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
     transitivePeerDependencies:
       - '@babel/core'
       - coffeescript
@@ -7326,13 +7833,91 @@ snapshots:
       - sugarss
       - supports-color
 
-  '@storybook/svelte@8.4.5(storybook@8.4.5)(svelte@5.2.10)':
+  '@storybook/svelte-vite@8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(storybook@8.4.5(prettier@apps+web+@life+config-prettier))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))':
     dependencies:
-      '@storybook/components': 8.4.5(storybook@8.4.5)
+      '@storybook/builder-vite': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
+      '@storybook/svelte': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))(svelte@5.2.10)
+      '@sveltejs/vite-plugin-svelte': 4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
+      magic-string: 0.30.14
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+      svelte: 5.2.10
+      svelte-preprocess: 5.1.4(@babel/core@7.26.0)(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(svelte@5.2.10)(typescript@5.7.2)
+      svelte2tsx: 0.7.28(svelte@5.2.10)(typescript@5.7.2)
+      sveltedoc-parser: 4.2.1
+      ts-dedent: 2.2.0
+      typescript: 5.7.2
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - coffeescript
+      - less
+      - postcss
+      - postcss-load-config
+      - pug
+      - sass
+      - stylus
+      - sugarss
+      - supports-color
+
+  '@storybook/svelte-vite@8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))':
+    dependencies:
+      '@storybook/builder-vite': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
+      '@storybook/svelte': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))(svelte@5.2.10)
+      '@sveltejs/vite-plugin-svelte': 4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
+      magic-string: 0.30.14
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+      svelte: 5.2.10
+      svelte-preprocess: 5.1.4(@babel/core@7.26.0)(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(svelte@5.2.10)(typescript@5.7.2)
+      svelte2tsx: 0.7.28(svelte@5.2.10)(typescript@5.7.2)
+      sveltedoc-parser: 4.2.1
+      ts-dedent: 2.2.0
+      typescript: 5.7.2
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - coffeescript
+      - less
+      - postcss
+      - postcss-load-config
+      - pug
+      - sass
+      - stylus
+      - sugarss
+      - supports-color
+
+  '@storybook/svelte-vite@8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))':
+    dependencies:
+      '@storybook/builder-vite': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
+      '@storybook/svelte': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))(svelte@5.2.10)
+      '@sveltejs/vite-plugin-svelte': 4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
+      magic-string: 0.30.14
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+      svelte: 5.2.10
+      svelte-preprocess: 5.1.4(@babel/core@7.26.0)(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(svelte@5.2.10)(typescript@5.7.2)
+      svelte2tsx: 0.7.28(svelte@5.2.10)(typescript@5.7.2)
+      sveltedoc-parser: 4.2.1
+      ts-dedent: 2.2.0
+      typescript: 5.7.2
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - coffeescript
+      - less
+      - postcss
+      - postcss-load-config
+      - pug
+      - sass
+      - stylus
+      - sugarss
+      - supports-color
+
+  '@storybook/svelte@8.4.5(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.10)':
+    dependencies:
+      '@storybook/components': 8.4.5(storybook@8.4.5(prettier@3.4.1))
       '@storybook/global': 5.0.0
-      '@storybook/manager-api': 8.4.5(storybook@8.4.5)
-      '@storybook/preview-api': 8.4.5(storybook@8.4.5)
-      '@storybook/theming': 8.4.5(storybook@8.4.5)
+      '@storybook/manager-api': 8.4.5(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/preview-api': 8.4.5(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/theming': 8.4.5(storybook@8.4.5(prettier@3.4.1))
       storybook: 8.4.5(prettier@3.4.1)
       svelte: 5.2.10
       sveltedoc-parser: 4.2.1
@@ -7341,37 +7926,60 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@storybook/sveltekit@8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2)(postcss@8.4.49)(storybook@8.4.5)(svelte@5.2.10)(vite@5.4.11)':
+  '@storybook/svelte@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))(svelte@5.2.10)':
     dependencies:
-      '@storybook/addon-actions': 8.4.5(storybook@8.4.5)
-      '@storybook/builder-vite': 8.4.5(storybook@8.4.5)(vite@5.4.11)
-      '@storybook/svelte': 8.4.5(storybook@8.4.5)(svelte@5.2.10)
-      '@storybook/svelte-vite': 8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2)(postcss@8.4.49)(storybook@8.4.5)(svelte@5.2.10)(vite@5.4.11)
+      '@storybook/components': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      '@storybook/global': 5.0.0
+      '@storybook/manager-api': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      '@storybook/preview-api': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      '@storybook/theming': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
       storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
       svelte: 5.2.10
-      vite: 5.4.11
+      sveltedoc-parser: 4.2.1
+      ts-dedent: 2.2.0
+      type-fest: 2.19.0
     transitivePeerDependencies:
-      - '@babel/core'
-      - '@sveltejs/vite-plugin-svelte'
-      - coffeescript
-      - less
-      - postcss
-      - postcss-load-config
-      - pug
-      - sass
-      - stylus
-      - sugarss
       - supports-color
 
-  '@storybook/sveltekit@8.4.5(@sveltejs/vite-plugin-svelte@4.0.2)(postcss@8.4.49)(storybook@8.4.5)(svelte@5.2.10)(vite@5.4.11)':
+  '@storybook/svelte@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))(svelte@5.2.10)':
     dependencies:
-      '@storybook/addon-actions': 8.4.5(storybook@8.4.5)
-      '@storybook/builder-vite': 8.4.5(storybook@8.4.5)(vite@5.4.11)
-      '@storybook/svelte': 8.4.5(storybook@8.4.5)(svelte@5.2.10)
-      '@storybook/svelte-vite': 8.4.5(@sveltejs/vite-plugin-svelte@4.0.2)(postcss@8.4.49)(storybook@8.4.5)(svelte@5.2.10)(vite@5.4.11)
+      '@storybook/components': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      '@storybook/global': 5.0.0
+      '@storybook/manager-api': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      '@storybook/preview-api': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      '@storybook/theming': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+      svelte: 5.2.10
+      sveltedoc-parser: 4.2.1
+      ts-dedent: 2.2.0
+      type-fest: 2.19.0
+    transitivePeerDependencies:
+      - supports-color
+
+  '@storybook/svelte@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))(svelte@5.2.10)':
+    dependencies:
+      '@storybook/components': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      '@storybook/global': 5.0.0
+      '@storybook/manager-api': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      '@storybook/preview-api': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      '@storybook/theming': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+      svelte: 5.2.10
+      sveltedoc-parser: 4.2.1
+      ts-dedent: 2.2.0
+      type-fest: 2.19.0
+    transitivePeerDependencies:
+      - supports-color
+
+  '@storybook/sveltekit@8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))':
+    dependencies:
+      '@storybook/addon-actions': 8.4.5(storybook@8.4.5(prettier@3.4.1))
+      '@storybook/builder-vite': 8.4.5(storybook@8.4.5(prettier@3.4.1))(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
+      '@storybook/svelte': 8.4.5(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.10)
+      '@storybook/svelte-vite': 8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(storybook@8.4.5(prettier@3.4.1))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       storybook: 8.4.5(prettier@3.4.1)
       svelte: 5.2.10
-      vite: 5.4.11
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
     transitivePeerDependencies:
       - '@babel/core'
       - '@sveltejs/vite-plugin-svelte'
@@ -7385,11 +7993,77 @@ snapshots:
       - sugarss
       - supports-color
 
-  '@storybook/test@8.4.5(storybook@8.4.5)':
+  '@storybook/sveltekit@8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(storybook@8.4.5(prettier@apps+web+@life+config-prettier))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))':
+    dependencies:
+      '@storybook/addon-actions': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      '@storybook/builder-vite': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
+      '@storybook/svelte': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))(svelte@5.2.10)
+      '@storybook/svelte-vite': 8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(storybook@8.4.5(prettier@apps+web+@life+config-prettier))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+      svelte: 5.2.10
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@sveltejs/vite-plugin-svelte'
+      - coffeescript
+      - less
+      - postcss
+      - postcss-load-config
+      - pug
+      - sass
+      - stylus
+      - sugarss
+      - supports-color
+
+  '@storybook/sveltekit@8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))':
+    dependencies:
+      '@storybook/addon-actions': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      '@storybook/builder-vite': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
+      '@storybook/svelte': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))(svelte@5.2.10)
+      '@storybook/svelte-vite': 8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+      svelte: 5.2.10
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@sveltejs/vite-plugin-svelte'
+      - coffeescript
+      - less
+      - postcss
+      - postcss-load-config
+      - pug
+      - sass
+      - stylus
+      - sugarss
+      - supports-color
+
+  '@storybook/sveltekit@8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))':
+    dependencies:
+      '@storybook/addon-actions': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      '@storybook/builder-vite': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
+      '@storybook/svelte': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))(svelte@5.2.10)
+      '@storybook/svelte-vite': 8.4.5(@babel/core@7.26.0)(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+      svelte: 5.2.10
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@sveltejs/vite-plugin-svelte'
+      - coffeescript
+      - less
+      - postcss
+      - postcss-load-config
+      - pug
+      - sass
+      - stylus
+      - sugarss
+      - supports-color
+
+  '@storybook/test@8.4.5(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       '@storybook/csf': 0.1.11
       '@storybook/global': 5.0.0
-      '@storybook/instrumenter': 8.4.5(storybook@8.4.5)
+      '@storybook/instrumenter': 8.4.5(storybook@8.4.5(prettier@3.4.1))
       '@testing-library/dom': 10.4.0
       '@testing-library/jest-dom': 6.5.0
       '@testing-library/user-event': 14.5.2(@testing-library/dom@10.4.0)
@@ -7397,13 +8071,73 @@ snapshots:
       '@vitest/spy': 2.0.5
       storybook: 8.4.5(prettier@3.4.1)
 
-  '@storybook/theming@8.4.5(storybook@8.4.5)':
+  '@storybook/test@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
+    dependencies:
+      '@storybook/csf': 0.1.11
+      '@storybook/global': 5.0.0
+      '@storybook/instrumenter': 8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))
+      '@testing-library/dom': 10.4.0
+      '@testing-library/jest-dom': 6.5.0
+      '@testing-library/user-event': 14.5.2(@testing-library/dom@10.4.0)
+      '@vitest/expect': 2.0.5
+      '@vitest/spy': 2.0.5
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+
+  '@storybook/test@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      '@storybook/csf': 0.1.11
+      '@storybook/global': 5.0.0
+      '@storybook/instrumenter': 8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))
+      '@testing-library/dom': 10.4.0
+      '@testing-library/jest-dom': 6.5.0
+      '@testing-library/user-event': 14.5.2(@testing-library/dom@10.4.0)
+      '@vitest/expect': 2.0.5
+      '@vitest/spy': 2.0.5
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+
+  '@storybook/test@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      '@storybook/csf': 0.1.11
+      '@storybook/global': 5.0.0
+      '@storybook/instrumenter': 8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))
+      '@testing-library/dom': 10.4.0
+      '@testing-library/jest-dom': 6.5.0
+      '@testing-library/user-event': 14.5.2(@testing-library/dom@10.4.0)
+      '@vitest/expect': 2.0.5
+      '@vitest/spy': 2.0.5
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+
+  '@storybook/theming@8.4.5(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       storybook: 8.4.5(prettier@3.4.1)
 
-  '@storybook/types@8.4.5(storybook@8.4.5)':
+  '@storybook/theming@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+
+  '@storybook/theming@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+
+  '@storybook/theming@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
+
+  '@storybook/types@8.4.5(storybook@8.4.5(prettier@3.4.1))':
     dependencies:
       storybook: 8.4.5(prettier@3.4.1)
+
+  '@storybook/types@8.4.5(storybook@8.4.5(prettier@apps+web+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@apps+web+@life+config-prettier)
+
+  '@storybook/types@8.4.5(storybook@8.4.5(prettier@packages+calendar+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@packages+calendar+@life+config-prettier)
+
+  '@storybook/types@8.4.5(storybook@8.4.5(prettier@packages+shared+@life+config-prettier))':
+    dependencies:
+      storybook: 8.4.5(prettier@packages+shared+@life+config-prettier)
 
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     dependencies:
@@ -7412,23 +8146,23 @@ snapshots:
       magic-string: 0.25.9
       string.prototype.matchall: 4.0.11
 
-  '@sveltejs/adapter-auto@3.3.1(@sveltejs/kit@2.8.5)':
+  '@sveltejs/adapter-auto@3.3.1(@sveltejs/kit@2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))':
     dependencies:
-      '@sveltejs/kit': 2.8.5(@sveltejs/vite-plugin-svelte@4.0.2)(svelte@5.2.10)(vite@5.4.11)
+      '@sveltejs/kit': 2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       import-meta-resolve: 4.1.0
 
-  '@sveltejs/adapter-vercel@5.4.8(@sveltejs/kit@2.8.5)':
+  '@sveltejs/adapter-vercel@5.4.8(@sveltejs/kit@2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))':
     dependencies:
-      '@sveltejs/kit': 2.8.5(@sveltejs/vite-plugin-svelte@4.0.2)(svelte@5.2.10)(vite@5.4.11)
+      '@sveltejs/kit': 2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       '@vercel/nft': 0.27.6
       esbuild: 0.21.5
     transitivePeerDependencies:
       - encoding
       - supports-color
 
-  '@sveltejs/kit@2.8.5(@sveltejs/vite-plugin-svelte@4.0.2)(svelte@5.2.10)(vite@5.4.11)':
+  '@sveltejs/kit@2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 4.0.2(svelte@5.2.10)(vite@5.4.11)
+      '@sveltejs/vite-plugin-svelte': 4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       '@types/cookie': 0.6.0
       cookie: 0.6.0
       devalue: 5.1.1
@@ -7442,7 +8176,7 @@ snapshots:
       sirv: 3.0.0
       svelte: 5.2.10
       tiny-glob: 0.2.9
-      vite: 5.4.11
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
 
   '@sveltejs/package@2.3.7(svelte@5.2.10)(typescript@5.7.2)':
     dependencies:
@@ -7455,25 +8189,25 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@sveltejs/vite-plugin-svelte-inspector@3.0.1(@sveltejs/vite-plugin-svelte@4.0.2)(svelte@5.2.10)(vite@5.4.11)':
+  '@sveltejs/vite-plugin-svelte-inspector@3.0.1(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 4.0.2(svelte@5.2.10)(vite@5.4.11)
+      '@sveltejs/vite-plugin-svelte': 4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       debug: 4.3.7
       svelte: 5.2.10
-      vite: 5.4.11
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
     transitivePeerDependencies:
       - supports-color
 
-  '@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11)':
+  '@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte-inspector': 3.0.1(@sveltejs/vite-plugin-svelte@4.0.2)(svelte@5.2.10)(vite@5.4.11)
+      '@sveltejs/vite-plugin-svelte-inspector': 3.0.1(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       debug: 4.3.7
       deepmerge: 4.3.1
       kleur: 4.1.5
       magic-string: 0.30.14
       svelte: 5.2.10
-      vite: 5.4.11
-      vitefu: 1.0.4(vite@5.4.11)
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
+      vitefu: 1.0.4(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
     transitivePeerDependencies:
       - supports-color
 
@@ -7533,11 +8267,11 @@ snapshots:
   '@types/liftoff@4.0.3':
     dependencies:
       '@types/fined': 1.1.5
-      '@types/node': 22.10.0
+      '@types/node': 22.10.1
 
   '@types/mdx@2.0.13': {}
 
-  '@types/node@22.10.0':
+  '@types/node@22.10.1':
     dependencies:
       undici-types: 6.20.0
 
@@ -7554,37 +8288,39 @@ snapshots:
 
   '@types/through@0.0.33':
     dependencies:
-      '@types/node': 22.10.0
+      '@types/node': 22.10.1
 
   '@types/trusted-types@2.0.7': {}
 
   '@types/uuid@9.0.8': {}
 
-  '@typescript-eslint/eslint-plugin@8.16.0(@typescript-eslint/parser@8.16.0)(eslint@9.15.0)(typescript@5.7.2)':
+  '@typescript-eslint/eslint-plugin@8.16.0(@typescript-eslint/parser@8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2))(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)':
     dependencies:
       '@eslint-community/regexpp': 4.12.1
-      '@typescript-eslint/parser': 8.16.0(eslint@9.15.0)(typescript@5.7.2)
+      '@typescript-eslint/parser': 8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
       '@typescript-eslint/scope-manager': 8.16.0
-      '@typescript-eslint/type-utils': 8.16.0(eslint@9.15.0)(typescript@5.7.2)
-      '@typescript-eslint/utils': 8.16.0(eslint@9.15.0)(typescript@5.7.2)
+      '@typescript-eslint/type-utils': 8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
+      '@typescript-eslint/utils': 8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
       '@typescript-eslint/visitor-keys': 8.16.0
-      eslint: 9.15.0
+      eslint: 9.15.0(jiti@1.21.6)
       graphemer: 1.4.0
       ignore: 5.3.2
       natural-compare: 1.4.0
       ts-api-utils: 1.4.2(typescript@5.7.2)
+    optionalDependencies:
       typescript: 5.7.2
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/parser@8.16.0(eslint@9.15.0)(typescript@5.7.2)':
+  '@typescript-eslint/parser@8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)':
     dependencies:
       '@typescript-eslint/scope-manager': 8.16.0
       '@typescript-eslint/types': 8.16.0
       '@typescript-eslint/typescript-estree': 8.16.0(typescript@5.7.2)
       '@typescript-eslint/visitor-keys': 8.16.0
       debug: 4.3.7
-      eslint: 9.15.0
+      eslint: 9.15.0(jiti@1.21.6)
+    optionalDependencies:
       typescript: 5.7.2
     transitivePeerDependencies:
       - supports-color
@@ -7594,13 +8330,14 @@ snapshots:
       '@typescript-eslint/types': 8.16.0
       '@typescript-eslint/visitor-keys': 8.16.0
 
-  '@typescript-eslint/type-utils@8.16.0(eslint@9.15.0)(typescript@5.7.2)':
+  '@typescript-eslint/type-utils@8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)':
     dependencies:
       '@typescript-eslint/typescript-estree': 8.16.0(typescript@5.7.2)
-      '@typescript-eslint/utils': 8.16.0(eslint@9.15.0)(typescript@5.7.2)
+      '@typescript-eslint/utils': 8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
       debug: 4.3.7
-      eslint: 9.15.0
+      eslint: 9.15.0(jiti@1.21.6)
       ts-api-utils: 1.4.2(typescript@5.7.2)
+    optionalDependencies:
       typescript: 5.7.2
     transitivePeerDependencies:
       - supports-color
@@ -7617,17 +8354,19 @@ snapshots:
       minimatch: 9.0.5
       semver: 7.6.3
       ts-api-utils: 1.4.2(typescript@5.7.2)
+    optionalDependencies:
       typescript: 5.7.2
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/utils@8.16.0(eslint@9.15.0)(typescript@5.7.2)':
+  '@typescript-eslint/utils@8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)':
     dependencies:
-      '@eslint-community/eslint-utils': 4.4.1(eslint@9.15.0)
+      '@eslint-community/eslint-utils': 4.4.1(eslint@9.15.0(jiti@1.21.6))
       '@typescript-eslint/scope-manager': 8.16.0
       '@typescript-eslint/types': 8.16.0
       '@typescript-eslint/typescript-estree': 8.16.0(typescript@5.7.2)
-      eslint: 9.15.0
+      eslint: 9.15.0(jiti@1.21.6)
+    optionalDependencies:
       typescript: 5.7.2
     transitivePeerDependencies:
       - supports-color
@@ -7664,13 +8403,14 @@ snapshots:
       sharp-ico: 0.1.5
       unconfig: 0.3.13
 
-  '@vite-pwa/sveltekit@0.6.6(@sveltejs/kit@2.8.5)(@vite-pwa/assets-generator@0.2.6)(vite-plugin-pwa@0.20.5)':
+  '@vite-pwa/sveltekit@0.6.6(@sveltejs/kit@2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(@vite-pwa/assets-generator@0.2.6)(vite-plugin-pwa@0.20.5(@vite-pwa/assets-generator@0.2.6)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))(workbox-build@7.3.0)(workbox-window@7.3.0))':
     dependencies:
-      '@sveltejs/kit': 2.8.5(@sveltejs/vite-plugin-svelte@4.0.2)(svelte@5.2.10)(vite@5.4.11)
-      '@vite-pwa/assets-generator': 0.2.6
+      '@sveltejs/kit': 2.8.5(@sveltejs/vite-plugin-svelte@4.0.2(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@5.2.10)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       kolorist: 1.8.0
       tinyglobby: 0.2.10
-      vite-plugin-pwa: 0.20.5(@vite-pwa/assets-generator@0.2.6)(vite@5.4.11)(workbox-build@7.3.0)(workbox-window@7.3.0)
+      vite-plugin-pwa: 0.20.5(@vite-pwa/assets-generator@0.2.6)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))(workbox-build@7.3.0)(workbox-window@7.3.0)
+    optionalDependencies:
+      '@vite-pwa/assets-generator': 0.2.6
 
   '@vitest/expect@2.0.5':
     dependencies:
@@ -7686,12 +8426,13 @@ snapshots:
       chai: 5.1.2
       tinyrainbow: 1.2.0
 
-  '@vitest/mocker@2.1.6(vite@5.4.11)':
+  '@vitest/mocker@2.1.6(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))':
     dependencies:
       '@vitest/spy': 2.1.6
       estree-walker: 3.0.3
       magic-string: 0.30.14
-      vite: 5.4.11
+    optionalDependencies:
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
 
   '@vitest/pretty-format@2.0.5':
     dependencies:
@@ -8493,19 +9234,19 @@ snapshots:
 
   escape-string-regexp@5.0.0: {}
 
-  eslint-compat-utils@0.5.1(eslint@9.15.0):
+  eslint-compat-utils@0.5.1(eslint@9.15.0(jiti@1.21.6)):
     dependencies:
-      eslint: 9.15.0
+      eslint: 9.15.0(jiti@1.21.6)
       semver: 7.6.3
 
-  eslint-config-prettier@9.1.0(eslint@9.15.0):
+  eslint-config-prettier@9.1.0(eslint@9.15.0(jiti@1.21.6)):
     dependencies:
-      eslint: 9.15.0
+      eslint: 9.15.0(jiti@1.21.6)
 
-  eslint-config-turbo@2.3.3(eslint@9.15.0):
+  eslint-config-turbo@2.3.3(eslint@9.15.0(jiti@1.21.6)):
     dependencies:
-      eslint: 9.15.0
-      eslint-plugin-turbo: 2.3.3(eslint@9.15.0)
+      eslint: 9.15.0(jiti@1.21.6)
+      eslint-plugin-turbo: 2.3.3(eslint@9.15.0(jiti@1.21.6))
 
   eslint-import-resolver-node@0.3.9:
     dependencies:
@@ -8515,28 +9256,28 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.16.0)(eslint-import-resolver-node@0.3.9)(eslint@9.15.0):
+  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2))(eslint-import-resolver-node@0.3.9)(eslint@9.15.0(jiti@1.21.6)):
     dependencies:
-      '@typescript-eslint/parser': 8.16.0(eslint@9.15.0)(typescript@5.7.2)
       debug: 3.2.7
-      eslint: 9.15.0
+    optionalDependencies:
+      '@typescript-eslint/parser': 8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
+      eslint: 9.15.0(jiti@1.21.6)
       eslint-import-resolver-node: 0.3.9
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.16.0)(eslint@9.15.0):
+  eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2))(eslint@9.15.0(jiti@1.21.6)):
     dependencies:
       '@rtsao/scc': 1.1.0
-      '@typescript-eslint/parser': 8.16.0(eslint@9.15.0)(typescript@5.7.2)
       array-includes: 3.1.8
       array.prototype.findlastindex: 1.2.5
       array.prototype.flat: 1.3.2
       array.prototype.flatmap: 1.3.2
       debug: 3.2.7
       doctrine: 2.1.0
-      eslint: 9.15.0
+      eslint: 9.15.0(jiti@1.21.6)
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.16.0)(eslint-import-resolver-node@0.3.9)(eslint@9.15.0)
+      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2))(eslint-import-resolver-node@0.3.9)(eslint@9.15.0(jiti@1.21.6))
       hasown: 2.0.2
       is-core-module: 2.15.1
       is-glob: 4.0.3
@@ -8547,21 +9288,23 @@ snapshots:
       semver: 6.3.1
       string.prototype.trimend: 1.0.8
       tsconfig-paths: 3.15.0
+    optionalDependencies:
+      '@typescript-eslint/parser': 8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
     transitivePeerDependencies:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-plugin-simple-import-sort@12.1.1(eslint@9.15.0):
+  eslint-plugin-simple-import-sort@12.1.1(eslint@9.15.0(jiti@1.21.6)):
     dependencies:
-      eslint: 9.15.0
+      eslint: 9.15.0(jiti@1.21.6)
 
-  eslint-plugin-svelte@2.46.0(eslint@9.15.0)(svelte@5.2.10):
+  eslint-plugin-svelte@2.46.0(eslint@9.15.0(jiti@1.21.6))(svelte@5.2.10):
     dependencies:
-      '@eslint-community/eslint-utils': 4.4.1(eslint@9.15.0)
+      '@eslint-community/eslint-utils': 4.4.1(eslint@9.15.0(jiti@1.21.6))
       '@jridgewell/sourcemap-codec': 1.5.0
-      eslint: 9.15.0
-      eslint-compat-utils: 0.5.1(eslint@9.15.0)
+      eslint: 9.15.0(jiti@1.21.6)
+      eslint-compat-utils: 0.5.1(eslint@9.15.0(jiti@1.21.6))
       esutils: 2.0.3
       known-css-properties: 0.35.0
       postcss: 8.4.49
@@ -8569,19 +9312,22 @@ snapshots:
       postcss-safe-parser: 6.0.0(postcss@8.4.49)
       postcss-selector-parser: 6.1.2
       semver: 7.6.3
-      svelte: 5.2.10
       svelte-eslint-parser: 0.43.0(svelte@5.2.10)
+    optionalDependencies:
+      svelte: 5.2.10
     transitivePeerDependencies:
       - ts-node
 
-  eslint-plugin-turbo@2.3.3(eslint@9.15.0):
+  eslint-plugin-turbo@2.3.3(eslint@9.15.0(jiti@1.21.6)):
     dependencies:
       dotenv: 16.0.3
-      eslint: 9.15.0
+      eslint: 9.15.0(jiti@1.21.6)
 
-  eslint-plugin-unused-imports@4.1.4(eslint@9.15.0):
+  eslint-plugin-unused-imports@4.1.4(@typescript-eslint/eslint-plugin@8.16.0(@typescript-eslint/parser@8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2))(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2))(eslint@9.15.0(jiti@1.21.6)):
     dependencies:
-      eslint: 9.15.0
+      eslint: 9.15.0(jiti@1.21.6)
+    optionalDependencies:
+      '@typescript-eslint/eslint-plugin': 8.16.0(@typescript-eslint/parser@8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2))(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
 
   eslint-scope@7.2.2:
     dependencies:
@@ -8647,9 +9393,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint@9.15.0:
+  eslint@9.15.0(jiti@1.21.6):
     dependencies:
-      '@eslint-community/eslint-utils': 4.4.1(eslint@9.15.0)
+      '@eslint-community/eslint-utils': 4.4.1(eslint@9.15.0(jiti@1.21.6))
       '@eslint-community/regexpp': 4.12.1
       '@eslint/config-array': 0.19.0
       '@eslint/core': 0.9.0
@@ -8683,6 +9429,8 @@ snapshots:
       minimatch: 3.1.2
       natural-compare: 1.4.0
       optionator: 0.9.4
+    optionalDependencies:
+      jiti: 1.21.6
     transitivePeerDependencies:
       - supports-color
 
@@ -8776,7 +9524,7 @@ snapshots:
       websocket-driver: 0.7.4
 
   fdir@6.4.2(picomatch@4.0.2):
-    dependencies:
+    optionalDependencies:
       picomatch: 4.0.2
 
   file-entry-cache@6.0.1:
@@ -9843,14 +10591,16 @@ snapshots:
   postcss-load-config@3.1.4(postcss@8.4.49):
     dependencies:
       lilconfig: 2.1.0
-      postcss: 8.4.49
       yaml: 1.10.2
+    optionalDependencies:
+      postcss: 8.4.49
 
   postcss-load-config@4.0.2(postcss@8.4.49):
     dependencies:
       lilconfig: 3.1.2
-      postcss: 8.4.49
       yaml: 2.6.1
+    optionalDependencies:
+      postcss: 8.4.49
 
   postcss-nested@6.2.0(postcss@8.4.49):
     dependencies:
@@ -9900,9 +10650,10 @@ snapshots:
       prettier: 3.4.1
       svelte: 5.2.10
 
-  prettier-plugin-tailwindcss@0.6.9(prettier-plugin-svelte@3.3.2)(prettier@3.4.1):
+  prettier-plugin-tailwindcss@0.6.9(prettier-plugin-svelte@3.3.2(prettier@3.4.1)(svelte@5.2.10))(prettier@3.4.1):
     dependencies:
       prettier: 3.4.1
+    optionalDependencies:
       prettier-plugin-svelte: 3.3.2(prettier@3.4.1)(svelte@5.2.10)
 
   prettier@3.4.1: {}
@@ -9933,7 +10684,7 @@ snapshots:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 22.10.0
+      '@types/node': 22.10.1
       long: 5.2.3
 
   publint@0.2.12:
@@ -10297,6 +11048,7 @@ snapshots:
   storybook@8.4.5(prettier@3.4.1):
     dependencies:
       '@storybook/core': 8.4.5(prettier@3.4.1)
+    optionalDependencies:
       prettier: 3.4.1
     transitivePeerDependencies:
       - bufferutil
@@ -10306,6 +11058,7 @@ snapshots:
   storybook@8.4.5(prettier@apps+web+@life+config-prettier):
     dependencies:
       '@storybook/core': 8.4.5(prettier@apps+web+@life+config-prettier)
+    optionalDependencies:
       prettier: link:apps/web/@life/config-prettier
     transitivePeerDependencies:
       - bufferutil
@@ -10315,6 +11068,7 @@ snapshots:
   storybook@8.4.5(prettier@packages+calendar+@life+config-prettier):
     dependencies:
       '@storybook/core': 8.4.5(prettier@packages+calendar+@life+config-prettier)
+    optionalDependencies:
       prettier: link:packages/calendar/@life/config-prettier
     transitivePeerDependencies:
       - bufferutil
@@ -10324,6 +11078,7 @@ snapshots:
   storybook@8.4.5(prettier@packages+shared+@life+config-prettier):
     dependencies:
       '@storybook/core': 8.4.5(prettier@packages+shared+@life+config-prettier)
+    optionalDependencies:
       prettier: link:packages/shared/@life/config-prettier
     transitivePeerDependencies:
       - bufferutil
@@ -10442,7 +11197,7 @@ snapshots:
       svelte: 5.2.10
       zimmerframe: 1.1.2
 
-  svelte-check@4.1.0(svelte@5.2.10)(typescript@5.7.2):
+  svelte-check@4.1.0(picomatch@4.0.2)(svelte@5.2.10)(typescript@5.7.2):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       chokidar: 4.0.1
@@ -10465,20 +11220,23 @@ snapshots:
       espree: 9.6.1
       postcss: 8.4.49
       postcss-scss: 4.0.9(postcss@8.4.49)
+    optionalDependencies:
       svelte: 5.2.10
 
   svelte-portal@2.2.1: {}
 
-  svelte-preprocess@5.1.4(@babel/core@7.26.0)(postcss@8.4.49)(svelte@5.2.10)(typescript@5.7.2):
+  svelte-preprocess@5.1.4(@babel/core@7.26.0)(postcss-load-config@4.0.2(postcss@8.4.49))(postcss@8.4.49)(svelte@5.2.10)(typescript@5.7.2):
     dependencies:
-      '@babel/core': 7.26.0
       '@types/pug': 2.0.10
       detect-indent: 6.1.0
       magic-string: 0.30.14
-      postcss: 8.4.49
       sorcery: 0.11.1
       strip-indent: 3.0.0
       svelte: 5.2.10
+    optionalDependencies:
+      '@babel/core': 7.26.0
+      postcss: 8.4.49
+      postcss-load-config: 4.0.2(postcss@8.4.49)
       typescript: 5.7.2
 
   svelte2tsx@0.7.28(svelte@5.2.10)(typescript@5.7.2):
@@ -10744,12 +11502,13 @@ snapshots:
       possible-typed-array-names: 1.0.0
       reflect.getprototypeof: 1.0.7
 
-  typescript-eslint@8.16.0(eslint@9.15.0)(typescript@5.7.2):
+  typescript-eslint@8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2):
     dependencies:
-      '@typescript-eslint/eslint-plugin': 8.16.0(@typescript-eslint/parser@8.16.0)(eslint@9.15.0)(typescript@5.7.2)
-      '@typescript-eslint/parser': 8.16.0(eslint@9.15.0)(typescript@5.7.2)
-      '@typescript-eslint/utils': 8.16.0(eslint@9.15.0)(typescript@5.7.2)
-      eslint: 9.15.0
+      '@typescript-eslint/eslint-plugin': 8.16.0(@typescript-eslint/parser@8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2))(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
+      '@typescript-eslint/parser': 8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
+      '@typescript-eslint/utils': 8.16.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.7.2)
+      eslint: 9.15.0(jiti@1.21.6)
+    optionalDependencies:
       typescript: 5.7.2
     transitivePeerDependencies:
       - supports-color
@@ -10834,13 +11593,13 @@ snapshots:
 
   v8flags@4.0.1: {}
 
-  vite-node@2.1.6:
+  vite-node@2.1.6(@types/node@22.10.1)(terser@5.36.0):
     dependencies:
       cac: 6.7.14
       debug: 4.3.7
       es-module-lexer: 1.5.4
       pathe: 1.1.2
-      vite: 5.4.11
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -10852,34 +11611,37 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-pwa@0.20.5(@vite-pwa/assets-generator@0.2.6)(vite@5.4.11)(workbox-build@7.3.0)(workbox-window@7.3.0):
+  vite-plugin-pwa@0.20.5(@vite-pwa/assets-generator@0.2.6)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))(workbox-build@7.3.0)(workbox-window@7.3.0):
     dependencies:
-      '@vite-pwa/assets-generator': 0.2.6
       debug: 4.3.7
       pretty-bytes: 6.1.1
       tinyglobby: 0.2.10
-      vite: 5.4.11
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
       workbox-build: 7.3.0
       workbox-window: 7.3.0
+    optionalDependencies:
+      '@vite-pwa/assets-generator': 0.2.6
     transitivePeerDependencies:
       - supports-color
 
-  vite@5.4.11:
+  vite@5.4.11(@types/node@22.10.1)(terser@5.36.0):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.49
       rollup: 4.27.4
     optionalDependencies:
+      '@types/node': 22.10.1
       fsevents: 2.3.3
+      terser: 5.36.0
 
-  vitefu@1.0.4(vite@5.4.11):
-    dependencies:
-      vite: 5.4.11
+  vitefu@1.0.4(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)):
+    optionalDependencies:
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
 
-  vitest@2.1.6:
+  vitest@2.1.6(@types/node@22.10.1)(terser@5.36.0):
     dependencies:
       '@vitest/expect': 2.1.6
-      '@vitest/mocker': 2.1.6(vite@5.4.11)
+      '@vitest/mocker': 2.1.6(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       '@vitest/pretty-format': 2.1.6
       '@vitest/runner': 2.1.6
       '@vitest/snapshot': 2.1.6
@@ -10895,9 +11657,11 @@ snapshots:
       tinyexec: 0.3.1
       tinypool: 1.0.2
       tinyrainbow: 1.2.0
-      vite: 5.4.11
-      vite-node: 2.1.6
+      vite: 5.4.11(@types/node@22.10.1)(terser@5.36.0)
+      vite-node: 2.1.6(@types/node@22.10.1)(terser@5.36.0)
       why-is-node-running: 2.3.0
+    optionalDependencies:
+      '@types/node': 22.10.1
     transitivePeerDependencies:
       - less
       - lightningcss

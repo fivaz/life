@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Calendar } from '@life/calendar';
 	import { Modal } from '@life/shared';
 	import type { Task } from '@life/shared/task';
 	import { where } from 'firebase/firestore';
+	import { Calendar } from 'svelendar';
 
 	import type { Category } from '$lib/category/category.model';
 	import { buildEmptyCategory, CATEGORY_WORK } from '$lib/category/category.model';
