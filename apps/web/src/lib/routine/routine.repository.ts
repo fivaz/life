@@ -43,14 +43,16 @@ export function toggleRoutineCompletion(
 	void updateDoc(routineDocRef, data);
 }
 
-export function editRoutine(id: string, data: Omit<Routine, 'id'>, userId: string) {
-	const routineDocRef = doc(db, getRoutinePath(userId), id);
-	void updateDoc(routineDocRef, data);
+export function editRoutine(routine: Routine, userId: string) {
+	const routineDocRef = doc(db, getRoutinePath(userId), routine.id);
+	const { id, ...routineWithoutId } = routine;
+	void updateDoc(routineDocRef, routineWithoutId);
 }
 
-export function addRoutine(data: Omit<Routine, 'id'>, userId: string) {
+export function addRoutine(routine: Routine, userId: string) {
 	const routinesCollectionRef = collection(db, getRoutinePath(userId));
-	void addDoc(routinesCollectionRef, data);
+	const { id, ...routineWithoutId } = routine;
+	void addDoc(routinesCollectionRef, routineWithoutId);
 }
 
 export async function deleteRoutine(id: string | undefined, userId: string, close: () => void) {

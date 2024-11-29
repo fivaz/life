@@ -26,12 +26,11 @@
 
 	function onSubmit(event: SubmitEvent) {
 		event.preventDefault();
-		const { id, ...data } = routineIn;
 
-		if (id) {
-			editRoutine(id, data, currentUser.uid);
+		if (routineIn.id) {
+			editRoutine(routineIn, currentUser.uid);
 		} else {
-			addRoutine(data, currentUser.uid);
+			addRoutine(routineIn, currentUser.uid);
 		}
 		close();
 	}
