@@ -34,12 +34,10 @@
 			return;
 		}
 
-		const { id, ...data } = goalIn;
-
-		if (id) {
-			editGoal(id, data, currentUser.uid);
+		if (goalIn.id) {
+			editGoal(goalIn, currentUser.uid);
 		} else {
-			addGoal(data, currentUser.uid);
+			addGoal(goalIn, currentUser.uid);
 		}
 		close();
 	}
