@@ -1,34 +1,24 @@
 <script lang="ts">
-	import { Button, GoalIcon } from '@life/shared';
-	import { tailwindColorMap } from '@life/shared/category';
+	import { Button } from '@life/shared';
 	import type { Task } from '@life/shared/task';
-	import { isRecurring, isTimed, isUntimed } from '@life/shared/task';
-	import { EllipsisVertical } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
-	import { Copy, ListTodo } from 'lucide-svelte';
+	import { isRecurring } from '@life/shared/task';
 
 	import type { Category } from '$lib/category/category.model';
-	import CloseX from '$lib/components/close-x/CloseX.svelte';
-	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
-	import DropDown from '$lib/components/drop-down/DropDown.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';
-	import Input from '$lib/components/form/input/Input.svelte';
-	import Select from '$lib/components/form/select/Select.svelte';
-	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
 	import { addTask } from '$lib/task/task.repository';
 	import {
 		deletePossibleSingleRecurringEvent,
-		duplicateTask,
 		editTaskWithPrompt,
 		taskIn,
 	} from '$lib/task/task-form/service.svelte';
+	import TaskFormCore from '$lib/task/task-form/task-form-core/TaskFormCore.svelte';
 	import TaskFormEvent from '$lib/task/task-form/task-form-event/TaskFormEvent.svelte';
-	import TaskFormImage from '$lib/task/task-form/task-form-image/TaskFormImage.svelte';
+	import TaskFormHeader from '$lib/task/task-form/task-form-header/TaskFormHeader.svelte';
 	import TaskFormRecurring from '$lib/task/task-form/task-form-recurring/TaskFormRecurring.svelte';
+	import type { TaskIn } from '$lib/task/task-in-utils';
 	import { checkErrors, convertToTask, convertToTaskIn } from '$lib/task/task-in-utils';
-	import { sumTimes } from '$lib/task/time-utils';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	interface Props {
@@ -45,20 +35,10 @@
 
 	$inspect(taskIn.value.id);
 
-	const wasRecurring = isRecurring(task);
-
-	const formerGoal = task.goal;
-
 	let errorMessage = $state('');
 
-	let file: File | null = $state(null);
-
-	let isEditing = $derived(!!task.id);
-
-	let formName = $derived(`${isEditing ? 'Edit' : 'Add'} ${isUntimed(task) ? 'Task' : 'Event'}`);
-
 	function handleCreateTask(data: Omit<Task, 'id'>) {
-		addTask(data, currentUser.uid, file);
+		addTask(data, currentUser.uid, taskIn.value.file);
 		close();
 	}
 
@@ -67,11 +47,11 @@
 			await editTaskWithPrompt({
 				data,
 				id,
-				file,
+				file: taskIn.value.file,
 				userId: currentUser.uid,
 				targetDate,
-				formerGoal,
-				wasRecurring,
+				formerGoal: task.goal,
+				wasRecurring: isRecurring(task),
 			})
 		) {
 			close();
@@ -99,47 +79,6 @@
 			handleCreateTask(data);
 		}
 	}
-
-	// this ensures that whenever the user types - text, it converts to [ ] - text
-	function formatSubTasks(description: string) {
-		const regex = /(^|(?<=\n))-\s(.*?)\n/g;
-
-		return description.replace(regex, '[ ] - $2\n');
-	}
-
-	function isAfterHalfToMidnight(task: Task): boolean {
-		if (!isTimed(task)) return false;
-
-		const [hours, minutes] = task.startTime.split(':').map(Number);
-
-		if (hours < 23) return false;
-
-		return minutes >= 30;
-	}
-
-	const optionsList = $derived.by(() => {
-		const options: { icon?: typeof Copy; label: string; onclick: () => void }[] = [
-			{
-				icon: ListTodo,
-				label: taskIn.value.isDone ? 'Mark as completed' : 'Mark as uncompleted',
-				//setTimeout is necessary so the text doesn't change before the animation closes the dropdown
-				onclick: () => setTimeout(() => (taskIn.value.isDone = !taskIn.value.isDone), 100),
-			},
-		];
-
-		if (!isAfterHalfToMidnight(task)) {
-			options.push({
-				icon: Copy,
-				label: 'Duplicate task',
-				onclick: () => {
-					duplicateTask(task, currentUser.uid);
-					close();
-				},
-			});
-		}
-
-		return options;
-	});
 </script>
 
 <form
@@ -148,105 +87,15 @@
 >
 	<div class="bg-neutral-100 p-4">
 		<div class="flex flex-col gap-2 text-sm text-gray-700">
-			<div class="flex items-center justify-between">
-				<h2 class="text-lg text-gray-900">{formName}</h2>
-				<div class="flex items-center">
-					<DropDown
-						class="w-48"
-						itemClass="text-gray-700"
-						list={optionsList}
-						position="bottom-left"
-					>
-						<div class="rounded-md p-1 hover:bg-gray-200">
-							<Icon class="h-5 w-auto" src={EllipsisVertical} />
-						</div>
-					</DropDown>
-					<CloseX {close} />
-				</div>
-			</div>
+			<!--header-->
+			<TaskFormHeader {task} />
 
+			<!--error handling-->
 			<Alert hasCloseButton={false} isVisible={!!errorMessage} type="error">
 				{errorMessage}
 			</Alert>
 
-			<!--name-->
-			<Input class="flex-1" autocomplete="off" placeholder="Name" bind:value={taskIn.value.name} />
-
-			<!--image-->
-			<Collapsable title="Image">
-				<TaskFormImage bind:file />
-			</Collapsable>
-
-			<!--description-->
-			<Collapsable title="Description">
-				<label class="block text-sm text-gray-700">
-					<textarea
-						class="block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-						oninput={(e) => (taskIn.value.description = formatSubTasks(e.currentTarget.value))}
-						placeholder="Create subtasks for this task using bullet points with `-`. Fill in the boxes to mark them as completed."
-						value={taskIn.value.description}
-					></textarea>
-				</label>
-			</Collapsable>
-
-			{#snippet categoryItem(category: Category)}
-				<div class="flex items-center gap-3">
-					<div class="{tailwindColorMap[category.color]?.darkBg} h-5 w-5 rounded-md"></div>
-					{category.name}
-				</div>
-			{/snippet}
-
-			<!--category-->
-			<Select
-				class="flex items-center"
-				label="Category"
-				labelClass="w-1/5"
-				selectClass="flex-1"
-				bind:value={taskIn.value.category}
-			>
-				{#snippet placeholder()}
-					{@render categoryItem(taskIn.value.category)}
-				{/snippet}
-				{#each categories as category (category)}
-					<SelectItem value={category}>
-						{@render categoryItem(category)}
-					</SelectItem>
-				{/each}
-			</Select>
-
-			<!--goal-->
-			<Select
-				class="flex items-center"
-				label="Goal"
-				labelClass="w-1/5"
-				selectClass="flex-1"
-				bind:value={taskIn.value.goal}
-			>
-				{#snippet placeholder()}
-					{taskIn.value.goal?.name || 'no goal'}
-				{/snippet}
-				<SelectItem value={null}>no goal</SelectItem>
-				{#each goals as goal (goal)}
-					<SelectItem class="flex gap-2" value={goal}>
-						<GoalIcon name={goal.icon} class="h-5 w-5" />
-						<span class="w-[calc(100%-20px)] truncate">{goal.name}</span>
-					</SelectItem>
-				{/each}
-			</Select>
-
-			<!--date AND duration-->
-			<div class="flex gap-3">
-				<Input class="w-1/2" label="Date" type="date" bind:value={taskIn.value.date} />
-
-				<Input
-					class="w-1/2"
-					label="Duration"
-					oninput={(input) => (taskIn.value.endTime = sumTimes(taskIn.value.startTime, input))}
-					required
-					type="time"
-					bind:value={taskIn.value.duration}
-				/>
-			</div>
+			<TaskFormCore {categories} {goals} />
 
 			<TaskFormEvent />
 
@@ -254,8 +103,9 @@
 		</div>
 	</div>
 
+	<!--footer-->
 	<div class="flex justify-between bg-gray-50 px-4 py-3 text-right sm:px-6">
-		{#if isEditing}
+		{#if task.id}
 			<ConfirmButton color="red" confirm={removeTask} confirmByKey="Delete" type="button">
 				Delete
 			</ConfirmButton>
@@ -264,7 +114,7 @@
 		{/if}
 
 		<Button type="submit">
-			{#if isEditing}
+			{#if task.id}
 				Edit
 			{:else}
 				Add

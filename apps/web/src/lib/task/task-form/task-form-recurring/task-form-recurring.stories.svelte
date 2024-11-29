@@ -19,8 +19,10 @@
 </script>
 
 {#snippet template()}
-	<div class="w-72 rounded-md bg-indigo-50 p-2">
-		<TaskFormRecurring />
+	<div class="rounded-lg bg-indigo-100 p-2">
+		<div class="w-72 rounded-lg bg-white p-5">
+			<TaskFormRecurring />
+		</div>
 	</div>
 {/snippet}
 

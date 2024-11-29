@@ -5,18 +5,12 @@
 
 	import { taskIn } from '$lib/task/task-form/service.svelte';
 
-	interface Props {
-		file: File | null;
-	}
-
 	let isImageOpen = $state(false);
-
-	let { file = $bindable() }: Props = $props();
 
 	function handleChange(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (event.currentTarget.files) {
-			[file] = event.currentTarget.files;
-			taskIn.value.image = URL.createObjectURL(file);
+			[taskIn.value.file] = event.currentTarget.files;
+			taskIn.value.image = URL.createObjectURL(taskIn.value.file);
 		}
 	}
 </script>

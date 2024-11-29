@@ -9,27 +9,11 @@ import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-c
 import { getCurrentRoundedDate, sumTimes } from '$lib/task/time-utils';
 
 // TaskIn is a super type that has all the attributes of possible Tasks together
-export type TaskIn = Omit<
-	Task,
-	| 'startTime'
-	| 'date'
-	| 'duration'
-	| 'recurringFrequency'
-	| 'recurringExceptions'
-	| 'recurringDaysOfWeek'
-	| 'recurringEndAt'
-> & {
-	startTime: string;
-	duration: string;
+export type TaskIn = Task & {
 	endTime: string;
-	date: string;
-	image: string;
 	isEvent: boolean;
 	isRecurring: boolean;
-	recurringFrequency: Frequency | '';
-	recurringExceptions: string[];
-	recurringEndAt: string;
-	recurringDaysOfWeek: string[];
+	file: File | null;
 };
 
 function checkDuration(taskIn: TaskIn): string {
@@ -59,7 +43,7 @@ export function checkErrors(taskIn: TaskIn): string {
 export function convertToTask(taskIn: TaskIn): Task {
 	taskIn.name = taskIn.name || taskIn.category.name;
 
-	const { endTime, isEvent, isRecurring, ...rest } = taskIn;
+	const { endTime, isEvent, isRecurring, file, ...rest } = taskIn;
 
 	return {
 		...rest,
@@ -81,9 +65,6 @@ export function convertToTaskIn(task: Task): TaskIn {
 		startTime: task.startTime || time,
 		endTime: sumTimes(task.startTime || time, task.duration),
 		recurringFrequency: task.recurringFrequency || 'daily',
-		recurringDaysOfWeek: task.recurringDaysOfWeek.length
-			? task.recurringDaysOfWeek
-			: nameOfDaysOfWeek.slice(1, 6),
-		recurringEndAt: task.recurringEndAt || formatDate(addMonths(new Date(), 1)),
+		file: null,
 	};
 }
