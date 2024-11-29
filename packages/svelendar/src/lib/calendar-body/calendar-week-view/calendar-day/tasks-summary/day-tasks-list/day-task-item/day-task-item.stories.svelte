@@ -5,10 +5,17 @@
 
 	const { Story } = defineMeta({
 		component: DayTaskItem,
-		parameters: {
-			layout: 'fullscreen',
-		},
 	});
+
+	import { formatDate } from '@life/shared/date';
+	import { longRecurring } from '@life/shared/task';
 </script>
 
-<Story name="Primary" args={{}} />
+<Story
+	name="Primary"
+	args={{
+		task: longRecurring,
+		date: formatDate(new Date()),
+		index: 1,
+	}}
+/>

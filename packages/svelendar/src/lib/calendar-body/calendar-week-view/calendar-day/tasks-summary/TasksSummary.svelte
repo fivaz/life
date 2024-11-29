@@ -15,9 +15,7 @@
 
 	let isOpen = $state(false);
 
-	let workTasks = $derived(tasks.filter((task) => task.category.type === 'work'));
-
-	let hasPendingToDos = $derived(workTasks.some((task) => task.isDone === false));
+	let hasPendingToDos = $derived(tasks.some((task) => task.isDone === false));
 
 	function getLabel(tasks: Task[]): string {
 		if (tasks.length === 0) {
@@ -31,7 +29,7 @@
 	}
 </script>
 
-{#if workTasks.length}
+{#if tasks.length}
 	<button
 		{style}
 		class="{klass}
@@ -41,10 +39,10 @@
 			rounded-lg px-2 py-1 text-center text-xs leading-5 hover:font-semibold"
 		onclick={() => (isOpen = true)}
 	>
-		{getLabel(workTasks)}
+		{getLabel(tasks)}
 	</button>
 {/if}
 
 <Modal bind:isOpen>
-	<DayTasksList close={() => (isOpen = false)} {date} tasks={workTasks} />
+	<DayTasksList close={() => (isOpen = false)} {date} {tasks} />
 </Modal>

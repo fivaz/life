@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { GoalIcon } from '@life/shared';
+	import { tailwindColorMap } from '@life/shared/category';
 	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { isUntimed } from '@life/shared/task';
@@ -19,14 +20,14 @@
 	let { task, date, index }: Props = $props();
 </script>
 
-<li class="hover:bg-gray-100 hover:underline">
+<li class="{tailwindColorMap[task.category.color].hoverLightBg} hover:underline">
 	<button
 		class="flex w-full items-center px-6 py-3 text-left"
 		onclick={() => editTask(task, formatDate(date))}
 	>
 		<span class="w-5 pr-3 font-medium text-gray-500">{index + 1}</span>
 		<Icon
-			class="h-5 w-8 pr-3 text-gray-400"
+			class="h-5 w-8 pr-3 {tailwindColorMap[task.category.color].lightText}"
 			src={isUntimed(task) ? CalendarDays : CalendarClock}
 			theme="solid"
 		/>
@@ -37,7 +38,7 @@
 		{#if task.goal?.icon}
 			<GoalIcon name={task.goal.icon} class="h-4 w-8 pr-3 text-gray-400" />
 		{/if}
-		<span class="w-12">{task.duration}</span>
+		<span class="w-12 text-gray-500">{task.duration}</span>
 		<span class="flex w-16 justify-center">
 			<span
 				class="{task.isDone
