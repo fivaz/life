@@ -26,17 +26,21 @@ export function getCategoryPath(userId: string) {
 	return `${DB_PATH.USERS}/${userId}/${DB_PATH.CATEGORIES}`;
 }
 
-export function editCategory(id: string, data: Omit<Category, 'id'>, userId: string) {
-	const categoryDocRef = doc(db, getCategoryPath(userId), id);
-	void updateDoc(categoryDocRef, data);
-	void updateCategoryInTasks(id, data, userId);
-	if (data.isDefault) {
-		void resetDefaultCategories(id, userId);
+export function editCategory(category: Category, userId: string) {
+	const categoryDocRef = doc(db, getCategoryPath(userId), category.id);
+	const { id, ...categoryWithoutId } = category;
+	void updateDoc(categoryDocRef, categoryWithoutId);
+	void updateCategoryInTasks(category, userId);
+	if (category.isDefault) {
+		void resetDefaultCategories(category.id, userId);
 	}
 }
 
-async function updateCategoryInTasks(id: string, data: Omit<Category, 'id'>, userId: string) {
-	const tasksQuery = query(collection(db, getTaskPath(userId)), where('category.id', '==', id));
+async function updateCategoryInTasks(category: Category, userId: string) {
+	const tasksQuery = query(
+		collection(db, getTaskPath(userId)),
+		where('category.id', '==', category.id),
+	);
 
 	const tasksSnapshot = await getDocs(tasksQuery);
 
@@ -44,16 +48,17 @@ async function updateCategoryInTasks(id: string, data: Omit<Category, 'id'>, use
 
 	tasksSnapshot.forEach((taskDoc) => {
 		const taskRef = taskDoc.ref;
-		batch.update(taskRef, { category: data });
+		batch.update(taskRef, { category });
 	});
 
 	await batch.commit();
 }
 
-export function addCategory(data: Omit<Category, 'id'>, userId: string) {
+export function addCategory(category: Category, userId: string) {
 	const newCategoryDocRef = doc(collection(db, getCategoryPath(userId)));
-	void setDoc(newCategoryDocRef, data);
-	if (data.isDefault) {
+	const { id, ...categoryWithoutId } = category; // the id isn't part of the doc in firebase
+	void setDoc(newCategoryDocRef, categoryWithoutId);
+	if (category.isDefault) {
 		void resetDefaultCategories(newCategoryDocRef.id, userId);
 	}
 }

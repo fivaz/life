@@ -25,6 +25,7 @@ export function fetchFirstTasks() {
 	fetchTasks(populateTaskMap, ...getTaskDateConstrain());
 }
 
+// this function will take the list of tasks receive by the fetchTasks and populate the tasksMap
 function populateTaskMap(tasks: Task[]): void {
 	const tasksByWeek = groupBy(tasks, (task) => formatDate(startOfWeek(task.date)));
 

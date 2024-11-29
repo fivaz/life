@@ -36,12 +36,10 @@
 			return;
 		}
 
-		const { id, ...data } = categoryIn;
-
-		if (id) {
-			editCategory(id, data, currentUser.uid);
+		if (categoryIn.id) {
+			editCategory(categoryIn, currentUser.uid);
 		} else {
-			addCategory(data, currentUser.uid);
+			addCategory(categoryIn, currentUser.uid);
 		}
 		close();
 	}
