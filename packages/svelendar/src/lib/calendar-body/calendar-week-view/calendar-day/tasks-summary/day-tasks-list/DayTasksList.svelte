@@ -1,10 +1,17 @@
 <script lang="ts">
 	import { DATE, formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
-	import { getTotalDuration, isRecurring, isTimed } from '@life/shared/task';
+	import {
+		getTaskDateTime,
+		getTotalDuration,
+		isRecurring,
+		isTimed,
+		sortTasks,
+	} from '@life/shared/task';
 	import { addDays, parse } from 'date-fns';
 
-	import { getPersistTasks } from '../../../../../context.utils.js';
+	import { getPersistTasks } from '$lib/context.utils.js';
+
 	import DayTaskItem from './day-task-item/DayTaskItem.svelte';
 
 	interface Props {
@@ -14,6 +21,9 @@
 	}
 
 	let { tasks, close, date }: Props = $props();
+
+	// TODO move this sorted to the root of categories so I dont need to sort anywhere else
+	const tasksSorted = $derived(sortTasks(tasks));
 
 	let uncompletedTasks = $derived(tasks.filter((toDo) => toDo.isDone === false));
 
@@ -59,7 +69,7 @@
 	</div>
 
 	<ul class="overflow-auto py-3">
-		{#each tasks as task, index (task)}
+		{#each tasksSorted as task, index (task)}
 			<DayTaskItem {date} {index} {task} />
 		{/each}
 	</ul>
