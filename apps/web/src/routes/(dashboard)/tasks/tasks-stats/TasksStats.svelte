@@ -1,9 +1,8 @@
 <script lang="ts">
+	import { CATEGORY_WORK } from '@life/shared/category';
 	import { getTotalDuration } from '@life/shared/task';
 	import { Grid3x3, LayoutGrid } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-
-	import { CATEGORY_WORK } from '$lib/category/category.model';
 
 	import type { SortedTaskType } from '../service';
 

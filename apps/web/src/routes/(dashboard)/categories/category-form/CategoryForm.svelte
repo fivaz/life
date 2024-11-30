@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { Button } from '@life/shared';
-	import { tailwindColorMap, tailwindColors } from '@life/shared/category';
+	import { categoryTypes, tailwindColorMap, tailwindColors } from '@life/shared/category';
 
 	import type { Category } from '$lib/category/category.model';
-	import { categoryTypes } from '$lib/category/category.model';
 	import { addCategory, deleteCategory, editCategory } from '$lib/category/category.respository';
 	import CloseX from '$lib/components/close-x/CloseX.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';

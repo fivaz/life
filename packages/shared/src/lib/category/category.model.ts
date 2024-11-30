@@ -4,7 +4,6 @@ export const categoryTypes = ['fun', 'sleep', CATEGORY_WORK] as const;
 
 export type CategoryType = (typeof categoryTypes)[number];
 
-// these will be used by Calendar
 export type Category = {
 	id: string;
 	name: string;

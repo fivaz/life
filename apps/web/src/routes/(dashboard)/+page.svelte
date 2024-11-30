@@ -2,12 +2,13 @@
 	import 'svelendar/styles.css';
 
 	import { Modal } from '@life/shared';
+	import { CATEGORY_WORK } from '@life/shared/category';
 	import type { Task } from '@life/shared/task';
 	import { where } from 'firebase/firestore';
 	import { Calendar } from 'svelendar';
 
 	import type { Category } from '$lib/category/category.model';
-	import { buildEmptyCategory, CATEGORY_WORK } from '$lib/category/category.model';
+	import { buildEmptyCategory } from '$lib/category/category.model';
 	import { fetchCategories } from '$lib/category/category.respository';
 	import type { Goal } from '$lib/goal/goal.model';
 	import { fetchGoals } from '$lib/goal/goal.repository';

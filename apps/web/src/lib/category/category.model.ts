@@ -1,11 +1,5 @@
-import { tailwindColors } from '@life/shared/category';
+import { categoryTypes, tailwindColors } from '@life/shared/category';
 import { z } from 'zod';
-
-export const CATEGORY_WORK = 'work';
-
-export const categoryTypes = ['fun', 'sleep', CATEGORY_WORK] as const;
-
-export type CategoryType = (typeof categoryTypes)[number];
 
 export const categorySchema = z.object({
 	id: z.string(),

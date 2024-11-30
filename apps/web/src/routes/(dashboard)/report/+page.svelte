@@ -1,8 +1,8 @@
 <script lang="ts">
+	import { CATEGORY_WORK } from '@life/shared/category';
 	import type { Task } from '@life/shared/task';
 	import { where } from 'firebase/firestore';
 
-	import { CATEGORY_WORK } from '$lib/category/category.model';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import { title } from '$lib/date.utils.svelte';
