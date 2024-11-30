@@ -1,9 +1,9 @@
 <script lang="ts" module>
 	import { Dialog, dialog } from '@life/shared';
+	import { categories } from '@life/shared/category';
 	import { normalWithSubTasks } from '@life/shared/task';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
-	import { categories } from '$lib/category/category.seed';
 	import { goals } from '$lib/goal/goal.seed';
 	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
 
