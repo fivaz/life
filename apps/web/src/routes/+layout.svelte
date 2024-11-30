@@ -2,7 +2,6 @@
 	import '../app.css';
 
 	import { setDefaultOptions } from 'date-fns';
-	import type { Snippet } from 'svelte';
 	import { pwaAssetsHead } from 'virtual:pwa-assets/head';
 	import { pwaInfo } from 'virtual:pwa-info';
 
@@ -10,7 +9,7 @@
 	setDefaultOptions({ weekStartsOn: 1 });
 
 	interface Props {
-		children: Snippet;
+		children?: import('svelte').Snippet;
 	}
 
 	let { children }: Props = $props();
@@ -31,4 +30,4 @@
 	{@html webManifest}
 </svelte:head>
 
-{@render children()}
+{@render children?.()}
