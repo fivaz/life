@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ChevronLeft, ChevronRight } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { addDays, format, isSameWeek, parse, startOfWeek } from 'date-fns';
+	import { addDays, isSameWeek, parse, startOfWeek } from 'date-fns';
 	import CalendarCheck from 'lucide-svelte/icons/calendar-check';
 
 	import { DATE, formatDate } from '$lib/date.js';

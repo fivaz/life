@@ -7,7 +7,6 @@
 		component: DayTaskItem,
 	});
 
-	import { formatDate } from '@life/shared/date';
 	import { longRecurring } from '@life/shared/task';
 </script>
 

@@ -2,7 +2,6 @@
 	import { DATE, formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import {
-		getTaskDateTime,
 		getTotalDuration,
 		isRecurring,
 		isTimed,
