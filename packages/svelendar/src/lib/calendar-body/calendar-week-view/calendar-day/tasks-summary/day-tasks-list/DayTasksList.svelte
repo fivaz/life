@@ -1,12 +1,7 @@
 <script lang="ts">
 	import { DATE, formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
-	import {
-		getTotalDuration,
-		isRecurring,
-		isTimed,
-		sortTasks,
-	} from '@life/shared/task';
+	import { getTotalDuration, isRecurring, isTimed, sortTasks } from '@life/shared/task';
 	import { addDays, parse } from 'date-fns';
 
 	import { getPersistTasks } from '$lib/context.utils.js';

@@ -1,10 +1,11 @@
 <script lang="ts" module>
 	import { Dialog, dialog } from '@life/shared';
 	import { categories } from '@life/shared/category';
+	import { goals } from '@life/shared/goal';
 	import { normalWithSubTasks } from '@life/shared/task';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
-	import { goals } from '$lib/goal/goal.seed';
+	import { formatDate } from '$lib/date.utils.svelte';
 	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
 
 	import TaskForm from './TaskForm.svelte';
@@ -12,8 +13,6 @@
 	const { Story } = defineMeta({
 		component: TaskForm,
 	});
-
-	import { formatDate } from '$lib/date.utils.svelte';
 </script>
 
 {#snippet template(args: any)}
