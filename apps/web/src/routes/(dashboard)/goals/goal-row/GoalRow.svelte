@@ -7,8 +7,8 @@
 
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
-	import { getCompletedTasks } from '$lib/goal/goal.utils';
 	import { fetchGoalTasks } from '$lib/task/task.repository';
+	import { getCompletedTasks } from '$lib/task/task-utils';
 
 	import GoalTasks from './goal-tasks/GoalTasks.svelte';
 

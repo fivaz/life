@@ -5,7 +5,7 @@ import { cubicOut } from 'svelte/easing';
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
 import type { Goal } from '$lib/goal/goal.model';
-import { getCompletedTasks } from '$lib/goal/goal.utils';
+import { getCompletedTasks } from '$lib/task/task-utils';
 
 export async function fetchPercentageComplete(task: Task & { goal: Goal }, userId: string) {
 	const tasksRef = collection(
