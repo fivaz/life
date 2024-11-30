@@ -6,6 +6,7 @@ import svelte from "eslint-plugin-svelte";
 import unusedImports from "eslint-plugin-unused-imports";
 import globals from "globals";
 import ts from "typescript-eslint";
+import turboConfig from "eslint-config-turbo/flat";
 
 export default ts.config(
   js.configs.recommended,
@@ -13,6 +14,7 @@ export default ts.config(
   ...svelte.configs["flat/recommended"],
   prettier,
   ...svelte.configs["flat/prettier"],
+  ...turboConfig,
   importPlugin.flatConfigs.recommended,
   {
     languageOptions: {
