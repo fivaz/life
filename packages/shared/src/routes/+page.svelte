@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.css';
 
-import Button from '$lib/components/button/Button.svelte';
+	import Button from '$lib/components/button/Button.svelte';
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
 	import { createDialog, dialog } from '$lib/components/dialog/service.svelte.js';
 </script>
