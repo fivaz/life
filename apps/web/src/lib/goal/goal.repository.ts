@@ -11,7 +11,6 @@ import {
 	writeBatch,
 } from 'firebase/firestore';
 
-import type { Category } from '$lib/category/category.model';
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
 import type { Goal } from '$lib/goal/goal.model';

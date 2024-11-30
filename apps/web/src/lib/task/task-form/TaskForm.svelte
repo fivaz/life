@@ -17,7 +17,6 @@
 	import TaskFormEvent from '$lib/task/task-form/task-form-event/TaskFormEvent.svelte';
 	import TaskFormHeader from '$lib/task/task-form/task-form-header/TaskFormHeader.svelte';
 	import TaskFormRecurring from '$lib/task/task-form/task-form-recurring/TaskFormRecurring.svelte';
-	import type { TaskIn } from '$lib/task/task-in-utils';
 	import { checkErrors, convertToTask, convertToTaskIn } from '$lib/task/task-in-utils';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 

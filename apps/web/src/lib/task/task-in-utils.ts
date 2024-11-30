@@ -1,11 +1,9 @@
 import { convertTimeToMinutes } from '@life/shared/date';
 import type { Task } from '@life/shared/task';
 import { isRecurring, isTimed } from '@life/shared/task';
-import { addMonths, isAfter, parse } from 'date-fns';
+import { isAfter, parse } from 'date-fns';
 
-import { formatDate, formatTime, TIME } from '$lib/date.utils.svelte';
-import type { Frequency } from '$lib/task/task.model';
-import { nameOfDaysOfWeek } from '$lib/task/task-form/task-form-recurring/days-checkbox/service';
+import { formatTime, TIME } from '$lib/date.utils.svelte';
 import { getCurrentRoundedDate, sumTimes } from '$lib/task/time-utils';
 
 // TaskIn is a super type that has all the attributes of possible Tasks together
