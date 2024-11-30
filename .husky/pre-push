@@ -1,0 +1,21 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Exit immediately if any command fails
+set -e
+
+# Run the `format` script across the monorepo
+pnpx turbo run format
+
+# Check if there are any changes after running the format script
+if [[ -n $(git status --porcelain) ]]; then
+  echo "Detected changes after running 'format'. Committing changes..."
+
+  # Stage all changes
+  git add .
+
+  # Commit with the message "refactor"
+  git commit -m "refactor"
+else
+  echo "No changes detected after running 'format'."
+fi
