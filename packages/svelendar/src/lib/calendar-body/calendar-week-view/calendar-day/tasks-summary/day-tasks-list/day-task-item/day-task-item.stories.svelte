@@ -15,7 +15,7 @@
 	name="Primary"
 	args={{
 		task: longRecurring,
-		date: formatDate(new Date()),
+		date: new Date(),
 		index: 1,
 	}}
 />

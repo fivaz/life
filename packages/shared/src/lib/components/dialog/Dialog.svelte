@@ -2,7 +2,7 @@
 	import { ExclamationTriangle, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
-	import { Button } from '$lib';
+	import Button from '$lib/components/button/Button.svelte';
 	import Modal from '$lib/components/modal/Modal.svelte';
 
 	import { closeDialog } from './service.svelte';
