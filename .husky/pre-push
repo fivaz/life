@@ -9,13 +9,16 @@ pnpx turbo run format
 
 # Check if there are any changes after running the format script
 if [[ -n $(git status --porcelain) ]]; then
-  echo "Detected changes after running 'format'. Committing changes..."
+  echo "Detected unformatted changes. Formatting and committing changes..."
 
   # Stage all changes
   git add .
 
-  # Commit with the message "refactor"
-  git commit -m "refactor"
+  # Commit with a standard message
+  git commit -m "chore: apply formatting"
+
+  echo "Changes have been formatted and committed. Please review the changes and push again."
+  exit 1  # Cancel the current push
 else
-  echo "No changes detected after running 'format'."
+  echo "All files are properly formatted. Proceeding with the push..."
 fi
