@@ -86,10 +86,8 @@
 >
 	<div class="bg-neutral-100 p-4">
 		<div class="flex flex-col gap-2 text-sm text-gray-700">
-			<!--header-->
 			<TaskFormHeader {close} {task} />
 
-			<!--error handling-->
 			<Alert hasCloseButton={false} isVisible={!!errorMessage} type="error">
 				{errorMessage}
 			</Alert>
