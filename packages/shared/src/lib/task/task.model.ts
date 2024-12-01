@@ -5,10 +5,6 @@ export const frequencies = ['daily', 'weekly', 'monthly', 'yearly'] as const;
 
 export type Frequency = (typeof frequencies)[number];
 
-export const tailwindColors = ['red', 'green', 'blue', 'lime', 'yellow', 'purple'] as const;
-
-export type TailwindColor = (typeof tailwindColors)[number];
-
 export type Task = {
 	id: string;
 	createdAt: string;
