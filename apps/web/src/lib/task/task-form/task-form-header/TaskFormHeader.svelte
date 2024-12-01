@@ -19,9 +19,12 @@
 
 	let formName = $derived(`${task.id ? 'Edit' : 'Add'} ${isUntimed(task) ? 'Task' : 'Event'}`);
 
-	// TODO test this with a task that doesn't have time
 	function isAfterHalfToMidnight(task: Task): boolean {
+		if (isUntimed(task)) return false;
+
 		const [hours, minutes] = task.startTime.split(':').map(Number);
+
+		console.log(hours, minutes);
 
 		if (hours < 23) return false;
 
