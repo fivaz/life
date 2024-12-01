@@ -5,6 +5,7 @@ import {
 	deleteDoc,
 	doc,
 	getDocs,
+	orderBy,
 	query,
 	setDoc,
 	updateDoc,
@@ -17,10 +18,12 @@ import { categorySchema } from '$lib/category/category.model';
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
 import { fetchItems } from '$lib/repository.svelte';
+import type { Routine } from '$lib/routine/routine.model';
+import { getRoutinePath } from '$lib/routine/routine.repository';
 import { getTaskPath } from '$lib/task/task.repository';
 
 export function fetchCategories(categories: Category[]): void {
-	fetchItems(categories, DB_PATH.CATEGORIES, categorySchema);
+	fetchItems(categories, DB_PATH.CATEGORIES, categorySchema, orderBy('order'));
 }
 
 export function getCategoryPath(userId: string) {
@@ -100,22 +103,40 @@ export async function addDefaultCategories(userId: string) {
 			isDefault: true,
 			name: 'work',
 			type: CATEGORY_WORK,
-		},
-		{
-			color: 'blue',
-			isDefault: false,
-			name: 'sleep',
-			type: 'sleep',
+			order: 0,
 		},
 		{
 			color: 'red',
 			isDefault: false,
 			name: 'fun',
 			type: 'fun',
+			order: 1,
+		},
+		{
+			color: 'blue',
+			isDefault: false,
+			name: 'sleep',
+			type: 'sleep',
+			order: 2,
 		},
 	];
 
 	defaultCategories.forEach((category) => {
 		addDoc(categoriesCollectionRef, category);
 	});
+}
+
+export async function updateCategoriesOrder(categories: Category[], userId: string) {
+	const batch = writeBatch(db);
+
+	categories.forEach(({ id, order }) => {
+		const routineRef = doc(db, getCategoryPath(userId), id);
+		batch.update(routineRef, { order });
+	});
+
+	try {
+		await batch.commit();
+	} catch (error) {
+		console.error('Error in batch update: ', error);
+	}
 }

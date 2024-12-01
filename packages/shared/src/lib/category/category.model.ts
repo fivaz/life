@@ -10,6 +10,7 @@ export type Category = {
 	isDefault: boolean;
 	type: CategoryType;
 	color: TailwindColor;
+	order: number;
 };
 
 export const tailwindColors = [

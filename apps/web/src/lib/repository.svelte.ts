@@ -62,6 +62,7 @@ function populate<I>(snapshot: QuerySnapshot, schema: ZodSchema) {
 		} else {
 			items.push(validation.data);
 		}
+		// items.push(item);
 	});
 
 	return items;

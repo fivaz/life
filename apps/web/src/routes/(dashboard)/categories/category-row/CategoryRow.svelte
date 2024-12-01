@@ -2,6 +2,8 @@
 	import { tailwindColorMap } from '@life/shared/category';
 	import { Check, Settings2, Tag } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { GripVertical } from 'lucide-svelte';
+	import { dragHandle } from 'svelte-dnd-action';
 
 	import type { Category } from '$lib/category/category.model';
 
@@ -18,6 +20,9 @@
 		flex justify-between gap-x-3 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-white"
 >
 	<div class="flex items-center gap-x-2">
+		<div aria-label="drag-handle for {category.name}" use:dragHandle>
+			<GripVertical class="h-5 w-auto" />
+		</div>
 		<Icon class="h-5 w-5 text-white" src={Tag} />
 		<div class="text-sm font-semibold leading-6">{category.name}</div>
 		{#if category.isDefault}

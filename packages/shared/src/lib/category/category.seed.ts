@@ -8,6 +8,7 @@ export const work: Category = {
 	isDefault: true,
 	name: 'Work',
 	type: 'work',
+	order: 0,
 };
 
 export const fun: Category = {
@@ -16,6 +17,7 @@ export const fun: Category = {
 	isDefault: false,
 	name: 'Free time',
 	type: 'fun',
+	order: 1,
 };
 
 export const routine: Category = {
@@ -24,6 +26,7 @@ export const routine: Category = {
 	isDefault: false,
 	name: 'Routine',
 	type: 'fun',
+	order: 2,
 };
 
 export const sleep: Category = {
@@ -32,6 +35,7 @@ export const sleep: Category = {
 	isDefault: false,
 	name: 'Sleep',
 	type: 'sleep',
+	order: 3,
 };
 
 export const categories: Category[] = [work, fun, routine, sleep];

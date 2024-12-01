@@ -7,6 +7,7 @@ export const categorySchema = z.object({
 	isDefault: z.boolean(),
 	type: z.enum(categoryTypes),
 	color: z.enum(tailwindColors),
+	order: z.number(),
 });
 
 export type Category = z.infer<typeof categorySchema>;
@@ -18,5 +19,6 @@ export function buildEmptyCategory(): Category {
 		isDefault: false,
 		name: '',
 		type: categoryTypes[0],
+		order: 0,
 	};
 }
