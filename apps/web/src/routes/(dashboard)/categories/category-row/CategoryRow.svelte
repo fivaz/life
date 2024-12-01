@@ -25,9 +25,6 @@
 		</div>
 		<Icon class="h-5 w-5 text-white" src={Tag} />
 		<div class="text-sm font-semibold leading-6">{category.name}</div>
-		{#if category.isDefault}
-			<Icon class="h-6 w-6 text-white" src={Check} />
-		{/if}
 	</div>
 
 	<div>

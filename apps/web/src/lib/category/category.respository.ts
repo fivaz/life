@@ -35,9 +35,6 @@ export function editCategory(category: Category, userId: string) {
 	const { id, ...categoryWithoutId } = category;
 	void updateDoc(categoryDocRef, categoryWithoutId);
 	void updateCategoryInTasks(category, userId);
-	if (category.isDefault) {
-		void resetDefaultCategories(category.id, userId);
-	}
 }
 
 async function updateCategoryInTasks(category: Category, userId: string) {
@@ -62,28 +59,6 @@ export function addCategory(category: Category, userId: string) {
 	const newCategoryDocRef = doc(collection(db, getCategoryPath(userId)));
 	const { id, ...categoryWithoutId } = category; // the id isn't part of the doc in firebase
 	void setDoc(newCategoryDocRef, categoryWithoutId);
-	if (category.isDefault) {
-		void resetDefaultCategories(newCategoryDocRef.id, userId);
-	}
-}
-
-async function resetDefaultCategories(exceptId: string, userId: string) {
-	const categoryQuery = query(
-		collection(db, getCategoryPath(userId)),
-		where('isDefault', '==', true),
-	);
-
-	const categoriesSnapshot = await getDocs(categoryQuery);
-
-	const batch = writeBatch(db);
-
-	categoriesSnapshot.forEach((categoryDoc) => {
-		if (categoryDoc.id !== exceptId) {
-			batch.update(categoryDoc.ref, { isDefault: false });
-		}
-	});
-
-	await batch.commit();
 }
 
 export function deleteCategory(id: string | undefined, userId: string, closeForm: () => void) {
@@ -100,21 +75,18 @@ export async function addDefaultCategories(userId: string) {
 	const defaultCategories: Omit<Category, 'id'>[] = [
 		{
 			color: 'green',
-			isDefault: true,
 			name: 'work',
 			type: CATEGORY_WORK,
 			order: 0,
 		},
 		{
 			color: 'red',
-			isDefault: false,
 			name: 'fun',
 			type: 'fun',
 			order: 1,
 		},
 		{
 			color: 'blue',
-			isDefault: false,
 			name: 'sleep',
 			type: 'sleep',
 			order: 2,

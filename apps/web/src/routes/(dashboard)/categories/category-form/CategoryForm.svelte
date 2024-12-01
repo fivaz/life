@@ -101,10 +101,6 @@
 					</SelectItem>
 				{/each}
 			</Select>
-
-			<div class="rounded-lg bg-white p-2">
-				<Toggle label="default" bind:value={categoryIn.isDefault} />
-			</div>
 		</div>
 	</div>
 

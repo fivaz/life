@@ -5,7 +5,6 @@ let id = 0;
 export const work: Category = {
 	color: 'green',
 	id: `${id++}`,
-	isDefault: true,
 	name: 'Work',
 	type: 'work',
 	order: 0,
@@ -14,7 +13,6 @@ export const work: Category = {
 export const fun: Category = {
 	color: 'red',
 	id: `${id++}`,
-	isDefault: false,
 	name: 'Free time',
 	type: 'fun',
 	order: 1,
@@ -23,7 +21,6 @@ export const fun: Category = {
 export const routine: Category = {
 	color: 'yellow',
 	id: `${id++}`,
-	isDefault: false,
 	name: 'Routine',
 	type: 'fun',
 	order: 2,
@@ -32,7 +29,6 @@ export const routine: Category = {
 export const sleep: Category = {
 	color: 'blue',
 	id: `${id++}`,
-	isDefault: false,
 	name: 'Sleep',
 	type: 'sleep',
 	order: 3,

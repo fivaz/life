@@ -7,7 +7,6 @@ export type CategoryType = (typeof categoryTypes)[number];
 export type Category = {
 	id: string;
 	name: string;
-	isDefault: boolean;
 	type: CategoryType;
 	color: TailwindColor;
 	order: number;

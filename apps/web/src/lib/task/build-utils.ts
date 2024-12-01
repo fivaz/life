@@ -27,15 +27,13 @@ export function buildUntimedTask(
 	date: Date = new Date(),
 	goal: Goal | null = null,
 ): Task {
-	const defaultCategory = categories.find((category) => category.isDefault) || categories[0];
-
 	return {
 		id: '',
 		name: '',
 		description: '',
 		goal,
 		isDone: false,
-		category: defaultCategory,
+		category: categories[0],
 		createdAt: date.toISOString(),
 		date: formatDate(date),
 		duration: '00:15',
