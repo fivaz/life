@@ -1,26 +1,27 @@
-/// <reference types="@sveltejs/kit" />
-/// <reference no-default-lib="true"/>
-/// <reference lib="esnext" />
+/// <reference types="vite/client" />
 /// <reference lib="webworker" />
-import { precacheAndRoute } from 'workbox-precaching';
+import { clientsClaim } from 'workbox-core';
+import {
+	cleanupOutdatedCaches,
+	createHandlerBoundToURL,
+	precacheAndRoute,
+} from 'workbox-precaching';
+import { NavigationRoute, registerRoute } from 'workbox-routing';
 
-import { build, files, prerendered, version } from '$service-worker';
+declare let self: ServiceWorkerGlobalScope;
 
-const precache_list = [
-	'/',
-	'/demo',
-	'/categories',
-	'/goals',
-	'/profile',
-	'/report',
-	'/routine',
-	'/tasks',
-	...build,
-	...files,
-	...prerendered,
-].map((s) => ({
-	url: s,
-	revision: version,
-}));
+// self.__WB_MANIFEST is the default injection point
+precacheAndRoute(self.__WB_MANIFEST);
 
-precacheAndRoute(precache_list);
+// clean old assets
+cleanupOutdatedCaches();
+
+let allowlist: RegExp[] | undefined;
+// in dev mode, we disable precaching to avoid caching issues
+if (import.meta.env.DEV) allowlist = [/^\/$/];
+
+// to allow work offline
+registerRoute(new NavigationRoute(createHandlerBoundToURL('/'), { allowlist }));
+
+self.skipWaiting();
+clientsClaim();
