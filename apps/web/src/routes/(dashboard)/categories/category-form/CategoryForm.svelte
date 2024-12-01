@@ -10,7 +10,6 @@
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
-	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import { checkErrors } from './service';

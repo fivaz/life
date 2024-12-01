@@ -1,5 +1,5 @@
 import { parseDate } from '@life/shared/date';
-import { format, getQuarter, isPast, isThisYear, parse } from 'date-fns';
+import { format, getQuarter, isPast, isThisYear } from 'date-fns';
 
 import type { Goal } from '$lib/goal/goal.model';
 import { groupBy } from '$lib/utils';

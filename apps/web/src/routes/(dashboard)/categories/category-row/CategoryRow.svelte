@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { tailwindColorMap } from '@life/shared/category';
-	import { Check, Settings2, Tag } from '@steeze-ui/lucide-icons';
+	import { Settings2, Tag } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { GripVertical } from 'lucide-svelte';
 	import { dragHandle } from 'svelte-dnd-action';

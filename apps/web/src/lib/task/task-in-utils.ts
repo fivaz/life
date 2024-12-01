@@ -6,7 +6,7 @@ import {
 } from '@life/shared/date';
 import type { Task } from '@life/shared/task';
 import { isRecurring, isTimed } from '@life/shared/task';
-import { isAfter, parse } from 'date-fns';
+import { isAfter } from 'date-fns';
 
 import { sumTimes } from '$lib/task/time-utils';
 

@@ -18,8 +18,6 @@ import { categorySchema } from '$lib/category/category.model';
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
 import { fetchItems } from '$lib/repository.svelte';
-import type { Routine } from '$lib/routine/routine.model';
-import { getRoutinePath } from '$lib/routine/routine.repository';
 import { getTaskPath } from '$lib/task/task.repository';
 
 export function fetchCategories(categories: Category[]): void {
