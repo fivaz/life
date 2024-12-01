@@ -12,9 +12,10 @@
 
 	interface Props {
 		task: Task;
+		close: () => void;
 	}
 
-	let { task }: Props = $props();
+	let { task, close }: Props = $props();
 
 	let formName = $derived(`${task.id ? 'Edit' : 'Add'} ${isUntimed(task) ? 'Task' : 'Event'}`);
 
