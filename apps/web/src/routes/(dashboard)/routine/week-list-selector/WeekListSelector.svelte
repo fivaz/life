@@ -1,10 +1,10 @@
 <script lang="ts">
+	import { formatDate } from '@life/shared/date';
 	import { clsx } from 'clsx';
 	import { format, isSameDay, isToday, startOfWeek } from 'date-fns';
 	import { CheckCheck } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
 
-	import { formatDate } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 
 	import { previousDate, selectedDate, weekChangeDuration, weekDates } from '../service.svelte';

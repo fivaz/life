@@ -16,6 +16,7 @@
 	import TaskCompletedNotificationStack from '$lib/task/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
+	import { title } from '$lib/utils.svelte';
 
 	import { editPossibleSingleRecurringEvent, moveEvent, persistTasks } from './service.svelte';
 	import { convertTaskMapToList, fetchFirstTasks, getWeekTasks, tasksMap } from './task-map.svelte';
@@ -27,6 +28,8 @@
 	let editingTask = $state<Task>(buildTimedTask([buildEmptyCategory()]));
 
 	let completedTasks = $state<Task[]>([]);
+
+	title.value = 'Calendar';
 
 	// ADD
 	function openFormToCreateTask(categories: Category[], date: Date) {

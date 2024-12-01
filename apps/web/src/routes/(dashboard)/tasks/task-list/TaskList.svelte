@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { formatDate, parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { getTotalDuration } from '@life/shared/task';
 	import { Clipboard, ClipboardCopy, ClipboardList, Plus } from '@steeze-ui/lucide-icons';
@@ -6,7 +7,7 @@
 	import { clsx } from 'clsx';
 	import { addDays, addWeeks, lastDayOfWeek, parse, subDays } from 'date-fns';
 
-	import { DATE, DATE_FR, formatDate } from '$lib/date.utils.svelte';
+	import { DATE_FR } from '$lib/utils.svelte';
 
 	import { GROUPS } from '../service';
 	import { TASK_LIST_CLASS } from './task-row/service';
@@ -82,7 +83,7 @@
 			{#if isNotRecurrent}
 				<button
 					class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-					onclick={() => create(parse(getDate(label), DATE, new Date()))}
+					onclick={() => create(parseDate(getDate(label)))}
 					type="button"
 				>
 					<Icon class="h-4 w-4" src={Plus} />

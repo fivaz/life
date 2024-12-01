@@ -1,7 +1,7 @@
+import { formatDate } from '@life/shared/date';
 import { lastDayOfQuarter } from 'date-fns';
 import { z } from 'zod';
 
-import { formatDate } from '$lib/date.utils.svelte';
 import { zDateOrEmpty } from '$lib/utils';
 
 export const goalSchema = z.object({

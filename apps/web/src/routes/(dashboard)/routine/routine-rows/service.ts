@@ -1,7 +1,7 @@
+import { DATE, formatDate, parseDate } from '@life/shared/date';
 import { parse, subDays } from 'date-fns';
 import { getContext, setContext } from 'svelte';
 
-import { DATE, formatDate } from '$lib/date.utils.svelte';
 import type { Routine } from '$lib/routine/routine.model';
 
 export const statusColor = {
@@ -22,7 +22,7 @@ export function getStatusColor(routine: Routine, selectedDate: string): keyof ty
 
 export function getStreak(routine: Routine, selectedDate: string): number {
 	let streakValue = 0;
-	let selectedDateObj = parse(selectedDate, DATE, new Date());
+	let selectedDateObj = parseDate(selectedDate);
 
 	while (true) {
 		const dateStr = formatDate(selectedDateObj);

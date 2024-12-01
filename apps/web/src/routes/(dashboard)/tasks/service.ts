@@ -1,3 +1,4 @@
+import { parseDate } from '@life/shared/date';
 import type { Task } from '@life/shared/task';
 import { isRecurring } from '@life/shared/task';
 import {
@@ -11,9 +12,8 @@ import {
 	startOfWeek,
 } from 'date-fns';
 
-import { DATE_FR } from '$lib/date.utils.svelte';
-import { getTaskDate } from '$lib/task/time-utils';
 import { groupBy } from '$lib/utils';
+import { DATE_FR } from '$lib/utils.svelte';
 
 export type SortedTaskType = Record<string, Task[]> & Iterable<string>;
 
@@ -42,8 +42,6 @@ function isNextWeek(date: Date): boolean {
 }
 
 function getDateName(task: Task): GROUPS | string {
-	const date = getTaskDate(task);
-
 	if (isRecurring(task)) {
 		if (task.recurringFrequency === 'yearly') {
 			return GROUPS.YearlyRecurring;
@@ -55,9 +53,13 @@ function getDateName(task: Task): GROUPS | string {
 			return GROUPS.DailyRecurring;
 		}
 	}
-	if (!date) {
+
+	if (!task.date) {
 		return GROUPS.Someday;
 	}
+
+	const date = parseDate(task.date);
+
 	if (isToday(date)) {
 		return GROUPS.Today;
 	}

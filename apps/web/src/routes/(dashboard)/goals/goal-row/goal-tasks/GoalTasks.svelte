@@ -1,12 +1,12 @@
 <script lang="ts">
+	import { parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { CalendarDays } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { format } from 'date-fns';
 
-	import { DATE_FR } from '$lib/date.utils.svelte';
-	import { getTaskDate } from '$lib/task/time-utils';
+	import { DATE_FR } from '$lib/utils.svelte';
 
 	interface Props {
 		tasks: Task[];
@@ -16,11 +16,10 @@
 	let { tasks, editTask }: Props = $props();
 
 	function showDate(task: Task) {
-		const date = getTaskDate(task);
-		if (!date) {
+		if (!task.date) {
 			return 'N/A';
 		}
-		return format(date, DATE_FR);
+		return format(parseDate(task.date), DATE_FR);
 	}
 </script>
 

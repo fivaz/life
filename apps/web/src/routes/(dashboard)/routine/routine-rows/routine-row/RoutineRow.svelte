@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { GoalIcon } from '@life/shared';
+	import { formatDate } from '@life/shared/date';
 	import { Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { startOfWeek } from 'date-fns';
@@ -7,7 +8,6 @@
 	import { fly } from 'svelte/transition';
 	import { dragHandle } from 'svelte-dnd-action';
 
-	import { formatDate } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { toggleRoutineCompletion } from '$lib/routine/routine.repository';
 	import { currentUser } from '$lib/user/user.utils.svelte';

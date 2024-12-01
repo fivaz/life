@@ -1,8 +1,9 @@
+import { parseDate } from '@life/shared/date';
 import { format, getQuarter, isPast, isThisYear, parse } from 'date-fns';
 
-import { DATE, DATE_FR } from '$lib/date.utils.svelte';
 import type { Goal } from '$lib/goal/goal.model';
 import { groupBy } from '$lib/utils';
+import { DATE_FR } from '$lib/utils.svelte';
 
 enum GROUPS {
 	Done = 'Done',
@@ -23,7 +24,7 @@ function getDateName(goal: Goal): GROUPS | string {
 		return GROUPS.Someday;
 	}
 
-	const date = parse(goal.deadline, DATE, new Date());
+	const date = parseDate(goal.deadline);
 
 	if (isPast(date)) {
 		return GROUPS.Overdue;

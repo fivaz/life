@@ -1,10 +1,14 @@
-import { convertTimeToMinutes } from '@life/shared/date';
+import {
+	convertTimeToMinutes,
+	formatTime,
+	getCurrentRoundedDate,
+	parseTime,
+} from '@life/shared/date';
 import type { Task } from '@life/shared/task';
 import { isRecurring, isTimed } from '@life/shared/task';
 import { isAfter, parse } from 'date-fns';
 
-import { formatTime, TIME } from '$lib/date.utils.svelte';
-import { getCurrentRoundedDate, sumTimes } from '$lib/task/time-utils';
+import { sumTimes } from '$lib/task/time-utils';
 
 // TaskIn is a super type that has all the attributes of possible Tasks together
 export type TaskIn = Task & {
@@ -25,10 +29,7 @@ function checkDuration(taskIn: TaskIn): string {
 }
 
 function checkIsInverted(taskIn: TaskIn): string {
-	if (
-		taskIn.isEvent &&
-		!isAfter(parse(taskIn.endTime, TIME, new Date()), parse(taskIn.startTime, TIME, new Date()))
-	) {
+	if (taskIn.isEvent && !isAfter(parseTime(taskIn.endTime), parseTime(taskIn.startTime))) {
 		return 'start time should be before end time';
 	}
 	return '';

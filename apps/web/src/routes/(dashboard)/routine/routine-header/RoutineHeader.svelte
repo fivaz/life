@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { Button, WeekChanger } from '@life/shared';
+	import { formatDate } from '@life/shared/date';
 	import { format } from 'date-fns';
 	import { Plus } from 'lucide-svelte';
 
-	import { formatDate, title } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
+	import { title } from '$lib/utils.svelte';
 
 	import { getOpenRoutineForm } from '../routine-rows/service';
 	import { selectedDate } from '../service.svelte';

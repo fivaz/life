@@ -1,11 +1,11 @@
 <script lang="ts" module>
 	import { Dialog, dialog } from '@life/shared';
 	import { categories } from '@life/shared/category';
+	import { formatDate } from '@life/shared/date';
 	import { goals } from '@life/shared/goal';
 	import { normalWithSubTasks } from '@life/shared/task';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
-	import { formatDate } from '$lib/date.utils.svelte';
 	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
 
 	import TaskForm from './TaskForm.svelte';

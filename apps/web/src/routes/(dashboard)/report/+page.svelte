@@ -5,8 +5,8 @@
 
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
-	import { title } from '$lib/date.utils.svelte';
 	import { fetchTasks } from '$lib/task/task.repository';
+	import { title } from '$lib/utils.svelte';
 
 	import LineChart from './line-chart/LineChart.svelte';
 	import type { ReportInterval } from './service';

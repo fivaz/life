@@ -15,6 +15,10 @@ export function formatTime(date: Date): string {
 	return format(date, TIME);
 }
 
+export function parseTime(date: string): Date {
+	return parse(date, TIME, new Date());
+}
+
 export function getCurrentRoundedDate() {
 	return roundTo15(new Date());
 }

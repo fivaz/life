@@ -1,8 +1,8 @@
 <script lang="ts">
+	import { formatDate } from '@life/shared/date';
 	import { subDays } from 'date-fns';
 	import { Flame } from 'lucide-svelte';
 
-	import { formatDate } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 
 	interface Props {

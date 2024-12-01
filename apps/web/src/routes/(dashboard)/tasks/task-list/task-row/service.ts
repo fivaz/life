@@ -2,14 +2,16 @@ import type { Task } from '@life/shared/task';
 import { format } from 'date-fns';
 
 import { editTask } from '$lib/task/task.repository';
-import { getTaskDate } from '$lib/task/time-utils';
 
 export const TASK_LIST_CLASS = 'task-list-class';
 export const HANDLE = 'handle-class';
 
-export function formatDate(task: Task, dateFormat: string) {
-	const date = getTaskDate(task);
-	return date ? format(date, dateFormat) : '';
+export function formatTaskDate(task: Task, dateFormat: string) {
+	if (!task.date) {
+		return '';
+	}
+
+	return format(task.date, dateFormat);
 }
 
 export function startDrag(e: { target: HTMLElement }) {

@@ -1,16 +1,6 @@
-import { roundTo15 } from '@life/shared/date';
+import { formatTime, parseDate, roundTo15 } from '@life/shared/date';
 import type { Task } from '@life/shared/task';
 import { add, isSameDay, parse } from 'date-fns';
-
-import { DATE, formatTime } from '$lib/date.utils.svelte';
-
-export function getTaskDate(task: Task): Date | null {
-	return task.date ? parse(task.date, DATE, new Date()) : null;
-}
-
-export function getCurrentRoundedDate() {
-	return roundTo15(new Date());
-}
 
 export function sumTimes(startTime: string, duration: string): string | '' {
 	if (!startTime || !duration) {

@@ -4,7 +4,7 @@
 	import { afterNavigate } from '$app/navigation';
 	import SideMenu from '$lib/components/dashboard/side-menu/SideMenu.svelte';
 	import Logo from '$lib/components/Logo.svelte';
-	import { title } from '$lib/date.utils.svelte';
+	import { title } from '$lib/utils.svelte';
 
 	interface Props {
 		class?: string;

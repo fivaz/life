@@ -8,12 +8,12 @@
 
 	import type { Category } from '$lib/category/category.model';
 	import { fetchCategories } from '$lib/category/category.respository';
-	import { title } from '$lib/date.utils.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
 	import { fetchGoals } from '$lib/goal/goal.repository';
 	import { buildUntimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
 	import { fetchTasks } from '$lib/task/task.repository';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
+	import { title } from '$lib/utils.svelte';
 
 	import { getTasksByDateSorted } from './service';
 	import TaskList from './task-list/TaskList.svelte';

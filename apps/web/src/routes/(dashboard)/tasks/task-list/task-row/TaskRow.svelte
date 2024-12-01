@@ -6,10 +6,10 @@
 	import interact from 'interactjs';
 	import { onDestroy, onMount } from 'svelte';
 
-	import { DATE_FR, DATE_FR_SHORT } from '$lib/date.utils.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
+	import { DATE_FR, DATE_FR_SHORT } from '$lib/utils.svelte';
 
-	import { formatDate, HANDLE, hasMoved, startDrag } from './service';
+	import { formatTaskDate, HANDLE, hasMoved, startDrag } from './service';
 
 	interface Props {
 		task: Task;
@@ -86,11 +86,11 @@
 		<div class="flex items-center justify-between gap-3 sm:hidden">
 			<!--to avoid dragging during scroll on touch devices, it's only possible to drag a task if it's grabbed by the handle-->
 			<Icon class="touch-none {HANDLE} h-6 w-6" src={GripVertical} />
-			<div class="w-10">{formatDate(task, DATE_FR_SHORT)}</div>
+			<div class="w-10">{formatTaskDate(task, DATE_FR_SHORT)}</div>
 			<div class="name w-[calc(100%-64px)]">{task.name}</div>
 		</div>
 		<div class="hidden gap-3 sm:flex">
-			{formatDate(task, DATE_FR)}
+			{formatTaskDate(task, DATE_FR)}
 			<div class="name">{task.name}</div>
 		</div>
 	</div>

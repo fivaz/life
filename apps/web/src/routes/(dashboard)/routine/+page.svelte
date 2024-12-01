@@ -2,11 +2,11 @@
 	import { Modal } from '@life/shared';
 
 	import Loading from '$lib/components/loading/Loading.svelte';
-	import { title } from '$lib/date.utils.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { buildEmptyRoutine } from '$lib/routine/routine.model';
 	import { fetchRoutines } from '$lib/routine/routine.repository';
 	import { currentUser } from '$lib/user/user.utils.svelte';
+	import { title } from '$lib/utils.svelte';
 
 	import RoutineEmptyState from './routine-empty-state/RoutineEmptyState.svelte';
 	import RoutineForm from './routine-form/RoutineForm.svelte';

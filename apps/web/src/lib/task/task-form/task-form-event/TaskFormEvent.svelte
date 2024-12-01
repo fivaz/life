@@ -1,10 +1,10 @@
 <script lang="ts">
+	import { formatTime } from '@life/shared/date';
 	import { differenceInMinutes } from 'date-fns';
 	import { slide } from 'svelte/transition';
 
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
-	import { formatTime } from '$lib/date.utils.svelte';
 	import { taskIn } from '$lib/task/task-form/service.svelte';
 	import { sumTimes } from '$lib/task/time-utils';
 
