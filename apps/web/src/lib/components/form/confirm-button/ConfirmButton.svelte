@@ -6,7 +6,7 @@
 		title?: string;
 		message?: string;
 		confirmByKey?: string;
-		color?: 'indigo' | 'none' | 'red';
+		color?: 'indigo' | 'white' | 'red';
 		type?: 'button' | 'submit';
 		class?: string;
 		children: Snippet;

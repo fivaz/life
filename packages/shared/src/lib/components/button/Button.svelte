@@ -5,7 +5,7 @@
 
 	interface Props {
 		isLoading?: boolean;
-		color?: 'indigo' | 'red' | 'white' | 'none';
+		color?: 'indigo' | 'red' | 'white';
 		type?: 'button' | 'submit' | undefined;
 		disabled?: boolean;
 		class?: string;
@@ -33,22 +33,15 @@
 		indigo: 'focus-visible:outline-indigo-600 bg-indigo-600 hover:bg-indigo-500 text-white',
 		red: 'focus-visible:outline-red-600 bg-red-600 hover:bg-red-500 text-white',
 		white: 'focus-visible:outline-white-600 bg-white-600 hover:bg-white-500 border text-gray-900',
-		none: '',
 	} as const;
 </script>
 
 <button
 	class={clsx(
-		colors[color],
-		{
-			'inline-flex justify-center gap-2 rounded-md text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2':
-				color !== 'none',
-			'opacity-70': disabled,
-		},
-		{
-			'px-3 py-2': !noPadding,
-		},
+		'inline-flex justify-center gap-2 rounded-md text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
 		klass,
+		colors[color],
+		{ 'opacity-70': disabled, 'px-3 py-2': !noPadding },
 	)}
 	{disabled}
 	{onclick}

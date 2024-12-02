@@ -145,8 +145,7 @@
 
 				<div class="mt-6 grid grid-cols-2 gap-4">
 					<Button
-						class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
-						color="none"
+						color="white"
 						disabled={isDisabled}
 						isLoading={isLoading.google}
 						onclick={googleSignIn}
@@ -157,8 +156,7 @@
 					</Button>
 
 					<Button
-						class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
-						color="none"
+						color="white"
 						disabled={isDisabled}
 						isLoading={isLoading.github}
 						onclick={githubSignIn}

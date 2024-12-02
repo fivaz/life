@@ -2,7 +2,6 @@
 	import { Button } from '@life/shared';
 	import { Copy, CopyCheck } from 'lucide-svelte';
 
-	import { tooltip } from '$lib/components/tooltip/tooltip.action';
 	import { taskIn } from '$lib/task/task-form/service.svelte';
 
 	import { nameOfDaysOfWeek } from './service';
