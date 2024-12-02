@@ -31,6 +31,7 @@
 	{#if taskIn.value.isRecurring && isRecurringOpen}
 		<div transition:slide>
 			<div class="flex flex-col gap-3 pt-2">
+				<!--frequency-->
 				<Select label="Frequency" bind:value={taskIn.value.recurringFrequency}>
 					{#snippet placeholder()}
 						<div class="flex items-center gap-3">{taskIn.value.recurringFrequency}</div>
@@ -42,15 +43,17 @@
 					{/each}
 				</Select>
 
+				<!--days of week-->
 				{#if taskIn.value.recurringFrequency === 'daily'}
 					<div transition:fade>
-						<h3 class="text-sm text-gray-700">Repeat every</h3>
 						<DaysCheckbox />
 					</div>
 				{/if}
 
+				<!--end at-->
 				<Input label="End at" type="date" bind:value={taskIn.value.recurringEndAt} />
 
+				<!--exceptions-->
 				<MultiDatePicker label="Exceptions on" bind:value={taskIn.value.recurringExceptions} />
 			</div>
 		</div>
