@@ -63,7 +63,7 @@
 				</div>
 
 				<button
-					class="rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
+					class="touch-manipulation rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
 					onclick={() => toggleRoutineCompletion(routine, selectedDateString, currentUser.uid)}
 					type="button"
 				>
