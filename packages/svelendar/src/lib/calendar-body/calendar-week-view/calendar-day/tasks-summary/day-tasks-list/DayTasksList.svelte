@@ -1,10 +1,8 @@
 <script lang="ts">
-	import { DATE, formatDate } from '@life/shared/date';
+	import { DATE, formatDate, parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { getTotalDuration, isRecurring, isTimed, sortTasks } from '@life/shared/task';
 	import { addDays, parse } from 'date-fns';
-
-	import { getPersistTasks } from '$lib/context.utils.js';
 
 	import DayTaskItem from './day-task-item/DayTaskItem.svelte';
 
@@ -22,28 +20,11 @@
 
 	let doneDuration = $derived(getTotalDuration(tasks.filter((toDo) => toDo.isDone === true)));
 
-	const persistTasks = getPersistTasks();
-
 	$effect(() => {
 		if (tasks.length === 0) {
 			close();
 		}
 	});
-
-	function postponeRemainingUntimedTasks() {
-		const untimedTasks = uncompletedTasks.filter((task) => !isTimed(task));
-
-		const untimedTasksUpdated = untimedTasks.map((task) => {
-			if (isRecurring(task)) {
-				return { ...task, recurringExceptions: [...task.recurringExceptions, formatDate(date)] };
-			} else {
-				const dayAfter = formatDate(addDays(parse(task.date, DATE, new Date()), 1));
-				return { ...task, date: dayAfter };
-			}
-		});
-
-		persistTasks(untimedTasksUpdated);
-	}
 </script>
 
 <div
@@ -64,12 +45,4 @@
 			<DayTaskItem {date} {index} {task} />
 		{/each}
 	</ul>
-
-	<div class="flex-none p-6">
-		{#if uncompletedTasks.length}
-			<button class="font-semibold hover:underline" onclick={postponeRemainingUntimedTasks}>
-				Postpone remaining unset tasks <span aria-hidden="true">&rarr;</span>
-			</button>
-		{/if}
-	</div>
 </div>

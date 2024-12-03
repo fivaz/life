@@ -61,18 +61,6 @@ export function getMoveEvent(): MoveEventFn {
 	return getContext(moveEventKey) as MoveEventFn;
 }
 
-// persist tasks
-const persistTasksKey = Symbol('persistTasks');
-
-export type PersistTasksFn = (tasks: Task[]) => void;
-export function getPersistTasks(): PersistTasksFn {
-	return getContext(persistTasksKey) as PersistTasksFn;
-}
-
-export function setPersistTasks(fn: PersistTasksFn) {
-	setContext(persistTasksKey, fn);
-}
-
 // toggle completion
 const toggleCompletionKey = Symbol('toggleCompletion');
 

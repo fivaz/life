@@ -11,7 +11,6 @@
 		CreateTaskFn,
 		EditTaskFn,
 		MoveEventFn,
-		PersistTasksFn,
 		ToggleCompletionFn,
 	} from './context.utils.js';
 	import {
@@ -19,7 +18,6 @@
 		setCreateTask,
 		setEditTask,
 		setMoveEvent,
-		setPersistTasks,
 		setToggleCompletion,
 	} from './context.utils.js';
 	import { currentDate } from './service.svelte.js';
@@ -29,20 +27,11 @@
 		changeDate: ChangeDateFn;
 		createTask: CreateTaskFn;
 		editTask: EditTaskFn;
-		persistTasks: PersistTasksFn;
 		toggleCompletion: ToggleCompletionFn;
 		moveEvent: MoveEventFn;
 	}
 
-	let {
-		tasks,
-		changeDate,
-		createTask,
-		editTask,
-		persistTasks,
-		toggleCompletion,
-		moveEvent,
-	}: Props = $props();
+	let { tasks, changeDate, createTask, editTask, toggleCompletion, moveEvent }: Props = $props();
 
 	let timeUntilNextUpdate = $state(getNextRoundedTime());
 
@@ -50,7 +39,6 @@
 	setCreateTask(createTask);
 	setEditTask(editTask);
 	setMoveEvent(moveEvent);
-	setPersistTasks(persistTasks);
 	setToggleCompletion(toggleCompletion);
 
 	$effect(() => {

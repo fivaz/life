@@ -1,7 +1,9 @@
 import type { Task } from '@life/shared/task';
 import { isRecurring } from '@life/shared/task';
+import { doc, writeBatch } from 'firebase/firestore';
 
-import { editTask } from '$lib/task/task.repository';
+import { db } from '$lib/firebase';
+import { editTask, getTaskPath } from '$lib/task/task.repository';
 import { editSingleRecurringEvent } from '$lib/task/task-form/service.svelte';
 
 export function moveEvent(
@@ -16,13 +18,6 @@ export function moveEvent(
 ) {
 	const newEvent = { ...event, date, duration, startTime };
 	editPossibleSingleRecurringEvent(newEvent, userId, oldDate);
-}
-
-export function persistTasks(userId: string, toDos: Task[]) {
-	toDos.forEach((toDo) => {
-		const { id, ...data } = toDo;
-		void editTask(id, data, userId, null, null);
-	});
 }
 
 export function editPossibleSingleRecurringEvent(event: Task, userId: string, targetDate: string) {

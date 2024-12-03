@@ -18,7 +18,7 @@
 	import { currentUser } from '$lib/user/user.utils.svelte';
 	import { title } from '$lib/utils.svelte';
 
-	import { editPossibleSingleRecurringEvent, moveEvent, persistTasks } from './service.svelte';
+	import { editPossibleSingleRecurringEvent, moveEvent } from './service.svelte';
 	import { convertTaskMapToList, fetchFirstTasks, getWeekTasks, tasksMap } from './task-map.svelte';
 
 	let targetDate = $state<string | undefined>();
@@ -77,7 +77,6 @@
 	createTask={(date) => openFormToCreateTask(categories, date)}
 	editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
 	moveEvent={(event, moveObject) => moveEvent(currentUser.uid, event, moveObject)}
-	persistTasks={(tasks) => persistTasks(currentUser.uid, tasks)}
 	{tasks}
 	toggleCompletion={(task, targetDate) => toggleCompletion(currentUser.uid, task, targetDate)}
 />
