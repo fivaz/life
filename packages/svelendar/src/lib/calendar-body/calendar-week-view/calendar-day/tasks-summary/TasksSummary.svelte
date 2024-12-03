@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Modal } from '@life/shared';
 	import type { Task } from '@life/shared/task';
+	import { isRecurring, isTimed, isUntimed } from '@life/shared/task';
 
 	import DayTasksList from './day-tasks-list/DayTasksList.svelte';
 
@@ -15,7 +16,14 @@
 
 	let isOpen = $state(false);
 
-	let hasPendingToDos = $derived(tasks.some((task) => task.isDone === false));
+	let visibleTasks = $derived(tasks.filter(isTaskVisible));
+
+	let hasPendingToDos = $derived(visibleTasks.some((task) => task.isDone === false));
+
+	function isTaskVisible(task: Task): boolean {
+		// if a task is recurring, show only if it's untimed
+		return !(isRecurring(task) && isTimed(task));
+	}
 
 	function getLabel(tasks: Task[]): string {
 		if (tasks.length === 0) {
@@ -29,7 +37,7 @@
 	}
 </script>
 
-{#if tasks.length}
+{#if visibleTasks.length}
 	<button
 		{style}
 		class="{klass}
@@ -39,10 +47,10 @@
 			rounded-lg px-2 py-1 text-center text-xs leading-5 hover:font-semibold"
 		onclick={() => (isOpen = true)}
 	>
-		{getLabel(tasks)}
+		{getLabel(visibleTasks)}
 	</button>
 {/if}
 
 <Modal bind:isOpen>
-	<DayTasksList close={() => (isOpen = false)} {date} {tasks} />
+	<DayTasksList close={() => (isOpen = false)} {date} tasks={visibleTasks} />
 </Modal>
