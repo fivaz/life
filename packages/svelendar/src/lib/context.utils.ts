@@ -1,39 +1,49 @@
 import type { Task } from '@life/shared/task';
 import { getContext, setContext } from 'svelte';
 
+//  change date
 const changeDateKey = Symbol('changeDate');
 
-export function setChangeDate(fn: (date: Date) => void) {
+export type ChangeDateFn = (date: Date) => void;
+
+export function setChangeDate(fn: ChangeDateFn) {
 	setContext(changeDateKey, fn);
 }
 
-export function getChangeDate(): (date: Date) => void {
-	return getContext(changeDateKey) as (date: Date) => void;
+export function getChangeDate(): ChangeDateFn {
+	return getContext(changeDateKey) as ChangeDateFn;
 }
 
+// create task
 const createTaskKey = Symbol('createTask');
 
-export function getCreateTask(): (date: Date) => void {
-	return getContext(createTaskKey) as (date: Date) => void;
-}
+export type CreateTaskFn = (date: Date) => void;
 
-export function setCreateTask(fn: (date: Date) => void) {
+export function setCreateTask(fn: CreateTaskFn) {
 	setContext(createTaskKey, fn);
 }
 
-const editTaskKey = Symbol('editTask');
-
-export function getEditTask(): (task: Task, date: string) => void {
-	return getContext(editTaskKey) as (task: Task, date: string) => void;
+export function getCreateTask(): CreateTaskFn {
+	return getContext(createTaskKey) as CreateTaskFn;
 }
 
-export function setEditTask(fn: (task: Task, date: string) => void) {
+// edit task
+const editTaskKey = Symbol('editTask');
+
+export type EditTaskFn = (task: Task, date: string) => void;
+
+export function setEditTask(fn: EditTaskFn) {
 	setContext(editTaskKey, fn);
 }
 
+export function getEditTask(): EditTaskFn {
+	return getContext(editTaskKey) as EditTaskFn;
+}
+
+// move event
 const moveEventKey = Symbol('moveEvent');
 
-export type MoveEventType = (
+export type MoveEventFn = (
 	event: Task,
 	moveObject: {
 		date: string;
@@ -43,30 +53,35 @@ export type MoveEventType = (
 	},
 ) => void;
 
-export function getMoveEvent(): MoveEventType {
-	return getContext(moveEventKey) as MoveEventType;
-}
-
-export function setMoveEvent(fn: MoveEventType) {
+export function setMoveEvent(fn: MoveEventFn) {
 	setContext(moveEventKey, fn);
 }
 
-const persistTasksKey = Symbol('persistTasks');
-
-export function getPersistTasks(): (tasks: Task[]) => void {
-	return getContext(persistTasksKey) as (tasks: Task[]) => void;
+export function getMoveEvent(): MoveEventFn {
+	return getContext(moveEventKey) as MoveEventFn;
 }
 
-export function setPersistTasks(fn: (tasks: Task[]) => void) {
+// persist tasks
+const persistTasksKey = Symbol('persistTasks');
+
+export type PersistTasksFn = (tasks: Task[]) => void;
+export function getPersistTasks(): PersistTasksFn {
+	return getContext(persistTasksKey) as PersistTasksFn;
+}
+
+export function setPersistTasks(fn: PersistTasksFn) {
 	setContext(persistTasksKey, fn);
 }
 
+// toggle completion
 const toggleCompletionKey = Symbol('toggleCompletion');
 
-export function getToggleCompletion(): (task: Task, targetDate: string) => void {
-	return getContext(toggleCompletionKey) as (event: Task, targetDate: string) => void;
+export type ToggleCompletionFn = (task: Task, targetDate: string) => void;
+
+export function setToggleCompletion(fn: ToggleCompletionFn) {
+	setContext(toggleCompletionKey, fn);
 }
 
-export function setToggleCompletion(fn: (task: Task, targetDate: string) => void) {
-	setContext(toggleCompletionKey, fn);
+export function getToggleCompletion(): ToggleCompletionFn {
+	return getContext(toggleCompletionKey) as ToggleCompletionFn;
 }

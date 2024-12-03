@@ -110,9 +110,7 @@ function isRecurringOnDay(event: Task, date: Date): boolean {
  */
 export function getEventGrid(events: Task[]): EventsGrid {
 	// the algorithm only works if events are sorted by time
-	const sortedEvents = sortTasks(events);
-
-	const timeSlotsByEvents = getTimeSlots(sortedEvents);
+	const timeSlotsByEvents = getTimeSlots(events);
 
 	return assignColumnsToEvents(timeSlotsByEvents);
 }

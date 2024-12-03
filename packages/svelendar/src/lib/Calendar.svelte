@@ -1,11 +1,19 @@
 <script lang="ts">
 	import { getNextRoundedTime } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
+	import { sortTasks } from '@life/shared/task';
 
 	import { GRID_CELL_TIME } from './calendar-body/calendar-week-view/calendar-day/calendar-grid/service.svelte.js';
 	import CalendarBody from './calendar-body/CalendarBody.svelte';
 	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
-	import type { MoveEventType } from './context.utils.js';
+	import type {
+		ChangeDateFn,
+		CreateTaskFn,
+		EditTaskFn,
+		MoveEventFn,
+		PersistTasksFn,
+		ToggleCompletionFn,
+	} from './context.utils.js';
 	import {
 		setChangeDate,
 		setCreateTask,
@@ -18,12 +26,12 @@
 
 	interface Props {
 		tasks: Task[];
-		changeDate: (date: Date) => void;
-		createTask: (date: Date) => void;
-		editTask: (task: Task, date: string) => void;
-		persistTasks: (tasks: Task[]) => void;
-		toggleCompletion: (event: Task, targetDate: string) => void;
-		moveEvent: MoveEventType;
+		changeDate: ChangeDateFn;
+		createTask: CreateTaskFn;
+		editTask: EditTaskFn;
+		persistTasks: PersistTasksFn;
+		toggleCompletion: ToggleCompletionFn;
+		moveEvent: MoveEventFn;
 	}
 
 	let {
@@ -57,5 +65,5 @@
 
 <div class="flex h-[calc(100vh-56px)] flex-col md:h-[calc(100vh-20px)]">
 	<CalendarHeader />
-	<CalendarBody {tasks} />
+	<CalendarBody tasks={sortTasks(tasks)} />
 </div>

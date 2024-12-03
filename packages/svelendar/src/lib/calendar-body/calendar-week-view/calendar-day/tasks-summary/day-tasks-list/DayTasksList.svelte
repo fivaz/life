@@ -16,9 +16,6 @@
 
 	let { tasks, close, date }: Props = $props();
 
-	// TODO move this sorted to the root of categories so I dont need to sort anywhere else
-	const tasksSorted = $derived(sortTasks(tasks));
-
 	let uncompletedTasks = $derived(tasks.filter((toDo) => toDo.isDone === false));
 
 	let uncompletedDuration = $derived(getTotalDuration(uncompletedTasks));
@@ -63,7 +60,7 @@
 	</div>
 
 	<ul class="overflow-auto py-3">
-		{#each tasksSorted as task, index (task)}
+		{#each tasks as task, index (task)}
 			<DayTaskItem {date} {index} {task} />
 		{/each}
 	</ul>
