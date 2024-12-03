@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Modal } from '@life/shared';
 	import type { Task } from '@life/shared/task';
-	import { isRecurring, isTimed, isUntimed } from '@life/shared/task';
+	import { isRecurring, isTimed } from '@life/shared/task';
 
 	import DayTasksList from './day-tasks-list/DayTasksList.svelte';
 

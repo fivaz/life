@@ -1,6 +1,6 @@
 import { DATE, nameOfDaysOfWeek, parseDate } from '@life/shared/date';
 import type { Task } from '@life/shared/task';
-import { isRecurring, sortTasks } from '@life/shared/task';
+import { isRecurring } from '@life/shared/task';
 import {
 	endOfDay,
 	getDate,

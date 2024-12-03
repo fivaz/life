@@ -1,8 +1,6 @@
 <script lang="ts">
-	import { DATE, formatDate, parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
-	import { getTotalDuration, isRecurring, isTimed, sortTasks } from '@life/shared/task';
-	import { addDays, parse } from 'date-fns';
+	import { getTotalDuration } from '@life/shared/task';
 
 	import DayTaskItem from './day-task-item/DayTaskItem.svelte';
 

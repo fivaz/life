@@ -1,9 +1,7 @@
 import type { Task } from '@life/shared/task';
 import { isRecurring } from '@life/shared/task';
-import { doc, writeBatch } from 'firebase/firestore';
 
-import { db } from '$lib/firebase';
-import { editTask, getTaskPath } from '$lib/task/task.repository';
+import { editTask } from '$lib/task/task.repository';
 import { editSingleRecurringEvent } from '$lib/task/task-form/service.svelte';
 
 export function moveEvent(
