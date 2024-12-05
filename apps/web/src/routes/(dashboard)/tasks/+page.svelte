@@ -51,10 +51,13 @@
 </script>
 
 <div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
-	<div class="flex items-center justify-between">
-		<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
+	<!--header-->
+	<div class="flex items-center justify-between gap-5">
+		<div>
+			<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
+		</div>
 
-		<div class="flex w-full items-center justify-between gap-5 md:w-auto">
+		<div class="flex items-center justify-between gap-5 md:grow-0">
 			<button
 				class="rounded bg-white p-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
 				onclick={() => (isStatsShown = true)}
@@ -63,7 +66,7 @@
 				<Icon class="h-5 w-5" src={DocumentText} />
 			</button>
 
-			<div class="hidden h-7 border-r border-gray-300 md:block"></div>
+			<div class="h-7 border-r border-gray-300"></div>
 
 			<Button
 				onclick={() => {
@@ -77,6 +80,7 @@
 		</div>
 	</div>
 
+	<!--body-->
 	<div class="flex flex-col gap-5">
 		<ul class="flex flex-col gap-3">
 			{#each sortedTasksByDate as dateGroup (dateGroup)}

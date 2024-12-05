@@ -25,7 +25,7 @@
 	}
 </script>
 
-<div class="relative w-11/12 max-w-80 text-sm leading-6 text-gray-900">
+<div class="relative w-11/12 max-w-[350px] text-sm leading-6 text-gray-900">
 	<div class="divide-y divide-gray-900/5 rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5">
 		<div class="p-6 text-base font-semibold">Tasks stats</div>
 
