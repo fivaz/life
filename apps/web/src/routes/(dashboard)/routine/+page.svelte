@@ -13,7 +13,8 @@
 	import RoutineHeader from './routine-header/RoutineHeader.svelte';
 	import RoutineRows from './routine-rows/RoutineRows.svelte';
 	import { setOpenRoutineForm } from './routine-rows/service';
-	import { routinesMap } from './service.svelte';
+	import { routinesMap, selectedDate } from './service.svelte';
+	import { getAvailableRoutines } from './utils';
 	import WeekListSelector from './week-list-selector/WeekListSelector.svelte';
 
 	let editingRoutine = $state<Routine>(buildEmptyRoutine());
@@ -32,6 +33,8 @@
 	fetchRoutines();
 
 	let routines = $derived(Object.values(routinesMap.value).flat());
+
+	let availableRoutines = $derived(getAvailableRoutines(routines, selectedDate.value));
 </script>
 
 {#if currentUser.uid}
@@ -41,7 +44,7 @@
 
 			<WeekListSelector {routines} />
 
-			{#if routines.length}
+			{#if availableRoutines.length}
 				<RoutineRows time="morning" title="Morning Routine" />
 				<RoutineRows time="afternoon" title="Afternoon Routine" />
 				<RoutineRows time="evening" title="Evening Routine" />

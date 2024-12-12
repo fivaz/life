@@ -8,7 +8,11 @@
 	import { updateRoutines } from '$lib/routine/routine.repository';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
-	import { routinesMap } from '../service.svelte';
+	import {
+		routinesMap,
+		selectedDate,
+	} from '../service.svelte';
+	import { getAvailableRoutines } from '../utils';
 	import RoutineRow from './routine-row/RoutineRow.svelte';
 
 	interface Props {
@@ -49,7 +53,7 @@
 		onfinalize={handleFinalize}
 		use:dragHandleZone={{ flipDurationMs: flipDuration, items: routinesMap.value[time] }}
 	>
-		{#each routinesMap.value[time] as routine (routine.id)}
+		{#each getAvailableRoutines(routinesMap.value[time], selectedDate.value) as routine (routine.id)}
 			<div animate:flip={{ duration: flipDuration }}>
 				<RoutineRow {routine} />
 			</div>

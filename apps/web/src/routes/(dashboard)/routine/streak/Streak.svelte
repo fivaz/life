@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { formatDate } from '@life/shared/date';
-	import { subDays } from 'date-fns';
+	import { startOfDay, subDays } from 'date-fns';
 	import { Flame } from 'lucide-svelte';
 
 	import type { Routine } from '$lib/routine/routine.model';
+
+	import { getAvailableRoutines } from '../utils';
 
 	interface Props {
 		routines: Routine[];
@@ -15,18 +17,15 @@
 
 	function getRoutinesStreak(routines: Routine[]): number {
 		let streak = 0;
-		let currentDate = new Date();
-		const todayStr = formatDate(currentDate);
+		let currentDate = startOfDay(new Date());
 
-		if (allRoutinesHaveEntryForDate(routines, todayStr)) {
+		if (allRoutinesHaveEntryForDate(routines, currentDate)) {
 			streak++;
 		}
 
 		while (true) {
 			currentDate = subDays(currentDate, 1);
-			const dateStr = formatDate(currentDate);
-
-			if (!allRoutinesHaveEntryForDate(routines, dateStr)) {
+			if (!allRoutinesHaveEntryForDate(routines, currentDate)) {
 				break;
 			}
 
@@ -36,14 +35,17 @@
 		return streak;
 	}
 
-	function allRoutinesHaveEntryForDate(routines: Routine[], date: string): boolean {
+	function allRoutinesHaveEntryForDate(routines: Routine[], date: Date): boolean {
+		const availableRoutines = getAvailableRoutines(routines, date);
+
 		// otherwise the loop doesn't end cause .every returns true in case the list is empty
-		if (routines.length === 0) {
+		if (availableRoutines.length === 0) {
 			return false;
 		}
 
+		const dateStr = formatDate(date);
 		return routines.every((routine) =>
-			routine.completeHistory.some((entry) => entry.date === date),
+			routine.completeHistory.some((entry) => entry.date === dateStr),
 		);
 	}
 </script>
