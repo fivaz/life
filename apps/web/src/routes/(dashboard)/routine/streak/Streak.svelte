@@ -44,7 +44,7 @@
 		}
 
 		const dateStr = formatDate(date);
-		return routines.every((routine) =>
+		return availableRoutines.every((routine) =>
 			routine.completeHistory.some((entry) => entry.date === dateStr),
 		);
 	}

@@ -32,17 +32,17 @@
 
 	fetchRoutines();
 
-	let routines = $derived(Object.values(routinesMap.value).flat());
+	let allRoutines = $derived(Object.values(routinesMap.value).flat());
 
-	let availableRoutines = $derived(getAvailableRoutines(routines, selectedDate.value));
+	let availableRoutines = $derived(getAvailableRoutines(allRoutines, selectedDate.value));
 </script>
 
 {#if currentUser.uid}
 	<div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
 		<div class="flex h-full w-full flex-col gap-5">
-			<RoutineHeader {routines} />
+			<RoutineHeader routines={allRoutines} />
 
-			<WeekListSelector {routines} />
+			<WeekListSelector routines={availableRoutines} />
 
 			{#if availableRoutines.length}
 				<RoutineRows time="morning" title="Morning Routine" />
