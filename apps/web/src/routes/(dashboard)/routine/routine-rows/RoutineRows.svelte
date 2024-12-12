@@ -8,10 +8,7 @@
 	import { updateRoutines } from '$lib/routine/routine.repository';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
-	import {
-		routinesMap,
-		selectedDate,
-	} from '../service.svelte';
+	import { routinesMap, selectedDate } from '../service.svelte';
 	import { getAvailableRoutines } from '../utils';
 	import RoutineRow from './routine-row/RoutineRow.svelte';
 
