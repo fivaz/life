@@ -1,6 +1,4 @@
 <script lang="ts">
-	import 'svelendar/styles.css';
-
 	import { Modal } from '@life/shared';
 	import { CATEGORY_WORK } from '@life/shared/category';
 	import type { Task } from '@life/shared/task';
