@@ -35,7 +35,7 @@
 		const options: { icon?: typeof Copy; label: string; onclick: () => void }[] = [
 			{
 				icon: ListTodo,
-				label: taskIn.value.isDone ? 'Mark as completed' : 'Mark as uncompleted',
+				label: taskIn.value.isDone ? 'Mark as uncompleted' : 'Mark as completed',
 				//setTimeout is necessary so the text doesn't change before the animation closes the dropdown
 				onclick: () => setTimeout(() => (taskIn.value.isDone = !taskIn.value.isDone), 100),
 			},
