@@ -1,6 +1,9 @@
 <script lang="ts">
 	import type { Goal } from '@life/shared/goal';
 	import type { Task } from '@life/shared/task';
+	import { ChevronDown, ChevronUp } from '@steeze-ui/lucide-icons';
+	import { Icon } from '@steeze-ui/svelte-icon';
+	import * as goal from 'date-fns/locale';
 
 	import GoalRow from '../goal-row/GoalRow.svelte';
 	import { buildGoalHierarchy } from './service';
@@ -16,11 +19,29 @@
 
 	let goalsHierarchy = $derived(buildGoalHierarchy(goals));
 
-	$inspect(goalsHierarchy);
+	let unCompletedGoals = $derived(goalsHierarchy.filter((goal) => !goal.isDone));
+
+	let completedGoals = $derived(goalsHierarchy.filter((goal) => goal.isDone));
+
+	let isCompleteListOpen = $state(false);
 </script>
 
 <div class="flex flex-col gap-5">
-	{#each goalsHierarchy as goal (goal.id)}
+	{#each unCompletedGoals as goal (goal.id)}
 		<GoalRow {addTask} {editGoal} {editTask} {goal} />
 	{/each}
+
+	<button
+		class="flex w-full items-end justify-center gap-2 text-base hover:bg-gray-100 hover:underline"
+		onclick={() => (isCompleteListOpen = !isCompleteListOpen)}
+	>
+		completed goals
+		<Icon class="h-4 w-4 animate-bounce" src={isCompleteListOpen ? ChevronUp : ChevronDown} />
+	</button>
+
+	{#if isCompleteListOpen}
+		{#each completedGoals as goal (goal.id)}
+			<GoalRow {addTask} {editGoal} {editTask} {goal} />
+		{/each}
+	{/if}
 </div>
