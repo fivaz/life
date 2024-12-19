@@ -45,6 +45,14 @@
 		}
 		close();
 	}
+
+	let selectGoals = $derived.by(() => {
+		const otherGoals = goals.filter((existingGoal) => existingGoal.id !== goal.id);
+		return otherGoals.toSorted((a, b) => {
+			if (a.isDone === b.isDone) return 0;
+			return a.isDone ? 1 : -1;
+		});
+	});
 </script>
 
 <form
@@ -83,6 +91,17 @@
 				<Toggle label="Is complete" bind:value={goalIn.isDone} />
 			</div>
 
+			{#snippet goalItem(goal: Goal | undefined)}
+				{#if goal}
+					<div class="flex gap-2">
+						<GoalIcon name={goal.icon} class="h-5 w-5" />
+						<span class="w-[calc(100%-20px)] truncate">{goal.name}</span>
+					</div>
+				{:else}
+					<span>no parent</span>
+				{/if}
+			{/snippet}
+
 			<Select
 				class="flex items-center"
 				label="Goal"
@@ -91,13 +110,14 @@
 				bind:value={goalIn.parent}
 			>
 				{#snippet placeholder()}
-					{goals.find((goal) => goal.id === goalIn.parent)?.name || 'no parent'}
+					{@const selectedGoal = goals.find((goal) => goal.id === goalIn.parent)}
+					{@render goalItem(selectedGoal)}
 				{/snippet}
+
 				<SelectItem value="">no parent</SelectItem>
-				{#each goals as goal (goal.id)}
-					<SelectItem class="flex gap-2" value={goal.id}>
-						<GoalIcon name={goal.icon} class="h-5 w-5" />
-						<span class="w-[calc(100%-20px)] truncate">{goal.name}</span>
+				{#each selectGoals as goal (goal.id)}
+					<SelectItem value={goal.id}>
+						{@render goalItem(goal)}
 					</SelectItem>
 				{/each}
 			</Select>

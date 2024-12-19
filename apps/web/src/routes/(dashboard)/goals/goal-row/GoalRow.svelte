@@ -23,7 +23,7 @@
 
 	interface Props {
 		goal: HierarchicalGoal;
-		addGoal: (goal: Goal) => void;
+		addGoal?: (goal: Goal) => void;
 		addTask: (goal: Goal) => void;
 		editGoal: (goal: Goal) => void;
 		editTask: (task: Task) => void;
@@ -63,13 +63,15 @@
 		</div>
 
 		<div>
-			<button
-				class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-				onclick={() => addGoal(goal)}
-				type="button"
-			>
-				<GitPullRequestCreate class="h-4 w-4" />
-			</button>
+			{#if addGoal}
+				<button
+					class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+					onclick={() => addGoal(goal)}
+					type="button"
+				>
+					<GitPullRequestCreate class="h-4 w-4" />
+				</button>
+			{/if}
 
 			<button
 				class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
