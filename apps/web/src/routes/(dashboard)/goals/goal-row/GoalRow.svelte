@@ -10,11 +10,14 @@
 	import { fetchGoalTasks } from '$lib/task/task.repository';
 	import { getCompletedTasks } from '$lib/task/task-utils';
 
+	import type { HierarchicalGoal } from '../goals-by-parent/service';
 	import GoalTasks from './goal-tasks/GoalTasks.svelte';
+	// eslint-disable-next-line import/no-self-import
+	import GoalRow from './GoalRow.svelte';
 
 	interface Props {
-		goal: Goal;
-		addTask: () => void;
+		goal: HierarchicalGoal;
+		addTask: (goal: Goal) => void;
 		editGoal: (goal: Goal) => void;
 		editTask: (task: Task) => void;
 	}
@@ -36,13 +39,15 @@
 	let tasks = $state<Task[]>([]);
 
 	fetchGoalTasks(goal.id, (rawTasks) => (tasks = sortTasks(rawTasks)));
+
+	let shouldHaveTasks = $derived(goal.parent === '' && goal.children.length === 0);
 </script>
 
-<li
-	class="rounded-lg bg-gray-50 py-3 text-base leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/5"
+<div
+	class="rounded-lg bg-gray-50 py-3 text-base leading-6 text-gray-900 shadow-sm ring-1 ring-gray-300"
 >
 	<div class="w-full">
-		<div class={'flex items-center justify-between px-3 pb-2'}>
+		<div class="flex items-center justify-between px-3">
 			<div
 				class="flex w-[calc(100%-70px)] items-center gap-2 truncate"
 				class:line-through={goal.isDone}
@@ -54,7 +59,7 @@
 			<div>
 				<button
 					class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-					onclick={addTask}
+					onclick={() => addTask(goal)}
 					type="button"
 				>
 					<Icon class="h-4 w-4" src={Plus} />
@@ -77,6 +82,14 @@
 		{/if}
 	</div>
 
+	{#if goal.children.length}
+		<div class="flex flex-col gap-3 px-2 pt-2">
+			{#each goal.children as childGoal (childGoal.id)}
+				<GoalRow {addTask} {editGoal} {editTask} goal={childGoal} />
+			{/each}
+		</div>
+	{/if}
+
 	<div class="text-sm">
 		{#if tasks.length}
 			<button
@@ -86,8 +99,8 @@
 				<span>{getNumberOfTasks(tasks)}</span>
 				<Icon class="h-4 w-4 animate-bounce" src={isTaskListOpen ? ChevronUp : ChevronDown} />
 			</button>
-		{:else}
+		{:else if shouldHaveTasks}
 			<div class="w-full px-3 text-center text-red-500">No tasks yet</div>
 		{/if}
 	</div>
-</li>
+</div>
