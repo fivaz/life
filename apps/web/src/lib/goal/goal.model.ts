@@ -10,6 +10,7 @@ export const goalSchema = z.object({
 	icon: z.string(),
 	deadline: zDateOrEmpty,
 	isDone: z.boolean(),
+	parent: z.string(),
 });
 
 export type Goal = z.infer<typeof goalSchema>;
@@ -21,5 +22,6 @@ export function buildEmptyGoal(): Goal {
 		id: '',
 		isDone: false,
 		name: '',
+		parent: '',
 	};
 }

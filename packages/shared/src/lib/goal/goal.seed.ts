@@ -10,6 +10,7 @@ export const learnToDrive: Goal = {
 	id: `${id++}`,
 	isDone: true,
 	name: 'learn to drive',
+	parent: '',
 };
 
 export const sleepEarly: Goal = {
@@ -18,6 +19,7 @@ export const sleepEarly: Goal = {
 	id: `${id++}`,
 	isDone: false,
 	name: 'sleep early',
+	parent: '',
 };
 
 export const investMoney: Goal = {
@@ -26,6 +28,7 @@ export const investMoney: Goal = {
 	id: `${id++}`,
 	isDone: true,
 	name: 'invest Money',
+	parent: '',
 };
 
 export const readTheGospelOfJohn: Goal = {
@@ -34,6 +37,7 @@ export const readTheGospelOfJohn: Goal = {
 	id: `${id++}`,
 	isDone: false,
 	name: 'read the gospel of John',
+	parent: '',
 };
 
 export const goals = [learnToDrive, sleepEarly, investMoney, readTheGospelOfJohn];

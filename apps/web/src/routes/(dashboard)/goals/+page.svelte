@@ -80,7 +80,7 @@
 		</ul>
 
 		<Modal bind:isOpen={isFormOpen}>
-			<GoalForm close={() => (isFormOpen = false)} goal={editingGoal} />
+			<GoalForm close={() => (isFormOpen = false)} goal={editingGoal} {goals} />
 		</Modal>
 	</div>
 </div>

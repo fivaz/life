@@ -4,4 +4,5 @@ export type Goal = {
 	icon: string;
 	deadline: string;
 	isDone: boolean;
+	parent: string;
 };

@@ -1,11 +1,14 @@
 <script lang="ts">
 	import { Button, GoalIcon } from '@life/shared';
+	import { categories } from '@life/shared/category';
 	import { getIcon } from '@life/shared/goal';
 
 	import CloseX from '$lib/components/close-x/CloseX.svelte';
 	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';
 	import Input from '$lib/components/form/input/Input.svelte';
+	import Select from '$lib/components/form/select/Select.svelte';
+	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
 	import { addGoal, deleteGoal, editGoal } from '$lib/goal/goal.repository';
@@ -17,9 +20,10 @@
 	interface Props {
 		goal: Goal;
 		close: () => void;
+		goals: Goal[];
 	}
 
-	let { goal, close }: Props = $props();
+	let { goal, goals, close }: Props = $props();
 
 	let isEditing = $derived(!!goal.id);
 
@@ -71,7 +75,6 @@
 				class="flex items-center gap-2"
 				inputClass="flex-1"
 				label="Deadline"
-				required
 				type="date"
 				bind:value={goalIn.deadline}
 			/>
@@ -79,6 +82,25 @@
 			<div class="rounded-lg border border-gray-200 p-2">
 				<Toggle label="Is complete" bind:value={goalIn.isDone} />
 			</div>
+
+			<Select
+				class="flex items-center"
+				label="Goal"
+				labelClass="w-1/5"
+				selectClass="flex-1"
+				bind:value={goalIn.parent}
+			>
+				{#snippet placeholder()}
+					{goals.find((goal) => goal.id === goalIn.parent)?.name || 'no parent'}
+				{/snippet}
+				<SelectItem value={null}>no goal</SelectItem>
+				{#each goals as goal (goal.id)}
+					<SelectItem class="flex gap-2" value={goal.id}>
+						<GoalIcon name={goal.icon} class="h-5 w-5" />
+						<span class="w-[calc(100%-20px)] truncate">{goal.name}</span>
+					</SelectItem>
+				{/each}
+			</Select>
 
 			<IconSelector name="icon" bind:value={goalIn.icon} />
 		</div>
