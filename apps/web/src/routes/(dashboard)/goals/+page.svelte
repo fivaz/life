@@ -8,7 +8,7 @@
 	import type { Category } from '$lib/category/category.model';
 	import { fetchCategories } from '$lib/category/category.respository';
 	import type { Goal } from '$lib/goal/goal.model';
-	import { buildEmptyGoal } from '$lib/goal/goal.model';
+	import { buildEmptyGoal, buildEmptyGoalWithParent } from '$lib/goal/goal.model';
 	import { fetchGoals } from '$lib/goal/goal.repository';
 	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
 	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
@@ -30,11 +30,6 @@
 
 	title.value = 'Goals';
 
-	function openForm(goal = buildEmptyGoal()) {
-		isFormOpen = true;
-		editingGoal = goal;
-	}
-
 	let goals = $state<Goal[]>([]);
 
 	fetchGoals(goals);
@@ -51,6 +46,21 @@
 	function onEditTask(task: Task) {
 		isTaskFormOpen = true;
 		editingTask = task;
+	}
+
+	function onAddRootGoal() {
+		isFormOpen = true;
+		editingGoal = buildEmptyGoal();
+	}
+
+	function onAddGoal(goal: Goal) {
+		isFormOpen = true;
+		editingGoal = buildEmptyGoalWithParent(goal.id);
+	}
+
+	function onEditGoal(goal: Goal) {
+		isFormOpen = true;
+		editingGoal = goal;
 	}
 
 	let isParentView = $state(true);
@@ -75,7 +85,7 @@
 
 			<div class="h-7 border-r border-gray-300"></div>
 
-			<Button onclick={() => openForm()}>
+			<Button onclick={() => onAddRootGoal()}>
 				<Plus class="h-4 w-auto" />
 				New Goal
 			</Button>
@@ -83,9 +93,15 @@
 	</div>
 
 	{#if isParentView}
-		<GoalsByParent addTask={onAddTask} editGoal={openForm} editTask={onEditTask} {goals} />
+		<GoalsByParent
+			addGoal={onAddGoal}
+			addTask={onAddTask}
+			editGoal={onEditGoal}
+			editTask={onEditTask}
+			{goals}
+		/>
 	{:else}
-		<GoalsByDeadline addTask={onAddTask} editGoal={openForm} editTask={onEditTask} {goals} />
+		<GoalsByDeadline addTask={onAddTask} editGoal={onAddRootGoal} editTask={onEditTask} {goals} />
 	{/if}
 
 	<Modal bind:isOpen={isTaskFormOpen}>

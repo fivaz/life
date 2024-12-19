@@ -25,3 +25,14 @@ export function buildEmptyGoal(): Goal {
 		parent: '',
 	};
 }
+
+export function buildEmptyGoalWithParent(parent: string): Goal {
+	return {
+		deadline: formatDate(lastDayOfQuarter(new Date())),
+		icon: 'Fire',
+		id: '',
+		isDone: false,
+		name: '',
+		parent,
+	};
+}

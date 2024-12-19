@@ -4,6 +4,12 @@
 	import { sortTasks } from '@life/shared/task';
 	import { ChevronDown, ChevronUp, Plus, Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import {
+		CalendarPlus,
+		GitPullRequest,
+		GitPullRequestCreate,
+		GitPullRequestCreateArrow,
+	} from 'lucide-svelte';
 
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
@@ -17,12 +23,13 @@
 
 	interface Props {
 		goal: HierarchicalGoal;
+		addGoal: (goal: Goal) => void;
 		addTask: (goal: Goal) => void;
 		editGoal: (goal: Goal) => void;
 		editTask: (task: Task) => void;
 	}
 
-	let { goal, editGoal, addTask, editTask }: Props = $props();
+	let { goal, addGoal, editGoal, addTask, editTask }: Props = $props();
 
 	let isTaskListOpen = $state(false);
 
@@ -46,46 +53,52 @@
 <div
 	class="rounded-lg bg-gray-50 py-3 text-base leading-6 text-gray-900 shadow-sm ring-1 ring-gray-300"
 >
-	<div class="w-full">
-		<div class="flex items-center justify-between px-3">
-			<div
-				class="flex w-[calc(100%-70px)] items-center gap-2 truncate"
-				class:line-through={goal.isDone}
-			>
-				<GoalIcon name={goal.icon} class="h-5 w-5 text-indigo-600" />
-				<span>{goal.name}</span>
-			</div>
-
-			<div>
-				<button
-					class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-					onclick={() => addTask(goal)}
-					type="button"
-				>
-					<Icon class="h-4 w-4" src={Plus} />
-				</button>
-				<button
-					class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-					onclick={() => editGoal(goal)}
-					type="button"
-				>
-					<Icon class="h-4 w-4 text-black" src={Settings2} />
-				</button>
-			</div>
+	<div class="flex items-center justify-between px-3">
+		<div
+			class="flex w-[calc(100%-110px)] items-center gap-2 truncate"
+			class:line-through={goal.isDone}
+		>
+			<GoalIcon name={goal.icon} class="h-5 w-5 text-indigo-600" />
+			<span>{goal.name}</span>
 		</div>
 
-		{#if tasks.length}
-			<ProgressBar maxValue={tasks.length} value={getCompletedTasks(tasks)} />
-			{#if isTaskListOpen}
-				<GoalTasks {editTask} {tasks} />
-			{/if}
-		{/if}
+		<div>
+			<button
+				class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+				onclick={() => addGoal(goal)}
+				type="button"
+			>
+				<GitPullRequestCreate class="h-4 w-4" />
+			</button>
+
+			<button
+				class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+				onclick={() => addTask(goal)}
+				type="button"
+			>
+				<CalendarPlus class="h-4 w-4" />
+			</button>
+			<button
+				class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+				onclick={() => editGoal(goal)}
+				type="button"
+			>
+				<Icon class="h-4 w-4 text-black" src={Settings2} />
+			</button>
+		</div>
 	</div>
+
+	{#if tasks.length}
+		<ProgressBar maxValue={tasks.length} value={getCompletedTasks(tasks)} />
+		{#if isTaskListOpen}
+			<GoalTasks {editTask} {tasks} />
+		{/if}
+	{/if}
 
 	{#if goal.children.length}
 		<div class="flex flex-col gap-3 px-2 pt-2">
 			{#each goal.children as childGoal (childGoal.id)}
-				<GoalRow {addTask} {editGoal} {editTask} goal={childGoal} />
+				<GoalRow {addGoal} {addTask} {editGoal} {editTask} goal={childGoal} />
 			{/each}
 		</div>
 	{/if}

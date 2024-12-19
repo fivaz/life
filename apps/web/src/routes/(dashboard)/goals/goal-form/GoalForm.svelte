@@ -93,7 +93,7 @@
 				{#snippet placeholder()}
 					{goals.find((goal) => goal.id === goalIn.parent)?.name || 'no parent'}
 				{/snippet}
-				<SelectItem value={null}>no goal</SelectItem>
+				<SelectItem value="">no parent</SelectItem>
 				{#each goals as goal (goal.id)}
 					<SelectItem class="flex gap-2" value={goal.id}>
 						<GoalIcon name={goal.icon} class="h-5 w-5" />
