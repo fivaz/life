@@ -16,9 +16,8 @@
 	import GoalForm from './goal-form/GoalForm.svelte';
 	import GoalsByDeadline from './goals-by-deadline/GoalsByDeadline.svelte';
 	import GoalsByParent from './goals-by-parent/GoalsByParent.svelte';
-	import type { HierarchicalGoal } from './goals-by-parent/service';
-
-	let editingGoal = $state<Goal>(buildEmptyGoal());
+	
+let editingGoal = $state<Goal>(buildEmptyGoal());
 
 	let editingTask = $state<Task>(buildUntimedTask([]));
 

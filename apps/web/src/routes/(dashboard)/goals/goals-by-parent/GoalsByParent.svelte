@@ -5,7 +5,6 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 
 	import GoalRow from '../goal-row/GoalRow.svelte';
-	import type { HierarchicalGoal } from './service';
 	import { buildGoalHierarchy } from './service';
 
 	interface Props {
