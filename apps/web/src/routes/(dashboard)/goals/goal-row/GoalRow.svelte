@@ -3,15 +3,10 @@
 	import { parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { sortTasks } from '@life/shared/task';
-	import { ChevronDown, ChevronUp, Plus, Settings2 } from '@steeze-ui/lucide-icons';
+	import { ChevronDown, ChevronUp, Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { format } from 'date-fns';
-	import {
-		CalendarPlus,
-		GitPullRequest,
-		GitPullRequestCreate,
-		GitPullRequestCreateArrow,
-	} from 'lucide-svelte';
+	import { CalendarPlus, GitPullRequestCreate } from 'lucide-svelte';
 
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
 	import type { Goal } from '$lib/goal/goal.model';

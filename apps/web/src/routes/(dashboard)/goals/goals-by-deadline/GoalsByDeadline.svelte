@@ -4,8 +4,6 @@
 	import { ChevronDown, ChevronUp } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
-	import { buildTimedTask } from '$lib/task/build-utils';
-
 	import GoalRow from '../goal-row/GoalRow.svelte';
 	import { sortGoalsByDate } from '../service';
 

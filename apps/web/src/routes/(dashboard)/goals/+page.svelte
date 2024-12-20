@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { Button, Modal } from '@life/shared';
 	import type { Task } from '@life/shared/task';
-	import { DocumentText } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
-	import { CalendarArrowDown, CalendarArrowDownIcon, ListTree, Plus } from 'lucide-svelte';
+	import { CalendarArrowDown, ListTree, Plus } from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';
 	import { fetchCategories } from '$lib/category/category.respository';
@@ -15,10 +13,8 @@
 	import { title } from '$lib/utils.svelte';
 
 	import GoalForm from './goal-form/GoalForm.svelte';
-	import GoalRow from './goal-row/GoalRow.svelte';
 	import GoalsByDeadline from './goals-by-deadline/GoalsByDeadline.svelte';
 	import GoalsByParent from './goals-by-parent/GoalsByParent.svelte';
-	import { sortGoalsByDate } from './service';
 
 	let editingGoal = $state<Goal>(buildEmptyGoal());
 

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { Button, GoalIcon } from '@life/shared';
-	import { categories } from '@life/shared/category';
 	import { getIcon } from '@life/shared/goal';
 
 	import CloseX from '$lib/components/close-x/CloseX.svelte';
