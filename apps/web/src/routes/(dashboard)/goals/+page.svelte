@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Button, Modal } from '@life/shared';
+	import { sortGoals } from '@life/shared/goal';
 	import type { Task } from '@life/shared/task';
 	import { CalendarArrowDown, ListTree, Plus } from 'lucide-svelte';
 
@@ -29,7 +30,7 @@
 
 	let goals = $state<Goal[]>([]);
 
-	fetchGoals(goals);
+	fetchGoals((unsortedGoals) => (goals = sortGoals(unsortedGoals)));
 
 	let categories = $state<Category[]>([]);
 

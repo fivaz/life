@@ -70,6 +70,8 @@ import {
 } from '@steeze-ui/lucide-icons';
 import type { IconSource } from '@steeze-ui/svelte-icon';
 
+import type { Goal } from '$lib/goal/goal.model.js';
+
 const defaultIcon: GoalIconType = { component: Fire, name: 'Fire' };
 
 export type GoalIconType = {
@@ -149,4 +151,12 @@ export function getIcon(name: null | string) {
 	const icon = icons.find((icon) => icon.name === name);
 
 	return icon || defaultIcon;
+}
+
+export function sortGoals(goals: Goal[]) {
+	return goals.toSorted((a, b) => {
+		if (!a.deadline) return 1; // Place tasks with no deadline at the end
+		if (!b.deadline) return -1;
+		return new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
+	});
 }
