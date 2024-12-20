@@ -3,7 +3,6 @@
 	import type { Task } from '@life/shared/task';
 	import { ChevronDown, ChevronUp } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import * as goal from 'date-fns/locale';
 
 	import GoalRow from '../goal-row/GoalRow.svelte';
 	import { buildGoalHierarchy } from './service';
@@ -33,7 +32,7 @@
 	{/each}
 
 	{#if isCompleteListOpen}
-		<h2>Completed goals</h2>
+		<div class="flex justify-between p-2 font-semibold">Completed goals</div>
 		{#each completedGoals as goal (goal.id)}
 			<GoalRow {addGoal} {addTask} {editGoal} {editTask} {goal} />
 		{/each}

@@ -46,8 +46,6 @@
 	let tasks = $state<Task[]>([]);
 
 	fetchGoalTasks(goal.id, (rawTasks) => (tasks = sortTasks(rawTasks)));
-
-	let shouldHaveTasks = $derived(goal.parent === '' && goal.children.length === 0);
 </script>
 
 <div
@@ -114,8 +112,6 @@
 				<span>{getNumberOfTasks(tasks)}</span>
 				<Icon class="h-4 w-4 animate-bounce" src={isTaskListOpen ? ChevronUp : ChevronDown} />
 			</button>
-		{:else if shouldHaveTasks}
-			<div class="w-full px-3 text-center text-red-500">No tasks yet</div>
 		{/if}
 	</div>
 </div>
