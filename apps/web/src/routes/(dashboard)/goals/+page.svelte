@@ -56,10 +56,9 @@
 		editingGoal = buildEmptyGoalWithParent(goal.id);
 	}
 
-	function onEditGoal(goal: HierarchicalGoal) {
+	function onEditGoal(goal: Goal) {
 		isFormOpen = true;
-		const { children, ...rest } = goal;
-		editingGoal = rest;
+		editingGoal = goal;
 	}
 
 	let isParentView = $state(true);
@@ -100,7 +99,7 @@
 			{goals}
 		/>
 	{:else}
-		<GoalsByDeadline addTask={onAddTask} editGoal={onAddRootGoal} editTask={onEditTask} {goals} />
+		<GoalsByDeadline addTask={onAddTask} editGoal={onEditGoal} editTask={onEditTask} {goals} />
 	{/if}
 
 	<Modal bind:isOpen={isTaskFormOpen}>

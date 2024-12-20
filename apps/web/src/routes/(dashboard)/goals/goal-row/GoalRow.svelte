@@ -23,7 +23,7 @@
 		goal: HierarchicalGoal;
 		addGoal?: (goal: Goal) => void;
 		addTask: (goal: Goal) => void;
-		editGoal: (goal: HierarchicalGoal) => void;
+		editGoal: (goal: Goal) => void;
 		editTask: (task: Task) => void;
 	}
 
@@ -44,6 +44,11 @@
 	let tasks = $state<Task[]>([]);
 
 	fetchGoalTasks(goal.id, (rawTasks) => (tasks = sortTasks(rawTasks)));
+
+	function convertToGoal(hierarchicalGoal: HierarchicalGoal): Goal {
+		const { children, ...goal } = hierarchicalGoal;
+		return goal;
+	}
 </script>
 
 <div
@@ -62,7 +67,7 @@
 			{#if addGoal}
 				<button
 					class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-					onclick={() => addGoal(goal)}
+					onclick={() => addGoal(convertToGoal(goal))}
 					type="button"
 				>
 					<GitPullRequestCreate class="h-4 w-4" />
@@ -71,14 +76,14 @@
 
 			<button
 				class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-				onclick={() => addTask(goal)}
+				onclick={() => addTask(convertToGoal(goal))}
 				type="button"
 			>
 				<CalendarPlus class="h-4 w-4" />
 			</button>
 			<button
 				class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-				onclick={() => editGoal(goal)}
+				onclick={() => editGoal(convertToGoal(goal))}
 				type="button"
 			>
 				<Icon class="h-4 w-4 text-black" src={Settings2} />

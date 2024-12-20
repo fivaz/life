@@ -13,7 +13,7 @@
 		addGoal: (goal: Goal) => void;
 		addTask: (goal: Goal) => void;
 		editTask: (task: Task) => void;
-		editGoal: (goal: HierarchicalGoal) => void;
+		editGoal: (goal: Goal) => void;
 	}
 
 	let { goals, addGoal, addTask, editGoal, editTask }: Props = $props();
