@@ -23,7 +23,7 @@
 		goal: HierarchicalGoal;
 		addGoal?: (goal: Goal) => void;
 		addTask: (goal: Goal) => void;
-		editGoal: (goal: Goal) => void;
+		editGoal: (goal: HierarchicalGoal) => void;
 		editTask: (task: Task) => void;
 	}
 

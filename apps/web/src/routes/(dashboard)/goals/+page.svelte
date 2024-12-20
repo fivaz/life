@@ -15,6 +15,7 @@
 	import GoalForm from './goal-form/GoalForm.svelte';
 	import GoalsByDeadline from './goals-by-deadline/GoalsByDeadline.svelte';
 	import GoalsByParent from './goals-by-parent/GoalsByParent.svelte';
+	import type { HierarchicalGoal } from './goals-by-parent/service';
 
 	let editingGoal = $state<Goal>(buildEmptyGoal());
 
@@ -54,9 +55,10 @@
 		editingGoal = buildEmptyGoalWithParent(goal.id);
 	}
 
-	function onEditGoal(goal: Goal) {
+	function onEditGoal(goal: HierarchicalGoal) {
 		isFormOpen = true;
-		editingGoal = goal;
+		const { children, ...rest } = goal;
+		editingGoal = rest;
 	}
 
 	let isParentView = $state(true);

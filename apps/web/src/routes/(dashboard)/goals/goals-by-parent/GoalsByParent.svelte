@@ -5,6 +5,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 
 	import GoalRow from '../goal-row/GoalRow.svelte';
+	import type { HierarchicalGoal } from './service';
 	import { buildGoalHierarchy } from './service';
 
 	interface Props {
@@ -12,7 +13,7 @@
 		addGoal: (goal: Goal) => void;
 		addTask: (goal: Goal) => void;
 		editTask: (task: Task) => void;
-		editGoal: (goal: Goal) => void;
+		editGoal: (goal: HierarchicalGoal) => void;
 	}
 
 	let { goals, addGoal, addTask, editGoal, editTask }: Props = $props();
