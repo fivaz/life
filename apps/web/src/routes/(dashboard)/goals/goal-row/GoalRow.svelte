@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { GoalIcon } from '@life/shared';
+	import { parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { sortTasks } from '@life/shared/task';
 	import { ChevronDown, ChevronUp, Plus, Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { format } from 'date-fns';
 	import {
 		CalendarPlus,
 		GitPullRequest,
@@ -15,6 +17,7 @@
 	import type { Goal } from '$lib/goal/goal.model';
 	import { fetchGoalTasks } from '$lib/task/task.repository';
 	import { getCompletedTasks } from '$lib/task/task-utils';
+	import { DATE_FR } from '$lib/utils.svelte';
 
 	import type { HierarchicalGoal } from '../goals-by-parent/service';
 	import GoalTasks from './goal-tasks/GoalTasks.svelte';
@@ -52,15 +55,15 @@
 	class="rounded-lg bg-gray-50 py-3 text-base leading-6 text-gray-900 shadow-sm ring-1 ring-gray-300"
 >
 	<div class="flex items-center justify-between px-3">
-		<div
-			class="flex w-[calc(100%-110px)] items-center gap-2 truncate"
-			class:line-through={goal.isDone}
-		>
+		<div class="flex items-center gap-2" class:line-through={goal.isDone}>
 			<GoalIcon name={goal.icon} class="h-5 w-5 text-indigo-600" />
 			<span>{goal.name}</span>
 		</div>
 
-		<div>
+		<div class="flex items-center justify-center gap-2">
+			{#if goal.deadline}
+				<span class="text-sm"> {format(parseDate(goal.deadline), DATE_FR)}</span>
+			{/if}
 			{#if addGoal}
 				<button
 					class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
