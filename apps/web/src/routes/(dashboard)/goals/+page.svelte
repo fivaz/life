@@ -60,7 +60,7 @@
 		editingGoal = goal;
 	}
 
-	let isParentView = $state(true);
+	let isSmartView = $state(true);
 </script>
 
 <div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
@@ -70,13 +70,13 @@
 		<div class="flex items-center justify-between gap-5 md:grow-0">
 			<button
 				class="rounded bg-white p-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-				onclick={() => (isParentView = !isParentView)}
+				onclick={() => (isSmartView = !isSmartView)}
 				type="button"
 			>
-				{#if isParentView}
-					<CalendarArrowDown class="h-5 w-5" />
-				{:else}
+				{#if isSmartView}
 					<ListTree class="h-5 w-5" />
+				{:else}
+					<CalendarArrowDown class="h-5 w-5" />
 				{/if}
 			</button>
 
@@ -89,7 +89,9 @@
 		</div>
 	</div>
 
-	{#if isParentView}
+	{#if isSmartView}
+		<GoalsByDeadline addTask={onAddTask} editGoal={onEditGoal} editTask={onEditTask} {goals} />
+	{:else}
 		<GoalsByParent
 			addGoal={onAddGoal}
 			addTask={onAddTask}
@@ -97,8 +99,6 @@
 			editTask={onEditTask}
 			{goals}
 		/>
-	{:else}
-		<GoalsByDeadline addTask={onAddTask} editGoal={onEditGoal} editTask={onEditTask} {goals} />
 	{/if}
 
 	<Modal bind:isOpen={isTaskFormOpen}>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Modal } from '@life/shared';
 	import { CATEGORY_WORK } from '@life/shared/category';
-	import { sortGoals } from '@life/shared/goal';
+	import { getGoalsForTasks } from '@life/shared/goal';
 	import type { Task } from '@life/shared/task';
 	import { where } from 'firebase/firestore';
 	import { Calendar } from 'svelendar';
@@ -64,7 +64,10 @@
 
 	let goals = $state<Goal[]>([]);
 
-	fetchGoals((unsortedGoals) => (goals = sortGoals(unsortedGoals)), where('isDone', '==', false));
+	fetchGoals(
+		(unsortedGoals) => (goals = getGoalsForTasks(unsortedGoals)),
+		where('isDone', '==', false),
+	);
 
 	fetchFirstTasks();
 

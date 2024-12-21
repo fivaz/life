@@ -151,6 +151,11 @@ export function getIcon(name: null | string) {
 	return icon || defaultIcon;
 }
 
+export function getGoalsForTasks(goals: Goal[]): Goal[] {
+	const smartGoals = goals.filter((goal) => !!goal.deadline);
+	return sortGoals(smartGoals);
+}
+
 export function sortGoals(goals: Goal[]) {
 	return goals.toSorted((a, b) => {
 		if (!a.deadline) return 1; // Place tasks with no deadline at the end

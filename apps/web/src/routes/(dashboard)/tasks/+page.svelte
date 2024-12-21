@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button, Modal } from '@life/shared';
-	import { sortGoals } from '@life/shared/goal';
+	import { getGoalsForTasks } from '@life/shared/goal';
 	import type { Task } from '@life/shared/task';
 	import { DocumentText } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -48,7 +48,10 @@
 
 	let goals = $state<Goal[]>([]);
 
-	fetchGoals((unsortedGoals) => (goals = sortGoals(unsortedGoals)), where('isDone', '==', false));
+	fetchGoals(
+		(unsortedGoals) => (goals = getGoalsForTasks(unsortedGoals)),
+		where('isDone', '==', false),
+	);
 </script>
 
 <div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
