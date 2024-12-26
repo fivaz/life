@@ -80,7 +80,7 @@
 
 			<Input
 				class="flex items-center gap-2"
-				inputClass="flex-1"
+				inputClass="flex-1 w-full"
 				label="Deadline"
 				type="date"
 				bind:value={goalIn.deadline}

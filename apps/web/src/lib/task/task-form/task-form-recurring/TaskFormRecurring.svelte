@@ -51,7 +51,12 @@
 				{/if}
 
 				<!--end at-->
-				<Input label="End at" type="date" bind:value={taskIn.value.recurringEndAt} />
+				<Input
+					inputClass="w-full"
+					label="End at"
+					type="date"
+					bind:value={taskIn.value.recurringEndAt}
+				/>
 
 				<!--exceptions-->
 				<MultiDatePicker label="Exceptions on" bind:value={taskIn.value.recurringExceptions} />

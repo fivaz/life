@@ -48,6 +48,7 @@
 				<Input
 					name="startTime"
 					class="w-1/2"
+					inputClass="w-full"
 					label="Start at"
 					oninput={(value) => (taskIn.value.endTime = sumTimes(value, taskIn.value.duration))}
 					required
@@ -58,6 +59,7 @@
 				<Input
 					name="endTime"
 					class="w-1/2"
+					inputClass="w-full"
 					label="End at"
 					oninput={(value) => (taskIn.value.duration = getDuration(taskIn.value.startTime, value))}
 					required

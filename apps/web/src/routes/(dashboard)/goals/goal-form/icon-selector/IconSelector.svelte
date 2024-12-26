@@ -20,7 +20,12 @@
 
 <div class="relative flex flex-col gap-2">
 	<input hidden value={name} />
-	<Input autocomplete="off" placeholder="Search icon..." bind:value={searchQuery} />
+	<Input
+		autocomplete="off"
+		inputClass="w-full"
+		placeholder="Search icon..."
+		bind:value={searchQuery}
+	/>
 	<div
 		class="grid grid-cols-10 justify-between gap-1 overflow-y-auto rounded-lg border border-gray-300 p-2"
 	>

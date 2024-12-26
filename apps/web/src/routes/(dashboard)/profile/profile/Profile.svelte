@@ -116,6 +116,7 @@
 						<Input
 							id="name"
 							name="name"
+							inputClass="w-full"
 							label="Full name"
 							required
 							type="text"
@@ -130,6 +131,7 @@
 							id="username"
 							name="username"
 							disabled
+							inputClass="w-full"
 							label="Email address"
 							required
 							type="email"

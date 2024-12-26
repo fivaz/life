@@ -50,7 +50,13 @@
 
 		<div class="flex flex-col gap-2 text-gray-700">
 			<!--name-->
-			<Input class="flex-1" autocomplete="off" placeholder="Name" bind:value={routineIn.name} />
+			<Input
+				class="flex-1"
+				autocomplete="off"
+				inputClass="w-full"
+				placeholder="Name"
+				bind:value={routineIn.name}
+			/>
 
 			{#snippet item(time: Routine['time'])}
 				{@const item = routineTimeMap[time]}

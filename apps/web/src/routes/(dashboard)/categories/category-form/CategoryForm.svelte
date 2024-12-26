@@ -58,7 +58,13 @@
 		</Alert>
 
 		<div class="flex flex-col gap-2 text-sm font-medium text-gray-700">
-			<Input class="flex-1" autocomplete="off" placeholder="Name" bind:value={categoryIn.name} />
+			<Input
+				class="flex-1"
+				autocomplete="off"
+				inputClass="w-full"
+				placeholder="Name"
+				bind:value={categoryIn.name}
+			/>
 
 			{#snippet categoryItem(color: Category['color'])}
 				<div class="flex items-center gap-3">

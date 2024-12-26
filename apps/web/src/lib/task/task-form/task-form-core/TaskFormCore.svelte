@@ -28,7 +28,13 @@
 </script>
 
 <!--name-->
-<Input class="flex-1" autocomplete="off" placeholder="Name" bind:value={taskIn.value.name} />
+<Input
+	class="w-full"
+	autocomplete="off"
+	inputClass="w-full"
+	placeholder="Name"
+	bind:value={taskIn.value.name}
+/>
 
 <!--image-->
 <Collapsable title="Image">
@@ -94,10 +100,17 @@
 
 <!--date AND duration-->
 <div class="flex gap-3">
-	<Input class="w-1/2" label="Date" type="date" bind:value={taskIn.value.date} />
+	<Input
+		class="w-1/2"
+		inputClass="w-full"
+		label="Date"
+		type="date"
+		bind:value={taskIn.value.date}
+	/>
 
 	<Input
 		class="w-1/2"
+		inputClass="w-full"
 		label="Duration"
 		oninput={(input) => (taskIn.value.endTime = sumTimes(taskIn.value.startTime, input))}
 		required
