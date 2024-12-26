@@ -78,3 +78,19 @@ export function generateGraphData(
 
 	return { labels: dateLabels, data: uncompletedCounts };
 }
+
+export type Summary = 'equal' | 'increased' | 'decreased';
+
+export function getDatasetSummary(datasetData: number[]): Summary {
+	const firstItem = datasetData[0];
+
+	const lastItem = datasetData[datasetData.length - 1];
+
+	if (lastItem > firstItem) {
+		return 'increased';
+	} else if (lastItem < firstItem) {
+		return 'decreased';
+	} else {
+		return 'equal';
+	}
+}
