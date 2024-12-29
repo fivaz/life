@@ -131,7 +131,7 @@ function getStartDate(startDateString: string, sortedTasks: Task[]): Date {
 		}
 	}
 
-	return startOfDay(addDays(date, 1));
+	return startOfDay(date);
 }
 
 function getEndDate(endDateString: string, sortedTasks: Task[]): Date {
@@ -146,7 +146,7 @@ function getEndDate(endDateString: string, sortedTasks: Task[]): Date {
 		}
 	}
 
-	return startOfDay(addDays(date, 1));
+	return startOfDay(date);
 }
 
 export type Summary = 'equal' | 'increased' | 'decreased';
