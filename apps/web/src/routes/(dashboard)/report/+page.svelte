@@ -1,22 +1,35 @@
 <script lang="ts">
 	import { Button } from '@life/shared';
-	import { CATEGORY_WORK } from '@life/shared/category';
-	import { formatDate } from '@life/shared/date';
+	import { CATEGORY_WORK, tailwindColorMap } from '@life/shared/category';
+	import { formatDate, parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
-	import { endOfWeek, startOfWeek } from 'date-fns';
+	import { Settings2, Tag } from '@steeze-ui/lucide-icons';
+	import { Icon } from '@steeze-ui/svelte-icon';
+	import { endOfWeek, format, startOfWeek } from 'date-fns';
 	import { where } from 'firebase/firestore';
-	import { Calendar1, CalendarArrowDown, CalendarArrowUp, CalendarMinus } from 'lucide-svelte';
+	import {
+		Calendar1,
+		CalendarArrowDown,
+		CalendarArrowUp,
+		CalendarDays,
+		CalendarMinus,
+		CalendarRange,
+		GripVertical,
+	} from 'lucide-svelte';
 
+	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import { tooltip } from '$lib/components/tooltip/tooltip.action';
+	import { times } from '$lib/routine/routine.model';
 	import { fetchTasks } from '$lib/task/task.repository';
-	import { title } from '$lib/utils.svelte';
+	import { DATE_FR, title } from '$lib/utils.svelte';
 
 	import LineChart from './line-chart/LineChart.svelte';
+	import ReportTask from './report-task/ReportTask.svelte';
 	import type { Interval, Summary } from './service';
-	import { generateGraphData, getDatasetSummary, intervals } from './service';
+	import { filterTasksInPeriod, generateGraphData, getDatasetSummary, intervals } from './service';
 
 	title.value = 'Report';
 
@@ -26,17 +39,25 @@
 
 	let selectedInterval: Interval = $state(intervals[0]);
 
-	let periodStartAt = $state('');
+	let periodStartAt = $state(formatDate(startOfWeek(new Date())));
 
-	let periodEndAt = $state('');
+	let periodEndAt = $state(formatDate(endOfWeek(new Date())));
 
 	let dataset = $derived(generateGraphData(tasks, selectedInterval, periodStartAt, periodEndAt));
 
 	let summary: Summary = $derived(getDatasetSummary(dataset.data));
 
-	function setPeriodToCurrentWeek() {
-		periodStartAt = formatDate(startOfWeek(new Date()));
-		periodEndAt = formatDate(endOfWeek(new Date()));
+	let isPeriodCurrentWeek: boolean = $state(true);
+
+	function togglePeriodToCurrentWeek() {
+		isPeriodCurrentWeek = !isPeriodCurrentWeek;
+		if (isPeriodCurrentWeek) {
+			periodStartAt = formatDate(startOfWeek(new Date()));
+			periodEndAt = formatDate(endOfWeek(new Date()));
+		} else {
+			periodStartAt = '';
+			periodEndAt = '';
+		}
 	}
 
 	let data = $derived({
@@ -78,7 +99,7 @@
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
 
-		<div>
+		<div class="flex flex-col gap-5">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-5">
 					<h2 class="text-base font-semibold leading-5 text-gray-600">
@@ -100,11 +121,17 @@
 				</div>
 
 				<div class="flex items-center gap-5">
-					<div use:tooltip={'filter to the current week'}>
-						<Button class="p-1" color="white" noPadding onclick={setPeriodToCurrentWeek}>
-							<Calendar1 class="l-5 w-5" />
-						</Button>
-					</div>
+					<Button class="p-1" color="white" noPadding onclick={togglePeriodToCurrentWeek}>
+						{#if isPeriodCurrentWeek}
+							<div use:tooltip={'remove filter'}>
+								<CalendarRange class="l-5 w-5" />
+							</div>
+						{:else}
+							<div use:tooltip={'filter to the current week'}>
+								<Calendar1 class="l-5 w-5" />
+							</div>
+						{/if}
+					</Button>
 
 					<div class="flex items-center gap-2">
 						<div class="flex gap-3">
@@ -142,6 +169,20 @@
 			</div>
 
 			<LineChart {data} {options} />
+
+			{#if dataset.data.length < 200}
+				<h2>Tasks in Period</h2>
+
+				<ul class="flex flex-col gap-2">
+					{#each Object.keys(dataset.tasksByLabel) as label (label)}
+						<Collapsable title={format(parseDate(label), DATE_FR)}>
+							{#each dataset.tasksByLabel[label] as task, index (task.id)}
+								<ReportTask {index} {task} />
+							{/each}
+						</Collapsable>
+					{/each}
+				</ul>
+			{/if}
 		</div>
 	</div>
 </div>

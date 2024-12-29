@@ -15,7 +15,11 @@
 </script>
 
 <div class="rounded-lg bg-white p-2">
-	<button class="flex w-full justify-between" onclick={() => (isOpen = !isOpen)} type="button">
+	<button
+		class="flex w-full items-center justify-between"
+		onclick={() => (isOpen = !isOpen)}
+		type="button"
+	>
 		<span>{title}</span>
 		<Icon class="h-5 w-5 {isOpen ? 'rotate-90 transform' : ''}" src={ChevronRight} />
 	</button>
