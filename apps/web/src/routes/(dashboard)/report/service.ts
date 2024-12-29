@@ -62,11 +62,12 @@ export function generateGraphData(
 		currentDate = getNextDate(currentDate, interval);
 	}
 
-	const existingTasks = new Set<string>();
-
-	sortedTasks.forEach((task) => {
+	tasks.forEach((task) => {
 		const taskCreatedAt = startOfDay(task.createdAt);
 		const taskCompletedAt = task.isDone && task.date ? startOfDay(task.date) : endDate;
+
+		const existingTasks = new Set<string>();
+
 		labels.forEach((label, index) => {
 			const labelDate = startOfDay(parse(label, DATE_FR, new Date()));
 
@@ -86,7 +87,7 @@ export function generateGraphData(
 			if (taskCreatedAt <= labelDate && labelDate <= taskCompletedAt) {
 				uncompletedCounts[index]++;
 
-				if (isBefore(taskCreatedAt, labelDate) && !task.isDone) {
+				if (isBefore(taskCreatedAt, labelDate)) {
 					if (!existingTasks.has(task.id)) {
 						existingTasks.add(task.id);
 						added[label].push(task);
