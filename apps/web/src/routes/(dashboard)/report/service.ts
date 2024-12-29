@@ -26,10 +26,18 @@ export function generateGraphData(
 	interval: Interval,
 	startAt: string,
 	endAt: string,
-): { labels: string[]; data: number[]; tasksByLabel: Record<string, Task[]> } {
+): {
+	labels: string[];
+	data: number[];
+	added: Record<string, Task[]>;
+	removed: Record<string, Task[]>;
+	tasks: Record<string, Task[]>;
+} {
 	const dateLabels: string[] = [];
 	const uncompletedCounts: number[] = [];
 	const uncompletedTasks: Record<string, Task[]> = {};
+	const addedTasks: Record<string, Task[]> = {};
+	const removedTasks: Record<string, Task[]> = {};
 
 	// Helper function to format dates
 	function formatDate(date: Date) {
@@ -47,6 +55,8 @@ export function generateGraphData(
 		dateLabels.push(label);
 		uncompletedCounts.push(0);
 		uncompletedTasks[label] = [];
+		addedTasks[label] = [];
+		removedTasks[label] = [];
 
 		if (interval === 'day') {
 			currentDate.setDate(currentDate.getDate() + 1);
@@ -54,6 +64,8 @@ export function generateGraphData(
 			currentDate.setDate(currentDate.getDate() + 7);
 		}
 	}
+
+	const activeTasks = new Set<string>();
 
 	// Count uncompleted tasks for each date
 	sortedTasks.forEach((task) => {
@@ -66,11 +78,29 @@ export function generateGraphData(
 			if (taskCreatedAt <= labelDate && labelDate <= taskCompletedAt) {
 				uncompletedCounts[index]++;
 				uncompletedTasks[label].push(task);
+
+				if (!activeTasks.has(task.id)) {
+					addedTasks[label].push(task);
+					activeTasks.add(task.id);
+				}
+			} else if (activeTasks.has(task.id)) {
+				removedTasks[label].push(task);
+				activeTasks.delete(task.id);
 			}
 		});
 	});
 
-	return { labels: dateLabels, data: uncompletedCounts, tasksByLabel: uncompletedTasks };
+	const x = {
+		labels: dateLabels,
+		data: uncompletedCounts,
+		tasks: uncompletedTasks,
+		added: addedTasks,
+		removed: removedTasks,
+	};
+
+	console.log(x);
+
+	return x;
 }
 
 function getStartDate(startDateString: string, sortedTasks: Task[]): Date {

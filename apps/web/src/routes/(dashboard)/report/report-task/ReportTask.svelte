@@ -4,42 +4,31 @@
 	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { isUntimed } from '@life/shared/task';
-	import { CalendarClock, CalendarDays } from '@steeze-ui/lucide-icons';
-	import { Icon } from '@steeze-ui/svelte-icon';
+	import { CalendarClock, CalendarDays, Settings2, Tag } from '@steeze-ui/lucide-icons';
+	import { CalendarMinus, CalendarPlus, GripVertical } from 'lucide-svelte';
+	import type { Snippet } from 'svelte';
 
 	interface Props {
 		task: Task;
-		index: number;
+		isAdd?: boolean;
 	}
 
-	let { task, index }: Props = $props();
+	let { task, isAdd = false }: Props = $props();
 </script>
 
-<li class="{tailwindColorMap[task.category.color].hoverLightBg} hover:underline">
-	<div class="flex w-full items-center px-6 py-3 text-left">
-		<span class="w-8 pr-3 font-medium text-gray-500">{index + 1}</span>
-		<Icon
-			class="h-5 w-8 pr-3 {tailwindColorMap[task.category.color].lightText}"
-			src={isUntimed(task) ? CalendarDays : CalendarClock}
-			theme="solid"
-		/>
-		<span class="flex-1 truncate pr-3 font-medium text-gray-500" class:line-through={task.isDone}>
-			{task.name}
-		</span>
-
-		{#if task.goal?.icon}
-			<GoalIcon name={task.goal.icon} class="h-4 w-8 pr-3 text-gray-400" />
+<li
+	class="
+	{isAdd ? 'bg-green-500' : 'bg-red-500'}
+	flex justify-between gap-x-3 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-white"
+>
+	<div class="flex items-center gap-x-2">
+		{#if isAdd}
+			<CalendarPlus class="h-5 w-5 text-white" />
+		{:else}
+			<CalendarMinus class="h-5 w-5 text-white" />
 		{/if}
-		<span class="w-12 text-gray-500">{task.duration}</span>
-		<span class="flex w-16 justify-center">
-			<span
-				class="{task.isDone
-					? 'bg-green-50 text-green-700 ring-green-600/20'
-					: 'bg-red-50 text-red-700 ring-red-600/20'}
-					rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset"
-			>
-				{task.isDone ? 'Done' : 'Undone'}
-			</span>
-		</span>
+		<div class="text-sm font-semibold leading-6">{task.name}</div>
 	</div>
+
+	<div></div>
 </li>

@@ -102,7 +102,7 @@
 		<div class="flex flex-col gap-5">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-5">
-					<h2 class="text-base font-semibold leading-5 text-gray-600">
+					<h2 class="text-base font-semibold leading-5 text-gray-900">
 						Tasks by {selectedInterval}
 					</h2>
 					{#if summary === 'increased'}
@@ -170,19 +170,25 @@
 
 			<LineChart {data} {options} />
 
-			{#if dataset.data.length < 200}
-				<h2>Tasks in Period</h2>
+			<div class="flex flex-col gap-2">
+				{#if dataset.data.length < 200}
+					<h2 class="text-base font-semibold leading-5 text-gray-900">Tasks Changes</h2>
 
-				<ul class="flex flex-col gap-2">
-					{#each Object.keys(dataset.tasksByLabel) as label (label)}
-						<Collapsable title={format(parseDate(label), DATE_FR)}>
-							{#each dataset.tasksByLabel[label] as task, index (task.id)}
-								<ReportTask {index} {task} />
+					{#each Object.keys(dataset.tasks).toReversed() as label (label)}
+						<div class="text-sm font-semibold text-gray-900">
+							{format(parseDate(label), DATE_FR)}
+						</div>
+						<ul class="flex flex-col gap-2">
+							{#each dataset.removed[label] as task (task.id)}
+								<ReportTask {task} />
 							{/each}
-						</Collapsable>
+							{#each dataset.added[label] as task (task.id)}
+								<ReportTask isAdd {task} />
+							{/each}
+						</ul>
 					{/each}
-				</ul>
-			{/if}
+				{/if}
+			</div>
 		</div>
 	</div>
 </div>
