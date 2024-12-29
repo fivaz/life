@@ -1,14 +1,8 @@
 <script lang="ts">
-	import { GoalIcon } from '@life/shared';
-	import { tailwindColorMap } from '@life/shared/category';
-	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
-	import { isUntimed } from '@life/shared/task';
-	import { CalendarClock, CalendarDays, Settings2, Tag } from '@steeze-ui/lucide-icons';
-	import { CalendarMinus, CalendarPlus, GripVertical } from 'lucide-svelte';
-	import type { Snippet } from 'svelte';
-
-	interface Props {
+	import { CalendarMinus, CalendarPlus } from 'lucide-svelte';
+	
+interface Props {
 		task: Task;
 		isAdd?: boolean;
 	}

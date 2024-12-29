@@ -7,7 +7,6 @@ import {
 	addWeeks,
 	addYears,
 	format,
-	isSameDay,
 	parse,
 	startOfDay,
 } from 'date-fns';

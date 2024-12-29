@@ -1,30 +1,24 @@
 <script lang="ts">
 	import { Button } from '@life/shared';
-	import { CATEGORY_WORK, tailwindColorMap } from '@life/shared/category';
-	import { formatDate, parseDate } from '@life/shared/date';
+	import { CATEGORY_WORK } from '@life/shared/category';
+	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
-	import { Settings2, Tag } from '@steeze-ui/lucide-icons';
-	import { Icon } from '@steeze-ui/svelte-icon';
-	import { endOfWeek, format, startOfWeek } from 'date-fns';
+	import { endOfWeek, startOfWeek } from 'date-fns';
 	import { where } from 'firebase/firestore';
 	import {
 		Calendar1,
 		CalendarArrowDown,
 		CalendarArrowUp,
-		CalendarDays,
 		CalendarMinus,
 		CalendarRange,
-		GripVertical,
 	} from 'lucide-svelte';
 
-	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import { tooltip } from '$lib/components/tooltip/tooltip.action';
-	import { times } from '$lib/routine/routine.model';
 	import { fetchTasks } from '$lib/task/task.repository';
-	import { DATE_FR, title } from '$lib/utils.svelte';
+	import { title } from '$lib/utils.svelte';
 
 	import LineChart from './line-chart/LineChart.svelte';
 	import ReportTask from './report-task/ReportTask.svelte';
