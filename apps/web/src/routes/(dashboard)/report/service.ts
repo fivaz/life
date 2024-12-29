@@ -19,17 +19,19 @@ export const intervals = ['day', 'week', 'month', 'trimester', 'year'] as const;
 
 export type Interval = (typeof intervals)[number];
 
+export type Dataset = {
+	labels: string[];
+	data: number[];
+	added: Record<string, Task[]>;
+	removed: Record<string, Task[]>;
+};
+
 export function generateGraphData(
 	tasks: Task[],
 	interval: Interval,
 	startAt: string,
 	endAt: string,
-): {
-	labels: string[];
-	data: number[];
-	added: Record<string, Task[]>;
-	removed: Record<string, Task[]>;
-} {
+): Dataset {
 	const labels: string[] = [];
 	const uncompletedCounts: number[] = [];
 	const added: Record<string, Task[]> = {};

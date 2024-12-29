@@ -1,24 +1,16 @@
 <script lang="ts">
-	import type { Task } from '@life/shared/task';
 	import { CalendarArrowDown, CalendarArrowUp, CalendarMinus } from 'lucide-svelte';
 
+	import type { Dataset } from '../service';
 	import ReportTask from './report-task/ReportTask.svelte';
 
 	interface Props {
-		dataset: {
-			labels: string[];
-			data: number[];
-			added: Record<string, Task[]>;
-			removed: Record<string, Task[]>;
-		};
+		dataset: Dataset;
 	}
 
 	let { dataset }: Props = $props();
 
-	function getTaskDelta(
-		dataset: { added: Record<string, Task[]>; removed: Record<string, Task[]> },
-		label: string,
-	): number {
+	function getTaskDelta(dataset: Dataset, label: string): number {
 		return dataset.added[label].length - dataset.removed[label].length;
 	}
 </script>

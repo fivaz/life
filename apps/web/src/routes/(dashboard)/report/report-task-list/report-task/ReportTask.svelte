@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { Task } from '@life/shared/task';
-	import { CalendarMinus, CalendarPlus } from 'lucide-svelte';
+	import { CalendarMinus, CalendarPlus, Sparkles } from 'lucide-svelte';
+
+	import { tooltip } from '$lib/components/tooltip/tooltip.action';
 
 	interface Props {
 		task: Task;
@@ -24,5 +26,11 @@
 		<div class="text-sm font-semibold leading-6">{task.name}</div>
 	</div>
 
-	<div></div>
+	<div>
+		{#if isAdd && !task.isDone}
+			<div use:tooltip={'task remains undone'}>
+				<Sparkles class="h-5 w-5 text-white" />
+			</div>
+		{/if}
+	</div>
 </li>
