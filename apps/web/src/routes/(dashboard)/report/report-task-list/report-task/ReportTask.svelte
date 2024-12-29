@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
-	import { parseISO } from 'date-fns';
 	import { CalendarMinus, CalendarPlus } from 'lucide-svelte';
 
 	interface Props {

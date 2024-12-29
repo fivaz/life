@@ -21,7 +21,6 @@
 	import { title } from '$lib/utils.svelte';
 
 	import LineChart from './line-chart/LineChart.svelte';
-	import ReportTask from './report-task-list/report-task/ReportTask.svelte';
 	import ReportTaskList from './report-task-list/ReportTaskList.svelte';
 	import type { Interval } from './service';
 	import { generateGraphData, getDatasetDelta, intervals } from './service';
