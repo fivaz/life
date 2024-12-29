@@ -3,7 +3,7 @@
 	import { CATEGORY_WORK } from '@life/shared/category';
 	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
-	import { endOfWeek, startOfWeek } from 'date-fns';
+	import { addDays, endOfWeek, startOfWeek, subDays } from 'date-fns';
 	import { where } from 'firebase/firestore';
 	import {
 		Calendar1,
@@ -33,9 +33,9 @@
 
 	let selectedInterval: Interval = $state(intervals[0]);
 
-	let periodStartAt = $state(formatDate(startOfWeek(new Date())));
+	let periodStartAt = $state(formatDate(subDays(new Date(), 3)));
 
-	let periodEndAt = $state(formatDate(endOfWeek(new Date())));
+	let periodEndAt = $state(formatDate(addDays(new Date(), 3)));
 
 	let dataset = $derived(generateGraphData(tasks, selectedInterval, periodStartAt, periodEndAt));
 
