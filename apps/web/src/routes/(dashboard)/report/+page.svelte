@@ -29,7 +29,7 @@
 	import LineChart from './line-chart/LineChart.svelte';
 	import ReportTask from './report-task/ReportTask.svelte';
 	import type { Interval, Summary } from './service';
-	import { filterTasksInPeriod, generateGraphData, getDatasetSummary, intervals } from './service';
+	import { generateGraphData, getDatasetSummary, getTaskDelta, intervals } from './service';
 
 	title.value = 'Report';
 
@@ -174,9 +174,20 @@
 				{#if dataset.data.length < 200}
 					<h2 class="text-base font-semibold leading-5 text-gray-900">Tasks Changes</h2>
 
-					{#each Object.keys(dataset.tasks).toReversed() as label (label)}
-						<div class="text-sm font-semibold text-gray-900">
-							{format(parseDate(label), DATE_FR)}
+					{#each dataset.labels.toReversed() as label (label)}
+						<div class="flex justify-between text-sm font-semibold text-gray-900">
+							<span>{label}</span>
+
+							<div class="flex gap-2">
+								<span>{getTaskDelta(dataset, label)}</span>
+								{#if getTaskDelta(dataset, label) > 0}
+									<CalendarArrowUp class="h-5 w-5 text-red-500" />
+								{:else if getTaskDelta(dataset, label) < 0}
+									<CalendarArrowDown class="h-5 w-5 text-green-500" />
+								{:else}
+									<CalendarMinus class="h-5 w-5 text-yellow-500" />
+								{/if}
+							</div>
 						</div>
 						<ul class="flex flex-col gap-2">
 							{#each dataset.removed[label] as task (task.id)}

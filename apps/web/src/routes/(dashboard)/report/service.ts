@@ -1,25 +1,22 @@
 import type { Task } from '@life/shared/task';
 import { sortTasks } from '@life/shared/task';
+import {
+	addDays,
+	addMonths,
+	addQuarters,
+	addWeeks,
+	addYears,
+	format,
+	isSameDay,
+	parse,
+	startOfDay,
+} from 'date-fns';
 
-export const intervals = ['day', 'week'] as const;
+import { DATE_FR } from '$lib/utils.svelte';
+
+export const intervals = ['day', 'week', 'month', 'trimester', 'year'] as const;
 
 export type Interval = (typeof intervals)[number];
-
-export function filterTasksInPeriod(tasks: Task[], startAt: string, endAt: string): Task[] {
-	const startDate = new Date(startAt);
-	const endDate = new Date(endAt);
-
-	const x = tasks.filter((task) => {
-		const createdAt = new Date(task.createdAt);
-		const completedAt = task.isDone ? new Date(task.date) : new Date();
-
-		// Task should overlap with the selected range
-		return !(completedAt < startDate || createdAt > endDate);
-	});
-
-	console.log(x);
-	return x;
-}
 
 export function generateGraphData(
 	tasks: Task[],
@@ -31,102 +28,112 @@ export function generateGraphData(
 	data: number[];
 	added: Record<string, Task[]>;
 	removed: Record<string, Task[]>;
-	tasks: Record<string, Task[]>;
 } {
-	const dateLabels: string[] = [];
+	const labels: string[] = [];
 	const uncompletedCounts: number[] = [];
-	const uncompletedTasks: Record<string, Task[]> = {};
-	const addedTasks: Record<string, Task[]> = {};
-	const removedTasks: Record<string, Task[]> = {};
+	const added: Record<string, Task[]> = {};
+	const removed: Record<string, Task[]> = {};
 
-	// Helper function to format dates
-	function formatDate(date: Date) {
-		return date.toISOString().split('T')[0];
+	if (tasks.length === 0) {
+		return {
+			labels,
+			data: uncompletedCounts,
+			added,
+			removed,
+		};
 	}
 
 	const sortedTasks = sortTasks(tasks);
 
-	const currentDate = getStartDate(startAt, sortedTasks);
+	let currentDate = getStartDate(startAt, sortedTasks);
 	const endDate = getEndDate(endAt, sortedTasks);
 
 	// Generate date labels based on interval
 	while (currentDate <= endDate) {
-		const label = formatDate(currentDate);
-		dateLabels.push(label);
+		const label = format(currentDate, DATE_FR);
+		labels.push(label);
 		uncompletedCounts.push(0);
-		uncompletedTasks[label] = [];
-		addedTasks[label] = [];
-		removedTasks[label] = [];
+		added[label] = [];
+		removed[label] = [];
 
-		if (interval === 'day') {
-			currentDate.setDate(currentDate.getDate() + 1);
-		} else if (interval === 'week') {
-			currentDate.setDate(currentDate.getDate() + 7);
-		}
+		currentDate = getNextDate(currentDate, interval);
 	}
 
 	const activeTasks = new Set<string>();
 
-	// Count uncompleted tasks for each date
 	sortedTasks.forEach((task) => {
-		const taskCreatedAt = new Date(task.createdAt);
-		const taskCompletedAt = task.isDone ? new Date(task.date) : endDate;
-
-		dateLabels.forEach((label, index) => {
-			const labelDate = new Date(label);
+		const taskCreatedAt = startOfDay(task.createdAt);
+		const taskCompletedAt = task.isDone && task.date ? startOfDay(task.date) : endDate;
+		labels.forEach((label, index) => {
+			const labelDate = startOfDay(parse(label, DATE_FR, new Date()));
 
 			if (taskCreatedAt <= labelDate && labelDate <= taskCompletedAt) {
 				uncompletedCounts[index]++;
-				uncompletedTasks[label].push(task);
 
 				if (!activeTasks.has(task.id)) {
-					addedTasks[label].push(task);
+					added[label].push(task);
 					activeTasks.add(task.id);
 				}
 			} else if (activeTasks.has(task.id)) {
-				removedTasks[label].push(task);
+				removed[label].push(task);
 				activeTasks.delete(task.id);
 			}
 		});
 	});
 
-	const x = {
-		labels: dateLabels,
+	return {
+		labels,
 		data: uncompletedCounts,
-		tasks: uncompletedTasks,
-		added: addedTasks,
-		removed: removedTasks,
+		added,
+		removed,
 	};
+}
 
-	console.log(x);
+function getNextDate(currentDate: Date, interval: Interval): Date {
+	if (interval === 'week') {
+		return addWeeks(currentDate, 1);
+	}
+	if (interval === 'month') {
+		return addMonths(currentDate, 1);
+	}
+	if (interval === 'trimester') {
+		return addQuarters(currentDate, 1);
+	}
+	if (interval === 'year') {
+		return addYears(currentDate, 1);
+	}
 
-	return x;
+	return addDays(currentDate, 1);
 }
 
 function getStartDate(startDateString: string, sortedTasks: Task[]): Date {
+	let date: Date | string = new Date();
+
 	if (startDateString) {
-		return new Date(startDateString);
+		date = startDateString;
+	} else {
+		const firstTask = sortedTasks.find((task) => task.date);
+		if (firstTask) {
+			date = firstTask.createdAt;
+		}
 	}
 
-	const firstTask = sortedTasks.find((task) => task.date);
-	if (!firstTask) {
-		return new Date();
-	}
-
-	return new Date(firstTask.createdAt);
+	return startOfDay(addDays(date, 1));
 }
 
 function getEndDate(endDateString: string, sortedTasks: Task[]): Date {
+	let date: Date | string = new Date();
+
 	if (endDateString) {
-		return new Date(endDateString);
+		date = endDateString;
+	} else {
+		const lastTask = sortedTasks.toReversed().find((task) => task.date);
+		if (lastTask) {
+			date = lastTask.date;
+		}
 	}
 
-	const lastTask = sortedTasks.toReversed().find((task) => task.date);
-	if (!lastTask) {
-		return new Date();
-	}
-
-	return new Date(lastTask.date);
+	return startOfDay(addDays(date, 1));
 }
 
 export type Summary = 'equal' | 'increased' | 'decreased';
@@ -143,4 +150,11 @@ export function getDatasetSummary(datasetData: number[]): Summary {
 	} else {
 		return 'equal';
 	}
+}
+
+export function getTaskDelta(
+	dataset: { added: Record<string, Task[]>; removed: Record<string, Task[]> },
+	label: string,
+): number {
+	return dataset.added[label].length - dataset.removed[label].length;
 }
