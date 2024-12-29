@@ -21,9 +21,10 @@
 	import { title } from '$lib/utils.svelte';
 
 	import LineChart from './line-chart/LineChart.svelte';
-	import ReportTask from './report-task/ReportTask.svelte';
-	import type { Interval, Summary } from './service';
-	import { generateGraphData, getDatasetSummary, getTaskDelta, intervals } from './service';
+	import ReportTask from './report-task-list/report-task/ReportTask.svelte';
+	import ReportTaskList from './report-task-list/ReportTaskList.svelte';
+	import type { Interval } from './service';
+	import { generateGraphData, getDatasetDelta, intervals } from './service';
 
 	title.value = 'Report';
 
@@ -39,7 +40,7 @@
 
 	let dataset = $derived(generateGraphData(tasks, selectedInterval, periodStartAt, periodEndAt));
 
-	let summary: Summary = $derived(getDatasetSummary(dataset.data));
+	let datasetDelta: number = $derived(getDatasetDelta(dataset.data));
 
 	let isPeriodCurrentWeek: boolean = $state(true);
 
@@ -93,17 +94,17 @@
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
 
-		<div class="flex flex-col gap-5">
-			<div class="flex items-center justify-between">
+		<div class="flex flex-col gap-3">
+			<div class="flex flex-col items-center justify-between gap-5 md:flex-row">
 				<div class="flex items-center gap-5">
 					<h2 class="text-base font-semibold leading-5 text-gray-900">
 						Tasks by {selectedInterval}
 					</h2>
-					{#if summary === 'increased'}
+					{#if datasetDelta > 0}
 						<div use:tooltip={'tasks increased'}>
 							<CalendarArrowUp class="h-5 w-5 text-red-500" />
 						</div>
-					{:else if summary === 'decreased'}
+					{:else if datasetDelta < 0}
 						<div use:tooltip={'tasks decreased'}>
 							<CalendarArrowDown class="h-5 w-5 text-green-500" />
 						</div>
@@ -114,7 +115,7 @@
 					{/if}
 				</div>
 
-				<div class="flex items-center gap-5">
+				<div class="flex flex-col items-center gap-3 md:flex-row">
 					<Button class="p-1" color="white" noPadding onclick={togglePeriodToCurrentWeek}>
 						{#if isPeriodCurrentWeek}
 							<div use:tooltip={'remove filter'}>
@@ -127,23 +128,19 @@
 						{/if}
 					</Button>
 
-					<div class="flex items-center gap-2">
-						<div class="flex gap-3">
-							<Input
-								class="flex items-center gap-2"
-								label="Start at"
-								type="date"
-								bind:value={periodStartAt}
-							/>
+					<Input
+						class="flex items-center gap-2"
+						label="Start at"
+						type="date"
+						bind:value={periodStartAt}
+					/>
 
-							<Input
-								class="flex items-center gap-2"
-								label="End at"
-								type="date"
-								bind:value={periodEndAt}
-							/>
-						</div>
-					</div>
+					<Input
+						class="flex items-center gap-2"
+						label="End at"
+						type="date"
+						bind:value={periodEndAt}
+					/>
 
 					<Select
 						class="flex w-40 items-center gap-2"
@@ -165,33 +162,8 @@
 			<LineChart {data} {options} />
 
 			<div class="flex flex-col gap-2">
-				{#if dataset.data.length < 200}
-					<h2 class="text-base font-semibold leading-5 text-gray-900">Tasks Changes</h2>
-
-					{#each dataset.labels.toReversed() as label (label)}
-						<div class="flex justify-between text-sm font-semibold text-gray-900">
-							<span>{label}</span>
-
-							<div class="flex gap-2">
-								<span>{getTaskDelta(dataset, label)}</span>
-								{#if getTaskDelta(dataset, label) > 0}
-									<CalendarArrowUp class="h-5 w-5 text-red-500" />
-								{:else if getTaskDelta(dataset, label) < 0}
-									<CalendarArrowDown class="h-5 w-5 text-green-500" />
-								{:else}
-									<CalendarMinus class="h-5 w-5 text-yellow-500" />
-								{/if}
-							</div>
-						</div>
-						<ul class="flex flex-col gap-2">
-							{#each dataset.removed[label] as task (task.id)}
-								<ReportTask {task} />
-							{/each}
-							{#each dataset.added[label] as task (task.id)}
-								<ReportTask isAdd {task} />
-							{/each}
-						</ul>
-					{/each}
+				{#if dataset.labels.length < 200}
+					<ReportTaskList {dataset} />
 				{/if}
 			</div>
 		</div>

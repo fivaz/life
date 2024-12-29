@@ -149,25 +149,10 @@ function getEndDate(endDateString: string, sortedTasks: Task[]): Date {
 	return startOfDay(date);
 }
 
-export type Summary = 'equal' | 'increased' | 'decreased';
-
-export function getDatasetSummary(datasetData: number[]): Summary {
+export function getDatasetDelta(datasetData: number[]): number {
 	const firstItem = datasetData[0];
 
 	const lastItem = datasetData[datasetData.length - 1];
 
-	if (lastItem > firstItem) {
-		return 'increased';
-	} else if (lastItem < firstItem) {
-		return 'decreased';
-	} else {
-		return 'equal';
-	}
-}
-
-export function getTaskDelta(
-	dataset: { added: Record<string, Task[]>; removed: Record<string, Task[]> },
-	label: string,
-): number {
-	return dataset.added[label].length - dataset.removed[label].length;
+	return lastItem - firstItem;
 }
