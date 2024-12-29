@@ -1,8 +1,10 @@
 <script lang="ts">
+	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
+	import { parseISO } from 'date-fns';
 	import { CalendarMinus, CalendarPlus } from 'lucide-svelte';
-	
-interface Props {
+
+	interface Props {
 		task: Task;
 		isAdd?: boolean;
 	}
@@ -21,7 +23,9 @@ interface Props {
 		{:else}
 			<CalendarMinus class="h-5 w-5 text-white" />
 		{/if}
-		<div class="text-sm font-semibold leading-6">{task.name}</div>
+		<div class="text-sm font-semibold leading-6">
+			{task.name} - created: {formatDate(parseISO(task.createdAt))} - done:{task.date}
+		</div>
 	</div>
 
 	<div></div>

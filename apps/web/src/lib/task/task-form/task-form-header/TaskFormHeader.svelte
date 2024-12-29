@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { isUntimed } from '@life/shared/task';
 	import { EllipsisVertical } from '@steeze-ui/heroicons';
@@ -37,7 +38,13 @@
 				icon: ListTodo,
 				label: taskIn.value.isDone ? 'Mark as uncompleted' : 'Mark as completed',
 				//setTimeout is necessary so the text doesn't change before the animation closes the dropdown
-				onclick: () => setTimeout(() => (taskIn.value.isDone = !taskIn.value.isDone), 100),
+				onclick: () =>
+					setTimeout(() => {
+						taskIn.value.isDone = !taskIn.value.isDone;
+						if (taskIn.value.date && taskIn.value.isDone) {
+							taskIn.value.date = formatDate(new Date());
+						}
+					}, 100),
 			},
 		];
 

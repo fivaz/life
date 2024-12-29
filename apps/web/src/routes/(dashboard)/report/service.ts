@@ -7,6 +7,7 @@ import {
 	addWeeks,
 	addYears,
 	format,
+	isSameDay,
 	parse,
 	startOfDay,
 } from 'date-fns';
@@ -58,24 +59,23 @@ export function generateGraphData(
 		currentDate = getNextDate(currentDate, interval);
 	}
 
-	const activeTasks = new Set<string>();
-
 	sortedTasks.forEach((task) => {
 		const taskCreatedAt = startOfDay(task.createdAt);
 		const taskCompletedAt = task.isDone && task.date ? startOfDay(task.date) : endDate;
 		labels.forEach((label, index) => {
 			const labelDate = startOfDay(parse(label, DATE_FR, new Date()));
 
+			if (isSameDay(taskCreatedAt, labelDate)) {
+				added[label].push(task);
+			}
+
+			if (task.isDone && isSameDay(taskCompletedAt, labelDate)) {
+				removed[label].push(task);
+				uncompletedCounts[index]--;
+			}
+
 			if (taskCreatedAt <= labelDate && labelDate <= taskCompletedAt) {
 				uncompletedCounts[index]++;
-
-				if (!activeTasks.has(task.id)) {
-					added[label].push(task);
-					activeTasks.add(task.id);
-				}
-			} else if (activeTasks.has(task.id)) {
-				removed[label].push(task);
-				activeTasks.delete(task.id);
 			}
 		});
 	});
