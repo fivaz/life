@@ -6,6 +6,7 @@
 		Goal,
 		ListTodo,
 		Tags,
+		Timer,
 	} from 'lucide-svelte';
 
 	import { page } from '$app/stores';
@@ -28,6 +29,7 @@
 		{ href: Routes.GOALS, icon: Goal, name: 'Goals' },
 		{ href: Routes.REPORT, icon: ChartCandlestick, name: 'Report' },
 		{ href: Routes.ROUTINE, icon: ListTodo, name: 'Routine' },
+		{ href: Routes.FOCUS, icon: Timer, name: 'Focus' },
 	];
 </script>
 

@@ -8,6 +8,7 @@ export const Routes = {
 	ROUTINE: `/routine`,
 	LOGIN: '/login',
 	TASKS: `/tasks`,
+	FOCUS: `/focus`,
 };
 
 // firebase paths
