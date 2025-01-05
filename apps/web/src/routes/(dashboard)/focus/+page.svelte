@@ -2,7 +2,6 @@
 	import { Button, Modal } from '@life/shared';
 	import { Pause, Pencil, Play, Square } from 'lucide-svelte';
 
-	import ReportTask from '../report/report-task-list/report-task/ReportTask.svelte';
 	import Timer from './timer/Timer.svelte';
 	import TimerForm from './timer-form/TimerForm.svelte';
 
