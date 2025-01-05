@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { buildDate, getCurrentRoundedDate, TIME } from '@life/shared/date';
+	import { buildDate, getCurrentRoundedDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { isUntimed } from '@life/shared/task';
-	import { format, isAfter, isBefore, subMinutes } from 'date-fns';
-	import { CalendarClock, CalendarDays, Sparkles } from 'lucide-svelte';
+	import { isAfter, isBefore, subMinutes } from 'date-fns';
+	import { CalendarClock, CalendarDays } from 'lucide-svelte';
 
 	import { sumTimes } from '$lib/task/time-utils';
 

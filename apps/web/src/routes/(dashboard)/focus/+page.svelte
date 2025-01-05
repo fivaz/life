@@ -8,7 +8,6 @@
 
 	import { fetchTasks } from '$lib/task/task.repository';
 
-	import ReportTask from '../report/report-task-list/report-task/ReportTask.svelte';
 	import Timer from './timer/Timer.svelte';
 	import TimerForm from './timer-form/TimerForm.svelte';
 	import TimerTask from './timer-task/TimerTask.svelte';
