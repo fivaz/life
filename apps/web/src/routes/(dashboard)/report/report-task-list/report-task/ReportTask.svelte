@@ -23,7 +23,7 @@
 		{:else}
 			<CalendarMinus class="h-5 w-5 text-white" />
 		{/if}
-		<div class="text-sm font-semibold leading-6">{task.name}</div>
+		<div class="block truncate text-sm font-semibold leading-6">{task.name}</div>
 	</div>
 
 	<div>
