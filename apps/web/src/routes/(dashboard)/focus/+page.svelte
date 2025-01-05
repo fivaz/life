@@ -1,12 +1,15 @@
 <script lang="ts">
-	// Variables with explicit types
-	import { Button } from '@life/shared';
-	import { Pencil, Play, Save } from 'lucide-svelte';
+	import { Button, Modal } from '@life/shared';
+	import { Pause, Pencil, Play, Save, Square } from 'lucide-svelte';
 
-	let minutes = $state<number>(0);
+	import CategoryForm from '../categories/category-form/CategoryForm.svelte';
+	import TimerForm from './timer-form/TimerForm.svelte';
+
+	let minutes = $state<number>(30);
 	let seconds = $state<number>(0);
 
-	let isEditing = $state<boolean>(false);
+	let isFormOpen = $state<boolean>(false);
+
 	let timer = $state<number>(0);
 	let interval = $state<number | null>(null);
 
@@ -19,10 +22,22 @@
 				timer -= 1;
 				updateTimeDisplay();
 			} else {
-				if (interval) clearInterval(interval);
-				interval = null;
+				endTimer();
 			}
 		}, 1000);
+	}
+
+	function pauseTimer(): void {
+		if (interval) {
+			clearInterval(interval);
+			interval = null;
+		}
+	}
+
+	function endTimer(): void {
+		pauseTimer(); // Stop the timer
+		timer = 30 * 60; // Reset the timer
+		updateTimeDisplay(); // Clear the display
 	}
 
 	// Update display values based on remaining time
@@ -30,51 +45,39 @@
 		minutes = Math.floor((timer % 3600) / 60);
 		seconds = timer % 60;
 	}
-
-	// Toggle edit mode
-	function toggleEdit(): void {
-		isEditing = !isEditing;
-	}
 </script>
 
 <!-- Main Timer Display -->
 <div
 	class="mx-auto flex h-full max-w-7xl flex-col items-center justify-start gap-5 p-4 pt-20 sm:px-6 lg:px-8"
 >
-	<Button color="white" onclick={toggleEdit}>
-		{#if isEditing}
-			<Save class="h-5 w-5 text-indigo-600" />
-		{:else}
-			<Pencil class="h-5 w-5 text-indigo-600" />
-		{/if}
+	<Button color="white" onclick={() => (isFormOpen = true)}>
+		<Pencil class="h-5 w-5 text-indigo-600" />
 	</Button>
 
-	{#if isEditing}
-		<div class="flex items-center gap-2">
-			<input
-				class="block w-16 rounded-md border border-gray-300 p-2 text-center shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-				min="0"
-				placeholder="Minutes"
-				type="number"
-				bind:value={minutes}
-			/>
-			<span class="text-xl">:</span>
-			<input
-				class="block w-16 rounded-md border border-gray-300 p-2 text-center shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-				min="0"
-				placeholder="Seconds"
-				type="number"
-				bind:value={seconds}
-			/>
-		</div>
+	<div class="text-6xl font-bold text-indigo-600">
+		{minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}
+	</div>
+
+	{#if interval === null}
+		<Button disabled={minutes === 0 && seconds === 0} onclick={startTimer}>
+			<Play class="h-5 w-5 text-white" />
+			Start
+		</Button>
 	{:else}
-		<div class="text-6xl font-bold text-indigo-600">
-			{minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}
+		<div class="flex gap-5">
+			<Button onclick={pauseTimer}>
+				<Pause class="h-5 w-5 text-white" />
+				Pause
+			</Button>
+			<Button onclick={endTimer}>
+				<Square class="h-5 w-5 text-white" />
+				End
+			</Button>
 		</div>
 	{/if}
-
-	<Button disabled={(minutes === 0 && seconds === 0) || isEditing} onclick={startTimer}>
-		<Play class="h-5 w-5" />
-		Start
-	</Button>
 </div>
+
+<Modal bind:isOpen={isFormOpen}>
+	<TimerForm close={() => (isFormOpen = false)} bind:minutes bind:seconds />
+</Modal>
