@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { Button, Modal } from '@life/shared';
-	import { Pause, Pencil, Play, Save, Square } from 'lucide-svelte';
+	import { Pause, Pencil, Play, Square } from 'lucide-svelte';
 
-	import CategoryForm from '../categories/category-form/CategoryForm.svelte';
 	import TimerForm from './timer-form/TimerForm.svelte';
 
 	let minutes = $state<number>(30);
