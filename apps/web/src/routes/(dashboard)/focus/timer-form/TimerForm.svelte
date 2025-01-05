@@ -5,19 +5,17 @@
 	import CloseX from '$lib/components/close-x/CloseX.svelte';
 
 	interface Props {
-		minutes: number;
-		seconds: number;
+		time: number;
 		close: () => void;
 	}
 
-	let { close, minutes = $bindable(), seconds = $bindable() }: Props = $props();
+	let { close, time = $bindable() }: Props = $props();
 
 	let minutesIn = $state(30);
 	let secondsIn = $state(0);
 
 	function onSubmit() {
-		minutes = minutesIn;
-		seconds = secondsIn;
+		time = minutesIn * 60 + secondsIn;
 		close();
 	}
 </script>
@@ -33,6 +31,7 @@
 		<div class="flex justify-center gap-2">
 			<input
 				class="block w-16 rounded-md border border-gray-300 p-2 text-center shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+				max="60"
 				min="0"
 				placeholder="Minutes"
 				type="number"
@@ -41,6 +40,7 @@
 			<span class="text-xl">:</span>
 			<input
 				class="block w-16 rounded-md border border-gray-300 p-2 text-center shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+				max="60"
 				min="0"
 				placeholder="Seconds"
 				type="number"
@@ -48,10 +48,8 @@
 			/>
 		</div>
 	</div>
+
 	<div class="flex justify-center rounded-b-md bg-gray-50 px-4 py-3 sm:px-6">
-		<Button type="submit">
-			<Save class="h-5 w-5 text-white" />
-			Save
-		</Button>
+		<Button type="submit"><Save class="h-5 w-5 text-white" />Save</Button>
 	</div>
 </form>

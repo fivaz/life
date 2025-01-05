@@ -10,8 +10,7 @@
 		},
 	});
 
-	let minutes = $state<number>(0);
-	let seconds = $state<number>(0);
+	let time = $state<number>(30 * 60);
 </script>
 
-<Story name="Primary" args={{ minutes, seconds }} />
+<Story name="Primary" args={{ time }} />
