@@ -3,7 +3,7 @@
 	import { CATEGORY_WORK } from '@life/shared/category';
 	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
-	import { addDays, endOfWeek, startOfWeek, subDays } from 'date-fns';
+	import { addDays, subDays } from 'date-fns';
 	import { where } from 'firebase/firestore';
 	import {
 		Calendar1,
@@ -46,8 +46,8 @@
 	function togglePeriodToCurrentWeek() {
 		isPeriodCurrentWeek = !isPeriodCurrentWeek;
 		if (isPeriodCurrentWeek) {
-			periodStartAt = formatDate(startOfWeek(new Date()));
-			periodEndAt = formatDate(endOfWeek(new Date()));
+			periodStartAt = formatDate(subDays(new Date(), 3));
+			periodEndAt = formatDate(addDays(new Date(), 3));
 		} else {
 			periodStartAt = '';
 			periodEndAt = '';
@@ -69,16 +69,17 @@
 	});
 
 	let options = $derived({
-		...(dataset.data.length < 300 && {
-			scales: {
-				y: {
-					ticks: {
-						stepSize: 1,
-					},
-					grace: '10%',
+		scales: {
+			y: {
+				ticks: {
+					stepSize: 1,
 				},
+				grace: '10%',
+				...(dataset.data.length > 300 && {
+					min: 0,
+				}),
 			},
-		}),
+		},
 		elements: {
 			point: {
 				radius: dataset.data.length > 300 ? 0 : 3,
@@ -103,15 +104,18 @@
 						Tasks by {selectedInterval}
 					</h2>
 					{#if datasetDelta > 0}
-						<div use:tooltip={'tasks increased'}>
+						<div class="flex gap-2" use:tooltip={'tasks increased'}>
+							<span>{datasetDelta}</span>
 							<CalendarArrowUp class="h-5 w-5 text-red-500" />
 						</div>
 					{:else if datasetDelta < 0}
-						<div use:tooltip={'tasks decreased'}>
+						<div class="flex gap-2" use:tooltip={'tasks decreased'}>
+							<span>{datasetDelta}</span>
 							<CalendarArrowDown class="h-5 w-5 text-green-500" />
 						</div>
 					{:else}
-						<div use:tooltip={'tasks remained equal'}>
+						<div class="flex gap-2" use:tooltip={'tasks remained equal'}>
+							<span>{datasetDelta}</span>
 							<CalendarMinus class="h-5 w-5 text-yellow-500" />
 						</div>
 					{/if}
@@ -120,13 +124,9 @@
 				<div class="flex flex-col items-center gap-3 md:flex-row">
 					<Button class="p-1" color="white" noPadding onclick={togglePeriodToCurrentWeek}>
 						{#if isPeriodCurrentWeek}
-							<div use:tooltip={'remove filter'}>
-								<CalendarRange class="l-5 w-5" />
-							</div>
+							<CalendarRange class="l-5 w-5" />
 						{:else}
-							<div use:tooltip={'filter to the current week'}>
-								<Calendar1 class="l-5 w-5" />
-							</div>
+							<Calendar1 class="l-5 w-5" />
 						{/if}
 					</Button>
 
