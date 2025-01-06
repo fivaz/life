@@ -1,13 +1,14 @@
-<script module lang="ts">
+<script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
-	import TimerIcon from './TimerIcon.svelte';
+
+	import AnimatedHourglassIcon from './AnimatedHourglassIcon.svelte';
 
 	const { Story } = defineMeta({
-		component: TimerIcon,
+		component: AnimatedHourglassIcon,
 		parameters: {
 			layout: 'fullscreen',
 		},
 	});
 </script>
 
-<Story args={{}} name="Primary"/>
+<Story name="Primary" args={{}} />

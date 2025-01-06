@@ -1,5 +1,8 @@
 <script lang="ts">
-	import { buildDate, getCurrentRoundedDate } from '@life/shared/date';
+	import { currentDate } from '@life/shared';
+	import {
+		buildDate,
+	} from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { isUntimed } from '@life/shared/task';
 	import { isAfter, isBefore, subMinutes } from 'date-fns';
@@ -14,11 +17,10 @@
 	let { task }: Props = $props();
 
 	let isCurrent = $derived.by(() => {
-		const now = getCurrentRoundedDate();
-		const startDate = subMinutes(buildDate(now, task.startTime), 1);
-		const endDate = buildDate(now, sumTimes(task.startTime, task.duration));
+		const startDate = subMinutes(buildDate(currentDate.value, task.startTime), 1);
+		const endDate = buildDate(currentDate.value, sumTimes(task.startTime, task.duration));
 
-		return isAfter(now, startDate) && isBefore(now, endDate);
+		return isAfter(currentDate.value, startDate) && isBefore(currentDate.value, endDate);
 	});
 </script>
 

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Button, Modal } from '@life/shared';
-	import { formatDate } from '@life/shared/date';
+	import { Button, currentDate, Modal } from '@life/shared';
+	import { formatDate, formatTime } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { sortTasks } from '@life/shared/task';
 	import { where } from 'firebase/firestore';
@@ -21,7 +21,7 @@
 			clearInterval(timer.interval);
 		}
 		timer.status = 'running';
-		timer.interval = window.setInterval(() => {
+		timer.interval = setInterval(() => {
 			if (timer.value > 0) {
 				timer.value -= 1;
 			} else {
@@ -57,6 +57,7 @@
 	);
 </script>
 
+{formatTime(currentDate.value)}
 <div class="mx-auto h-full max-w-7xl overflow-y-auto bg-gray-50 px-4 sm:px-6 lg:px-8">
 	<div class="sticky top-0 flex flex-col items-center justify-start gap-5 bg-gray-50 py-10">
 		<Button color="white" disabled={timer.status !== 'stopped'} onclick={() => (isFormOpen = true)}>

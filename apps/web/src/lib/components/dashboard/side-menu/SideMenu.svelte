@@ -1,13 +1,5 @@
 <script lang="ts">
-	import {
-		CalendarDays,
-		ChartCandlestick,
-		ClipboardList,
-		Goal,
-		ListTodo,
-		Tags,
-		Timer,
-	} from 'lucide-svelte';
+	import { CalendarDays, ChartCandlestick, ClipboardList, Goal, Tags } from 'lucide-svelte';
 
 	import { page } from '$app/stores';
 	import { PUBLIC_COMMIT_HASH } from '$env/static/public';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Hourglass, Menu } from 'lucide-svelte';
+	import { Menu } from 'lucide-svelte';
 
 	import { afterNavigate } from '$app/navigation';
 	import SideMenu from '$lib/components/dashboard/side-menu/SideMenu.svelte';

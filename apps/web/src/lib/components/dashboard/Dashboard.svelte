@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { startCurrentDateUpdater, stopCurrentDateUpdater } from '@life/shared';
 	import type { Snippet } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
 	import Banner from '$lib/components/banner/Banner.svelte';
 	import DashboardDesktop from '$lib/components/dashboard/dashboard-desktop/DashboardDesktop.svelte';
@@ -12,6 +14,14 @@
 	}
 
 	let { children }: Props = $props();
+
+	onMount(() => {
+		startCurrentDateUpdater();
+	});
+
+	onDestroy(() => {
+		stopCurrentDateUpdater();
+	});
 </script>
 
 <div class="flex h-screen overflow-hidden">
