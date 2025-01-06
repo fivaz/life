@@ -17,6 +17,8 @@
 	import { tooltip } from '$lib/components/tooltip/tooltip.action';
 	import { Routes } from '$lib/consts';
 
+	import RoutineIcon from '../../../../routes/(dashboard)/routine/routine-icon/RoutineIcon.svelte';
+
 	interface Props {
 		class?: string;
 	}
@@ -29,7 +31,7 @@
 		{ href: Routes.TASKS, icon: ClipboardList, name: 'Tasks' },
 		{ href: Routes.GOALS, icon: Goal, name: 'Goals' },
 		{ href: Routes.REPORT, icon: ChartCandlestick, name: 'Report' },
-		{ href: Routes.ROUTINE, icon: ListTodo, name: 'Routine' },
+		{ href: Routes.ROUTINE, icon: RoutineIcon, name: 'Routine' },
 	];
 </script>
 

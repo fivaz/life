@@ -15,15 +15,13 @@
 
 	let isFormOpen = $state<boolean>(false);
 
-	let interval = $state<number | null>(null);
-
 	// Function to start the timer.value
 	function startTimer(): void {
-		if (interval) {
-			clearInterval(interval);
+		if (timer.interval) {
+			clearInterval(timer.interval);
 		}
 		timer.status = 'running';
-		interval = window.setInterval(() => {
+		timer.interval = window.setInterval(() => {
 			if (timer.value > 0) {
 				timer.value -= 1;
 			} else {
@@ -33,10 +31,10 @@
 	}
 
 	function pauseTimer(): void {
-		if (interval) {
+		if (timer.interval) {
 			timer.status = 'paused';
-			clearInterval(interval);
-			interval = null;
+			clearInterval(timer.interval);
+			timer.interval = null;
 		}
 	}
 
