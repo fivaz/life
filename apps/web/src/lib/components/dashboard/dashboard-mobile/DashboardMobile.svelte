@@ -6,9 +6,9 @@
 	import Logo from '$lib/components/Logo.svelte';
 	import { title } from '$lib/utils.svelte';
 
+	import HourglassIcon from '../../../../routes/(dashboard)/focus/hourglass-icon/HourglassIcon.svelte';
 	import { timer } from '../../../../routes/(dashboard)/focus/service.svelte';
 	import Timer from '../../../../routes/(dashboard)/focus/timer/Timer.svelte';
-	import TimerIcon from '../../../../routes/(dashboard)/focus/timer-icon/TimerIcon.svelte';
 
 	interface Props {
 		class?: string;
@@ -36,7 +36,7 @@
 		<div class="flex items-center gap-5">
 			{#if timer.status !== 'stopped'}
 				<div class="flex items-center gap-1">
-					<TimerIcon class="text-indigo-600" />
+					<HourglassIcon class="text-indigo-600" />
 					<Timer class="text-sm font-semibold text-indigo-600" />
 				</div>
 			{/if}
