@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { format, isSameDay, isToday } from 'date-fns';
+	import { format, isSameDay } from 'date-fns';
 
 	import { currentDate, selectedDate, weekDates } from '$lib/service.svelte';
 </script>

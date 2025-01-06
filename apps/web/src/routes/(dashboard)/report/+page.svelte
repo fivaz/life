@@ -72,6 +72,9 @@
 		...(dataset.data.length < 300 && {
 			scales: {
 				y: {
+					ticks: {
+						stepSize: 1,
+					},
 					grace: '10%',
 				},
 			},

@@ -1,11 +1,6 @@
 <script lang="ts">
 	import { Button, Modal } from '@life/shared';
-	import {
-		formatDate,
-		formatTime,
-		getCurrentRoundedDate,
-		getNextRoundedTime,
-	} from '@life/shared/date';
+	import { formatDate, getCurrentRoundedDate, getNextRoundedTime } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { sortTasks } from '@life/shared/task';
 	import { where } from 'firebase/firestore';
@@ -13,7 +8,7 @@
 
 	import { fetchTasks } from '$lib/task/task.repository';
 
-	import { defaultTime, endTimer, pauseTimer, startTimer, timer } from './service.svelte';
+	import { endTimer, pauseTimer, startTimer, timer } from './service.svelte';
 	import Timer from './timer/Timer.svelte';
 	import TimerForm from './timer-form/TimerForm.svelte';
 	import TimerTask from './timer-task/TimerTask.svelte';

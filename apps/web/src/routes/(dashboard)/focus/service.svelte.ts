@@ -1,5 +1,3 @@
-import { getCurrentRoundedDate, getNextRoundedTime } from '@life/shared/date';
-
 export const defaultTime = 30 * 60;
 
 export const timer = $state<{
