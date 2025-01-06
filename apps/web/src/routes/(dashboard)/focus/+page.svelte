@@ -8,27 +8,24 @@
 
 	import { fetchTasks } from '$lib/task/task.repository';
 
+	import { defaultTime, timer } from './service.svelte';
 	import Timer from './timer/Timer.svelte';
 	import TimerForm from './timer-form/TimerForm.svelte';
 	import TimerTask from './timer-task/TimerTask.svelte';
 
 	let isFormOpen = $state<boolean>(false);
 
-	const defaultTime = 30 * 60;
-	let timer = $state<number>(defaultTime);
 	let interval = $state<number | null>(null);
 
-	let status = $state<'stopped' | 'paused' | 'running'>('stopped');
-
-	// Function to start the timer
+	// Function to start the timer.value
 	function startTimer(): void {
 		if (interval) {
 			clearInterval(interval);
 		}
-		status = 'running';
+		timer.status = 'running';
 		interval = window.setInterval(() => {
-			if (timer > 0) {
-				timer -= 1;
+			if (timer.value > 0) {
+				timer.value -= 1;
 			} else {
 				endTimer();
 			}
@@ -37,7 +34,7 @@
 
 	function pauseTimer(): void {
 		if (interval) {
-			status = 'paused';
+			timer.status = 'paused';
 			clearInterval(interval);
 			interval = null;
 		}
@@ -45,8 +42,8 @@
 
 	function endTimer(): void {
 		pauseTimer();
-		timer = defaultTime;
-		status = 'stopped';
+		timer.status = 'stopped';
+		timer.value = defaultTime;
 	}
 
 	let tasks = $state<Task[]>([]);
@@ -64,20 +61,20 @@
 
 <div class="mx-auto h-full max-w-7xl overflow-y-auto bg-gray-50 px-4 sm:px-6 lg:px-8">
 	<div class="sticky top-0 flex flex-col items-center justify-start gap-5 bg-gray-50 py-10">
-		<Button color="white" disabled={status !== 'stopped'} onclick={() => (isFormOpen = true)}>
+		<Button color="white" disabled={timer.status !== 'stopped'} onclick={() => (isFormOpen = true)}>
 			<Pencil class="h-5 w-5 text-indigo-600" />
 		</Button>
 
-		<Timer value={timer} />
+		<Timer class="text-6xl font-bold text-indigo-600" />
 
-		{#if status === 'stopped'}
-			<Button class="w-28" disabled={timer === 0} onclick={startTimer}>
+		{#if timer.status === 'stopped'}
+			<Button class="w-28" disabled={timer.value === 0} onclick={startTimer}>
 				<Play class="h-5 w-5 text-white" />
 				Start
 			</Button>
 		{/if}
 
-		{#if status === 'running'}
+		{#if timer.status === 'running'}
 			<div class="flex gap-5">
 				<Button class="w-28" onclick={pauseTimer}>
 					<Pause class="h-5 w-5 text-white" />
@@ -90,7 +87,7 @@
 			</div>
 		{/if}
 
-		{#if status === 'paused'}
+		{#if timer.status === 'paused'}
 			<div class="flex gap-5">
 				<Button class="w-28" onclick={startTimer}>
 					<Play class="h-5 w-5 text-white" />
@@ -112,5 +109,5 @@
 </div>
 
 <Modal bind:isOpen={isFormOpen}>
-	<TimerForm close={() => (isFormOpen = false)} bind:time={timer} />
+	<TimerForm close={() => (isFormOpen = false)} bind:time={timer.value} />
 </Modal>

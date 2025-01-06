@@ -1,10 +1,14 @@
 <script lang="ts">
-	import { Menu } from 'lucide-svelte';
+	import { Hourglass, Menu } from 'lucide-svelte';
 
 	import { afterNavigate } from '$app/navigation';
 	import SideMenu from '$lib/components/dashboard/side-menu/SideMenu.svelte';
 	import Logo from '$lib/components/Logo.svelte';
 	import { title } from '$lib/utils.svelte';
+
+	import { timer } from '../../../../routes/(dashboard)/focus/service.svelte';
+	import Timer from '../../../../routes/(dashboard)/focus/timer/Timer.svelte';
+	import TimerIcon from '../../../../routes/(dashboard)/focus/timer-icon/TimerIcon.svelte';
 
 	interface Props {
 		class?: string;
@@ -29,9 +33,17 @@
 			<Logo class="h-8 w-8 text-indigo-600" />
 			<h1 class="text-lg font-semibold text-gray-900">{title.value}</h1>
 		</div>
-		<button onclick={() => (showMenu = true)}>
-			<Menu />
-		</button>
+		<div class="flex items-center gap-5">
+			{#if timer.status !== 'stopped'}
+				<div class="flex items-center gap-1">
+					<TimerIcon class="text-indigo-600" />
+					<Timer class="text-sm font-semibold text-indigo-600" />
+				</div>
+			{/if}
+			<button onclick={() => (showMenu = true)}>
+				<Menu />
+			</button>
+		</div>
 	</header>
 
 	<!--side menu-->

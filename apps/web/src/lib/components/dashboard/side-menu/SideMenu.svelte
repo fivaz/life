@@ -12,6 +12,7 @@
 	import { page } from '$app/stores';
 	import { PUBLIC_COMMIT_HASH } from '$env/static/public';
 	import ProfileDropUp from '$lib/components/dashboard/profile-drop-up/ProfileDropUp.svelte';
+	import TimerNavigator from '$lib/components/dashboard/timer-navigator/TimerNavigator.svelte';
 	import Logo from '$lib/components/Logo.svelte';
 	import { tooltip } from '$lib/components/tooltip/tooltip.action';
 	import { Routes } from '$lib/consts';
@@ -29,7 +30,6 @@
 		{ href: Routes.GOALS, icon: Goal, name: 'Goals' },
 		{ href: Routes.REPORT, icon: ChartCandlestick, name: 'Report' },
 		{ href: Routes.ROUTINE, icon: ListTodo, name: 'Routine' },
-		{ href: Routes.FOCUS, icon: Timer, name: 'Focus' },
 	];
 </script>
 
@@ -46,7 +46,7 @@
 			{#each navigation as item (item.name)}
 				<li>
 					<a
-						class="flex items-center gap-3 rounded-lg p-2
+						class="flex items-end gap-3 rounded-lg p-2
 							{$page.url.pathname === item.href
 							? 'bg-gray-50 text-indigo-600'
 							: 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600'}"
@@ -59,6 +59,7 @@
 					</a>
 				</li>
 			{/each}
+			<TimerNavigator />
 		</ul>
 	</nav>
 

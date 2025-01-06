@@ -1,14 +1,16 @@
 <script lang="ts">
+	import { timer } from '../service.svelte';
+
 	interface Props {
-		value: number;
+		class?: string;
 	}
 
-	let { value }: Props = $props();
+	let { class: klass }: Props = $props();
 
-	let minutes = $derived<number>(Math.floor(value / 60));
-	let seconds = $derived<number>(value % 60);
+	let minutes = $derived<number>(Math.floor(timer.value / 60));
+	let seconds = $derived<number>(timer.value % 60);
 </script>
 
-<div class="text-6xl font-bold text-indigo-600">
+<div class={klass}>
 	{minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}
 </div>
