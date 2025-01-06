@@ -1,6 +1,11 @@
 <script lang="ts">
-	import { Button, currentDate, Modal } from '@life/shared';
-	import { formatDate, formatTime } from '@life/shared/date';
+	import { Button, Modal } from '@life/shared';
+	import {
+		formatDate,
+		formatTime,
+		getCurrentRoundedDate,
+		getNextRoundedTime,
+	} from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { sortTasks } from '@life/shared/task';
 	import { where } from 'firebase/firestore';
@@ -8,41 +13,12 @@
 
 	import { fetchTasks } from '$lib/task/task.repository';
 
-	import { defaultTime, timer } from './service.svelte';
+	import { defaultTime, endTimer, pauseTimer, startTimer, timer } from './service.svelte';
 	import Timer from './timer/Timer.svelte';
 	import TimerForm from './timer-form/TimerForm.svelte';
 	import TimerTask from './timer-task/TimerTask.svelte';
 
 	let isFormOpen = $state<boolean>(false);
-
-	// Function to start the timer.value
-	function startTimer(): void {
-		if (timer.interval) {
-			clearInterval(timer.interval);
-		}
-		timer.status = 'running';
-		timer.interval = setInterval(() => {
-			if (timer.value > 0) {
-				timer.value -= 1;
-			} else {
-				endTimer();
-			}
-		}, 1000);
-	}
-
-	function pauseTimer(): void {
-		if (timer.interval) {
-			timer.status = 'paused';
-			clearInterval(timer.interval);
-			timer.interval = null;
-		}
-	}
-
-	function endTimer(): void {
-		pauseTimer();
-		timer.status = 'stopped';
-		timer.value = defaultTime;
-	}
 
 	let tasks = $state<Task[]>([]);
 
@@ -55,9 +31,21 @@
 		(unsortedTasks) => (tasks = filterTasks(unsortedTasks)),
 		where('date', '==', formatDate(new Date())),
 	);
+
+	let currentDate = $state(getCurrentRoundedDate());
+
+	let timeUntilNextUpdate = $state(getNextRoundedTime());
+
+	$effect(() => {
+		const interval = setInterval(() => {
+			currentDate = getCurrentRoundedDate();
+			timeUntilNextUpdate = 15 * 60 * 1000;
+		}, timeUntilNextUpdate);
+
+		return () => clearInterval(interval);
+	});
 </script>
 
-{formatTime(currentDate.value)}
 <div class="mx-auto h-full max-w-7xl overflow-y-auto bg-gray-50 px-4 sm:px-6 lg:px-8">
 	<div class="sticky top-0 flex flex-col items-center justify-start gap-5 bg-gray-50 py-10">
 		<Button color="white" disabled={timer.status !== 'stopped'} onclick={() => (isFormOpen = true)}>
@@ -102,7 +90,7 @@
 
 	<div class="flex flex-col gap-2">
 		{#each tasks as task (task.id)}
-			<TimerTask {task} />
+			<TimerTask {currentDate} {task} />
 		{/each}
 	</div>
 </div>

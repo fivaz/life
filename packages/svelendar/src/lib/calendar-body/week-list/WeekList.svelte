@@ -1,17 +1,16 @@
 <script lang="ts">
 	import { format, isSameDay, isToday } from 'date-fns';
 
-	import { selectedDate, weekDates } from '../../service.svelte.js';
+	import { currentDate, selectedDate, weekDates } from '$lib/service.svelte';
 </script>
 
 {#snippet weekDay(date: Date, selectedDate: Date)}
 	{@const isDateSelected = isSameDay(selectedDate, date)}
+	{@const isToday = isSameDay(currentDate.value, date)}
 	<span
 		class="
-		{isToday(date) || isDateSelected
-			? 'h-8 w-8 rounded-full bg-indigo-300 text-white'
-			: 'text-gray-900'}
-					{isToday(date) && !isDateSelected ? ' bg-indigo-300 ' : ''}
+		{isToday || isDateSelected ? 'h-8 w-8 rounded-full bg-indigo-300 text-white' : 'text-gray-900'}
+					{isToday && !isDateSelected ? ' bg-indigo-300 ' : ''}
 						{isDateSelected ? 'bg-indigo-600 ' : ''}
 					mt-1 flex items-center justify-center font-semibold"
 	>
