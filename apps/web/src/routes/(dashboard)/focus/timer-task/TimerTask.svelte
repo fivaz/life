@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { currentDate } from '@life/shared';
-	import {
-		buildDate,
-	} from '@life/shared/date';
+	import { buildDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { isUntimed } from '@life/shared/task';
 	import { isAfter, isBefore, subMinutes } from 'date-fns';
