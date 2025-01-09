@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button, Modal } from '@life/shared';
-	import { formatDate, getCurrentRoundedDate, getNextRoundedTime } from '@life/shared/date';
+	import { formatDate, getCurrentRoundedDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { sortTasks } from '@life/shared/task';
 	import { where } from 'firebase/firestore';
@@ -29,20 +29,17 @@
 
 	let currentDate = $state(getCurrentRoundedDate());
 
-	let timeUntilNextUpdate = $state(getNextRoundedTime());
-
 	$effect(() => {
 		const interval = setInterval(() => {
 			currentDate = getCurrentRoundedDate();
-			timeUntilNextUpdate = 15 * 60 * 1000;
-		}, timeUntilNextUpdate);
+		}, 1000);
 
 		return () => clearInterval(interval);
 	});
 </script>
 
-<div class="mx-auto h-full max-w-7xl overflow-y-auto bg-gray-50 px-4 sm:px-6 lg:px-8">
-	<div class="sticky top-0 flex flex-col items-center justify-start gap-5 bg-gray-50 py-10">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+	<div class="sticky top-0 flex flex-col items-center justify-start gap-5 bg-white py-10">
 		<Button color="white" disabled={timer.status !== 'stopped'} onclick={() => (isFormOpen = true)}>
 			<Pencil class="h-5 w-5 text-indigo-600" />
 		</Button>
