@@ -56,7 +56,7 @@
 {#snippet categoryItem(category: Category)}
 	<div class="flex items-center gap-3">
 		<div class="{tailwindColorMap[category.color]?.darkBg} h-5 w-5 rounded-md"></div>
-		{category.name}
+		<div class="w-[calc(100%-32px)] truncate">{category.name}</div>
 	</div>
 {/snippet}
 
@@ -65,7 +65,7 @@
 	class="flex items-center"
 	label="Category"
 	labelClass="w-1/5"
-	selectClass="flex-1"
+	selectClass="w-4/5"
 	bind:value={taskIn.value.category}
 >
 	{#snippet placeholder()}
@@ -83,7 +83,7 @@
 	class="flex items-center"
 	label="Goal"
 	labelClass="w-1/5"
-	selectClass="flex-1"
+	selectClass="w-4/5"
 	bind:value={taskIn.value.goal}
 >
 	{#snippet placeholder()}
@@ -93,7 +93,7 @@
 	{#each goals as goal (goal)}
 		<SelectItem class="flex gap-2" value={goal}>
 			<GoalIcon name={goal.icon} class="h-5 w-5" />
-			<span class="w-[calc(100%-20px)] truncate">{goal.name}</span>
+			<span class="w-[calc(100%-32px)] truncate">{goal.name}</span>
 		</SelectItem>
 	{/each}
 </Select>

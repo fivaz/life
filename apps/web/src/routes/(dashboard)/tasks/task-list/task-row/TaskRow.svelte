@@ -110,6 +110,7 @@
 </li>
 
 <style>
+	/* make the test truncate in two lines */
 	.name {
 		display: -webkit-box;
 		line-clamp: 2;
