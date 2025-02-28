@@ -78,6 +78,17 @@
 	{/each}
 </Select>
 
+{#snippet goalItem(goal: Goal | null)}
+	<div class="flex items-center gap-3">
+		{#if goal}
+			<GoalIcon name={goal.icon} class="h-5 w-5" />
+			<div class="w-[calc(100%-32px)] truncate">{goal.name}</div>
+		{:else}
+			<div>no goal</div>
+		{/if}
+	</div>
+{/snippet}
+
 <!--goal-->
 <Select
 	class="flex items-center"
@@ -87,7 +98,7 @@
 	bind:value={taskIn.value.goal}
 >
 	{#snippet placeholder()}
-		{taskIn.value.goal?.name || 'no goal'}
+		{@render goalItem(taskIn.value.goal)}
 	{/snippet}
 	<SelectItem value={null}>no goal</SelectItem>
 	{#each goals as goal (goal)}
