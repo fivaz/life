@@ -26,8 +26,17 @@ export function getCurrentRoundedDate() {
 export const GRID_CELL_TIME = 15;
 
 export function roundTo15(date: Date) {
-	const milliseconds = 1000 * 60 * GRID_CELL_TIME;
-	return new Date(Math.round(date.getTime() / milliseconds) * milliseconds);
+	const currentDate = new Date(date);
+	const minutes = currentDate.getMinutes();
+	const remainder = minutes % GRID_CELL_TIME;
+
+	if (remainder === 0) {
+		return currentDate;
+	}
+
+	currentDate.setMinutes(minutes - remainder);
+
+	return currentDate;
 }
 
 export function buildDate(date: Date, time: string): Date {

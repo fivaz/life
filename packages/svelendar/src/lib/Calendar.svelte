@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { getCurrentRoundedDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { sortTasks } from '@life/shared/task';
 
@@ -19,7 +18,7 @@
 		setMoveEvent,
 		setToggleCompletion,
 	} from './context.utils.js';
-	import { currentDate } from './service.svelte.js';
+	import { updateCurrentDate } from './service.svelte.js';
 
 	interface Props {
 		tasks: Task[];
@@ -40,7 +39,7 @@
 
 	$effect(() => {
 		const interval = setInterval(() => {
-			currentDate.value = getCurrentRoundedDate();
+			updateCurrentDate();
 		}, 1000);
 
 		return () => clearInterval(interval);

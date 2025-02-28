@@ -3,6 +3,12 @@ import { addDays, startOfWeek } from 'date-fns';
 
 export const currentDate = $state<{ value: Date }>({ value: getDateRoundDownTo15() });
 
+export function updateCurrentDate() {
+	const now = new Date();
+	now.setMilliseconds(0);
+	currentDate.value = now;
+}
+
 let _selectedDate = $state<Date>(new Date());
 
 // this is used in WeekListSelector to know the right direction for the slide animation

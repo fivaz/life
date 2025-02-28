@@ -25,8 +25,6 @@
 
 		const [hours, minutes] = task.startTime.split(':').map(Number);
 
-		console.log(hours, minutes);
-
 		if (hours < 23) return false;
 
 		return minutes >= 30;
