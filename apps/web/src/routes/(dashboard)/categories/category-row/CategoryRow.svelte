@@ -17,24 +17,20 @@
 
 <li
 	class="{tailwindColorMap[category.color].darkBg}
-		flex justify-between gap-x-3 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-white"
+		flex items-center justify-between gap-x-2 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-white"
 >
-	<div class="flex items-center gap-x-2">
-		<div aria-label="drag-handle for {category.name}" use:dragHandle>
-			<GripVertical class="h-5 w-auto" />
-		</div>
-		<Icon class="h-5 w-5 text-white" src={Tag} />
-		<div class="text-sm font-semibold leading-6">{category.name}</div>
+	<div aria-label="drag-handle for {category.name}" use:dragHandle>
+		<GripVertical class="h-5 w-5" />
 	</div>
+	<Icon class="h-5 w-5 text-white" src={Tag} />
+	<div class="flex-1 truncate text-sm font-semibold leading-6">{category.name}</div>
 
-	<div>
-		<button
-			class="{tailwindColorMap[category.color].hoverBg} {tailwindColorMap[category.color].hoverText}
-				rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
-			onclick={() => edit(category)}
-			type="button"
-		>
-			<Icon class="h-4 w-4" src={Settings2} />
-		</button>
-	</div>
+	<button
+		class="{tailwindColorMap[category.color].hoverBg} {tailwindColorMap[category.color].hoverText}
+				 rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
+		onclick={() => edit(category)}
+		type="button"
+	>
+		<Icon class="h-5 w-5" src={Settings2} />
+	</button>
 </li>
