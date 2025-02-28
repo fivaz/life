@@ -79,7 +79,7 @@
 				}}
 			>
 				<Plus class="h-4 w-auto" />
-				New Category
+				New Task
 			</Button>
 		</div>
 	</div>
