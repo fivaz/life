@@ -76,6 +76,7 @@ function getStackedChartDataset(tasks: Task[], interval: Interval, dateStart: Da
 	};
 }
 
+// Count tasks created in a specific period
 function countTasksCreatedInPeriod(tasks: Task[], periodStart: Date, periodEnd: Date): number {
 	return tasks.filter((task) => {
 		const createdAt = new Date(task.createdAt);
@@ -87,8 +88,7 @@ function countTasksCreatedInPeriod(tasks: Task[], periodStart: Date, periodEnd: 
 function countTasksCompletedInPeriod(tasks: Task[], periodStart: Date, periodEnd: Date): number {
 	return tasks.filter((task) => {
 		const isCompleted = task.isDone === true;
-		const completedAt = new Date(task.date);
-
-		return isCompleted && isWithinInterval(completedAt, { start: periodStart, end: periodEnd });
+		const completedAt = isCompleted ? new Date(task.date) : null;
+		return isCompleted && isWithinInterval(completedAt!, { start: periodStart, end: periodEnd });
 	}).length;
 }

@@ -170,6 +170,7 @@ export function countTasksCreatedUpToPeriod(tasks: Task[], periodEnd: Date): num
 		return createdAt <= periodEnd;
 	}).length;
 }
+
 // Count tasks completed up to a specific period end date
 export function countTasksCompletedUpToPeriod(tasks: Task[], periodEnd: Date): number {
 	return tasks.filter((task) => {
