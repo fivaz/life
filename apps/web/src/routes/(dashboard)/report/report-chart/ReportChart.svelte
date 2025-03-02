@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Task } from '@life/shared/task';
+	import type { ChartConfiguration } from 'chart.js';
 	import {
 		BarElement,
 		CategoryScale,
@@ -8,18 +9,19 @@
 		LinearScale,
 		Title,
 		Tooltip,
-	} from 'chart.js';
+	} from 'chart.js/auto';
 
-	import type { Interval } from '../report-chart/service';
-	import { getStackedChartConfig } from './service';
+	import type { Interval, ReportChartType } from './service';
+	import { getChartConfig } from './service';
 
-	ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+	// ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-	let { tasks, periodStartAt, periodEndAt, interval } = $props<{
+	const { chartType, tasks, interval, startAt, endAt } = $props<{
+		chartType: ReportChartType;
 		tasks: Task[];
-		periodStartAt: string;
-		periodEndAt: string;
 		interval: Interval;
+		startAt: string;
+		endAt: string;
 	}>();
 
 	let canvasRef: HTMLCanvasElement | null = null;
@@ -31,9 +33,7 @@
 		const ctx = canvasRef.getContext('2d');
 		if (!ctx) return;
 
-		const config = getStackedChartConfig(tasks, interval, periodStartAt, periodEndAt);
-
-		chartInstance = new ChartJS(ctx, config);
+		chartInstance = new ChartJS(ctx, getChartConfig(chartType, tasks, interval, startAt, endAt));
 
 		return () => chartInstance?.destroy();
 	});

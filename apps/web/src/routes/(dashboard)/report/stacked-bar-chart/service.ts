@@ -13,9 +13,9 @@ import {
 	subWeeks,
 } from 'date-fns';
 
-import type { Interval } from '../service';
+import type { Interval } from '../report-chart/service';
 
-export function getChartConfig(
+export function getStackedChartConfig(
 	tasks: Task[],
 	interval: Interval,
 	periodStartAt: string,

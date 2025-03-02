@@ -22,9 +22,10 @@
 	import { fetchTasks } from '$lib/task/task.repository';
 	import { title } from '$lib/utils.svelte';
 
-	import LineChart from './line-chart/LineChart.svelte';
+	// import LineChart from './line-chart/LineChart.svelte';
+	import ReportChart from './report-chart/ReportChart.svelte';
+	import type { Interval, ReportChartType } from './report-chart/service';
 	import ReportTaskList from './report-task-list/ReportTaskList.svelte';
-	import type { Interval } from './service';
 	import { generateGraphData, getDatasetDelta, intervals } from './service';
 	import StackedBarChart from './stacked-bar-chart/StackedBarChart.svelte';
 
@@ -46,7 +47,7 @@
 
 	let isPeriodCurrentWeek: boolean = $state(true);
 
-	let chartType: 'stacked' | 'line' = $state('stacked');
+	let chartType: 'stacked' | 'line' = $state<ReportChartType>('line');
 
 	function togglePeriodToCurrentWeek() {
 		isPeriodCurrentWeek = !isPeriodCurrentWeek;
@@ -176,10 +177,18 @@
 				</div>
 			</div>
 
+			<ReportChart
+				{chartType}
+				endAt={periodEndAt}
+				interval={selectedInterval}
+				startAt={periodStartAt}
+				{tasks}
+			/>
+
 			{#if chartType === 'line'}
-				<LineChart {data} {options} />
+				<!--				<LineChart {data} {options} />-->
 			{:else}
-				<StackedBarChart interval={selectedInterval} {periodEndAt} {periodStartAt} {tasks} />
+				<!--				<StackedBarChart interval={selectedInterval} {periodEndAt} {periodStartAt} {tasks} />-->
 			{/if}
 
 			<div class="flex flex-col gap-2">
