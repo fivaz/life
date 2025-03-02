@@ -1,3 +1,4 @@
+import { formatDate } from '@life/shared/date';
 import type { Task } from '@life/shared/task';
 import type { ChartConfiguration } from 'chart.js';
 import { isWithinInterval } from 'date-fns';
@@ -85,7 +86,9 @@ function countTasksCreatedInPeriod(tasks: Task[], periodStart: Date, periodEnd: 
 // Count tasks completed in a specific period
 function countTasksCompletedInPeriod(tasks: Task[], periodStart: Date, periodEnd: Date): number {
 	return tasks.filter((task) => {
+		const isCompleted = task.isDone === true;
 		const completedAt = new Date(task.date);
-		return isWithinInterval(completedAt, { start: periodStart, end: periodEnd });
+
+		return isCompleted && isWithinInterval(completedAt, { start: periodStart, end: periodEnd });
 	}).length;
 }

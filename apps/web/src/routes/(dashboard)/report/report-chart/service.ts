@@ -89,13 +89,32 @@ export function generatePeriodLabel(periodStart: Date, periodEnd: Date, interval
 
 export type ReportChartType = 'stacked' | 'line';
 
+// Overload signatures
+export function getChartConfig(
+	charType: 'line',
+	tasks: Task[],
+	interval: Interval,
+	startAt: string,
+	endAt: string,
+): ChartConfiguration<'line'>;
+
+// Overload signatures
+export function getChartConfig(
+	charType: 'stacked',
+	tasks: Task[],
+	interval: Interval,
+	startAt: string,
+	endAt: string,
+): ChartConfiguration<'bar'>;
+
+// Implementation
 export function getChartConfig(
 	charType: ReportChartType,
 	tasks: Task[],
 	interval: Interval,
 	startAt: string,
 	endAt: string,
-) {
+): ChartConfiguration<'line'> | ChartConfiguration<'bar'> {
 	const { sortedTasks, startDate, endDate } = prepareData(tasks, startAt, endAt);
 
 	const configChartHash = {

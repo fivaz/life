@@ -22,12 +22,10 @@
 	import { fetchTasks } from '$lib/task/task.repository';
 	import { title } from '$lib/utils.svelte';
 
-	// import LineChart from './line-chart/LineChart.svelte';
 	import ReportChart from './report-chart/ReportChart.svelte';
 	import type { Interval, ReportChartType } from './report-chart/service';
 	import ReportTaskList from './report-task-list/ReportTaskList.svelte';
 	import { generateGraphData, getDatasetDelta, intervals } from './service';
-	import StackedBarChart from './stacked-bar-chart/StackedBarChart.svelte';
 
 	title.value = 'Report';
 
@@ -59,44 +57,6 @@
 			periodEndAt = '';
 		}
 	}
-
-	let data = $derived({
-		datasets: [
-			{
-				backgroundColor: '#a78bfa',
-				borderColor: '#7c3aed',
-				borderWidth: 1,
-				data: dataset.data,
-				fill: true,
-				tension: 0.3,
-			},
-		],
-		labels: dataset.labels,
-	});
-
-	let options = $derived({
-		scales: {
-			y: {
-				ticks: {
-					stepSize: 1,
-				},
-				grace: '10%',
-				...(dataset.data.length > 300 && {
-					min: 0,
-				}),
-			},
-		},
-		elements: {
-			point: {
-				radius: dataset.data.length > 300 ? 0 : 3,
-			},
-		},
-		plugins: {
-			legend: {
-				display: false,
-			},
-		},
-	});
 </script>
 
 <div class="py-4">
@@ -184,12 +144,6 @@
 				startAt={periodStartAt}
 				{tasks}
 			/>
-
-			{#if chartType === 'line'}
-				<!--				<LineChart {data} {options} />-->
-			{:else}
-				<!--				<StackedBarChart interval={selectedInterval} {periodEndAt} {periodStartAt} {tasks} />-->
-			{/if}
 
 			<div class="flex flex-col gap-2">
 				{#if dataset.labels.length < 200}

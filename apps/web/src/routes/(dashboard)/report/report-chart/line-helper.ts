@@ -1,5 +1,6 @@
 import type { Task } from '@life/shared/task';
 import type { ChartConfiguration } from 'chart.js';
+import { isWithinInterval } from 'date-fns';
 
 import type { Interval } from './service';
 import { generatePeriodLabel, generateTimePeriods } from './service';
@@ -76,8 +77,23 @@ function countUncompletedTasksInPeriod(tasks: Task[], periodEnd: Date): number {
 	return tasks.filter((task) => {
 		const createdAt = new Date(task.createdAt);
 		const isCompleted = task.isDone === true;
-		const completedAt = isCompleted ? new Date(task.date) : null;
+		const completedAt = new Date(task.date);
 
-		return createdAt <= periodEnd && (!isCompleted || completedAt! > periodEnd);
+		// don't count if task was created before period
+		if (createdAt > periodEnd) {
+			return false;
+		}
+
+		//  don't count if task wasn't completed
+		if (isCompleted) {
+			return false;
+		}
+
+		// don't count if task was completed after period
+		if (completedAt > periodEnd) {
+			return false;
+		}
+
+		return true;
 	}).length;
 }
