@@ -1,14 +1,7 @@
 <script lang="ts">
 	import type { Task } from '@life/shared/task';
-	import type { ChartConfiguration } from 'chart.js';
 	import {
-		BarElement,
-		CategoryScale,
 		Chart as ChartJS,
-		Legend,
-		LinearScale,
-		Title,
-		Tooltip,
 	} from 'chart.js/auto';
 
 	import type { Interval, ReportChartType } from './service';

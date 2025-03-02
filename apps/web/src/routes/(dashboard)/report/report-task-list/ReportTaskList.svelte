@@ -2,9 +2,8 @@
 	import type { Task } from '@life/shared/task';
 	import { CalendarArrowDown, CalendarArrowUp, CalendarMinus } from 'lucide-svelte';
 
-	import type { Interval, ReportChartType } from '../report-chart/service';
+	import type { Interval } from '../report-chart/service';
 	import { prepareData } from '../report-chart/service';
-	import type { Dataset } from '../service';
 	import ReportTask from './report-task/ReportTask.svelte';
 	import { generateTasksByPeriod } from './service';
 

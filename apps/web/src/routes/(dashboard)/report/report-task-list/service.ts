@@ -1,9 +1,8 @@
 import type { Task } from '@life/shared/task';
 import { isWithinInterval } from 'date-fns';
 
-import { getLineChartConfig } from '../report-chart/line-helper';
-import type { Interval, ReportChartType } from '../report-chart/service';
-import { generatePeriodLabel, generateTimePeriods, prepareData } from '../report-chart/service';
+import type { Interval } from '../report-chart/service';
+import { generatePeriodLabel, generateTimePeriods } from '../report-chart/service';
 
 export function generateTasksByPeriod(
 	tasks: Task[],

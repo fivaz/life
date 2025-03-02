@@ -1,4 +1,3 @@
-import { formatDate } from '@life/shared/date';
 import type { Task } from '@life/shared/task';
 import type { ChartConfiguration } from 'chart.js';
 import { isWithinInterval } from 'date-fns';
