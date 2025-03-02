@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button, WeekChanger } from '@life/shared';
-	import { formatDate, getCurrentRoundedDate, roundTo15 } from '@life/shared/date';
+	import { formatDate } from '@life/shared/date';
 	import { format } from 'date-fns';
 	import Plus from 'lucide-svelte/icons/plus';
 

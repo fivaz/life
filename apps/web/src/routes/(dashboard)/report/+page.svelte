@@ -3,6 +3,7 @@
 	import { CATEGORY_WORK } from '@life/shared/category';
 	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
+	import { clsx } from 'clsx';
 	import { addDays, subDays } from 'date-fns';
 	import { where } from 'firebase/firestore';
 	import {
@@ -90,15 +91,19 @@
 
 				<div class="flex flex-col items-center gap-3 md:flex-row">
 					<Button class="p-1" color="white" noPadding onclick={() => (chartType = 'stacked')}>
-						<ChartColumnStackedIcon class="size-5" />
+						<ChartColumnStackedIcon
+							class={clsx('size-5', { 'text-indigo-600': chartType === 'stacked' })}
+						/>
 					</Button>
 
 					<Button class="p-1" color="white" noPadding onclick={() => (chartType = 'line')}>
-						<ChartLineIcon class="size-5" />
+						<ChartLineIcon class={clsx('size-5', { 'text-indigo-600': chartType === 'line' })} />
 					</Button>
 
 					<Button class="p-1" color="white" noPadding onclick={() => (chartType = 'double-line')}>
-						<DoubleLineChartIcon class="size-5" />
+						<DoubleLineChartIcon
+							class={clsx('size-5', { 'text-indigo-600': chartType === 'double-line' })}
+						/>
 					</Button>
 
 					<Button class="p-1" color="white" noPadding onclick={togglePeriodToCurrentWeek}>

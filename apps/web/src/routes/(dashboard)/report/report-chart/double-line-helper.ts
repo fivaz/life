@@ -50,9 +50,13 @@ export function getDoubleLineChartConfig(
 			},
 			scales: {
 				x: {
-					display: true,
+					title: {
+						display: true,
+						text: 'Time',
+					},
 				},
 				y: {
+					grace: '10%',
 					beginAtZero: true,
 					title: {
 						display: true,

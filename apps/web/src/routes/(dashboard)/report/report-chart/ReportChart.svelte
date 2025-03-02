@@ -1,11 +1,36 @@
 <script lang="ts">
 	import type { Task } from '@life/shared/task';
-	import { Chart as ChartJS } from 'chart.js/auto';
+	import {
+		BarController,
+		BarElement,
+		CategoryScale,
+		Chart as ChartJS,
+		Filler,
+		Legend,
+		LinearScale,
+		LineController,
+		LineElement,
+		PointElement,
+		Title,
+		Tooltip,
+	} from 'chart.js';
 
 	import type { Interval, ReportChartType } from './service';
 	import { getChartConfig } from './service';
 
-	// ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+	ChartJS.register(
+		BarElement,
+		BarController,
+		LineElement,
+		LineController,
+		LinearScale,
+		CategoryScale,
+		Title,
+		Tooltip,
+		Legend,
+		Filler,
+		PointElement,
+	);
 
 	const { chartType, tasks, interval, startAt, endAt } = $props<{
 		chartType: ReportChartType;

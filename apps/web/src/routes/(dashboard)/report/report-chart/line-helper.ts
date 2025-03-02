@@ -49,6 +49,10 @@ export function getLineChartConfig(
 					},
 				},
 				y: {
+					title: {
+						display: true,
+						text: 'Number of Tasks',
+					},
 					beginAtZero: true,
 					ticks: {
 						stepSize: 1,

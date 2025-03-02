@@ -24,12 +24,12 @@ export function getStackedChartConfig(
 			labels: labels,
 			datasets: [
 				{
-					label: 'Created',
+					label: 'Uncompleted Tasks',
 					data: created,
 					backgroundColor: 'oklch(0.704 0.191 22.216)',
 				},
 				{
-					label: 'Completed',
+					label: 'Completed Tasks',
 					data: completed,
 					backgroundColor: 'oklch(0.792 0.209 151.711)',
 				},
@@ -39,10 +39,19 @@ export function getStackedChartConfig(
 			scales: {
 				x: {
 					stacked: true,
+					title: {
+						display: true,
+						text: 'Time',
+					},
 				},
 				y: {
+					grace: '10%',
 					stacked: true,
 					beginAtZero: true,
+					title: {
+						display: true,
+						text: 'Number of Tasks',
+					},
 				},
 			},
 		},
