@@ -9,6 +9,7 @@ export const routines: Routine[] = [
 		name: 'Read a Book',
 		order: 1,
 		time: 'evening',
+		isDisabled: false,
 	},
 	{
 		completeHistory: [{ date: '2024-11-17', isCompleted: false }],
@@ -18,6 +19,7 @@ export const routines: Routine[] = [
 		name: 'Workout',
 		order: 2,
 		time: 'morning',
+		isDisabled: false,
 	},
 	{
 		completeHistory: [{ date: '2024-11-16', isCompleted: true }],
@@ -27,6 +29,7 @@ export const routines: Routine[] = [
 		name: 'Healthy Snack',
 		order: 3,
 		time: 'afternoon',
+		isDisabled: false,
 	},
 	{
 		completeHistory: [{ date: '2024-11-17', isCompleted: true }],
@@ -36,6 +39,7 @@ export const routines: Routine[] = [
 		name: 'Meditation',
 		order: 4,
 		time: 'morning',
+		isDisabled: false,
 	},
 	{
 		completeHistory: [{ date: '2024-11-15', isCompleted: true }],
@@ -45,6 +49,7 @@ export const routines: Routine[] = [
 		name: 'Make the Bed',
 		order: 5,
 		time: 'morning',
+		isDisabled: false,
 	},
 	{
 		completeHistory: [{ date: '2024-11-16', isCompleted: false }],
@@ -54,6 +59,7 @@ export const routines: Routine[] = [
 		name: 'Clean Desk',
 		order: 6,
 		time: 'all-day',
+		isDisabled: false,
 	},
 	{
 		completeHistory: [{ date: '2024-11-17', isCompleted: false }],
@@ -63,6 +69,7 @@ export const routines: Routine[] = [
 		name: 'Plan Day',
 		order: 7,
 		time: 'morning',
+		isDisabled: false,
 	},
 	{
 		completeHistory: [{ date: '2024-11-16', isCompleted: true }],
@@ -72,6 +79,7 @@ export const routines: Routine[] = [
 		name: 'Water Plants',
 		order: 8,
 		time: 'afternoon',
+		isDisabled: false,
 	},
 	{
 		completeHistory: [{ date: '2024-11-17', isCompleted: false }],
@@ -81,6 +89,7 @@ export const routines: Routine[] = [
 		name: 'Prepare Dinner',
 		order: 9,
 		time: 'evening',
+		isDisabled: false,
 	},
 	{
 		completeHistory: [{ date: '2024-11-17', isCompleted: true }],
@@ -90,6 +99,7 @@ export const routines: Routine[] = [
 		name: 'Skincare Routine',
 		order: 10,
 		time: 'evening',
+		isDisabled: false,
 	},
 ];
 
