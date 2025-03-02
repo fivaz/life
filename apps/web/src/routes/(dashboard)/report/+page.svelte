@@ -150,7 +150,12 @@
 
 			<div class="flex flex-col gap-2">
 				{#if dataset.labels.length < 200}
-					<ReportTaskList {dataset} />
+					<ReportTaskList
+						endAt={periodEndAt}
+						interval={selectedInterval}
+						startAt={periodStartAt}
+						{tasks}
+					/>
 				{/if}
 			</div>
 		</div>

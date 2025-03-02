@@ -7,9 +7,10 @@
 	interface Props {
 		task: Task;
 		isAdd?: boolean;
+		index: number;
 	}
 
-	let { task, isAdd = false }: Props = $props();
+	let { task, index, isAdd = false }: Props = $props();
 </script>
 
 <li
@@ -18,6 +19,7 @@
 	flex justify-between gap-x-3 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-white"
 >
 	<div class="flex items-center gap-x-2">
+		{index}
 		{#if isAdd}
 			<CalendarPlus class="h-5 w-5 text-white" />
 		{:else}

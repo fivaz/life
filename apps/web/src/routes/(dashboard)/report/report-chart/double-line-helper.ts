@@ -79,7 +79,10 @@ function getDoubleLineChartDataset(
 	periods.forEach((period) => {
 		const periodLabel = generatePeriodLabel(period.start, period.end, interval);
 
+		// Count tasks created up to the end of this period
 		const created = countTasksCreatedUpToPeriod(tasks, period.end);
+
+		// Count tasks completed up to the end of this period
 		const completed = countTasksCompletedUpToPeriod(tasks, period.end);
 
 		labels.push(periodLabel);
