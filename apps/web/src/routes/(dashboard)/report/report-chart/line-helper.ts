@@ -1,9 +1,13 @@
 import type { Task } from '@life/shared/task';
 import type { ChartConfiguration } from 'chart.js';
-import { isWithinInterval } from 'date-fns';
 
 import type { Interval } from './service';
-import { generatePeriodLabel, generateTimePeriods } from './service';
+import {
+	countTasksCompletedUpToPeriod,
+	countTasksCreatedUpToPeriod,
+	generatePeriodLabel,
+	generateTimePeriods,
+} from './service';
 
 export function getLineChartConfig(
 	tasks: Task[],
@@ -11,7 +15,12 @@ export function getLineChartConfig(
 	periodStartAt: Date,
 	periodEndAt: Date,
 ): ChartConfiguration<'line'> {
-	const { labels, uncompleted } = getLineChartDataset(tasks, interval, periodStartAt, periodEndAt);
+	const { labels, uncompletedTasks } = getLineChartDataset(
+		tasks,
+		interval,
+		periodStartAt,
+		periodEndAt,
+	);
 
 	return {
 		type: 'line',
@@ -20,15 +29,27 @@ export function getLineChartConfig(
 			datasets: [
 				{
 					label: 'Uncompleted Tasks',
-					data: uncompleted,
-					borderColor: 'oklch(0.704 0.191 22.216)',
-					fill: false,
+					data: uncompletedTasks,
+					borderColor: 'oklch(0.704 0.191 22.216)', // Blue
+					backgroundColor: 'oklch(0.704 0.191 22.216 / 0.2)', //
+					fill: true,
 				},
 			],
 		},
 		options: {
+			responsive: true,
+			interaction: {
+				mode: 'index', // Show tooltips for both datasets at the same x-axis value
+			},
 			scales: {
+				x: {
+					title: {
+						display: true,
+						text: 'Time',
+					},
+				},
 				y: {
+					beginAtZero: true,
 					ticks: {
 						stepSize: 1,
 					},
@@ -56,44 +77,29 @@ function getLineChartDataset(tasks: Task[], interval: Interval, dateStart: Date,
 	const periods = generateTimePeriods(interval, dateStart, dateEnd);
 
 	const labels: string[] = [];
-	const uncompleted: number[] = [];
+	const uncompletedTasks: number[] = [];
+
+	let cumulativeCreated = 0;
+	let cumulativeCompleted = 0;
 
 	periods.forEach((period) => {
 		const periodLabel = generatePeriodLabel(period.start, period.end, interval);
 
-		const tasksUncompleted = countUncompletedTasksInPeriod(tasks, period.end);
+		// Count tasks created up to the end of this period
+		cumulativeCreated = countTasksCreatedUpToPeriod(tasks, period.end);
+
+		// Count tasks completed up to the end of this period
+		cumulativeCompleted = countTasksCompletedUpToPeriod(tasks, period.end);
+
+		// Calculate uncompleted tasks
+		const uncompleted = cumulativeCreated - cumulativeCompleted;
 
 		labels.push(periodLabel);
-		uncompleted.push(tasksUncompleted);
+		uncompletedTasks.push(uncompleted);
 	});
 
 	return {
 		labels,
-		uncompleted,
+		uncompletedTasks,
 	};
-}
-
-function countUncompletedTasksInPeriod(tasks: Task[], periodEnd: Date): number {
-	return tasks.filter((task) => {
-		const createdAt = new Date(task.createdAt);
-		const isCompleted = task.isDone === true;
-		const completedAt = new Date(task.date);
-
-		// don't count if task was created before period
-		if (createdAt > periodEnd) {
-			return false;
-		}
-
-		//  don't count if task wasn't completed
-		if (isCompleted) {
-			return false;
-		}
-
-		// don't count if task was completed after period
-		if (completedAt > periodEnd) {
-			return false;
-		}
-
-		return true;
-	}).length;
 }

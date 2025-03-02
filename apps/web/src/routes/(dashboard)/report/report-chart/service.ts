@@ -13,6 +13,7 @@ import {
 	subWeeks,
 } from 'date-fns';
 
+import { getDoubleLineChartConfig } from './double-line-helper';
 import { getLineChartConfig } from './line-helper';
 import { getStackedChartConfig } from './stacked-helper';
 
@@ -87,7 +88,7 @@ export function generatePeriodLabel(periodStart: Date, periodEnd: Date, interval
 	return periodLabel;
 }
 
-export type ReportChartType = 'stacked' | 'line';
+export type ReportChartType = 'stacked' | 'line' | 'double-line';
 
 // Overload signatures
 export function getChartConfig(
@@ -120,6 +121,7 @@ export function getChartConfig(
 	const configChartHash = {
 		line: getLineChartConfig(sortedTasks, interval, startDate, endDate),
 		stacked: getStackedChartConfig(sortedTasks, interval, startDate, endDate),
+		'double-line': getDoubleLineChartConfig(sortedTasks, interval, startDate, endDate),
 	};
 
 	return configChartHash[charType];
@@ -159,4 +161,20 @@ export function prepareData(
 		endDate,
 		sortedTasks,
 	};
+}
+
+// Count tasks created up to a specific period end date
+export function countTasksCreatedUpToPeriod(tasks: Task[], periodEnd: Date): number {
+	return tasks.filter((task) => {
+		const createdAt = new Date(task.createdAt);
+		return createdAt <= periodEnd;
+	}).length;
+}
+// Count tasks completed up to a specific period end date
+export function countTasksCompletedUpToPeriod(tasks: Task[], periodEnd: Date): number {
+	return tasks.filter((task) => {
+		const isCompleted = task.isDone === true;
+		const completedAt = isCompleted ? new Date(task.date) : null;
+		return isCompleted && completedAt! <= periodEnd;
+	}).length;
 }

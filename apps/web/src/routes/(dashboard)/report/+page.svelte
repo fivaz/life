@@ -18,6 +18,7 @@
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
+	import DoubleLineChartIcon from '$lib/components/icons/DoubleLineChartIcon.svelte';
 	import { tooltip } from '$lib/components/tooltip/tooltip.action';
 	import { fetchTasks } from '$lib/task/task.repository';
 	import { title } from '$lib/utils.svelte';
@@ -45,7 +46,7 @@
 
 	let isPeriodCurrentWeek: boolean = $state(true);
 
-	let chartType: 'stacked' | 'line' = $state<ReportChartType>('line');
+	let chartType = $state<ReportChartType>('line');
 
 	function togglePeriodToCurrentWeek() {
 		isPeriodCurrentWeek = !isPeriodCurrentWeek;
@@ -88,15 +89,17 @@
 				</div>
 
 				<div class="flex flex-col items-center gap-3 md:flex-row">
-					{#if chartType === 'line'}
-						<Button class="p-1" color="white" noPadding onclick={() => (chartType = 'stacked')}>
-							<ChartColumnStackedIcon class="l-5 w-5" />
-						</Button>
-					{:else}
-						<Button class="p-1" color="white" noPadding onclick={() => (chartType = 'line')}>
-							<ChartLineIcon class="l-5 w-5" />
-						</Button>
-					{/if}
+					<Button class="p-1" color="white" noPadding onclick={() => (chartType = 'stacked')}>
+						<ChartColumnStackedIcon class="size-5" />
+					</Button>
+
+					<Button class="p-1" color="white" noPadding onclick={() => (chartType = 'line')}>
+						<ChartLineIcon class="size-5" />
+					</Button>
+
+					<Button class="p-1" color="white" noPadding onclick={() => (chartType = 'double-line')}>
+						<DoubleLineChartIcon class="size-5" />
+					</Button>
 
 					<Button class="p-1" color="white" noPadding onclick={togglePeriodToCurrentWeek}>
 						{#if isPeriodCurrentWeek}
