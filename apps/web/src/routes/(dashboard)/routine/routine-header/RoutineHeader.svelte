@@ -2,8 +2,9 @@
 	import { Button, WeekChanger } from '@life/shared';
 	import { formatDate } from '@life/shared/date';
 	import { format } from 'date-fns';
-	import { Plus } from 'lucide-svelte';
+	import { EyeClosedIcon, EyeIcon, Plus } from 'lucide-svelte';
 
+	import { tooltip } from '$lib/components/tooltip/tooltip.action';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { title } from '$lib/utils.svelte';
 
@@ -13,16 +14,17 @@
 
 	interface Props {
 		routines: Routine[];
+		showDisableRoutines: boolean;
 	}
 
-	let { routines }: Props = $props();
+	let { routines, showDisableRoutines = $bindable() }: Props = $props();
 
 	const openForm = getOpenRoutineForm();
 </script>
 
 <div class="flex items-center justify-between">
 	<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
-	<div class="flex flex-grow items-center justify-between gap-5 md:flex-grow-0 md:justify-start">
+	<div class="flex flex-grow items-center justify-between md:flex-grow-0 md:justify-start md:gap-5">
 		<Streak {routines} />
 		<div>
 			<h1 class="flex items-center gap-2 text-base font-semibold leading-6 text-gray-900">
@@ -35,12 +37,26 @@
 			</h1>
 		</div>
 
+		{#if showDisableRoutines}
+			<Button color="white" onclick={() => (showDisableRoutines = false)}>
+				<div use:tooltip={'hide disabled routines'}>
+					<EyeClosedIcon class="size-4 text-indigo-600" />
+				</div>
+			</Button>
+		{:else}
+			<Button color="white" onclick={() => (showDisableRoutines = true)}>
+				<div use:tooltip={'show disabled routines'}>
+					<EyeIcon class="size-4 text-indigo-600" />
+				</div>
+			</Button>
+		{/if}
+
 		<WeekChanger bind:selectedDate={selectedDate.value} />
 
 		<div class="hidden h-7 border-r border-gray-300 sm:inline"></div>
 
 		<Button onclick={() => openForm()}>
-			<Plus class="h-4 w-auto" />
+			<Plus class="size-4" />
 			<span class="hidden md:block">New Routine</span>
 		</Button>
 	</div>

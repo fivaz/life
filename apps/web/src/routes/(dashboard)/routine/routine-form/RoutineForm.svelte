@@ -6,9 +6,11 @@
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
+	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { routineTimeMap, times } from '$lib/routine/routine.model';
 	import { addRoutine, deleteRoutine, editRoutine } from '$lib/routine/routine.repository';
+	import { taskIn } from '$lib/task/task-form/service.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import IconSelector from '../../goals/goal-form/icon-selector/IconSelector.svelte';
@@ -70,21 +72,27 @@
 				{/if}
 			{/snippet}
 
-			<!--time-->
-			<Select
-				class="flex items-center"
-				label="Time"
-				labelClass="w-1/5"
-				selectClass="flex-1"
-				bind:value={routineIn.time}
-			>
-				{#snippet placeholder()}
-					{@render item(routineIn.time)}
-				{/snippet}
-				{#each times as time (time)}
-					<SelectItem value={time}>{@render item(time)}</SelectItem>
-				{/each}
-			</Select>
+			<div class="flex items-center justify-between gap-3">
+				<!--time-->
+				<Select
+					class="flex flex-1 items-center gap-2"
+					label="Time"
+					labelClass="flex-shrink-0"
+					selectClass="flex-1"
+					bind:value={routineIn.time}
+				>
+					{#snippet placeholder()}
+						{@render item(routineIn.time)}
+					{/snippet}
+					{#each times as time (time)}
+						<SelectItem value={time}>{@render item(time)}</SelectItem>
+					{/each}
+				</Select>
+
+				<!--				<div class="rounded-lg border border-gray-200 p-2">-->
+				<Toggle label="Is disabled" bind:value={routineIn.isDisabled} />
+				<!--				</div>-->
+			</div>
 
 			<!--icon-->
 			<IconSelector name="icon" bind:value={routineIn.icon} />

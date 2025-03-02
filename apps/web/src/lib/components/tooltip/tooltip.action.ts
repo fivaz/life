@@ -19,7 +19,8 @@ function createTooltip(targetEl: HTMLElement, options: TooltipOptions | string) 
 		role: 'tooltip',
 		innerHTML: typeof options === 'string' ? options : options.text,
 		style: `
-        display: none;
+		    z-index: 10;
+		    display: none;
         width: max-content;
         position: absolute;
         top: 0;

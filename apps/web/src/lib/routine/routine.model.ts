@@ -16,6 +16,7 @@ export const routineSchema = z.object({
 	name: z.string(),
 	order: z.number(),
 	time: z.enum(times),
+	isDisabled: z.boolean(),
 	completeHistory: z.array(
 		z.object({
 			date: zDate,
@@ -35,6 +36,7 @@ export function buildEmptyRoutine(): Routine {
 		name: '',
 		order: 0,
 		time: 'all-day',
+		isDisabled: false,
 	};
 }
 

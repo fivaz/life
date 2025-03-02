@@ -54,7 +54,7 @@
 			type="button"
 		>
 			<span class="sr-only">Previous week</span>
-			<Icon class="h-5 w-5" aria-hidden="true" src={ChevronLeft} />
+			<Icon class="size-5" aria-hidden="true" src={ChevronLeft} />
 		</button>
 
 		<!--this input is triggered by the button below-->
@@ -69,7 +69,7 @@
 			class="border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative"
 			onclick={openDatePicker}
 		>
-			<CalendarCheck class="h-5 w-5 text-gray-400" />
+			<CalendarCheck class="size-5 text-gray-400" />
 		</button>
 
 		<span class="relative -mx-px hidden h-5 w-px bg-gray-300"></span>
@@ -80,7 +80,7 @@
 			type="button"
 		>
 			<span class="sr-only">Next week</span>
-			<Icon class="h-5 w-5" aria-hidden="true" src={ChevronRight} />
+			<Icon class="size-5" aria-hidden="true" src={ChevronRight} />
 		</button>
 	</div>
 </div>
