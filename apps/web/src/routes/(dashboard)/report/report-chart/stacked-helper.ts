@@ -24,7 +24,7 @@ export function getStackedChartConfig(
 			labels: labels,
 			datasets: [
 				{
-					label: 'Uncompleted Tasks',
+					label: 'Created Tasks',
 					data: created,
 					backgroundColor: 'oklch(0.704 0.191 22.216)',
 				},
