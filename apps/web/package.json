@@ -84,5 +84,8 @@
 	"resolutions": {
 		"sharp": "0.32.6",
 		"sharp-ico": "0.1.5"
+	},
+	"dependencies": {
+		"svelte-chartjs": "^3.1.5"
 	}
 }

@@ -11,6 +11,8 @@
 		CalendarArrowUp,
 		CalendarMinus,
 		CalendarRange,
+		ChartColumnStackedIcon,
+		ChartLineIcon,
 	} from 'lucide-svelte';
 
 	import Input from '$lib/components/form/input/Input.svelte';
@@ -24,6 +26,7 @@
 	import ReportTaskList from './report-task-list/ReportTaskList.svelte';
 	import type { Interval } from './service';
 	import { generateGraphData, getDatasetDelta, intervals } from './service';
+	import StackedBarChart from './stacked-bar-chart/StackedBarChart.svelte';
 
 	title.value = 'Report';
 
@@ -42,6 +45,8 @@
 	let datasetDelta: number = $derived(getDatasetDelta(dataset.data));
 
 	let isPeriodCurrentWeek: boolean = $state(true);
+
+	let chartType: 'stacked' | 'line' = $state('stacked');
 
 	function togglePeriodToCurrentWeek() {
 		isPeriodCurrentWeek = !isPeriodCurrentWeek;
@@ -122,6 +127,16 @@
 				</div>
 
 				<div class="flex flex-col items-center gap-3 md:flex-row">
+					{#if chartType === 'line'}
+						<Button class="p-1" color="white" noPadding onclick={() => (chartType = 'stacked')}>
+							<ChartColumnStackedIcon class="l-5 w-5" />
+						</Button>
+					{:else}
+						<Button class="p-1" color="white" noPadding onclick={() => (chartType = 'line')}>
+							<ChartLineIcon class="l-5 w-5" />
+						</Button>
+					{/if}
+
 					<Button class="p-1" color="white" noPadding onclick={togglePeriodToCurrentWeek}>
 						{#if isPeriodCurrentWeek}
 							<CalendarRange class="l-5 w-5" />
@@ -161,7 +176,11 @@
 				</div>
 			</div>
 
-			<LineChart {data} {options} />
+			{#if chartType === 'line'}
+				<LineChart {data} {options} />
+			{:else}
+				<StackedBarChart interval={selectedInterval} {periodEndAt} {periodStartAt} {tasks} />
+			{/if}
 
 			<div class="flex flex-col gap-2">
 				{#if dataset.labels.length < 200}
