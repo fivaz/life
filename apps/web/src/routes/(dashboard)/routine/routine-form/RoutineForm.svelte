@@ -10,7 +10,6 @@
 	import type { Routine } from '$lib/routine/routine.model';
 	import { routineTimeMap, times } from '$lib/routine/routine.model';
 	import { addRoutine, deleteRoutine, editRoutine } from '$lib/routine/routine.repository';
-	import { taskIn } from '$lib/task/task-form/service.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import IconSelector from '../../goals/goal-form/icon-selector/IconSelector.svelte';

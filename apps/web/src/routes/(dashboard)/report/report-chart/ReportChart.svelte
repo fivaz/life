@@ -1,8 +1,6 @@
 <script lang="ts">
 	import type { Task } from '@life/shared/task';
-	import {
-		Chart as ChartJS,
-	} from 'chart.js/auto';
+	import { Chart as ChartJS } from 'chart.js/auto';
 
 	import type { Interval, ReportChartType } from './service';
 	import { getChartConfig } from './service';

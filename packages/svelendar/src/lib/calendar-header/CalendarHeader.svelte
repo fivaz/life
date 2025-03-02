@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button, WeekChanger } from '@life/shared';
-	import { formatDate, getCurrentRoundedDate } from '@life/shared/date';
+	import { formatDate, getCurrentRoundedDate, roundTo15 } from '@life/shared/date';
 	import { format } from 'date-fns';
 	import Plus from 'lucide-svelte/icons/plus';
 
@@ -38,8 +38,8 @@
 
 		<div class="hidden h-7 border-r border-gray-300 md:block"></div>
 
-		<Button onclick={() => createTask(getCurrentRoundedDate())} type="button">
-			<Plus class="h-4 w-auto" />
+		<Button onclick={() => createTask(selectedDate.value)} type="button">
+			<Plus class="size-4" />
 			<span class="hidden md:block">Add event</span>
 		</Button>
 	</div>
