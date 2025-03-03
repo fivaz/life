@@ -23,7 +23,7 @@
 	});
 
 	function getTaskDelta(period: string): number {
-		return tasksByPeriod[period].completed.length - tasksByPeriod[period].created.length;
+		return tasksByPeriod[period].created.length - tasksByPeriod[period].completed.length;
 	}
 </script>
 
