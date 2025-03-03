@@ -15,7 +15,7 @@
 
 <li
 	class="
-	{isAdd ? 'bg-green-500' : 'bg-red-500'}
+	{isAdd ? 'bg-red-500' : 'bg-green-500'}
 	flex justify-between gap-x-3 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-white"
 >
 	<div class="flex items-center gap-x-2">
