@@ -8,19 +8,10 @@
 	import { generateTasksByPeriod } from './service';
 
 	interface Props {
-		tasks: Task[];
-		interval: Interval;
-		startAt: string;
-		endAt: string;
+		tasksByPeriod: Record<string, { created: Task[]; completed: Task[] }>;
 	}
 
-	let { tasks, interval, startAt, endAt }: Props = $props();
-
-	const tasksByPeriod = $derived.by(() => {
-		const { sortedTasks, startDate, endDate } = prepareData(tasks, startAt, endAt);
-
-		return generateTasksByPeriod(sortedTasks, interval, startDate, endDate);
-	});
+	let { tasksByPeriod }: Props = $props();
 
 	function getTaskDelta(period: string): number {
 		return tasksByPeriod[period].created.length - tasksByPeriod[period].completed.length;

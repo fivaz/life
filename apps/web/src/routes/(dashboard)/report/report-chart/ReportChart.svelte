@@ -32,13 +32,15 @@
 		PointElement,
 	);
 
-	const { chartType, tasks, interval, startAt, endAt } = $props<{
+	type Props = {
 		chartType: ReportChartType;
 		tasks: Task[];
 		interval: Interval;
 		startAt: string;
 		endAt: string;
-	}>();
+	};
+
+	const { chartType, tasks, interval, startAt, endAt }: Props = $props();
 
 	let canvasRef: HTMLCanvasElement | null = null;
 
@@ -49,7 +51,10 @@
 		const ctx = canvasRef.getContext('2d');
 		if (!ctx) return;
 
-		chartInstance = new ChartJS(ctx, getChartConfig(chartType, tasks, interval, startAt, endAt));
+		chartInstance = new ChartJS(
+			ctx,
+			getChartConfig(chartType as 'line', tasks, interval, startAt, endAt),
+		);
 
 		return () => chartInstance?.destroy();
 	});

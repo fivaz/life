@@ -6,28 +6,17 @@
 	import { clsx } from 'clsx';
 	import { addDays, subDays } from 'date-fns';
 	import { where } from 'firebase/firestore';
-	import {
-		Calendar1,
-		CalendarArrowDown,
-		CalendarArrowUp,
-		CalendarMinus,
-		CalendarRange,
-		ChartColumnStackedIcon,
-		ChartLineIcon,
-	} from 'lucide-svelte';
 
-	import Input from '$lib/components/form/input/Input.svelte';
-	import Select from '$lib/components/form/select/Select.svelte';
-	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
-	import DoubleLineChartIcon from '$lib/components/icons/DoubleLineChartIcon.svelte';
-	import { tooltip } from '$lib/components/tooltip/tooltip.action';
 	import { fetchTasks } from '$lib/task/task.repository';
 	import { title } from '$lib/utils.svelte';
 
 	import ReportChart from './report-chart/ReportChart.svelte';
 	import type { Interval, ReportChartType } from './report-chart/service';
+	import { prepareData } from './report-chart/service';
 	import ReportTaskList from './report-task-list/ReportTaskList.svelte';
-	import { generateGraphData, getDatasetDelta, intervals } from './service';
+	import { generateTasksByPeriod } from './report-task-list/service';
+	import ReportHeader from './ReportHeader.svelte';
+	import { generateGraphData, intervals } from './service';
 
 	title.value = 'Report';
 
@@ -41,24 +30,13 @@
 
 	let periodEndAt = $state(formatDate(addDays(new Date(), 3)));
 
-	let dataset = $derived(generateGraphData(tasks, selectedInterval, periodStartAt, periodEndAt));
-
-	let datasetDelta: number = $derived(getDatasetDelta(dataset.data));
-
-	let isPeriodCurrentWeek: boolean = $state(true);
-
 	let chartType = $state<ReportChartType>('line');
 
-	function togglePeriodToCurrentWeek() {
-		isPeriodCurrentWeek = !isPeriodCurrentWeek;
-		if (isPeriodCurrentWeek) {
-			periodStartAt = formatDate(subDays(new Date(), 3));
-			periodEndAt = formatDate(addDays(new Date(), 3));
-		} else {
-			periodStartAt = '';
-			periodEndAt = '';
-		}
-	}
+	const tasksByPeriod = $derived.by(() => {
+		const { sortedTasks, startDate, endDate } = prepareData(tasks, periodStartAt, periodEndAt);
+
+		return generateTasksByPeriod(sortedTasks, selectedInterval, startDate, endDate);
+	});
 </script>
 
 <div class="py-4">
@@ -66,84 +44,12 @@
 		<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
 
 		<div class="flex flex-col gap-3">
-			<div class="flex flex-col items-center justify-between gap-5 md:flex-row">
-				<div class="flex items-center gap-5">
-					<h2 class="text-base font-semibold leading-5 text-gray-900">
-						Tasks by {selectedInterval}
-					</h2>
-					{#if datasetDelta > 0}
-						<div class="flex gap-2" use:tooltip={'tasks increased'}>
-							<span>{datasetDelta}</span>
-							<CalendarArrowUp class="h-5 w-5 text-red-500" />
-						</div>
-					{:else if datasetDelta < 0}
-						<div class="flex gap-2" use:tooltip={'tasks decreased'}>
-							<span>{datasetDelta}</span>
-							<CalendarArrowDown class="h-5 w-5 text-green-500" />
-						</div>
-					{:else}
-						<div class="flex gap-2" use:tooltip={'tasks remained equal'}>
-							<span>{datasetDelta}</span>
-							<CalendarMinus class="h-5 w-5 text-yellow-500" />
-						</div>
-					{/if}
-				</div>
-
-				<div class="flex flex-col items-center gap-3 md:flex-row">
-					<Button class="p-1" color="white" noPadding onclick={() => (chartType = 'stacked')}>
-						<ChartColumnStackedIcon
-							class={clsx('size-5', { 'text-indigo-600': chartType === 'stacked' })}
-						/>
-					</Button>
-
-					<Button class="p-1" color="white" noPadding onclick={() => (chartType = 'line')}>
-						<ChartLineIcon class={clsx('size-5', { 'text-indigo-600': chartType === 'line' })} />
-					</Button>
-
-					<Button class="p-1" color="white" noPadding onclick={() => (chartType = 'double-line')}>
-						<DoubleLineChartIcon
-							class={clsx('size-5', { 'text-indigo-600': chartType === 'double-line' })}
-						/>
-					</Button>
-
-					<Button class="p-1" color="white" noPadding onclick={togglePeriodToCurrentWeek}>
-						{#if isPeriodCurrentWeek}
-							<CalendarRange class="l-5 w-5" />
-						{:else}
-							<Calendar1 class="l-5 w-5" />
-						{/if}
-					</Button>
-
-					<Input
-						class="flex items-center gap-2"
-						label="Start at"
-						type="date"
-						bind:value={periodStartAt}
-					/>
-
-					<Input
-						class="flex items-center gap-2"
-						label="End at"
-						type="date"
-						bind:value={periodEndAt}
-					/>
-
-					<Select
-						class="flex w-40 items-center gap-2"
-						label="Interval"
-						selectClass="grow"
-						bind:value={selectedInterval}
-					>
-						{#snippet placeholder()}
-							<span class="lowercase">{selectedInterval}</span>
-						{/snippet}
-
-						{#each intervals as interval (interval)}
-							<SelectItem class="lowercase" value={interval}>{interval}</SelectItem>
-						{/each}
-					</Select>
-				</div>
-			</div>
+			<ReportHeader
+				bind:chartType
+				bind:endAt={periodEndAt}
+				bind:interval={selectedInterval}
+				bind:startAt={periodStartAt}
+			/>
 
 			<ReportChart
 				{chartType}
@@ -154,13 +60,8 @@
 			/>
 
 			<div class="flex flex-col gap-2">
-				{#if dataset.labels.length < 200}
-					<ReportTaskList
-						endAt={periodEndAt}
-						interval={selectedInterval}
-						startAt={periodStartAt}
-						{tasks}
-					/>
+				{#if Object.keys(tasksByPeriod).length < 200}
+					<ReportTaskList {tasksByPeriod} />
 				{/if}
 			</div>
 		</div>
