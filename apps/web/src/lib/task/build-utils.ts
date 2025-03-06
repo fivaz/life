@@ -33,7 +33,7 @@ export function buildUntimedTask(
 		goal,
 		isDone: false,
 		category: categories[0],
-		createdAt: date.toISOString(),
+		createdAt: new Date().toISOString(),
 		date: formatDate(date),
 		duration: '00:15',
 		image: '',
