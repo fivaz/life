@@ -25,7 +25,7 @@
 <div class="flex items-center justify-between">
 	<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
 	<div class="flex flex-grow items-center justify-between md:flex-grow-0 md:justify-start md:gap-5">
-		<Streak {routines} />
+		<Streak {routines} {showDisableRoutines} />
 		<div>
 			<h1 class="flex items-center gap-2 text-base font-semibold leading-6 text-gray-900">
 				<time class="sm:hidden" dateTime={formatDate(selectedDate.value)}>

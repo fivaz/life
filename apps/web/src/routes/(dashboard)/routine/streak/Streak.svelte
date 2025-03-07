@@ -9,11 +9,16 @@
 
 	interface Props {
 		routines: Routine[];
+		showDisableRoutines: boolean;
 	}
 
-	let { routines }: Props = $props();
+	let { routines, showDisableRoutines }: Props = $props();
 
-	let streak = $derived(getRoutinesStreak(routines));
+	let validRoutines = $derived(
+		routines.filter((routine) => (showDisableRoutines ? true : !routine.isDisabled)),
+	);
+
+	let streak = $derived(getRoutinesStreak(validRoutines));
 
 	function getRoutinesStreak(routines: Routine[]): number {
 		let streak = 0;
