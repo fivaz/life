@@ -57,7 +57,6 @@ export function getDoubleLineChartConfig(
 				},
 				y: {
 					grace: '10%',
-					beginAtZero: true,
 					title: {
 						display: true,
 						text: 'Number of Tasks',
