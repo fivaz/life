@@ -5,25 +5,25 @@
 	import { addDays, subDays } from 'date-fns';
 	import {
 		Calendar1,
-		CalendarArrowDown,
 		CalendarArrowDownIcon,
-		CalendarArrowUp,
 		CalendarArrowUpIcon,
-		CalendarMinus,
 		CalendarMinusIcon,
 		CalendarRange,
 		ChartColumnStackedIcon,
 		ChartLineIcon,
 	} from 'lucide-svelte';
-	import { tooltip } from '$lib/components/tooltip/tooltip.action';
+
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import DoubleLineChartIcon from '$lib/components/icons/DoubleLineChartIcon.svelte';
+	import { tooltip } from '$lib/components/tooltip/tooltip.action';
+
+	import { getLineChartDataset } from './report-chart/line-helper';
+	import { prepareData } from './report-chart/service';
+	import {reportStore } from './runes.svelte';
 	import { intervals } from './service';
-	import { reportStore, getTasksByPeriod } from './runes.svelte';
-	import { getLineChartConfig, getLineChartDataset } from './report-chart/line-helper';
-	import { type Interval, prepareData } from './report-chart/service';
+
 	let isPeriodCurrentWeek: boolean = $state(true);
 
 	function togglePeriodToCurrentWeek() {

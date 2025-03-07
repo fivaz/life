@@ -1,12 +1,14 @@
 <script lang="ts">
+	import { CATEGORY_WORK } from '@life/shared/category';
+	import { where } from 'firebase/firestore';
+
+	import { fetchTasks } from '$lib/task/task.repository';
 	import { title } from '$lib/utils.svelte';
+
 	import ReportChart from './report-chart/ReportChart.svelte';
 	import ReportTaskList from './report-task-list/ReportTaskList.svelte';
 	import ReportHeader from './ReportHeader.svelte';
-	import { reportStore, getTasksByPeriod } from './runes.svelte';
-	import { fetchTasks } from '$lib/task/task.repository';
-	import { where } from 'firebase/firestore';
-	import { CATEGORY_WORK } from '@life/shared/category';
+	import { getTasksByPeriod,reportStore } from './runes.svelte';
 
 	title.value = 'Report';
 

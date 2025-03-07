@@ -1,14 +1,12 @@
 // report-state.svelte.ts
-import { CATEGORY_WORK } from '@life/shared/category';
 import { formatDate } from '@life/shared/date';
 import type { Task } from '@life/shared/task';
 import { addDays, subDays } from 'date-fns';
-import { where } from 'firebase/firestore';
-import { fetchTasks } from '$lib/task/task.repository';
+
 import type { Interval, ReportChartType } from './report-chart/service';
-import { intervals } from './service';
 import { prepareData } from './report-chart/service';
 import { generateTasksByPeriod } from './report-task-list/service';
+import { intervals } from './service';
 
 // Single state object
 export const reportStore = $state({
