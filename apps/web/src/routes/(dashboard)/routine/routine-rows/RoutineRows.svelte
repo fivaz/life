@@ -53,7 +53,7 @@
 	>
 		{#each getAvailableRoutines(routinesMap.value[time], selectedDate.value) as routine (routine.id)}
 			<div animate:flip={{ duration: flipDuration }}>
-				{#if showDisableRoutines || routine.isDisabled}
+				{#if showDisableRoutines || !routine.isDisabled}
 					<RoutineRow {routine} />
 				{/if}
 			</div>
