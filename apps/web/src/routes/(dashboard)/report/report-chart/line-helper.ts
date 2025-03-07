@@ -77,7 +77,12 @@ export function getLineChartConfig(
 	};
 }
 
-function getLineChartDataset(tasks: Task[], interval: Interval, dateStart: Date, dateEnd: Date) {
+export function getLineChartDataset(
+	tasks: Task[],
+	interval: Interval,
+	dateStart: Date,
+	dateEnd: Date,
+) {
 	const periods = generateTimePeriods(interval, dateStart, dateEnd);
 
 	const labels: string[] = [];
