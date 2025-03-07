@@ -9,9 +9,7 @@ import {
 	format,
 	isBefore,
 	isSameDay,
-	isWithinInterval,
 	parse,
-	parseISO,
 	startOfDay,
 } from 'date-fns';
 

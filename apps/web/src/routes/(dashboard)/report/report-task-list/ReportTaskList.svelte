@@ -3,8 +3,8 @@
 	import { CalendarArrowDown, CalendarArrowUp, CalendarMinus } from 'lucide-svelte';
 
 	import ReportTask from './report-task/ReportTask.svelte';
-	
-interface Props {
+
+	interface Props {
 		tasksByPeriod: Record<string, { created: Task[]; completed: Task[] }>;
 	}
 

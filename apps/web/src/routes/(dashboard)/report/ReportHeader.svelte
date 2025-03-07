@@ -3,19 +3,14 @@
 	import { formatDate } from '@life/shared/date';
 	import { clsx } from 'clsx';
 	import { addDays, subDays } from 'date-fns';
-	import {
-		Calendar1,
-		CalendarRange,
-		ChartColumnStackedIcon,
-		ChartLineIcon,
-	} from 'lucide-svelte';
+	import { Calendar1, CalendarRange, ChartColumnStackedIcon, ChartLineIcon } from 'lucide-svelte';
 
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import DoubleLineChartIcon from '$lib/components/icons/DoubleLineChartIcon.svelte';
 
-import type { Interval, ReportChartType } from './report-chart/service';
+	import type { Interval, ReportChartType } from './report-chart/service';
 	import { intervals } from './service';
 
 	type Props = {
