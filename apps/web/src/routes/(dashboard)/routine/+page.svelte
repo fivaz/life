@@ -36,7 +36,7 @@
 
 	let availableRoutines = $derived(getAvailableRoutines(allRoutines, selectedDate.value));
 
-	let showDisableRoutines = $state<boolean>(true);
+	let showDisableRoutines = $state<boolean>(false);
 </script>
 
 {#if currentUser.uid}
