@@ -8,7 +8,7 @@
 	import ReportChart from './report-chart/ReportChart.svelte';
 	import ReportTaskList from './report-task-list/ReportTaskList.svelte';
 	import ReportHeader from './ReportHeader.svelte';
-	import { getTasksByPeriod,reportStore } from './runes.svelte';
+	import { getTasksByPeriod, reportStore } from './runes.svelte';
 
 	title.value = 'Report';
 

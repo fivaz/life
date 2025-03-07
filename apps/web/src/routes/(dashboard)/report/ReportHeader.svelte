@@ -21,7 +21,7 @@
 
 	import { getLineChartDataset } from './report-chart/line-helper';
 	import { prepareData } from './report-chart/service';
-	import {reportStore } from './runes.svelte';
+	import { reportStore } from './runes.svelte';
 	import { intervals } from './service';
 
 	let isPeriodCurrentWeek: boolean = $state(true);
