@@ -1,9 +1,7 @@
 <script lang="ts">
-	import { Button } from '@life/shared';
 	import { CATEGORY_WORK } from '@life/shared/category';
 	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
-	import { clsx } from 'clsx';
 	import { addDays, subDays } from 'date-fns';
 	import { where } from 'firebase/firestore';
 
@@ -16,7 +14,7 @@
 	import ReportTaskList from './report-task-list/ReportTaskList.svelte';
 	import { generateTasksByPeriod } from './report-task-list/service';
 	import ReportHeader from './ReportHeader.svelte';
-	import { generateGraphData, intervals } from './service';
+	import { intervals } from './service';
 
 	title.value = 'Report';
 

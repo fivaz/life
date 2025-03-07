@@ -1,14 +1,10 @@
 <script lang="ts">
 	import { Button } from '@life/shared';
 	import { formatDate } from '@life/shared/date';
-	import type { Task } from '@life/shared/task';
 	import { clsx } from 'clsx';
 	import { addDays, subDays } from 'date-fns';
 	import {
 		Calendar1,
-		CalendarArrowDown,
-		CalendarArrowUp,
-		CalendarMinus,
 		CalendarRange,
 		ChartColumnStackedIcon,
 		ChartLineIcon,
@@ -18,10 +14,9 @@
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import DoubleLineChartIcon from '$lib/components/icons/DoubleLineChartIcon.svelte';
-	import { tooltip } from '$lib/components/tooltip/tooltip.action';
 
-	import type { Interval, ReportChartType } from './report-chart/service';
-	import { getDatasetDelta, intervals } from './service';
+import type { Interval, ReportChartType } from './report-chart/service';
+	import { intervals } from './service';
 
 	type Props = {
 		chartType: ReportChartType;

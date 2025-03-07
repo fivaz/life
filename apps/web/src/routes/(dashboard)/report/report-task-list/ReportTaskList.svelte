@@ -2,12 +2,9 @@
 	import type { Task } from '@life/shared/task';
 	import { CalendarArrowDown, CalendarArrowUp, CalendarMinus } from 'lucide-svelte';
 
-	import type { Interval } from '../report-chart/service';
-	import { prepareData } from '../report-chart/service';
 	import ReportTask from './report-task/ReportTask.svelte';
-	import { generateTasksByPeriod } from './service';
-
-	interface Props {
+	
+interface Props {
 		tasksByPeriod: Record<string, { created: Task[]; completed: Task[] }>;
 	}
 

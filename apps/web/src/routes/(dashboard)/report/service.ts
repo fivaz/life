@@ -6,10 +6,6 @@ import {
 	addQuarters,
 	addWeeks,
 	addYears,
-	endOfDay,
-	endOfMonth,
-	endOfWeek,
-	endOfYear,
 	format,
 	isBefore,
 	isSameDay,
@@ -17,9 +13,6 @@ import {
 	parse,
 	parseISO,
 	startOfDay,
-	startOfMonth,
-	startOfWeek,
-	startOfYear,
 } from 'date-fns';
 
 import { DATE_FR } from '$lib/utils.svelte';
@@ -159,75 +152,4 @@ function getEndDate(endDateString: string, sortedTasks: Task[]): Date {
 	}
 
 	return startOfDay(date);
-}
-
-export function getDatasetDelta(datasetData: number[]): number {
-	const firstItem = datasetData[0];
-
-	const lastItem = datasetData[datasetData.length - 1];
-
-	return lastItem - firstItem;
-}
-
-interface IntervalResult {
-	periodStart: string;
-	periodEnd: string;
-	createdTasks: Task[];
-	completedTasks: Task[];
-}
-
-function getTasksByInterval(
-	tasks: Task[],
-	selectedInterval: Interval,
-	periodStartAt: string,
-	periodEndAt: string,
-): IntervalResult[] {
-	const startDate = parseISO(periodStartAt);
-	const endDate = parseISO(periodEndAt);
-	const results: IntervalResult[] = [];
-
-	// Function to get the next date based on interval
-	const getNextDate = (date: Date): Date => {
-		switch (selectedInterval) {
-			case 'day':
-				return addDays(date, 1);
-			case 'week':
-				return addWeeks(date, 1);
-			case 'month':
-				return addMonths(date, 1);
-			case 'trimester':
-				return addQuarters(date, 1);
-			case 'year':
-				return addYears(date, 1);
-		}
-	};
-
-	let currentStart = startDate;
-
-	while (currentStart < endDate) {
-		const currentEnd = getNextDate(currentStart);
-		const periodInterval = {
-			start: currentStart,
-			end: currentEnd <= endDate ? currentEnd : endDate,
-		};
-
-		const createdTasks = tasks.filter((task) =>
-			isWithinInterval(parseISO(task.createdAt), periodInterval),
-		);
-
-		const completedTasks = tasks.filter(
-			(task) => task.isDone && isWithinInterval(parseISO(task.date), periodInterval),
-		);
-
-		results.push({
-			periodStart: format(currentStart, 'yyyy-MM-dd'),
-			periodEnd: format(periodInterval.end, 'yyyy-MM-dd'),
-			createdTasks,
-			completedTasks,
-		});
-
-		currentStart = currentEnd;
-	}
-
-	return results;
 }
