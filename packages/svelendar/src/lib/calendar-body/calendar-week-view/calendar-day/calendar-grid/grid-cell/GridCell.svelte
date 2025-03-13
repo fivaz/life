@@ -33,15 +33,10 @@
 <div
 	style="height: {GRID_CELL_HEIGHT}px"
 	class="{GRID_CLASS} {klass}
+		border-gray-200 even:border-b dark:border-gray-800
 		{isSameTime ? 'rounded-md border border-dashed border-violet-500' : ''}"
 	class:border-b={isSomethingDragging.value}
 	data-date={targetDate}
 	data-time={time}
 	onclick={() => !isSomethingDragging.value && create(time)}
 ></div>
-
-<style>
-	.grid-class:nth-child(even):not(:last-child) {
-		border-bottom-width: 1px;
-	}
-</style>

@@ -17,7 +17,9 @@
 
 <!--Desktop-->
 <div class="hidden grow md:flex">
-	<div class="grid w-full grid-cols-7 divide-x border-x">
+	<div
+		class="grid w-full grid-cols-7 divide-x divide-gray-200 border-x border-gray-200 dark:divide-gray-800 dark:border-gray-800"
+	>
 		{#each weekDates.value as date (date)}
 			<CalendarDay
 				class="hidden md:flex"

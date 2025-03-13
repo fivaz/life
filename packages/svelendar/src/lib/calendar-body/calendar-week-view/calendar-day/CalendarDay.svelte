@@ -57,7 +57,11 @@
 </script>
 
 <div>
-	<div bind:this={container} style="height: {SUMMARY_GRID_CELL_HEIGHT}px" class="relative border-b">
+	<div
+		bind:this={container}
+		style="height: {SUMMARY_GRID_CELL_HEIGHT}px"
+		class="relative border-b border-gray-200 dark:border-gray-800"
+	>
 		<TasksSummary
 			style="width: {containerWidth}px"
 			class="{klass} {isScrollingUp.value ? 'fixed' : ''}
