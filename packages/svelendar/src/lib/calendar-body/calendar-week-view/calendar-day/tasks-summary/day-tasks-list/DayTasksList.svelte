@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { LText } from '@life/shared';
 	import type { Task } from '@life/shared/task';
 	import { getTotalDuration } from '@life/shared/task';
 
@@ -26,14 +27,14 @@
 </script>
 
 <div
-	class="relative flex h-auto max-h-[90%] w-11/12 max-w-[543px] flex-col divide-y divide-gray-900/5 rounded-lg bg-gray-50 text-sm leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/5"
+	class="relative flex h-auto max-h-[90%] w-11/12 max-w-[543px] flex-col divide-y divide-gray-300 rounded-lg bg-gray-50 text-sm leading-6 shadow-sm dark:divide-gray-700 dark:bg-gray-950 dark:[color-scheme:dark]"
 >
 	<div class="flex-none p-6 font-semibold">
-		<div>Pending Tasks</div>
+		<LText>Pending Tasks</LText>
 		<div class="mt-1 flex justify-between">
-			<div><span class="text-green-500">{doneDuration}</span> done</div>
+			<LText><span class="text-green-500">{doneDuration}</span> done</LText>
 			{#if uncompletedTasks.length}
-				<div><span class="text-red-500">{uncompletedDuration}</span> to complete</div>
+				<LText><span class="text-red-500">{uncompletedDuration}</span> to complete</LText>
 			{/if}
 		</div>
 	</div>
