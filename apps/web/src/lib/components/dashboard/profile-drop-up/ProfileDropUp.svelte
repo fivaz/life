@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { LText } from '@life/shared';
 	import { signOut } from 'firebase/auth';
 	import { MoonIcon, SunIcon } from 'lucide-svelte';
 	import { onMount } from 'svelte';
@@ -22,7 +23,7 @@
 		},
 	];
 
-	let isDark = $state(false);
+	let isDark = $state(getDarkMode());
 
 	function getDarkMode() {
 		// On page load or when changing themes, best to add inline in `head` to avoid FOUC
@@ -46,18 +47,13 @@
 		localStorage.theme = isDark ? 'dark' : 'light';
 		document.documentElement.classList.toggle('dark', isDark);
 	});
-
-	onMount(() => {
-		isDark = getDarkMode();
-		document.documentElement.classList.toggle('dark', isDark); // Apply theme on mount
-	});
 </script>
 
 <div class="flex justify-between gap-2">
 	<DropDown class="w-32" {list} position="top-right">
-		<span class="flex items-center gap-2 rounded-lg p-2 hover:bg-gray-50">
+		<span class="flex items-center gap-2 rounded-lg p-2 hover:bg-gray-50 dark:hover:bg-gray-800">
 			<img class="h-8 w-8 rounded-full" alt="avatar" src={currentUser.photoURL} />
-			<span class="text-sm font-semibold text-gray-900">{currentUser.displayName}</span>
+			<LText class="text-sm font-semibold">{currentUser.displayName}</LText>
 		</span>
 	</DropDown>
 	<Toggle

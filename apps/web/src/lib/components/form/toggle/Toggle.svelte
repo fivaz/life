@@ -12,7 +12,7 @@
 		offColor?: string;
 		onIcon?: typeof MoonIcon;
 		offIcon?: typeof MoonIcon;
-		class: string;
+		class?: string;
 	}
 
 	let {

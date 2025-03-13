@@ -9,4 +9,5 @@ export default {
 		extend: {},
 	},
 	plugins: [forms, containerQueries],
+	darkMode: 'selector',
 } satisfies Config;
