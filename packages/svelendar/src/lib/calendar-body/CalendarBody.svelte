@@ -61,7 +61,7 @@
 
 <div
 	bind:this={container}
-	class="isolate flex flex-auto flex-col overflow-auto border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950 dark:[color-scheme:dark]"
+	class="isolate flex flex-auto flex-col overflow-auto border-b border-gray-200 dark:border-gray-800 dark:[color-scheme:dark]"
 >
 	<div class="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full">
 		<div
@@ -71,7 +71,7 @@
 			<WeekList />
 		</div>
 
-		<div class="flex h-full w-full">
+		<div class="flex h-full w-full bg-white dark:bg-gray-900">
 			<HorizontalTime>
 				<div bind:this={containerOffset}></div>
 			</HorizontalTime>
