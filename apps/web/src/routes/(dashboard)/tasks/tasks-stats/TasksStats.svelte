@@ -1,8 +1,10 @@
 <script lang="ts">
+	import { LText } from '@life/shared';
 	import { CATEGORY_WORK } from '@life/shared/category';
 	import { getTotalDuration } from '@life/shared/task';
 	import { Grid3x3, LayoutGrid } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { Grid2x2Icon, Grid3X3, Grid3X3Icon, LayoutGridIcon } from 'lucide-svelte';
 
 	import type { SortedTaskType } from '../service';
 
@@ -25,44 +27,38 @@
 	}
 </script>
 
-<div class="relative w-11/12 max-w-[350px] text-sm leading-6 text-gray-900">
-	<div class="divide-y divide-gray-900/5 rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5">
-		<div class="p-6 text-base font-semibold">Tasks stats</div>
+<div class="relative w-11/12 max-w-[350px] text-sm leading-6">
+	<div
+		class="divide-y divide-gray-300 rounded-lg bg-neutral-100 shadow-sm ring-1 dark:divide-gray-700 dark:bg-neutral-900"
+	>
+		<div class="px-6 py-4">
+			<LText class="text-base font-semibold">Tasks stats</LText>
+		</div>
 
 		<ul class="flex flex-col py-3">
-			<li
-				class="flex cursor-pointer justify-between gap-3 px-6 py-3 font-semibold hover:bg-gray-100"
-			>
-				<div class="grow">date</div>
-				<div class="w-16">quantity</div>
-				<div class="w-16 text-right">duration</div>
+			<li class="flex cursor-pointer justify-between gap-3 px-6 py-3 font-semibold">
+				<LText class="grow">date</LText>
+				<LText class="w-16">quantity</LText>
+				<LText class="w-16 text-right">duration</LText>
 			</li>
 			{#each netSortedTasks as date (date)}
-				<li class="flex cursor-pointer justify-between gap-3 px-6 py-3 hover:bg-gray-100">
-					<div class="flex grow gap-3">
-						<Icon class="h-6 w-6 text-gray-400" src={LayoutGrid} />
-						<div>{date}</div>
-					</div>
-					<div class="w-16 text-center">{tasks[date].length}</div>
-					<div class="w-16 text-right">{getTotalDuration(tasks[date])}</div>
-				</li>
+				{@render list(Grid2x2Icon, date, tasks[date].length, getTotalDuration(tasks[date]))}
 			{/each}
-			<li class="flex cursor-pointer justify-between gap-3 px-6 py-3 hover:bg-gray-100">
-				<div class="flex grow gap-3">
-					<Icon class="h-6 w-6 text-gray-400" src={Grid3x3} />
-					<div>Work tasks</div>
-				</div>
-				<div class="w-16 text-center">{workTasks.length}</div>
-				<div class="w-16 text-right">{getTotalDuration(workTasks)}</div>
-			</li>
-			<li class="flex cursor-pointer justify-between gap-3 px-6 py-3 hover:bg-gray-100">
-				<div class="flex grow gap-3">
-					<Icon class="h-6 w-6 text-gray-400" src={Grid3x3} />
-					<div>Total</div>
-				</div>
-				<div class="w-16 text-center">{total.length}</div>
-				<div class="w-16 text-right">{getTotalDuration(total)}</div>
-			</li>
+			{@render list(Grid3X3Icon, 'Work tasks', workTasks.length, getTotalDuration(workTasks))}
+			{@render list(Grid3X3Icon, 'Total', total.length, getTotalDuration(total))}
 		</ul>
 	</div>
 </div>
+
+{#snippet list(Icon: typeof Grid3X3Icon, label: string, quantity: number, duration: string)}
+	<li
+		class="flex cursor-pointer justify-between gap-3 px-6 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
+	>
+		<div class="flex grow gap-3">
+			<LText><Icon class="size-6" /></LText>
+			<LText>{label}</LText>
+		</div>
+		<LText class="w-16 text-center">{quantity}</LText>
+		<LText class="w-16 text-right">{duration}</LText>
+	</li>
+{/snippet}
