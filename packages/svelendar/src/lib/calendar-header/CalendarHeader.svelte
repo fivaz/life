@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, WeekChanger } from '@life/shared';
+	import { Button, LText, WeekChanger } from '@life/shared';
 	import { formatDate } from '@life/shared/date';
 	import { format } from 'date-fns';
 	import Plus from 'lucide-svelte/icons/plus';
@@ -12,16 +12,16 @@
 	const handleChangeDate = getChangeDate();
 </script>
 
-<header class="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">
+<header class="flex flex-none items-center justify-between px-6 py-4">
 	<div>
-		<h1 class="flex items-center gap-2 text-base font-semibold leading-6 text-gray-900">
+		<LText class="flex items-center gap-2 text-base font-semibold leading-6">
 			<time class="sm:hidden" dateTime={formatDate(selectedDate.value)}>
 				{format(selectedDate.value, 'MMM dd, yyyy')}
 			</time>
 			<time class="hidden sm:inline" dateTime={formatDate(selectedDate.value)}>
 				{format(selectedDate.value, 'MMMM dd, yyyy')}
 			</time>
-		</h1>
+		</LText>
 		<div class="mt-1 flex items-center gap-1 text-sm text-gray-500">
 			<p>{format(selectedDate.value, 'eeee')}</p>
 			<time dateTime={formatDate(selectedDate.value)}>
@@ -36,7 +36,7 @@
 			bind:selectedDate={selectedDate.value}
 		/>
 
-		<div class="hidden h-7 border-r border-gray-300 md:block"></div>
+		<div class="hidden h-7 border-r border-gray-300 md:block dark:border-gray-700"></div>
 
 		<Button onclick={() => createTask(selectedDate.value)} type="button">
 			<Plus class="size-4" />

@@ -46,7 +46,9 @@
 	});
 </script>
 
-<div class="flex h-[calc(100vh-56px)] flex-col md:h-[calc(100vh-20px)]">
+<div
+	class="flex h-[calc(100vh-56px)] flex-col divide-y divide-gray-200 md:h-[calc(100vh-20px)] dark:divide-gray-800"
+>
 	<CalendarHeader />
 	<CalendarBody tasks={sortTasks(tasks)} />
 </div>
