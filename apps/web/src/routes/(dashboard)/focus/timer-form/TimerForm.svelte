@@ -1,8 +1,6 @@
 <script lang="ts">
-	import { Button } from '@life/shared';
+	import { Button, CloseX } from '@life/shared';
 	import { Save } from 'lucide-svelte';
-
-	import CloseX from '$lib/components/close-x/CloseX.svelte';
 
 	interface Props {
 		time: number;

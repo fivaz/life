@@ -28,7 +28,7 @@
 
 <div class={klass}>
 	<!--header-->
-	<header class="fixed z-10 flex h-14 w-full justify-between gap-3 border-b bg-white p-4">
+	<header class="fixed z-10 flex h-14 w-full justify-between gap-3 border-b p-4">
 		<div class="flex items-center gap-2">
 			<Logo class="h-8 w-8 text-indigo-600" />
 			<h1 class="text-lg font-semibold text-gray-900">{title.value}</h1>

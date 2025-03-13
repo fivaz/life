@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { LText } from '@life/shared';
 	import {
 		CalendarDays,
 		ChartCandlestick,
@@ -16,7 +15,6 @@
 	import Logo from '$lib/components/Logo.svelte';
 	import { tooltip } from '$lib/components/tooltip/tooltip.action';
 	import { Routes } from '$lib/consts';
-	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import { timer } from '../../../../routes/(dashboard)/focus/service.svelte';
 	import Timer from '../../../../routes/(dashboard)/focus/timer/Timer.svelte';
@@ -38,7 +36,7 @@
 	];
 </script>
 
-<div class="{klass} flex h-full w-64 flex-col items-stretch gap-5 bg-white p-3 dark:bg-gray-900">
+<div class="{klass} flex h-full w-64 flex-col items-stretch gap-5 p-3">
 	<div class="flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
 		<Logo class="h-8 w-auto self-start" />
 		<h2 class="text-lg font-semibold" use:tooltip={`current commit: ${PUBLIC_COMMIT_HASH}`}>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Modal } from '@life/shared';
+	import { Button, LText, Modal } from '@life/shared';
 	import { Plus } from 'lucide-svelte';
 	import { flip } from 'svelte/animate';
 	import { dragHandleZone } from 'svelte-dnd-action';
@@ -48,7 +48,7 @@
 
 <div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
 	<div class="flex items-center justify-between">
-		<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
+		<LText class="hidden text-2xl font-bold md:block">{title.value}</LText>
 		<span></span>
 		<Button onclick={() => openForm()}>
 			<Plus class="h-4 w-auto" />

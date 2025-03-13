@@ -1,10 +1,7 @@
 <script lang="ts">
-	import { Button, GoalIcon } from '@life/shared';
+	import { Alert, Button, CloseX, ConfirmButton, GoalIcon } from '@life/shared';
 	import { getIcon } from '@life/shared/goal';
 
-	import CloseX from '$lib/components/close-x/CloseX.svelte';
-	import Alert from '$lib/components/form/alert/Alert.svelte';
-	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';

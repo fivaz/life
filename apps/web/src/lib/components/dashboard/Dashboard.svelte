@@ -14,7 +14,9 @@
 	let { children }: Props = $props();
 </script>
 
-<div class="flex h-screen overflow-hidden">
+<div
+	class="flex h-screen divide-x divide-gray-200 overflow-hidden bg-gray-50 dark:divide-gray-800 dark:bg-gray-950"
+>
 	<DashboardDesktop class="hidden md:flex" />
 
 	<DashboardMobile class="flex md:hidden" />

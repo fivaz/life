@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { CloseX } from '@life/shared';
 	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { isUntimed } from '@life/shared/task';
@@ -6,7 +7,6 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Copy, ListTodo } from 'lucide-svelte';
 
-	import CloseX from '$lib/components/close-x/CloseX.svelte';
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';
 	import { duplicateTask, taskIn } from '$lib/task/task-form/service.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';

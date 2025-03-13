@@ -8,4 +8,4 @@
 	let { class: klass = '' }: Props = $props();
 </script>
 
-<SideMenu class="{klass} sticky top-0 border-r" />
+<SideMenu class="{klass} sticky top-0" />

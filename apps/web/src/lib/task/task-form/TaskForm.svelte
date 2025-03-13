@@ -1,11 +1,9 @@
 <script lang="ts">
-	import { Button } from '@life/shared';
+	import { Alert, Button, ConfirmButton } from '@life/shared';
 	import type { Task } from '@life/shared/task';
 	import { isRecurring } from '@life/shared/task';
 
 	import type { Category } from '$lib/category/category.model';
-	import Alert from '$lib/components/form/alert/Alert.svelte';
-	import ConfirmButton from '$lib/components/form/confirm-button/ConfirmButton.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
 	import { addTask } from '$lib/task/task.repository';
 	import {

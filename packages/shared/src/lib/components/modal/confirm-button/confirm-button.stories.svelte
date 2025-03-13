@@ -1,8 +1,8 @@
 <script lang="ts" module>
-	import { Dialog, dialog } from '@life/shared';
 	import type { Args } from '@storybook/addon-svelte-csf';
 	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 
+	import { Dialog, dialog } from '../../../../../dist/index.js';
 	import ConfirmButton from './ConfirmButton.svelte';
 
 	const { Story } = defineMeta({

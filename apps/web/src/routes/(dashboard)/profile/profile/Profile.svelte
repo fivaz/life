@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { Button } from '@life/shared';
+	import { Alert, Button } from '@life/shared';
 	import type { User as FirebaseUser } from 'firebase/auth';
 	import { updateProfile } from 'firebase/auth';
 	import { doc, updateDoc } from 'firebase/firestore';
 	import { minidenticon } from 'minidenticons';
 
-	import Alert from '$lib/components/form/alert/Alert.svelte';
 	import Input from '$lib/components/form/input/Input.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { auth, db } from '$lib/firebase';

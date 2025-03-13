@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { Button, createDialog } from '@life/shared';
 	import type { Snippet } from 'svelte';
+
+	import Button from '$lib/components/button/Button.svelte';
+	import { createDialog } from '$lib/components/dialog/service.svelte.js';
 
 	interface Props {
 		title?: string;
