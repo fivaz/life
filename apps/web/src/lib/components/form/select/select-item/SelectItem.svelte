@@ -19,7 +19,7 @@
 </script>
 
 <li
-	class="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 hover:bg-indigo-600 hover:text-white"
+	class="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 hover:bg-indigo-600 hover:text-white dark:text-gray-100"
 	data-value={valueString}
 >
 	<span class={clsx('truncate font-normal group-hover:font-semibold', klass)}>
