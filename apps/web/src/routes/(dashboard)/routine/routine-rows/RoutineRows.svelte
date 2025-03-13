@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { LText } from '@life/shared';
 	import { ClipboardCopy } from 'lucide-svelte';
 	import { flip } from 'svelte/animate';
 	import { dragHandleZone } from 'svelte-dnd-action';
@@ -34,15 +35,15 @@
 		updateRoutines(currentUser.uid, routinesMap.value[time]);
 	}
 
-	let Icon = routineTimeMap[time].icon;
+	let RoutineTimeIcon = routineTimeMap[time].icon;
 
 	const flipDuration = 200;
 </script>
 
 <div class="flex flex-col gap-3">
 	<div class="flex items-center gap-2">
-		<Icon class="h-12 w-12" />
-		<span class="text-base/7 font-medium text-slate-900"> {title} </span>
+		<RoutineTimeIcon class="size-12" />
+		<LText class="text-base/7 font-medium">{title}</LText>
 	</div>
 
 	<div

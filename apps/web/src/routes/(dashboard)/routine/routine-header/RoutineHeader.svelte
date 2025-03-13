@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, WeekChanger } from '@life/shared';
+	import { Button, LText, WeekChanger } from '@life/shared';
 	import { formatDate } from '@life/shared/date';
 	import { format } from 'date-fns';
 	import { EyeClosedIcon, EyeIcon, Plus } from 'lucide-svelte';
@@ -23,30 +23,30 @@
 </script>
 
 <div class="flex items-center justify-between">
-	<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
+	<LText class="hidden text-2xl font-bold md:block">{title.value}</LText>
 	<div class="flex flex-grow items-center justify-between md:flex-grow-0 md:justify-start md:gap-5">
 		<Streak {routines} {showDisableRoutines} />
 		<div>
-			<h1 class="flex items-center gap-2 text-base font-semibold leading-6 text-gray-900">
+			<LText class="flex items-center gap-2 text-base font-semibold leading-6">
 				<time class="sm:hidden" dateTime={formatDate(selectedDate.value)}>
 					{format(selectedDate.value, 'MMM, yyyy')}
 				</time>
 				<time class="hidden sm:inline" dateTime={formatDate(selectedDate.value)}>
 					{format(selectedDate.value, 'MMMM dd, yyyy')}
 				</time>
-			</h1>
+			</LText>
 		</div>
 
 		{#if showDisableRoutines}
-			<Button color="white" onclick={() => (showDisableRoutines = false)}>
+			<Button color="white" onclick={() => (showDisableRoutines = false)} padding="p-1.5">
 				<div use:tooltip={'hide disabled routines'}>
-					<EyeClosedIcon class="size-4 text-indigo-600" />
+					<EyeClosedIcon class="size-4" />
 				</div>
 			</Button>
 		{:else}
-			<Button color="white" onclick={() => (showDisableRoutines = true)}>
+			<Button color="white" onclick={() => (showDisableRoutines = true)} padding="p-1.5">
 				<div use:tooltip={'show disabled routines'}>
-					<EyeIcon class="size-4 text-indigo-600" />
+					<EyeIcon class="size-4" />
 				</div>
 			</Button>
 		{/if}

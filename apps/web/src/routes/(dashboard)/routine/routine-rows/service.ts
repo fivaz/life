@@ -5,9 +5,9 @@ import { getContext, setContext } from 'svelte';
 import type { Routine } from '$lib/routine/routine.model';
 
 export const statusColor = {
-	none: 'bg-red-100 text-red-500',
-	uncompleted: 'bg-yellow-100 text-yellow-500',
-	completed: 'bg-green-100 text-green-500',
+	none: 'bg-red-100 text-red-500 dark:bg-red-200 dark:text-red-600',
+	uncompleted: 'bg-yellow-100 text-yellow-500 dark:bg-yellow-200 dark:text-yellow-600',
+	completed: 'bg-green-100 text-green-500 dark:bg-green-200 dark:text-green-600',
 };
 
 export function getStatusColor(routine: Routine, selectedDate: string): keyof typeof statusColor {

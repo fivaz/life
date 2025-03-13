@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { LText } from '@life/shared';
 	import { formatDate } from '@life/shared/date';
 	import { clsx } from 'clsx';
 	import { format, isSameDay, isToday, startOfWeek } from 'date-fns';
@@ -32,7 +33,7 @@
 <div class="relative h-20 md:h-14">
 	{#key weekDates.value}
 		<div
-			class="absolute grid w-full grid-cols-7 divide-gray-100 border border-gray-100 text-sm leading-6 text-gray-500 md:divide-x"
+			class="absolute grid w-full grid-cols-7 divide-gray-300 border border-gray-300 text-sm leading-6 text-gray-500 md:divide-x dark:divide-gray-700 dark:border-gray-700"
 			in:fly={{ x: 900 * slideDirection, duration: weekChangeDuration }}
 			out:fly={{ x: 900 * slideDirection * -1, duration: weekChangeDuration }}
 		>
@@ -47,20 +48,21 @@
 							<CheckCheck class="h-5 w-auto self-center text-red-500" />
 						{/if}
 					</span>
-					<span class="hidden md:block">{format(date, 'E')}</span>
-					<span class="block md:hidden">{format(date, 'EEEEE')}</span>
+					<LText class="hidden md:block">{format(date, 'E')}</LText>
+					<LText class="block md:hidden">{format(date, 'EEEEE')}</LText>
 
-					<span
+					<LText
 						class={clsx(
 							{
-								'bg-indigo-300 text-white': isToday(date) && !isSameDay(selectedDate.value, date),
-								'bg-indigo-600 text-white': isSameDay(selectedDate.value, date),
+								' bg-indigo-300 text-white dark:bg-indigo-400':
+									isToday(date) && !isSameDay(selectedDate.value, date),
+								'bg-indigo-600 text-white dark:bg-indigo-700': isSameDay(selectedDate.value, date),
 							},
-							'flex h-8 w-8 items-center justify-center rounded-full font-semibold text-gray-900',
+							'flex h-8 w-8 items-center justify-center rounded-full font-semibold',
 						)}
 					>
 						{format(date, 'dd')}
-					</span>
+					</LText>
 				</button>
 			{/each}
 		</div>
