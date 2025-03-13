@@ -32,7 +32,7 @@
 		{#each filteredIcons as icon (icon.name)}
 			<button
 				class="
-					{value === icon.name ? 'bg-indigo-200 text-indigo-700' : ''}
+					{value === icon.name ? 'bg-indigo-200 text-indigo-700 dark:bg-indigo-300' : 'dark:text-gray-400'}
 					flex cursor-pointer items-center justify-center rounded p-1 text-2xl"
 				onclick={() => (value = icon.name)}
 				type="button"

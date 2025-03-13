@@ -21,7 +21,7 @@
 
 	let editingTask = $state<Task>(buildUntimedTask([]));
 
-	let isFormOpen = $state<boolean>(false);
+	let isFormOpen = $state<boolean>(true);
 
 	let isTaskFormOpen = $state<boolean>(false);
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { LText } from '@life/shared';
 	import { CheckIcon, MoonIcon, XIcon } from 'lucide-svelte';
 	import type { Component } from 'svelte';
 
@@ -34,9 +35,9 @@
 	}
 </script>
 
-<button class={klass} onclick={handleClick} type="button">
+<button class="{klass} w-full" onclick={handleClick} type="button">
 	<span class="flex items-center gap-2">
-		<span class="flex-1 text-start">{label}</span>
+		<LText class="flex-1 text-start">{label}</LText>
 		<span
 			class="{value ? onColorBackground : offColorBackground}
 				relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
