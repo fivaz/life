@@ -5,7 +5,6 @@
 		label?: string;
 		inputClass?: string;
 		labelClass?: string;
-		value?: string;
 		disabled?: boolean;
 		oninput?: (input: string) => void;
 	}
