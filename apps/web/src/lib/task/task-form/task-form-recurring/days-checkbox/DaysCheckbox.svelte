@@ -38,11 +38,11 @@
 		<h3 class="text-sm text-gray-700">Repeat every</h3>
 
 		{#if isAllSelected}
-			<Button class="h-6 w-6 p-1" color="white" noPadding onclick={uncheckAllDays}>
+			<Button class="h-6 w-6 p-1" color="white" onclick={uncheckAllDays} padding="">
 				<Copy class="h-4 w-4" />
 			</Button>
 		{:else}
-			<Button class="h-6 w-6 p-1" color="white" noPadding onclick={checkAllDays}>
+			<Button class="h-6 w-6 p-1" color="white" onclick={checkAllDays} padding="">
 				<CopyCheck class="h-4 w-4" />
 			</Button>
 		{/if}

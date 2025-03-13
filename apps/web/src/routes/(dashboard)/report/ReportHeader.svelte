@@ -88,15 +88,15 @@
 			<Button
 				class="p-1"
 				color="white"
-				noPadding
 				onclick={() => (reportStore.chartType = 'stacked')}
+				padding=""
 			>
 				<ChartColumnStackedIcon
 					class={clsx('size-5', { 'text-indigo-600': reportStore.chartType === 'stacked' })}
 				/>
 			</Button>
 
-			<Button class="p-1" color="white" noPadding onclick={() => (reportStore.chartType = 'line')}>
+			<Button class="p-1" color="white" onclick={() => (reportStore.chartType = 'line')} padding="">
 				<ChartLineIcon
 					class={clsx('size-5', { 'text-indigo-600': reportStore.chartType === 'line' })}
 				/>
@@ -105,15 +105,15 @@
 			<Button
 				class="p-1"
 				color="white"
-				noPadding
 				onclick={() => (reportStore.chartType = 'double-line')}
+				padding=""
 			>
 				<DoubleLineChartIcon
 					class={clsx('size-5', { 'text-indigo-600': reportStore.chartType === 'double-line' })}
 				/>
 			</Button>
 
-			<Button class="p-1" color="white" noPadding onclick={togglePeriodToCurrentWeek}>
+			<Button class="p-1" color="white" onclick={togglePeriodToCurrentWeek} padding="">
 				{#if isPeriodCurrentWeek}
 					<CalendarRange class="l-5 w-5" />
 				{:else}

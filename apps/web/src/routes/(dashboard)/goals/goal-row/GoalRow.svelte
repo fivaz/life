@@ -1,12 +1,18 @@
 <script lang="ts">
-	import { GoalIcon } from '@life/shared';
+	import { Button, GoalIcon, LText } from '@life/shared';
 	import { parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { sortTasks } from '@life/shared/task';
 	import { ChevronDown, ChevronUp, Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { format } from 'date-fns';
-	import { CalendarPlus, GitPullRequestCreate } from 'lucide-svelte';
+	import {
+		CalendarPlus,
+		ChevronDownIcon,
+		ChevronUpIcon,
+		GitPullRequestCreate,
+		Settings2Icon,
+	} from 'lucide-svelte';
 
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
@@ -52,42 +58,30 @@
 </script>
 
 <div
-	class="rounded-lg bg-gray-50 py-3 text-base leading-6 text-gray-900 shadow-sm ring-1 ring-gray-300"
+	class="flex flex-col gap-2 rounded-lg border border-gray-300 bg-gray-50 p-3 text-base leading-6 shadow-sm dark:border-gray-700 dark:bg-gray-950"
 >
-	<div class="flex items-center justify-between px-3">
+	<div class="flex items-center justify-between">
 		<div class="flex items-center gap-2" class:line-through={goal.isDone}>
 			<GoalIcon name={goal.icon} class="h-5 w-5 text-indigo-600" />
-			<span>{goal.name}</span>
+			<LText>{goal.name}</LText>
 		</div>
 
 		<div class="flex items-center justify-center gap-2">
 			{#if goal.deadline}
-				<span class="text-sm"> {format(parseDate(goal.deadline), DATE_FR)}</span>
+				<LText class="text-sm">{format(parseDate(goal.deadline), DATE_FR)}</LText>
 			{/if}
 			{#if addGoal}
-				<button
-					class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-					onclick={() => addGoal(convertToGoal(goal))}
-					type="button"
-				>
+				<Button color="white" onclick={() => addGoal(convertToGoal(goal))} padding="px-2 py-1">
 					<GitPullRequestCreate class="h-4 w-4" />
-				</button>
+				</Button>
 			{/if}
 
-			<button
-				class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-				onclick={() => addTask(convertToGoal(goal))}
-				type="button"
-			>
+			<Button color="white" onclick={() => addTask(convertToGoal(goal))} padding="px-2 py-1">
 				<CalendarPlus class="h-4 w-4" />
-			</button>
-			<button
-				class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-				onclick={() => editGoal(convertToGoal(goal))}
-				type="button"
-			>
-				<Icon class="h-4 w-4 text-black" src={Settings2} />
-			</button>
+			</Button>
+			<Button color="white" onclick={() => editGoal(convertToGoal(goal))} padding="px-2 py-1">
+				<Settings2Icon class="h-4 w-4" />
+			</Button>
 		</div>
 	</div>
 
@@ -106,15 +100,19 @@
 		</div>
 	{/if}
 
-	<div class="text-sm">
-		{#if tasks.length}
-			<button
-				class="flex w-full items-end justify-center gap-2 text-base hover:bg-gray-100 hover:underline"
-				onclick={() => (isTaskListOpen = !isTaskListOpen)}
-			>
-				<span>{getNumberOfTasks(tasks)}</span>
-				<Icon class="h-4 w-4 animate-bounce" src={isTaskListOpen ? ChevronUp : ChevronDown} />
-			</button>
-		{/if}
-	</div>
+	{#if tasks.length}
+		<button
+			class="flex w-full items-end justify-center gap-2 rounded-md text-base outline-dashed outline-1 outline-gray-300 hover:bg-gray-100 hover:underline dark:outline-gray-700 hover:dark:bg-gray-900"
+			onclick={() => (isTaskListOpen = !isTaskListOpen)}
+		>
+			<LText>{getNumberOfTasks(tasks)}</LText>
+			<LText>
+				{#if isTaskListOpen}
+					<ChevronUpIcon class="size-4 animate-bounce"></ChevronUpIcon>
+				{:else}
+					<ChevronDownIcon class="size-4 animate-bounce"></ChevronDownIcon>
+				{/if}
+			</LText>
+		</button>
+	{/if}
 </div>

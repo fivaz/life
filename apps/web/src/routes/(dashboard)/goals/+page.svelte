@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Modal } from '@life/shared';
+	import { Button, LText, Modal } from '@life/shared';
 	import { sortGoals } from '@life/shared/goal';
 	import type { Task } from '@life/shared/task';
 	import { CalendarArrowDown, ListTree, Plus } from 'lucide-svelte';
@@ -65,22 +65,18 @@
 
 <div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
 	<div class="flex items-center justify-between">
-		<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
+		<LText class="hidden text-2xl font-bold md:block">{title.value}</LText>
 
 		<div class="flex items-center justify-between gap-5 md:grow-0">
-			<button
-				class="rounded bg-white p-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-				onclick={() => (isSmartView = !isSmartView)}
-				type="button"
-			>
+			<Button color="white" onclick={() => (isSmartView = !isSmartView)} padding="p-1.5">
 				{#if isSmartView}
 					<ListTree class="h-5 w-5" />
 				{:else}
 					<CalendarArrowDown class="h-5 w-5" />
 				{/if}
-			</button>
+			</Button>
 
-			<div class="h-7 border-r border-gray-300"></div>
+			<div class="h-7 border-r border-gray-300 dark:border-gray-700"></div>
 
 			<Button onclick={() => onAddRootGoal()}>
 				<Plus class="h-4 w-auto" />

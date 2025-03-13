@@ -1,8 +1,10 @@
 <script lang="ts">
+	import { LText } from '@life/shared';
 	import type { Goal } from '@life/shared/goal';
 	import type { Task } from '@life/shared/task';
 	import { ChevronDown, ChevronUp } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { ChevronDownIcon, ChevronUpIcon } from 'lucide-svelte';
 
 	import GoalRow from '../goal-row/GoalRow.svelte';
 	import { sortGoalsByDate } from '../service';
@@ -26,9 +28,9 @@
 </script>
 
 <div class="flex flex-col gap-5">
-	<div class="divide-y divide-gray-100">
+	<div class="flex flex-col gap-2">
 		{#each goalsByDate as date (date)}
-			<div class="flex justify-between p-2 font-semibold">{date}</div>
+			<LText class="font-semibold">{date}</LText>
 			<div class="flex flex-col gap-3">
 				{#each goalsByDate[date] as goal (goal.id)}
 					<GoalRow
@@ -42,7 +44,7 @@
 		{/each}
 
 		{#if isCompleteListOpen}
-			<div class="flex justify-between p-2 font-semibold">Completed goals</div>
+			<LText class="font-semibold">Completed goals</LText>
 			<div class="flex flex-col gap-3">
 				{#each completedGoals as goal (goal.id)}
 					<GoalRow {addTask} {editGoal} {editTask} goal={{ ...goal, children: [] }} />
@@ -52,10 +54,16 @@
 	</div>
 
 	<button
-		class="flex w-full items-end justify-center gap-2 text-base hover:bg-gray-100 hover:underline"
+		class="flex w-full items-end justify-center gap-2 rounded-md text-base outline-dashed outline-1 outline-gray-300 hover:bg-gray-100 hover:underline dark:outline-gray-700 hover:dark:bg-gray-900"
 		onclick={() => (isCompleteListOpen = !isCompleteListOpen)}
 	>
-		completed goals
-		<Icon class="h-4 w-4 animate-bounce" src={isCompleteListOpen ? ChevronUp : ChevronDown} />
+		<LText>completed goals</LText>
+		<LText>
+			{#if isCompleteListOpen}
+				<ChevronUpIcon class="size-4 animate-bounce"></ChevronUpIcon>
+			{:else}
+				<ChevronDownIcon class="size-4 animate-bounce"></ChevronDownIcon>
+			{/if}
+		</LText>
 	</button>
 </div>
