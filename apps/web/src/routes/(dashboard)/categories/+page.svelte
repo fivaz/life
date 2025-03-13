@@ -15,7 +15,7 @@
 
 	let editingCategory = $state<Category>(buildEmptyCategory());
 
-	let isFormOpen = $state<boolean>(false);
+	let isFormOpen = $state<boolean>(true);
 
 	title.value = 'Categories';
 

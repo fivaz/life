@@ -40,7 +40,7 @@
 {#if isOpen}
 	<div class="fixed inset-0 z-20 flex items-center justify-center" use:portal={'body'}>
 		<button
-			class="absolute inset-0 bg-black opacity-50"
+			class="absolute inset-0 bg-black opacity-50 dark:bg-gray-800"
 			aria-label="modal background"
 			onclick={close}
 		></button>

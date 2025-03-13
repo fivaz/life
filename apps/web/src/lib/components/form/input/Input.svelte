@@ -22,12 +22,16 @@
 	}: Props = $props();
 </script>
 
-<label class="{klass} block text-sm font-medium {disabled ? 'text-gray-500' : 'text-gray-700'}">
+<label
+	class="{klass} block text-sm font-medium {disabled
+		? 'text-gray-500'
+		: 'text-gray-700 dark:text-white'}"
+>
 	{#if label}
 		<span class={labelClass}>{label}</span>
 	{/if}
 	<input
-		class="{inputClass} block rounded-md border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+		class="{inputClass} block rounded-md border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:border-white/10 dark:bg-white/5"
 		class:cursor-not-allowed={disabled}
 		bind:value
 		{...rest}
