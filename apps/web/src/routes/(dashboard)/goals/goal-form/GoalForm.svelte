@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { Alert, Button, ConfirmButton, GoalIcon, LText, ModalForm } from '@life/shared';
+	import { GoalIcon, LText, ModalForm } from '@life/shared';
 	import { getIcon } from '@life/shared/goal';
 
-	import { deleteCategory } from '$lib/category/category.respository';
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';

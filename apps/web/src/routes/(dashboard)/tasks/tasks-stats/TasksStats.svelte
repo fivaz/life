@@ -2,9 +2,7 @@
 	import { LText } from '@life/shared';
 	import { CATEGORY_WORK } from '@life/shared/category';
 	import { getTotalDuration } from '@life/shared/task';
-	import { Grid3x3, LayoutGrid } from '@steeze-ui/lucide-icons';
-	import { Icon } from '@steeze-ui/svelte-icon';
-	import { Grid2x2Icon, Grid3X3, Grid3X3Icon, LayoutGridIcon } from 'lucide-svelte';
+	import { Grid2x2Icon, Grid3X3Icon } from 'lucide-svelte';
 
 	import type { SortedTaskType } from '../service';
 

@@ -3,9 +3,8 @@
 
 	import flatpickr from 'flatpickr';
 
-	import Input from '$lib/components/form/input/Input.svelte';
-
-	let ref = $state<HTMLInputElement | null>(null);
+	
+let ref = $state<HTMLInputElement | null>(null);
 
 	interface Props {
 		label: string;

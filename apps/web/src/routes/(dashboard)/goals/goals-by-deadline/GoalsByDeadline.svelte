@@ -2,8 +2,6 @@
 	import { LText } from '@life/shared';
 	import type { Goal } from '@life/shared/goal';
 	import type { Task } from '@life/shared/task';
-	import { ChevronDown, ChevronUp } from '@steeze-ui/lucide-icons';
-	import { Icon } from '@steeze-ui/svelte-icon';
 	import { ChevronDownIcon, ChevronUpIcon } from 'lucide-svelte';
 
 	import GoalRow from '../goal-row/GoalRow.svelte';

@@ -1,12 +1,10 @@
 <script lang="ts">
-	import { Button, ConfirmButton, ModalForm } from '@life/shared';
-	import { XIcon } from 'lucide-svelte';
+	import { ModalForm } from '@life/shared';
 
-	import Input from '$lib/components/form/input/Input.svelte';
+import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
-	import { deleteGoal } from '$lib/goal/goal.repository';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { routineTimeMap, times } from '$lib/routine/routine.model';
 	import { addRoutine, deleteRoutine, editRoutine } from '$lib/routine/routine.repository';

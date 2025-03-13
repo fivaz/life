@@ -2,8 +2,6 @@
 	import { LText } from '@life/shared';
 	import { parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
-	import { CalendarDays } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { format } from 'date-fns';
 	import { CalendarDaysIcon } from 'lucide-svelte';

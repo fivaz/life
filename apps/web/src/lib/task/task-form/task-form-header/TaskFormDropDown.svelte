@@ -3,8 +3,6 @@
 	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { isUntimed } from '@life/shared/task';
-	import { EllipsisVertical } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Copy, EllipsisVerticalIcon, ListTodo } from 'lucide-svelte';
 
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';

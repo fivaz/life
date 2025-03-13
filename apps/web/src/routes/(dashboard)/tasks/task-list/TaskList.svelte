@@ -3,7 +3,7 @@
 	import { formatDate, parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { getTotalDuration } from '@life/shared/task';
-	import { Clipboard, ClipboardCopy, ClipboardList, Plus } from '@steeze-ui/lucide-icons';
+	import { Clipboard, ClipboardCopy, ClipboardList } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { addDays, addWeeks, lastDayOfWeek, parse, subDays } from 'date-fns';

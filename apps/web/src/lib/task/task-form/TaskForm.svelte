@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { Alert, Button, ConfirmButton, ModalForm } from '@life/shared';
+	import { ModalForm } from '@life/shared';
 	import type { Task } from '@life/shared/task';
 	import { isRecurring, isUntimed } from '@life/shared/task';
 
 	import type { Category } from '$lib/category/category.model';
 	import type { Goal } from '$lib/goal/goal.model';
-	import { deleteGoal } from '$lib/goal/goal.repository';
 	import { addTask } from '$lib/task/task.repository';
 	import {
 		deletePossibleSingleRecurringEvent,

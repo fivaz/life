@@ -2,14 +2,12 @@
 	import { LText } from '@life/shared';
 	import { signOut } from 'firebase/auth';
 	import { MoonIcon, SunIcon } from 'lucide-svelte';
-	import { onMount } from 'svelte';
 
-	import { goto } from '$app/navigation';
+import { goto } from '$app/navigation';
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import { Routes } from '$lib/consts';
 	import { auth } from '$lib/firebase';
-	import { taskIn } from '$lib/task/task-form/service.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	const list = [

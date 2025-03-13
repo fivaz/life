@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Button, LText } from '@life/shared';
 	import { Copy } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
 	import { onMount } from 'svelte';

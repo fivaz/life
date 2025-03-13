@@ -3,8 +3,6 @@
 	import { parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { sortTasks } from '@life/shared/task';
-	import { ChevronDown, ChevronUp, Settings2 } from '@steeze-ui/lucide-icons';
-	import { Icon } from '@steeze-ui/svelte-icon';
 	import { format } from 'date-fns';
 	import {
 		CalendarPlus,
