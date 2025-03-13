@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Button, CloseX, ConfirmButton } from '@life/shared';
+	import { Button, ConfirmButton } from '@life/shared';
+	import { XIcon } from 'lucide-svelte';
 
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
@@ -44,7 +45,7 @@
 			<h2 class="text-lg font-medium text-gray-900">
 				{isEditing ? 'Edit Routine' : 'Add Routine'}
 			</h2>
-			<CloseX {close} />
+			<Button color="white" onclick={close}><XIcon class="size-5" /></Button>
 		</div>
 
 		<div class="flex flex-col gap-2 text-gray-700">

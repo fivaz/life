@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { LText } from '@life/shared';
 	import { formatTime } from '@life/shared/date';
 	import { differenceInMinutes } from 'date-fns';
 	import { slide } from 'svelte/transition';
@@ -36,9 +37,12 @@
 	}
 </script>
 
-<div class="rounded-lg bg-white p-2">
+<div class="rounded-lg border border-gray-300 p-2 dark:border-gray-700">
 	<div class="flex">
-		<button class="flex-1 text-start" onclick={togglePanel} type="button"> Time </button>
+		<button class="flex-1 text-start" onclick={togglePanel} type="button">
+			<LText>Time</LText>
+		</button>
+
 		<Toggle bind:value={taskIn.value.isEvent} />
 	</div>
 

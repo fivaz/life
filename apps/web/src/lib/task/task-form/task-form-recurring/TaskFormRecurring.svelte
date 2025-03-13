@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { LText } from '@life/shared';
 	import { fade, slide } from 'svelte/transition';
 
 	import Input from '$lib/components/form/input/Input.svelte';
@@ -21,9 +22,11 @@
 	}
 </script>
 
-<div class="rounded-lg bg-white p-2">
+<div class="rounded-lg border border-gray-300 p-2 dark:border-gray-700">
 	<div class="flex">
-		<button class="flex-1 text-start" onclick={togglePanel} type="button"> Recurring </button>
+		<button class="flex-1 text-start" onclick={togglePanel} type="button">
+			<LText>Recurring</LText>
+		</button>
 
 		<Toggle bind:value={taskIn.value.isRecurring} />
 	</div>

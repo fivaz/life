@@ -3,6 +3,8 @@
 
 	import flatpickr from 'flatpickr';
 
+	import Input from '$lib/components/form/input/Input.svelte';
+
 	let ref = $state<HTMLInputElement | null>(null);
 
 	interface Props {
@@ -29,11 +31,11 @@
 	});
 </script>
 
-<label class="mb-1 block text-sm text-gray-700">
+<label class="mb-1 block text-sm text-gray-700 dark:text-white">
 	{label}
 	<input
 		bind:this={ref}
-		class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+		class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:border-white/10 dark:bg-white/5"
 		{value}
 	/>
 </label>

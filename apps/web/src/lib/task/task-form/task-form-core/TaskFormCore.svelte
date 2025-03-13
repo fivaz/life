@@ -43,9 +43,9 @@
 
 <!--description-->
 <Collapsable title="Description">
-	<label class="block text-sm text-gray-700">
+	<label class="block text-sm text-gray-700 dark:text-white">
 		<textarea
-			class="block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+			class="block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:border-white/10 dark:bg-white/5 dark:[color-scheme:dark]"
 			oninput={(e) => (taskIn.value.description = formatSubTasks(e.currentTarget.value))}
 			placeholder="Create subtasks for this task using bullet points with `-`. Fill in the boxes to mark them as completed."
 			value={taskIn.value.description}

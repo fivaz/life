@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Alert, Button, CloseX, ConfirmButton, GoalIcon, LText, ModalForm } from '@life/shared';
+	import { Alert, Button, ConfirmButton, GoalIcon, LText, ModalForm } from '@life/shared';
 	import { getIcon } from '@life/shared/goal';
 
 	import { deleteCategory } from '$lib/category/category.respository';
@@ -51,6 +51,7 @@
 </script>
 
 <ModalForm
+	name="Goal"
 	{close}
 	{errorMessage}
 	isEditing={!!goal.id}

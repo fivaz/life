@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Button, CloseX } from '@life/shared';
-	import { Save } from 'lucide-svelte';
+	import { Button } from '@life/shared';
+	import { Save, XIcon } from 'lucide-svelte';
 
 	interface Props {
 		time: number;
@@ -23,7 +23,7 @@
 		<div class="flex items-center justify-between pb-2">
 			<h2 class="text-lg font-medium text-gray-900">Edit Timer</h2>
 
-			<CloseX {close} />
+			<Button color="white" onclick={close}><XIcon class="size-5" /></Button>
 		</div>
 
 		<div class="flex justify-center gap-2">

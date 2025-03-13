@@ -23,7 +23,7 @@
 			</button>
 			<Modal close={() => (isImageOpen = false)} isOpen={isImageOpen}>
 				<!--normally I wouldn't need to restate the z-index of the Modal to its children, but due to an unknown bug I have to-->
-				<div class="z-20 rounded-lg bg-white p-2 shadow">
+				<div class="z-20 rounded-lg p-2 shadow">
 					<img
 						class="max-w-11/12 h-auto max-h-[90vh] w-auto object-contain"
 						alt="event description"
@@ -33,7 +33,7 @@
 			</Modal>
 		</div>
 	{:else}
-		<div class="flex h-24 items-center justify-center rounded-lg bg-indigo-50">
+		<div class="flex h-24 items-center justify-center rounded-lg bg-indigo-50 dark:bg-indigo-50/5">
 			<Icon class="h-10 w-10 text-indigo-700" src={Photo} />
 		</div>
 	{/if}

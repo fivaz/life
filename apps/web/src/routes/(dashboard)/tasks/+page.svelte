@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Modal } from '@life/shared';
+	import { Button, LText, Modal } from '@life/shared';
 	import { getGoalsForTasks } from '@life/shared/goal';
 	import type { Task } from '@life/shared/task';
 	import { DocumentText } from '@steeze-ui/heroicons';
@@ -58,17 +58,13 @@
 	<!--header-->
 	<div class="flex items-center justify-between gap-5">
 		<div>
-			<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
+			<LText class="hidden text-2xl font-bold md:block">{title.value}</LText>
 		</div>
 
 		<div class="flex items-center justify-between gap-5 md:grow-0">
-			<button
-				class="rounded bg-white p-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-				onclick={() => (isStatsShown = true)}
-				type="button"
-			>
+			<Button color="white" onclick={() => (isStatsShown = true)} padding="p-1.5">
 				<Icon class="h-5 w-5" src={DocumentText} />
-			</button>
+			</Button>
 
 			<div class="h-7 border-r border-gray-300"></div>
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Button, LText } from '@life/shared';
 	import { Copy } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
 	import { onMount } from 'svelte';
@@ -60,19 +61,18 @@
 	{#if isOpen}
 		<ul
 			class="{positionClass[position]} {klass}
-			absolute origin-top-right transform divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+			absolute origin-top-right transform divide-y divide-gray-700 rounded-md bg-gray-300 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:divide-gray-800 dark:bg-gray-900"
 			in:fade={{ duration: 100 }}
 			out:fade={{ duration: 100 }}
 		>
 			{#each list as item}
 				<li>
 					<button
-						class="{itemClass} flex w-full items-center gap-2 px-3 py-1 text-left text-sm leading-6 hover:bg-gray-50"
+						class="{itemClass} focus-visible:outline-white-600 inline-flex w-full items-center justify-start gap-2 p-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 dark:text-gray-100 dark:hover:bg-gray-800"
 						onclick={item.onclick}
-						type="button"
 					>
 						{#if item.icon}
-							<item.icon class="h-4 w-auto" />
+							<item.icon class="size-4" />
 						{/if}
 						{item.label}
 					</button>

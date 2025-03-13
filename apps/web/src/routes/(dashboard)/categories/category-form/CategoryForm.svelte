@@ -39,6 +39,7 @@
 </script>
 
 <ModalForm
+	name="Category"
 	{close}
 	{errorMessage}
 	isEditing={!!category.id}

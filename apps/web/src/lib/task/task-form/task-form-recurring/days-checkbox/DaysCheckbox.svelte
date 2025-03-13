@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from '@life/shared';
+	import { Button, LText } from '@life/shared';
 	import { Copy, CopyCheck } from 'lucide-svelte';
 
 	import { taskIn } from '$lib/task/task-form/service.svelte';
@@ -35,7 +35,7 @@
 
 <div>
 	<div class="flex items-center justify-between">
-		<h3 class="text-sm text-gray-700">Repeat every</h3>
+		<LText class="text-sm">Repeat every</LText>
 
 		{#if isAllSelected}
 			<Button class="h-6 w-6 p-1" color="white" onclick={uncheckAllDays} padding="">
@@ -51,7 +51,7 @@
 	<div class="flex justify-around">
 		{#each nameOfDaysOfWeek as day (day)}
 			<div class="flex flex-col items-center gap-1">
-				<label class="text-sm font-medium text-gray-700" for={day}>{day}</label>
+				<label class="text-sm font-medium" for={day}><LText>{day}</LText></label>
 				<input
 					id={day}
 					class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"

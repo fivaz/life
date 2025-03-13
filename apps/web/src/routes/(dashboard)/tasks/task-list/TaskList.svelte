@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Button } from '@life/shared';
 	import { formatDate, parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { getTotalDuration } from '@life/shared/task';
@@ -6,6 +7,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { addDays, addWeeks, lastDayOfWeek, parse, subDays } from 'date-fns';
+	import { PlusIcon } from 'lucide-svelte';
 
 	import { DATE_FR } from '$lib/utils.svelte';
 
@@ -77,17 +79,17 @@
 			<div>{getNumberOfTasks(tasks)}</div>
 		</div>
 
-		<div class="flex gap-2">
+		<div class="flex items-center gap-2">
 			<div>{getTotalDuration(tasks)}</div>
 
 			{#if isNotRecurrent}
-				<button
-					class="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+				<Button
+					color="white"
 					onclick={() => create(parseDate(getDate(label)))}
-					type="button"
+					padding="py-1 px-1.5"
 				>
-					<Icon class="h-4 w-4" src={Plus} />
-				</button>
+					<PlusIcon class="size-4" />
+				</Button>
 			{/if}
 		</div>
 	</div>

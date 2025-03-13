@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { CloseX } from '@life/shared';
+	import { LText } from '@life/shared';
 	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { isUntimed } from '@life/shared/task';
 	import { EllipsisVertical } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { Copy, ListTodo } from 'lucide-svelte';
+	import { Copy, EllipsisVerticalIcon, ListTodo } from 'lucide-svelte';
 
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';
 	import { duplicateTask, taskIn } from '$lib/task/task-form/service.svelte';
@@ -17,8 +17,6 @@
 	}
 
 	let { task, close }: Props = $props();
-
-	let formName = $derived(`${task.id ? 'Edit' : 'Add'} ${isUntimed(task) ? 'Task' : 'Event'}`);
 
 	function isAfterHalfToMidnight(task: Task): boolean {
 		if (isUntimed(task)) return false;
@@ -61,14 +59,10 @@
 	});
 </script>
 
-<div class="flex items-center justify-between">
-	<h2 class="text-lg text-gray-900">{formName}</h2>
-	<div class="flex items-center">
-		<DropDown class="w-48" itemClass="text-gray-700" list={optionsList} position="bottom-left">
-			<div class="rounded-md p-1 hover:bg-gray-200">
-				<Icon class="h-5 w-auto" src={EllipsisVertical} />
-			</div>
-		</DropDown>
-		<CloseX {close} />
+<DropDown class="w-48" itemClass="text-gray-700" list={optionsList} position="bottom-left">
+	<div class="rounded-md p-1.5 hover:bg-gray-200 dark:hover:bg-gray-800">
+		<LText>
+			<EllipsisVerticalIcon class="size-5" />
+		</LText>
 	</div>
-</div>
+</DropDown>

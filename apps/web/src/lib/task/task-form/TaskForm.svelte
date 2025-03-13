@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { Alert, Button, ConfirmButton } from '@life/shared';
+	import { Alert, Button, ConfirmButton, ModalForm } from '@life/shared';
 	import type { Task } from '@life/shared/task';
-	import { isRecurring } from '@life/shared/task';
+	import { isRecurring, isUntimed } from '@life/shared/task';
 
 	import type { Category } from '$lib/category/category.model';
 	import type { Goal } from '$lib/goal/goal.model';
+	import { deleteGoal } from '$lib/goal/goal.repository';
 	import { addTask } from '$lib/task/task.repository';
 	import {
 		deletePossibleSingleRecurringEvent,
@@ -13,7 +14,7 @@
 	} from '$lib/task/task-form/service.svelte';
 	import TaskFormCore from '$lib/task/task-form/task-form-core/TaskFormCore.svelte';
 	import TaskFormEvent from '$lib/task/task-form/task-form-event/TaskFormEvent.svelte';
-	import TaskFormHeader from '$lib/task/task-form/task-form-header/TaskFormHeader.svelte';
+	import TaskFormDropDown from '$lib/task/task-form/task-form-header/TaskFormDropDown.svelte';
 	import TaskFormRecurring from '$lib/task/task-form/task-form-recurring/TaskFormRecurring.svelte';
 	import { checkErrors, convertToTask, convertToTaskIn } from '$lib/task/task-in-utils';
 	import { currentUser } from '$lib/user/user.utils.svelte';
@@ -78,42 +79,23 @@
 	}
 </script>
 
-<form
-	class="relative w-11/12 max-w-[355px] overflow-hidden rounded-md text-start font-medium shadow"
-	onsubmit={onSubmit}
+<ModalForm
+	name={isUntimed(task) ? 'Task' : 'Event'}
+	{close}
+	{errorMessage}
+	isEditing={!!task.id}
+	onDelete={removeTask}
+	{onSubmit}
 >
-	<div class="bg-neutral-100 p-4">
-		<div class="flex flex-col gap-2 text-sm text-gray-700">
-			<TaskFormHeader {close} {task} />
+	{#snippet header()}
+		<TaskFormDropDown {close} {task} />
+	{/snippet}
 
-			<Alert hasCloseButton={false} isVisible={!!errorMessage} type="error">
-				{errorMessage}
-			</Alert>
+	<div class="flex flex-col gap-2 text-sm text-gray-700">
+		<TaskFormCore {categories} {goals} />
 
-			<TaskFormCore {categories} {goals} />
+		<TaskFormEvent />
 
-			<TaskFormEvent />
-
-			<TaskFormRecurring />
-		</div>
+		<TaskFormRecurring />
 	</div>
-
-	<!--footer-->
-	<div class="flex justify-between bg-gray-50 px-4 py-3 text-right sm:px-6">
-		{#if task.id}
-			<ConfirmButton color="red" confirm={removeTask} confirmByKey="Delete" type="button">
-				Delete
-			</ConfirmButton>
-		{:else}
-			<div></div>
-		{/if}
-
-		<Button type="submit">
-			{#if task.id}
-				Edit
-			{:else}
-				Add
-			{/if}
-		</Button>
-	</div>
-</form>
+</ModalForm>

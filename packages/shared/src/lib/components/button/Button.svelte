@@ -33,7 +33,7 @@
 		indigo: 'focus-visible:outline-indigo-600 bg-indigo-600 hover:bg-indigo-500 text-white',
 		red: 'focus-visible:outline-red-600 bg-red-600 hover:bg-red-500 text-white',
 		white:
-			'focus-visible:outline-white-600 bg-white-600 hover:bg-white-500 border dark:border-gray-700 text-gray-900 dark:text-gray-100',
+			'focus-visible:outline-white-600 hover:bg-gray-200 dark:hover:bg-gray-800 border dark:border-gray-700 text-gray-900 dark:text-gray-100',
 	} as const;
 </script>
 
