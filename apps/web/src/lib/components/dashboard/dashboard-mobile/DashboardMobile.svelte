@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Menu } from 'lucide-svelte';
+	import { LText } from '@life/shared';
+	import { MenuIcon } from 'lucide-svelte';
 
 	import { afterNavigate } from '$app/navigation';
 	import SideMenu from '$lib/components/dashboard/side-menu/SideMenu.svelte';
@@ -31,7 +32,7 @@
 	<header class="fixed z-10 flex h-14 w-full justify-between gap-3 border-b p-4">
 		<div class="flex items-center gap-2">
 			<Logo class="h-8 w-8 text-indigo-600" />
-			<h1 class="text-lg font-semibold text-gray-900">{title.value}</h1>
+			<LText class="text-lg font-semibold">{title.value}</LText>
 		</div>
 		<div class="flex items-center gap-5">
 			{#if timer.status !== 'stopped'}
@@ -41,14 +42,16 @@
 				</div>
 			{/if}
 			<button onclick={() => (showMenu = true)}>
-				<Menu />
+				<LText>
+					<MenuIcon />
+				</LText>
 			</button>
 		</div>
 	</header>
 
 	<!--side menu-->
 	<SideMenu
-		class="fixed left-0 top-0 z-20 transform transition-transform duration-500
+		class="fixed left-0 top-0 z-20 transform bg-gray-50 transition-transform duration-500 dark:bg-gray-950
 				{showMenu ? 'translate-x-0' : '-translate-x-full'}"
 	/>
 
