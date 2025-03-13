@@ -53,9 +53,9 @@
 
 		<WeekChanger bind:selectedDate={selectedDate.value} />
 
-		<div class="hidden h-7 border-r border-gray-300 sm:inline"></div>
+		<div class="hidden h-7 border-r border-gray-300 sm:inline dark:border-gray-700"></div>
 
-		<Button onclick={() => openForm()}>
+		<Button onclick={() => openForm()} padding="p-1.5">
 			<Plus class="size-4" />
 			<span class="hidden md:block">New Routine</span>
 		</Button>

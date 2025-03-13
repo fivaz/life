@@ -2,6 +2,7 @@
 	import { ChevronLeft, ChevronRight } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { addDays, isSameWeek, parse, startOfWeek } from 'date-fns';
+	import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-svelte';
 	import CalendarCheck from 'lucide-svelte/icons/calendar-check';
 
 	import { DATE, formatDate } from '$lib/date.js';
@@ -47,40 +48,36 @@
 </script>
 
 <div class="flex items-center">
-	<div class="relative flex items-stretch rounded-md bg-white shadow-sm">
+	<div class="relative flex items-stretch rounded-md shadow-sm">
 		<button
-			class="hmd:h-9 -8 flex w-9 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-0 text-gray-400 hover:bg-gray-50 hover:text-gray-500 focus:relative"
+			class="hmd:h-9 -8 flex w-9 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-0 text-gray-400 hover:bg-gray-200 hover:text-gray-500 focus:relative dark:border-gray-700 dark:hover:bg-gray-800"
 			onclick={goToPreviousWeek}
 			type="button"
 		>
-			<span class="sr-only">Previous week</span>
-			<Icon class="size-5" aria-hidden="true" src={ChevronLeft} />
+			<ChevronLeftIcon class="size-6" />
 		</button>
 
 		<!--this input is triggered by the button below-->
 		<input
 			bind:this={datePicker}
-			class="pointer-events-none absolute touch-none opacity-0"
+			class="pointer-events-none absolute touch-none opacity-0 dark:[color-scheme:dark]"
 			type="date"
 			bind:value={selectedDateString.value}
 		/>
 
 		<button
-			class="border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative"
+			class="border-y border-gray-300 px-3.5 text-sm font-semibold hover:bg-gray-200 focus:relative dark:border-gray-700 dark:hover:bg-gray-800"
 			onclick={openDatePicker}
 		>
 			<CalendarCheck class="size-5 text-gray-400" />
 		</button>
 
-		<span class="relative -mx-px hidden h-5 w-px bg-gray-300"></span>
-
 		<button
-			class="flex h-8 w-9 items-center justify-center rounded-r-md border-y border-r border-gray-300 pl-0 text-gray-400 hover:bg-gray-50 hover:text-gray-500 focus:relative md:h-9"
+			class="flex h-8 w-9 items-center justify-center rounded-r-md border-y border-r border-gray-300 pl-0 text-gray-400 hover:bg-gray-200 hover:text-gray-500 focus:relative md:h-9 dark:border-gray-700 dark:hover:bg-gray-800"
 			onclick={goToNextWeek}
 			type="button"
 		>
-			<span class="sr-only">Next week</span>
-			<Icon class="size-5" aria-hidden="true" src={ChevronRight} />
+			<ChevronRightIcon class="size-6" />
 		</button>
 	</div>
 </div>

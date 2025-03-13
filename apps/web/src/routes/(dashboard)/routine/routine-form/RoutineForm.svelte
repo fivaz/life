@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { Button, ConfirmButton } from '@life/shared';
+	import { Button, ConfirmButton, ModalForm } from '@life/shared';
 	import { XIcon } from 'lucide-svelte';
 
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
+	import { deleteGoal } from '$lib/goal/goal.repository';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { routineTimeMap, times } from '$lib/routine/routine.model';
 	import { addRoutine, deleteRoutine, editRoutine } from '$lib/routine/routine.repository';
@@ -22,7 +23,7 @@
 
 	let routineIn = $state({ ...routine });
 
-	let isEditing = $derived(!!routine.id);
+	let errorMessage = $state('');
 
 	function onSubmit(event: SubmitEvent) {
 		event.preventDefault();
@@ -36,87 +37,64 @@
 	}
 </script>
 
-<form
-	class="relative w-[355px] overflow-hidden rounded-md text-sm font-medium shadow"
-	onsubmit={onSubmit}
+<ModalForm
+	name="Routine"
+	{close}
+	{errorMessage}
+	isEditing={!!routine.id}
+	onDelete={() => deleteRoutine(routine.id, currentUser.uid, close)}
+	{onSubmit}
 >
-	<div class="bg-neutral-100 px-4 py-5 sm:p-4">
-		<div class="flex items-center justify-between pb-2">
-			<h2 class="text-lg font-medium text-gray-900">
-				{isEditing ? 'Edit Routine' : 'Add Routine'}
-			</h2>
-			<Button color="white" onclick={close}><XIcon class="size-5" /></Button>
-		</div>
+	<div class="flex flex-col gap-2 text-gray-700">
+		<!--name-->
+		<Input
+			class="flex-1"
+			autocomplete="off"
+			inputClass="w-full"
+			placeholder="Name"
+			bind:value={routineIn.name}
+		/>
 
-		<div class="flex flex-col gap-2 text-gray-700">
-			<!--name-->
-			<Input
-				class="flex-1"
-				autocomplete="off"
-				inputClass="w-full"
-				placeholder="Name"
-				bind:value={routineIn.name}
-			/>
-
-			{#snippet item(time: Routine['time'])}
-				{@const item = routineTimeMap[time]}
-				{#if item}
-					<div class="flex items-center gap-3">
-						<item.icon class="h-6 w-6" />
-						{item.label}
-					</div>
-				{:else}
-					<div>no time set</div>
-				{/if}
-			{/snippet}
-
-			<div class="flex items-center justify-between gap-3">
-				<!--time-->
-				<Select
-					class="flex flex-1 items-center gap-2"
-					label="Time"
-					labelClass="flex-shrink-0"
-					selectClass="flex-1"
-					bind:value={routineIn.time}
-				>
-					{#snippet placeholder()}
-						{@render item(routineIn.time)}
-					{/snippet}
-					{#each times as time (time)}
-						<SelectItem value={time}>{@render item(time)}</SelectItem>
-					{/each}
-				</Select>
-
-				<!--				<div class="rounded-lg border border-gray-200 p-2">-->
-				<Toggle label="Is disabled" bind:value={routineIn.isDisabled} />
-				<!--				</div>-->
-			</div>
-
-			<!--icon-->
-			<IconSelector name="icon" bind:value={routineIn.icon} />
-		</div>
-	</div>
-
-	<div class="flex justify-between bg-gray-50 px-4 py-3 text-right sm:px-6">
-		{#if isEditing}
-			<ConfirmButton
-				color="red"
-				confirm={() => deleteRoutine(routine.id, currentUser.uid, close)}
-				confirmByKey="Delete"
-				type="button"
-			>
-				Delete
-			</ConfirmButton>
-		{:else}
-			<div></div>
-		{/if}
-
-		<Button type="submit">
-			{#if isEditing}
-				Edit
+		{#snippet item(time: Routine['time'])}
+			{@const item = routineTimeMap[time]}
+			{#if item}
+				<div class="flex items-center gap-3">
+					<item.icon class="h-6 w-6" />
+					{item.label}
+				</div>
 			{:else}
-				Add
+				<div>no time set</div>
 			{/if}
-		</Button>
+		{/snippet}
+
+		<div class="flex items-center justify-between gap-3">
+			<!--time-->
+			<Select
+				class="flex flex-1 items-center gap-2"
+				label="Time"
+				labelClass="flex-shrink-0"
+				selectClass="flex-1"
+				bind:value={routineIn.time}
+			>
+				{#snippet placeholder()}
+					{@render item(routineIn.time)}
+				{/snippet}
+				{#each times as time (time)}
+					<SelectItem value={time}>{@render item(time)}</SelectItem>
+				{/each}
+			</Select>
+
+			<!--				<div class="rounded-lg border border-gray-200 p-2">-->
+			<Toggle
+				label="Is disabled"
+				offColorBackground="bg-indigo-500"
+				onColorBackground="bg-red-500"
+				bind:value={routineIn.isDisabled}
+			/>
+			<!--				</div>-->
+		</div>
+
+		<!--icon-->
+		<IconSelector name="icon" bind:value={routineIn.icon} />
 	</div>
-</form>
+</ModalForm>

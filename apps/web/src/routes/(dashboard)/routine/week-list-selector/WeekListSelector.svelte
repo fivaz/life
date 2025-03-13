@@ -39,7 +39,7 @@
 		>
 			{#each weekDates.value as date (date)}
 				<button
-					class="flex flex-col items-center justify-center gap-1 pb-3 pt-2 hover:bg-indigo-50 md:flex-row"
+					class="flex flex-col items-center justify-center gap-1 pb-3 pt-2 hover:bg-indigo-200 md:flex-row dark:hover:bg-gray-700"
 					onclick={() => (selectedDate.value = date)}
 					type="button"
 				>
