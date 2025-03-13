@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { LText } from '@life/shared';
 	import type { Task } from '@life/shared/task';
 	import { CalendarArrowDown, CalendarArrowUp, CalendarMinus } from 'lucide-svelte';
 
@@ -15,14 +16,14 @@
 	}
 </script>
 
-<h2 class="text-base font-semibold leading-5 text-gray-900">Tasks Changes</h2>
+<LText class="text-base font-semibold leading-5">Tasks Changes</LText>
 
 {#each Object.keys(tasksByPeriod).toReversed() as period (period)}
-	<div class="flex justify-between text-sm font-semibold text-gray-900">
-		<span>{period}</span>
+	<div class="flex justify-between text-sm font-semibold">
+		<LText>{period}</LText>
 
 		<div class="flex gap-2">
-			<span>{getTaskDelta(period)}</span>
+			<LText>{getTaskDelta(period)}</LText>
 			{#if getTaskDelta(period) > 0}
 				<CalendarArrowUp class="h-5 w-5 text-red-500" />
 			{:else if getTaskDelta(period) < 0}

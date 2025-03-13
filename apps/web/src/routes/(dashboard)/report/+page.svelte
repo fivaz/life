@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { LText } from '@life/shared';
 	import { CATEGORY_WORK } from '@life/shared/category';
 	import { where } from 'firebase/firestore';
 
@@ -12,13 +13,12 @@
 
 	title.value = 'Report';
 
-	// Initialize tasks fetch
 	fetchTasks(reportStore.tasks, where('category.type', '==', CATEGORY_WORK));
 </script>
 
 <div class="py-4">
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-		<h1 class="hidden text-2xl font-bold text-gray-900 md:block">{title.value}</h1>
+		<LText class="hidden text-2xl font-bold md:block">{title.value}</LText>
 
 		<div class="flex flex-col gap-3">
 			<ReportHeader />

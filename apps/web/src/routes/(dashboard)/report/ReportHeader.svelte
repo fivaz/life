@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from '@life/shared';
+	import { Button, LText } from '@life/shared';
 	import { formatDate } from '@life/shared/date';
 	import { clsx } from 'clsx';
 	import { addDays, subDays } from 'date-fns';
@@ -62,22 +62,22 @@
 
 <div class="flex flex-col items-center justify-between gap-5 md:flex-row">
 	<div class="flex items-center gap-5">
-		<h2 class="text-base font-semibold leading-5 text-gray-900">
+		<LText class="text-base font-semibold leading-5 ">
 			Tasks by {reportStore.selectedInterval}
-		</h2>
+		</LText>
 		{#if tasksDelta > 0}
 			<div class="flex gap-2" use:tooltip={'tasks increased'}>
-				<span>{tasksDelta}</span>
+				<LText>{tasksDelta}</LText>
 				<CalendarArrowUpIcon class="h-5 w-5 text-red-500" />
 			</div>
 		{:else if tasksDelta < 0}
 			<div class="flex gap-2" use:tooltip={'tasks decreased'}>
-				<span>{tasksDelta}</span>
+				<LText>{tasksDelta}</LText>
 				<CalendarArrowDownIcon class="h-5 w-5 text-green-500" />
 			</div>
 		{:else}
 			<div class="flex gap-2" use:tooltip={'tasks remained equal'}>
-				<span>{tasksDelta}</span>
+				<LText>{tasksDelta}</LText>
 				<CalendarMinusIcon class="h-5 w-5 text-yellow-500" />
 			</div>
 		{/if}
@@ -85,35 +85,25 @@
 
 	<div class="flex flex-col items-center gap-3 md:flex-row">
 		<div class="flex items-center gap-3">
-			<Button
-				class="p-1"
-				color="white"
-				onclick={() => (reportStore.chartType = 'stacked')}
-				padding=""
-			>
+			<Button color="white" onclick={() => (reportStore.chartType = 'stacked')} padding="p-1">
 				<ChartColumnStackedIcon
 					class={clsx('size-5', { 'text-indigo-600': reportStore.chartType === 'stacked' })}
 				/>
 			</Button>
 
-			<Button class="p-1" color="white" onclick={() => (reportStore.chartType = 'line')} padding="">
+			<Button color="white" onclick={() => (reportStore.chartType = 'line')} padding="p-1">
 				<ChartLineIcon
 					class={clsx('size-5', { 'text-indigo-600': reportStore.chartType === 'line' })}
 				/>
 			</Button>
 
-			<Button
-				class="p-1"
-				color="white"
-				onclick={() => (reportStore.chartType = 'double-line')}
-				padding=""
-			>
+			<Button color="white" onclick={() => (reportStore.chartType = 'double-line')} padding="p-1">
 				<DoubleLineChartIcon
 					class={clsx('size-5', { 'text-indigo-600': reportStore.chartType === 'double-line' })}
 				/>
 			</Button>
 
-			<Button class="p-1" color="white" onclick={togglePeriodToCurrentWeek} padding="">
+			<Button color="white" onclick={togglePeriodToCurrentWeek} padding="p-1">
 				{#if isPeriodCurrentWeek}
 					<CalendarRange class="l-5 w-5" />
 				{:else}
