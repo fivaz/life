@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ModalForm } from '@life/shared';
 
-import Input from '$lib/components/form/input/Input.svelte';
+	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';

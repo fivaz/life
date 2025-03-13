@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
 	import { MoonIcon } from 'lucide-svelte';
-	
-interface Props {
+
+	interface Props {
 		value: boolean;
 		label?: string;
 		onchange?: (value: boolean) => void;

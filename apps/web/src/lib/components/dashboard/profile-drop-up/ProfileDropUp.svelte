@@ -3,7 +3,7 @@
 	import { signOut } from 'firebase/auth';
 	import { MoonIcon, SunIcon } from 'lucide-svelte';
 
-import { goto } from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import { Routes } from '$lib/consts';
