@@ -13,16 +13,9 @@
 	import CategoryForm from './category-form/CategoryForm.svelte';
 	import CategoryRow from './category-row/CategoryRow.svelte';
 
-	let editingCategory = $state<Category>(buildEmptyCategory());
-
-	let isFormOpen = $state<boolean>(false);
+	let newCategory = $state<Category>(buildEmptyCategory());
 
 	title.value = 'Categories';
-
-	function openForm(category = buildEmptyCategory()) {
-		isFormOpen = true;
-		editingCategory = category;
-	}
 
 	let categories = $state<Category[]>([]);
 
@@ -50,10 +43,9 @@
 	<div class="flex items-center justify-between">
 		<LText class="hidden text-2xl font-bold md:block">{title.value}</LText>
 		<span></span>
-		<Button onclick={() => openForm()}>
-			<Plus class="h-4 w-auto" />
-			New Category
-		</Button>
+		<!--this empty span makes CategoryForm always in the right side on mobile-->
+
+		<CategoryForm category={newCategory} />
 	</div>
 
 	<ul
@@ -64,12 +56,8 @@
 	>
 		{#each categories as category (category.id)}
 			<div animate:flip={{ duration: flipDuration }}>
-				<CategoryRow {category} edit={openForm} />
+				<CategoryRow {category} />
 			</div>
 		{/each}
 	</ul>
-
-	<Modal bind:isOpen={isFormOpen}>
-		<CategoryForm category={editingCategory} close={() => (isFormOpen = false)} />
-	</Modal>
 </div>

@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { ModalForm } from '@life/shared';
+	import { Button, Modal, ModalForm } from '@life/shared';
 	import { categoryTypes, tailwindColorMap, tailwindColors } from '@life/shared/category';
+	import { Plus } from 'lucide-svelte';
+	import type { Snippet } from 'svelte';
 
 	import type { Category } from '$lib/category/category.model';
 	import { addCategory, deleteCategory, editCategory } from '$lib/category/category.respository';
@@ -13,14 +15,22 @@
 
 	interface Props {
 		category: Category;
-		close: () => void;
+		children?: Snippet;
+		color?: 'indigo' | 'red' | 'white' | 'none';
+		class?: string;
 	}
 
-	let { category, close }: Props = $props();
+	let { category, children, color, class: klass }: Props = $props();
+
+	let isOpen = $state(false);
 
 	let errorMessage = $state('');
 
 	let categoryIn = $state({ ...category });
+
+	function close() {
+		isOpen = false;
+	}
 
 	function onSubmit(event: SubmitEvent) {
 		event.preventDefault();
@@ -38,18 +48,29 @@
 	}
 </script>
 
-<ModalForm
-	name="Category"
-	{close}
-	{errorMessage}
-	isEditing={!!category.id}
-	onDelete={() => deleteCategory(category.id, currentUser.uid, close)}
-	{onSubmit}
->
-	<div class="flex flex-col gap-2 text-sm font-medium">
+<Button class={klass} {color} onclick={() => (isOpen = true)}>
+	{#if children}
+		{@render children()}
+	{:else}
+		<Plus class="size-4" />
+		New Category
+	{/if}
+</Button>
+
+<Modal bind:isOpen>
+	<ModalForm
+		name="Category"
+		{close}
+		{errorMessage}
+		isEditing={!!category.id}
+		onDelete={() => deleteCategory(category.id, currentUser.uid, close)}
+		{onSubmit}
+	>
 		<Input
+			id="x"
 			class="flex-1"
 			autocomplete="off"
+			autofocus
 			inputClass="w-full"
 			placeholder="Name"
 			bind:value={categoryIn.name}
@@ -95,5 +116,5 @@
 				</SelectItem>
 			{/each}
 		</Select>
-	</div>
-</ModalForm>
+	</ModalForm>
+</Modal>

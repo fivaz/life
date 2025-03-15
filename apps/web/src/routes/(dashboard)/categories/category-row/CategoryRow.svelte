@@ -1,18 +1,18 @@
 <script lang="ts">
 	import { tailwindColorMap } from '@life/shared/category';
-	import { Settings2, Tag } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { GripVertical } from 'lucide-svelte';
+	import { GripVerticalIcon, Settings2Icon, TagIcon } from 'lucide-svelte';
 	import { dragHandle } from 'svelte-dnd-action';
 
 	import type { Category } from '$lib/category/category.model';
 
+	import CategoryForm from '../category-form/CategoryForm.svelte';
+
 	interface Props {
 		category: Category;
-		edit: (category: Category) => void;
 	}
 
-	let { category, edit }: Props = $props();
+	let { category }: Props = $props();
 </script>
 
 <li
@@ -20,17 +20,16 @@
 		flex items-center justify-between gap-x-2 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-white"
 >
 	<div aria-label="drag-handle for {category.name}" use:dragHandle>
-		<GripVertical class="h-5 w-5" />
+		<GripVerticalIcon class="size-5" />
 	</div>
-	<Icon class="h-5 w-5 text-white" src={Tag} />
+	<TagIcon class="size-5 text-white" />
 	<div class="flex-1 truncate text-sm font-semibold leading-6">{category.name}</div>
 
-	<button
-		class="{tailwindColorMap[category.color].hoverBg} {tailwindColorMap[category.color].hoverText}
-				 rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
-		onclick={() => edit(category)}
-		type="button"
+	<CategoryForm
+		class="{tailwindColorMap[category.color].hoverBg} {tailwindColorMap[category.color].hoverText}"
+		{category}
+		color="none"
 	>
-		<Icon class="h-5 w-5" src={Settings2} />
-	</button>
+		<Settings2Icon class="size-5" />
+	</CategoryForm>
 </li>

@@ -5,7 +5,7 @@
 
 	interface Props {
 		isLoading?: boolean;
-		color?: 'indigo' | 'red' | 'white';
+		color?: 'indigo' | 'red' | 'white' | 'none';
 		type?: 'button' | 'submit' | undefined;
 		disabled?: boolean;
 		class?: string;
@@ -34,6 +34,7 @@
 		red: 'focus-visible:outline-red-600 bg-red-600 hover:bg-red-500 text-white',
 		white:
 			'focus-visible:outline-white-600 hover:bg-gray-200 dark:hover:bg-gray-800 border dark:border-gray-700 text-gray-900 dark:text-gray-100',
+		none: 'border dark:border-gray-700 text-gray-900 dark:text-gray-100',
 	} as const;
 </script>
 
