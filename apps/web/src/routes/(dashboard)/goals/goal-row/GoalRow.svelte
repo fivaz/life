@@ -19,7 +19,7 @@
 	import { getCompletedTasks } from '$lib/task/task-utils';
 	import { DATE_FR } from '$lib/utils.svelte';
 
-	import GoalForm from '../goal-form/GoalForm.svelte';
+	import GoalFormButton from '../goal-form/GoalForm.svelte';
 	import type { HierarchicalGoal } from '../goals-by-parent/service';
 	import GoalTasks from './goal-tasks/GoalTasks.svelte';
 	// eslint-disable-next-line import/no-self-import
@@ -27,14 +27,14 @@
 
 	interface Props {
 		goal: HierarchicalGoal;
-		addGoal?: (goal: Goal) => void;
 		addTask: (goal: Goal) => void;
 		editGoal: (goal: Goal) => void;
 		editTask: (task: Task) => void;
 		goals: Goal[];
+		isHierarchicalView?: boolean;
 	}
 
-	let { goal, addGoal, editGoal, addTask, editTask, goals }: Props = $props();
+	let { goal, editGoal, addTask, editTask, goals, isHierarchicalView = false }: Props = $props();
 
 	let isTaskListOpen = $state(false);
 
@@ -73,13 +73,10 @@
 			{#if goal.deadline}
 				<LText class="text-sm">{format(parseDate(goal.deadline), DATE_FR)}</LText>
 			{/if}
-			{#if addGoal}
-				<GoalForm color="none" goal={newChildGoal} {goals}>
+			{#if isHierarchicalView}
+				<GoalFormButton color="none" goal={newChildGoal} {goals} padding="px-2 py-1">
 					<GitPullRequestCreate class="size-4" />
-				</GoalForm>
-				<Button color="white" onclick={() => addGoal(convertToGoal(goal))} padding="px-2 py-1">
-					<GitPullRequestCreate class="h-4 w-4" />
-				</Button>
+				</GoalFormButton>
 			{/if}
 
 			<Button color="white" onclick={() => addTask(convertToGoal(goal))} padding="px-2 py-1">
@@ -101,7 +98,7 @@
 	{#if goal.children.length}
 		<div class="flex flex-col gap-3 px-2 pt-2">
 			{#each goal.children as childGoal (childGoal.id)}
-				<GoalRow {addGoal} {addTask} {editGoal} {editTask} goal={childGoal} {goals} />
+				<GoalRow {addTask} {editGoal} {editTask} goal={childGoal} {goals} {isHierarchicalView} />
 			{/each}
 		</div>
 	{/if}

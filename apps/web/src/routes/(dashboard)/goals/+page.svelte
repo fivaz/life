@@ -43,10 +43,6 @@
 		editingTask = task;
 	}
 
-	function onAddGoal(goal: Goal) {
-		newGoal = buildEmptyGoalWithParent(goal.id);
-	}
-
 	function onEditGoal(goal: Goal) {
 		newGoal = goal;
 	}
@@ -76,13 +72,7 @@
 	{#if isSmartView}
 		<GoalsByDeadline addTask={onAddTask} editGoal={onEditGoal} editTask={onEditTask} {goals} />
 	{:else}
-		<GoalsByParent
-			addGoal={onAddGoal}
-			addTask={onAddTask}
-			editGoal={onEditGoal}
-			editTask={onEditTask}
-			{goals}
-		/>
+		<GoalsByParent addTask={onAddTask} editGoal={onEditGoal} editTask={onEditTask} {goals} />
 	{/if}
 
 	<Modal bind:isOpen={isTaskFormOpen}>

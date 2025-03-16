@@ -21,9 +21,10 @@
 		children?: Snippet;
 		color?: 'indigo' | 'red' | 'white' | 'none';
 		class?: string;
+		padding?: string;
 	}
 
-	let { goal, goals, children, color, class: klass }: Props = $props();
+	let { goal, goals, children, color, class: klass, padding }: Props = $props();
 
 	let errorMessage = $state('');
 
@@ -64,7 +65,7 @@
 	});
 </script>
 
-<Button class={klass} {color} onclick={open}>
+<Button class={klass} {color} onclick={open} {padding}>
 	{#if children}
 		{@render children()}
 	{:else}
