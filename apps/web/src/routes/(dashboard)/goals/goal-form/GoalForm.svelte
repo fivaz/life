@@ -9,6 +9,7 @@
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
+	import { removeGoalChildren } from '$lib/goal/goal.model';
 	import { addGoal, deleteGoal, editGoal } from '$lib/goal/goal.repository';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
@@ -33,22 +34,12 @@
 
 	let isOpen = $state(false);
 
-	function removeChildren(goal: Goal | HierarchicalGoal): Goal {
-		if ('children' in goal) {
-			const { children, ...rest } = goal;
-			return rest;
-		} else {
-			const { ...rest } = goal;
-			return rest;
-		}
-	}
-
 	function close() {
 		isOpen = false;
 	}
 
 	function open() {
-		goalIn = removeChildren(goal);
+		goalIn = removeGoalChildren(goal);
 		isOpen = true;
 	}
 

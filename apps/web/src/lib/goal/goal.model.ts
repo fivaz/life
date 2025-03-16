@@ -4,6 +4,8 @@ import { z } from 'zod';
 
 import { zDateOrEmpty } from '$lib/utils';
 
+import type { HierarchicalGoal } from '../../routes/(dashboard)/goals/goals-by-parent/service';
+
 export const goalSchema = z.object({
 	id: z.string(),
 	name: z.string(),
@@ -35,4 +37,14 @@ export function buildEmptyGoalWithParent(parent: string): Goal {
 		name: '',
 		parent,
 	};
+}
+
+export function removeGoalChildren(goal: Goal | HierarchicalGoal): Goal {
+	if ('children' in goal) {
+		const { children, ...rest } = goal;
+		return rest;
+	} else {
+		const { ...rest } = goal;
+		return rest;
+	}
 }

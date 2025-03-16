@@ -4,16 +4,18 @@
 	import { ChevronDown, ChevronUp } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
+	import type { Category } from '$lib/category/category.model';
+
 	import GoalRow from '../goal-row/GoalRow.svelte';
 	import { buildGoalHierarchy } from './service';
 
 	interface Props {
 		goals: Goal[];
-		addTask: (goal: Goal) => void;
 		editTask: (task: Task) => void;
+		categories: Category[];
 	}
 
-	let { goals, addTask, editTask }: Props = $props();
+	let { goals, categories, editTask }: Props = $props();
 
 	let goalsHierarchy = $derived(buildGoalHierarchy(goals));
 
@@ -26,13 +28,13 @@
 
 <div class="flex flex-col gap-3">
 	{#each unCompletedGoals as goal (goal.id)}
-		<GoalRow {addTask} {editTask} {goal} {goals} isHierarchicalView={true} />
+		<GoalRow {categories} {editTask} {goal} {goals} isHierarchicalView={true} />
 	{/each}
 
 	{#if isCompleteListOpen}
 		<div class="flex justify-between p-2 font-semibold">Completed goals</div>
 		{#each completedGoals as goal (goal.id)}
-			<GoalRow {addTask} {editTask} {goal} {goals} isHierarchicalView={true} />
+			<GoalRow {categories} {editTask} {goal} {goals} isHierarchicalView={true} />
 		{/each}
 	{/if}
 </div>

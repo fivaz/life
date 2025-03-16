@@ -19,10 +19,6 @@
 
 	let newGoal = $state<Goal>(buildEmptyGoal());
 
-	let editingTask = $state<Task>(buildUntimedTask([]));
-
-	let isTaskFormOpen = $state<boolean>(false);
-
 	title.value = 'Goals';
 
 	let goals = $state<Goal[]>([]);
@@ -33,15 +29,11 @@
 
 	fetchCategories(categories);
 
-	function onAddTask(goal: Goal) {
-		isTaskFormOpen = true;
-		editingTask = buildTimedTask(categories, goal);
-	}
+	// function onAddTask(goal: Goal) {
+	// editingTask = buildTimedTask(categories, goal);
+	// }
 
-	function onEditTask(task: Task) {
-		isTaskFormOpen = true;
-		editingTask = task;
-	}
+	function onEditTask(task: Task) {}
 
 	let isSmartView = $state(true);
 </script>
@@ -66,12 +58,8 @@
 	</div>
 
 	{#if isSmartView}
-		<GoalsByDeadline addTask={onAddTask} editTask={onEditTask} {goals} />
+		<GoalsByDeadline {categories} editTask={onEditTask} {goals} />
 	{:else}
-		<GoalsByParent addTask={onAddTask} editTask={onEditTask} {goals} />
+		<GoalsByParent {categories} editTask={onEditTask} {goals} />
 	{/if}
-
-	<Modal bind:isOpen={isTaskFormOpen}>
-		<TaskFormButton {categories} {goals} task={editingTask} />
-	</Modal>
 </div>

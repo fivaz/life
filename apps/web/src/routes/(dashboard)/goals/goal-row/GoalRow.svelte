@@ -12,10 +12,13 @@
 		Settings2Icon,
 	} from 'lucide-svelte';
 
+	import type { Category } from '$lib/category/category.model';
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
-	import { buildEmptyGoalWithParent } from '$lib/goal/goal.model';
+	import { buildEmptyGoalWithParent, removeGoalChildren } from '$lib/goal/goal.model';
+	import { buildTimedTask } from '$lib/task/build-utils';
 	import { fetchGoalTasks } from '$lib/task/task.repository';
+	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
 	import { getCompletedTasks } from '$lib/task/task-utils';
 	import { DATE_FR } from '$lib/utils.svelte';
 
@@ -27,17 +30,19 @@
 
 	interface Props {
 		goal: HierarchicalGoal;
-		addTask: (goal: Goal) => void;
 		editTask: (task: Task) => void;
 		goals: Goal[];
 		isHierarchicalView?: boolean;
+		categories: Category[];
 	}
 
-	let { goal, addTask, editTask, goals, isHierarchicalView = false }: Props = $props();
+	let { goal, editTask, goals, categories, isHierarchicalView = false }: Props = $props();
 
 	let isTaskListOpen = $state(false);
 
 	let newChildGoal = $state<Goal>(buildEmptyGoalWithParent(goal.id));
+
+	let newGoalTask = $state<Task>(buildTimedTask(categories, removeGoalChildren(goal)));
 
 	export function getNumberOfTasks(tasks: Task[]) {
 		if (tasks.length === 0) {
@@ -52,11 +57,6 @@
 	let tasks = $state<Task[]>([]);
 
 	fetchGoalTasks(goal.id, (rawTasks) => (tasks = sortTasks(rawTasks)));
-
-	function convertToGoal(hierarchicalGoal: HierarchicalGoal): Goal {
-		const { children, ...goal } = hierarchicalGoal;
-		return goal;
-	}
 </script>
 
 <div
@@ -73,15 +73,16 @@
 				<LText class="text-sm">{format(parseDate(goal.deadline), DATE_FR)}</LText>
 			{/if}
 			{#if isHierarchicalView}
-				<GoalFormButton color="none" goal={newChildGoal} {goals} padding="px-2 py-1">
+				<GoalFormButton color="white" goal={newChildGoal} {goals} padding="px-2 py-1">
 					<GitPullRequestCreateIcon class="size-4" />
 				</GoalFormButton>
 			{/if}
 
-			<Button color="white" onclick={() => addTask(convertToGoal(goal))} padding="px-2 py-1">
+			<TaskFormButton {categories} color="white" {goals} padding="px-2 py-1" task={newGoalTask}>
 				<CalendarPlusIcon class="h-4 w-4" />
-			</Button>
-			<GoalFormButton color="none" {goal} {goals} padding="px-2 py-1">
+			</TaskFormButton>
+
+			<GoalFormButton color="white" {goal} {goals} padding="px-2 py-1">
 				<Settings2Icon class="size-4" />
 			</GoalFormButton>
 		</div>
@@ -97,7 +98,7 @@
 	{#if goal.children.length}
 		<div class="flex flex-col gap-3 px-2 pt-2">
 			{#each goal.children as childGoal (childGoal.id)}
-				<GoalRow {addTask} {editTask} goal={childGoal} {goals} {isHierarchicalView} />
+				<GoalRow {categories} {editTask} goal={childGoal} {goals} {isHierarchicalView} />
 			{/each}
 		</div>
 	{/if}

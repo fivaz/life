@@ -4,16 +4,18 @@
 	import type { Task } from '@life/shared/task';
 	import { ChevronDownIcon, ChevronUpIcon } from 'lucide-svelte';
 
+	import type { Category } from '$lib/category/category.model';
+
 	import GoalRow from '../goal-row/GoalRow.svelte';
 	import { sortGoalsByDate } from '../service';
 
 	interface Props {
 		goals: Goal[];
-		addTask: (goal: Goal) => void;
 		editTask: (task: Task) => void;
+		categories: Category[];
 	}
 
-	let { goals, addTask, editTask }: Props = $props();
+	let { goals, categories, editTask }: Props = $props();
 
 	let unCompletedGoals = $derived(goals.filter((goal) => !goal.isDone));
 
@@ -30,12 +32,7 @@
 			<LText class="font-semibold">{date}</LText>
 			<div class="flex flex-col gap-3">
 				{#each goalsByDate[date] as goal (goal.id)}
-					<GoalRow
-						addTask={() => addTask(goal)}
-						{editTask}
-						goal={{ ...goal, children: [] }}
-						{goals}
-					/>
+					<GoalRow {categories} {editTask} goal={{ ...goal, children: [] }} {goals} />
 				{/each}
 			</div>
 		{/each}
@@ -44,7 +41,7 @@
 			<LText class="font-semibold">Completed goals</LText>
 			<div class="flex flex-col gap-3">
 				{#each completedGoals as goal (goal.id)}
-					<GoalRow {addTask} {editTask} goal={{ ...goal, children: [] }} {goals} />
+					<GoalRow {categories} {editTask} goal={{ ...goal, children: [] }} {goals} />
 				{/each}
 			</div>
 		{/if}
