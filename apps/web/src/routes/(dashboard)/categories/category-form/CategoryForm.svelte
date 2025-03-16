@@ -32,6 +32,11 @@
 		isOpen = false;
 	}
 
+	function open() {
+		categoryIn = { ...category };
+		isOpen = true;
+	}
+
 	function onSubmit(event: SubmitEvent) {
 		event.preventDefault();
 		errorMessage = checkErrors(categoryIn);
@@ -48,7 +53,7 @@
 	}
 </script>
 
-<Button class={klass} {color} onclick={() => (isOpen = true)}>
+<Button class={klass} {color} onclick={open}>
 	{#if children}
 		{@render children()}
 	{:else}
@@ -57,64 +62,62 @@
 	{/if}
 </Button>
 
-<Modal bind:isOpen>
-	<ModalForm
-		name="Category"
-		{close}
-		{errorMessage}
-		isEditing={!!category.id}
-		onDelete={() => deleteCategory(category.id, currentUser.uid, close)}
-		{onSubmit}
-	>
-		<Input
-			id="x"
-			class="flex-1"
-			autocomplete="off"
-			autofocus
-			inputClass="w-full"
-			placeholder="Name"
-			bind:value={categoryIn.name}
-		/>
+{#snippet categoryItem(color: Category['color'])}
+	<div class="flex items-center gap-3">
+		<div class="h-5 w-5 rounded-md {tailwindColorMap[color].darkBg}"></div>
+		{color}
+	</div>
+{/snippet}
 
-		{#snippet categoryItem(color: Category['color'])}
-			<div class="flex items-center gap-3">
-				<div class="h-5 w-5 rounded-md {tailwindColorMap[color].darkBg}"></div>
-				{color}
-			</div>
+<ModalForm
+	name="Category"
+	{close}
+	{errorMessage}
+	isEditing={!!category.id}
+	onDelete={() => deleteCategory(category.id, currentUser.uid, close)}
+	{onSubmit}
+	bind:isOpen
+>
+	<Input
+		class="flex-1"
+		autocomplete="off"
+		autofocus
+		inputClass="w-full"
+		placeholder="Name"
+		bind:value={categoryIn.name}
+	/>
+
+	<Select
+		class="flex items-center"
+		label="Category"
+		labelClass="w-1/5"
+		selectClass="flex-1"
+		bind:value={categoryIn.color}
+	>
+		{#snippet placeholder()}
+			{@render categoryItem(categoryIn.color)}
 		{/snippet}
 
-		<Select
-			class="flex items-center"
-			label="Category"
-			labelClass="w-1/5"
-			selectClass="flex-1"
-			bind:value={categoryIn.color}
-		>
-			{#snippet placeholder()}
-				{@render categoryItem(categoryIn.color)}
-			{/snippet}
+		{#each tailwindColors as color (color)}
+			<SelectItem value={color}>{@render categoryItem(color)}</SelectItem>
+		{/each}
+	</Select>
 
-			{#each tailwindColors as color (color)}
-				<SelectItem value={color}>{@render categoryItem(color)}</SelectItem>
-			{/each}
-		</Select>
+	<Select
+		class="flex items-center"
+		label="Type"
+		labelClass="w-1/5"
+		selectClass="flex-1"
+		bind:value={categoryIn.type}
+	>
+		{#snippet placeholder()}
+			<div class="flex items-center gap-5">{categoryIn.type}</div>
+		{/snippet}
 
-		<Select
-			class="flex items-center"
-			label="Type"
-			labelClass="w-1/5"
-			selectClass="flex-1"
-			bind:value={categoryIn.type}
-		>
-			{#snippet placeholder()}
-				<div class="flex items-center gap-5">{categoryIn.type}</div>
-			{/snippet}
-
-			{#each Object.values(categoryTypes) as categoryType (categoryType)}
-				<SelectItem class="flex items-center gap-5" value={categoryType}>
-					{categoryType}
-				</SelectItem>
-			{/each}
-		</Select>
-	</ModalForm>
-</Modal>
+		{#each Object.values(categoryTypes) as categoryType (categoryType)}
+			<SelectItem class="flex items-center gap-5" value={categoryType}>
+				{categoryType}
+			</SelectItem>
+		{/each}
+	</Select>
+</ModalForm>
