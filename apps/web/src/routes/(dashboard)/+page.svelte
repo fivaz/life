@@ -13,7 +13,7 @@
 	import { fetchGoals } from '$lib/goal/goal.repository';
 	import { buildTimedTask, buildTimedTaskWithTimeSet } from '$lib/task/build-utils';
 	import TaskCompletedNotificationStack from '$lib/task/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
-	import TaskFormButtom from '$lib/task/task-form/TaskFormButtom.svelte';
+	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 	import { title } from '$lib/utils.svelte';
 
@@ -84,7 +84,7 @@
 />
 
 <Modal bind:isOpen={isFormShown}>
-	<TaskFormButtom
+	<TaskFormButton
 		{categories}
 		close={() => (isFormShown = false)}
 		{goals}

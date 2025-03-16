@@ -8,10 +8,10 @@
 
 	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
 
-	import TaskFormButtom from './TaskFormButtom.svelte';
+	import TaskFormButton from './TaskFormButton.svelte';
 
 	const { Story } = defineMeta({
-		component: TaskFormButtom,
+		component: TaskFormButton,
 	});
 </script>
 
@@ -25,7 +25,7 @@
 		title={dialog.value.title}
 	/>
 	<div class="w-96">
-		<TaskFormButtom {categories} close={() => console.log('closed')} {goals} userId="" {...args} />
+		<TaskFormButton {categories} close={() => console.log('closed')} {goals} userId="" {...args} />
 	</div>
 {/snippet}
 

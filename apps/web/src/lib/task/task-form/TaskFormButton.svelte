@@ -44,8 +44,6 @@
 
 	taskIn.value = convertToTaskIn(task);
 
-	$inspect(taskIn.value.id);
-
 	let errorMessage = $state('');
 
 	let isOpen = $state(false);

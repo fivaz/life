@@ -11,6 +11,12 @@
 
 	import type { Category } from '$lib/category/category.model';
 	import type { Goal } from '$lib/goal/goal.model';
+	import {
+		buildTimedTask,
+		buildUntimedTask,
+		buildUntimedTaskWithDateSet,
+	} from '$lib/task/build-utils';
+	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
 	import { DATE_FR } from '$lib/utils.svelte';
 
 	import { GROUPS } from '../service';
@@ -20,13 +26,27 @@
 	interface Props {
 		label: string;
 		tasks: Task[];
-		create: (date: Date) => void;
-		edit: (task: Task) => void;
 		goals: Goal[];
 		categories: Category[];
 	}
 
-	let { label, tasks, create, edit, goals, categories }: Props = $props();
+	let { label, tasks, goals, categories }: Props = $props();
+
+	function getNewTask() {
+		const dateString = getDate(label);
+		if (dateString) {
+			const date = parseDate(dateString);
+			return buildUntimedTaskWithDateSet(categories, date);
+		} else {
+			return buildTimedTask(categories);
+		}
+	}
+
+	let newTask = $state<Task>(getNewTask());
+
+	$effect(() => {
+		newTask = getNewTask();
+	});
 
 	let isNotRecurrent = $derived(
 		label !== GROUPS.DailyRecurring &&
@@ -87,13 +107,9 @@
 			<div>{getTotalDuration(tasks)}</div>
 
 			{#if isNotRecurrent}
-				<Button
-					color="white"
-					onclick={() => create(parseDate(getDate(label)))}
-					padding="py-1 px-1.5"
-				>
+				<TaskFormButton {categories} color="white" {goals} padding="py-1 px-1.5" task={newTask}>
 					<PlusIcon class="size-4" />
-				</Button>
+				</TaskFormButton>
 			{/if}
 		</div>
 	</div>

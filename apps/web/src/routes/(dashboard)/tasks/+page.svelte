@@ -5,7 +5,7 @@
 	import { DocumentText } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { where } from 'firebase/firestore';
-	import { Plus } from 'lucide-svelte';
+	import { FileSearch2Icon } from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';
 	import { fetchCategories } from '$lib/category/category.respository';
@@ -13,7 +13,7 @@
 	import { fetchGoals } from '$lib/goal/goal.repository';
 	import { buildUntimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
 	import { fetchTasks } from '$lib/task/task.repository';
-	import TaskFormButtom from '$lib/task/task-form/TaskFormButtom.svelte';
+	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
 	import { title } from '$lib/utils.svelte';
 
 	import { getTasksByDateSorted } from './service';
@@ -57,12 +57,12 @@
 
 		<div class="flex items-center justify-between gap-5 md:grow-0">
 			<Button color="white" onclick={() => (isStatsShown = true)} padding="p-1.5">
-				<Icon class="h-5 w-5" src={DocumentText} />
+				<FileSearch2Icon class="size-5" />
 			</Button>
 
 			<div class="h-7 border-r border-gray-300"></div>
 
-			<TaskFormButtom {categories} {goals} task={newTask} />
+			<TaskFormButton {categories} {goals} task={newTask} />
 		</div>
 	</div>
 
@@ -70,18 +70,9 @@
 	<div class="flex flex-col gap-5">
 		<ul class="flex flex-col gap-3">
 			{#each sortedTasksByDate as dateGroup (dateGroup)}
-				<TaskList
-					{categories}
-					create={(date) => {
-						newTask = buildUntimedTaskWithDateSet(categories, date);
-					}}
-					edit={(task) => {
-						newTask = task;
-					}}
-					{goals}
-					label={dateGroup}
-					tasks={sortedTasksByDate[dateGroup]}
-				/>
+				<!--{#if categories.length}-->
+				<TaskList {categories} {goals} label={dateGroup} tasks={sortedTasksByDate[dateGroup]} />
+				<!--{/if}-->
 			{/each}
 		</ul>
 

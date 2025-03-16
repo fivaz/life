@@ -9,7 +9,7 @@
 
 	import type { Category } from '$lib/category/category.model';
 	import type { Goal } from '$lib/goal/goal.model';
-	import TaskFormButtom from '$lib/task/task-form/TaskFormButtom.svelte';
+	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 	import { DATE_FR, DATE_FR_SHORT } from '$lib/utils.svelte';
 
@@ -102,7 +102,7 @@
 
 	<div class="flex items-center gap-x-3">
 		<div class="w-12 text-center">{'duration' in task ? task.duration : '-'}</div>
-		<TaskFormButtom
+		<TaskFormButton
 			class="{tailwindColorMap[task.category.color].hoverBg} {tailwindColorMap[task.category.color]
 				.hoverText}
 				rounded text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300"
@@ -113,7 +113,7 @@
 			{task}
 		>
 			<Settings2Icon class="size-4" />
-		</TaskFormButtom>
+		</TaskFormButton>
 	</div>
 </li>
 
