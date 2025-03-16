@@ -11,11 +11,10 @@
 
 	interface Props {
 		goals: Goal[];
-		editTask: (task: Task) => void;
 		categories: Category[];
 	}
 
-	let { goals, categories, editTask }: Props = $props();
+	let { goals, categories }: Props = $props();
 
 	let unCompletedGoals = $derived(goals.filter((goal) => !goal.isDone));
 
@@ -32,7 +31,7 @@
 			<LText class="font-semibold">{date}</LText>
 			<div class="flex flex-col gap-3">
 				{#each goalsByDate[date] as goal (goal.id)}
-					<GoalRow {categories} {editTask} goal={{ ...goal, children: [] }} {goals} />
+					<GoalRow {categories} goal={{ ...goal, children: [] }} {goals} />
 				{/each}
 			</div>
 		{/each}
@@ -41,7 +40,7 @@
 			<LText class="font-semibold">Completed goals</LText>
 			<div class="flex flex-col gap-3">
 				{#each completedGoals as goal (goal.id)}
-					<GoalRow {categories} {editTask} goal={{ ...goal, children: [] }} {goals} />
+					<GoalRow {categories} goal={{ ...goal, children: [] }} {goals} />
 				{/each}
 			</div>
 		{/if}

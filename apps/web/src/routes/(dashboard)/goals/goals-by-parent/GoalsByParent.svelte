@@ -11,11 +11,10 @@
 
 	interface Props {
 		goals: Goal[];
-		editTask: (task: Task) => void;
 		categories: Category[];
 	}
 
-	let { goals, categories, editTask }: Props = $props();
+	let { goals, categories }: Props = $props();
 
 	let goalsHierarchy = $derived(buildGoalHierarchy(goals));
 
@@ -28,13 +27,13 @@
 
 <div class="flex flex-col gap-3">
 	{#each unCompletedGoals as goal (goal.id)}
-		<GoalRow {categories} {editTask} {goal} {goals} isHierarchicalView={true} />
+		<GoalRow {categories} {goal} {goals} isHierarchicalView={true} />
 	{/each}
 
 	{#if isCompleteListOpen}
 		<div class="flex justify-between p-2 font-semibold">Completed goals</div>
 		{#each completedGoals as goal (goal.id)}
-			<GoalRow {categories} {editTask} {goal} {goals} isHierarchicalView={true} />
+			<GoalRow {categories} {goal} {goals} isHierarchicalView={true} />
 		{/each}
 	{/if}
 </div>

@@ -29,12 +29,6 @@
 
 	fetchCategories(categories);
 
-	// function onAddTask(goal: Goal) {
-	// editingTask = buildTimedTask(categories, goal);
-	// }
-
-	function onEditTask(task: Task) {}
-
 	let isSmartView = $state(true);
 </script>
 
@@ -58,8 +52,8 @@
 	</div>
 
 	{#if isSmartView}
-		<GoalsByDeadline {categories} editTask={onEditTask} {goals} />
+		<GoalsByDeadline {categories} {goals} />
 	{:else}
-		<GoalsByParent {categories} editTask={onEditTask} {goals} />
+		<GoalsByParent {categories} {goals} />
 	{/if}
 </div>

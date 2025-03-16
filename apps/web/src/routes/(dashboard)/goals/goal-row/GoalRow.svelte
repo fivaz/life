@@ -30,13 +30,12 @@
 
 	interface Props {
 		goal: HierarchicalGoal;
-		editTask: (task: Task) => void;
 		goals: Goal[];
 		isHierarchicalView?: boolean;
 		categories: Category[];
 	}
 
-	let { goal, editTask, goals, categories, isHierarchicalView = false }: Props = $props();
+	let { goal, goals, categories, isHierarchicalView = false }: Props = $props();
 
 	let isTaskListOpen = $state(false);
 
@@ -91,14 +90,14 @@
 	{#if tasks.length}
 		<ProgressBar maxValue={tasks.length} value={getCompletedTasks(tasks)} />
 		{#if isTaskListOpen}
-			<GoalTasks {editTask} {tasks} />
+			<GoalTasks {categories} {goals} {tasks} />
 		{/if}
 	{/if}
 
 	{#if goal.children.length}
 		<div class="flex flex-col gap-3 px-2 pt-2">
 			{#each goal.children as childGoal (childGoal.id)}
-				<GoalRow {categories} {editTask} goal={childGoal} {goals} {isHierarchicalView} />
+				<GoalRow {categories} goal={childGoal} {goals} {isHierarchicalView} />
 			{/each}
 		</div>
 	{/if}

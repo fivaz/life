@@ -6,14 +6,18 @@
 	import { format } from 'date-fns';
 	import { CalendarDaysIcon } from 'lucide-svelte';
 
+	import type { Category } from '$lib/category/category.model';
+	import type { Goal } from '$lib/goal/goal.model';
+	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
 	import { DATE_FR } from '$lib/utils.svelte';
 
 	interface Props {
 		tasks: Task[];
-		editTask: (task: Task) => void;
+		goals: Goal[];
+		categories: Category[];
 	}
 
-	let { tasks, editTask }: Props = $props();
+	let { tasks, categories, goals }: Props = $props();
 
 	function showDate(task: Task) {
 		if (!task.date) {
@@ -26,33 +30,38 @@
 <ul role="list">
 	{#each tasks as task (task)}
 		<li>
-			<button
-				class="flex w-full cursor-pointer items-center justify-between gap-3 rounded-md px-3 py-2 hover:bg-gray-100 hover:underline dark:hover:bg-gray-900"
-				onclick={() => editTask(task)}
+			<TaskFormButton
+				class="w-full cursor-pointer rounded-md px-3 py-2 hover:bg-gray-100 hover:underline dark:hover:bg-gray-900"
+				{categories}
+				color="none"
+				{goals}
+				{task}
 			>
-				<LText
-					class={clsx(
-						{ 'line-through': task.isDone },
-						'flex w-[calc(100%-64px)] items-center gap-3 truncate',
-					)}
-				>
-					<CalendarDaysIcon class="h-6 w-6 text-gray-400" />
-					<span class="hidden w-20 md:block">{showDate(task)}</span>
-					<span class="w-[calc(100%-24px)] truncate text-left">{task.name}</span>
-				</LText>
-				<span class="w-16">
-					<span
+				<div class="flex w-full items-center justify-between gap-3">
+					<LText
 						class={clsx(
-							task.isDone
-								? 'bg-green-50 text-green-700 ring-green-600/20 dark:bg-green-100'
-								: 'bg-red-50 text-red-700 ring-red-600/20 dark:bg-red-100',
-							'm-auto w-max rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset',
+							{ 'line-through': task.isDone },
+							'flex w-[calc(100%-64px)] items-center gap-3 truncate',
 						)}
 					>
-						{task.isDone ? 'Done' : 'Undone'}
+						<CalendarDaysIcon class="h-6 w-6 text-gray-400" />
+						<span class="hidden w-20 md:block">{showDate(task)}</span>
+						<span class="w-[calc(100%-24px)] truncate text-left">{task.name}</span>
+					</LText>
+					<span class="w-16">
+						<span
+							class={clsx(
+								task.isDone
+									? 'bg-green-50 text-green-700 ring-green-600/20 dark:bg-green-100'
+									: 'bg-red-50 text-red-700 ring-red-600/20 dark:bg-red-100',
+								'm-auto w-max rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset',
+							)}
+						>
+							{task.isDone ? 'Done' : 'Undone'}
+						</span>
 					</span>
-				</span>
-			</button>
+				</div>
+			</TaskFormButton>
 		</li>
 	{/each}
 </ul>
