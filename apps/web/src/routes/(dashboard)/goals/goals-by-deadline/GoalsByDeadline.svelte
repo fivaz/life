@@ -11,10 +11,9 @@
 		goals: Goal[];
 		addTask: (goal: Goal) => void;
 		editTask: (task: Task) => void;
-		editGoal: (goal: Goal) => void;
 	}
 
-	let { goals, addTask, editGoal, editTask }: Props = $props();
+	let { goals, addTask, editTask }: Props = $props();
 
 	let unCompletedGoals = $derived(goals.filter((goal) => !goal.isDone));
 
@@ -33,7 +32,6 @@
 				{#each goalsByDate[date] as goal (goal.id)}
 					<GoalRow
 						addTask={() => addTask(goal)}
-						{editGoal}
 						{editTask}
 						goal={{ ...goal, children: [] }}
 						{goals}
@@ -46,7 +44,7 @@
 			<LText class="font-semibold">Completed goals</LText>
 			<div class="flex flex-col gap-3">
 				{#each completedGoals as goal (goal.id)}
-					<GoalRow {addTask} {editGoal} {editTask} goal={{ ...goal, children: [] }} {goals} />
+					<GoalRow {addTask} {editTask} goal={{ ...goal, children: [] }} {goals} />
 				{/each}
 			</div>
 		{/if}

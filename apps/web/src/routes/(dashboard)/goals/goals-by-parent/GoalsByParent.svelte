@@ -11,10 +11,9 @@
 		goals: Goal[];
 		addTask: (goal: Goal) => void;
 		editTask: (task: Task) => void;
-		editGoal: (goal: Goal) => void;
 	}
 
-	let { goals, addTask, editGoal, editTask }: Props = $props();
+	let { goals, addTask, editTask }: Props = $props();
 
 	let goalsHierarchy = $derived(buildGoalHierarchy(goals));
 
@@ -27,13 +26,13 @@
 
 <div class="flex flex-col gap-3">
 	{#each unCompletedGoals as goal (goal.id)}
-		<GoalRow {addTask} {editGoal} {editTask} {goal} {goals} isHierarchicalView={true} />
+		<GoalRow {addTask} {editTask} {goal} {goals} isHierarchicalView={true} />
 	{/each}
 
 	{#if isCompleteListOpen}
 		<div class="flex justify-between p-2 font-semibold">Completed goals</div>
 		{#each completedGoals as goal (goal.id)}
-			<GoalRow {addTask} {editGoal} {editTask} {goal} {goals} isHierarchicalView={true} />
+			<GoalRow {addTask} {editTask} {goal} {goals} isHierarchicalView={true} />
 		{/each}
 	{/if}
 </div>

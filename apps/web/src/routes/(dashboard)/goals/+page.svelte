@@ -43,10 +43,6 @@
 		editingTask = task;
 	}
 
-	function onEditGoal(goal: Goal) {
-		newGoal = goal;
-	}
-
 	let isSmartView = $state(true);
 </script>
 
@@ -70,9 +66,9 @@
 	</div>
 
 	{#if isSmartView}
-		<GoalsByDeadline addTask={onAddTask} editGoal={onEditGoal} editTask={onEditTask} {goals} />
+		<GoalsByDeadline addTask={onAddTask} editTask={onEditTask} {goals} />
 	{:else}
-		<GoalsByParent addTask={onAddTask} editGoal={onEditGoal} editTask={onEditTask} {goals} />
+		<GoalsByParent addTask={onAddTask} editTask={onEditTask} {goals} />
 	{/if}
 
 	<Modal bind:isOpen={isTaskFormOpen}>

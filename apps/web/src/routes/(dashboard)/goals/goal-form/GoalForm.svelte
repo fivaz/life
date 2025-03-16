@@ -12,11 +12,12 @@
 	import { addGoal, deleteGoal, editGoal } from '$lib/goal/goal.repository';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
+	import type { HierarchicalGoal } from '../goals-by-parent/service';
 	import IconSelector from './icon-selector/IconSelector.svelte';
 	import { checkErrors } from './service';
 
 	interface Props {
-		goal: Goal;
+		goal: Goal | HierarchicalGoal;
 		goals: Goal[];
 		children?: Snippet;
 		color?: 'indigo' | 'red' | 'white' | 'none';
@@ -32,12 +33,22 @@
 
 	let isOpen = $state(false);
 
+	function removeChildren(goal: Goal | HierarchicalGoal): Goal {
+		if ('children' in goal) {
+			const { children, ...rest } = goal;
+			return rest;
+		} else {
+			const { ...rest } = goal;
+			return rest;
+		}
+	}
+
 	function close() {
 		isOpen = false;
 	}
 
 	function open() {
-		goalIn = { ...goal };
+		goalIn = removeChildren(goal);
 		isOpen = true;
 	}
 

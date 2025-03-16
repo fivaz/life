@@ -6,9 +6,11 @@
 	import { format } from 'date-fns';
 	import {
 		CalendarPlus,
+		CalendarPlusIcon,
 		ChevronDownIcon,
 		ChevronUpIcon,
 		GitPullRequestCreate,
+		GitPullRequestCreateIcon,
 		Settings2Icon,
 	} from 'lucide-svelte';
 
@@ -28,13 +30,12 @@
 	interface Props {
 		goal: HierarchicalGoal;
 		addTask: (goal: Goal) => void;
-		editGoal: (goal: Goal) => void;
 		editTask: (task: Task) => void;
 		goals: Goal[];
 		isHierarchicalView?: boolean;
 	}
 
-	let { goal, editGoal, addTask, editTask, goals, isHierarchicalView = false }: Props = $props();
+	let { goal, addTask, editTask, goals, isHierarchicalView = false }: Props = $props();
 
 	let isTaskListOpen = $state(false);
 
@@ -75,16 +76,16 @@
 			{/if}
 			{#if isHierarchicalView}
 				<GoalFormButton color="none" goal={newChildGoal} {goals} padding="px-2 py-1">
-					<GitPullRequestCreate class="size-4" />
+					<GitPullRequestCreateIcon class="size-4" />
 				</GoalFormButton>
 			{/if}
 
 			<Button color="white" onclick={() => addTask(convertToGoal(goal))} padding="px-2 py-1">
-				<CalendarPlus class="h-4 w-4" />
+				<CalendarPlusIcon class="h-4 w-4" />
 			</Button>
-			<Button color="white" onclick={() => editGoal(convertToGoal(goal))} padding="px-2 py-1">
-				<Settings2Icon class="h-4 w-4" />
-			</Button>
+			<GoalFormButton color="none" {goal} {goals} padding="px-2 py-1">
+				<Settings2Icon class="size-4" />
+			</GoalFormButton>
 		</div>
 	</div>
 
@@ -98,7 +99,7 @@
 	{#if goal.children.length}
 		<div class="flex flex-col gap-3 px-2 pt-2">
 			{#each goal.children as childGoal (childGoal.id)}
-				<GoalRow {addTask} {editGoal} {editTask} goal={childGoal} {goals} {isHierarchicalView} />
+				<GoalRow {addTask} {editTask} goal={childGoal} {goals} {isHierarchicalView} />
 			{/each}
 		</div>
 	{/if}
