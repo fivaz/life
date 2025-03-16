@@ -6,8 +6,20 @@ import Alert from '$lib/components/modal/alert/Alert.svelte';
 import ConfirmButton from '$lib/components/modal/confirm-button/ConfirmButton.svelte';
 import Modal from '$lib/components/modal/Modal.svelte';
 import ModalForm from '$lib/components/modal/ModalForm.svelte';
+import ModalForm2 from '$lib/components/modal/ModalForm2.svelte';
 import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 
 export * from '$lib/components/dialog/service.svelte';
 
-export { Alert, Button, ConfirmButton, Dialog, GoalIcon, LText, Modal, ModalForm, WeekChanger };
+export {
+	Alert,
+	Button,
+	ConfirmButton,
+	Dialog,
+	GoalIcon,
+	LText,
+	Modal,
+	ModalForm,
+	ModalForm2,
+	WeekChanger,
+};

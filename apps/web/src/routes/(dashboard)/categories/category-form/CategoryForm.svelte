@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Modal, ModalForm } from '@life/shared';
+	import { Button, Modal, ModalForm2 } from '@life/shared';
 	import { categoryTypes, tailwindColorMap, tailwindColors } from '@life/shared/category';
 	import { Plus } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
@@ -69,7 +69,7 @@
 	</div>
 {/snippet}
 
-<ModalForm
+<ModalForm2
 	name="Category"
 	{close}
 	{errorMessage}
@@ -120,4 +120,4 @@
 			</SelectItem>
 		{/each}
 	</Select>
-</ModalForm>
+</ModalForm2>
