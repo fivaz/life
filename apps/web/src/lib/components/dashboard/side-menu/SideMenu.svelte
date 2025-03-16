@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { appColors } from '@life/shared/colors';
 	import {
 		CalendarDays,
 		ChartCandlestick,
@@ -36,7 +37,7 @@
 	];
 </script>
 
-<div class="{klass} flex h-full w-64 flex-col items-stretch gap-5 p-3">
+<div class="{klass} flex h-full w-64 flex-col items-stretch gap-5 p-3 {appColors.darker}">
 	<div class="flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
 		<Logo class="h-8 w-auto self-start" />
 		<h2 class="text-lg font-semibold" use:tooltip={`current commit: ${PUBLIC_COMMIT_HASH}`}>

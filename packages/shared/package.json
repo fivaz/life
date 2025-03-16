@@ -35,6 +35,10 @@
 			"types": "./dist/date.d.ts",
 			"default": "./dist/date.js"
 		},
+		"./colors": {
+			"types": "./dist/colors.d.ts",
+			"default": "./dist/colors.js"
+		},
 		"./task": {
 			"types": "./dist/task/index.d.ts",
 			"default": "./dist/task/index.js"

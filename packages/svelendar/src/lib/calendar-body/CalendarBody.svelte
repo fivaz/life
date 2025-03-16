@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { appColors, bgColors } from '@life/shared/colors';
 	import type { Task } from '@life/shared/task';
 	import { onMount } from 'svelte';
 
@@ -61,12 +62,12 @@
 
 <div
 	bind:this={container}
-	class="isolate flex flex-auto flex-col overflow-auto border-b border-gray-200 dark:border-gray-800 dark:[color-scheme:dark]"
+	class="isolate flex flex-auto flex-col overflow-auto dark:[color-scheme:dark]"
 >
 	<div class="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full">
 		<div
 			bind:this={containerNav}
-			class="sticky top-0 z-30 flex-none bg-gray-50 shadow ring-1 ring-black ring-opacity-5 md:pr-8 dark:bg-gray-950"
+			class="sticky top-0 z-30 flex-none shadow md:pr-8 {bgColors.darker}"
 		>
 			<WeekList />
 		</div>

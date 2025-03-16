@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { bgColors } from '@life/shared/colors';
 	import type { Snippet } from 'svelte';
 
 	import Banner from '$lib/components/banner/Banner.svelte';
@@ -15,7 +16,7 @@
 </script>
 
 <div
-	class="flex h-screen divide-x divide-gray-200 overflow-hidden bg-gray-50 dark:divide-gray-800 dark:bg-gray-950"
+	class="flex h-screen divide-x divide-gray-200 overflow-hidden dark:divide-gray-800 {bgColors.lighter}"
 >
 	<DashboardDesktop class="hidden md:flex" />
 
