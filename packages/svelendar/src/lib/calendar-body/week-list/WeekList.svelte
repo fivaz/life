@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
-	import { borderColors, textColors } from '@life/shared/colors';
+	import { borderColors } from '@life/shared/colors';
 	import { clsx } from 'clsx';
 	import { format, isSameDay } from 'date-fns';
 

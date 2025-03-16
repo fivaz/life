@@ -4,7 +4,7 @@
 	import type { Task } from '@life/shared/task';
 	import { sortTasks } from '@life/shared/task';
 	import { where } from 'firebase/firestore';
-	import { Pause, Pencil, Play, PlayIcon, Square, SquareIcon } from 'lucide-svelte';
+	import { Pencil, Play, PlayIcon, SquareIcon } from 'lucide-svelte';
 
 	import { fetchTasks } from '$lib/task/task.repository';
 

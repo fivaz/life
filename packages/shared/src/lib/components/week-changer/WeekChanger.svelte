@@ -5,7 +5,6 @@
 	import ChevronRightIcon from 'lucide-svelte/icons/chevron-right';
 
 	import { borderColors, hoverColors } from '$lib/colors.js';
-	import Button from '$lib/components/button/Button.svelte';
 	import { DATE, formatDate } from '$lib/date.js';
 
 	interface Props {

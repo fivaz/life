@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
-	import { bgColors } from '@life/shared/colors';
 	import { MenuIcon } from 'lucide-svelte';
 
 	import { afterNavigate } from '$app/navigation';

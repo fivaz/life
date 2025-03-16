@@ -4,9 +4,8 @@
 	import { formatDate } from '@life/shared/date';
 	import { format } from 'date-fns';
 	import { PlusIcon } from 'lucide-svelte';
-	import Plus from 'lucide-svelte/icons/plus';
 
-	import { getChangeDate, getCreateTask } from '../context.utils.js';
+import { getChangeDate, getCreateTask } from '../context.utils.js';
 	import { currentDate, selectedDate } from '../service.svelte.js';
 
 	const createTask = getCreateTask();
