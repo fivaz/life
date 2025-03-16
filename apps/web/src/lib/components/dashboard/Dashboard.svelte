@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { bgColors } from '@life/shared/colors';
+	import { bgColors, borderColors } from '@life/shared/colors';
 	import type { Snippet } from 'svelte';
 
 	import Banner from '$lib/components/banner/Banner.svelte';
@@ -15,14 +15,12 @@
 	let { children }: Props = $props();
 </script>
 
-<div
-	class="flex h-screen divide-x divide-gray-200 overflow-hidden dark:divide-gray-800 {bgColors.lighter}"
->
+<div class="flex h-screen divide-x overflow-hidden {borderColors.dark}">
 	<DashboardDesktop class="hidden md:flex" />
 
 	<DashboardMobile class="flex md:hidden" />
 
-	<main class="mt-14 flex-1 overflow-y-auto md:mt-0">
+	<main class="mt-14 flex-1 overflow-y-auto md:mt-0 {bgColors.dark}">
 		{#if currentUser.email === demoLogin.email}
 			<Banner />
 		{/if}

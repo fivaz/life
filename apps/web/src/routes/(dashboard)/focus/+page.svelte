@@ -4,7 +4,7 @@
 	import type { Task } from '@life/shared/task';
 	import { sortTasks } from '@life/shared/task';
 	import { where } from 'firebase/firestore';
-	import { Pause, Pencil, Play, Square } from 'lucide-svelte';
+	import { Pause, Pencil, Play, PlayIcon, Square, SquareIcon } from 'lucide-svelte';
 
 	import { fetchTasks } from '$lib/task/task.repository';
 
@@ -55,12 +55,12 @@
 
 		{#if timer.status === 'running'}
 			<div class="flex gap-5">
-				<Button class="w-28" onclick={pauseTimer}>
-					<Pause class="h-5 w-5 text-white" />
+				<Button class="w-28 justify-center" onclick={pauseTimer}>
+					<PlayIcon class="size-5 text-white" />
 					Pause
 				</Button>
-				<Button class="w-28" onclick={endTimer}>
-					<Square class="h-5 w-5 text-white" />
+				<Button class="w-28 justify-center" onclick={endTimer}>
+					<SquareIcon class="size-5 text-white" />
 					End
 				</Button>
 			</div>
@@ -68,12 +68,12 @@
 
 		{#if timer.status === 'paused'}
 			<div class="flex gap-5">
-				<Button class="w-28" onclick={startTimer}>
-					<Play class="h-5 w-5 text-white" />
+				<Button class="w-28 justify-center" onclick={startTimer}>
+					<PlayIcon class="size-5 text-white" />
 					Continue
 				</Button>
-				<Button class="w-28" onclick={endTimer}>
-					<Square class="h-5 w-5 text-white" />
+				<Button class="w-28 justify-center" onclick={endTimer}>
+					<SquareIcon class="size-5 text-white" />
 					End
 				</Button>
 			</div>
