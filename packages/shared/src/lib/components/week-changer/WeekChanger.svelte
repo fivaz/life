@@ -4,7 +4,7 @@
 	import ChevronLeftIcon from 'lucide-svelte/icons/chevron-left';
 	import ChevronRightIcon from 'lucide-svelte/icons/chevron-right';
 
-	import { borderColors } from '$lib/colors.js';
+	import { borderColors, hoverColors } from '$lib/colors.js';
 	import Button from '$lib/components/button/Button.svelte';
 	import { DATE, formatDate } from '$lib/date.js';
 
@@ -50,11 +50,7 @@
 </script>
 
 <div class="relative flex items-center {klass} rounded-md border {borderColors.darker}">
-	<button
-		class="px-2 py-1 hover:bg-gray-200 dark:hover:bg-gray-700"
-		onclick={goToPreviousWeek}
-		type="button"
-	>
+	<button class="px-2 py-1 {hoverColors.darker}" onclick={goToPreviousWeek} type="button">
 		<ChevronLeftIcon class="size-6" />
 	</button>
 
@@ -66,19 +62,11 @@
 		bind:value={selectedDateString.value}
 	/>
 
-	<button
-		class="px-2 py-1.5 hover:bg-gray-200 dark:hover:bg-gray-700"
-		onclick={openDatePicker}
-		type="button"
-	>
+	<button class="px-2 py-1.5 {hoverColors.darker}" onclick={openDatePicker} type="button">
 		<CalendarCheck class="size-5" />
 	</button>
 
-	<button
-		class="px-2 py-1 hover:bg-gray-200 dark:hover:bg-gray-700"
-		onclick={goToNextWeek}
-		type="button"
-	>
+	<button class="px-2 py-1 {hoverColors.darker}" onclick={goToNextWeek} type="button">
 		<ChevronRightIcon class="size-6" />
 	</button>
 </div>

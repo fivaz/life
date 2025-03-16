@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { appColors } from '@life/shared/colors';
+	import { bgColors, borderColors } from '@life/shared/colors';
 	import type { Task } from '@life/shared/task';
 	import { sortTasks } from '@life/shared/task';
 
@@ -47,7 +47,9 @@
 	});
 </script>
 
-<div class="flex h-[calc(100vh-56px)] flex-col divide-y md:h-[calc(100vh-20px)] {appColors.darker}">
+<div
+	class="flex h-[calc(100vh-56px)] flex-col divide-y md:h-[calc(100vh-20px)] {bgColors.darker} {borderColors.dark}"
+>
 	<CalendarHeader />
 	<CalendarBody tasks={sortTasks(tasks)} />
 </div>

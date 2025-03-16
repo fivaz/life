@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { appColors } from '@life/shared/colors';
+	import { bgColors, textColors } from '@life/shared/colors';
 	import {
 		CalendarDays,
 		ChartCandlestick,
@@ -37,8 +37,8 @@
 	];
 </script>
 
-<div class="{klass} flex h-full w-64 flex-col items-stretch gap-5 p-3 {appColors.darker}">
-	<div class="flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
+<div class="{klass} flex h-full w-64 flex-col items-stretch gap-5 p-3 {bgColors.darker}">
+	<div class="flex items-center gap-2 text-indigo-500">
 		<Logo class="h-8 w-auto self-start" />
 		<h2 class="text-lg font-semibold" use:tooltip={`current commit: ${PUBLIC_COMMIT_HASH}`}>
 			Life
@@ -66,16 +66,14 @@
 )}
 	<li>
 		<a
-			class="flex items-end gap-3 rounded-lg p-2
-							{$page.url.pathname === href
-				? 'bg-gray-100 text-indigo-600 dark:bg-gray-800 dark:text-indigo-400'
-				: 'text-gray-700 hover:bg-gray-100 hover:text-indigo-600 dark:text-gray-200 hover:dark:bg-gray-800 hover:dark:text-indigo-400'}"
+			class="{$page.url.pathname === href ? 'text-indigo-500' : textColors.dark}
+			flex items-end gap-3 rounded-lg p-2 hover:bg-indigo-600 hover:text-white"
 			{href}
 		>
-			<span><Icon class="h-6 w-6" /></span>
+			<span><Icon class="size-6" /></span>
 			<span class="text-sm font-semibold">{label}</span>
 			{#if hasTimer && timer.status !== 'stopped'}
-				<Timer class="text-sm font-semibold text-indigo-600" />
+				<Timer class="text-sm font-semibold" />
 			{/if}
 		</a>
 	</li>

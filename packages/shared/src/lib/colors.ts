@@ -7,6 +7,10 @@ export const bgColors = {
 	light: 'bg-white dark:bg-gray-900',
 };
 
+export const hoverColors = {
+	darker: 'hover:bg-gray-200 dark:hover:bg-gray-900',
+};
+
 // 200 - 900
 // 300 - 800
 // 400 - 700
@@ -23,8 +27,4 @@ export const textColors = {
 	light: 'text-gray-50 dark:text-gray-900',
 	lighter: 'text-white dark:text-gray-800',
 	primaryDarker: 'text-indigo-600 dark:text-white',
-};
-
-export const appColors = {
-	darker: `${bgColors.darker} ${borderColors.darker}`,
 };
