@@ -13,34 +13,28 @@
 	import { fetchGoals } from '$lib/goal/goal.repository';
 	import { buildUntimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
 	import { fetchTasks } from '$lib/task/task.repository';
-	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
+	import TaskFormButtom from '$lib/task/task-form/TaskFormButtom.svelte';
 	import { title } from '$lib/utils.svelte';
 
 	import { getTasksByDateSorted } from './service';
 	import TaskList from './task-list/TaskList.svelte';
 	import TasksStats from './tasks-stats/TasksStats.svelte';
 
-	let editingTask: Task = $state(buildUntimedTask([]));
-
-	let isFormShown = $state(false);
+	let newTask = $state<Task>(buildUntimedTask([]));
 
 	let isStatsShown = $state(false);
 
 	title.value = 'Tasks';
-
-	function openForm() {
-		isFormShown = true;
-	}
-
-	function closeForm() {
-		isFormShown = false;
-	}
 
 	let tasks = $state<Task[]>([]);
 
 	fetchTasks(tasks, where('isDone', '==', false));
 
 	let categories = $state<Category[]>([]);
+
+	$effect(() => {
+		newTask = buildUntimedTask(categories);
+	});
 
 	fetchCategories(categories);
 
@@ -68,15 +62,7 @@
 
 			<div class="h-7 border-r border-gray-300"></div>
 
-			<Button
-				onclick={() => {
-					openForm();
-					editingTask = buildUntimedTask(categories);
-				}}
-			>
-				<Plus class="h-4 w-auto" />
-				New Task
-			</Button>
+			<TaskFormButtom {categories} {goals} task={newTask} />
 		</div>
 	</div>
 
@@ -85,14 +71,14 @@
 		<ul class="flex flex-col gap-3">
 			{#each sortedTasksByDate as dateGroup (dateGroup)}
 				<TaskList
+					{categories}
 					create={(date) => {
-						openForm();
-						editingTask = buildUntimedTaskWithDateSet(categories, date);
+						newTask = buildUntimedTaskWithDateSet(categories, date);
 					}}
 					edit={(task) => {
-						openForm();
-						editingTask = task;
+						newTask = task;
 					}}
+					{goals}
 					label={dateGroup}
 					tasks={sortedTasksByDate[dateGroup]}
 				/>
@@ -101,10 +87,6 @@
 
 		<Modal bind:isOpen={isStatsShown}>
 			<TasksStats tasks={sortedTasksByDate} />
-		</Modal>
-
-		<Modal bind:isOpen={isFormShown}>
-			<TaskForm {categories} close={closeForm} {goals} task={editingTask} />
 		</Modal>
 	</div>
 </div>

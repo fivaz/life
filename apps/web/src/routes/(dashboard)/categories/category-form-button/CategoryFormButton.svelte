@@ -18,9 +18,10 @@
 		children?: Snippet;
 		color?: 'indigo' | 'red' | 'white' | 'none';
 		class?: string;
+		padding?: string;
 	}
 
-	let { category, children, color, class: klass }: Props = $props();
+	let { category, children, color, class: klass, padding }: Props = $props();
 
 	let isOpen = $state(false);
 
@@ -53,7 +54,7 @@
 	}
 </script>
 
-<Button class={klass} {color} onclick={open}>
+<Button class={klass} {color} onclick={open} {padding}>
 	{#if children}
 		{@render children()}
 	{:else}

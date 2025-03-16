@@ -10,7 +10,7 @@
 	import { buildEmptyGoal } from '$lib/goal/goal.model';
 	import { fetchGoals } from '$lib/goal/goal.repository';
 	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
-	import TaskForm from '$lib/task/task-form/TaskForm.svelte';
+	import TaskFormButtom from '$lib/task/task-form/TaskFormButtom.svelte';
 	import { title } from '$lib/utils.svelte';
 
 	import GoalForm from './goal-form/GoalForm.svelte';
@@ -72,6 +72,6 @@
 	{/if}
 
 	<Modal bind:isOpen={isTaskFormOpen}>
-		<TaskForm {categories} close={() => (isTaskFormOpen = false)} {goals} task={editingTask} />
+		<TaskFormButtom {categories} {goals} task={editingTask} />
 	</Modal>
 </div>

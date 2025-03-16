@@ -1,7 +1,9 @@
 <script lang="ts">
-	import { ModalForm } from '@life/shared';
+	import { Button, ModalForm2 } from '@life/shared';
 	import type { Task } from '@life/shared/task';
 	import { isRecurring, isUntimed } from '@life/shared/task';
+	import { Plus } from 'lucide-svelte';
+	import type { Snippet } from 'svelte';
 
 	import type { Category } from '$lib/category/category.model';
 	import type { Goal } from '$lib/goal/goal.model';
@@ -23,16 +25,39 @@
 		goals: Goal[];
 		categories: Category[];
 		targetDate?: string;
-		close: () => void;
+		children?: Snippet;
+		color?: 'indigo' | 'red' | 'white' | 'none';
+		class?: string;
+		padding?: string;
 	}
 
-	let { task, goals, categories, targetDate, close }: Props = $props();
+	let {
+		task,
+		goals,
+		categories,
+		targetDate,
+		children,
+		color,
+		class: klass,
+		padding,
+	}: Props = $props();
 
 	taskIn.value = convertToTaskIn(task);
 
 	$inspect(taskIn.value.id);
 
 	let errorMessage = $state('');
+
+	let isOpen = $state(false);
+
+	function close() {
+		isOpen = false;
+	}
+
+	function open() {
+		taskIn.value = convertToTaskIn(task);
+		isOpen = true;
+	}
 
 	function handleCreateTask(data: Omit<Task, 'id'>) {
 		addTask(data, currentUser.uid, taskIn.value.file);
@@ -78,13 +103,23 @@
 	}
 </script>
 
-<ModalForm
+<Button class={klass} {color} onclick={open} {padding}>
+	{#if children}
+		{@render children()}
+	{:else}
+		<Plus class="size-4" />
+		New Task
+	{/if}
+</Button>
+
+<ModalForm2
 	name={isUntimed(task) ? 'Task' : 'Event'}
 	{close}
 	{errorMessage}
 	isEditing={!!task.id}
 	onDelete={removeTask}
 	{onSubmit}
+	bind:isOpen
 >
 	{#snippet header()}
 		<TaskFormDropDown {close} {task} />
@@ -97,4 +132,4 @@
 
 		<TaskFormRecurring />
 	</div>
-</ModalForm>
+</ModalForm2>

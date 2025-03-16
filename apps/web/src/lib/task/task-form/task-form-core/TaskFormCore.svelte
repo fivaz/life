@@ -31,6 +31,7 @@
 <Input
 	class="w-full"
 	autocomplete="off"
+	autofocus
 	inputClass="w-full"
 	placeholder="Name"
 	bind:value={taskIn.value.name}

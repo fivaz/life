@@ -4,8 +4,12 @@
 	import { GripVertical, Settings2 } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import interact from 'interactjs';
+	import { Settings2Icon } from 'lucide-svelte';
 	import { onDestroy, onMount } from 'svelte';
 
+	import type { Category } from '$lib/category/category.model';
+	import type { Goal } from '$lib/goal/goal.model';
+	import TaskFormButtom from '$lib/task/task-form/TaskFormButtom.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 	import { DATE_FR, DATE_FR_SHORT } from '$lib/utils.svelte';
 
@@ -14,10 +18,11 @@
 	interface Props {
 		task: Task;
 		isDraggable: boolean;
-		edit: (task: Task) => void;
+		goals: Goal[];
+		categories: Category[];
 	}
 
-	let { task, isDraggable, edit }: Props = $props();
+	let { task, isDraggable, goals, categories }: Props = $props();
 
 	let container = $state<HTMLLIElement | null>(null);
 
@@ -97,15 +102,18 @@
 
 	<div class="flex items-center gap-x-3">
 		<div class="w-12 text-center">{'duration' in task ? task.duration : '-'}</div>
-		<button
+		<TaskFormButtom
 			class="{tailwindColorMap[task.category.color].hoverBg} {tailwindColorMap[task.category.color]
 				.hoverText}
-				rounded px-1.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300"
-			onclick={() => edit(task)}
-			type="button"
+				rounded text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300"
+			{categories}
+			color="none"
+			{goals}
+			padding="px-1.5 py-1"
+			{task}
 		>
-			<Icon class="h-4 w-4 text-white" src={Settings2} />
-		</button>
+			<Settings2Icon class="size-4" />
+		</TaskFormButtom>
 	</div>
 </li>
 

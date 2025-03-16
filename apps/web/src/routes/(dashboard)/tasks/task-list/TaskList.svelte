@@ -9,6 +9,8 @@
 	import { addDays, addWeeks, lastDayOfWeek, parse, subDays } from 'date-fns';
 	import { PlusIcon } from 'lucide-svelte';
 
+	import type { Category } from '$lib/category/category.model';
+	import type { Goal } from '$lib/goal/goal.model';
 	import { DATE_FR } from '$lib/utils.svelte';
 
 	import { GROUPS } from '../service';
@@ -20,9 +22,11 @@
 		tasks: Task[];
 		create: (date: Date) => void;
 		edit: (task: Task) => void;
+		goals: Goal[];
+		categories: Category[];
 	}
 
-	let { label, tasks, create, edit }: Props = $props();
+	let { label, tasks, create, edit, goals, categories }: Props = $props();
 
 	let isNotRecurrent = $derived(
 		label !== GROUPS.DailyRecurring &&
@@ -99,7 +103,7 @@
 	>
 		{#each tasks as task (task.id)}
 			<!--recurring tasks shouldn't be draggable-->
-			<TaskRow {edit} isDraggable={isNotRecurrent} {task} />
+			<TaskRow {categories} {goals} isDraggable={isNotRecurrent} {task} />
 		{/each}
 		{#if isDroppable}
 			<li
