@@ -17,11 +17,9 @@
 	import GoalsByDeadline from './goals-by-deadline/GoalsByDeadline.svelte';
 	import GoalsByParent from './goals-by-parent/GoalsByParent.svelte';
 
-	let editingGoal = $state<Goal>(buildEmptyGoal());
+	let newGoal = $state<Goal>(buildEmptyGoal());
 
 	let editingTask = $state<Task>(buildUntimedTask([]));
-
-	let isFormOpen = $state<boolean>(false);
 
 	let isTaskFormOpen = $state<boolean>(false);
 
@@ -45,19 +43,12 @@
 		editingTask = task;
 	}
 
-	function onAddRootGoal() {
-		isFormOpen = true;
-		editingGoal = buildEmptyGoal();
-	}
-
 	function onAddGoal(goal: Goal) {
-		isFormOpen = true;
-		editingGoal = buildEmptyGoalWithParent(goal.id);
+		newGoal = buildEmptyGoalWithParent(goal.id);
 	}
 
 	function onEditGoal(goal: Goal) {
-		isFormOpen = true;
-		editingGoal = goal;
+		newGoal = goal;
 	}
 
 	let isSmartView = $state(true);
@@ -78,10 +69,7 @@
 
 			<div class="h-7 border-r border-gray-300 dark:border-gray-700"></div>
 
-			<Button onclick={() => onAddRootGoal()}>
-				<Plus class="h-4 w-auto" />
-				New Goal
-			</Button>
+			<GoalForm goal={newGoal} {goals} />
 		</div>
 	</div>
 
@@ -99,9 +87,5 @@
 
 	<Modal bind:isOpen={isTaskFormOpen}>
 		<TaskForm {categories} close={() => (isTaskFormOpen = false)} {goals} task={editingTask} />
-	</Modal>
-
-	<Modal bind:isOpen={isFormOpen}>
-		<GoalForm close={() => (isFormOpen = false)} goal={editingGoal} {goals} />
 	</Modal>
 </div>

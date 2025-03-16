@@ -28,13 +28,13 @@
 
 <div class="flex flex-col gap-3">
 	{#each unCompletedGoals as goal (goal.id)}
-		<GoalRow {addGoal} {addTask} {editGoal} {editTask} {goal} />
+		<GoalRow {addGoal} {addTask} {editGoal} {editTask} {goal} {goals} />
 	{/each}
 
 	{#if isCompleteListOpen}
 		<div class="flex justify-between p-2 font-semibold">Completed goals</div>
 		{#each completedGoals as goal (goal.id)}
-			<GoalRow {addGoal} {addTask} {editGoal} {editTask} {goal} />
+			<GoalRow {addGoal} {addTask} {editGoal} {editTask} {goal} {goals} />
 		{/each}
 	{/if}
 </div>

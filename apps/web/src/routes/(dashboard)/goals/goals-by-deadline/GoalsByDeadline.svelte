@@ -36,6 +36,7 @@
 						{editGoal}
 						{editTask}
 						goal={{ ...goal, children: [] }}
+						{goals}
 					/>
 				{/each}
 			</div>
@@ -45,7 +46,7 @@
 			<LText class="font-semibold">Completed goals</LText>
 			<div class="flex flex-col gap-3">
 				{#each completedGoals as goal (goal.id)}
-					<GoalRow {addTask} {editGoal} {editTask} goal={{ ...goal, children: [] }} />
+					<GoalRow {addTask} {editGoal} {editTask} goal={{ ...goal, children: [] }} {goals} />
 				{/each}
 			</div>
 		{/if}
