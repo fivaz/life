@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { ModalForm } from '@life/shared';
+	import { Button, ModalForm2 } from '@life/shared';
+	import { Plus } from 'lucide-svelte';
+	import type { Snippet } from 'svelte';
 
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
@@ -14,14 +16,28 @@
 
 	interface Props {
 		routine: Routine;
-		close: () => void;
+		children?: Snippet;
+		color?: 'indigo' | 'red' | 'white' | 'none';
+		class?: string;
+		padding?: string;
 	}
 
-	let { routine, close }: Props = $props();
+	let { routine, children, color, class: klass, padding }: Props = $props();
 
 	let routineIn = $state({ ...routine });
 
 	let errorMessage = $state('');
+
+	let isOpen = $state(false);
+
+	function close() {
+		isOpen = false;
+	}
+
+	function open() {
+		routineIn = { ...routine };
+		isOpen = true;
+	}
 
 	function onSubmit(event: SubmitEvent) {
 		event.preventDefault();
@@ -35,13 +51,23 @@
 	}
 </script>
 
-<ModalForm
+<Button class={klass} {color} onclick={open} {padding}>
+	{#if children}
+		{@render children()}
+	{:else}
+		<Plus class="size-4" />
+		New Routine
+	{/if}
+</Button>
+
+<ModalForm2
 	name="Routine"
 	{close}
 	{errorMessage}
 	isEditing={!!routine.id}
 	onDelete={() => deleteRoutine(routine.id, currentUser.uid, close)}
 	{onSubmit}
+	bind:isOpen
 >
 	<div class="flex flex-col gap-2 text-gray-700">
 		<!--name-->
@@ -95,4 +121,4 @@
 		<!--icon-->
 		<IconSelector name="icon" bind:value={routineIn.icon} />
 	</div>
-</ModalForm>
+</ModalForm2>

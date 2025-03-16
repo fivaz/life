@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { Button, LText, Modal } from '@life/shared';
-	import { Plus } from 'lucide-svelte';
+	import { LText } from '@life/shared';
 	import { flip } from 'svelte/animate';
 	import { dragHandleZone } from 'svelte-dnd-action';
 
@@ -10,7 +9,7 @@
 	import { currentUser } from '$lib/user/user.utils.svelte';
 	import { title } from '$lib/utils.svelte';
 
-	import CategoryForm from './category-form/CategoryForm.svelte';
+	import CategoryFormButton from './category-form-button/CategoryFormButton.svelte';
 	import CategoryRow from './category-row/CategoryRow.svelte';
 
 	let newCategory = $state<Category>(buildEmptyCategory());
@@ -43,9 +42,9 @@
 	<div class="flex items-center justify-between">
 		<LText class="hidden text-2xl font-bold md:block">{title.value}</LText>
 		<span></span>
-		<!--this empty span makes CategoryForm always in the right side on mobile-->
+		<!--this empty span makes CategoryFormButton always in the right side on mobile-->
 
-		<CategoryForm category={newCategory} />
+		<CategoryFormButton category={newCategory} />
 	</div>
 
 	<ul

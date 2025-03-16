@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Modal, ModalForm2 } from '@life/shared';
+	import { Button, ModalForm2 } from '@life/shared';
 	import { categoryTypes, tailwindColorMap, tailwindColors } from '@life/shared/category';
 	import { Plus } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';

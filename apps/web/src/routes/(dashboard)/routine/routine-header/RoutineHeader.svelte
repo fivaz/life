@@ -2,13 +2,14 @@
 	import { Button, LText, WeekChanger } from '@life/shared';
 	import { formatDate } from '@life/shared/date';
 	import { format } from 'date-fns';
-	import { EyeClosedIcon, EyeIcon, Plus } from 'lucide-svelte';
+	import { EyeClosedIcon, EyeIcon } from 'lucide-svelte';
 
 	import { tooltip } from '$lib/components/tooltip/tooltip.action';
 	import type { Routine } from '$lib/routine/routine.model';
+	import { buildEmptyRoutine } from '$lib/routine/routine.model';
 	import { title } from '$lib/utils.svelte';
 
-	import { getOpenRoutineForm } from '../routine-rows/service';
+	import RoutineFormButton from '../routine-form-button/RoutineFormButton.svelte';
 	import { selectedDate } from '../service.svelte';
 	import Streak from '../streak/Streak.svelte';
 
@@ -17,9 +18,9 @@
 		showDisableRoutines: boolean;
 	}
 
-	let { routines, showDisableRoutines = $bindable() }: Props = $props();
+	let newRoutine = $state<Routine>(buildEmptyRoutine());
 
-	const openForm = getOpenRoutineForm();
+	let { routines, showDisableRoutines = $bindable() }: Props = $props();
 </script>
 
 <div class="flex items-center justify-between">
@@ -55,9 +56,6 @@
 
 		<div class="hidden h-7 border-r border-gray-300 sm:inline dark:border-gray-700"></div>
 
-		<Button onclick={() => openForm()} padding="p-1.5">
-			<Plus class="size-4" />
-			<span class="hidden md:block">New Routine</span>
-		</Button>
+		<RoutineFormButton routine={newRoutine} />
 	</div>
 </div>

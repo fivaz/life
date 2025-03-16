@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { GoalIcon } from '@life/shared';
 	import { formatDate } from '@life/shared/date';
-	import { Settings2 } from '@steeze-ui/lucide-icons';
-	import { Icon } from '@steeze-ui/svelte-icon';
 	import { startOfWeek } from 'date-fns';
-	import { Check, Flame, GripVertical, Undo2 } from 'lucide-svelte';
+	import { Check, Flame, GripVertical, Settings2Icon, Undo2 } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
 	import { dragHandle } from 'svelte-dnd-action';
 
@@ -12,8 +10,9 @@
 	import { toggleRoutineCompletion } from '$lib/routine/routine.repository';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
+	import RoutineFormButton from '../../routine-form-button/RoutineFormButton.svelte';
 	import { previousDate, selectedDate, weekChangeDuration } from '../../service.svelte';
-	import { getOpenRoutineForm, getStatusColor, getStreak, statusColor } from '../service';
+	import { getStatusColor, getStreak, statusColor } from '../service';
 
 	interface Props {
 		routine: Routine;
@@ -26,8 +25,6 @@
 	let status = $derived<keyof typeof statusColor>(getStatusColor(routine, selectedDateString));
 
 	let streak = $derived<number>(getStreak(routine, selectedDateString));
-
-	const openRoutineForm = getOpenRoutineForm();
 
 	const slideDuration = $derived(
 		startOfWeek(selectedDate.value).getTime() === startOfWeek(previousDate.value).getTime()
@@ -73,13 +70,15 @@
 						<Check class="h-4 w-4" />
 					{/if}
 				</button>
-				<button
-					class="rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
-					onclick={() => openRoutineForm(routine)}
-					type="button"
+
+				<RoutineFormButton
+					class="rounded shadow-sm ring-1 ring-inset ring-gray-300"
+					color="none"
+					padding="px-1.5 py-1"
+					{routine}
 				>
-					<Icon class="h-4 w-4" src={Settings2} />
-				</button>
+					<Settings2Icon class="size-4" />
+				</RoutineFormButton>
 			</div>
 		</div>
 	{/key}

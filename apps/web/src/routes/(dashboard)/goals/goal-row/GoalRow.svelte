@@ -5,11 +5,9 @@
 	import { sortTasks } from '@life/shared/task';
 	import { format } from 'date-fns';
 	import {
-		CalendarPlus,
 		CalendarPlusIcon,
 		ChevronDownIcon,
 		ChevronUpIcon,
-		GitPullRequestCreate,
 		GitPullRequestCreateIcon,
 		Settings2Icon,
 	} from 'lucide-svelte';

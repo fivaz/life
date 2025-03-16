@@ -1,12 +1,11 @@
 <script lang="ts">
 	import { tailwindColorMap } from '@life/shared/category';
-	import { Icon } from '@steeze-ui/svelte-icon';
 	import { GripVerticalIcon, Settings2Icon, TagIcon } from 'lucide-svelte';
 	import { dragHandle } from 'svelte-dnd-action';
 
 	import type { Category } from '$lib/category/category.model';
 
-	import CategoryForm from '../category-form/CategoryForm.svelte';
+	import CategoryFormButton from '../category-form-button/CategoryFormButton.svelte';
 
 	interface Props {
 		category: Category;
@@ -25,11 +24,11 @@
 	<TagIcon class="size-5 text-white" />
 	<div class="flex-1 truncate text-sm font-semibold leading-6">{category.name}</div>
 
-	<CategoryForm
+	<CategoryFormButton
 		class="{tailwindColorMap[category.color].hoverBg} {tailwindColorMap[category.color].hoverText}"
 		{category}
 		color="none"
 	>
 		<Settings2Icon class="size-5" />
-	</CategoryForm>
+	</CategoryFormButton>
 </li>
