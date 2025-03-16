@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { Goal } from '@life/shared/goal';
-	import type { Task } from '@life/shared/task';
 	import { ChevronDown, ChevronUp } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 

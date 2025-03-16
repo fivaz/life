@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Modal } from '@life/shared';
 	import { CATEGORY_WORK } from '@life/shared/category';
 	import { getGoalsForTasks } from '@life/shared/goal';
 	import type { Task } from '@life/shared/task';

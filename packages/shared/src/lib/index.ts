@@ -10,15 +10,4 @@ import WeekChanger from '$lib/components/week-changer/WeekChanger.svelte';
 
 export * from '$lib/components/dialog/service.svelte';
 
-export {
-	Alert,
-	Button,
-	ConfirmButton,
-	Dialog,
-	GoalIcon,
-	LText,
-	Modal,
-	ModalForm,
-	ModalForm,
-	WeekChanger,
-};
+export { Alert, Button, ConfirmButton, Dialog, GoalIcon, LText, Modal, ModalForm, WeekChanger };

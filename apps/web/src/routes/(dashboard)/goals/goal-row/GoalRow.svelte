@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, GoalIcon, LText } from '@life/shared';
+	import { GoalIcon, LText } from '@life/shared';
 	import { parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { sortTasks } from '@life/shared/task';

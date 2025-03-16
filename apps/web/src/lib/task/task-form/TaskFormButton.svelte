@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, ModalForm2 } from '@life/shared';
+	import { Button, ModalForm } from '@life/shared';
 	import type { Task } from '@life/shared/task';
 	import { isRecurring, isUntimed } from '@life/shared/task';
 	import { Plus } from 'lucide-svelte';
@@ -110,7 +110,7 @@
 	{/if}
 </Button>
 
-<ModalForm2
+<ModalForm
 	name={isUntimed(task) ? 'Task' : 'Event'}
 	{close}
 	{errorMessage}
@@ -130,4 +130,4 @@
 
 		<TaskFormRecurring />
 	</div>
-</ModalForm2>
+</ModalForm>

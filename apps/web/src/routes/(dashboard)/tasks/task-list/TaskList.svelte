@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Button } from '@life/shared';
 	import { formatDate, parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { getTotalDuration } from '@life/shared/task';
@@ -11,11 +10,7 @@
 
 	import type { Category } from '$lib/category/category.model';
 	import type { Goal } from '$lib/goal/goal.model';
-	import {
-		buildTimedTask,
-		buildUntimedTask,
-		buildUntimedTaskWithDateSet,
-	} from '$lib/task/build-utils';
+	import { buildTimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
 	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
 	import { DATE_FR } from '$lib/utils.svelte';
 

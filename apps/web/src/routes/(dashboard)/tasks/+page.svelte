@@ -2,8 +2,6 @@
 	import { Button, LText, Modal } from '@life/shared';
 	import { getGoalsForTasks } from '@life/shared/goal';
 	import type { Task } from '@life/shared/task';
-	import { DocumentText } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
 	import { where } from 'firebase/firestore';
 	import { FileSearch2Icon } from 'lucide-svelte';
 
@@ -11,7 +9,7 @@
 	import { fetchCategories } from '$lib/category/category.respository';
 	import type { Goal } from '$lib/goal/goal.model';
 	import { fetchGoals } from '$lib/goal/goal.repository';
-	import { buildUntimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
+	import { buildUntimedTask } from '$lib/task/build-utils';
 	import { fetchTasks } from '$lib/task/task.repository';
 	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
 	import { title } from '$lib/utils.svelte';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, ModalForm2 } from '@life/shared';
+	import { Button, ModalForm } from '@life/shared';
 	import { Plus } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
 
@@ -60,7 +60,7 @@
 	{/if}
 </Button>
 
-<ModalForm2
+<ModalForm
 	name="Routine"
 	{close}
 	{errorMessage}
@@ -121,4 +121,4 @@
 		<!--icon-->
 		<IconSelector name="icon" bind:value={routineIn.icon} />
 	</div>
-</ModalForm2>
+</ModalForm>

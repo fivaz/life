@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, GoalIcon, LText, ModalForm2 } from '@life/shared';
+	import { Button, GoalIcon, LText, ModalForm } from '@life/shared';
 	import { getIcon } from '@life/shared/goal';
 	import { Plus } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
@@ -87,7 +87,7 @@
 	{/if}
 {/snippet}
 
-<ModalForm2
+<ModalForm
 	name="Goal"
 	{close}
 	{errorMessage}
@@ -138,4 +138,4 @@
 	</Select>
 
 	<IconSelector name="icon" bind:value={goalIn.icon} />
-</ModalForm2>
+</ModalForm>

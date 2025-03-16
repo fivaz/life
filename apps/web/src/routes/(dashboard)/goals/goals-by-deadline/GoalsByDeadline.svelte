@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
 	import type { Goal } from '@life/shared/goal';
-	import type { Task } from '@life/shared/task';
 	import { ChevronDownIcon, ChevronUpIcon } from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';
