@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { convertMinutesToTime, formatDate, formatTime, roundTo15 } from '@life/shared/date';
+	import { convertMinutesToTime, floorRound15, formatDate, formatTime } from '@life/shared/date';
 
 	import { currentDate } from '$lib/service.svelte.js';
 
@@ -17,7 +17,7 @@
 	let time = $derived(convertMinutesToTime(cellNumber * 15));
 
 	let isSameTime = $derived.by(() => {
-		const roundedDate = roundTo15(currentDate.value);
+		const roundedDate = floorRound15(currentDate.value);
 
 		const currentDateValue = formatDate(roundedDate);
 

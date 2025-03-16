@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button, Modal } from '@life/shared';
-	import { formatDate, getCurrentRoundedDate } from '@life/shared/date';
+	import { averageRound15, formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { sortTasks } from '@life/shared/task';
 	import { where } from 'firebase/firestore';
@@ -27,11 +27,11 @@
 		where('date', '==', formatDate(new Date())),
 	);
 
-	let currentDate = $state(getCurrentRoundedDate());
+	let currentDate = $state(averageRound15(new Date()));
 
 	$effect(() => {
 		const interval = setInterval(() => {
-			currentDate = getCurrentRoundedDate();
+			currentDate = averageRound15(new Date());
 		}, 1000);
 
 		return () => clearInterval(interval);

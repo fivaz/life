@@ -22,25 +22,25 @@
 
 	let targetDate = $state<string | undefined>();
 
-	let isFormShown = $state<boolean>(false);
-
 	let editingTask = $state<Task>(buildTimedTask([buildEmptyCategory()]));
 
 	let completedTasks = $state<Task[]>([]);
 
 	title.value = 'Calendar';
 
+	let formButton = $state<TaskFormButton | null>(null);
+
 	// ADD
 	function openFormToCreateTask(categories: Category[], date: Date) {
-		isFormShown = true;
 		editingTask = buildTimedTaskWithTimeSet(categories, date);
+		formButton?.open();
 	}
 
 	//EDIT
 	function openFormToEditTask(task: Task, date: string) {
-		isFormShown = true;
 		targetDate = date;
 		editingTask = task;
+		formButton?.open();
 	}
 
 	//TOGGLE
@@ -83,13 +83,13 @@
 	toggleCompletion={(task, targetDate) => toggleCompletion(currentUser.uid, task, targetDate)}
 />
 
-<Modal bind:isOpen={isFormShown}>
-	<TaskFormButton
-		{categories}
-		close={() => (isFormShown = false)}
-		{goals}
-		{targetDate}
-		task={editingTask}
-	/>
-</Modal>
+<TaskFormButton
+	bind:this={formButton}
+	class="hidden"
+	{categories}
+	{goals}
+	{targetDate}
+	task={editingTask}
+/>
+
 <TaskCompletedNotificationStack bind:completedTasks />

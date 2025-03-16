@@ -1,7 +1,8 @@
 import {
+	averageRound15,
 	convertTimeToMinutes,
+	floorRound15,
 	formatTime,
-	getCurrentRoundedDate,
 	parseTime,
 } from '@life/shared/date';
 import type { Task } from '@life/shared/task';
@@ -55,7 +56,7 @@ export function convertToTask(taskIn: TaskIn): Task {
 }
 
 export function convertToTaskIn(task: Task): TaskIn {
-	const time = formatTime(getCurrentRoundedDate());
+	const time = formatTime(floorRound15(new Date()));
 
 	return {
 		...task,

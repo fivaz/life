@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { GoalIcon } from '@life/shared';
 	import { tailwindColorMap } from '@life/shared/category';
-	import { roundTo15, TIME } from '@life/shared/date';
+	import { floorRound15, TIME } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { getDurationInMinutes, getSubTasks, getSubTasksCompleted } from '@life/shared/task';
 	import { format, parse } from 'date-fns';
@@ -19,7 +19,7 @@
 	let { event, targetDate, isSelected }: Props = $props();
 	// format date from this format '01:15' to this format '1h15min'
 	function formattedDuration() {
-		const date = roundTo15(parse(event.duration, TIME, new Date()));
+		const date = floorRound15(parse(event.duration, TIME, new Date()));
 
 		const hours = format(date, 'H');
 		const minutes = format(date, 'mm');

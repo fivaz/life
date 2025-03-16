@@ -48,11 +48,11 @@
 
 	let isOpen = $state(false);
 
-	function close() {
+	export function close() {
 		isOpen = false;
 	}
 
-	function open() {
+	export function open() {
 		taskIn.value = convertToTaskIn(task);
 		isOpen = true;
 	}
