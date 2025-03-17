@@ -3,8 +3,8 @@
 // zero - 900
 export const bgColors = {
 	darker: 'bg-gray-100 dark:bg-black',
-	dark: 'bg-gray-50 dark:bg-gray-950',
-	light: 'bg-white dark:bg-gray-900',
+	dark: 'bg-gray-50 dark:bg-gray-900',
+	light: 'bg-white dark:bg-gray-800',
 };
 
 export const hoverColors = {
@@ -17,14 +17,13 @@ export const hoverColors = {
 export const borderColors = {
 	darker: 'border-gray-300 dark:border-gray-700 divide-gray-300 dark:divide-gray-700',
 	dark: 'border-gray-200 dark:border-gray-800 divide-gray-200 dark:divide-gray-800',
-	light: 'border-gray-100 dark:border-gray-900 divide-gray-100 dark:divide-gray-900',
+	light: 'border-gray-100 dark:border-gray-700 divide-gray-100 dark:divide-gray-700',
 };
 
 export const textColors = {
 	darker: 'text-gray-900 dark:text-white',
 	dark: 'text-gray-700 dark:text-gray-100',
-	middle: 'text-gray-500',
+	middle: 'text-gray-500 dark:text-gray-400',
 	light: 'text-gray-50 dark:text-gray-900',
 	lighter: 'text-white dark:text-gray-800',
-	primaryDarker: 'text-indigo-600 dark:text-white',
 };

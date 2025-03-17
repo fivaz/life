@@ -1,10 +1,11 @@
 <script lang="ts">
+	import { textColors } from '@life/shared/colors';
 	import type { Snippet } from 'svelte';
 
 	import {
 		GRID_CELL_HEIGHT,
 		SUMMARY_GRID_CELL_HEIGHT,
-	} from '../calendar-week-view/calendar-day/calendar-grid/service.svelte.js';
+	} from '../calendar-week-view/calendar-day/calendar-grid/service.svelte';
 
 	interface Props {
 		children?: Snippet;
@@ -44,7 +45,7 @@
 	<div style="height: {SUMMARY_GRID_CELL_HEIGHT}px">
 		{@render children?.()}
 	</div>
-	<div class="flex w-7 flex-col pr-2 text-right text-xs leading-5 text-gray-400 md:w-14">
+	<div class="flex w-7 flex-col pr-2 text-right text-xs leading-5 md:w-14 {textColors.middle}">
 		{#each timeLabels as timeLabel (timeLabel)}
 			<div style="height: {GRID_CELL_HEIGHT * 4}px">
 				<div class="-translate-y-1/2">

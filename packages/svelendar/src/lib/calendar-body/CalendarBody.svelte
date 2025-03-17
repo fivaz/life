@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { bgColors } from '@life/shared/colors';
+	import { bgColors, borderColors } from '@life/shared/colors';
 	import type { Task } from '@life/shared/task';
 	import { onMount } from 'svelte';
 
@@ -67,12 +67,12 @@
 	<div class="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full">
 		<div
 			bind:this={containerNav}
-			class="sticky top-0 z-30 flex-none shadow md:pr-8 {bgColors.darker}"
+			class="sticky top-0 z-30 flex-none border-b shadow-sm md:pr-8 dark:border-gray-800 dark:shadow-none {bgColors.dark}"
 		>
 			<WeekList />
 		</div>
 
-		<div class="flex h-full w-full bg-white dark:bg-gray-900">
+		<div class="flex h-full w-full {bgColors.light}">
 			<HorizontalTime>
 				<div bind:this={containerOffset}></div>
 			</HorizontalTime>

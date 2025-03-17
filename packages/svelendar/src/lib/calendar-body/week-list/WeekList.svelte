@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
-	import { borderColors } from '@life/shared/colors';
+	import { borderColors, textColors } from '@life/shared/colors';
 	import { clsx } from 'clsx';
 	import { format, isSameDay } from 'date-fns';
 
@@ -23,7 +23,7 @@
 
 <!--Desktop-->
 <div
-	class="-mr-px hidden grid-cols-7 divide-x border-b border-r text-sm leading-6 md:grid {borderColors.dark}"
+	class="-mr-px hidden grid-cols-7 divide-x border-r text-sm leading-6 md:grid {borderColors.dark}"
 >
 	<div class="col-end-1 w-14"></div>
 	{#each weekDates.value as date (date)}
@@ -40,7 +40,7 @@
 <div class="grid grid-cols-7 divide-x border-x text-sm leading-6 md:hidden {borderColors.dark}">
 	{#each weekDates.value as date (date)}
 		<button
-			class="flex flex-col items-center pb-3 pt-2"
+			class="flex flex-col items-center pb-3 pt-2 {textColors.dark}"
 			onclick={() => (selectedDate.value = date)}
 			type="button"
 		>

@@ -1,9 +1,11 @@
 <script lang="ts">
+	import { borderColors } from '@life/shared/colors';
 	import { buildDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 
-	import { getCreateTask } from '../../context.utils.js';
-	import { selectedDate, weekDates } from '../../service.svelte.js';
+	import { getCreateTask } from '$lib/context.utils';
+	import { selectedDate, weekDates } from '$lib/service.svelte';
+
 	import CalendarDay from './calendar-day/CalendarDay.svelte';
 
 	interface Props {
@@ -17,9 +19,7 @@
 
 <!--Desktop-->
 <div class="hidden grow md:flex">
-	<div
-		class="grid w-full grid-cols-7 divide-x divide-gray-200 border-x border-gray-200 dark:divide-gray-800 dark:border-gray-800"
-	>
+	<div class="grid w-full grid-cols-7 divide-x border-x {borderColors.light}">
 		{#each weekDates.value as date (date)}
 			<CalendarDay
 				class="hidden md:flex"
@@ -33,7 +33,7 @@
 </div>
 
 <!--Mobile-->
-<div class="mb-5 block grow border border-b md:hidden">
+<div class="mb-5 block grow border border-b md:hidden {borderColors.light}">
 	<CalendarDay
 		class="block md:hidden"
 		create={(time) => createTask(buildDate(selectedDate.value, time))}

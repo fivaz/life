@@ -1,9 +1,11 @@
 <script lang="ts">
+	import { borderColors } from '@life/shared/colors';
 	import { convertMinutesToTime, floorRound15, formatDate, formatTime } from '@life/shared/date';
+	import { clsx } from 'clsx';
 
-	import { currentDate } from '$lib/service.svelte.js';
+	import { currentDate } from '$lib/service.svelte';
 
-	import { GRID_CELL_HEIGHT, GRID_CLASS, isSomethingDragging } from '../service.svelte.js';
+	import { GRID_CELL_HEIGHT, GRID_CLASS, isSomethingDragging } from '../service.svelte';
 
 	interface Props {
 		class?: string;
@@ -32,9 +34,13 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
 	style="height: {GRID_CELL_HEIGHT}px"
-	class="{GRID_CLASS} {klass}
-		border-gray-200 even:border-b dark:border-gray-800
-		{isSameTime ? 'rounded-md border border-dashed border-violet-500' : ''}"
+	class={clsx(
+		GRID_CLASS,
+		klass,
+		isSameTime
+			? 'rounded-md border border-dashed border-violet-500'
+			: `even:border-b ${borderColors.light}`,
+	)}
 	class:border-b={isSomethingDragging.value}
 	data-date={targetDate}
 	data-time={time}

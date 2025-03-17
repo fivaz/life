@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { borderColors } from '@life/shared/colors';
 	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { isTimed } from '@life/shared/task';
@@ -60,7 +61,7 @@
 	<div
 		bind:this={container}
 		style="height: {SUMMARY_GRID_CELL_HEIGHT}px"
-		class="relative border-b border-gray-200 dark:border-gray-800"
+		class="relative border-b {borderColors.light}"
 	>
 		<TasksSummary
 			style="width: {containerWidth}px"

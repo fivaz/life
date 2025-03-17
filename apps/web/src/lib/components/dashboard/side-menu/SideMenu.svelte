@@ -37,7 +37,7 @@
 	];
 </script>
 
-<div class="{klass} flex h-full w-64 flex-col items-stretch gap-5 p-3 {bgColors.darker}">
+<div class="{klass} flex h-full w-64 flex-col items-stretch gap-5 p-3">
 	<div class="flex items-center gap-2 text-indigo-500">
 		<Logo class="h-8 w-auto self-start" />
 		<h2 class="text-lg font-semibold" use:tooltip={`current commit: ${PUBLIC_COMMIT_HASH}`}>

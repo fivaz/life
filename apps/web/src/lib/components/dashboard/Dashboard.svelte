@@ -15,12 +15,12 @@
 	let { children }: Props = $props();
 </script>
 
-<div class="flex h-screen divide-x overflow-hidden {borderColors.dark}">
+<div class="flex h-screen divide-x overflow-hidden {borderColors.dark} {bgColors.dark}">
 	<DashboardDesktop class="hidden md:flex" />
 
 	<DashboardMobile class="flex md:hidden" />
 
-	<main class="mt-14 flex-1 overflow-y-auto md:mt-0 {bgColors.dark}">
+	<main class="mt-14 flex-1 overflow-y-auto md:mt-0 {bgColors.light}">
 		{#if currentUser.email === demoLogin.email}
 			<Banner />
 		{/if}

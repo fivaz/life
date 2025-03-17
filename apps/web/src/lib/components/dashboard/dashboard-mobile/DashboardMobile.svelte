@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
+	import { bgColors } from '@life/shared/colors';
 	import { MenuIcon } from 'lucide-svelte';
 
 	import { afterNavigate } from '$app/navigation';
@@ -55,7 +56,7 @@
 	<SideMenu
 		class="fixed left-0 top-0 z-20 transform transition-transform duration-500 {showMenu
 			? 'translate-x-0'
-			: '-translate-x-full'}"
+			: '-translate-x-full'} {bgColors.dark}"
 	/>
 
 	<!--background-->

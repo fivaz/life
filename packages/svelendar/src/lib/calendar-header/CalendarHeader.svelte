@@ -5,7 +5,7 @@
 	import { format } from 'date-fns';
 	import { PlusIcon } from 'lucide-svelte';
 
-import { getChangeDate, getCreateTask } from '../context.utils.js';
+	import { getChangeDate, getCreateTask } from '../context.utils.js';
 	import { currentDate, selectedDate } from '../service.svelte.js';
 
 	const createTask = getCreateTask();
@@ -13,7 +13,7 @@ import { getChangeDate, getCreateTask } from '../context.utils.js';
 	const handleChangeDate = getChangeDate();
 </script>
 
-<header class="flex flex-none items-center justify-between px-6 py-4 {bgColors.darker}">
+<header class="flex flex-none items-center justify-between px-6 py-4">
 	<div>
 		<LText class="flex items-center gap-2 text-base font-semibold leading-6">
 			<time class="sm:hidden" dateTime={formatDate(selectedDate.value)}>
