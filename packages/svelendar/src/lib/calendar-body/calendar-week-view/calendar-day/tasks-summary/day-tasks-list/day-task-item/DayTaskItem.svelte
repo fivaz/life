@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { GoalIcon } from '@life/shared';
+	import { GoalIcon, LText } from '@life/shared';
 	import { tailwindColorMap } from '@life/shared/category';
+	import { textColors } from '@life/shared/colors';
 	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { isUntimed } from '@life/shared/task';
-	import { CalendarClock, CalendarDays } from '@steeze-ui/lucide-icons';
-	import { Icon } from '@steeze-ui/svelte-icon';
+	import { clsx } from 'clsx';
+	import { CalendarClockIcon, CalendarDaysIcon } from 'lucide-svelte';
 
 	import { getEditTask } from '$lib/context.utils.js';
 
@@ -20,33 +21,53 @@
 	let { task, date, index }: Props = $props();
 </script>
 
-<li class="{tailwindColorMap[task.category.color].hoverLightBg} hover:underline">
+<li class="{tailwindColorMap[task.category.color].hoverLightBg} group hover:underline">
 	<button
 		class="flex w-full items-center px-6 py-3 text-left"
 		onclick={() => editTask(task, formatDate(date))}
 	>
-		<span class="w-5 pr-3 font-medium text-gray-500">{index + 1}</span>
-		<Icon
-			class="h-5 w-8 pr-3 {tailwindColorMap[task.category.color].lightText}"
-			src={isUntimed(task) ? CalendarDays : CalendarClock}
-			theme="solid"
-		/>
-		<span class="flex-1 truncate pr-3 font-medium text-gray-500" class:line-through={task.isDone}>
-			{task.name}
+		<span class="flex flex-1 items-center gap-2 truncate">
+			<LText
+				class="w-5 font-medium {tailwindColorMap[task.category.color].hoverText}"
+				level="middle"
+			>
+				{index + 1}
+			</LText>
+			{#if isUntimed(task)}
+				<CalendarDaysIcon class="size-5 {tailwindColorMap[task.category.color].lightText}" />
+			{:else}
+				<CalendarClockIcon class="size-5 {tailwindColorMap[task.category.color].lightText}" />
+			{/if}
+			<LText
+				class={clsx(
+					tailwindColorMap[task.category.color].hoverText,
+					{ 'line-trough': task.isDone },
+					'flex-1 truncate pr-3 font-medium',
+				)}
+			>
+				{task.name}
+			</LText>
 		</span>
 
-		{#if task.goal?.icon}
-			<GoalIcon name={task.goal.icon} class="h-4 w-8 pr-3 text-gray-400" />
-		{/if}
-		<span class="w-12 text-gray-500">{task.duration}</span>
-		<span class="flex w-16 justify-center">
-			<span
-				class="{task.isDone
-					? 'bg-green-50 text-green-700 ring-green-600/20'
-					: 'bg-red-50 text-red-700 ring-red-600/20'}
+		<span class="flex items-center gap-2">
+			{#if task.goal?.icon}
+				<LText>
+					<GoalIcon
+						name={task.goal.icon}
+						class="size-5 {tailwindColorMap[task.category.color].hoverText}"
+					/>
+				</LText>
+			{/if}
+			<LText class={tailwindColorMap[task.category.color].hoverText}>{task.duration}</LText>
+			<span class="flex w-16 justify-center">
+				<span
+					class="{task.isDone
+						? 'bg-green-50 text-green-700 ring-green-600/20'
+						: 'bg-red-50 text-red-700 ring-red-600/20'}
 					rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset"
-			>
-				{task.isDone ? 'Done' : 'Undone'}
+				>
+					{task.isDone ? 'Done' : 'Undone'}
+				</span>
 			</span>
 		</span>
 	</button>

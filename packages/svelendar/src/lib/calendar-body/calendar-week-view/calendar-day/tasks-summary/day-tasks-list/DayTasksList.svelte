@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
+	import { bgColors, borderColors, textColors } from '@life/shared/colors';
 	import type { Task } from '@life/shared/task';
-	import { getTotalDuration } from '@life/shared/task';
+	import { getTotalDuration, tasks as tasksSeed } from '@life/shared/task';
 
 	import DayTaskItem from './day-task-item/DayTaskItem.svelte';
 
@@ -27,7 +28,7 @@
 </script>
 
 <div
-	class="relative flex h-auto max-h-[90%] w-11/12 max-w-[543px] flex-col divide-y divide-gray-300 rounded-lg bg-gray-50 text-sm leading-6 shadow-sm dark:divide-gray-700 dark:bg-gray-950 dark:[color-scheme:dark]"
+	class="border-darker bg-dark relative flex h-auto max-h-[90%] w-11/12 max-w-[543px] flex-col divide-y rounded-lg text-sm leading-6 shadow-sm dark:[color-scheme:dark]"
 >
 	<div class="flex-none p-6 font-semibold">
 		<LText>Pending Tasks</LText>
@@ -40,7 +41,7 @@
 	</div>
 
 	<ul class="overflow-auto py-3">
-		{#each tasks as task, index (task)}
+		{#each tasksSeed as task, index (task)}
 			<DayTaskItem {date} {index} {task} />
 		{/each}
 	</ul>
