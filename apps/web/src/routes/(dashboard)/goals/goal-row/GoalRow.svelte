@@ -30,12 +30,11 @@
 
 	interface Props {
 		goal: HierarchicalGoal;
-		goals: Goal[];
 		isHierarchicalView?: boolean;
 		categories: Category[];
 	}
 
-	let { goal, goals, categories, isHierarchicalView = false }: Props = $props();
+	let { goal, categories, isHierarchicalView = false }: Props = $props();
 
 	let isTaskListOpen = $state(false);
 
@@ -72,16 +71,16 @@
 				<LText class="text-sm">{format(parseDate(goal.deadline), DATE_FR)}</LText>
 			{/if}
 			{#if isHierarchicalView}
-				<GoalFormButtonButton color="dark" goal={newChildGoal} {goals} padding="px-2 py-1">
+				<GoalFormButtonButton color="dark" goal={newChildGoal} padding="px-2 py-1">
 					<GitPullRequestCreateIcon class="size-4" />
 				</GoalFormButtonButton>
 			{/if}
 
-			<TaskFormButton {categories} color="dark" {goals} padding="px-2 py-1" task={newGoalTask}>
+			<TaskFormButton {categories} color="dark" padding="px-2 py-1" task={newGoalTask}>
 				<CalendarPlusIcon class="size-4" />
 			</TaskFormButton>
 
-			<GoalFormButtonButton color="dark" {goal} {goals} padding="px-2 py-1">
+			<GoalFormButtonButton color="dark" {goal} padding="px-2 py-1">
 				<Settings2Icon class="size-4" />
 			</GoalFormButtonButton>
 		</div>
@@ -90,14 +89,14 @@
 	{#if tasks.length}
 		<ProgressBar maxValue={tasks.length} value={getCompletedTasks(tasks)} />
 		{#if isTaskListOpen}
-			<GoalTasks {categories} {goals} {tasks} />
+			<GoalTasks {categories} {tasks} />
 		{/if}
 	{/if}
 
 	{#if goal.children.length}
 		<div class="flex flex-col gap-3 px-2 pt-2">
 			{#each goal.children as childGoal (childGoal.id)}
-				<GoalRow {categories} goal={childGoal} {goals} {isHierarchicalView} />
+				<GoalRow {categories} goal={childGoal} {isHierarchicalView} />
 			{/each}
 		</div>
 	{/if}

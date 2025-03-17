@@ -2,22 +2,23 @@
 	import { GoalIcon } from '@life/shared';
 	import { tailwindColorMap } from '@life/shared/category';
 	import type { Goal } from '@life/shared/goal';
+	import { getGoalsForTasks } from '@life/shared/goal';
 
 	import type { Category } from '$lib/category/category.model';
 	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
+	import { useGoals } from '$lib/goal/goal.svelte';
 	import { taskIn } from '$lib/task/task-form/service.svelte';
 	import TaskFormImage from '$lib/task/task-form/task-form-image/TaskFormImage.svelte';
 	import { sumTimes } from '$lib/task/time-utils';
 
 	interface Props {
 		categories: Category[];
-		goals: Goal[];
 	}
 
-	let { categories, goals }: Props = $props();
+	let { categories }: Props = $props();
 
 	// this ensures that whenever the user types - text, it converts to [ ] - text
 	function formatSubTasks(description: string) {
@@ -25,6 +26,8 @@
 
 		return description.replace(regex, '[ ] - $2\n');
 	}
+
+	const goals = useGoals(getGoalsForTasks);
 </script>
 
 <!--name-->
@@ -102,7 +105,7 @@
 		{@render goalItem(taskIn.value.goal)}
 	{/snippet}
 	<SelectItem value={null}>no goal</SelectItem>
-	{#each goals as goal (goal)}
+	{#each goals.value as goal (goal)}
 		<SelectItem class="flex gap-2" value={goal}>
 			<GoalIcon name={goal.icon} class="size-5" />
 			<span class="w-[calc(100%-32px)] truncate">{goal.name}</span>

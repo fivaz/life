@@ -16,7 +16,6 @@
 	name="Primary"
 	args={{
 		goal: buildEmptyGoal(),
-		goals,
 	}}
 	play={async ({ canvasElement }) => {
 		const canvas = within(canvasElement);

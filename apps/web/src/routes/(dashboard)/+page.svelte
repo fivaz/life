@@ -10,6 +10,7 @@
 	import { fetchCategories } from '$lib/category/category.respository';
 	import type { Goal } from '$lib/goal/goal.model';
 	import { fetchGoals } from '$lib/goal/goal.repository';
+	import { useGoals } from '$lib/goal/goal.svelte';
 	import { buildTimedTask, buildTimedTaskWithTimeSet } from '$lib/task/build-utils';
 	import TaskCompletedNotificationStack from '$lib/task/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
 	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
@@ -61,13 +62,6 @@
 
 	fetchCategories(categories);
 
-	let goals = $state<Goal[]>([]);
-
-	fetchGoals(
-		(unsortedGoals) => (goals = getGoalsForTasks(unsortedGoals)),
-		where('isDone', '==', false),
-	);
-
 	fetchFirstTasks();
 
 	let tasks = $derived(convertTaskMapToList(tasksMap.value));
@@ -86,7 +80,6 @@
 	bind:this={formButton}
 	class="hidden"
 	{categories}
-	{goals}
 	{targetDate}
 	task={editingTask}
 />

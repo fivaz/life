@@ -7,6 +7,7 @@
 
 	import type { Category } from '$lib/category/category.model';
 	import type { Goal } from '$lib/goal/goal.model';
+	import { useGoals } from '$lib/goal/goal.svelte';
 	import { addTask } from '$lib/task/task.repository';
 	import {
 		deletePossibleSingleRecurringEvent,
@@ -22,7 +23,6 @@
 
 	interface Props {
 		task: Task;
-		goals: Goal[];
 		categories: Category[];
 		targetDate?: string;
 		children?: Snippet;
@@ -31,16 +31,7 @@
 		padding?: string;
 	}
 
-	let {
-		task,
-		goals,
-		categories,
-		targetDate,
-		children,
-		color,
-		class: klass,
-		padding,
-	}: Props = $props();
+	let { task, categories, targetDate, children, color, class: klass, padding }: Props = $props();
 
 	taskIn.value = convertToTaskIn(task);
 
@@ -124,7 +115,7 @@
 	{/snippet}
 
 	<div class="flex flex-col gap-2 text-sm text-gray-700">
-		<TaskFormCore {categories} {goals} />
+		<TaskFormCore {categories} />
 
 		<TaskFormEvent />
 

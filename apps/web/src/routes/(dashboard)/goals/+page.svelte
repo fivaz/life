@@ -8,6 +8,7 @@
 	import type { Goal } from '$lib/goal/goal.model';
 	import { buildEmptyGoal } from '$lib/goal/goal.model';
 	import { fetchGoals } from '$lib/goal/goal.repository';
+	import { useGoals } from '$lib/goal/goal.svelte';
 	import { title } from '$lib/utils.svelte';
 
 	import GoalFormButton from './goal-form/GoalFormButton.svelte';
@@ -17,10 +18,6 @@
 	let newGoal = $state<Goal>(buildEmptyGoal());
 
 	title.value = 'Goals';
-
-	let goals = $state<Goal[]>([]);
-
-	fetchGoals((unsortedGoals) => (goals = sortGoals(unsortedGoals)));
 
 	let categories = $state<Category[]>([]);
 
@@ -44,13 +41,13 @@
 
 			<div class=" h-7 border-r border-gray-300 dark:border-gray-700"></div>
 
-			<GoalFormButton goal={newGoal} {goals} />
+			<GoalFormButton goal={newGoal} />
 		</div>
 	</div>
 
 	{#if isSmartView}
-		<GoalsByDeadline {categories} {goals} />
+		<GoalsByDeadline {categories} />
 	{:else}
-		<GoalsByParent {categories} {goals} />
+		<GoalsByParent {categories} />
 	{/if}
 </div>

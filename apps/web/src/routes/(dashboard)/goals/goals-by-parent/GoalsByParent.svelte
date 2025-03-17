@@ -6,35 +6,36 @@
 	import { ChevronDownIcon, ChevronUpIcon } from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';
+	import { useGoals } from '$lib/goal/goal.svelte';
 
 	import GoalRow from '../goal-row/GoalRow.svelte';
+	import type { HierarchicalGoal } from './service';
 	import { buildGoalHierarchy } from './service';
 
 	interface Props {
-		goals: Goal[];
 		categories: Category[];
 	}
 
-	let { goals, categories }: Props = $props();
+	let { categories }: Props = $props();
 
-	let goalsHierarchy = $derived(buildGoalHierarchy(goals));
+	const goals = useGoals<HierarchicalGoal>(buildGoalHierarchy);
 
-	let unCompletedGoals = $derived(goalsHierarchy.filter((goal) => !goal.isDone));
+	let unCompletedGoals = $derived(goals.value.filter((goal) => !goal.isDone));
 
-	let completedGoals = $derived(goalsHierarchy.filter((goal) => goal.isDone));
+	let completedGoals = $derived(goals.value.filter((goal) => goal.isDone));
 
 	let isCompleteListOpen = $state(false);
 </script>
 
 <div class="flex flex-col gap-3">
 	{#each unCompletedGoals as goal (goal.id)}
-		<GoalRow {categories} {goal} {goals} isHierarchicalView={true} />
+		<GoalRow {categories} {goal} isHierarchicalView={true} />
 	{/each}
 
 	{#if isCompleteListOpen}
 		<LText class="p-2 font-semibold">Completed goals</LText>
 		{#each completedGoals as goal (goal.id)}
-			<GoalRow {categories} {goal} {goals} isHierarchicalView={true} />
+			<GoalRow {categories} {goal} isHierarchicalView={true} />
 		{/each}
 	{/if}
 </div>

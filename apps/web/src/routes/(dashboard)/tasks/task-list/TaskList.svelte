@@ -21,11 +21,10 @@
 	interface Props {
 		label: string;
 		tasks: Task[];
-		goals: Goal[];
 		categories: Category[];
 	}
 
-	let { label, tasks, goals, categories }: Props = $props();
+	let { label, tasks, categories }: Props = $props();
 
 	function getNewTask() {
 		const dateString = getDate(label);
@@ -108,14 +107,7 @@
 			<LText>{getTotalDuration(tasks)}</LText>
 
 			{#if isNotRecurrent}
-				<TaskFormButton
-					class=""
-					{categories}
-					color="none"
-					{goals}
-					padding="py-1 px-1.5"
-					task={newTask}
-				>
+				<TaskFormButton {categories} color="none" padding="py-1 px-1.5" task={newTask}>
 					<PlusIcon class="size-4" />
 				</TaskFormButton>
 			{/if}
@@ -127,7 +119,7 @@
 	>
 		{#each tasks as task (task.id)}
 			<!--recurring tasks shouldn't be draggable-->
-			<TaskRow {categories} {goals} isDraggable={isNotRecurrent} {task} />
+			<TaskRow {categories} isDraggable={isNotRecurrent} {task} />
 		{/each}
 		{#if isDroppable}
 			<LText

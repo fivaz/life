@@ -18,11 +18,10 @@
 	interface Props {
 		task: Task;
 		isDraggable: boolean;
-		goals: Goal[];
 		categories: Category[];
 	}
 
-	let { task, isDraggable, goals, categories }: Props = $props();
+	let { task, isDraggable, categories }: Props = $props();
 
 	let container = $state<HTMLLIElement | null>(null);
 
@@ -108,7 +107,6 @@
 				rounded text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300"
 			{categories}
 			color="none"
-			{goals}
 			padding="px-1.5 py-1"
 			{task}
 		>

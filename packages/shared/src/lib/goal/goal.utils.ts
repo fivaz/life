@@ -152,7 +152,8 @@ export function getIcon(name: null | string) {
 }
 
 export function getGoalsForTasks(goals: Goal[]): Goal[] {
-	const smartGoals = goals.filter((goal) => !!goal.deadline);
+	const availableGoals = goals.filter((goal) => !goal.isDone);
+	const smartGoals = availableGoals.filter((goal) => !!goal.deadline);
 	return sortGoals(smartGoals);
 }
 

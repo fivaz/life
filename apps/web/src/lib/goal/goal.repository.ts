@@ -22,6 +22,7 @@ export function fetchGoals(
 	handleGoals: Goal[] | ((goals: Goal[]) => void),
 	...constrains: QueryConstraint[]
 ): void {
+	console.log('fetching Goals');
 	const handleGoalsSorted = (goals: Goal[]) => {
 		goals.sort((a, b) => a.deadline.localeCompare(b.deadline));
 

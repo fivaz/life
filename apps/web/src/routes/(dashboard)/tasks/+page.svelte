@@ -37,13 +37,6 @@
 	fetchCategories(categories);
 
 	const sortedTasksByDate = $derived(getTasksByDateSorted(tasks));
-
-	let goals = $state<Goal[]>([]);
-
-	fetchGoals(
-		(unsortedGoals) => (goals = getGoalsForTasks(unsortedGoals)),
-		where('isDone', '==', false),
-	);
 </script>
 
 <div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
@@ -65,7 +58,7 @@
 
 			<div class=" h-7 border-r border-gray-300 dark:border-gray-700"></div>
 
-			<TaskFormButton {categories} {goals} task={newTask} />
+			<TaskFormButton {categories} task={newTask} />
 		</div>
 	</div>
 
@@ -74,7 +67,7 @@
 		<ul class="flex flex-col gap-3">
 			{#each sortedTasksByDate as dateGroup (dateGroup)}
 				<!--{#if categories.length}-->
-				<TaskList {categories} {goals} label={dateGroup} tasks={sortedTasksByDate[dateGroup]} />
+				<TaskList {categories} label={dateGroup} tasks={sortedTasksByDate[dateGroup]} />
 				<!--{/if}-->
 			{/each}
 		</ul>

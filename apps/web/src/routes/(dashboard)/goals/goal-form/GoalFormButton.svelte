@@ -11,6 +11,7 @@
 	import type { Goal } from '$lib/goal/goal.model';
 	import { removeGoalChildren } from '$lib/goal/goal.model';
 	import { addGoal, deleteGoal, editGoal } from '$lib/goal/goal.repository';
+	import { useGoals } from '$lib/goal/goal.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import type { HierarchicalGoal } from '../goals-by-parent/service';
@@ -19,7 +20,6 @@
 
 	interface Props {
 		goal: Goal | HierarchicalGoal;
-		goals: Goal[];
 		children?: Snippet;
 		color?: 'indigo' | 'red' | 'white' | 'none' | 'dark' | 'light';
 		class?: string;
@@ -27,13 +27,15 @@
 		debug?: boolean;
 	}
 
-	let { goal, goals, children, color, class: klass, padding, debug = false }: Props = $props();
+	let { goal, children, color, class: klass, padding, debug = false }: Props = $props();
 
 	let errorMessage = $state('');
 
 	let goalIn = $state({ ...goal });
 
 	let isOpen = $state(debug);
+
+	let goals = useGoals();
 
 	function close() {
 		isOpen = false;
@@ -60,7 +62,7 @@
 	}
 
 	let selectGoals = $derived.by(() => {
-		const otherGoals = goals.filter((existingGoal) => existingGoal.id !== goal.id);
+		const otherGoals = goals.value.filter((existingGoal) => existingGoal.id !== goal.id);
 		return otherGoals.toSorted((a, b) => {
 			if (a.isDone === b.isDone) return 0;
 			return a.isDone ? 1 : -1;
@@ -124,7 +126,7 @@
 		bind:value={goalIn.parent}
 	>
 		{#snippet placeholder()}
-			{@const selectedGoal = goals.find((goal) => goal.id === goalIn.parent)}
+			{@const selectedGoal = goals.value.find((goal) => goal.id === goalIn.parent)}
 			{@render goalItem(selectedGoal)}
 		{/snippet}
 
