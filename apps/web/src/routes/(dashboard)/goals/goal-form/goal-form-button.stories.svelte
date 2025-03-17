@@ -1,21 +1,22 @@
 <script lang="ts" module>
+	import { goals } from '@life/shared/goal';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
-
-	import RoutineFormButton from './RoutineFormButton.svelte';
-
-	const { Story } = defineMeta({
-		component: RoutineFormButton,
-	});
-
 	import { userEvent, within } from '@storybook/test';
 
-	import { buildEmptyRoutine } from '$lib/routine/routine.model';
+	import { buildEmptyGoal } from '$lib/goal/goal.model';
+
+	import GoalFormButton from './GoalFormButton.svelte';
+
+	const { Story } = defineMeta({
+		component: GoalFormButton,
+	});
 </script>
 
 <Story
 	name="Primary"
 	args={{
-		routine: buildEmptyRoutine(),
+		goal: buildEmptyGoal(),
+		goals,
 	}}
 	play={async ({ canvasElement }) => {
 		const canvas = within(canvasElement);

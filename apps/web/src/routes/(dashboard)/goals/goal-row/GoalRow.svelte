@@ -22,7 +22,7 @@
 	import { getCompletedTasks } from '$lib/task/task-utils';
 	import { DATE_FR } from '$lib/utils.svelte';
 
-	import GoalFormButton from '../goal-form/GoalForm.svelte';
+	import GoalFormButtonButton from '../goal-form/GoalFormButton.svelte';
 	import type { HierarchicalGoal } from '../goals-by-parent/service';
 	import GoalTasks from './goal-tasks/GoalTasks.svelte';
 	// eslint-disable-next-line import/no-self-import
@@ -72,18 +72,18 @@
 				<LText class="text-sm">{format(parseDate(goal.deadline), DATE_FR)}</LText>
 			{/if}
 			{#if isHierarchicalView}
-				<GoalFormButton color="dark" goal={newChildGoal} {goals} padding="px-2 py-1">
+				<GoalFormButtonButton color="dark" goal={newChildGoal} {goals} padding="px-2 py-1">
 					<GitPullRequestCreateIcon class="size-4" />
-				</GoalFormButton>
+				</GoalFormButtonButton>
 			{/if}
 
 			<TaskFormButton {categories} color="dark" {goals} padding="px-2 py-1" task={newGoalTask}>
 				<CalendarPlusIcon class="size-4" />
 			</TaskFormButton>
 
-			<GoalFormButton color="dark" {goal} {goals} padding="px-2 py-1">
+			<GoalFormButtonButton color="dark" {goal} {goals} padding="px-2 py-1">
 				<Settings2Icon class="size-4" />
-			</GoalFormButton>
+			</GoalFormButtonButton>
 		</div>
 	</div>
 

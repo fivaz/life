@@ -10,7 +10,7 @@
 	import { fetchGoals } from '$lib/goal/goal.repository';
 	import { title } from '$lib/utils.svelte';
 
-	import GoalForm from './goal-form/GoalForm.svelte';
+	import GoalFormButton from './goal-form/GoalFormButton.svelte';
 	import GoalsByDeadline from './goals-by-deadline/GoalsByDeadline.svelte';
 	import GoalsByParent from './goals-by-parent/GoalsByParent.svelte';
 
@@ -44,7 +44,7 @@
 
 			<div class="border-darker h-7 border-r"></div>
 
-			<GoalForm goal={newGoal} {goals} />
+			<GoalFormButton goal={newGoal} {goals} />
 		</div>
 	</div>
 

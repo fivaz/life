@@ -5,6 +5,7 @@
 	import { goals } from '@life/shared/goal';
 	import { normalWithSubTasks } from '@life/shared/task';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
+	import { userEvent, within } from '@storybook/test';
 
 	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
 
@@ -36,6 +37,13 @@
 		task: buildTimedTask(categories),
 	}}
 	children={template}
+	play={async ({ canvasElement }) => {
+		const canvas = within(canvasElement);
+
+		await userEvent.click(canvas.getByRole('button'));
+
+		console.log('form open');
+	}}
 />
 
 <Story
@@ -45,6 +53,13 @@
 		task: normalWithSubTasks,
 	}}
 	children={template}
+	play={async ({ canvasElement }) => {
+		const canvas = within(canvasElement);
+
+		await userEvent.click(canvas.getByRole('button'));
+
+		console.log('form open');
+	}}
 />
 
 <Story
@@ -53,4 +68,11 @@
 		task: buildUntimedTask(categories),
 	}}
 	children={template}
+	play={async ({ canvasElement }) => {
+		const canvas = within(canvasElement);
+
+		await userEvent.click(canvas.getByRole('button'));
+
+		console.log('form open');
+	}}
 />
