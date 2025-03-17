@@ -42,6 +42,10 @@
 
 	let newGoalTask = $state<Task>(buildTimedTask(categories, removeGoalChildren(goal)));
 
+	$effect(() => {
+		newGoalTask = buildTimedTask(categories, removeGoalChildren(goal));
+	});
+
 	export function getNumberOfTasks(tasks: Task[]) {
 		if (tasks.length === 0) {
 			return '';
