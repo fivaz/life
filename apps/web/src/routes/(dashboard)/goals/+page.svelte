@@ -27,6 +27,8 @@
 	fetchCategories(categories);
 
 	let isSmartView = $state(true);
+
+	let form = $state();
 </script>
 
 <div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
@@ -44,7 +46,7 @@
 
 			<div class="border-darker h-7 border-r"></div>
 
-			<GoalFormButton goal={newGoal} {goals} />
+			<GoalFormButton debug goal={newGoal} {goals} />
 		</div>
 	</div>
 

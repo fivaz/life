@@ -21,8 +21,10 @@
 	play={async ({ canvasElement }) => {
 		const canvas = within(canvasElement);
 
-		await userEvent.click(canvas.getByRole('button'));
-
-		console.log('form open');
+		setInterval(async () => {
+			const button = canvas.getByText('New Goal');
+			await userEvent.click(button);
+			console.log('form open');
+		}, 1000);
 	}}
 />

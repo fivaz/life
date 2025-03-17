@@ -34,25 +34,23 @@
 	}
 </script>
 
-<button class={klass} onclick={handleClick} type="button">
-	<span class="flex items-center gap-2">
-		{#if label}
-			<LText class="flex-1 text-start">{label}</LText>
-		{/if}
-		<span
-			class="{value ? onColorBackground : offColorBackground}
+<button class={klass || 'flex items-center gap-2'} onclick={handleClick} type="button">
+	{#if label}
+		<LText class="flex-1 text-start">{label}</LText>
+	{/if}
+	<span
+		class="{value ? onColorBackground : offColorBackground}
 				relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-		>
-			<span
-				class="{value ? 'translate-x-6' : 'translate-x-1'}
+	>
+		<span
+			class="{value ? 'translate-x-6' : 'translate-x-1'}
 					inline-block size-4 transform rounded-full bg-white transition-transform"
-			>
-				{#if onColor && value}
-					<OnIcon class="size-4 {onColor}"></OnIcon>
-				{:else if offColor}
-					<OffIcon class="size-4 {offColor}"></OffIcon>
-				{/if}
-			</span>
+		>
+			{#if onColor && value}
+				<OnIcon class="size-4 {onColor}"></OnIcon>
+			{:else if offColor}
+				<OffIcon class="size-4 {offColor}"></OffIcon>
+			{/if}
 		</span>
 	</span>
 </button>

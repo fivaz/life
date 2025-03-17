@@ -34,8 +34,11 @@
 </script>
 
 <Modal bind:isOpen>
-	<form class="relative w-[355px] text-sm font-medium shadow" onsubmit={onSubmit}>
-		<div class="rounded-t-md bg-neutral-100 px-4 py-5 sm:p-4 dark:bg-neutral-900">
+	<form
+		class="border-darker relative w-[355px] rounded-md border text-sm font-medium"
+		onsubmit={onSubmit}
+	>
+		<div class="bg-dark rounded-t-md px-4 py-5 sm:p-4">
 			<div class="flex items-center justify-between pb-2">
 				<LText class="text-lg font-medium">
 					{isEditing ? 'Edit ' : 'Add '}
@@ -60,7 +63,7 @@
 		</div>
 
 		<div
-			class="flex justify-between rounded-b-md bg-gray-50 px-4 py-3 text-right sm:px-6 dark:bg-neutral-950"
+			class="flex justify-between rounded-b-md bg-gray-200 px-4 py-3 text-right sm:px-6 dark:bg-gray-800"
 		>
 			{#if isEditing}
 				<ConfirmButton color="red" confirm={onDelete} confirmByKey="Delete" type="button">

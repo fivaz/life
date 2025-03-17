@@ -24,15 +24,16 @@
 		color?: 'indigo' | 'red' | 'white' | 'none' | 'dark' | 'light';
 		class?: string;
 		padding?: string;
+		debug?: boolean;
 	}
 
-	let { goal, goals, children, color, class: klass, padding }: Props = $props();
+	let { goal, goals, children, color, class: klass, padding, debug = false }: Props = $props();
 
 	let errorMessage = $state('');
 
 	let goalIn = $state({ ...goal });
 
-	let isOpen = $state(false);
+	let isOpen = $state(debug);
 
 	function close() {
 		isOpen = false;
@@ -105,6 +106,8 @@
 		</div>
 	</div>
 
+	<Toggle label="Is complete" bind:value={goalIn.isDone} />
+
 	<Input
 		class="flex items-center gap-2"
 		inputClass="flex-1 w-full"
@@ -112,10 +115,6 @@
 		type="date"
 		bind:value={goalIn.deadline}
 	/>
-
-	<div class="rounded-lg border border-gray-300 p-2 dark:border-gray-700">
-		<Toggle label="Is complete" bind:value={goalIn.isDone} />
-	</div>
 
 	<Select
 		class="flex items-center"
