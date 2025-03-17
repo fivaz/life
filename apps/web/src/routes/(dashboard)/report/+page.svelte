@@ -20,16 +20,18 @@
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<LText class="hidden text-2xl font-bold md:block">{title.value}</LText>
 
-		<div class="flex flex-col gap-3">
+		<div class="flex flex-col gap-5">
 			<ReportHeader />
 
-			<ReportChart
-				chartType={reportStore.chartType}
-				endAt={reportStore.periodEndAt}
-				interval={reportStore.selectedInterval}
-				startAt={reportStore.periodStartAt}
-				tasks={reportStore.tasks}
-			/>
+			<div class="rounded-md bg-gray-100 p-3 dark:bg-gray-900">
+				<ReportChart
+					chartType={reportStore.chartType}
+					endAt={reportStore.periodEndAt}
+					interval={reportStore.selectedInterval}
+					startAt={reportStore.periodStartAt}
+					tasks={reportStore.tasks}
+				/>
+			</div>
 
 			<div class="flex flex-col gap-2">
 				{#if Object.keys(getTasksByPeriod()).length < 200}

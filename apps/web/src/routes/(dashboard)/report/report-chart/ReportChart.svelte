@@ -15,6 +15,8 @@
 		Tooltip,
 	} from 'chart.js';
 
+	import { darkMode } from '$lib/utils.svelte';
+
 	import type { Interval, ReportChartType } from './service';
 	import { getChartConfig } from './service';
 
@@ -50,6 +52,10 @@
 		if (!canvasRef) return;
 		const ctx = canvasRef.getContext('2d');
 		if (!ctx) return;
+
+		ChartJS.defaults.borderColor = darkMode.value
+			? 'oklch(0.373 0.034 259.733)'
+			: 'oklch(0.872 0.01 258.338)';
 
 		chartInstance = new ChartJS(
 			ctx,

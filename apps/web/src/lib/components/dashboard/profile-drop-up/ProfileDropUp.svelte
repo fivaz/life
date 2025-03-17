@@ -9,6 +9,7 @@
 	import { Routes } from '$lib/consts';
 	import { auth } from '$lib/firebase';
 	import { currentUser } from '$lib/user/user.utils.svelte';
+	import { darkMode } from '$lib/utils.svelte';
 
 	const list = [
 		{ label: 'Profile', onclick: () => goto(Routes.PROFILE) },
@@ -21,7 +22,7 @@
 		},
 	];
 
-	let isDark = $state(getDarkMode());
+	darkMode.value = getDarkMode();
 
 	function getDarkMode() {
 		// On page load or when changing themes, best to add inline in `head` to avoid FOUC
@@ -42,8 +43,8 @@
 
 	// Watch for changes in isDark and update localStorage + class
 	$effect(() => {
-		localStorage.theme = isDark ? 'dark' : 'light';
-		document.documentElement.classList.toggle('dark', isDark);
+		localStorage.theme = darkMode.value ? 'dark' : 'light';
+		document.documentElement.classList.toggle('dark', darkMode.value);
 	});
 </script>
 
@@ -62,6 +63,6 @@
 		onColor="text-indigo-600"
 		onColorBackground="bg-indigo-500"
 		onIcon={MoonIcon}
-		bind:value={isDark}
+		bind:value={darkMode.value}
 	/>
 </div>

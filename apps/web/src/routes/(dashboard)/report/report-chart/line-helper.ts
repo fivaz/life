@@ -30,8 +30,8 @@ export function getLineChartConfig(
 				{
 					label: 'Uncompleted Tasks',
 					data: uncompletedTasks,
-					borderColor: 'oklch(0.704 0.191 22.216)', // Blue
-					backgroundColor: 'oklch(0.704 0.191 22.216 / 0.2)', //
+					borderColor: 'oklch(0.511 0.262 276.966/0.6)',
+					backgroundColor: 'oklch(0.511 0.262 276.966/0.2)',
 					fill: true,
 				},
 			],

@@ -3,3 +3,5 @@ export const DATE_FR_SHORT = 'dd.MM';
 export const DATETIME = 'yyyy-MM-dd HH:mm';
 
 export const title = $state<{ value: string }>({ value: 'Dashboard' });
+
+export const darkMode = $state<{ value: boolean }>({ value: false });
