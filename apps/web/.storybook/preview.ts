@@ -1,5 +1,6 @@
 import '../src/app.css';
 
+import { withThemeByClassName } from '@storybook/addon-themes';
 import type { Preview } from '@storybook/svelte';
 
 const preview: Preview = {
@@ -12,6 +13,15 @@ const preview: Preview = {
 		},
 		layout: 'centered',
 	},
+	decorators: [
+		withThemeByClassName({
+			themes: {
+				light: '',
+				dark: 'dark',
+			},
+			defaultTheme: 'light',
+		}),
+	],
 	args: {
 		close: () => console.log('closed'),
 	},

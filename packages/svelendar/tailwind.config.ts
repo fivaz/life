@@ -11,4 +11,5 @@ export default {
 	},
 	safelist: tailwindCLasses,
 	plugins: [forms, containerQueries],
+	darkMode: 'selector',
 } satisfies Config;
