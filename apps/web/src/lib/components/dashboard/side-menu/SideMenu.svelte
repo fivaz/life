@@ -65,7 +65,7 @@
 )}
 	<li>
 		<a
-			class="{$page.url.pathname === href ? 'text-indigo-500' : 'text-dark'}
+			class="{$page.url.pathname === href ? 'text-indigo-500' : 'text-gray-700 dark:text-gray-100'}
 			flex items-end gap-3 rounded-lg p-2 hover:bg-indigo-600 hover:text-white"
 			{href}
 		>

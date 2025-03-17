@@ -27,7 +27,7 @@
 		bind:value={searchQuery}
 	/>
 	<div
-		class="border-darker flex h-40 flex-wrap gap-1 overflow-y-auto rounded-lg border p-2 dark:[color-scheme:dark]"
+		class="flex h-40 flex-wrap gap-1 divide-gray-400 overflow-y-auto rounded-lg border border-gray-400 p-2 dark:divide-gray-700 dark:border-gray-700 dark:[color-scheme:dark]"
 	>
 		{#each filteredIcons as icon (icon.name)}
 			<button

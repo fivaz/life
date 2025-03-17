@@ -10,9 +10,9 @@
 	let { class: klass, children, level = 'dark' }: Props = $props();
 
 	const colorMap = {
-		dark: 'text-dark',
-		darker: 'text-darker',
-		middle: 'text-middle',
+		dark: 'text-gray-700 dark:text-gray-100',
+		darker: 'text-gray-900 dark:text-white',
+		middle: 'text-gray-500 dark:text-gray-400',
 	};
 </script>
 

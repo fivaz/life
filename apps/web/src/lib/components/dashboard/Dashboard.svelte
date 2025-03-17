@@ -14,12 +14,14 @@
 	let { children }: Props = $props();
 </script>
 
-<div class="border-dark bg-dark flex h-screen divide-x overflow-hidden">
+<div
+	class="flex h-screen divide-x divide-gray-300 overflow-hidden border-gray-300 bg-gray-50 dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-900"
+>
 	<DashboardDesktop class="hidden md:flex" />
 
 	<DashboardMobile class="flex md:hidden" />
 
-	<main class="bg-light mt-14 flex-1 overflow-y-auto md:mt-0">
+	<main class="mt-14 flex-1 overflow-y-auto bg-white md:mt-0 dark:bg-gray-800">
 		{#if currentUser.email === demoLogin.email}
 			<Banner />
 		{/if}

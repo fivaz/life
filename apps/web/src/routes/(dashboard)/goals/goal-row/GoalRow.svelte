@@ -59,7 +59,7 @@
 </script>
 
 <div
-	class="bg-dark flex flex-col gap-2 rounded-lg border border-gray-300 p-3 text-base leading-6 shadow dark:border-gray-700"
+	class="flex flex-col gap-2 rounded-lg border border-gray-300 bg-gray-50 p-3 text-base leading-6 shadow dark:border-gray-700 dark:bg-gray-900"
 >
 	<div class="flex items-center justify-between">
 		<div class="flex items-center gap-2 truncate">
@@ -104,7 +104,7 @@
 
 	{#if tasks.length}
 		<button
-			class="border-darker flex w-full items-end justify-center gap-2 rounded-md border border-dashed text-base hover:bg-gray-50 dark:hover:bg-gray-800"
+			class="flex w-full items-end justify-center gap-2 divide-gray-400 rounded-md border border-dashed border-gray-400 text-base hover:bg-gray-50 dark:divide-gray-700 dark:border-gray-700 dark:hover:bg-gray-800"
 			onclick={() => (isTaskListOpen = !isTaskListOpen)}
 		>
 			<LText>{getNumberOfTasks(tasks)}</LText>

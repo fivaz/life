@@ -86,9 +86,15 @@
 </script>
 
 <!--recurring and overdue list shouldn't be droppable-->
-<li class="border-dark bg-dark flex flex-col gap-2 rounded-lg border p-3">
+<li
+	class="flex flex-col gap-2 divide-gray-300 rounded-lg border border-gray-300 bg-gray-50 p-3 dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-900"
+>
 	<div class="flex justify-between font-semibold">
-		<div class="flex items-center gap-2 {label === GROUPS.Overdue ? 'text-red-500' : 'text-dark'}">
+		<div
+			class="flex items-center gap-2 {label === GROUPS.Overdue
+				? 'text-red-500'
+				: 'text-gray-700 dark:text-gray-100'}"
+		>
 			{#if tasks.length}
 				<ClipboardListIcon class="size-5" />
 			{:else}
@@ -125,7 +131,7 @@
 		{/each}
 		{#if isDroppable}
 			<LText
-				class="border-dark relative flex h-10 select-none items-center justify-center gap-2 rounded-lg border-2 border-dashed p-1 hover:border-gray-500"
+				class="relative flex h-10 select-none items-center justify-center gap-2 divide-gray-300 rounded-lg border-2 border-dashed border-gray-300 p-1 hover:border-gray-500 dark:divide-gray-700 dark:border-gray-700"
 			>
 				<ClipboardCopyIcon class="size-5" /> drop a task here
 			</LText>

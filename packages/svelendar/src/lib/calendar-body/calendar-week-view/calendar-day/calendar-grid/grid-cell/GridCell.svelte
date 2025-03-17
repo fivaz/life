@@ -36,7 +36,9 @@
 	class={clsx(
 		GRID_CLASS,
 		klass,
-		isSameTime ? 'rounded-md border border-dashed border-violet-500' : `border-light even:border-b`,
+		isSameTime
+			? 'rounded-md border border-dashed border-violet-500'
+			: `divide-gray-200 border-gray-200 even:border-b dark:divide-gray-700 dark:border-gray-700`,
 	)}
 	class:border-b={isSomethingDragging.value}
 	data-date={targetDate}

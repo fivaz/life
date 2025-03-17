@@ -53,7 +53,7 @@
 
 	<!--side menu-->
 	<SideMenu
-		class="bg-dark fixed left-0 top-0 z-20 transform transition-transform duration-500 {showMenu
+		class="fixed left-0 top-0 z-20 transform bg-gray-50 transition-transform duration-500 dark:bg-gray-900 {showMenu
 			? 'translate-x-0'
 			: '-translate-x-full'}"
 	/>

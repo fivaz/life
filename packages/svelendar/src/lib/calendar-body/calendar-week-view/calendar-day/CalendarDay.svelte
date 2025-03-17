@@ -60,7 +60,7 @@
 	<div
 		bind:this={container}
 		style="height: {SUMMARY_GRID_CELL_HEIGHT}px"
-		class="border-light relative border-b"
+		class="relative divide-gray-200 border-b border-gray-200 dark:divide-gray-700 dark:border-gray-700"
 	>
 		<TasksSummary
 			style="width: {containerWidth}px"

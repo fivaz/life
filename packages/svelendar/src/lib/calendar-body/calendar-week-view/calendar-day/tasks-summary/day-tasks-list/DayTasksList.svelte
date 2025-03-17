@@ -27,7 +27,7 @@
 </script>
 
 <div
-	class="border-darker bg-dark relative flex h-auto max-h-[90%] w-11/12 max-w-[543px] flex-col divide-y rounded-lg text-sm leading-6 shadow-sm dark:[color-scheme:dark]"
+	class="relative flex h-auto max-h-[90%] w-11/12 max-w-[543px] flex-col divide-y divide-gray-400 rounded-lg border-gray-400 bg-gray-50 text-sm leading-6 shadow-sm dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-900 dark:[color-scheme:dark]"
 >
 	<div class="flex-none p-6 font-semibold">
 		<LText>Pending Tasks</LText>

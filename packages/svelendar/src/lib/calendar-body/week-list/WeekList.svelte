@@ -21,7 +21,9 @@
 {/snippet}
 
 <!--Desktop-->
-<div class="border-dark -mr-px hidden grid-cols-7 divide-x border-r text-sm leading-6 md:grid">
+<div
+	class="-mr-px hidden grid-cols-7 divide-x divide-gray-300 border-r border-gray-300 text-sm leading-6 md:grid dark:divide-gray-700 dark:border-gray-700"
+>
 	<div class="col-end-1 w-14"></div>
 	{#each weekDates.value as date (date)}
 		<div class="flex items-center justify-center py-3">
@@ -34,7 +36,9 @@
 </div>
 
 <!--Mobile-->
-<div class="border-dark grid grid-cols-7 divide-x border-x text-sm leading-6 md:hidden">
+<div
+	class="grid grid-cols-7 divide-x divide-gray-300 border-x border-gray-300 text-sm leading-6 md:hidden dark:divide-gray-700 dark:border-gray-700"
+>
 	{#each weekDates.value as date (date)}
 		<button
 			class="flex flex-col items-center pb-3 pt-2"

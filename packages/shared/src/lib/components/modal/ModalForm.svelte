@@ -35,10 +35,10 @@
 
 <Modal bind:isOpen>
 	<form
-		class="border-darker relative w-[355px] rounded-md border text-sm font-medium"
+		class="relative w-[355px] divide-gray-400 rounded-md border border-gray-400 text-sm font-medium dark:divide-gray-700 dark:border-gray-700"
 		onsubmit={onSubmit}
 	>
-		<div class="bg-dark rounded-t-md px-4 py-5 sm:p-4">
+		<div class="rounded-t-md bg-gray-50 px-4 py-5 sm:p-4 dark:bg-gray-900">
 			<div class="flex items-center justify-between pb-2">
 				<LText class="text-lg font-medium">
 					{isEditing ? 'Edit ' : 'Add '}

@@ -47,8 +47,14 @@
 	}
 </script>
 
-<div class="relative flex items-center {klass} border-dark rounded-md border">
-	<button class="hover-dark px-2 py-1" onclick={goToPreviousWeek} type="button">
+<div
+	class="relative flex items-center {klass} divide-gray-300 rounded-md border border-gray-300 dark:divide-gray-700 dark:border-gray-700"
+>
+	<button
+		class="px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800"
+		onclick={goToPreviousWeek}
+		type="button"
+	>
 		<ChevronLeftIcon class="size-6" />
 	</button>
 
@@ -60,11 +66,19 @@
 		bind:value={selectedDateString.value}
 	/>
 
-	<button class="hover-dark px-2 py-1.5" onclick={openDatePicker} type="button">
+	<button
+		class="px-2 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
+		onclick={openDatePicker}
+		type="button"
+	>
 		<CalendarCheck class="size-5" />
 	</button>
 
-	<button class="hover-dark px-2 py-1" onclick={goToNextWeek} type="button">
+	<button
+		class="px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800"
+		onclick={goToNextWeek}
+		type="button"
+	>
 		<ChevronRightIcon class="size-6" />
 	</button>
 </div>

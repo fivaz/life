@@ -18,7 +18,9 @@
 
 <!--Desktop-->
 <div class="hidden grow md:flex">
-	<div class="border-light grid w-full grid-cols-7 divide-x border-x">
+	<div
+		class="grid w-full grid-cols-7 divide-x divide-gray-200 border-x border-gray-200 dark:divide-gray-700 dark:border-gray-700"
+	>
 		{#each weekDates.value as date (date)}
 			<CalendarDay
 				class="hidden md:flex"
@@ -32,7 +34,9 @@
 </div>
 
 <!--Mobile-->
-<div class="border-light mb-5 block grow border border-b md:hidden">
+<div
+	class="mb-5 block grow divide-gray-200 border border-b border-gray-200 md:hidden dark:divide-gray-700 dark:border-gray-700"
+>
 	<CalendarDay
 		class="block md:hidden"
 		create={(time) => createTask(buildDate(selectedDate.value, time))}

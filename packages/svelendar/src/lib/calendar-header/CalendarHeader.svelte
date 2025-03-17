@@ -32,12 +32,14 @@
 
 	<div class="flex items-center gap-5">
 		<WeekChanger
-			class="text-dark"
+			class="text-gray-700 dark:text-gray-100"
 			onchange={(selectedDate) => handleChangeDate(selectedDate)}
 			bind:selectedDate={selectedDate.value}
 		/>
 
-		<div class="border-darker hidden h-7 border-r md:block"></div>
+		<div
+			class="hidden h-7 divide-gray-400 border-r border-gray-400 md:block dark:divide-gray-700 dark:border-gray-700"
+		></div>
 
 		<Button onclick={() => createTask(selectedDate.value)} type="button">
 			<PlusIcon class="size-4" />

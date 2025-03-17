@@ -40,7 +40,7 @@
 </div>
 
 <button
-	class="hover-light border-darker flex w-full items-end justify-center gap-2 rounded-md border border-dashed text-base"
+	class="flex w-full items-end justify-center gap-2 divide-gray-400 rounded-md border border-dashed border-gray-400 text-base hover:bg-gray-100 dark:divide-gray-700 dark:border-gray-700 dark:hover:bg-gray-900"
 	onclick={() => (isCompleteListOpen = !isCompleteListOpen)}
 >
 	<LText>completed goals</LText>
