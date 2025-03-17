@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { textColors } from '@life/shared/colors';
+	import { LText } from '@life/shared';
 	import type { Snippet } from 'svelte';
 
 	import {
@@ -45,12 +45,12 @@
 	<div style="height: {SUMMARY_GRID_CELL_HEIGHT}px">
 		{@render children?.()}
 	</div>
-	<div class="flex w-7 flex-col pr-2 text-right text-xs leading-5 md:w-14 {textColors.middle}">
+	<div class="flex w-7 flex-col pr-2 text-right text-xs leading-5 md:w-14">
 		{#each timeLabels as timeLabel (timeLabel)}
 			<div style="height: {GRID_CELL_HEIGHT * 4}px">
 				<div class="-translate-y-1/2">
-					<span class="hidden md:block">{timeLabel}</span>
-					<span class="block md:hidden">{timeLabel.replace(/AM|PM/g, '')}</span>
+					<LText class="hidden md:block" level="middle">{timeLabel}</LText>
+					<LText class="block md:hidden" level="middle">{timeLabel.replace(/AM|PM/g, '')}</LText>
 				</div>
 			</div>
 		{/each}

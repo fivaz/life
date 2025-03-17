@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
-	import { bgColors } from '@life/shared/colors';
 	import { flip } from 'svelte/animate';
 	import { dragHandleZone } from 'svelte-dnd-action';
 
@@ -39,7 +38,7 @@
 	}
 </script>
 
-<div class={bgColors.dark}>
+<div class="bg-dark">
 	<div class="mx-auto flex min-h-screen max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
 		<div class="flex items-center justify-between">
 			<LText class="hidden text-2xl font-bold md:block">{title.value}</LText>

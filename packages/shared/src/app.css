@@ -1,3 +1,46 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --font-body: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --font-mono: 'Fira Mono', monospace;
+    font-family: var(--font-body), serif;
+}
+
+.bg-dark {
+    @apply bg-gray-50 dark:bg-gray-900;
+}
+
+.bg-light {
+    @apply bg-white dark:bg-gray-800;
+}
+
+.border-darker {
+    @apply divide-gray-300 border-gray-300 dark:divide-gray-700 dark:border-gray-700;
+}
+
+.border-dark {
+    @apply divide-gray-200 border-gray-200 dark:divide-gray-800 dark:border-gray-800;
+}
+
+.border-light {
+    @apply divide-gray-100 border-gray-100 dark:divide-gray-700 dark:border-gray-700;
+}
+
+.text-darker {
+    @apply text-gray-900 dark:text-white;
+}
+
+.text-dark {
+    @apply text-gray-700 dark:text-gray-100;
+}
+
+.text-middle {
+    @apply text-gray-500 dark:text-gray-400;
+}
+
+.hover-dark {
+    @apply hover:bg-gray-200 dark:hover:bg-gray-900;
+}

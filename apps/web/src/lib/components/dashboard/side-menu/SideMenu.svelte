@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { bgColors, textColors } from '@life/shared/colors';
 	import {
 		CalendarDays,
 		ChartCandlestick,
@@ -66,7 +65,7 @@
 )}
 	<li>
 		<a
-			class="{$page.url.pathname === href ? 'text-indigo-500' : textColors.dark}
+			class="{$page.url.pathname === href ? 'text-indigo-500' : 'text-dark'}
 			flex items-end gap-3 rounded-lg p-2 hover:bg-indigo-600 hover:text-white"
 			{href}
 		>

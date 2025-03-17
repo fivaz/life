@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { GoalIcon, LText } from '@life/shared';
 	import { tailwindColorMap } from '@life/shared/category';
-	import { textColors } from '@life/shared/colors';
 	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { isUntimed } from '@life/shared/task';

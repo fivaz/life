@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { borderColors } from '@life/shared/colors';
 	import { buildDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 
@@ -19,7 +18,7 @@
 
 <!--Desktop-->
 <div class="hidden grow md:flex">
-	<div class="grid w-full grid-cols-7 divide-x border-x {borderColors.light}">
+	<div class="border-light grid w-full grid-cols-7 divide-x border-x">
 		{#each weekDates.value as date (date)}
 			<CalendarDay
 				class="hidden md:flex"
@@ -33,7 +32,7 @@
 </div>
 
 <!--Mobile-->
-<div class="mb-5 block grow border border-b md:hidden {borderColors.light}">
+<div class="border-light mb-5 block grow border border-b md:hidden">
 	<CalendarDay
 		class="block md:hidden"
 		create={(time) => createTask(buildDate(selectedDate.value, time))}

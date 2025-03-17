@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { borderColors } from '@life/shared/colors';
 	import { convertMinutesToTime, floorRound15, formatDate, formatTime } from '@life/shared/date';
 	import { clsx } from 'clsx';
 
@@ -37,9 +36,7 @@
 	class={clsx(
 		GRID_CLASS,
 		klass,
-		isSameTime
-			? 'rounded-md border border-dashed border-violet-500'
-			: `even:border-b ${borderColors.light}`,
+		isSameTime ? 'rounded-md border border-dashed border-violet-500' : `border-light even:border-b`,
 	)}
 	class:border-b={isSomethingDragging.value}
 	data-date={targetDate}

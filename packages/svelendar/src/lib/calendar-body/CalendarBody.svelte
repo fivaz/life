@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { bgColors, borderColors } from '@life/shared/colors';
 	import type { Task } from '@life/shared/task';
 	import { onMount } from 'svelte';
 

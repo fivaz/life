@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
-	import { bgColors, borderColors, textColors } from '@life/shared/colors';
 	import type { Task } from '@life/shared/task';
 	import { getTotalDuration } from '@life/shared/task';
 

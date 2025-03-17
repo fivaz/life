@@ -70,7 +70,7 @@
 >
 	<div class="flex items-center gap-1">
 		{#if event.goal?.icon}
-			<GoalIcon name={event.goal.icon} class="h-4 w-4" />
+			<GoalIcon name={event.goal.icon} class="size-4 shrink-0" />
 		{/if}
 		<span class="truncate pr-3 font-semibold">
 			{getTitle()}

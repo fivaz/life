@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
-	import { borderColors, textColors } from '@life/shared/colors';
 	import { clsx } from 'clsx';
 	import { format, isSameDay } from 'date-fns';
 
@@ -22,9 +21,7 @@
 {/snippet}
 
 <!--Desktop-->
-<div
-	class="-mr-px hidden grid-cols-7 divide-x border-r text-sm leading-6 md:grid {borderColors.dark}"
->
+<div class="border-dark -mr-px hidden grid-cols-7 divide-x border-r text-sm leading-6 md:grid">
 	<div class="col-end-1 w-14"></div>
 	{#each weekDates.value as date (date)}
 		<div class="flex items-center justify-center py-3">
@@ -37,15 +34,17 @@
 </div>
 
 <!--Mobile-->
-<div class="grid grid-cols-7 divide-x border-x text-sm leading-6 md:hidden {borderColors.dark}">
+<div class="border-dark grid grid-cols-7 divide-x border-x text-sm leading-6 md:hidden">
 	{#each weekDates.value as date (date)}
 		<button
-			class="flex flex-col items-center pb-3 pt-2 {textColors.dark}"
+			class="flex flex-col items-center pb-3 pt-2"
 			onclick={() => (selectedDate.value = date)}
 			type="button"
 		>
-			{format(date, 'EEEEE')}
-			{@render weekNumber(date, selectedDate.value)}
+			<LText>
+				{format(date, 'EEEEE')}
+				{@render weekNumber(date, selectedDate.value)}
+			</LText>
 		</button>
 	{/each}
 </div>

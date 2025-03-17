@@ -4,7 +4,6 @@
 	import ChevronLeftIcon from 'lucide-svelte/icons/chevron-left';
 	import ChevronRightIcon from 'lucide-svelte/icons/chevron-right';
 
-	import { borderColors, hoverColors } from '$lib/colors.js';
 	import { DATE, formatDate } from '$lib/date.js';
 
 	interface Props {
@@ -48,8 +47,8 @@
 	}
 </script>
 
-<div class="relative flex items-center {klass} rounded-md border {borderColors.darker}">
-	<button class="px-2 py-1 {hoverColors.darker}" onclick={goToPreviousWeek} type="button">
+<div class="relative flex items-center {klass} border-dark rounded-md border">
+	<button class="hover-dark px-2 py-1" onclick={goToPreviousWeek} type="button">
 		<ChevronLeftIcon class="size-6" />
 	</button>
 
@@ -61,11 +60,11 @@
 		bind:value={selectedDateString.value}
 	/>
 
-	<button class="px-2 py-1.5 {hoverColors.darker}" onclick={openDatePicker} type="button">
+	<button class="hover-dark px-2 py-1.5" onclick={openDatePicker} type="button">
 		<CalendarCheck class="size-5" />
 	</button>
 
-	<button class="px-2 py-1 {hoverColors.darker}" onclick={goToNextWeek} type="button">
+	<button class="hover-dark px-2 py-1" onclick={goToNextWeek} type="button">
 		<ChevronRightIcon class="size-6" />
 	</button>
 </div>
