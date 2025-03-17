@@ -80,7 +80,7 @@
 {#snippet goalItem(goal: Goal | undefined)}
 	{#if goal}
 		<div class="flex gap-2">
-			<GoalIcon name={goal.icon} class="h-5 w-5" />
+			<GoalIcon name={goal.icon} class="size-5" />
 			<span class="w-[calc(100%-20px)] truncate">{goal.name}</span>
 		</div>
 	{:else}
@@ -101,7 +101,7 @@
 		<Input inputClass="pr-10 w-full" placeholder="Name" bind:value={goalIn.name} />
 		<div class="absolute right-0 top-0 p-2.5">
 			<LText>
-				<GoalIcon class="h-5 w-5" icon={getIcon(goalIn.icon)} />
+				<GoalIcon class="size-5" icon={getIcon(goalIn.icon)} />
 			</LText>
 		</div>
 	</div>

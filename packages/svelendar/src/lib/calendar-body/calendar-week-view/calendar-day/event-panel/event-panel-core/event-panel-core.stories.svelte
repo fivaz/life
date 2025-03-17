@@ -30,7 +30,7 @@
 </script>
 
 {#snippet template({ ...args }: ComponentProps<typeof EventPanelCore>)}
-	<div class="relative h-48 w-48">
+	<div class="relative size-48">
 		<EventPanelCore {...args} />
 	</div>
 {/snippet}

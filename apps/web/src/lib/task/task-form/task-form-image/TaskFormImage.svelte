@@ -34,7 +34,7 @@
 		</div>
 	{:else}
 		<div class="flex h-24 items-center justify-center rounded-lg bg-indigo-50 dark:bg-indigo-50/5">
-			<Icon class="h-10 w-10 text-indigo-700" src={Photo} />
+			<Icon class="size-10 text-indigo-700" src={Photo} />
 		</div>
 	{/if}
 	<label

@@ -10,7 +10,7 @@
 
 <Story name="Primary" args={{}}>
 	<div class="bg-gray-100 p-2">
-		<div class="h-96 w-96">
+		<div class="size-96">
 			<Collapsable title="Test">
 				<div class="h-28 w-full bg-red-100"></div>
 			</Collapsable>

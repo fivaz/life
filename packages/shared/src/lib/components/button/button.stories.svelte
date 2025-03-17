@@ -31,9 +31,9 @@
 
 {#snippet template(args: Args<typeof Story>)}
 	{#if args.isOnlyIcon}
-		<Button {...args}><Trash class="h-4 w-4" /></Button>
+		<Button {...args}><Trash class="size-4" /></Button>
 	{:else}
-		<Button {...args}><Trash class="h-4 w-4" />Button</Button>
+		<Button {...args}><Trash class="size-4" />Button</Button>
 	{/if}
 {/snippet}
 

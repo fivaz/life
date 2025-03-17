@@ -56,7 +56,7 @@
 
 {#snippet categoryItem(category: Category)}
 	<div class="flex items-center gap-3">
-		<div class="{tailwindColorMap[category.color]?.darkBg} h-5 w-5 rounded-md"></div>
+		<div class="{tailwindColorMap[category.color]?.darkBg} size-5 rounded-md"></div>
 		<div class="w-[calc(100%-32px)] truncate">{category.name}</div>
 	</div>
 {/snippet}
@@ -82,7 +82,7 @@
 {#snippet goalItem(goal: Goal | null)}
 	<div class="flex items-center gap-3">
 		{#if goal}
-			<GoalIcon name={goal.icon} class="h-5 w-5" />
+			<GoalIcon name={goal.icon} class="size-5" />
 			<div class="w-[calc(100%-32px)] truncate">{goal.name}</div>
 		{:else}
 			<div>no goal</div>
@@ -104,7 +104,7 @@
 	<SelectItem value={null}>no goal</SelectItem>
 	{#each goals as goal (goal)}
 		<SelectItem class="flex gap-2" value={goal}>
-			<GoalIcon name={goal.icon} class="h-5 w-5" />
+			<GoalIcon name={goal.icon} class="size-5" />
 			<span class="w-[calc(100%-32px)] truncate">{goal.name}</span>
 		</SelectItem>
 	{/each}

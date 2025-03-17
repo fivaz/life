@@ -65,9 +65,9 @@
 					type="button"
 				>
 					{#if status === 'completed'}
-						<Undo2 class="h-4 w-4" />
+						<Undo2 class="size-4" />
 					{:else}
-						<Check class="h-4 w-4" />
+						<Check class="size-4" />
 					{/if}
 				</button>
 

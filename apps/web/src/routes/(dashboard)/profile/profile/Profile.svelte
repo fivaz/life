@@ -93,7 +93,7 @@
 				<div class="col-span-full">
 					<h3 class="block text-sm font-medium leading-6 text-gray-900">Avatar</h3>
 					<div class="flex items-center gap-x-3">
-						<img class="inline-block h-12 w-12" alt="Your avatar" src={photoURL} />
+						<img class="inline-block size-12" alt="Your avatar" src={photoURL} />
 						<label
 							class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
 						>

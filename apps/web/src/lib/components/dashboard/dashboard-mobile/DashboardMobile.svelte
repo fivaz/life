@@ -33,7 +33,7 @@
 		class="fixed z-10 flex h-14 w-full justify-between gap-3 border-b border-gray-300 p-4 dark:border-gray-700"
 	>
 		<div class="flex items-center gap-2">
-			<Logo class="h-8 w-8 text-indigo-600" />
+			<Logo class="size-8 text-indigo-600" />
 			<LText class="text-lg font-semibold">{title.value}</LText>
 		</div>
 		<div class="flex items-center gap-5">

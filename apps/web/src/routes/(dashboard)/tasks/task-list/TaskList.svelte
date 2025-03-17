@@ -86,13 +86,13 @@
 </script>
 
 <!--recurring and overdue list shouldn't be droppable-->
-<li class="rounded-lg border p-1 text-indigo-700">
+<li class="border-darker bg-dark rounded-lg border p-2 text-indigo-700">
 	<div class="flex justify-between px-2 py-1 font-semibold">
 		<div class="flex items-center gap-2">
 			{#if tasks.length}
-				<Icon class="h-5 w-5" src={ClipboardList} />
+				<ClipboardList class="size-5" src={} />
 			{:else}
-				<Icon class="h-5 w-5" src={Clipboard} />
+				<Clipboard class="size-5" src={} />
 			{/if}
 			<div>{label}</div>
 			<div>{getNumberOfTasks(tasks)}</div>
@@ -120,7 +120,7 @@
 			<li
 				class="relative flex h-10 select-none items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 p-1 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 			>
-				<Icon class="h-5 w-5" src={ClipboardCopy} /> drop a task here
+				<Icon class="size-5" src={ClipboardCopy} /> drop a task here
 			</li>
 		{/if}
 	</ul>

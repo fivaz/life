@@ -68,17 +68,17 @@
 		{#if tasksDelta > 0}
 			<div class="flex gap-2" use:tooltip={'tasks increased'}>
 				<LText>{tasksDelta}</LText>
-				<CalendarArrowUpIcon class="h-5 w-5 text-red-500" />
+				<CalendarArrowUpIcon class="size-5 text-red-500" />
 			</div>
 		{:else if tasksDelta < 0}
 			<div class="flex gap-2" use:tooltip={'tasks decreased'}>
 				<LText>{tasksDelta}</LText>
-				<CalendarArrowDownIcon class="h-5 w-5 text-green-500" />
+				<CalendarArrowDownIcon class="size-5 text-green-500" />
 			</div>
 		{:else}
 			<div class="flex gap-2" use:tooltip={'tasks remained equal'}>
 				<LText>{tasksDelta}</LText>
-				<CalendarMinusIcon class="h-5 w-5 text-yellow-500" />
+				<CalendarMinusIcon class="size-5 text-yellow-500" />
 			</div>
 		{/if}
 	</div>

@@ -38,15 +38,15 @@
 		<div class="flex items-center justify-between gap-5 md:grow-0">
 			<Button color="white" onclick={() => (isSmartView = !isSmartView)} padding="p-1.5">
 				{#if isSmartView}
-					<ListTree class="h-5 w-5" />
+					<ListTree class="size-5" />
 				{:else}
-					<CalendarArrowDown class="h-5 w-5" />
+					<CalendarArrowDown class="size-5" />
 				{/if}
 			</Button>
 
 			<div class="border-darker h-7 border-r"></div>
 
-			<GoalFormButton debug goal={newGoal} {goals} />
+			<GoalFormButton goal={newGoal} {goals} />
 		</div>
 	</div>
 

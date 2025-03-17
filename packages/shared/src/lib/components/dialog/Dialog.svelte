@@ -54,14 +54,14 @@
 					type="button"
 				>
 					<span class="sr-only">Close</span>
-					<Icon class="h-6 w-6" aria-hidden="true" src={XMark} />
+					<Icon class="size-6" aria-hidden="true" src={XMark} />
 				</button>
 			</div>
 			<div class="flex flex-col items-center sm:flex-row">
 				<div
-					class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
+					class="mx-auto flex size-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
 				>
-					<Icon class="h-6 w-6 text-red-600" aria-hidden="true" src={ExclamationTriangle} />
+					<Icon class="size-6 text-red-600" aria-hidden="true" src={ExclamationTriangle} />
 				</div>
 				<div class="mt-3 flex flex-col gap-2 text-center sm:ml-4 sm:mt-0 sm:text-left">
 					<!--pr-6 to prevent the X button to cover the end of the title-->

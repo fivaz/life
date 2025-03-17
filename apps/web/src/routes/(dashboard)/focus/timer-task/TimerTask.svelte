@@ -30,9 +30,9 @@
 	>
 		<div class="flex grow items-center gap-2 truncate">
 			{#if isUntimed(task)}
-				<CalendarDays class="h-5 w-5 text-white" />
+				<CalendarDays class="size-5 text-white" />
 			{:else}
-				<CalendarClock class="h-5 w-5 text-white" />
+				<CalendarClock class="size-5 text-white" />
 			{/if}
 			<div class="w-[calc(100%-20px)] truncate text-sm font-semibold leading-6">{task.name}</div>
 		</div>

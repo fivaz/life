@@ -25,11 +25,11 @@
 		<div class="flex gap-2">
 			<LText>{getTaskDelta(period)}</LText>
 			{#if getTaskDelta(period) > 0}
-				<CalendarArrowUp class="h-5 w-5 text-red-500" />
+				<CalendarArrowUp class="size-5 text-red-500" />
 			{:else if getTaskDelta(period) < 0}
-				<CalendarArrowDown class="h-5 w-5 text-green-500" />
+				<CalendarArrowDown class="size-5 text-green-500" />
 			{:else}
-				<CalendarMinus class="h-5 w-5 text-yellow-500" />
+				<CalendarMinus class="size-5 text-yellow-500" />
 			{/if}
 		</div>
 	</div>

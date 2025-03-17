@@ -13,7 +13,7 @@
 		class={clsx(
 			{ 'bg-indigo-600 text-white': isDateSelected },
 			{ 'bg-indigo-300 text-white': isToday && !isDateSelected },
-			'mt-1 flex h-8 w-8 items-center justify-center rounded-full font-semibold',
+			'mt-1 flex size-8 items-center justify-center rounded-full font-semibold',
 		)}
 	>
 		{format(date, 'dd')}

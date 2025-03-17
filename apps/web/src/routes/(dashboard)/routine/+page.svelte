@@ -24,7 +24,7 @@
 
 {#if currentUser.uid}
 	<div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
-		<div class="flex h-full w-full flex-col gap-5">
+		<div class="flex size-full flex-col gap-5">
 			<RoutineHeader routines={allRoutines} bind:showDisableRoutines />
 
 			<WeekListSelector routines={availableRoutines} />

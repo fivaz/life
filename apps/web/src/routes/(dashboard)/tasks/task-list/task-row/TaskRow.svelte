@@ -90,7 +90,7 @@
 	<div class="flex gap-3">
 		<div class="flex items-center justify-between gap-3 sm:hidden">
 			<!--to avoid dragging during scroll on touch devices, it's only possible to drag a task if it's grabbed by the handle-->
-			<Icon class="touch-none {HANDLE} h-6 w-6" src={GripVertical} />
+			<Icon class="touch-none {HANDLE} size-6" src={GripVertical} />
 			<div class="w-10">{formatTaskDate(task, DATE_FR_SHORT)}</div>
 			<div class="name w-[calc(100%-64px)]">{task.name}</div>
 		</div>

@@ -58,7 +58,7 @@
 									isToday(date) && !isSameDay(selectedDate.value, date),
 								'bg-indigo-600 text-white dark:bg-indigo-700': isSameDay(selectedDate.value, date),
 							},
-							'flex h-8 w-8 items-center justify-center rounded-full font-semibold',
+							'flex size-8 items-center justify-center rounded-full font-semibold',
 						)}
 					>
 						{format(date, 'dd')}

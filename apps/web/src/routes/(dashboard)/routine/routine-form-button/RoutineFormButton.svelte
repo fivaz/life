@@ -83,7 +83,7 @@
 			{@const item = routineTimeMap[time]}
 			{#if item}
 				<div class="flex items-center gap-3">
-					<item.icon class="h-6 w-6" />
+					<item.icon class="size-6" />
 					{item.label}
 				</div>
 			{:else}

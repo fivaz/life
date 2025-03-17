@@ -71,7 +71,7 @@
 			<WeekList />
 		</div>
 
-		<div class="bg-light flex h-full w-full">
+		<div class="bg-light flex size-full">
 			<HorizontalTime>
 				<div bind:this={containerOffset}></div>
 			</HorizontalTime>

@@ -49,7 +49,7 @@
 	{type}
 >
 	{#if isLoading}
-		<RotateCw class="h-5 w-5 animate-spin" />
+		<RotateCw class="size-5 animate-spin" />
 	{/if}
 	{@render children()}
 </button>

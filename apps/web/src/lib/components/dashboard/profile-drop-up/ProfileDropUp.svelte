@@ -50,7 +50,7 @@
 <div class="flex justify-between gap-2">
 	<DropDown class="w-32" {list} position="top-right">
 		<span class="flex items-center gap-2 rounded-lg p-2 hover:bg-gray-50 dark:hover:bg-gray-800">
-			<img class="h-8 w-8 rounded-full" alt="avatar" src={currentUser.photoURL} />
+			<img class="size-8 rounded-full" alt="avatar" src={currentUser.photoURL} />
 			<LText class="text-sm font-semibold">{currentUser.displayName}</LText>
 		</span>
 	</DropDown>

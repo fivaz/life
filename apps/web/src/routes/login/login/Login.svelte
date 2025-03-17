@@ -102,7 +102,7 @@
 								<input
 									id="remember-me"
 									name="remember-me"
-									class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+									class="size-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
 									disabled
 									type="checkbox"
 								/>
@@ -170,6 +170,6 @@
 	</div>
 
 	<div class="relative hidden w-0 flex-1 lg:block">
-		<img class="absolute inset-0 h-full w-full object-cover" alt="" src="/login.avif" />
+		<img class="absolute inset-0 size-full object-cover" alt="" src="/login.avif" />
 	</div>
 </div>

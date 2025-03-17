@@ -3,6 +3,6 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 </script>
 
-<div class="flex h-full w-full items-center justify-center">
-	<Icon class="h-9 w-auto animate-spin" src={LoaderCircle} />
+<div class="flex size-full items-center justify-center">
+	<Icon class="size-9 animate-spin" src={LoaderCircle} />
 </div>

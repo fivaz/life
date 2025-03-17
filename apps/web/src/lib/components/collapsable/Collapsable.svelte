@@ -22,7 +22,7 @@
 		type="button"
 	>
 		<LText>{title}</LText>
-		<Icon class="h-5 w-5 {isOpen ? 'rotate-90 transform' : ''}" src={ChevronRight} />
+		<Icon class="size-5 {isOpen ? 'rotate-90 transform' : ''}" src={ChevronRight} />
 	</button>
 	{#if isOpen}
 		<div class="flex flex-col gap-2 pt-2 text-gray-500" transition:slide>

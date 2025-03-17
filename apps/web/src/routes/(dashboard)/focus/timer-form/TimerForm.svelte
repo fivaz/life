@@ -38,6 +38,6 @@
 	<div
 		class="flex justify-center rounded-b-md bg-gray-50 px-4 py-3 text-right sm:px-6 dark:bg-neutral-950"
 	>
-		<Button type="submit"><Save class="h-5 w-5 text-white" />Save</Button>
+		<Button type="submit"><Save class="size-5 text-white" />Save</Button>
 	</div>
 </form>

@@ -38,12 +38,12 @@
 		<LText class="text-sm">Repeat every</LText>
 
 		{#if isAllSelected}
-			<Button class="h-6 w-6 p-1" color="white" onclick={uncheckAllDays} padding="">
-				<Copy class="h-4 w-4" />
+			<Button class="size-6 p-1" color="white" onclick={uncheckAllDays} padding="">
+				<Copy class="size-4" />
 			</Button>
 		{:else}
-			<Button class="h-6 w-6 p-1" color="white" onclick={checkAllDays} padding="">
-				<CopyCheck class="h-4 w-4" />
+			<Button class="size-6 p-1" color="white" onclick={checkAllDays} padding="">
+				<CopyCheck class="size-4" />
 			</Button>
 		{/if}
 	</div>
@@ -54,7 +54,7 @@
 				<label class="text-sm font-medium" for={day}><LText>{day}</LText></label>
 				<input
 					id={day}
-					class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+					class="size-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
 					checked={taskIn.value.recurringDaysOfWeek.includes(day)}
 					onchange={() => handleCheckboxChange(day)}
 					type="checkbox"

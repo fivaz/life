@@ -9,7 +9,7 @@
 
 <div class="flex flex-1 items-center justify-center text-center">
 	<div class="w-2/3 rounded-lg border-2 border-dashed p-6">
-		<Calendar1 class="mx-auto h-12 w-12 text-gray-400" aria-hidden="true" />
+		<Calendar1 class="mx-auto size-12 text-gray-400" aria-hidden="true" />
 
 		<h3 class="mt-2 text-sm font-semibold text-gray-900">No routine</h3>
 		<p class="mt-1 text-sm text-gray-500">Get started by creating a new routine.</p>

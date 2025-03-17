@@ -65,7 +65,7 @@
 
 {#snippet categoryItem(color: Category['color'])}
 	<div class="flex items-center gap-3">
-		<div class="h-5 w-5 rounded-md {tailwindColorMap[color].darkBg}"></div>
+		<div class="size-5 rounded-md {tailwindColorMap[color].darkBg}"></div>
 		{color}
 	</div>
 {/snippet}

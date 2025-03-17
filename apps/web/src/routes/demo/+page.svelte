@@ -16,7 +16,7 @@
 
 <div class="flex h-screen items-center justify-center">
 	<div class="flex gap-3">
-		<Icon class="h-6 w-6 animate-spin" src={LoaderCircle} />
+		<Icon class="size-6 animate-spin" src={LoaderCircle} />
 		<p class="font-semibold">You are entering demo mode...</p>
 	</div>
 </div>

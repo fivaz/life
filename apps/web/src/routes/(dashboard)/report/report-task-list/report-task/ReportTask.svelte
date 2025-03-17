@@ -21,9 +21,9 @@
 	<div class="flex items-center gap-x-2">
 		{index}
 		{#if isAdd}
-			<CalendarPlus class="h-5 w-5 text-white" />
+			<CalendarPlus class="size-5 text-white" />
 		{:else}
-			<CalendarMinus class="h-5 w-5 text-white" />
+			<CalendarMinus class="size-5 text-white" />
 		{/if}
 		<div class="block truncate text-sm font-semibold leading-6">{task.name}</div>
 	</div>
@@ -31,7 +31,7 @@
 	<div>
 		{#if isAdd && !task.isDone}
 			<div use:tooltip={'task remains undone'}>
-				<Sparkles class="h-5 w-5 text-white" />
+				<Sparkles class="size-5 text-white" />
 			</div>
 		{/if}
 	</div>

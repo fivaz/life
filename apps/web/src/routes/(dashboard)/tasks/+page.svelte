@@ -54,11 +54,16 @@
 		</div>
 
 		<div class="flex items-center justify-between gap-5 md:grow-0">
-			<Button color="white" onclick={() => (isStatsShown = true)} padding="p-1.5">
+			<Button
+				class="text-indigo-500"
+				color="light"
+				onclick={() => (isStatsShown = true)}
+				padding="p-1.5"
+			>
 				<FileSearch2Icon class="size-5" />
 			</Button>
 
-			<div class="h-7 border-r border-gray-300"></div>
+			<div class="border-darker h-7 border-r"></div>
 
 			<TaskFormButton {categories} {goals} task={newTask} />
 		</div>

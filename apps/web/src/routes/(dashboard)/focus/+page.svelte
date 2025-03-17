@@ -41,14 +41,14 @@
 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 	<div class="sticky top-0 flex flex-col items-center justify-start gap-5 py-10">
 		<Button color="white" disabled={timer.status !== 'stopped'} onclick={() => (isFormOpen = true)}>
-			<Pencil class="h-5 w-5 text-indigo-600" />
+			<Pencil class="size-5 text-indigo-600" />
 		</Button>
 
 		<Timer class="text-6xl font-bold text-indigo-600" />
 
 		{#if timer.status === 'stopped'}
 			<Button class="w-28" disabled={timer.value === 0} onclick={startTimer}>
-				<Play class="h-5 w-5 text-white" />
+				<Play class="size-5 text-white" />
 				Start
 			</Button>
 		{/if}
