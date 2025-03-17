@@ -10,6 +10,38 @@
 	font-family: var(--font-body), serif;
 }
 
+/* crossing
+
+bg-gray-50
+
+border-gray-300
+
+bg-white
+
+
+dark:bg-gray-900
+
+border-gray-700
+
+dark:bg-gray-800
+
+*/
+
+
+/* light
+
+bg-white
+
+hover:bg-gray-50
+
+
+dark:bg-gray-800
+
+dark:hover:bg-gray-900
+
+*/
+
+
 /*dark*/
 .bg-dark {
 	@apply bg-gray-50 dark:bg-gray-900;

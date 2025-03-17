@@ -27,8 +27,6 @@
 	fetchCategories(categories);
 
 	let isSmartView = $state(true);
-
-	let form = $state();
 </script>
 
 <div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
