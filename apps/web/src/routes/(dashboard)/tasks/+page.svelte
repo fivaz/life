@@ -63,7 +63,7 @@
 				<FileSearch2Icon class="size-5" />
 			</Button>
 
-			<div class="border-darker h-7 border-r"></div>
+			<div class=" h-7 border-r border-gray-300 dark:border-gray-700"></div>
 
 			<TaskFormButton {categories} {goals} task={newTask} />
 		</div>

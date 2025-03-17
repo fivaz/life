@@ -44,7 +44,7 @@
 				{/if}
 			</Button>
 
-			<div class="border-darker h-7 border-r"></div>
+			<div class=" h-7 border-r border-gray-300 dark:border-gray-700"></div>
 
 			<GoalFormButton goal={newGoal} {goals} />
 		</div>

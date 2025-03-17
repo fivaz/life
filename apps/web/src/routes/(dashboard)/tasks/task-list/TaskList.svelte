@@ -102,7 +102,14 @@
 			<LText>{getTotalDuration(tasks)}</LText>
 
 			{#if isNotRecurrent}
-				<TaskFormButton class="" {categories} color="none" {goals} padding="" task={newTask}>
+				<TaskFormButton
+					class=""
+					{categories}
+					color="none"
+					{goals}
+					padding="py-1 px-1.5"
+					task={newTask}
+				>
 					<PlusIcon class="size-4" />
 				</TaskFormButton>
 			{/if}

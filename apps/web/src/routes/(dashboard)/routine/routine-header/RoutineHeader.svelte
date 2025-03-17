@@ -54,7 +54,7 @@
 
 		<WeekChanger bind:selectedDate={selectedDate.value} />
 
-		<div class="hidden h-7 border-r border-gray-300 sm:inline dark:border-gray-700"></div>
+		<div class="hidden h-7 border-r border-gray-300 sm:block dark:border-gray-700"></div>
 
 		<RoutineFormButton routine={newRoutine} />
 	</div>
