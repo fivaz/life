@@ -10,12 +10,13 @@
 	font-family: var(--font-body), serif;
 }
 
+/*dark*/
 .bg-dark {
 	@apply bg-gray-50 dark:bg-gray-900;
 }
 
-.bg-light {
-	@apply bg-white dark:bg-gray-800;
+.hover-dark {
+	@apply hover:bg-gray-100 dark:hover:bg-gray-800;
 }
 
 .border-darker {
@@ -26,10 +27,21 @@
 	@apply divide-gray-200 border-gray-200 dark:divide-gray-800 dark:border-gray-800;
 }
 
+/*light*/
+.bg-light {
+	@apply bg-white dark:bg-gray-800;
+}
+
+.hover-light {
+	@apply hover:bg-gray-50 dark:hover:bg-gray-900;
+}
+
 .border-light {
 	@apply divide-gray-100 border-gray-100 dark:divide-gray-700 dark:border-gray-700;
 }
 
+
+/*text*/
 .text-darker {
 	@apply text-gray-900 dark:text-white;
 }
@@ -40,8 +52,4 @@
 
 .text-middle {
 	@apply text-gray-500 dark:text-gray-400;
-}
-
-.hover-dark {
-	@apply hover:bg-gray-200 dark:hover:bg-gray-900;
 }

@@ -26,7 +26,7 @@
 		categories: Category[];
 		targetDate?: string;
 		children?: Snippet;
-		color?: 'indigo' | 'red' | 'white' | 'none';
+		color?: 'indigo' | 'red' | 'white' | 'none' | 'dark' | 'light';
 		class?: string;
 		padding?: string;
 	}

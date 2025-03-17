@@ -21,7 +21,7 @@
 		goal: Goal | HierarchicalGoal;
 		goals: Goal[];
 		children?: Snippet;
-		color?: 'indigo' | 'red' | 'white' | 'none';
+		color?: 'indigo' | 'red' | 'white' | 'none' | 'dark' | 'light';
 		class?: string;
 		padding?: string;
 	}

@@ -59,12 +59,12 @@
 </script>
 
 <div
-	class="flex flex-col gap-2 rounded-lg border border-gray-300 bg-gray-50 p-3 text-base leading-6 shadow-sm dark:border-gray-700 dark:bg-gray-950"
+	class="bg-dark border-darker flex flex-col gap-2 rounded-lg border p-3 text-base leading-6 shadow-sm"
 >
 	<div class="flex items-center justify-between">
-		<div class="flex items-center gap-2" class:line-through={goal.isDone}>
-			<GoalIcon name={goal.icon} class="h-5 w-5 text-indigo-600" />
-			<LText>{goal.name}</LText>
+		<div class="flex items-center gap-2 truncate" class:line-through={goal.isDone}>
+			<GoalIcon name={goal.icon} class="size-5 text-indigo-600" />
+			<LText class="truncate">{goal.name}</LText>
 		</div>
 
 		<div class="flex items-center justify-center gap-2">
@@ -72,16 +72,16 @@
 				<LText class="text-sm">{format(parseDate(goal.deadline), DATE_FR)}</LText>
 			{/if}
 			{#if isHierarchicalView}
-				<GoalFormButton color="white" goal={newChildGoal} {goals} padding="px-2 py-1">
+				<GoalFormButton color="dark" goal={newChildGoal} {goals} padding="px-2 py-1">
 					<GitPullRequestCreateIcon class="size-4" />
 				</GoalFormButton>
 			{/if}
 
-			<TaskFormButton {categories} color="white" {goals} padding="px-2 py-1" task={newGoalTask}>
-				<CalendarPlusIcon class="h-4 w-4" />
+			<TaskFormButton {categories} color="dark" {goals} padding="px-2 py-1" task={newGoalTask}>
+				<CalendarPlusIcon class="size-4" />
 			</TaskFormButton>
 
-			<GoalFormButton color="white" {goal} {goals} padding="px-2 py-1">
+			<GoalFormButton color="dark" {goal} {goals} padding="px-2 py-1">
 				<Settings2Icon class="size-4" />
 			</GoalFormButton>
 		</div>
@@ -104,7 +104,7 @@
 
 	{#if tasks.length}
 		<button
-			class="flex w-full items-end justify-center gap-2 rounded-md text-base outline-dashed outline-1 outline-gray-300 hover:bg-gray-100 hover:underline dark:outline-gray-700 hover:dark:bg-gray-900"
+			class="border-darker hover-dark flex w-full items-end justify-center gap-2 rounded-md border border-dashed text-base"
 			onclick={() => (isTaskListOpen = !isTaskListOpen)}
 		>
 			<LText>{getNumberOfTasks(tasks)}</LText>

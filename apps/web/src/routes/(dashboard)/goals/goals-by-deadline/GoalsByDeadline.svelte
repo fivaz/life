@@ -46,15 +46,15 @@
 	</div>
 
 	<button
-		class="flex w-full items-end justify-center gap-2 rounded-md text-base outline-dashed outline-1 outline-gray-300 hover:bg-gray-100 hover:underline dark:outline-gray-700 hover:dark:bg-gray-900"
+		class="hover-light border-darker flex w-full items-end justify-center gap-2 rounded-md border border-dashed text-base"
 		onclick={() => (isCompleteListOpen = !isCompleteListOpen)}
 	>
 		<LText>completed goals</LText>
 		<LText>
 			{#if isCompleteListOpen}
-				<ChevronUpIcon class="size-4 animate-bounce"></ChevronUpIcon>
+				<ChevronUpIcon class="size-4 animate-bounce" />
 			{:else}
-				<ChevronDownIcon class="size-4 animate-bounce"></ChevronDownIcon>
+				<ChevronDownIcon class="size-4 animate-bounce" />
 			{/if}
 		</LText>
 	</button>
