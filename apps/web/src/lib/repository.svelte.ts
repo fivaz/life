@@ -29,14 +29,18 @@ export function fetchItemsCore<I>(
 	zodSchema: ZodSchema,
 	...constrains: QueryConstraint[]
 ) {
-	return onSnapshot(getQuery(segment, ...constrains), (snapshot) => {
-		const items = populate<I>(snapshot, zodSchema);
-		if (typeof handleItems === 'function') {
-			handleItems(items);
-		} else {
-			handleItems.splice(0, handleItems.length, ...items);
-		}
-	});
+	return onSnapshot(
+		getQuery(segment, ...constrains),
+		(snapshot) => {
+			const items = populate<I>(snapshot, zodSchema);
+			if (typeof handleItems === 'function') {
+				handleItems(items);
+			} else {
+				handleItems.splice(0, handleItems.length, ...items);
+			}
+		},
+		(error) => console.error(`error while fetching data from ${segment}`, error),
+	);
 }
 
 export function getQuery(segment: string, ...constrains: QueryConstraint[]): Query {

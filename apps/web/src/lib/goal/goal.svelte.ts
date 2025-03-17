@@ -3,11 +3,11 @@ import { fetchGoals } from '$lib/goal/goal.repository';
 
 const goals = $state<Goal[]>([]);
 
-let isLoading = $state<boolean>(false);
+let hasStarted = $state<boolean>(false);
 
 export function useGoals<T = Goal>(handleGoals?: (goals: Goal[]) => T[]) {
-	if (goals.length === 0 && !isLoading) {
-		isLoading = true;
+	if (goals.length === 0 && !hasStarted) {
+		hasStarted = true;
 		fetchGoals(goals);
 	}
 
