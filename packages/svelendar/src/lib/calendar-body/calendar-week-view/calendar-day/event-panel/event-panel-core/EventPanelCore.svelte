@@ -62,7 +62,7 @@
 
 <div
 	class="group absolute inset-px select-none overflow-y-auto rounded-lg px-2 py-1 text-xs leading-5
-		{isSelected ? 'border-1 touch-none border border-black' : ''}
+		{isSelected ? 'touch-none' : ''}
 		{tailwindColorMap[event.category.color].text}
 		{tailwindColorMap[event.category.color].lightBg}
 		{tailwindColorMap[event.category.color].hoverLightBg}

@@ -67,12 +67,12 @@
 	<div class="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full">
 		<div
 			bind:this={containerNav}
-			class="sticky top-0 z-30 flex-none border-b shadow-sm md:pr-8 dark:border-gray-800 dark:shadow-none {bgColors.dark}"
+			class="bg-dark sticky top-0 z-30 flex-none border-b shadow-sm md:pr-8 dark:border-gray-800 dark:shadow-none"
 		>
 			<WeekList />
 		</div>
 
-		<div class="flex h-full w-full {bgColors.light}">
+		<div class="bg-light flex h-full w-full">
 			<HorizontalTime>
 				<div bind:this={containerOffset}></div>
 			</HorizontalTime>

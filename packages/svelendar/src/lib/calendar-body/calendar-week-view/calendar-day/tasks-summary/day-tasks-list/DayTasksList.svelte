@@ -2,7 +2,7 @@
 	import { LText } from '@life/shared';
 	import { bgColors, borderColors, textColors } from '@life/shared/colors';
 	import type { Task } from '@life/shared/task';
-	import { getTotalDuration, tasks as tasksSeed } from '@life/shared/task';
+	import { getTotalDuration } from '@life/shared/task';
 
 	import DayTaskItem from './day-task-item/DayTaskItem.svelte';
 
@@ -41,7 +41,7 @@
 	</div>
 
 	<ul class="overflow-auto py-3">
-		{#each tasksSeed as task, index (task)}
+		{#each tasks as task, index (task)}
 			<DayTaskItem {date} {index} {task} />
 		{/each}
 	</ul>
