@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { LText } from '@life/shared';
 	import type { Goal } from '@life/shared/goal';
 	import { ChevronDown, ChevronUp } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { ChevronDownIcon, ChevronUpIcon } from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';
 
@@ -30,7 +32,7 @@
 	{/each}
 
 	{#if isCompleteListOpen}
-		<div class="flex justify-between p-2 font-semibold">Completed goals</div>
+		<LText class="p-2 font-semibold">Completed goals</LText>
 		{#each completedGoals as goal (goal.id)}
 			<GoalRow {categories} {goal} {goals} isHierarchicalView={true} />
 		{/each}
@@ -38,9 +40,15 @@
 </div>
 
 <button
-	class="flex w-full items-end justify-center gap-2 text-base hover:bg-gray-100 hover:underline"
+	class="hover-light border-darker flex w-full items-end justify-center gap-2 rounded-md border border-dashed text-base"
 	onclick={() => (isCompleteListOpen = !isCompleteListOpen)}
 >
-	completed goals
-	<Icon class="h-4 w-4 animate-bounce" src={isCompleteListOpen ? ChevronUp : ChevronDown} />
+	<LText>completed goals</LText>
+	<LText>
+		{#if isCompleteListOpen}
+			<ChevronUpIcon class="size-4 animate-bounce" />
+		{:else}
+			<ChevronDownIcon class="size-4 animate-bounce" />
+		{/if}
+	</LText>
 </button>

@@ -36,7 +36,7 @@
 		{/each}
 
 		{#if isCompleteListOpen}
-			<LText class="font-semibold">Completed goals</LText>
+			<LText class="p-2 font-semibold">Completed goals</LText>
 			<div class="flex flex-col gap-3">
 				{#each completedGoals as goal (goal.id)}
 					<GoalRow {categories} goal={{ ...goal, children: [] }} {goals} />

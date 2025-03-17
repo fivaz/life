@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { GoalIcon, LText } from '@life/shared';
+	import { DoneChip, GoalIcon, LText } from '@life/shared';
 	import { tailwindColorMap } from '@life/shared/category';
 	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
@@ -58,16 +58,7 @@
 				</LText>
 			{/if}
 			<LText class={tailwindColorMap[task.category.color].hoverText}>{task.duration}</LText>
-			<span class="flex w-16 justify-center">
-				<span
-					class="{task.isDone
-						? 'bg-green-50 text-green-700 ring-green-600/20'
-						: 'bg-red-50 text-red-700 ring-red-600/20'}
-					rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset"
-				>
-					{task.isDone ? 'Done' : 'Undone'}
-				</span>
-			</span>
+			<DoneChip isDone={task.isDone} />
 		</span>
 	</button>
 </li>

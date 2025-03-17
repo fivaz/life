@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { LText } from '@life/shared';
+	import { DoneChip, LText } from '@life/shared';
 	import { parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { clsx } from 'clsx';
@@ -31,7 +31,7 @@
 	{#each tasks as task (task)}
 		<li>
 			<TaskFormButton
-				class="w-full cursor-pointer rounded-md px-3 py-2 hover:bg-gray-100 hover:underline dark:hover:bg-gray-900"
+				class="group w-full cursor-pointer rounded-md px-3 py-2 text-sm hover:bg-indigo-500 hover:text-white hover:underline"
 				{categories}
 				color="none"
 				{goals}
@@ -41,25 +41,14 @@
 					<LText
 						class={clsx(
 							{ 'line-through': task.isDone },
-							'flex w-[calc(100%-64px)] items-center gap-3 truncate',
+							'flex items-center gap-3 truncate group-hover:text-white',
 						)}
 					>
-						<CalendarDaysIcon class="h-6 w-6 text-gray-400" />
+						<CalendarDaysIcon class="size-5 shrink-0" />
 						<span class="hidden w-20 md:block">{showDate(task)}</span>
 						<span class="w-[calc(100%-24px)] truncate text-left">{task.name}</span>
 					</LText>
-					<span class="w-16">
-						<span
-							class={clsx(
-								task.isDone
-									? 'bg-green-50 text-green-700 ring-green-600/20 dark:bg-green-100'
-									: 'bg-red-50 text-red-700 ring-red-600/20 dark:bg-red-100',
-								'm-auto w-max rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset',
-							)}
-						>
-							{task.isDone ? 'Done' : 'Undone'}
-						</span>
-					</span>
+					<DoneChip isDone={task.isDone} />
 				</div>
 			</TaskFormButton>
 		</li>

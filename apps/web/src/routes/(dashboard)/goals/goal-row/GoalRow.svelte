@@ -59,12 +59,12 @@
 </script>
 
 <div
-	class="bg-dark border-darker flex flex-col gap-2 rounded-lg border p-3 text-base leading-6 shadow-sm"
+	class="bg-dark border-darker flex flex-col gap-2 rounded-lg border p-3 text-base leading-6 shadow"
 >
 	<div class="flex items-center justify-between">
-		<div class="flex items-center gap-2 truncate" class:line-through={goal.isDone}>
+		<div class="flex items-center gap-2 truncate">
 			<GoalIcon name={goal.icon} class="size-5 text-indigo-600" />
-			<LText class="truncate">{goal.name}</LText>
+			<LText class="truncate {goal.isDone ? 'line-through' : ''}">{goal.name}</LText>
 		</div>
 
 		<div class="flex items-center justify-center gap-2">
