@@ -20,11 +20,11 @@
 }
 
 .border-darker {
-	@apply divide-gray-300 border-gray-300 dark:divide-gray-700 dark:border-gray-700;
+	@apply divide-gray-400 border-gray-400 dark:divide-gray-700 dark:border-gray-700;
 }
 
 .border-dark {
-	@apply divide-gray-200 border-gray-200 dark:divide-gray-800 dark:border-gray-800;
+	@apply divide-gray-300 border-gray-300 dark:divide-gray-700 dark:border-gray-700;
 }
 
 /*light*/
@@ -33,11 +33,11 @@
 }
 
 .hover-light {
-	@apply hover:bg-gray-50 dark:hover:bg-gray-900;
+	@apply hover:bg-gray-100 dark:hover:bg-gray-900;
 }
 
 .border-light {
-	@apply divide-gray-100 border-gray-100 dark:divide-gray-700 dark:border-gray-700;
+	@apply divide-gray-200 border-gray-200 dark:divide-gray-700 dark:border-gray-700;
 }
 
 

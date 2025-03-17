@@ -26,9 +26,7 @@
 </script>
 
 <div class="relative w-11/12 max-w-[350px] text-sm leading-6">
-	<div
-		class="divide-y divide-gray-300 rounded-lg bg-neutral-100 shadow-sm ring-1 dark:divide-gray-700 dark:bg-neutral-900"
-	>
+	<div class="bg-light border-light divide-y rounded-lg shadow-sm">
 		<div class="px-6 py-4">
 			<LText class="text-base font-semibold">Tasks stats</LText>
 		</div>
@@ -49,9 +47,7 @@
 </div>
 
 {#snippet list(Icon: typeof Grid3X3Icon, label: string, quantity: number, duration: string)}
-	<li
-		class="flex cursor-pointer justify-between gap-3 px-6 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
-	>
+	<li class="hover-light flex cursor-pointer justify-between gap-3 px-6 py-3">
 		<div class="flex grow gap-3">
 			<LText><Icon class="size-6" /></LText>
 			<LText>{label}</LText>

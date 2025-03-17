@@ -1,12 +1,12 @@
 <script lang="ts">
+	import { LText } from '@life/shared';
 	import { formatDate, parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { getTotalDuration } from '@life/shared/task';
-	import { Clipboard, ClipboardCopy, ClipboardList } from '@steeze-ui/lucide-icons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { clsx } from 'clsx';
 	import { addDays, addWeeks, lastDayOfWeek, parse, subDays } from 'date-fns';
-	import { PlusIcon } from 'lucide-svelte';
+	import { ClipboardCopyIcon, ClipboardIcon, ClipboardListIcon, PlusIcon } from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';
 	import type { Goal } from '$lib/goal/goal.model';
@@ -86,30 +86,30 @@
 </script>
 
 <!--recurring and overdue list shouldn't be droppable-->
-<li class="border-darker bg-dark rounded-lg border p-2 text-indigo-700">
-	<div class="flex justify-between px-2 py-1 font-semibold">
-		<div class="flex items-center gap-2">
+<li class="border-dark bg-dark flex flex-col gap-2 rounded-lg border p-3">
+	<div class="flex justify-between font-semibold">
+		<div class="flex items-center gap-2 {label === GROUPS.Overdue ? 'text-red-500' : 'text-dark'}">
 			{#if tasks.length}
-				<ClipboardList class="size-5" src={} />
+				<ClipboardListIcon class="size-5" />
 			{:else}
-				<Clipboard class="size-5" src={} />
+				<ClipboardIcon class="size-5" />
 			{/if}
-			<div>{label}</div>
-			<div>{getNumberOfTasks(tasks)}</div>
+			<span>{label}</span>
+			<span>{getNumberOfTasks(tasks)}</span>
 		</div>
 
 		<div class="flex items-center gap-2">
-			<div>{getTotalDuration(tasks)}</div>
+			<LText>{getTotalDuration(tasks)}</LText>
 
 			{#if isNotRecurrent}
-				<TaskFormButton {categories} color="white" {goals} padding="py-1 px-1.5" task={newTask}>
+				<TaskFormButton class="" {categories} color="none" {goals} padding="" task={newTask}>
 					<PlusIcon class="size-4" />
 				</TaskFormButton>
 			{/if}
 		</div>
 	</div>
 	<ul
-		class={clsx('flex flex-col gap-1', { [TASK_LIST_CLASS]: isDroppable })}
+		class={clsx('flex flex-col gap-2', { [TASK_LIST_CLASS]: isDroppable })}
 		data-date={isNotRecurrent && getDate(label)}
 	>
 		{#each tasks as task (task.id)}
@@ -117,11 +117,11 @@
 			<TaskRow {categories} {goals} isDraggable={isNotRecurrent} {task} />
 		{/each}
 		{#if isDroppable}
-			<li
-				class="relative flex h-10 select-none items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 p-1 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+			<LText
+				class="border-dark relative flex h-10 select-none items-center justify-center gap-2 rounded-lg border-2 border-dashed p-1 hover:border-gray-500"
 			>
-				<Icon class="size-5" src={ClipboardCopy} /> drop a task here
-			</li>
+				<ClipboardCopyIcon class="size-5" /> drop a task here
+			</LText>
 		{/if}
 	</ul>
 </li>
