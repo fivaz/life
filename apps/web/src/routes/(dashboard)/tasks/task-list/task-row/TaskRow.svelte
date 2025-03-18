@@ -7,9 +7,6 @@
 	import { Settings2Icon } from 'lucide-svelte';
 	import { onDestroy, onMount } from 'svelte';
 
-	import type { Category } from '$lib/category/category.model';
-	import { useCategories } from '$lib/category/category.svelte';
-	import type { Goal } from '$lib/goal/goal.model';
 	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 	import { DATE_FR, DATE_FR_SHORT } from '$lib/utils.svelte';

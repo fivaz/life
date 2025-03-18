@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { clsx } from 'clsx';
 
-	import type { Category } from '../../../../../apps/web/src/lib/category/category.model.js';
-	import type { Goal } from '../../../../../apps/web/src/lib/goal/goal.model.js';
-
 	interface Props {
 		isDone: boolean;
 	}

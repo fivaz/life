@@ -6,8 +6,6 @@
 	import { format } from 'date-fns';
 	import { CalendarDaysIcon } from 'lucide-svelte';
 
-	import type { Category } from '$lib/category/category.model';
-	import type { Goal } from '$lib/goal/goal.model';
 	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
 	import { DATE_FR } from '$lib/utils.svelte';
 

@@ -1,14 +1,9 @@
 <script lang="ts">
 	import { Button, LText } from '@life/shared';
-	import { sortGoals } from '@life/shared/goal';
 	import { CalendarArrowDown, ListTree } from 'lucide-svelte';
 
-	import type { Category } from '$lib/category/category.model';
-	import { fetchCategories } from '$lib/category/category.respository';
 	import type { Goal } from '$lib/goal/goal.model';
 	import { buildEmptyGoal } from '$lib/goal/goal.model';
-	import { fetchGoals } from '$lib/goal/goal.repository';
-	import { useGoals } from '$lib/goal/goal.svelte';
 	import { title } from '$lib/utils.svelte';
 
 	import GoalFormButton from './goal-form/GoalFormButton.svelte';

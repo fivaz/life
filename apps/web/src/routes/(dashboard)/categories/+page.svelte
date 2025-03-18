@@ -5,7 +5,7 @@
 
 	import type { Category } from '$lib/category/category.model';
 	import { buildEmptyCategory } from '$lib/category/category.model';
-	import { fetchCategories, updateCategoriesOrder } from '$lib/category/category.respository';
+	import { updateCategoriesOrder } from '$lib/category/category.respository';
 	import { useCategories } from '$lib/category/category.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 	import { title } from '$lib/utils.svelte';

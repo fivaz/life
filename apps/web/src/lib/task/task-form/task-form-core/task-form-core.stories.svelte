@@ -1,6 +1,4 @@
 <script lang="ts" module>
-	import { categories } from '@life/shared/category';
-	import { goals } from '@life/shared/goal';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import TaskFormCore from './TaskFormCore.svelte';

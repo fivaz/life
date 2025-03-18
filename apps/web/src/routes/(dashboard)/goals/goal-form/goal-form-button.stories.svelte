@@ -1,5 +1,4 @@
 <script lang="ts" module>
-	import { goals } from '@life/shared/goal';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import { userEvent, within } from '@storybook/test';
 

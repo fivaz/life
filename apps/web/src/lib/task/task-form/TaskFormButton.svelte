@@ -5,9 +5,6 @@
 	import { Plus } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
 
-	import type { Category } from '$lib/category/category.model';
-	import type { Goal } from '$lib/goal/goal.model';
-	import { useGoals } from '$lib/goal/goal.svelte';
 	import { addTask } from '$lib/task/task.repository';
 	import {
 		deletePossibleSingleRecurringEvent,

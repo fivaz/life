@@ -1,15 +1,10 @@
 <script lang="ts">
 	import { Button, LText, Modal } from '@life/shared';
-	import { getGoalsForTasks } from '@life/shared/goal';
 	import type { Task } from '@life/shared/task';
 	import { where } from 'firebase/firestore';
 	import { FileSearch2Icon } from 'lucide-svelte';
 
-	import type { Category } from '$lib/category/category.model';
-	import { fetchCategories } from '$lib/category/category.respository';
 	import { useCategories } from '$lib/category/category.svelte';
-	import type { Goal } from '$lib/goal/goal.model';
-	import { fetchGoals } from '$lib/goal/goal.repository';
 	import { buildUntimedTask } from '$lib/task/build-utils';
 	import { fetchTasks } from '$lib/task/task.repository';
 	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';

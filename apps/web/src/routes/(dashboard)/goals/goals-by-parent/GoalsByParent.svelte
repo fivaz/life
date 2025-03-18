@@ -1,11 +1,7 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
-	import type { Goal } from '@life/shared/goal';
-	import { ChevronDown, ChevronUp } from '@steeze-ui/lucide-icons';
-	import { Icon } from '@steeze-ui/svelte-icon';
 	import { ChevronDownIcon, ChevronUpIcon } from 'lucide-svelte';
 
-	import type { Category } from '$lib/category/category.model';
 	import { useGoals } from '$lib/goal/goal.svelte';
 
 	import GoalRow from '../goal-row/GoalRow.svelte';

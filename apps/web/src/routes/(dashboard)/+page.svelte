@@ -1,16 +1,11 @@
 <script lang="ts">
 	import { CATEGORY_WORK } from '@life/shared/category';
-	import { getGoalsForTasks } from '@life/shared/goal';
 	import type { Task } from '@life/shared/task';
-	import { where } from 'firebase/firestore';
 	import { Calendar } from 'svelendar';
 
 	import type { Category } from '$lib/category/category.model';
 	import { buildEmptyCategory } from '$lib/category/category.model';
 	import { fetchCategories } from '$lib/category/category.respository';
-	import type { Goal } from '$lib/goal/goal.model';
-	import { fetchGoals } from '$lib/goal/goal.repository';
-	import { useGoals } from '$lib/goal/goal.svelte';
 	import { buildTimedTask, buildTimedTaskWithTimeSet } from '$lib/task/build-utils';
 	import TaskCompletedNotificationStack from '$lib/task/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
 	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';

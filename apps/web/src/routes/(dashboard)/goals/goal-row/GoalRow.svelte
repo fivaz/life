@@ -12,7 +12,6 @@
 		Settings2Icon,
 	} from 'lucide-svelte';
 
-	import type { Category } from '$lib/category/category.model';
 	import { useCategories } from '$lib/category/category.svelte';
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
