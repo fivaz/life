@@ -13,7 +13,7 @@
 <Story name="Primary" args={{}}>
 	<div class="rounded-lg bg-indigo-100 p-2">
 		<div class="w-80 rounded-lg bg-white p-5">
-			<TaskFormCore {categories} />
+			<TaskFormCore />
 		</div>
 	</div>
 </Story>

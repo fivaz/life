@@ -12,12 +12,6 @@
 	import type { HierarchicalGoal } from './service';
 	import { buildGoalHierarchy } from './service';
 
-	interface Props {
-		categories: Category[];
-	}
-
-	let { categories }: Props = $props();
-
 	const goals = useGoals<HierarchicalGoal>(buildGoalHierarchy);
 
 	let unCompletedGoals = $derived(goals.value.filter((goal) => !goal.isDone));
@@ -29,13 +23,13 @@
 
 <div class="flex flex-col gap-3">
 	{#each unCompletedGoals as goal (goal.id)}
-		<GoalRow {categories} {goal} isHierarchicalView={true} />
+		<GoalRow {goal} isHierarchicalView={true} />
 	{/each}
 
 	{#if isCompleteListOpen}
 		<LText class="p-2 font-semibold">Completed goals</LText>
 		{#each completedGoals as goal (goal.id)}
-			<GoalRow {categories} {goal} isHierarchicalView={true} />
+			<GoalRow {goal} isHierarchicalView={true} />
 		{/each}
 	{/if}
 </div>

@@ -9,6 +9,7 @@
 	import { ClipboardCopyIcon, ClipboardIcon, ClipboardListIcon, PlusIcon } from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';
+	import { useCategories } from '$lib/category/category.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
 	import { buildTimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
 	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
@@ -21,18 +22,19 @@
 	interface Props {
 		label: string;
 		tasks: Task[];
-		categories: Category[];
 	}
 
-	let { label, tasks, categories }: Props = $props();
+	let { label, tasks }: Props = $props();
+
+	const categories = useCategories();
 
 	function getNewTask() {
 		const dateString = getDate(label);
 		if (dateString) {
 			const date = parseDate(dateString);
-			return buildUntimedTaskWithDateSet(categories, date);
+			return buildUntimedTaskWithDateSet(categories.value, date);
 		} else {
-			return buildTimedTask(categories);
+			return buildTimedTask(categories.value);
 		}
 	}
 
@@ -107,7 +109,7 @@
 			<LText>{getTotalDuration(tasks)}</LText>
 
 			{#if isNotRecurrent}
-				<TaskFormButton {categories} color="none" padding="py-1 px-1.5" task={newTask}>
+				<TaskFormButton color="none" padding="py-1 px-1.5" task={newTask}>
 					<PlusIcon class="size-4" />
 				</TaskFormButton>
 			{/if}
@@ -119,7 +121,7 @@
 	>
 		{#each tasks as task (task.id)}
 			<!--recurring tasks shouldn't be draggable-->
-			<TaskRow {categories} isDraggable={isNotRecurrent} {task} />
+			<TaskRow isDraggable={isNotRecurrent} {task} />
 		{/each}
 		{#if isDroppable}
 			<LText

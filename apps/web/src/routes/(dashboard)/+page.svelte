@@ -76,12 +76,6 @@
 	toggleCompletion={(task, targetDate) => toggleCompletion(currentUser.uid, task, targetDate)}
 />
 
-<TaskFormButton
-	bind:this={formButton}
-	class="hidden"
-	{categories}
-	{targetDate}
-	task={editingTask}
-/>
+<TaskFormButton bind:this={formButton} class="hidden" {targetDate} task={editingTask} />
 
 <TaskCompletedNotificationStack bind:completedTasks />

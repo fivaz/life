@@ -5,6 +5,7 @@
 	import { getGoalsForTasks } from '@life/shared/goal';
 
 	import type { Category } from '$lib/category/category.model';
+	import { useCategories } from '$lib/category/category.svelte';
 	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
 	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
@@ -14,18 +15,14 @@
 	import TaskFormImage from '$lib/task/task-form/task-form-image/TaskFormImage.svelte';
 	import { sumTimes } from '$lib/task/time-utils';
 
-	interface Props {
-		categories: Category[];
-	}
-
-	let { categories }: Props = $props();
-
 	// this ensures that whenever the user types - text, it converts to [ ] - text
 	function formatSubTasks(description: string) {
 		const regex = /(^|(?<=\n))-\s(.*?)\n/g;
 
 		return description.replace(regex, '[ ] - $2\n');
 	}
+
+	const categories = useCategories();
 
 	const goals = useGoals(getGoalsForTasks);
 </script>
@@ -75,7 +72,7 @@
 	{#snippet placeholder()}
 		{@render categoryItem(taskIn.value.category)}
 	{/snippet}
-	{#each categories as category (category)}
+	{#each categories.value as category (category)}
 		<SelectItem value={category}>
 			{@render categoryItem(category)}
 		</SelectItem>

@@ -26,7 +26,7 @@
 		title={dialog.value.title}
 	/>
 	<div class="w-96">
-		<TaskFormButton {categories} close={() => console.log('closed')} {goals} userId="" {...args} />
+		<TaskFormButton close={() => console.log('closed')} {goals} userId="" {...args} />
 	</div>
 {/snippet}
 

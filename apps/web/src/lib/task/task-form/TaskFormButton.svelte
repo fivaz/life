@@ -23,7 +23,6 @@
 
 	interface Props {
 		task: Task;
-		categories: Category[];
 		targetDate?: string;
 		children?: Snippet;
 		color?: 'indigo' | 'red' | 'white' | 'none' | 'dark' | 'light';
@@ -31,7 +30,7 @@
 		padding?: string;
 	}
 
-	let { task, categories, targetDate, children, color, class: klass, padding }: Props = $props();
+	let { task, targetDate, children, color, class: klass, padding }: Props = $props();
 
 	taskIn.value = convertToTaskIn(task);
 
@@ -115,7 +114,7 @@
 	{/snippet}
 
 	<div class="flex flex-col gap-2 text-sm text-gray-700">
-		<TaskFormCore {categories} />
+		<TaskFormCore />
 
 		<TaskFormEvent />
 

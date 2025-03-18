@@ -7,6 +7,7 @@
 
 	import type { Category } from '$lib/category/category.model';
 	import { fetchCategories } from '$lib/category/category.respository';
+	import { useCategories } from '$lib/category/category.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
 	import { fetchGoals } from '$lib/goal/goal.repository';
 	import { buildUntimedTask } from '$lib/task/build-utils';
@@ -28,13 +29,11 @@
 
 	fetchTasks(tasks, where('isDone', '==', false));
 
-	let categories = $state<Category[]>([]);
+	const categories = useCategories();
 
 	$effect(() => {
-		newTask = buildUntimedTask(categories);
+		newTask = buildUntimedTask(categories.value);
 	});
-
-	fetchCategories(categories);
 
 	const sortedTasksByDate = $derived(getTasksByDateSorted(tasks));
 </script>
@@ -58,7 +57,7 @@
 
 			<div class=" h-7 border-r border-gray-300 dark:border-gray-700"></div>
 
-			<TaskFormButton {categories} task={newTask} />
+			<TaskFormButton task={newTask} />
 		</div>
 	</div>
 
@@ -67,7 +66,7 @@
 		<ul class="flex flex-col gap-3">
 			{#each sortedTasksByDate as dateGroup (dateGroup)}
 				<!--{#if categories.length}-->
-				<TaskList {categories} label={dateGroup} tasks={sortedTasksByDate[dateGroup]} />
+				<TaskList label={dateGroup} tasks={sortedTasksByDate[dateGroup]} />
 				<!--{/if}-->
 			{/each}
 		</ul>

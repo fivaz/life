@@ -4,16 +4,11 @@
 	import { ChevronDownIcon, ChevronUpIcon } from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';
+	import { fetchGoals } from '$lib/goal/goal.repository';
 	import { useGoals } from '$lib/goal/goal.svelte';
 
 	import GoalRow from '../goal-row/GoalRow.svelte';
 	import { sortGoalsByDate } from '../service';
-
-	interface Props {
-		categories: Category[];
-	}
-
-	let { categories }: Props = $props();
 
 	let goals = useGoals();
 
@@ -32,7 +27,7 @@
 			<LText class="font-semibold">{date}</LText>
 			<div class="flex flex-col gap-3">
 				{#each goalsByDate[date] as goal (goal.id)}
-					<GoalRow {categories} goal={{ ...goal, children: [] }} />
+					<GoalRow goal={{ ...goal, children: [] }} />
 				{/each}
 			</div>
 		{/each}
@@ -41,7 +36,7 @@
 			<LText class="p-2 font-semibold">Completed goals</LText>
 			<div class="flex flex-col gap-3">
 				{#each completedGoals as goal (goal.id)}
-					<GoalRow {categories} goal={{ ...goal, children: [] }} />
+					<GoalRow goal={{ ...goal, children: [] }} />
 				{/each}
 			</div>
 		{/if}

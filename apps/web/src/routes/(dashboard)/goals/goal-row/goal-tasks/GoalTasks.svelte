@@ -13,10 +13,9 @@
 
 	interface Props {
 		tasks: Task[];
-		categories: Category[];
 	}
 
-	let { tasks, categories }: Props = $props();
+	let { tasks }: Props = $props();
 
 	function showDate(task: Task) {
 		if (!task.date) {
@@ -31,7 +30,6 @@
 		<li>
 			<TaskFormButton
 				class="group w-full cursor-pointer rounded-md px-3 py-2 text-sm hover:bg-indigo-500 hover:text-white hover:underline"
-				{categories}
 				color="none"
 				{task}
 			>

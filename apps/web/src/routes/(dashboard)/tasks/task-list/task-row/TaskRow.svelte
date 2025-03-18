@@ -8,6 +8,7 @@
 	import { onDestroy, onMount } from 'svelte';
 
 	import type { Category } from '$lib/category/category.model';
+	import { useCategories } from '$lib/category/category.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
 	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
@@ -18,10 +19,9 @@
 	interface Props {
 		task: Task;
 		isDraggable: boolean;
-		categories: Category[];
 	}
 
-	let { task, isDraggable, categories }: Props = $props();
+	let { task, isDraggable }: Props = $props();
 
 	let container = $state<HTMLLIElement | null>(null);
 
@@ -105,7 +105,6 @@
 			class="{tailwindColorMap[task.category.color].hoverBg} {tailwindColorMap[task.category.color]
 				.hoverText}
 				rounded text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300"
-			{categories}
 			color="none"
 			padding="px-1.5 py-1"
 			{task}

@@ -13,6 +13,7 @@
 	} from 'lucide-svelte';
 
 	import type { Category } from '$lib/category/category.model';
+	import { useCategories } from '$lib/category/category.svelte';
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
 	import { buildEmptyGoalWithParent, removeGoalChildren } from '$lib/goal/goal.model';
@@ -31,19 +32,20 @@
 	interface Props {
 		goal: HierarchicalGoal;
 		isHierarchicalView?: boolean;
-		categories: Category[];
 	}
 
-	let { goal, categories, isHierarchicalView = false }: Props = $props();
+	let { goal, isHierarchicalView = false }: Props = $props();
 
 	let isTaskListOpen = $state(false);
 
 	let newChildGoal = $state<Goal>(buildEmptyGoalWithParent(goal.id));
 
-	let newGoalTask = $state<Task>(buildTimedTask(categories, removeGoalChildren(goal)));
+	const categories = useCategories();
+
+	let newGoalTask = $state<Task>(buildTimedTask(categories.value, removeGoalChildren(goal)));
 
 	$effect(() => {
-		newGoalTask = buildTimedTask(categories, removeGoalChildren(goal));
+		newGoalTask = buildTimedTask(categories.value, removeGoalChildren(goal));
 	});
 
 	export function getNumberOfTasks(tasks: Task[]) {
@@ -80,7 +82,7 @@
 				</GoalFormButtonButton>
 			{/if}
 
-			<TaskFormButton {categories} color="dark" padding="px-2 py-1" task={newGoalTask}>
+			<TaskFormButton color="dark" padding="px-2 py-1" task={newGoalTask}>
 				<CalendarPlusIcon class="size-4" />
 			</TaskFormButton>
 
@@ -93,14 +95,14 @@
 	{#if tasks.length}
 		<ProgressBar maxValue={tasks.length} value={getCompletedTasks(tasks)} />
 		{#if isTaskListOpen}
-			<GoalTasks {categories} {tasks} />
+			<GoalTasks {tasks} />
 		{/if}
 	{/if}
 
 	{#if goal.children.length}
 		<div class="flex flex-col gap-3 px-2 pt-2">
 			{#each goal.children as childGoal (childGoal.id)}
-				<GoalRow {categories} goal={childGoal} {isHierarchicalView} />
+				<GoalRow goal={childGoal} {isHierarchicalView} />
 			{/each}
 		</div>
 	{/if}

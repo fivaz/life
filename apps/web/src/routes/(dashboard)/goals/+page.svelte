@@ -19,10 +19,6 @@
 
 	title.value = 'Goals';
 
-	let categories = $state<Category[]>([]);
-
-	fetchCategories(categories);
-
 	let isSmartView = $state(true);
 </script>
 
@@ -46,8 +42,8 @@
 	</div>
 
 	{#if isSmartView}
-		<GoalsByDeadline {categories} />
+		<GoalsByDeadline />
 	{:else}
-		<GoalsByParent {categories} />
+		<GoalsByParent />
 	{/if}
 </div>
