@@ -22,7 +22,7 @@
 
 	let { children, class: klass, position, list, itemClass }: Props = $props();
 
-	let isOpen = $state(false);
+	let isOpen = $state(true);
 
 	let button = $state<HTMLButtonElement | null>(null);
 
@@ -60,14 +60,14 @@
 	{#if isOpen}
 		<ul
 			class="{positionClass[position]} {klass}
-			absolute origin-top-right transform divide-y divide-gray-700 rounded-md bg-gray-300 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:divide-gray-800 dark:bg-gray-900"
+			absolute origin-top-right transform divide-y divide-gray-300 rounded-md bg-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:divide-gray-600 dark:bg-gray-800"
 			in:fade={{ duration: 100 }}
 			out:fade={{ duration: 100 }}
 		>
 			{#each list as item}
 				<li>
 					<button
-						class="{itemClass} focus-visible:outline-white-600 inline-flex w-full items-center justify-start gap-2 p-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 dark:text-gray-100 dark:hover:bg-gray-800"
+						class="{itemClass} focus-visible:outline-white-600 inline-flex w-full items-center justify-start gap-2 p-2 text-sm text-gray-900 shadow-sm hover:bg-gray-200 hover:text-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 dark:text-gray-100 dark:hover:bg-gray-800"
 						onclick={item.onclick}
 					>
 						{#if item.icon}
