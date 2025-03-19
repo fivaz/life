@@ -1,9 +1,8 @@
 <script lang="ts">
-	import type { ComputePositionReturn, Middleware, Placement } from '@floating-ui/dom';
+	import type { Middleware, Placement } from '@floating-ui/dom';
 	import { autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom';
-	import { Copy } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
-	import { onDestroy, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 
 	interface Props {

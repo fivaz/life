@@ -12,17 +12,6 @@
 	import { currentUser } from '$lib/user/user.utils.svelte';
 	import { darkMode } from '$lib/utils.svelte';
 
-	const list = [
-		{ label: 'Profile', onclick: () => goto(Routes.PROFILE) },
-		{
-			label: 'Sign out',
-			onclick: async () => {
-				await signOut(auth);
-				void goto(Routes.LOGIN);
-			},
-		},
-	];
-
 	darkMode.value = getDarkMode();
 
 	function getDarkMode() {

@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { TriangleAlertIcon, XIcon } from 'lucide-svelte';
+	import TriangleAlertIcon from 'lucide-svelte/icons/triangle-alert';
+	import XIcon from 'lucide-svelte/icons/x';
 
 	import Button from '$lib/components/button/Button.svelte';
 	import LText from '$lib/components/LText.svelte';

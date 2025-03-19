@@ -1,6 +1,4 @@
 <script lang="ts">
-	import type { Placement } from '@floating-ui/dom';
-	import { Copy } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
 
 	interface Props {

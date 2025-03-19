@@ -3,7 +3,7 @@
 	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { isUntimed } from '@life/shared/task';
-	import { Copy, CopyIcon, EllipsisVerticalIcon, ListTodo, ListTodoIcon } from 'lucide-svelte';
+	import { CopyIcon, EllipsisVerticalIcon, ListTodoIcon } from 'lucide-svelte';
 
 	import DropDownItem from '$lib/components/drop-down/drop-down-item/DropDownItem.svelte';
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';
