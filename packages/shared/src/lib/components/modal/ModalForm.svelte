@@ -63,7 +63,7 @@
 		</div>
 
 		<div
-			class="flex justify-between rounded-b-md bg-gray-200 px-4 py-3 text-right sm:px-6 dark:bg-gray-800"
+			class="flex justify-between rounded-b-md bg-gray-200 px-4 py-3 text-right sm:px-6 dark:bg-gray-700"
 		>
 			{#if isEditing}
 				<ConfirmButton color="red" confirm={onDelete} confirmByKey="Delete" type="button">

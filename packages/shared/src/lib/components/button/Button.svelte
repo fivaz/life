@@ -32,7 +32,7 @@
 			'focus-visible:outline-white-600 hover:bg-gray-200 dark:hover:bg-gray-800 border dark:border-gray-700 text-gray-900 dark:text-gray-100',
 		dark: 'border divide-gray-400 border-gray-400 dark:divide-gray-700 dark:border-gray-700 text-gray-700 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 focus-visible:outline-indigo-600',
 		light:
-			'border divide-gray-200 border-gray-200 dark:divide-gray-700 dark:border-gray-700 text-light hover:bg-gray-100 dark:hover:bg-gray-900 focus-visible:outline-indigo-600',
+			'border divide-gray-200 border-gray-200 dark:divide-gray-700 dark:border-gray-700 text-gray-600 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-900 focus-visible:outline-indigo-600',
 		none: '',
 	} as const;
 
