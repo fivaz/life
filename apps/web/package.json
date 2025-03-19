@@ -80,13 +80,11 @@
 		"workbox-precaching": "^7.3.0",
 		"workbox-routing": "^7.3.0",
 		"workbox-window": "^7.1.0",
-		"zod": "^3.23.8"
+		"zod": "^3.23.8",
+		"svelte-chartjs": "^3.1.5"
 	},
 	"resolutions": {
 		"sharp": "0.32.6",
 		"sharp-ico": "0.1.5"
-	},
-	"dependencies": {
-		"svelte-chartjs": "^3.1.5"
 	}
 }
