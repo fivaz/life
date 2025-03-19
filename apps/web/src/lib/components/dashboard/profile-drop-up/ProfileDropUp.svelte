@@ -4,6 +4,7 @@
 	import { MoonIcon, SunIcon } from 'lucide-svelte';
 
 	import { goto } from '$app/navigation';
+	import DropDownItem from '$lib/components/drop-down/drop-down-item/DropDownItem.svelte';
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import { Routes } from '$lib/consts';
@@ -49,11 +50,22 @@
 </script>
 
 <div class="flex justify-between gap-2">
-	<DropDown class="w-32" {list} placement="top-end">
-		<span class="flex items-center gap-2 rounded-lg p-2 hover:bg-gray-50 dark:hover:bg-gray-800">
-			<img class="size-8 rounded-full" alt="avatar" src={currentUser.photoURL} />
-			<LText class="text-sm font-semibold">{currentUser.displayName}</LText>
-		</span>
+	<DropDown placement="top-end">
+		{#snippet button()}
+			<span class="flex items-center gap-2 rounded-lg p-2 hover:bg-gray-50 dark:hover:bg-gray-800">
+				<img class="size-8 rounded-full" alt="avatar" src={currentUser.photoURL} />
+				<LText class="text-sm font-semibold">{currentUser.displayName}</LText>
+			</span>
+		{/snippet}
+		<DropDownItem href={Routes.PROFILE}>Profile</DropDownItem>
+		<DropDownItem
+			onclick={async () => {
+				await signOut(auth);
+				void goto(Routes.LOGIN);
+			}}
+		>
+			Sign out
+		</DropDownItem>
 	</DropDown>
 	<Toggle
 		class="px-2"
