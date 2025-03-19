@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { autoUpdate, computePosition, offset } from '@floating-ui/dom';
+	import type { ComputePositionReturn, Middleware, Placement } from '@floating-ui/dom';
+	import { autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom';
 	import { Copy } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 
 	interface Props {
@@ -10,40 +11,40 @@
 		class?: string;
 		itemClass?: string;
 		list: { label: string; onclick: () => void; icon?: typeof Copy }[];
-		position: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
+		placement: Placement;
 	}
 
-	let { children, class: klass, position, list, itemClass }: Props = $props();
+	let { children, class: klass, placement, list, itemClass }: Props = $props();
 
 	let isOpen = $state(false); // Start closed for better UX
-	let button = $state<HTMLButtonElement | null>(null);
-	let dropdown = $state<HTMLUListElement | null>(null);
-	let dropdownStyle = $state<string>(''); // Dynamic styles for positioning
-
-	// Map your position prop to Floating UI placements
-	const placementMap = {
-		'top-right': 'top-end',
-		'top-left': 'top-start',
-		'bottom-right': 'bottom-end',
-		'bottom-left': 'bottom-start',
-	} as const;
+	let buttonEl = $state<HTMLButtonElement | null>(null);
+	let dropdownEl = $state<HTMLUListElement | null>(null);
 
 	// Function to update dropdown position
 	async function updatePosition() {
-		if (!button || !dropdown || !isOpen) return;
+		if (!buttonEl || !dropdownEl) return;
+		const middleware: Middleware[] = [
+			offset(6), // Add some space between button and dropdown
+			flip(), // Flip to the opposite side if there's not enough space
+			shift(), // Shift the dropdown if needed
+		];
 
-		const { x, y } = await computePosition(button, dropdown, {
-			placement: placementMap[position],
-			middleware: [offset(4)], // Add some space between button and dropdown
+		const { x, y } = await computePosition(buttonEl, dropdownEl, {
+			placement,
+			middleware,
 		});
 
-		dropdownStyle = `left: ${x}px; top: ${y}px;`;
+		// Apply positioning
+		Object.assign(dropdownEl.style, {
+			left: `${x}px`,
+			top: `${y}px`,
+		});
 	}
 
 	// Handle click outside to close dropdown
 	function handleClickOutside(event: MouseEvent) {
-		if (!button || !dropdown || !(event.target instanceof HTMLElement)) return;
-		if (button.contains(event.target) || dropdown.contains(event.target)) return;
+		if (!isOpen || !buttonEl || !dropdownEl || !(event.target instanceof HTMLElement)) return;
+		if (buttonEl.contains(event.target) || dropdownEl.contains(event.target)) return;
 		isOpen = false;
 	}
 
@@ -53,8 +54,8 @@
 
 		// Auto-update position when open (handles resize, scroll, etc.)
 		let cleanup: (() => void) | undefined;
-		if (button && dropdown) {
-			cleanup = autoUpdate(button, dropdown, updatePosition);
+		if (buttonEl && dropdownEl) {
+			cleanup = autoUpdate(buttonEl, dropdownEl, updatePosition);
 		}
 
 		return () => {
@@ -73,14 +74,13 @@
 </script>
 
 <div class="relative flex text-left">
-	<button bind:this={button} class="w-full" onclick={toggleIsOpen} type="button">
+	<button bind:this={buttonEl} class="w-full" onclick={toggleIsOpen} type="button">
 		{@render children()}
 	</button>
 
 	{#if isOpen}
 		<ul
-			bind:this={dropdown}
-			style={dropdownStyle}
+			bind:this={dropdownEl}
 			class="{klass} absolute z-10 divide-y divide-gray-300 rounded-md bg-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:divide-gray-600 dark:bg-gray-800"
 			in:fade={{ duration: 100 }}
 			out:fade={{ duration: 100 }}

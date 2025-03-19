@@ -57,7 +57,7 @@
 	});
 </script>
 
-<DropDown class="w-48" itemClass="text-gray-700" list={optionsList} position="bottom-left">
+<DropDown class="w-48" itemClass="text-gray-700" list={optionsList} placement="bottom-start">
 	<div class="rounded-md p-1.5 hover:bg-gray-200 dark:hover:bg-gray-800">
 		<LText>
 			<EllipsisVerticalIcon class="size-5" />

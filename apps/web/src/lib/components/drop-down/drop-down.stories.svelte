@@ -22,13 +22,13 @@
 {/snippet}
 
 <Story
-	name="Top right"
-	args={{ position: 'top-right', list, itemClass: 'text-center' }}
+	name="Top end"
+	args={{ placement: 'top-end', list, itemClass: 'text-center' }}
 	children={template}
 />
 
-<Story name="Top left" args={{ position: 'top-left', list }} children={template} />
+<Story name="Top start" args={{ placement: 'top-start', list }} children={template} />
 
-<Story name="Bottom right" args={{ position: 'bottom-right', list }} children={template} />
+<Story name="Bottom end" args={{ placement: 'bottom-end', list }} children={template} />
 
-<Story name="Bottom left" args={{ position: 'bottom-left', list }} children={template} />
+<Story name="Bottom start" args={{ placement: 'bottom-start', list }} children={template} />
