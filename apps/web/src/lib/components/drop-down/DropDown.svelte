@@ -15,7 +15,7 @@
 
 	let { children, button, class: klass, placement, closeAfterClick = true }: Props = $props();
 
-	let isOpen = $state(true); // Start closed for better UX
+	let isOpen = $state(false); // Start closed for better UX
 	let buttonEl = $state<HTMLButtonElement | null>(null);
 	let dropdownEl = $state<HTMLUListElement | null>(null);
 
