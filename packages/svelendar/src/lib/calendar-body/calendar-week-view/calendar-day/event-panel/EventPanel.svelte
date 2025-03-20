@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Task } from '@life/shared/task';
+	import { clsx } from 'clsx';
 	import interact from 'interactjs';
 	import { onMount } from 'svelte';
 
@@ -136,7 +137,9 @@
 <div
 	bind:this={container}
 	style="{getHeight(event)} {getTop(event)} {getDivision(event, eventsGrid)}"
-	class="{klass} {EVENT_PANEL_CLASS} absolute rounded-lg"
+	class={clsx(klass, EVENT_PANEL_CLASS, 'absolute rounded-lg', {
+		'border-2 border-dashed border-indigo-500 dark:border-indigo-200': isSelected,
+	})}
 >
 	<EventPanelCore {event} {isSelected} {targetDate} />
 </div>
