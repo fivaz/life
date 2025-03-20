@@ -11,6 +11,6 @@
 	let seconds = $derived<number>(timer.value % 60);
 </script>
 
-<div class={klass}>
+<span class={klass}>
 	{minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}
-</div>
+</span>

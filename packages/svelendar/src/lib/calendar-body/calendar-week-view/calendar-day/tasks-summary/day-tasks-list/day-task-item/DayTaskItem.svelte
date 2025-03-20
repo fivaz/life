@@ -25,7 +25,7 @@
 		class="flex w-full items-center px-6 py-3 text-left"
 		onclick={() => editTask(task, formatDate(date))}
 	>
-		<span class="flex flex-1 items-center gap-2 truncate">
+		<div class="flex flex-1 items-center gap-2 truncate">
 			<LText
 				class="w-5 font-medium {tailwindColorMap[task.category.color].hoverText}"
 				level="middle"
@@ -46,9 +46,9 @@
 			>
 				{task.name}
 			</LText>
-		</span>
+		</div>
 
-		<span class="flex items-center gap-2">
+		<div class="flex items-center gap-2">
 			{#if task.goal?.icon}
 				<LText>
 					<GoalIcon
@@ -59,6 +59,6 @@
 			{/if}
 			<LText class={tailwindColorMap[task.category.color].hoverText}>{task.duration}</LText>
 			<DoneChip isDone={task.isDone} />
-		</span>
+		</div>
 	</button>
 </li>

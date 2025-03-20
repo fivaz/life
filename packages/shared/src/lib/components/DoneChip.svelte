@@ -8,8 +8,8 @@
 	let { isDone }: Props = $props();
 </script>
 
-<span class="w-16">
-	<span
+<div class="w-16">
+	<p
 		class={clsx(
 			isDone
 				? 'bg-green-50 text-green-700 ring-green-600/20 dark:bg-green-100'
@@ -18,5 +18,5 @@
 		)}
 	>
 		{isDone ? 'Done' : 'Undone'}
-	</span>
-</span>
+	</p>
+</div>

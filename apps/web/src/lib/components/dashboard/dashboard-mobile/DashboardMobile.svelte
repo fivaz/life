@@ -34,7 +34,7 @@
 	>
 		<div class="flex items-center gap-2">
 			<Logo class="size-8 text-indigo-600" />
-			<LText class="text-lg font-semibold">{title.value}</LText>
+			<LText class="text-lg font-semibold" tag="h2">{title.value}</LText>
 		</div>
 		<div class="flex items-center gap-5">
 			{#if timer.status !== 'stopped'}
@@ -44,9 +44,7 @@
 				</div>
 			{/if}
 			<button onclick={() => (showMenu = true)}>
-				<LText>
-					<MenuIcon />
-				</LText>
+				<LText tag="span"><MenuIcon /></LText>
 			</button>
 		</div>
 	</header>
