@@ -36,12 +36,16 @@
 	class={clsx(
 		GRID_CLASS,
 		klass,
-		isSameTime
-			? 'rounded-md border-2 border-dashed border-violet-500'
-			: `divide-gray-200 border-gray-200 even:border-b dark:divide-gray-700 dark:border-gray-700`,
+		'relative divide-gray-200 border-gray-200 even:border-b dark:divide-gray-700 dark:border-gray-700',
 	)}
 	class:border-b={isSomethingDragging.value}
 	data-date={targetDate}
 	data-time={time}
 	onclick={() => !isSomethingDragging.value && create(time)}
-></div>
+>
+	{#if isSameTime}
+		<div
+			class="pointer-events-none absolute left-0 right-0 top-0 z-30 h-full rounded-md border-2 border-dashed border-indigo-600"
+		></div>
+	{/if}
+</div>
