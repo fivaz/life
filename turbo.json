@@ -6,17 +6,17 @@
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".svelte-kit/**", ".vercel/**", "dist/**"]
     },
-    "lint": {},
-    "check": {
-      "outputs": []
+    "lint": {
+
     },
     "format": {
       "outputs": []
     },
-    "check:watch": {
-      "outputs": []
-    },
     "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "watch": {
       "cache": false,
       "persistent": true
     }
