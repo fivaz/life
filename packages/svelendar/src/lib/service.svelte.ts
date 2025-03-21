@@ -1,5 +1,5 @@
 import { formatDate, getDateRoundDownTo15 } from '@life/shared/date';
-import { addDays, startOfWeek } from 'date-fns';
+import { addDays, set, startOfWeek } from 'date-fns';
 
 export const currentDate = $state<{ value: Date }>({ value: getDateRoundDownTo15() });
 
@@ -7,6 +7,13 @@ export function updateCurrentDate() {
 	const now = new Date();
 	now.setMilliseconds(0);
 	currentDate.value = now;
+
+	// Update only time in selectedDate, this is important for the Calendar Add Event, to always give the current time for the event, but the selected date
+	selectedDate.value = set(selectedDate.value, {
+		hours: now.getHours(),
+		minutes: now.getMinutes(),
+		seconds: now.getSeconds(),
+	});
 }
 
 let _selectedDate = $state<Date>(new Date());
