@@ -15,7 +15,7 @@
 </script>
 
 <div
-	class="flex h-screen divide-x divide-gray-300 overflow-hidden border-gray-300 bg-gray-50 dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-900"
+	class="flex h-screen divide-x divide-gray-300 overflow-hidden border-gray-300 dark:divide-gray-700 dark:border-gray-700"
 >
 	<DashboardDesktop class="hidden md:flex" />
 

@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { Alert, Button } from '@life/shared';
+	import { Alert, Button, LText } from '@life/shared';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 
 	import { goto } from '$app/navigation';
+	import Input from '$lib/components/form/input/Input.svelte';
 	import GithubIcon from '$lib/components/icons/GithubIcon.svelte';
 	import GoogleIcon from '$lib/components/icons/GoogleIcon.svelte';
 	import Logo from '$lib/components/Logo.svelte';
@@ -48,10 +49,10 @@
 	>
 		<div class="mx-auto w-full max-w-sm lg:w-96">
 			<div>
-				<Logo class="h-10 w-auto text-indigo-600" />
-				<h2 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
+				<Logo class="size-10 text-indigo-600" />
+				<LText class="mt-8 text-2xl font-bold leading-9 tracking-tight" tag="h2">
 					Sign in to your account
-				</h2>
+				</LText>
 				<p class="mt-2 text-sm leading-6 text-gray-500">
 					Not a member?{' '}
 					<a class="font-semibold text-indigo-600 hover:text-indigo-500" href={Routes.REGISTER}>
@@ -70,64 +71,52 @@
 				</Alert>
 				<div class="mt-5">
 					<form class="space-y-6" onsubmit={onSubmit}>
-						<div>
-							<label class="block text-sm font-medium leading-6 text-gray-900">
-								Email address
+						<Input
+							class="flex flex-col gap-3"
+							autocomplete="email"
+							inputClass="w-full"
+							label="Email address"
+							type="email"
+							bind:value={email}
+						/>
 
-								<input
-									name="email"
-									class="mt-2 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-									autocomplete="email"
-									type="email"
-									bind:value={email}
-								/>
-							</label>
-						</div>
+						<Input
+							class="flex flex-col gap-3"
+							inputClass="w-full"
+							label="Password"
+							type="password"
+							bind:value={password}
+						/>
 
-						<div>
-							<label class="block text-sm font-medium leading-6 text-gray-900">
-								Password
-								<input
-									name="password"
-									class="mt-2 block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-									autocomplete="current-password"
-									type="password"
-									bind:value={password}
-								/>
-							</label>
-						</div>
+						<!--						<div class="flex items-center justify-between">-->
+						<!--							<div class="flex items-center">-->
+						<!--								<input-->
+						<!--									id="remember-me"-->
+						<!--									name="remember-me"-->
+						<!--									class="size-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"-->
+						<!--									disabled-->
+						<!--									type="checkbox"-->
+						<!--								/>-->
+						<!--								<label class="ml-3 block text-sm leading-6 text-gray-700" for="remember-me">-->
+						<!--									Remember me-->
+						<!--								</label>-->
+						<!--							</div>-->
 
-						<div class="flex items-center justify-between">
-							<div class="flex items-center">
-								<input
-									id="remember-me"
-									name="remember-me"
-									class="size-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-									disabled
-									type="checkbox"
-								/>
-								<label class="ml-3 block text-sm leading-6 text-gray-700" for="remember-me">
-									Remember me
-								</label>
-							</div>
+						<!--							<div class="text-sm leading-6">-->
+						<!--								<button class="font-semibold text-indigo-600 hover:text-indigo-500" disabled>-->
+						<!--									Forgot password?-->
+						<!--								</button>-->
+						<!--							</div>-->
+						<!--						</div>-->
 
-							<div class="text-sm leading-6">
-								<button class="font-semibold text-indigo-600 hover:text-indigo-500" disabled>
-									Forgot password?
-								</button>
-							</div>
-						</div>
-
-						<div>
-							<Button
-								class="w-full leading-6"
-								disabled={isDisabled}
-								isLoading={isLoading.email}
-								type="submit"
-							>
-								Sign in
-							</Button>
-						</div>
+						<Button
+							class="flex w-full justify-center leading-6"
+							disabled={isDisabled}
+							isLoading={isLoading.email}
+							type="submit"
+						>
+							Sign in
+						</Button>
 					</form>
 				</div>
 			</div>
@@ -138,12 +127,13 @@
 						<div class="w-full border-t border-gray-200"></div>
 					</div>
 					<div class="relative flex justify-center text-sm/6 font-medium">
-						<span class="bg-white px-6 text-gray-900">Or continue with</span>
+						<LText class="bg-white px-6 dark:bg-gray-800">Or continue with</LText>
 					</div>
 				</div>
 
 				<div class="mt-6 grid grid-cols-2 gap-4">
 					<Button
+						class="flex justify-center"
 						color="white"
 						disabled={isDisabled}
 						isLoading={isLoading.google}
@@ -155,13 +145,14 @@
 					</Button>
 
 					<Button
+						class="flex justify-center"
 						color="white"
 						disabled={isDisabled}
 						isLoading={isLoading.github}
 						onclick={githubSignIn}
 						type="button"
 					>
-						<GithubIcon />
+						<GithubIcon class="text-gray-900 dark:text-white" />
 						<span class="text-sm/6 font-semibold">GitHub</span>
 					</Button>
 				</div>

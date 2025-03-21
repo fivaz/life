@@ -11,31 +11,6 @@
 	import { auth } from '$lib/firebase';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 	import { darkMode } from '$lib/utils.svelte';
-
-	darkMode.value = getDarkMode();
-
-	function getDarkMode() {
-		// On page load or when changing themes, best to add inline in `head` to avoid FOUC
-		return (
-			localStorage.theme === 'dark' ||
-			(!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-		);
-
-		// Whenever the user explicitly chooses light mode
-		// localStorage.theme = 'light'
-
-		// Whenever the user explicitly chooses dark mode
-		// localStorage.theme = 'dark'
-
-		// Whenever the user explicitly chooses to respect the OS preference
-		// localStorage.removeItem('theme')
-	}
-
-	// Watch for changes in isDark and update localStorage + class
-	$effect(() => {
-		localStorage.theme = darkMode.value ? 'dark' : 'light';
-		document.documentElement.classList.toggle('dark', darkMode.value);
-	});
 </script>
 
 <div class="flex justify-between gap-2">

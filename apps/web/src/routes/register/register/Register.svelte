@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { Alert, Button } from '@life/shared';
+	import { Alert, Button, LText } from '@life/shared';
 	import { minidenticon } from 'minidenticons';
 
 	import { goto } from '$app/navigation';
+	import Input from '$lib/components/form/input/Input.svelte';
 	import GithubIcon from '$lib/components/icons/GithubIcon.svelte';
 	import GoogleIcon from '$lib/components/icons/GoogleIcon.svelte';
 	import Logo from '$lib/components/Logo.svelte';
@@ -42,129 +43,113 @@
 	}
 </script>
 
-<div class="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
-	<div class="sm:mx-auto sm:w-full sm:max-w-md">
-		<Logo class="m-auto h-10 w-auto text-indigo-600" />
-		<h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-			Create your account
-		</h2>
-	</div>
+<div class="bg-gray-50 dark:bg-gray-900">
+	<div class="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
+		<div class="sm:mx-auto sm:w-full sm:max-w-md">
+			<Logo class="m-auto h-10 w-auto text-indigo-600" />
+			<LText class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight" tag="h2">
+				Create your account
+			</LText>
+		</div>
 
-	<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-		<Alert class="mb-3" close={() => (errorMessage = '')} isVisible={!!errorMessage} type="error">
-			{errorMessage}
-		</Alert>
+		<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+			<Alert class="mb-3" close={() => (errorMessage = '')} isVisible={!!errorMessage} type="error">
+				{errorMessage}
+			</Alert>
 
-		<div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-			<form class="space-y-6" onsubmit={onSubmit}>
-				{#if email}
-					<div class="flex flex-col justify-center">
-						<h3 class="block text-center text-sm font-medium leading-6 text-gray-900">
-							Your Avatar
-						</h3>
-						<img class="h-10 w-auto" alt="your avatar" src={photoURL} />
-					</div>
-				{/if}
-				<div>
-					<label class="block text-sm font-medium leading-6 text-gray-900" for="name">
-						Full name
-					</label>
-					<div class="mt-2">
-						<input
-							id="name"
-							name="displayName"
-							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-							type="text"
-							bind:value={name}
-						/>
-					</div>
-				</div>
-				<div>
-					<label class="block text-sm font-medium leading-6 text-gray-900" for="email">
-						Email address
-					</label>
-					<div class="mt-2">
-						<input
-							id="email"
-							name="email"
-							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-							autocomplete="email"
-							type="email"
-							bind:value={email}
-						/>
-					</div>
-				</div>
+			<div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12 dark:bg-gray-800">
+				<form class="space-y-6" onsubmit={onSubmit}>
+					{#if email}
+						<div class="flex flex-col justify-center">
+							<h3 class="block text-center text-sm font-medium leading-6 text-gray-900">
+								Your Avatar
+							</h3>
+							<img class="h-10 w-auto" alt="your avatar" src={photoURL} />
+						</div>
+					{/if}
 
-				<div>
-					<label class="block text-sm font-medium leading-6 text-gray-900" for="password">
-						Password
-					</label>
-					<div class="mt-2">
-						<input
-							id="password"
-							name="password"
-							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-							autocomplete="current-password"
-							type="password"
-							bind:value={password}
-						/>
-					</div>
-				</div>
+					<Input
+						class="flex flex-col gap-3"
+						inputClass="w-full"
+						label="Full name"
+						bind:value={name}
+					/>
 
-				<div>
+					<Input
+						class="flex flex-col gap-3"
+						autocomplete="email"
+						inputClass="w-full"
+						label="Email address"
+						type="email"
+						bind:value={email}
+					/>
+
+					<Input
+						class="flex flex-col gap-3"
+						inputClass="w-full"
+						label="Password"
+						type="password"
+						bind:value={password}
+					/>
+
 					<Button
-						class="w-full leading-6"
+						class="flex w-full justify-center leading-6"
 						disabled={isDisabled}
 						isLoading={isLoading.email}
 						type="submit"
 					>
 						Register
 					</Button>
-				</div>
-			</form>
+				</form>
 
-			<div>
-				<div class="relative mt-10">
-					<div class="absolute inset-0 flex items-center" aria-hidden="true">
-						<div class="w-full border-t border-gray-200"></div>
+				<div>
+					<div class="relative mt-10">
+						<div class="absolute inset-0 flex items-center" aria-hidden="true">
+							<div class="w-full border-t border-gray-200"></div>
+						</div>
+						<div class="relative flex justify-center text-sm/6 font-medium">
+							<LText class="bg-white px-6 dark:bg-gray-800">Or continue with</LText>
+						</div>
 					</div>
-					<div class="relative flex justify-center text-sm/6 font-medium">
-						<span class="bg-white px-6 text-gray-900">Or continue with</span>
+
+					<div class="mt-6 grid grid-cols-2 gap-4">
+						<Button
+							class="flex justify-center"
+							color="white"
+							disabled={isDisabled}
+							isLoading={isLoading.google}
+							onclick={googleSignIn}
+							type="button"
+						>
+							<GoogleIcon />
+							<span class="text-sm/6 font-semibold">Google</span>
+						</Button>
+
+						<Button
+							class="flex justify-center"
+							color="white"
+							disabled={isDisabled}
+							isLoading={isLoading.github}
+							onclick={githubSignIn}
+							type="button"
+						>
+							<GithubIcon class="text-gray-900 dark:text-white" />
+							<span class="text-sm/6 font-semibold">GitHub</span>
+						</Button>
 					</div>
-				</div>
-
-				<div class="mt-6 grid grid-cols-2 gap-4">
-					<Button
-						color="white"
-						disabled={isDisabled}
-						isLoading={isLoading.google}
-						onclick={googleSignIn}
-						type="button"
-					>
-						<GoogleIcon />
-						<span class="text-sm/6 font-semibold">Google</span>
-					</Button>
-
-					<Button
-						color="white"
-						disabled={isDisabled}
-						isLoading={isLoading.github}
-						onclick={githubSignIn}
-						type="button"
-					>
-						<GithubIcon />
-						<span class="text-sm/6 font-semibold">GitHub</span>
-					</Button>
 				</div>
 			</div>
-		</div>
 
-		<p class="mt-10 text-center text-sm text-gray-500">
-			Already a member?
-			{' '}
-			<a class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500" href={Routes.LOGIN}>
-				Log in
-			</a>
-		</p>
+			<p class="mt-10 text-center text-sm text-gray-500">
+				Already a member?
+				{' '}
+				<a
+					class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+					href={Routes.LOGIN}
+				>
+					Log in
+				</a>
+			</p>
+		</div>
 	</div>
 </div>
