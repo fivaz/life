@@ -69,11 +69,17 @@
 
 	function getDescription(event: Task) {
 		const sanitizedHtml = sanitizeHtml(event.description, {
-			allowedTags: ['p', 'input'],
-			allowedAttributes: { input: ['type', 'checked', 'disabled'] },
+			allowedTags: ['div', 'p', 'ul', 'li', 'label', 'input', 'span', 'strong', 'em'],
+			allowedAttributes: {
+				div: ['class'],
+				ul: ['data-type'],
+				li: ['data-checked', 'data-type'],
+				input: ['type', 'checked', 'disabled'],
+				'*': [], // No global attributes allowed unless specified above
+			},
 		});
 
-		return disableCheckboxes(event.description);
+		return disableCheckboxes(sanitizedHtml);
 	}
 
 	const toggleEvent = getToggleCompletion();
