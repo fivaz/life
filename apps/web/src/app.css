@@ -11,32 +11,81 @@
 	font-family: var(--font-body), serif;
 }
 
-/* crossing
+/* Basic TipTap editor styles */
+.ProseMirror {
+	padding: 0.5rem;
+	min-height: 150px;
+	outline: none;
+}
 
-bg-gray-50
+.ProseMirror:focus {
+	border-color: #3b82f6; /* blue-500 */
+}
 
-border-gray-300
+.ProseMirror > * + * {
+	margin-top: 0.75em;
+}
 
-bg-white
+.ProseMirror ul, .ProseMirror ol {
+	padding: 0 1rem;
+}
 
+.ProseMirror h1, .ProseMirror h2, .ProseMirror h3, .ProseMirror h4, .ProseMirror h5, .ProseMirror h6 {
+	line-height: 1.1;
+}
 
-dark:bg-gray-900
+.ProseMirror code {
+	background-color: rgba(97, 97, 97, 0.1);
+	color: #616161;
+}
 
-border-gray-700
+.ProseMirror pre {
+	background: #0D0D0D;
+	color: #FFF;
+	padding: 0.75rem 1rem;
+	border-radius: 0.5rem;
+}
 
-dark:bg-gray-800
+.ProseMirror pre code {
+	color: inherit;
+	padding: 0;
+	background: none;
+	font-size: 0.8rem;
+}
 
-*/
+.ProseMirror img {
+	max-width: 100%;
+	height: auto;
+}
 
-/* light
+.ProseMirror blockquote {
+	padding-left: 1rem;
+	border-left: 2px solid rgba(13, 13, 13, 0.1);
+}
 
-bg-white
+.ProseMirror hr {
+	border: none;
+	border-top: 2px solid rgba(13, 13, 13, 0.1);
+	margin: 2rem 0;
+}
 
-hover:bg-gray-50
+/* Task list specific styles */
+.ProseMirror ul[data-type="taskList"] {
+	list-style: none;
+	padding: 0;
+}
 
+.ProseMirror ul[data-type="taskList"] li {
+	display: flex;
+	align-items: center;
+}
 
-dark:bg-gray-800
+.ProseMirror ul[data-type="taskList"] li > label {
+	flex: 0 0 auto;
+	margin-right: 0.5rem;
+	user-select: none;
+}
 
-dark:hover:bg-gray-900
-
-*/
+.ProseMirror ul[data-type="taskList"] li > div {
+	flex: 1 1 auto;
+}

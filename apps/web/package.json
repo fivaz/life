@@ -47,6 +47,11 @@
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
 		"@tailwindcss/container-queries": "^0.1.1",
 		"@tailwindcss/forms": "^0.5.9",
+		"@tiptap/core": "^2.11.7",
+		"@tiptap/extension-task-item": "^2.11.7",
+		"@tiptap/extension-task-list": "^2.11.7",
+		"@tiptap/pm": "^2.11.7",
+		"@tiptap/starter-kit": "^2.11.7",
 		"@vite-pwa/assets-generator": "^0.2.6",
 		"@vite-pwa/sveltekit": "^0.6.6",
 		"autoprefixer": "^10.4.20",
@@ -67,6 +72,7 @@
 		"storybook": "^8.4.4",
 		"svelendar": "workspace:*",
 		"svelte": "^5.0.0",
+		"svelte-chartjs": "^3.1.5",
 		"svelte-check": "^4.0.0",
 		"svelte-dnd-action": "^0.9.52",
 		"svelte-portal": "^2.2.1",
@@ -80,8 +86,7 @@
 		"workbox-precaching": "^7.3.0",
 		"workbox-routing": "^7.3.0",
 		"workbox-window": "^7.1.0",
-		"zod": "^3.23.8",
-		"svelte-chartjs": "^3.1.5"
+		"zod": "^3.23.8"
 	},
 	"resolutions": {
 		"sharp": "0.32.6",
