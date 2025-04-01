@@ -13,7 +13,6 @@
 
 /* Basic TipTap editor styles */
 .ProseMirror {
-	padding: 0.5rem;
 	min-height: 150px;
 	outline: none;
 }
@@ -77,7 +76,7 @@
 
 .ProseMirror ul[data-type="taskList"] li {
 	display: flex;
-	align-items: center;
+	align-items: start;
 }
 
 .ProseMirror ul[data-type="taskList"] li > label {
@@ -88,4 +87,36 @@
 
 .ProseMirror ul[data-type="taskList"] li > div {
 	flex: 1 1 auto;
+}
+
+.ProseMirror input[type="checkbox"] {
+	/* Remove default checkbox appearance */
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+
+	/* Define the size of the checkbox */
+	width: 15px;
+	height: 15px;
+
+	/* Use Tailwind's default 'rounded' border-radius (0.25rem = 4px) */
+	border-radius: 0.25rem;
+
+	/* Add a border to make it visible */
+
+	/* Optional: Background color when unchecked */
+	background-color: #fff;
+
+	/* Ensure it’s aligned properly */
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+/* Style when the checkbox is checked */
+.ProseMirror input[type="checkbox"]:checked {
+	/* Change background color when checked */
+	background-color: oklch(0.585 0.233 277.117); /* Blue as an example */
+
+	/* Keep it relative for the ::after pseudo-element */
+	position: relative;
 }

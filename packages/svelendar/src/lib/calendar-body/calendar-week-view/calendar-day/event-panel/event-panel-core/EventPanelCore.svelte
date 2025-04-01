@@ -73,7 +73,7 @@
 			allowedAttributes: { input: ['type', 'checked', 'disabled'] },
 		});
 
-		return disableCheckboxes(sanitizedHtml);
+		return disableCheckboxes(event.description);
 	}
 
 	const toggleEvent = getToggleCompletion();
@@ -122,7 +122,7 @@
 			</time>
 			<span> ({formattedDuration()})</span>
 		</div>
-		<div class="whitespace-pre text-pink-500 group-hover:text-pink-700">
+		<div class="ProseMirror text-pink-500 group-hover:text-pink-700">
 			<!-- eslint-disable-next-line svelte/no-at-html-tags !-->
 			{@html getDescription(event)}
 		</div>
