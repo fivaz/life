@@ -5,6 +5,7 @@
 	import type { Task } from '@life/shared/task';
 	import { getDurationInMinutes, getSubTasks, getSubTasksCompleted } from '@life/shared/task';
 	import { format, parse } from 'date-fns';
+	import sanitizeHtml from 'sanitize-html';
 
 	import { getToggleCompletion } from '$lib/context.utils.js';
 
@@ -17,6 +18,7 @@
 	}
 
 	let { event, targetDate, isSelected }: Props = $props();
+
 	// format date from this format '01:15' to this format '1h15min'
 	function formattedDuration() {
 		const date = floorRound15(parse(event.duration, TIME, new Date()));
@@ -55,6 +57,23 @@
 		}
 
 		return title;
+	}
+
+	function disableCheckboxes(htmlString: string) {
+		// Replace <input type="checkbox"> with <input type="checkbox" disabled>
+		return htmlString.replace(
+			/<input type="checkbox"(.*?)>/gi,
+			'<input type="checkbox"$1 disabled>',
+		);
+	}
+
+	function getDescription(event: Task) {
+		const sanitizedHtml = sanitizeHtml(event.description, {
+			allowedTags: ['p', 'input'],
+			allowedAttributes: { input: ['type', 'checked', 'disabled'] },
+		});
+
+		return disableCheckboxes(sanitizedHtml);
 	}
 
 	const toggleEvent = getToggleCompletion();
@@ -104,7 +123,8 @@
 			<span> ({formattedDuration()})</span>
 		</div>
 		<div class="whitespace-pre text-pink-500 group-hover:text-pink-700">
-			{event.description}
+			<!-- eslint-disable-next-line svelte/no-at-html-tags !-->
+			{@html getDescription(event)}
 		</div>
 	</div>
 </div>
