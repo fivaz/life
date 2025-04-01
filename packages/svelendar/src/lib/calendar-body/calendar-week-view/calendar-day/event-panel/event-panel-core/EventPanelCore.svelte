@@ -46,7 +46,7 @@
 	function getTitle() {
 		let title = event.name;
 
-		const subtasks = getSubTasks(event);
+		const subtasks = getSubTasks(event.description);
 
 		if (subtasks?.length) {
 			const completedTasks = getSubTasksCompleted(subtasks);

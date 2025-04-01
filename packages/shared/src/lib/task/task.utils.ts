@@ -25,22 +25,17 @@ export function getDurationInMinutes(task: Task) {
 	return convertTimeToMinutes(task.duration);
 }
 
-export function getSubTasks(task: Task): SubTask[] {
-	// \[\s?([x ])\s?\] matches either [x] or [ ] (with optional spaces inside).
-	// \s-\s matches the separator - (a space, dash, space).
-	// (.+) captures the message part (anything after the separator).
-	const regex = /\[\s?([x ])\s?]\s-\s(.+)/g;
-
+export function getSubTasks(html: string): { isDone: boolean; title: string }[] {
+	const regex = /<input type="checkbox"(?:\s+checked)?\s*>([^<]+)/gi;
 	let match: RegExpExecArray | null;
 	const subTasks: { isDone: boolean; title: string }[] = [];
 
-	while ((match = regex.exec(task.description)) !== null) {
+	while ((match = regex.exec(html)) !== null) {
 		subTasks.push({
-			isDone: match[1].toLowerCase() === 'x',
-			title: match[2].trim(),
+			isDone: match[0].includes('checked'),
+			title: match[1].trim(),
 		});
 	}
-
 	return subTasks;
 }
 
