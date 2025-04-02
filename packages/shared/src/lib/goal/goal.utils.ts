@@ -67,13 +67,16 @@ import {
 	Smartphone,
 } from '@steeze-ui/lucide-icons';
 import type { IconSource } from '@steeze-ui/svelte-icon';
+import type { Component } from 'svelte';
 
+import CleanIcon from '$lib/components/goal-icon/icons/CleanIcon.svelte';
 import type { Goal } from '$lib/goal/goal.model.js';
 
 const defaultIcon: GoalIconType = { component: Fire, name: 'Fire' };
 
 export type GoalIconType = {
 	component: IconSource;
+	directComponent?: Component;
 	name: string;
 	theme?: string | undefined;
 };
@@ -143,6 +146,7 @@ export const icons: GoalIconType[] = [
 	{ component: Beer, name: 'Beer/Germany' },
 	{ component: Croissant, name: 'Croissant/France' },
 	{ component: Comments, name: 'Talk' },
+	{ component: Bullseye, directComponent: CleanIcon, name: 'Clean' },
 ];
 
 export function getIcon(name: null | string) {

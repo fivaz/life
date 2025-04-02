@@ -15,4 +15,9 @@
 	let foundIcon = $derived(icon || getIcon(name));
 </script>
 
-<Icon class={klass} src={foundIcon.component} theme={foundIcon.theme || 'solid'} />
+{#if foundIcon.directComponent}
+	{@const IconComponent = foundIcon.directComponent}
+	<IconComponent class={klass} />
+{:else}
+	<Icon class={klass} src={foundIcon.component} theme={foundIcon.theme || 'solid'} />
+{/if}
