@@ -55,6 +55,7 @@
 		"@chromatic-com/storybook": "^3.2.2",
 		"@life/config-eslint": "workspace:*",
 		"@life/config-prettier": "workspace:*",
+		"@lucide/lab": "^0.1.2",
 		"@lucide/svelte": "^0.487.0",
 		"@steeze-ui/font-awesome": "^1.0.1",
 		"@steeze-ui/heroicons": "^2.4.0",

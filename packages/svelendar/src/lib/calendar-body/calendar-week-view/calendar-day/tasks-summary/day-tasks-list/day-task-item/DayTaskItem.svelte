@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { DoneChip, GoalIcon, LText } from '@life/shared';
+	import { DoneChip, IconRender, LText } from '@life/shared';
 	import { tailwindColorMap } from '@life/shared/category';
 	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
@@ -51,7 +51,7 @@
 		<div class="flex items-center gap-2">
 			{#if task.goal?.icon}
 				<LText>
-					<GoalIcon
+					<IconRender
 						name={task.goal.icon}
 						class="size-5 {tailwindColorMap[task.category.color].hoverText}"
 					/>

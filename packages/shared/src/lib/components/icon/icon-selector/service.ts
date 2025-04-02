@@ -28,13 +28,13 @@ import TvMinimal from '@lucide/svelte/icons/tv-minimal';
 import Utensils from '@lucide/svelte/icons/utensils-crossed';
 import type { Component } from 'svelte';
 
-export type RoutineIcon =
+export type IconHash =
 	| { component: Component; name: string }
 	| { iconNode: typeof broom; name: string };
 
-const defaultIcon: RoutineIcon = { component: Flame, name: 'Fire' };
+const defaultIcon: IconHash = { component: Flame, name: 'Fire' };
 
-export const routineIcons: RoutineIcon[] = [
+export const icons: IconHash[] = [
 	defaultIcon,
 	{ component: Trophy, name: 'Trophy' },
 	{ component: HeartPulse, name: 'Cardio Heart Exercise Gym' },
@@ -64,3 +64,9 @@ export const routineIcons: RoutineIcon[] = [
 	{ component: Apple, name: 'Apple Food' },
 	{ iconNode: broom, name: 'Clean' },
 ];
+
+export function getIcon(name: null | string) {
+	const icon = icons.find((icon) => icon.name === name);
+
+	return icon || defaultIcon;
+}

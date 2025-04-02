@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { GoalIcon, LText } from '@life/shared';
+	import { IconRender, LText } from '@life/shared';
 	import { parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { sortTasks } from '@life/shared/task';
@@ -67,7 +67,7 @@
 >
 	<div class="flex items-center justify-between">
 		<div class="flex items-center gap-2 truncate">
-			<GoalIcon name={goal.icon} class="size-5 text-indigo-600" />
+			<IconRender name={goal.icon} class="size-5 text-indigo-600" />
 			<LText class="truncate {goal.isDone ? 'line-through' : ''}">{goal.name}</LText>
 		</div>
 

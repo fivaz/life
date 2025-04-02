@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { Alert, Button } from '@life/shared';
+	import { Alert, Button, LInput } from '@life/shared';
 	import type { User as FirebaseUser } from 'firebase/auth';
 	import { updateProfile } from 'firebase/auth';
 	import { doc, updateDoc } from 'firebase/firestore';
 	import { minidenticon } from 'minidenticons';
 
-	import Input from '$lib/components/form/input/Input.svelte';
 	import { DB_PATH } from '$lib/consts';
 	import { auth, db } from '$lib/firebase';
 	import type { User } from '$lib/user/user.model';
@@ -112,7 +111,7 @@
 
 				<div>
 					<div class="mt-2">
-						<Input
+						<LInput
 							id="name"
 							name="name"
 							inputClass="w-full"
@@ -126,7 +125,7 @@
 
 				<div>
 					<div class="mt-2">
-						<Input
+						<LInput
 							id="username"
 							name="username"
 							disabled

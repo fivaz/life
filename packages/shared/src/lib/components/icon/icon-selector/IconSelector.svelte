@@ -1,17 +1,15 @@
 <script lang="ts">
 	import { Icon } from '@lucide/svelte';
 
-	import Input from '$lib/components/form/input/Input.svelte';
-
-	import type { RoutineIcon } from './service';
+	import { icons } from '$lib/components/icon/icon-selector/service.js';
+	import LInput from '$lib/components/LInput.svelte';
 
 	interface Props {
 		name: string;
 		value: null | string;
-		icons: RoutineIcon[];
 	}
 
-	let { name, icons, value = $bindable() }: Props = $props();
+	let { name, value = $bindable() }: Props = $props();
 
 	let searchQuery = $state('');
 
@@ -22,7 +20,7 @@
 
 <div class="relative flex flex-col gap-2">
 	<input hidden value={name} />
-	<Input
+	<LInput
 		autocomplete="off"
 		inputClass="w-full"
 		placeholder="Search icon..."

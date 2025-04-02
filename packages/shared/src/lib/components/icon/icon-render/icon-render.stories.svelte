@@ -1,10 +1,10 @@
 <script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
-	import GoalIcon from './GoalIcon.svelte';
+	import IconRender from './IconRender.svelte';
 
 	const { Story } = defineMeta({
-		component: GoalIcon,
+		component: IconRender,
 		parameters: {
 			layout: 'fullscreen',
 		},

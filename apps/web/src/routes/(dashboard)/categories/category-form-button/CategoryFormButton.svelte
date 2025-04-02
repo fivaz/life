@@ -1,12 +1,11 @@
 <script lang="ts">
-	import { Button, ModalForm } from '@life/shared';
+	import { Button, LInput, ModalForm } from '@life/shared';
 	import { categoryTypes, tailwindColorMap, tailwindColors } from '@life/shared/category';
 	import { Plus } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
 
 	import type { Category } from '$lib/category/category.model';
 	import { addCategory, deleteCategory, editCategory } from '$lib/category/category.respository';
-	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
@@ -79,7 +78,7 @@
 	{onSubmit}
 	bind:isOpen
 >
-	<Input
+	<LInput
 		class="flex-1"
 		autocomplete="off"
 		autofocus

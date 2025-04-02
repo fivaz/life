@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { Button, ModalForm } from '@life/shared';
+	import { Button, IconSelector, LInput, ModalForm } from '@life/shared';
 	import { Plus } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
 
-	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
@@ -11,9 +10,6 @@
 	import { routineTimeMap, times } from '$lib/routine/routine.model';
 	import { addRoutine, deleteRoutine, editRoutine } from '$lib/routine/routine.repository';
 	import { currentUser } from '$lib/user/user.utils.svelte';
-
-	import IconSelector from './icon-selector/IconSelector.svelte';
-	import { routineIcons } from './icon-selector/service';
 
 	interface Props {
 		routine: Routine;
@@ -72,7 +68,7 @@
 >
 	<div class="flex flex-col gap-2 text-gray-700">
 		<!--name-->
-		<Input
+		<LInput
 			class="flex-1"
 			autocomplete="off"
 			inputClass="w-full"
@@ -120,6 +116,6 @@
 		</div>
 
 		<!--icon-->
-		<IconSelector name="icon" icons={routineIcons} bind:value={routineIn.icon} />
+		<IconSelector name="icon" bind:value={routineIn.icon} />
 	</div>
 </ModalForm>

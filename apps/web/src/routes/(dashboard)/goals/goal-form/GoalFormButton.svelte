@@ -1,10 +1,8 @@
 <script lang="ts">
-	import { Button, GoalIcon, LText, ModalForm } from '@life/shared';
-	import { getIcon } from '@life/shared/goal';
+	import { Button, IconRender, IconSelector, LInput, LText, ModalForm } from '@life/shared';
 	import { Plus } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
 
-	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
@@ -15,7 +13,6 @@
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import type { HierarchicalGoal } from '../goals-by-parent/service';
-	import IconSelector from './icon-selector/IconSelector.svelte';
 	import { checkErrors } from './service';
 
 	interface Props {
@@ -82,7 +79,7 @@
 {#snippet goalItem(goal: Goal | undefined)}
 	{#if goal}
 		<div class="flex gap-2">
-			<GoalIcon name={goal.icon} class="size-5" />
+			<IconRender name={goal.icon} class="size-5" />
 			<span class="w-[calc(100%-20px)] truncate">{goal.name}</span>
 		</div>
 	{:else}
@@ -100,17 +97,17 @@
 	bind:isOpen
 >
 	<div class="relative">
-		<Input inputClass="pr-10 w-full" placeholder="Name" bind:value={goalIn.name} />
+		<LInput inputClass="pr-10 w-full" placeholder="Name" bind:value={goalIn.name} />
 		<div class="absolute right-0 top-0 p-2.5">
 			<LText>
-				<GoalIcon class="size-5" icon={getIcon(goalIn.icon)} />
+				<IconRender name={goalIn.icon} class="size-5" />
 			</LText>
 		</div>
 	</div>
 
 	<Toggle label="Is complete" bind:value={goalIn.isDone} />
 
-	<Input
+	<LInput
 		class="flex items-center gap-2"
 		inputClass="flex-1 w-full"
 		label="Deadline"

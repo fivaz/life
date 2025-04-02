@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { LText } from '@life/shared';
+	import { LInput, LText } from '@life/shared';
 	import { fade, slide } from 'svelte/transition';
 
-	import Input from '$lib/components/form/input/Input.svelte';
 	import MultiDatePicker from '$lib/components/form/multi-date-picker/MultiDatePicker.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
@@ -54,7 +53,7 @@
 				{/if}
 
 				<!--end at-->
-				<Input
+				<LInput
 					inputClass="w-full"
 					label="End at"
 					type="date"

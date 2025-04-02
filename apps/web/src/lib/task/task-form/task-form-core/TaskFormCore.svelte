@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { GoalIcon } from '@life/shared';
+	import { IconRender, LInput } from '@life/shared';
 	import { tailwindColorMap } from '@life/shared/category';
 	import type { Goal } from '@life/shared/goal';
 	import { getGoalsForTasks } from '@life/shared/goal';
@@ -7,7 +7,6 @@
 	import type { Category } from '$lib/category/category.model';
 	import { useCategories } from '$lib/category/category.svelte';
 	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
-	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import { useGoals } from '$lib/goal/goal.svelte';
@@ -23,7 +22,7 @@
 </script>
 
 <!--name-->
-<Input
+<LInput
 	class="w-full"
 	autocomplete="off"
 	autofocus
@@ -70,7 +69,7 @@
 {#snippet goalItem(goal: Goal | null)}
 	<div class="flex items-center gap-3">
 		{#if goal}
-			<GoalIcon name={goal.icon} class="size-5" />
+			<IconRender name={goal.icon} class="size-5" />
 			<div class="w-[calc(100%-32px)] truncate">{goal.name}</div>
 		{:else}
 			<div>no goal</div>
@@ -92,7 +91,7 @@
 	<SelectItem value={null}>no goal</SelectItem>
 	{#each goals.value as goal (goal)}
 		<SelectItem class="flex gap-2" value={goal}>
-			<GoalIcon name={goal.icon} class="size-5" />
+			<IconRender name={goal.icon} class="size-5" />
 			<span class="w-[calc(100%-32px)] truncate">{goal.name}</span>
 		</SelectItem>
 	{/each}
@@ -100,7 +99,7 @@
 
 <!--date AND duration-->
 <div class="flex gap-3">
-	<Input
+	<LInput
 		class="w-1/2"
 		inputClass="w-full"
 		label="Date"
@@ -108,7 +107,7 @@
 		bind:value={taskIn.value.date}
 	/>
 
-	<Input
+	<LInput
 		class="w-1/2"
 		inputClass="w-full"
 		label="Duration"

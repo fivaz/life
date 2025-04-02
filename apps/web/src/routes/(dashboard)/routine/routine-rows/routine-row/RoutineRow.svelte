@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { GoalIcon } from '@life/shared';
+	import { IconRender } from '@life/shared';
 	import { formatDate } from '@life/shared/date';
 	import { startOfWeek } from 'date-fns';
 	import { Check, Flame, GripVertical, Settings2Icon, Undo2 } from 'lucide-svelte';
@@ -53,9 +53,9 @@
 			>
 				<div class="flex flex-1 items-center gap-2 truncate">
 					<div aria-label="drag-handle for {routine.name}" use:dragHandle>
-						<GripVertical class="h-5 w-auto" />
+						<GripVertical class="size-5" />
 					</div>
-					<GoalIcon name={routine.icon} class="h-5 w-auto" />
+					<IconRender name={routine.icon} class="size-5" />
 					<span class="flex-1 truncate text-sm font-semibold">{routine.name}</span>
 				</div>
 

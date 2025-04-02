@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, LText } from '@life/shared';
+	import { Button, LInput, LText } from '@life/shared';
 	import { formatDate } from '@life/shared/date';
 	import { clsx } from 'clsx';
 	import { addDays, subDays } from 'date-fns';
@@ -13,7 +13,6 @@
 		ChartLineIcon,
 	} from 'lucide-svelte';
 
-	import Input from '$lib/components/form/input/Input.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import DoubleLineChartIcon from '$lib/components/icons/DoubleLineChartIcon.svelte';
@@ -112,14 +111,14 @@
 			</Button>
 		</div>
 
-		<Input
+		<LInput
 			class="flex items-center gap-2"
 			label="Start at"
 			type="date"
 			bind:value={reportStore.periodStartAt}
 		/>
 
-		<Input
+		<LInput
 			class="flex items-center gap-2"
 			label="End at"
 			type="date"

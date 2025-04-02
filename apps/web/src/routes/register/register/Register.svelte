@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { Alert, Button, LText } from '@life/shared';
+	import { Alert, Button, LInput, LText } from '@life/shared';
 	import { minidenticon } from 'minidenticons';
 
 	import { goto } from '$app/navigation';
-	import Input from '$lib/components/form/input/Input.svelte';
 	import GithubIcon from '$lib/components/icons/GithubIcon.svelte';
 	import GoogleIcon from '$lib/components/icons/GoogleIcon.svelte';
 	import Logo from '$lib/components/Logo.svelte';
@@ -68,14 +67,14 @@
 						</div>
 					{/if}
 
-					<Input
+					<LInput
 						class="flex flex-col gap-3"
 						inputClass="w-full"
 						label="Full name"
 						bind:value={name}
 					/>
 
-					<Input
+					<LInput
 						class="flex flex-col gap-3"
 						autocomplete="email"
 						inputClass="w-full"
@@ -84,7 +83,7 @@
 						bind:value={email}
 					/>
 
-					<Input
+					<LInput
 						class="flex flex-col gap-3"
 						inputClass="w-full"
 						label="Password"

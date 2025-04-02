@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { GoalIcon } from '@life/shared';
+	import { IconRender } from '@life/shared';
 	import { tailwindColorMap } from '@life/shared/category';
 	import { floorRound15, TIME } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
@@ -95,7 +95,7 @@
 >
 	<div class="flex items-center gap-1">
 		{#if event.goal?.icon}
-			<GoalIcon name={event.goal.icon} class="size-4 shrink-0" />
+			<IconRender name={event.goal.icon} class="size-4 shrink-0" />
 		{/if}
 		<span class="truncate pr-3 font-semibold">
 			{getTitle()}

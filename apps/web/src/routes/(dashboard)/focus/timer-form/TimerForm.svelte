@@ -1,8 +1,6 @@
 <script lang="ts">
-	import { Button, LText } from '@life/shared';
+	import { Button, LInput, LText } from '@life/shared';
 	import { Save, XIcon } from 'lucide-svelte';
-
-	import Input from '$lib/components/form/input/Input.svelte';
 
 	interface Props {
 		time: number;
@@ -29,9 +27,9 @@
 		</div>
 
 		<div class="flex items-center justify-center gap-2">
-			<Input max="60" min="0" placeholder="Min" type="number" bind:value={minutesIn} />
+			<LInput max="60" min="0" placeholder="Min" type="number" bind:value={minutesIn} />
 			<LText class="text-xl">:</LText>
-			<Input max="60" min="0" type="number" bind:value={secondsIn} />
+			<LInput max="60" min="0" type="number" bind:value={secondsIn} />
 		</div>
 	</div>
 

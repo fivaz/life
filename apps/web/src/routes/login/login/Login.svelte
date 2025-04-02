@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { Alert, Button, LText } from '@life/shared';
+	import { Alert, Button, LInput, LText } from '@life/shared';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 
 	import { goto } from '$app/navigation';
-	import Input from '$lib/components/form/input/Input.svelte';
 	import GithubIcon from '$lib/components/icons/GithubIcon.svelte';
 	import GoogleIcon from '$lib/components/icons/GoogleIcon.svelte';
 	import Logo from '$lib/components/Logo.svelte';
@@ -71,7 +70,7 @@
 				</Alert>
 				<div class="mt-5">
 					<form class="space-y-6" onsubmit={onSubmit}>
-						<Input
+						<LInput
 							class="flex flex-col gap-3"
 							autocomplete="email"
 							inputClass="w-full"
@@ -80,7 +79,7 @@
 							bind:value={email}
 						/>
 
-						<Input
+						<LInput
 							class="flex flex-col gap-3"
 							inputClass="w-full"
 							label="Password"

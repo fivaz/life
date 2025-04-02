@@ -1,10 +1,9 @@
 <script lang="ts">
-	import { LText } from '@life/shared';
+	import { LInput, LText } from '@life/shared';
 	import { formatTime } from '@life/shared/date';
 	import { differenceInMinutes } from 'date-fns';
 	import { slide } from 'svelte/transition';
 
-	import Input from '$lib/components/form/input/Input.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import { taskIn } from '$lib/task/task-form/service.svelte';
 	import { sumTimes } from '$lib/task/time-utils';
@@ -49,7 +48,7 @@
 	{#if taskIn.value.isEvent && isEventOpen}
 		<div transition:slide>
 			<div class="flex gap-3">
-				<Input
+				<LInput
 					name="startTime"
 					class="w-1/2"
 					inputClass="w-full"
@@ -60,7 +59,7 @@
 					bind:value={taskIn.value.startTime}
 				/>
 
-				<Input
+				<LInput
 					name="endTime"
 					class="w-1/2"
 					inputClass="w-full"
