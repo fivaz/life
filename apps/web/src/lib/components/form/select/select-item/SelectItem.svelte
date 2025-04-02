@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { Check } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
+	import Check from '@lucide/svelte/icons/check';
 	import { clsx } from 'clsx';
 	import type { Snippet } from 'svelte';
 	import { getContext } from 'svelte';
@@ -32,7 +31,7 @@
 		<span
 			class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600 group-hover:text-white"
 		>
-			<Icon class="size-5 group-hover:text-white" aria-hidden="true" src={Check} />
+			<Check class="size-5 group-hover:text-white" aria-hidden="true" />
 		</span>
 	{/if}
 </li>

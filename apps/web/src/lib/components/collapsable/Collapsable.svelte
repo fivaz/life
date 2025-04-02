@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
-	import { ChevronRight } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
+	import ChevronRight from '@lucide/svelte/icons/chevron-right';
 	import type { Snippet } from 'svelte';
 	import { slide } from 'svelte/transition';
 
@@ -22,7 +21,7 @@
 		type="button"
 	>
 		<LText>{title}</LText>
-		<Icon class="size-5 {isOpen ? 'rotate-90 transform' : ''}" src={ChevronRight} />
+		<ChevronRight class="size-5 {isOpen ? 'rotate-90 transform' : ''}" />
 	</button>
 	{#if isOpen}
 		<div class="flex flex-col gap-2 pt-2 text-gray-500" transition:slide>

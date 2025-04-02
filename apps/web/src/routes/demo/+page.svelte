@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { LoaderCircle } from '@steeze-ui/lucide-icons';
-	import { Icon } from '@steeze-ui/svelte-icon';
+	import LoaderIcon from '@lucide/svelte/icons/loader';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 	import { onMount } from 'svelte';
 
@@ -16,7 +15,7 @@
 
 <div class="flex h-screen items-center justify-center">
 	<div class="flex gap-3">
-		<Icon class="size-6 animate-spin" src={LoaderCircle} />
+		<LoaderIcon class="size-6 animate-spin" />
 		<p class="font-semibold">You are entering demo mode...</p>
 	</div>
 </div>

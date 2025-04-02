@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { Modal } from '@life/shared';
-	import { Photo } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
+	import Image from '@lucide/svelte/icons/image';
 
 	import { taskIn } from '$lib/task/task-form/service.svelte';
 
@@ -34,7 +33,7 @@
 		</div>
 	{:else}
 		<div class="flex h-24 items-center justify-center rounded-lg bg-indigo-50 dark:bg-indigo-50/5">
-			<Icon class="size-10 text-indigo-700" src={Photo} />
+			<Image class="size-10 text-indigo-700" />
 		</div>
 	{/if}
 	<label

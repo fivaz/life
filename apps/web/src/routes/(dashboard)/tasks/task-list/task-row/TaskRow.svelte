@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { tailwindColorMap } from '@life/shared/category';
 	import type { Task } from '@life/shared/task';
-	import { GripVertical } from '@steeze-ui/lucide-icons';
-	import { Icon } from '@steeze-ui/svelte-icon';
+	import GripVertical from '@lucide/svelte/icons/grip-vertical';
 	import interact from 'interactjs';
 	import { Settings2Icon } from 'lucide-svelte';
 	import { onDestroy, onMount } from 'svelte';
@@ -86,7 +85,7 @@
 	<div class="flex gap-3">
 		<div class="flex items-center justify-between gap-3 sm:hidden">
 			<!--to avoid dragging during scroll on touch devices, it's only possible to drag a task if it's grabbed by the handle-->
-			<Icon class="touch-none {HANDLE} size-6" src={GripVertical} />
+			<GripVertical class="touch-none {HANDLE} size-6" />
 			<div class="w-10">{formatTaskDate(task, DATE_FR_SHORT)}</div>
 			<div class="name w-[calc(100%-64px)]">{task.name}</div>
 		</div>
