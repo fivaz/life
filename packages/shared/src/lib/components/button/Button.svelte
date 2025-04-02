@@ -1,6 +1,6 @@
 <script lang="ts">
+	import RotateCw from '@lucide/svelte/icons/rotate-cw';
 	import { clsx } from 'clsx';
-	import RotateCw from 'lucide-svelte/icons/rotate-cw';
 	import type { Snippet } from 'svelte';
 
 	interface Props {

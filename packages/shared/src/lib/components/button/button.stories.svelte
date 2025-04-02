@@ -1,7 +1,7 @@
 <script lang="ts" module>
+	import Trash from '@lucide/svelte/icons/trash';
 	import type { Args } from '@storybook/addon-svelte-csf';
 	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
-	import Trash from 'lucide-svelte/icons/trash';
 	import type { Component, ComponentProps, SvelteComponent } from 'svelte';
 
 	export type IncreaseArgs<

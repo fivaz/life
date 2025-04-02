@@ -1,9 +1,11 @@
+import Flame from '@lucide/svelte/icons/flame';
+import Target from '@lucide/svelte/icons/target';
+import Trophy from '@lucide/svelte/icons/trophy';
 import {
 	ArrowUp,
 	Baby,
 	Bed,
 	BookBible,
-	Bullseye,
 	Calendar,
 	Camera,
 	CartShopping,
@@ -43,7 +45,6 @@ import {
 	Sun,
 	Toolbox,
 	Tree,
-	Trophy,
 	Tv,
 	Utensils,
 } from '@steeze-ui/font-awesome';
@@ -72,7 +73,7 @@ import type { Component } from 'svelte';
 import CleanIcon from '$lib/components/goal-icon/icons/CleanIcon.svelte';
 import type { Goal } from '$lib/goal/goal.model.js';
 
-const defaultIcon: GoalIconType = { component: Fire, name: 'Fire' };
+const defaultIcon: GoalIconType = { component: Fire, directComponent: Flame, name: 'Fire' };
 
 export type GoalIconType = {
 	component: IconSource;
@@ -82,9 +83,9 @@ export type GoalIconType = {
 };
 export const icons: GoalIconType[] = [
 	defaultIcon,
-	{ component: Bullseye, name: 'Bullseye/Target' },
-	{ component: Trophy, name: 'Trophy' },
-	{ component: Mountain, name: 'Mountain Peak' },
+	{ component: Fire, directComponent: Target, name: 'Bullseye/Target' },
+	{ component: Fire, directComponent: Trophy, name: 'Trophy' },
+	{ component: Mountain, directComponent: Trophy, name: 'Mountain Peak' },
 	{ component: Rocket, name: 'Rocket Ship' },
 	{ component: GraduationCap, name: 'Graduation Cap' },
 	{ component: PersonRunning, name: 'Running Shoe' },
@@ -146,7 +147,7 @@ export const icons: GoalIconType[] = [
 	{ component: Beer, name: 'Beer/Germany' },
 	{ component: Croissant, name: 'Croissant/France' },
 	{ component: Comments, name: 'Talk' },
-	{ component: Bullseye, directComponent: CleanIcon, name: 'Clean' },
+	{ component: Fire, directComponent: CleanIcon, name: 'Clean' },
 ];
 
 export function getIcon(name: null | string) {

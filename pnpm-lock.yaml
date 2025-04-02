@@ -275,9 +275,6 @@ importers:
       svelte:
         specifier: ^5.0.0
         version: 5.24.1
-      svelte-chartjs:
-        specifier: ^3.1.5
-        version: 3.1.5(chart.js@4.4.8)(svelte@5.24.1)
       svelte-check:
         specifier: ^4.0.0
         version: 4.1.5(svelte@5.24.1)(typescript@5.8.2)
@@ -378,6 +375,9 @@ importers:
       '@life/config-prettier':
         specifier: workspace:*
         version: link:../config-prettier
+      '@lucide/svelte':
+        specifier: ^0.487.0
+        version: 0.487.0(svelte@5.24.1)
       '@steeze-ui/font-awesome':
         specifier: ^1.0.1
         version: 1.0.1
@@ -456,9 +456,6 @@ importers:
       globals:
         specifier: ^15.0.0
         version: 15.15.0
-      lucide-svelte:
-        specifier: ^0.456.0
-        version: 0.456.0(svelte@5.24.1)
       postcss:
         specifier: ^8.4.49
         version: 8.5.3
@@ -3085,6 +3082,14 @@ packages:
 
   /@kurkle/color@0.3.4:
     resolution: {integrity: sha512-M5UknZPHRu3DEDWoipU6sE8PdkZ6Z/S+v4dD+Ke8IaNlpdSQah50lz1KtcFBa2vsdOnwbbnxJwVM4wty6udA5w==}
+    dev: true
+
+  /@lucide/svelte@0.487.0(svelte@5.24.1):
+    resolution: {integrity: sha512-27b/wUzWrqDJu97+1iSV2X8L2JGRWH/mAWAjHgazWxhGxVu/kS0p3SbNu6w3skNmQNEku33EKU1v44IVwULzbw==}
+    peerDependencies:
+      svelte: ^5
+    dependencies:
+      svelte: 5.24.1
     dev: true
 
   /@mapbox/node-pre-gyp@2.0.0:
@@ -9412,16 +9417,6 @@ packages:
       esrap: 1.2.2
       svelte: 5.24.1
       zimmerframe: 1.1.2
-    dev: true
-
-  /svelte-chartjs@3.1.5(chart.js@4.4.8)(svelte@5.24.1):
-    resolution: {integrity: sha512-ka2zh7v5FiwfAX1oMflZ0HkNkgjHjFqANgRyC+vNYXfxtx2ku68Zo+2KgbKeBH2nS1ThDqkIACPzGxy4T0UaoA==}
-    peerDependencies:
-      chart.js: ^3.5.0 || ^4.0.0
-      svelte: ^4.0.0
-    dependencies:
-      chart.js: 4.4.8
-      svelte: 5.24.1
     dev: true
 
   /svelte-check@4.1.5(svelte@5.24.1)(typescript@5.8.2):
