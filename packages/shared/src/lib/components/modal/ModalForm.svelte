@@ -35,10 +35,10 @@
 
 <Modal bind:isOpen>
 	<form
-		class="relative w-[355px] divide-gray-400 rounded-md border border-gray-400 text-sm font-medium dark:divide-gray-700 dark:border-gray-700"
+		class="relative w-[355px] divide-y divide-gray-300 rounded-md border border-gray-400 bg-gray-50 text-sm font-medium dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-900"
 		onsubmit={onSubmit}
 	>
-		<div class="rounded-t-md bg-gray-50 px-4 py-5 sm:p-4 dark:bg-gray-900">
+		<div class="rounded-t-md px-4 py-5 sm:p-4">
 			<div class="flex items-center justify-between pb-2">
 				<LText class="text-lg font-medium">
 					{isEditing ? 'Edit ' : 'Add '}
@@ -62,9 +62,7 @@
 			</div>
 		</div>
 
-		<div
-			class="flex justify-between rounded-b-md bg-gray-200 px-4 py-3 text-right sm:px-6 dark:bg-gray-700"
-		>
+		<div class="flex justify-between rounded-b-md px-4 py-3 text-right sm:px-6">
 			{#if isEditing}
 				<ConfirmButton color="red" confirm={onDelete} confirmByKey="Delete" type="button">
 					Delete

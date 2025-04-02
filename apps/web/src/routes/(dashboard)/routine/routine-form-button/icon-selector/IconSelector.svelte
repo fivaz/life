@@ -27,9 +27,10 @@
 		bind:value={searchQuery}
 	/>
 	<div
-		class="flex h-40 flex-wrap gap-1 divide-gray-400 overflow-y-auto rounded-lg border border-gray-400 p-2 dark:divide-gray-700 dark:border-gray-700 dark:[color-scheme:dark]"
+		class="flex h-40 flex-wrap justify-between gap-1 overflow-y-auto rounded-lg border border-gray-300 p-2 dark:border-gray-700 dark:[color-scheme:dark]"
 	>
 		{#each filteredIcons as icon (icon.name)}
+			{@const Icon = icon.component}
 			<button
 				class="
 					{value === icon.name ? 'bg-indigo-200 text-indigo-700 dark:bg-indigo-300' : 'dark:text-gray-400'}
@@ -37,7 +38,7 @@
 				onclick={() => (value = icon.name)}
 				type="button"
 			>
-				<icon.component class="size-6" />
+				<Icon />
 			</button>
 		{/each}
 	</div>
