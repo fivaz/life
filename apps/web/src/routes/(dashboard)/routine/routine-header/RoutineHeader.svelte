@@ -10,23 +10,22 @@
 	import { title } from '$lib/utils.svelte';
 
 	import RoutineFormButton from '../routine-form-button/RoutineFormButton.svelte';
-	import { selectedDate } from '../service.svelte';
+	import { disableRoutineVisibility, selectedDate } from '../service.svelte';
 	import Streak from '../streak/Streak.svelte';
 
 	interface Props {
 		routines: Routine[];
-		showDisableRoutines: boolean;
 	}
 
 	let newRoutine = $state<Routine>(buildEmptyRoutine());
 
-	let { routines, showDisableRoutines = $bindable() }: Props = $props();
+	let { routines }: Props = $props();
 </script>
 
 <div class="flex items-center justify-between">
 	<LText class="hidden text-2xl font-bold md:block">{title.value}</LText>
 	<div class="flex flex-grow items-center justify-between md:flex-grow-0 md:justify-start md:gap-5">
-		<Streak {routines} {showDisableRoutines} />
+		<Streak {routines} />
 		<div>
 			<LText class="flex items-center gap-2 text-base font-semibold leading-6">
 				<time class="md:hidden" dateTime={formatDate(selectedDate.value)}>
@@ -38,14 +37,14 @@
 			</LText>
 		</div>
 
-		{#if showDisableRoutines}
-			<Button color="white" onclick={() => (showDisableRoutines = false)} padding="p-1.5">
+		{#if disableRoutineVisibility.value}
+			<Button color="white" onclick={() => disableRoutineVisibility.hide()} padding="p-1.5">
 				<div use:tooltip={'hide disabled routines'}>
 					<EyeClosedIcon class="size-4" />
 				</div>
 			</Button>
 		{:else}
-			<Button color="white" onclick={() => (showDisableRoutines = true)} padding="p-1.5">
+			<Button color="white" onclick={() => disableRoutineVisibility.show()} padding="p-1.5">
 				<div use:tooltip={'show disabled routines'}>
 					<EyeIcon class="size-4" />
 				</div>

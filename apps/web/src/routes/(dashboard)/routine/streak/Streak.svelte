@@ -5,17 +5,17 @@
 
 	import type { Routine } from '$lib/routine/routine.model';
 
+	import { disableRoutineVisibility } from '../service.svelte';
 	import { getAvailableRoutines } from '../utils';
 
 	interface Props {
 		routines: Routine[];
-		showDisableRoutines: boolean;
 	}
 
-	let { routines, showDisableRoutines }: Props = $props();
+	let { routines }: Props = $props();
 
 	let validRoutines = $derived(
-		routines.filter((routine) => (showDisableRoutines ? true : !routine.isDisabled)),
+		routines.filter((routine) => (disableRoutineVisibility.value ? true : !routine.isDisabled)),
 	);
 
 	let streak = $derived(getRoutinesStreak(validRoutines));

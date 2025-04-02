@@ -16,10 +16,9 @@
 	interface Props {
 		time: Routine['time'];
 		title: string;
-		showDisableRoutines: boolean;
 	}
 
-	let { time, title, showDisableRoutines }: Props = $props();
+	let { time, title }: Props = $props();
 
 	function handleConsider({ detail }: { detail: { items: Routine[] } }) {
 		routinesMap.value[time] = detail.items;
@@ -54,9 +53,7 @@
 	>
 		{#each getAvailableRoutines(routinesMap.value[time], selectedDate.value) as routine (routine.id)}
 			<div animate:flip={{ duration: flipDuration }}>
-				{#if showDisableRoutines || !routine.isDisabled}
-					<RoutineRow {routine} />
-				{/if}
+				<RoutineRow {routine} />
 			</div>
 		{/each}
 		<div

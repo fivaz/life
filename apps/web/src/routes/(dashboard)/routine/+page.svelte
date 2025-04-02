@@ -18,8 +18,6 @@
 	let allRoutines = $derived(Object.values(routinesMap.value).flat());
 
 	let availableRoutines = $derived(getAvailableRoutines(allRoutines, selectedDate.value));
-
-	let showDisableRoutines = $state<boolean>(false);
 </script>
 
 {#if currentUser.uid}
@@ -27,7 +25,7 @@
 		<div class="mx-auto max-w-7xl pt-4 sm:px-6 lg:px-8">
 			<div class="flex size-full flex-col gap-5">
 				<div class="px-4 sm:px-0">
-					<RoutineHeader routines={allRoutines} bind:showDisableRoutines />
+					<RoutineHeader routines={allRoutines} />
 				</div>
 
 				<WeekListSelector routines={availableRoutines} />
@@ -38,10 +36,10 @@
 	<div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
 		<div class="flex size-full flex-col gap-5">
 			{#if availableRoutines.length}
-				<RoutineRows {showDisableRoutines} time="morning" title="Morning Routine" />
-				<RoutineRows {showDisableRoutines} time="afternoon" title="Afternoon Routine" />
-				<RoutineRows {showDisableRoutines} time="evening" title="Evening Routine" />
-				<RoutineRows {showDisableRoutines} time="all-day" title="All day Routine" />
+				<RoutineRows time="morning" title="Morning Routine" />
+				<RoutineRows time="afternoon" title="Afternoon Routine" />
+				<RoutineRows time="evening" title="Evening Routine" />
+				<RoutineRows time="all-day" title="All day Routine" />
 			{:else}
 				<RoutineEmptyState />
 			{/if}

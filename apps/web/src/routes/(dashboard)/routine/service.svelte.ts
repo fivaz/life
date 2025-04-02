@@ -49,3 +49,17 @@ export const weekDates = {
 		return _weekDates;
 	},
 };
+
+let _areDisabledRoutinesVisible = $state<boolean>(false);
+
+export const disableRoutineVisibility = {
+	get value() {
+		return _areDisabledRoutinesVisible;
+	},
+	show() {
+		_areDisabledRoutinesVisible = true;
+	},
+	hide() {
+		_areDisabledRoutinesVisible = false;
+	},
+};
