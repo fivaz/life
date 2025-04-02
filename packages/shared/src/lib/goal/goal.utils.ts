@@ -70,7 +70,6 @@ import {
 import type { IconSource } from '@steeze-ui/svelte-icon';
 import type { Component } from 'svelte';
 
-import CleanIcon from '$lib/components/goal-icon/icons/CleanIcon.svelte';
 import type { Goal } from '$lib/goal/goal.model.js';
 
 const defaultIcon: GoalIconType = { component: Fire, directComponent: Flame, name: 'Fire' };
@@ -147,7 +146,6 @@ export const icons: GoalIconType[] = [
 	{ component: Beer, name: 'Beer/Germany' },
 	{ component: Croissant, name: 'Croissant/France' },
 	{ component: Comments, name: 'Talk' },
-	{ component: Fire, directComponent: CleanIcon, name: 'Clean' },
 ];
 
 export function getIcon(name: null | string) {

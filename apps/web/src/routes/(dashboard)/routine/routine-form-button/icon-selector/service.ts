@@ -19,12 +19,12 @@ import MessageCircle from '@lucide/svelte/icons/message-circle';
 import NotebookPen from '@lucide/svelte/icons/notebook-pen';
 import Pickaxe from '@lucide/svelte/icons/pickaxe';
 import Shower from '@lucide/svelte/icons/shower-head';
-import Smartphone from '@lucide/svelte/icons/smartphone';
 import Sprout from '@lucide/svelte/icons/sprout';
+import Device from '@lucide/svelte/icons/tablet-smartphone';
 import Tablets from '@lucide/svelte/icons/tablets';
 import Trophy from '@lucide/svelte/icons/trophy';
-import Tv from '@lucide/svelte/icons/tv';
-import Utensils from '@lucide/svelte/icons/utensils';
+import TvMinimal from '@lucide/svelte/icons/tv-minimal';
+import Utensils from '@lucide/svelte/icons/utensils-crossed';
 import type { Component } from 'svelte';
 
 import CleanIcon from './icons/CleanIcon.svelte';
@@ -48,11 +48,11 @@ export const routineIcons: RoutineIcon[] = [
 	{ component: Utensils, name: 'Food Plate' },
 	{ component: Bed, name: 'Bed' },
 	{ component: Calendar1, name: 'CalendarCheck' },
-	{ component: Smartphone, name: 'Smartphone' },
+	{ component: Device, name: 'Device Phone Tech' },
 	{ component: Shower, name: 'Shower' },
 	{ component: Tablets, name: 'Pills Medicine Health' },
 	{ component: Pickaxe, name: 'Work' },
-	{ component: Tv, name: 'Tv' },
+	{ component: TvMinimal, name: 'Tv' },
 	{ component: GlassWater, name: 'Water' },
 	{ component: NotebookPen, name: 'Pencil' },
 	{ component: Church, name: 'Church' },
