@@ -137,6 +137,9 @@ importers:
       '@life/shared':
         specifier: workspace:*
         version: link:../../packages/shared
+      '@lucide/lab':
+        specifier: ^0.1.2
+        version: 0.1.2
       '@lucide/svelte':
         specifier: ^0.487.0
         version: 0.487.0(svelte@5.24.1)
@@ -3085,6 +3088,10 @@ packages:
 
   /@kurkle/color@0.3.4:
     resolution: {integrity: sha512-M5UknZPHRu3DEDWoipU6sE8PdkZ6Z/S+v4dD+Ke8IaNlpdSQah50lz1KtcFBa2vsdOnwbbnxJwVM4wty6udA5w==}
+    dev: true
+
+  /@lucide/lab@0.1.2:
+    resolution: {integrity: sha512-VprF2BJa7ZuTGOhUd5cf8tHJXyL63wdxcGieAiVVoR9hO0YmPsnZO0AGqDiX2/br+/MC6n8BoJcmPilltOXIJA==}
     dev: true
 
   /@lucide/svelte@0.487.0(svelte@5.24.1):

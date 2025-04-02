@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Icon } from '@lucide/svelte';
+
 	import Input from '$lib/components/form/input/Input.svelte';
 
 	import type { RoutineIcon } from './service';
@@ -30,15 +32,19 @@
 		class="flex h-40 flex-wrap justify-between gap-1 overflow-y-auto rounded-lg border border-gray-300 p-2 dark:border-gray-700 dark:[color-scheme:dark]"
 	>
 		{#each filteredIcons as icon (icon.name)}
-			{@const Icon = icon.component}
 			<button
 				class="
-					{value === icon.name ? 'bg-indigo-200 text-indigo-700 dark:bg-indigo-300' : 'dark:text-gray-400'}
-					flex size-7 cursor-pointer items-center justify-center rounded p-1"
+						{value === icon.name ? 'bg-indigo-200 text-indigo-700 dark:bg-indigo-300' : 'dark:text-gray-400'}
+						flex size-7 cursor-pointer items-center justify-center rounded p-1"
 				onclick={() => (value = icon.name)}
 				type="button"
 			>
-				<Icon />
+				{#if 'component' in icon}
+					{@const IconComponent = icon.component}
+					<IconComponent />
+				{:else}
+					<Icon iconNode={icon.iconNode} />
+				{/if}
 			</button>
 		{/each}
 	</div>

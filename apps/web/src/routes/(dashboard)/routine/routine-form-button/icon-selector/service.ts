@@ -1,3 +1,4 @@
+import { broom } from '@lucide/lab';
 import Apple from '@lucide/svelte/icons/apple';
 import Banknote from '@lucide/svelte/icons/banknote';
 import Bed from '@lucide/svelte/icons/bed';
@@ -27,9 +28,9 @@ import TvMinimal from '@lucide/svelte/icons/tv-minimal';
 import Utensils from '@lucide/svelte/icons/utensils-crossed';
 import type { Component } from 'svelte';
 
-import CleanIcon from './icons/CleanIcon.svelte';
-
-export type RoutineIcon = { component: Component; name: string };
+export type RoutineIcon =
+	| { component: Component; name: string }
+	| { iconNode: typeof broom; name: string };
 
 const defaultIcon: RoutineIcon = { component: Flame, name: 'Fire' };
 
@@ -61,5 +62,5 @@ export const routineIcons: RoutineIcon[] = [
 	{ component: Brain, name: 'Brain/Intelligence/Knowledge' },
 	{ component: MessageCircle, name: 'Talk' },
 	{ component: Apple, name: 'Apple Food' },
-	{ component: CleanIcon, name: 'Clean' },
+	{ iconNode: broom, name: 'Clean' },
 ];

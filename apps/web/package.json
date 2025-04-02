@@ -25,6 +25,7 @@
 		"@life/config-eslint": "workspace:*",
 		"@life/config-prettier": "workspace:*",
 		"@life/shared": "workspace:*",
+		"@lucide/lab": "^0.1.2",
 		"@lucide/svelte": "^0.487.0",
 		"@neoconfetti/svelte": "^2.0.0",
 		"@playwright/test": "^1.45.3",
