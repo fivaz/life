@@ -1,8 +1,10 @@
 <script lang="ts">
-	import { LoaderCircle } from '@steeze-ui/lucide-icons';
-	import { Icon } from '@steeze-ui/svelte-icon';
+	import { LText } from '@life/shared';
+	import { LoaderCircleIcon } from 'lucide-svelte';
 </script>
 
 <div class="flex size-full items-center justify-center">
-	<Icon class="size-9 animate-spin" src={LoaderCircle} />
+	<LText>
+		<LoaderCircleIcon class="size-9 animate-spin" />
+	</LText>
 </div>

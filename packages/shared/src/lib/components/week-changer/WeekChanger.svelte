@@ -48,7 +48,7 @@
 </script>
 
 <div
-	class="relative flex items-center {klass} divide-gray-300 rounded-md border border-gray-300 dark:divide-gray-700 dark:border-gray-700"
+	class="relative flex items-center text-gray-700 dark:text-gray-100 {klass} divide-gray-300 rounded-md border border-gray-300 dark:divide-gray-700 dark:border-gray-700"
 >
 	<button
 		class="px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800"

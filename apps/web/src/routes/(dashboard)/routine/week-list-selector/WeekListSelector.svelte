@@ -33,7 +33,7 @@
 <div class="relative h-20 md:h-14">
 	{#key weekDates.value}
 		<div
-			class="absolute grid w-full grid-cols-7 divide-gray-300 border border-gray-300 text-sm leading-6 text-gray-500 md:divide-x dark:divide-gray-700 dark:border-gray-700"
+			class="absolute grid h-full w-full grid-cols-7 divide-gray-300 border border-b-0 border-gray-300 text-sm leading-6 text-gray-500 md:divide-x dark:divide-gray-700 dark:border-gray-700"
 			in:fly={{ x: 900 * slideDirection, duration: weekChangeDuration }}
 			out:fly={{ x: 900 * slideDirection * -1, duration: weekChangeDuration }}
 		>

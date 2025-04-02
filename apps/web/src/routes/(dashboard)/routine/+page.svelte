@@ -23,12 +23,20 @@
 </script>
 
 {#if currentUser.uid}
+	<div class="border-b border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-gray-900">
+		<div class="mx-auto max-w-7xl pt-4 sm:px-6 lg:px-8">
+			<div class="flex size-full flex-col gap-5">
+				<div class="px-4 sm:px-0">
+					<RoutineHeader routines={allRoutines} bind:showDisableRoutines />
+				</div>
+
+				<WeekListSelector routines={availableRoutines} />
+			</div>
+		</div>
+	</div>
+
 	<div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
 		<div class="flex size-full flex-col gap-5">
-			<RoutineHeader routines={allRoutines} bind:showDisableRoutines />
-
-			<WeekListSelector routines={availableRoutines} />
-
 			{#if availableRoutines.length}
 				<RoutineRows {showDisableRoutines} time="morning" title="Morning Routine" />
 				<RoutineRows {showDisableRoutines} time="afternoon" title="Afternoon Routine" />
