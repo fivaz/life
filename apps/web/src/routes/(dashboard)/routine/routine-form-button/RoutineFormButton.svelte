@@ -12,7 +12,8 @@
 	import { addRoutine, deleteRoutine, editRoutine } from '$lib/routine/routine.repository';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
-	import IconSelector from '../../goals/goal-form/icon-selector/IconSelector.svelte';
+	import IconSelector from './icon-selector/IconSelector.svelte';
+	import { routineIcons } from './icon-selector/service';
 
 	interface Props {
 		routine: Routine;
@@ -119,6 +120,6 @@
 		</div>
 
 		<!--icon-->
-		<IconSelector name="icon" bind:value={routineIn.icon} />
+		<IconSelector name="icon" icons={routineIcons} bind:value={routineIn.icon} />
 	</div>
 </ModalForm>

@@ -137,6 +137,9 @@ importers:
       '@life/shared':
         specifier: workspace:*
         version: link:../../packages/shared
+      '@lucide/svelte':
+        specifier: ^0.487.0
+        version: 0.487.0(svelte@5.24.1)
       '@neoconfetti/svelte':
         specifier: ^2.0.0
         version: 2.2.2(svelte@5.24.1)
