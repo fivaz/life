@@ -57,7 +57,6 @@
 		"@life/config-prettier": "workspace:*",
 		"@lucide/lab": "^0.1.2",
 		"@lucide/svelte": "^0.487.0",
-		"@steeze-ui/font-awesome": "^1.0.1",
 		"@storybook/addon-essentials": "^8.4.5",
 		"@storybook/addon-interactions": "^8.4.5",
 		"@storybook/addon-svelte-csf": "^5.0.0-next.11",

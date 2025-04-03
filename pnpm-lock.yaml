@@ -4,6 +4,10 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  sharp: 0.32.6
+  sharp-ico: 0.1.5
+
 importers:
 
   .:
@@ -149,9 +153,6 @@ importers:
       '@playwright/test':
         specifier: ^1.45.3
         version: 1.51.1
-      '@steeze-ui/font-awesome':
-        specifier: ^1.0.1
-        version: 1.0.1
       '@storybook/addon-essentials':
         specifier: ^8.4.4
         version: 8.6.7(@types/react@19.0.12)(storybook@8.6.7)
@@ -378,9 +379,6 @@ importers:
       '@lucide/svelte':
         specifier: ^0.487.0
         version: 0.487.0(svelte@5.24.1)
-      '@steeze-ui/font-awesome':
-        specifier: ^1.0.1
-        version: 1.0.1
       '@storybook/addon-essentials':
         specifier: ^8.4.5
         version: 8.6.7(@types/react@19.0.12)(storybook@8.6.7)
@@ -3455,10 +3453,6 @@ packages:
   /@rtsao/scc@1.1.0:
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
     dev: false
-
-  /@steeze-ui/font-awesome@1.0.1:
-    resolution: {integrity: sha512-NTWmoyt8wk6NWWmi6/BV2rxfJoFKcaYyq5imla2bDtV+58lrvZ7bse3bUXxIAePco+6SB3JzBWcwgqdO37G7ug==}
-    dev: true
 
   /@steeze-ui/heroicons@2.4.2:
     resolution: {integrity: sha512-66luL+uaxyC6mcZigewH4phfDxNWj4sH+n6qK2VnY3zcgpMmNAgVQbMGfZYfKhLqrUo13BlqpmhWuHqAUpehlA==}

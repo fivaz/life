@@ -4,7 +4,7 @@ import Banknote from '@lucide/svelte/icons/banknote';
 import Bed from '@lucide/svelte/icons/bed';
 import BicepsFlexed from '@lucide/svelte/icons/biceps-flexed';
 import BookOpenText from '@lucide/svelte/icons/book-open-check';
-import Brain from '@lucide/svelte/icons/Brain';
+import Brain from '@lucide/svelte/icons/brain';
 import Calendar1 from '@lucide/svelte/icons/calendar-1';
 import Check from '@lucide/svelte/icons/check';
 import Church from '@lucide/svelte/icons/Church';
