@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ChevronsDownUp from '@lucide/svelte/icons/chevrons-down-up';
+	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
 	import { clsx } from 'clsx';
 	import type { Snippet } from 'svelte';
 	import { onMount, setContext } from 'svelte';
@@ -92,7 +92,7 @@
 		>
 			<span class="block truncate">{@render placeholder()}</span>
 			<span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-				<ChevronsDownUp class="size-5 text-gray-400" aria-hidden="true" />
+				<ChevronDownIcon class="size-5 text-gray-400" aria-hidden="true" />
 			</span>
 		</button>
 		{#if isOpen}
