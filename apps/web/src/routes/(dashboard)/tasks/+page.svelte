@@ -4,7 +4,7 @@
 	import { where } from 'firebase/firestore';
 	import { FileSearch2Icon } from 'lucide-svelte';
 
-	import { useCategories } from '$lib/category/category.svelte';
+	import { categoriesStore } from '$lib/category/category.svelte';
 	import { buildUntimedTask } from '$lib/task/build-utils';
 	import { fetchTasks } from '$lib/task/task.repository';
 	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
@@ -24,10 +24,8 @@
 
 	fetchTasks(tasks, where('isDone', '==', false));
 
-	const categories = useCategories();
-
 	$effect(() => {
-		newTask = buildUntimedTask(categories.value);
+		newTask = buildUntimedTask(categoriesStore.value);
 	});
 
 	const sortedTasksByDate = $derived(getTasksByDateSorted(tasks));

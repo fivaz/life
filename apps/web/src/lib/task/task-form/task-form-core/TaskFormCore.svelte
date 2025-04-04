@@ -5,7 +5,7 @@
 	import { getGoalsForTasks } from '@life/shared/goal';
 
 	import type { Category } from '$lib/category/category.model';
-	import { useCategories } from '$lib/category/category.svelte';
+	import { categoriesStore } from '$lib/category/category.svelte';
 	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
@@ -15,8 +15,6 @@
 	import { sumTimes } from '$lib/task/time-utils';
 
 	import TaskDescription from './TaskDescription.svelte';
-
-	const categories = useCategories();
 
 	const goals = useGoals(getGoalsForTasks);
 </script>
@@ -59,7 +57,7 @@
 	{#snippet placeholder()}
 		{@render categoryItem(taskIn.value.category)}
 	{/snippet}
-	{#each categories.value as category (category)}
+	{#each categoriesStore.value as category (category)}
 		<SelectItem value={category}>
 			{@render categoryItem(category)}
 		</SelectItem>

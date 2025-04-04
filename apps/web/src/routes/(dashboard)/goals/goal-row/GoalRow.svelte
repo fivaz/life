@@ -12,7 +12,7 @@
 		Settings2Icon,
 	} from 'lucide-svelte';
 
-	import { useCategories } from '$lib/category/category.svelte';
+	import { categoriesStore } from '$lib/category/category.svelte';
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
 	import { buildEmptyGoalWithParent, removeGoalChildren } from '$lib/goal/goal.model';
@@ -39,12 +39,10 @@
 
 	let newChildGoal = $state<Goal>(buildEmptyGoalWithParent(goal.id));
 
-	const categories = useCategories();
-
-	let newGoalTask = $state<Task>(buildTimedTask(categories.value, removeGoalChildren(goal)));
+	let newGoalTask = $state<Task>(buildTimedTask(categoriesStore.value, removeGoalChildren(goal)));
 
 	$effect(() => {
-		newGoalTask = buildTimedTask(categories.value, removeGoalChildren(goal));
+		newGoalTask = buildTimedTask(categoriesStore.value, removeGoalChildren(goal));
 	});
 
 	export function getNumberOfTasks(tasks: Task[]) {

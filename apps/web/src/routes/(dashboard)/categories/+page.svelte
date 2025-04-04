@@ -6,7 +6,7 @@
 	import type { Category } from '$lib/category/category.model';
 	import { buildEmptyCategory } from '$lib/category/category.model';
 	import { updateCategoriesOrder } from '$lib/category/category.respository';
-	import { useCategories } from '$lib/category/category.svelte';
+	import { categoriesStore } from '$lib/category/category.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 	import { title } from '$lib/utils.svelte';
 
@@ -17,23 +17,19 @@
 
 	title.value = 'Categories';
 
-	const categories = useCategories();
-
 	const flipDuration = 200;
 
 	function handleConsider({ detail }: { detail: { items: Category[] } }) {
-		categories.value = detail.items;
+		categoriesStore.value = detail.items;
 	}
 
 	function handleFinalize({ detail }: { detail: { items: Category[] } }) {
-		const orderedCategories = detail.items.map((category, index) => {
+		categoriesStore.value = detail.items.map((category, index) => {
 			category.order = index;
 			return category;
 		});
 
-		categories.update(orderedCategories);
-
-		updateCategoriesOrder(categories.value, currentUser.uid);
+		updateCategoriesOrder(categoriesStore.value, currentUser.uid);
 	}
 </script>
 
@@ -50,9 +46,9 @@
 		class="flex flex-col gap-1"
 		onconsider={handleConsider}
 		onfinalize={handleFinalize}
-		use:dragHandleZone={{ flipDurationMs: flipDuration, items: categories.value }}
+		use:dragHandleZone={{ flipDurationMs: flipDuration, items: categoriesStore.value }}
 	>
-		{#each categories.value as category (category.id)}
+		{#each categoriesStore.value as category (category.id)}
 			<div animate:flip={{ duration: flipDuration }}>
 				<CategoryRow {category} />
 			</div>

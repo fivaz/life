@@ -5,6 +5,9 @@
 	import { onMount } from 'svelte';
 
 	import { goto } from '$app/navigation';
+	import type { Category } from '$lib/category/category.model';
+	import { fetchCategories } from '$lib/category/category.respository';
+	import { categoriesStore } from '$lib/category/category.svelte';
 	import Dashboard from '$lib/components/dashboard/Dashboard.svelte';
 	import { Routes } from '$lib/consts';
 	import { auth } from '$lib/firebase';
@@ -24,6 +27,8 @@
 			}
 		});
 	});
+
+	fetchCategories(categoriesStore.value);
 </script>
 
 <Dashboard>
