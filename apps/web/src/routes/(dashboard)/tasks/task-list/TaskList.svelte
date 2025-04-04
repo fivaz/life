@@ -104,7 +104,7 @@
 			<LText>{getTotalDuration(tasks)}</LText>
 
 			{#if isNotRecurrent}
-				<TaskFormButton color="none" padding="py-1 px-1.5" task={newTask}>
+				<TaskFormButton color="white" padding="py-1 px-1.5" task={newTask}>
 					<PlusIcon class="size-4" />
 				</TaskFormButton>
 			{/if}
