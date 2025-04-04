@@ -25,7 +25,8 @@
 	<div class="flex-1 truncate text-sm font-semibold leading-6">{category.name}</div>
 
 	<CategoryFormButton
-		class="{tailwindColorMap[category.color].hoverBg} {tailwindColorMap[category.color].hoverText}"
+		class="{tailwindColorMap[category.color].hoverBg} {tailwindColorMap[category.color].hoverText}
+				rounded text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300"
 		{category}
 		color="none"
 	>
