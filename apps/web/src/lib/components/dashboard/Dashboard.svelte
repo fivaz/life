@@ -21,7 +21,9 @@
 
 	<DashboardMobile class="flex md:hidden" />
 
-	<main class="mt-14 flex-1 overflow-y-auto bg-white md:mt-0 dark:bg-gray-800">
+	<main
+		class="mt-14 flex-1 overflow-y-auto bg-white md:mt-0 dark:bg-gray-800 dark:[color-scheme:dark]"
+	>
 		{#if currentUser.email === demoLogin.email}
 			<Banner />
 		{/if}
