@@ -7,7 +7,7 @@
 	import { addDays, addWeeks, lastDayOfWeek, parse, subDays } from 'date-fns';
 	import { ClipboardCopyIcon, ClipboardIcon, ClipboardListIcon, PlusIcon } from 'lucide-svelte';
 
-	import { categoriesStore } from '$lib/category/category.svelte';
+	import { categories } from '$lib/category/category.svelte';
 	import { buildTimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
 	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
 	import { DATE_FR } from '$lib/utils.svelte';
@@ -27,9 +27,9 @@
 		const dateString = getDate(label);
 		if (dateString) {
 			const date = parseDate(dateString);
-			return buildUntimedTaskWithDateSet(categoriesStore.value, date);
+			return buildUntimedTaskWithDateSet(categories.value, date);
 		} else {
-			return buildTimedTask(categoriesStore.value);
+			return buildTimedTask(categories.value);
 		}
 	}
 

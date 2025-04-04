@@ -9,7 +9,7 @@
 	import type { Goal } from '$lib/goal/goal.model';
 	import { removeGoalChildren } from '$lib/goal/goal.model';
 	import { addGoal, deleteGoal, editGoal } from '$lib/goal/goal.repository';
-	import { useGoals } from '$lib/goal/goal.svelte';
+	import { goals } from '$lib/goal/goal.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import type { HierarchicalGoal } from '../goals-by-parent/service';
@@ -31,8 +31,6 @@
 	let goalIn = $state({ ...goal });
 
 	let isOpen = $state(debug);
-
-	let goals = useGoals();
 
 	function close() {
 		isOpen = false;

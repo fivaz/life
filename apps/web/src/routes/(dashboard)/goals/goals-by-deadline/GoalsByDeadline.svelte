@@ -2,12 +2,10 @@
 	import { LText } from '@life/shared';
 	import { ChevronDownIcon, ChevronUpIcon } from 'lucide-svelte';
 
-	import { useGoals } from '$lib/goal/goal.svelte';
+	import { goals } from '$lib/goal/goal.svelte';
 
 	import GoalRow from '../goal-row/GoalRow.svelte';
 	import { sortGoalsByDate } from '../service';
-
-	let goals = useGoals();
 
 	let unCompletedGoals = $derived(goals.value.filter((goal) => !goal.isDone));
 

@@ -5,12 +5,13 @@
 	import { onMount } from 'svelte';
 
 	import { goto } from '$app/navigation';
-	import type { Category } from '$lib/category/category.model';
 	import { fetchCategories } from '$lib/category/category.respository';
-	import { categoriesStore } from '$lib/category/category.svelte';
+	import { categories } from '$lib/category/category.svelte';
 	import Dashboard from '$lib/components/dashboard/Dashboard.svelte';
 	import { Routes } from '$lib/consts';
 	import { auth } from '$lib/firebase';
+	import { fetchGoals } from '$lib/goal/goal.repository';
+	import { goals } from '$lib/goal/goal.svelte';
 	import { setUser } from '$lib/user/user.utils.svelte';
 
 	interface Props {
@@ -28,7 +29,8 @@
 		});
 	});
 
-	fetchCategories(categoriesStore.value);
+	fetchCategories(categories.value);
+	fetchGoals(goals.value);
 </script>
 
 <Dashboard>

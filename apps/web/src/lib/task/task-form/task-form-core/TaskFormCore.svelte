@@ -5,18 +5,18 @@
 	import { getGoalsForTasks } from '@life/shared/goal';
 
 	import type { Category } from '$lib/category/category.model';
-	import { categoriesStore } from '$lib/category/category.svelte';
+	import { categories } from '$lib/category/category.svelte';
 	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
-	import { useGoals } from '$lib/goal/goal.svelte';
+	import { goals as rawGoals } from '$lib/goal/goal.svelte';
 	import { taskIn } from '$lib/task/task-form/service.svelte';
 	import TaskFormImage from '$lib/task/task-form/task-form-image/TaskFormImage.svelte';
 	import { sumTimes } from '$lib/task/time-utils';
 
 	import TaskDescription from './TaskDescription.svelte';
 
-	const goals = useGoals(getGoalsForTasks);
+	const goals = $derived(getGoalsForTasks(rawGoals.value));
 </script>
 
 <!--name-->
@@ -57,7 +57,7 @@
 	{#snippet placeholder()}
 		{@render categoryItem(taskIn.value.category)}
 	{/snippet}
-	{#each categoriesStore.value as category (category)}
+	{#each categories.value as category (category)}
 		<SelectItem value={category}>
 			{@render categoryItem(category)}
 		</SelectItem>
@@ -87,7 +87,7 @@
 		{@render goalItem(taskIn.value.goal)}
 	{/snippet}
 	<SelectItem value={null}>no goal</SelectItem>
-	{#each goals.value as goal (goal)}
+	{#each goals as goal (goal)}
 		<SelectItem class="flex gap-2" value={goal}>
 			<IconRender name={goal.icon} class="size-5" />
 			<span class="w-[calc(100%-32px)] truncate">{goal.name}</span>

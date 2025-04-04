@@ -2,17 +2,16 @@
 	import { LText } from '@life/shared';
 	import { ChevronDownIcon, ChevronUpIcon } from 'lucide-svelte';
 
-	import { useGoals } from '$lib/goal/goal.svelte';
+	import { goals as rawGoals } from '$lib/goal/goal.svelte';
 
 	import GoalRow from '../goal-row/GoalRow.svelte';
-	import type { HierarchicalGoal } from './service';
 	import { buildGoalHierarchy } from './service';
 
-	const goals = useGoals<HierarchicalGoal>(buildGoalHierarchy);
+	let goals = $derived(buildGoalHierarchy(rawGoals.value));
 
-	let unCompletedGoals = $derived(goals.value.filter((goal) => !goal.isDone));
+	let unCompletedGoals = $derived(goals.filter((goal) => !goal.isDone));
 
-	let completedGoals = $derived(goals.value.filter((goal) => goal.isDone));
+	let completedGoals = $derived(goals.filter((goal) => goal.isDone));
 
 	let isCompleteListOpen = $state(false);
 </script>
