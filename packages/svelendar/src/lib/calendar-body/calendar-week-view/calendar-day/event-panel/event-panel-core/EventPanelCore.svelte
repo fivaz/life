@@ -5,7 +5,7 @@
 	import type { Task } from '@life/shared/task';
 	import { getDurationInMinutes, getSubTasks, getSubTasksCompleted } from '@life/shared/task';
 	import { format, parse } from 'date-fns';
-	import sanitizeHtml from 'sanitize-html';
+	import DOMPurify from 'dompurify';
 
 	import { getToggleCompletion } from '$lib/context.utils.js';
 
@@ -68,15 +68,9 @@
 	}
 
 	function getDescription(event: Task) {
-		const sanitizedHtml = sanitizeHtml(event.description, {
-			allowedTags: ['div', 'p', 'ul', 'li', 'label', 'input', 'span', 'strong', 'em'],
-			allowedAttributes: {
-				div: ['class'],
-				ul: ['data-type'],
-				li: ['data-checked', 'data-type'],
-				input: ['type', 'checked', 'disabled'],
-				'*': [], // No global attributes allowed unless specified above
-			},
+		const sanitizedHtml = DOMPurify.sanitize(event.description, {
+			ALLOWED_TAGS: ['div', 'p', 'ul', 'li', 'label', 'input', 'span', 'strong', 'em'],
+			ALLOWED_ATTR: ['class', 'data-type', 'data-checked', 'type', 'checked', 'disabled'],
 		});
 
 		return disableCheckboxes(sanitizedHtml);
