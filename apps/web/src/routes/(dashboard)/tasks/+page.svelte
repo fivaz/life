@@ -58,9 +58,7 @@
 	<div class="flex flex-col gap-5">
 		<ul class="flex flex-col gap-3">
 			{#each sortedTasksByDate as dateGroup (dateGroup)}
-				<!--{#if categories.length}-->
 				<TaskList label={dateGroup} tasks={sortedTasksByDate[dateGroup]} />
-				<!--{/if}-->
 			{/each}
 		</ul>
 
