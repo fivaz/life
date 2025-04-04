@@ -39,7 +39,7 @@
 </script>
 
 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-	<div class="sticky top-0 flex flex-col items-center justify-start gap-5 py-10">
+	<div class="flex flex-col items-center justify-start gap-5 py-10">
 		<Button color="white" disabled={timer.status !== 'stopped'} onclick={() => (isFormOpen = true)}>
 			<Pencil class="size-5 text-indigo-600" />
 		</Button>

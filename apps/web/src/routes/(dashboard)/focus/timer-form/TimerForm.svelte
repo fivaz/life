@@ -23,7 +23,9 @@
 		<div class="flex items-center justify-between pb-2">
 			<LText class="text-lg font-medium">Edit Timer</LText>
 
-			<Button color="white" onclick={close} padding="p-1.5"><XIcon class="size-5" /></Button>
+			<Button color="white" onclick={close} padding="p-1.5" type="button">
+				<XIcon class="size-5" />
+			</Button>
 		</div>
 
 		<div class="flex items-center justify-center gap-2">
