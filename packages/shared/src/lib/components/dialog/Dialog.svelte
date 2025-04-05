@@ -48,11 +48,5 @@
 		confirmFunc={confirm}
 		{...props}
 	/>
-	<MobileDialog
-		class="flex sm:hidden"
-		cancelFunc={cancel}
-		closeFunc={close}
-		confirmFunc={confirm}
-		{...props}
-	/>
+	<MobileDialog class="flex sm:hidden" cancelFunc={cancel} confirmFunc={confirm} {...props} />
 </Modal>
