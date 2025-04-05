@@ -20,14 +20,16 @@
 	const flipDuration = 200;
 
 	function handleConsider({ detail }: { detail: { items: Category[] } }) {
-		categories.value = detail.items;
+		categories.value.splice(0, categories.value.length, ...detail.items);
 	}
 
 	function handleFinalize({ detail }: { detail: { items: Category[] } }) {
-		categories.value = detail.items.map((category, index) => {
+		const orderedCategories = detail.items.map((category, index) => {
 			category.order = index;
 			return category;
 		});
+
+		categories.value.splice(0, categories.value.length, ...orderedCategories);
 
 		updateCategoriesOrder(categories.value, currentUser.uid);
 	}
