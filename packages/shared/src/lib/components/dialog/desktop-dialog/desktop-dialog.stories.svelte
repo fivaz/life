@@ -2,22 +2,13 @@
 	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 	import type { ComponentProps } from 'svelte';
 
-	import Dialog from './Dialog.svelte';
+	import DesktopDialog from './DesktopDialog.svelte';
 
 	const { Story } = defineMeta({
-		component: Dialog,
+		component: DesktopDialog,
 		args: {
 			cancelText: 'Cancel',
 			confirmText: 'Confirm',
-			resolve: (value: boolean | null) => {
-				if (value === true) {
-					console.log('accepted');
-				} else if (value === false) {
-					console.log('rejected');
-				} else {
-					console.log('cancel');
-				}
-			},
 		},
 	});
 </script>
@@ -26,10 +17,8 @@
 	setTemplate(template as any);
 </script>
 
-{#snippet template(args: ComponentProps<typeof Dialog>)}
-	<div>
-		<Dialog {...args} />
-	</div>
+{#snippet template(args: ComponentProps<typeof DesktopDialog>)}
+	<DesktopDialog {...args} />
 {/snippet}
 
 <Story
@@ -38,7 +27,6 @@
 		cancelText: 'Custom Cancel',
 		confirmText: 'Custom Confirm',
 		message: 'Are you sure you want to delete this event ?',
-		isOpen: true,
 		title: 'Delete event ?',
 	}}
 />
@@ -46,7 +34,6 @@
 <Story
 	name="No Message"
 	args={{
-		isOpen: true,
 		title: 'Delete?',
 	}}
 />
