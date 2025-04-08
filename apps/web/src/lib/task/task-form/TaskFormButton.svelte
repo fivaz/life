@@ -40,6 +40,7 @@
 	}
 
 	export function open() {
+		console.log(task.id);
 		taskIn.value = convertToTaskIn(task);
 		isOpen = true;
 	}

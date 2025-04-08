@@ -60,6 +60,7 @@
 		"firebase": "^11.0.1",
 		"flatpickr": "^4.6.13",
 		"globals": "^15.0.0",
+		"heic2any": "^0.0.4",
 		"interactjs": "^1.10.27",
 		"lucide-svelte": "^0.456.0",
 		"minidenticons": "^4.2.1",

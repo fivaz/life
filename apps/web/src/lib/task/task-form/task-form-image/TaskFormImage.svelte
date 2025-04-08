@@ -1,15 +1,39 @@
 <script lang="ts">
 	import { Modal } from '@life/shared';
 	import Image from '@lucide/svelte/icons/image';
+	import heic2any from 'heic2any';
 
 	import { taskIn } from '$lib/task/task-form/service.svelte';
 
 	let isImageOpen = $state(false);
 
-	function handleChange(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
+	async function handleChange(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (event.currentTarget.files) {
-			[taskIn.value.file] = event.currentTarget.files;
-			taskIn.value.image = URL.createObjectURL(taskIn.value.file);
+			const file = event.currentTarget.files[0];
+
+			if (file.type === 'image/heic' || file.name.endsWith('.heic')) {
+				try {
+					const convertedBlob = await heic2any({
+						blob: file,
+						toType: 'image/jpeg',
+						quality: 0.8,
+					});
+					const convertedFile = new File(
+						[convertedBlob as Blob],
+						file.name.replace(/\.heic$/, '.jpg'),
+						{
+							type: 'image/jpeg',
+						},
+					);
+					taskIn.value.file = convertedFile;
+					taskIn.value.image = URL.createObjectURL(convertedFile);
+				} catch (e) {
+					console.error('HEIC conversion failed:', e);
+				}
+			} else {
+				taskIn.value.file = file;
+				taskIn.value.image = URL.createObjectURL(file);
+			}
 		}
 	}
 </script>
