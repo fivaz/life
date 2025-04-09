@@ -1,13 +1,9 @@
 <script lang="ts">
-	import { Button, IconSelector, LInput, ModalForm } from '@life/shared';
+	import { Button, ModalForm } from '@life/shared';
 	import { Plus } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
 
-	import Select from '$lib/components/form/select/Select.svelte';
-	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
-	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import type { Routine } from '$lib/routine/routine.model';
-	import { periods, routineTimeMap } from '$lib/routine/routine.model';
 	import { addRoutine, deleteRoutine, editRoutine } from '$lib/routine/routine.repository';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
@@ -23,14 +19,13 @@
 
 	let { routine, children, color, class: klass, padding }: Props = $props();
 
-	let routineIn = $state({ ...routine });
-
 	let isOpen = $state(false);
 
 	let errorMessage = $state('');
 
+	let routineIn = $state({ ...routine });
+
 	function open() {
-		routineIn = { ...routine };
 		isOpen = true;
 	}
 
@@ -42,9 +37,9 @@
 		event.preventDefault();
 
 		if (routine.id) {
-			editRoutine(routine, currentUser.uid);
+			editRoutine(routineIn, currentUser.uid);
 		} else {
-			addRoutine(routine, currentUser.uid);
+			addRoutine(routineIn, currentUser.uid);
 		}
 		close();
 	}
@@ -68,5 +63,5 @@
 	{onSubmit}
 	bind:isOpen
 >
-	<RoutineForm routine={routineIn} />
+	<RoutineForm bind:routineIn />
 </ModalForm>

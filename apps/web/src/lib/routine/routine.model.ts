@@ -11,7 +11,7 @@ import Evening from '../../routes/(dashboard)/routine/time-icons/evening/Evening
 import Morning from '../../routes/(dashboard)/routine/time-icons/morning/Morning.svelte';
 
 export const periods = ['morning', 'afternoon', 'evening', 'all-day'] as const;
-export const durations = ['long', 'medium', 'short'] as const;
+export const durations = ['short', 'medium', 'long'] as const;
 
 export const routineSchema = z.object({
 	id: z.string(),

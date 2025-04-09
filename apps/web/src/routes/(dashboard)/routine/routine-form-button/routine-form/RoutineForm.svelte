@@ -13,10 +13,10 @@
 	} from '$lib/routine/routine.model.js';
 
 	interface Props {
-		routine: Routine;
+		routineIn: Routine;
 	}
 
-	let { routine }: Props = $props();
+	let { routineIn = $bindable() }: Props = $props();
 </script>
 
 <div class="flex flex-col gap-2 text-gray-700">
@@ -26,7 +26,7 @@
 		autocomplete="off"
 		inputClass="w-full"
 		placeholder="Name"
-		bind:value={routine.name}
+		bind:value={routineIn.name}
 	/>
 
 	<!--time-->
@@ -35,10 +35,10 @@
 		label="Time"
 		labelClass="flex-shrink-0 w-1/4"
 		selectClass="flex-1"
-		bind:value={routine.time}
+		bind:value={routineIn.time}
 	>
 		{#snippet placeholder()}
-			{@render timeItem(routine.time)}
+			{@render timeItem(routineIn.time)}
 		{/snippet}
 		{#each periods as time (time)}
 			<SelectItem value={time}>{@render timeItem(time)}</SelectItem>
@@ -62,10 +62,10 @@
 		label="Duration"
 		labelClass="flex-shrink-0 w-1/4"
 		selectClass="flex-1"
-		bind:value={routine.duration}
+		bind:value={routineIn.duration}
 	>
 		{#snippet placeholder()}
-			{@render durationIcon(routine.duration)}
+			{@render durationIcon(routineIn.duration)}
 		{/snippet}
 		{#each durations as duration (duration)}
 			<SelectItem value={duration}>{@render durationIcon(duration)}</SelectItem>
@@ -78,7 +78,7 @@
 			label="Is disabled"
 			offColorBackground="bg-indigo-500"
 			onColorBackground="bg-red-500"
-			bind:value={routine.isDisabled}
+			bind:value={routineIn.isDisabled}
 		/>
 	</div>
 
@@ -95,5 +95,5 @@
 	{/snippet}
 
 	<!--icon-->
-	<IconSelector name="icon" bind:value={routine.icon} />
+	<IconSelector name="icon" bind:value={routineIn.icon} />
 </div>

@@ -7,6 +7,7 @@
 	import { dragHandle } from 'svelte-dnd-action';
 
 	import type { Routine } from '$lib/routine/routine.model';
+	import { routineDurationMap } from '$lib/routine/routine.model';
 	import { toggleRoutineCompletion } from '$lib/routine/routine.repository';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
@@ -47,7 +48,7 @@
 		{#key selectedDate.value}
 			<div
 				class="{statusColor[status]}
-	absolute flex w-full justify-between rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-200"
+	absolute flex w-full justify-between gap-2 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-200"
 				in:fly={{ x: 900 * slideDirection, duration: slideDuration }}
 				out:fly={{ x: 900 * slideDirection * -1, duration: slideDuration }}
 			>
@@ -59,10 +60,15 @@
 					<span class="flex-1 truncate text-sm font-semibold">{routine.name}</span>
 				</div>
 
-				<div class="flex w-28 justify-end gap-2">
+				<div class="flex items-center justify-end gap-2">
+					{#if routine.duration}
+						{@const Icon = routineDurationMap[routine.duration].icon}
+						<Icon class="size-4 shrink-0" />
+					{/if}
+
 					<div class="flex items-center gap-1">
 						<span>{streak}</span>
-						<Flame class="h-4 w-auto text-red-500" />
+						<Flame class="size-4 text-red-500" />
 					</div>
 
 					<button
