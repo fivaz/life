@@ -63,3 +63,17 @@ export const disableRoutineVisibility = {
 		_areDisabledRoutinesVisible = false;
 	},
 };
+
+let _areNonShortRoutinesVisible = $state<boolean>(true);
+
+export const nonShortRoutineVisibility = {
+	get value() {
+		return _areNonShortRoutinesVisible;
+	},
+	show() {
+		_areNonShortRoutinesVisible = true;
+	},
+	hide() {
+		_areNonShortRoutinesVisible = false;
+	},
+};

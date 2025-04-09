@@ -9,8 +9,13 @@
 	import { buildEmptyRoutine } from '$lib/routine/routine.model';
 	import { title } from '$lib/utils.svelte';
 
+	import Short from '../duration-icons/Short.svelte';
 	import RoutineFormButton from '../routine-form-button/RoutineFormButton.svelte';
-	import { disableRoutineVisibility, selectedDate } from '../service.svelte';
+	import {
+		disableRoutineVisibility,
+		nonShortRoutineVisibility,
+		selectedDate,
+	} from '../service.svelte';
 	import Streak from '../streak/Streak.svelte';
 
 	interface Props {
@@ -23,13 +28,15 @@
 </script>
 
 <div class="flex items-center justify-between">
-	<LText class="hidden text-2xl font-bold md:block">{title.value}</LText>
-	<div class="flex flex-grow items-center justify-between md:flex-grow-0 md:justify-start md:gap-5">
-		<Streak {routines} />
-		<div>
+	<LText class="hidden flex-1 text-2xl font-bold md:block">{title.value}</LText>
+
+	<div class="flex grow flex-col items-center justify-between gap-5 md:grow-0 md:flex-row">
+		<div class="flex gap-5">
+			<Streak {routines} />
+
 			<LText class="flex items-center gap-2 text-base font-semibold leading-6">
 				<time class="md:hidden" dateTime={formatDate(selectedDate.value)}>
-					{format(selectedDate.value, 'MMM, yyyy')}
+					{format(selectedDate.value, 'MMMM dd, yyyy')}
 				</time>
 				<time class="hidden md:inline" dateTime={formatDate(selectedDate.value)}>
 					{format(selectedDate.value, 'MMMM dd, yyyy')}
@@ -37,27 +44,41 @@
 			</LText>
 		</div>
 
-		{#if disableRoutineVisibility.value}
-			<Button color="white" onclick={() => disableRoutineVisibility.hide()} padding="p-1.5">
-				<div use:tooltip={'hide disabled routines'}>
-					<EyeClosedIcon class="size-4" />
-				</div>
-			</Button>
-		{:else}
-			<Button color="white" onclick={() => disableRoutineVisibility.show()} padding="p-1.5">
-				<div use:tooltip={'show disabled routines'}>
-					<EyeIcon class="size-4" />
-				</div>
-			</Button>
-		{/if}
+		<div class="flex gap-5">
+			{#if disableRoutineVisibility.value}
+				<Button color="white" onclick={() => disableRoutineVisibility.hide()} padding="p-1.5">
+					<div use:tooltip={'hide disabled routines'}>
+						<EyeClosedIcon class="size-4" />
+					</div>
+				</Button>
+			{:else}
+				<Button color="white" onclick={() => disableRoutineVisibility.show()} padding="p-1.5">
+					<div use:tooltip={'show disabled routines'}>
+						<EyeIcon class="size-4" />
+					</div>
+				</Button>
+			{/if}
 
-		<WeekChanger bind:selectedDate={selectedDate.value} />
+			{#if nonShortRoutineVisibility.value}
+				<Button color="white" onclick={() => nonShortRoutineVisibility.hide()} padding="p-1.5">
+					<div use:tooltip={'show only short routines'}>
+						<Short class="size-4  text-gray-700 dark:text-white" />
+					</div>
+				</Button>
+			{:else}
+				<Button color="indigo" onclick={() => nonShortRoutineVisibility.show()} padding="p-1.5">
+					<div use:tooltip={'show all routines'}>
+						<Short class="size-4 text-white" />
+					</div>
+				</Button>
+			{/if}
 
-		<div class="hidden h-7 border-r border-gray-300 sm:block dark:border-gray-700"></div>
+			<WeekChanger bind:selectedDate={selectedDate.value} />
 
-		<RoutineFormButton routine={newRoutine}>
-			<Plus class="size-4" />
-			<span class="hidden lg:block">New Routine</span>
-		</RoutineFormButton>
+			<RoutineFormButton routine={newRoutine}>
+				<Plus class="size-4" />
+				<span class="hidden lg:block">New Routine</span>
+			</RoutineFormButton>
+		</div>
 	</div>
 </div>

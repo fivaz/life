@@ -5,8 +5,7 @@
 
 	import type { Routine } from '$lib/routine/routine.model';
 
-	import { disableRoutineVisibility } from '../service.svelte';
-	import { getAvailableRoutines } from '../utils';
+	import { getAvailableRoutines, isRoutineVisible } from '../utils';
 
 	interface Props {
 		routines: Routine[];
@@ -14,9 +13,7 @@
 
 	let { routines }: Props = $props();
 
-	let validRoutines = $derived(
-		routines.filter((routine) => (disableRoutineVisibility.value ? true : !routine.isDisabled)),
-	);
+	let validRoutines = $derived(routines.filter((routine) => isRoutineVisible(routine)));
 
 	let streak = $derived(getRoutinesStreak(validRoutines));
 
@@ -57,8 +54,7 @@
 
 <div class="flex items-center font-semibold text-red-500">
 	<Flame class="h-6" />
-	<div class="flex gap-1">
-		<span>{streak}</span>
-		<span class="hidden md:block">{streak > 1 ? 'days' : 'day'} streak!</span>
-	</div>
+	<span class="mr-1">{streak}</span>
+	<span class="">{streak > 1 ? 'days' : 'day'} streak!</span>
+	<div class="flex gap-1"></div>
 </div>

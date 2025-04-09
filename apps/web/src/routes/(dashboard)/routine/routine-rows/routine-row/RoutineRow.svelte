@@ -14,10 +14,12 @@
 	import RoutineFormButton from '../../routine-form-button/RoutineFormButton.svelte';
 	import {
 		disableRoutineVisibility,
+		nonShortRoutineVisibility,
 		previousDate,
 		selectedDate,
 		weekChangeDuration,
 	} from '../../service.svelte';
+	import { isRoutineVisible } from '../../utils';
 	import { getStatusColor, getStreak, statusColor } from '../service';
 
 	interface Props {
@@ -43,7 +45,7 @@
 	);
 </script>
 
-{#if disableRoutineVisibility.value || !routine.isDisabled}
+{#if isRoutineVisible(routine)}
 	<div class="relative h-10">
 		{#key selectedDate.value}
 			<div
