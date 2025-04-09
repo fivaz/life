@@ -30,7 +30,7 @@
 <div class="flex items-center justify-between">
 	<LText class="hidden flex-1 text-2xl font-bold md:block">{title.value}</LText>
 
-	<div class="flex grow flex-col items-center justify-between gap-5 md:grow-0 md:flex-row">
+	<div class="flex grow flex-col items-center justify-between gap-5 lg:grow-0 lg:flex-row">
 		<div class="flex gap-5">
 			<Streak {routines} />
 
@@ -44,7 +44,7 @@
 			</LText>
 		</div>
 
-		<div class="flex gap-5">
+		<div class="flex justify-between gap-5">
 			{#if disableRoutineVisibility.value}
 				<Button color="white" onclick={() => disableRoutineVisibility.hide()} padding="p-1.5">
 					<div use:tooltip={'hide disabled routines'}>

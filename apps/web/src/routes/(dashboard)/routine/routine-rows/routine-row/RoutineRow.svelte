@@ -12,13 +12,7 @@
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import RoutineFormButton from '../../routine-form-button/RoutineFormButton.svelte';
-	import {
-		disableRoutineVisibility,
-		nonShortRoutineVisibility,
-		previousDate,
-		selectedDate,
-		weekChangeDuration,
-	} from '../../service.svelte';
+	import { previousDate, selectedDate, weekChangeDuration } from '../../service.svelte';
 	import { isRoutineVisible } from '../../utils';
 	import { getStatusColor, getStreak, statusColor } from '../service';
 
