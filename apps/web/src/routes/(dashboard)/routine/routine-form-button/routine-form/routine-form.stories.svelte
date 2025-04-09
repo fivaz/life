@@ -12,6 +12,6 @@
 
 <Story name="Primary">
 	<div class="w-[355px]">
-		<RoutineForm routine={buildEmptyRoutine()} />
+		<RoutineForm routineIn={buildEmptyRoutine()} />
 	</div>
 </Story>
