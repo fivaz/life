@@ -3,7 +3,7 @@
 	import { clsx } from 'clsx';
 	import type { Snippet } from 'svelte';
 
-import { getSelectValue } from '$lib/components/form/select/service';
+	import { getSelectValue } from '$lib/components/form/select/service';
 
 	interface Props {
 		class?: string;
