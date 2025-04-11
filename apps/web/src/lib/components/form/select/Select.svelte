@@ -45,10 +45,12 @@
 	function toggleIsOpen() {
 		isOpen = !isOpen;
 		if (isOpen) {
-			// Focus the first item when opening
-			// $effect.pre(() => {
-			focusedIndex = 0;
-			// });
+			// Schedule focus for the next microtask
+			setTimeout(() => {
+				focusedIndex = 0;
+			}, 0);
+		} else {
+			focusedIndex = -1;
 		}
 	}
 
@@ -63,45 +65,55 @@
 	}
 
 	function handleKeyDown(event: KeyboardEvent) {
-		if (!isOpen) {
-			if (['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(event.key)) {
-				event.preventDefault();
-				isOpen = true;
-				focusedIndex = 0;
-			}
-			return;
-		}
-
 		const items = list?.querySelectorAll('li');
 		if (!items) return;
 
-		switch (event.key) {
-			case 'ArrowDown':
+		// Define the type for our key actions
+		type KeyActionMap = {
+			[key: string]: () => void;
+		};
+
+		const keyActions: KeyActionMap = {
+			ArrowDown: () => {
 				event.preventDefault();
 				focusedIndex = (focusedIndex + 1) % items.length;
-				break;
-			case 'ArrowUp':
+			},
+			ArrowUp: () => {
 				event.preventDefault();
 				focusedIndex = (focusedIndex - 1 + items.length) % items.length;
-				break;
-			case 'Enter':
-			case ' ':
+			},
+			Enter: () => {
 				event.preventDefault();
-				if (focusedIndex >= 0) {
-					items[focusedIndex].click();
-				}
-				break;
-			case 'Escape':
+				if (focusedIndex >= 0) items[focusedIndex].click();
+			},
+			' ': () => {
+				// Space bar
+				event.preventDefault();
+				if (focusedIndex >= 0) items[focusedIndex].click();
+			},
+			Escape: () => {
 				event.preventDefault();
 				isOpen = false;
 				focusedIndex = -1;
 				button?.focus();
-				break;
-			case 'Tab':
+			},
+			Tab: () => {
 				isOpen = false;
 				focusedIndex = -1;
-				break;
+			},
+		};
+
+		// Handle closed state
+		if (!isOpen && ['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(event.key)) {
+			event.preventDefault();
+			isOpen = true;
+			focusedIndex = 0;
+			return;
 		}
+
+		// Execute the action for the pressed key
+		const action = keyActions[event.key];
+		if (action) action();
 	}
 
 	onMount(() => {
@@ -119,7 +131,10 @@
 		if (isOpen && focusedIndex >= 0) {
 			const items = list?.querySelectorAll('li');
 			if (items && items[focusedIndex]) {
+				// Focus the item
 				(items[focusedIndex] as HTMLElement).focus();
+				// Scroll into view if needed
+				items[focusedIndex].scrollIntoView({ block: 'nearest' });
 			}
 		}
 	});
