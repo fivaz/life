@@ -2,7 +2,8 @@
 	import Check from '@lucide/svelte/icons/check';
 	import { clsx } from 'clsx';
 	import type { Snippet } from 'svelte';
-	import { getContext } from 'svelte';
+
+import { getSelectValue } from '$lib/components/form/select/service';
 
 	interface Props {
 		class?: string;
@@ -12,14 +13,14 @@
 
 	let { class: klass = '', value, children }: Props = $props();
 
-	let selectedValue = getContext('selectedValue');
+	const { isSelected } = getSelectValue();
 
 	let valueString = JSON.stringify(value);
 </script>
 
 <li
 	class="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 hover:bg-indigo-600 hover:text-white dark:text-gray-100"
-	aria-selected={JSON.stringify(selectedValue) === valueString}
+	aria-selected={isSelected(value)}
 	data-value={valueString}
 	role="option"
 	tabindex="-1"
@@ -28,7 +29,7 @@
 		{@render children()}
 	</span>
 
-	{#if JSON.stringify(selectedValue) === valueString}
+	{#if isSelected(value)}
 		<span
 			class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600 group-hover:text-white"
 		>

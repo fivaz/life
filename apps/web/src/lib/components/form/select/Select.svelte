@@ -2,7 +2,9 @@
 	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
 	import { clsx } from 'clsx';
 	import type { Snippet } from 'svelte';
-	import { onMount, setContext } from 'svelte';
+	import { onMount } from 'svelte';
+
+	import { setSelectValue } from '$lib/components/form/select/service';
 
 	interface Props {
 		label?: string;
@@ -124,7 +126,7 @@
 	});
 
 	$effect(() => {
-		setContext('selectedValue', value);
+		setSelectValue(value);
 	});
 
 	$effect(() => {
