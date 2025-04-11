@@ -25,12 +25,12 @@
 	}: Props = $props();
 
 	let isOpen = $state<boolean>(false);
-
 	let list = $state<HTMLDivElement | null>(null);
-
+	let button = $state<HTMLButtonElement | null>(null);
 	let listId = 'select-list-' + Math.random().toString(36).substring(2, 11);
+	let focusedIndex = $state<number>(-1);
 
-	function selectItem(event: MouseEvent) {
+	function selectItem(event: MouseEvent | KeyboardEvent) {
 		const li = (event.target as HTMLElement).closest('li');
 		if (!li) return;
 
@@ -38,24 +38,70 @@
 		if (!valueString) return;
 
 		value = JSON.parse(valueString);
-
 		isOpen = false;
+		focusedIndex = -1;
 	}
 
 	function toggleIsOpen() {
 		isOpen = !isOpen;
+		if (isOpen) {
+			// Focus the first item when opening
+			// $effect.pre(() => {
+			focusedIndex = 0;
+			// });
+		}
 	}
 
 	function closeOnClickOutside(event: MouseEvent) {
 		if (!isOpen) return;
-
 		if (!(event.target instanceof HTMLElement)) return;
-
 		if (!list) return;
-
 		if (list.contains(event.target)) return;
 
 		isOpen = false;
+		focusedIndex = -1;
+	}
+
+	function handleKeyDown(event: KeyboardEvent) {
+		if (!isOpen) {
+			if (['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(event.key)) {
+				event.preventDefault();
+				isOpen = true;
+				focusedIndex = 0;
+			}
+			return;
+		}
+
+		const items = list?.querySelectorAll('li');
+		if (!items) return;
+
+		switch (event.key) {
+			case 'ArrowDown':
+				event.preventDefault();
+				focusedIndex = (focusedIndex + 1) % items.length;
+				break;
+			case 'ArrowUp':
+				event.preventDefault();
+				focusedIndex = (focusedIndex - 1 + items.length) % items.length;
+				break;
+			case 'Enter':
+			case ' ':
+				event.preventDefault();
+				if (focusedIndex >= 0) {
+					items[focusedIndex].click();
+				}
+				break;
+			case 'Escape':
+				event.preventDefault();
+				isOpen = false;
+				focusedIndex = -1;
+				button?.focus();
+				break;
+			case 'Tab':
+				isOpen = false;
+				focusedIndex = -1;
+				break;
+		}
 	}
 
 	onMount(() => {
@@ -68,14 +114,26 @@
 	$effect(() => {
 		setContext('selectedValue', value);
 	});
+
+	$effect(() => {
+		if (isOpen && focusedIndex >= 0) {
+			const items = list?.querySelectorAll('li');
+			if (items && items[focusedIndex]) {
+				(items[focusedIndex] as HTMLElement).focus();
+			}
+		}
+	});
 </script>
 
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_interactive_supports_focus -->
 <div
 	bind:this={list}
 	class={clsx(klass, 'text-sm font-medium text-gray-700 dark:text-gray-300')}
 	aria-controls={listId}
 	aria-expanded={isOpen}
 	aria-label={label || 'Select an option'}
+	onkeydown={handleKeyDown}
 	role="combobox"
 >
 	<!-- Fallback for screen readers -->
@@ -84,6 +142,7 @@
 	{/if}
 	<div class={clsx(selectClass, 'relative')}>
 		<button
+			bind:this={button}
 			id="select-button"
 			class="relative w-full cursor-default rounded-md bg-gray-100 py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-white/5 dark:text-white dark:ring-white/10"
 			aria-haspopup="listbox"

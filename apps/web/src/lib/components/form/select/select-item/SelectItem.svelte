@@ -22,6 +22,7 @@
 	aria-selected={JSON.stringify(selectedValue) === valueString}
 	data-value={valueString}
 	role="option"
+	tabindex="-1"
 >
 	<span class={clsx('truncate font-normal group-hover:font-semibold', klass)}>
 		{@render children()}
