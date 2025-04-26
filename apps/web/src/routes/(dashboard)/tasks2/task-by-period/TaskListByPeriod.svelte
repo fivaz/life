@@ -3,9 +3,11 @@
 	import type { Task } from '@life/shared/task';
 	import { ClipboardCopyIcon } from 'lucide-svelte';
 	import { flip } from 'svelte/animate';
+	import type { DndEvent } from 'svelte-dnd-action';
 	import { dndzone } from 'svelte-dnd-action';
 
 	import type { TaskLists, TaskListType } from '../service';
+	import { updateTaskPeriod } from './service.svelte';
 	import TaskByPeriod from './TaskByPeriod.svelte';
 	import TaskListHeaderByPeriod from './TaskListHeaderByPeriod.svelte';
 
@@ -18,12 +20,15 @@
 
 	let { listName, tasksByPeriod = $bindable() }: Props = $props();
 
-	function handleDndConsider(e: { detail: { items: Task[] } }) {
-		tasksByPeriod[listName] = e.detail.items as Task[];
+	function handleDndConsider(e: CustomEvent<DndEvent<Task>>) {
+		tasksByPeriod[listName] = e.detail.items;
 	}
 
-	function handleDndFinalize(e: { detail: { items: Task[] } }) {
-		tasksByPeriod[listName] = e.detail.items;
+	function handleDndFinalize(e: CustomEvent<DndEvent<Task>>) {
+		const { items, info } = e.detail;
+		tasksByPeriod[listName] = items;
+
+		updateTaskPeriod(tasksByPeriod, info.id);
 	}
 
 	let isDroppable = !(listName.startsWith('recurring') || listName === 'overdue');

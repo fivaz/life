@@ -55,11 +55,11 @@ export function getTaskLists(tasks: Task[]) {
 	};
 
 	const dateHandlers = [
-		{ check: (date: Date) => isPast(date) && !isToday(date), listName: 'overdue' },
-		{ check: isToday, listName: 'today' },
-		{ check: isTomorrow, listName: 'tomorrow' },
-		{ check: isThisWeek, listName: 'thisWeek' },
-		{ check: isNextWeek, listName: 'nextWeek' },
+		{ check: (date: Date) => isPast(date) && !isToday(date), period: 'overdue' },
+		{ check: isToday, period: 'today' },
+		{ check: isTomorrow, period: 'tomorrow' },
+		{ check: isThisWeek, period: 'thisWeek' },
+		{ check: isNextWeek, period: 'nextWeek' },
 	];
 
 	for (const task of tasks) {
@@ -78,7 +78,7 @@ export function getTaskLists(tasks: Task[]) {
 
 		const handler = dateHandlers.find((h) => h.check(date));
 		if (handler) {
-			lists[handler.listName].push(task);
+			lists[handler.period].push(task);
 		} else {
 			const formatted = formatDate(date);
 			if (!lists[formatted]) {
