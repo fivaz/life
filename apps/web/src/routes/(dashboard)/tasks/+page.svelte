@@ -1,34 +1,24 @@
 <script lang="ts">
 	import { Button, LText, Modal } from '@life/shared';
-	import type { Task } from '@life/shared/task';
 	import { where } from 'firebase/firestore';
 	import { FileSearch2Icon } from 'lucide-svelte';
 
-	import { categories } from '$lib/category/category.svelte';
-	import { buildUntimedTask } from '$lib/task/build-utils';
 	import { fetchTasks } from '$lib/task/task.repository';
-	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
+	import NewTaskButton from '$lib/task/task-form/NewTaskButton.svelte';
 	import { title } from '$lib/utils.svelte';
 
-	import { getTasksByDateSorted } from './service';
-	import TaskList from './task-list/TaskList.svelte';
-	import TasksStats from './tasks-stats/TasksStats.svelte';
-
-	let newTask = $state<Task>(buildUntimedTask([]));
-
-	let isStatsShown = $state(false);
+	import type { TaskLists } from './service';
+	import { getTaskLists } from './service';
+	import TaskListByPeriod from './task-by-period/TaskListByPeriod.svelte';
+	import TasksStats2 from './TasksStats2.svelte';
 
 	title.value = 'Tasks';
 
-	let tasks = $state<Task[]>([]);
+	let tasksByPeriod = $state<TaskLists>({} as TaskLists);
 
-	fetchTasks(tasks, where('isDone', '==', false));
+	let isStatsShown = $state(false);
 
-	$effect(() => {
-		newTask = buildUntimedTask(categories.value);
-	});
-
-	const sortedTasksByDate = $derived(getTasksByDateSorted(tasks));
+	fetchTasks((tasks) => (tasksByPeriod = getTaskLists(tasks)), where('isDone', '==', false));
 </script>
 
 <div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
@@ -50,20 +40,20 @@
 
 			<div class=" h-7 border-r border-gray-300 dark:border-gray-700"></div>
 
-			<TaskFormButton task={newTask} />
+			<NewTaskButton />
 		</div>
 	</div>
 
 	<!--body-->
 	<div class="flex flex-col gap-5">
 		<ul class="flex flex-col gap-3">
-			{#each sortedTasksByDate as dateGroup (dateGroup)}
-				<TaskList label={dateGroup} tasks={sortedTasksByDate[dateGroup]} />
+			{#each Object.keys(tasksByPeriod) as listName}
+				<TaskListByPeriod {listName} bind:tasksByPeriod />
 			{/each}
 		</ul>
-
-		<Modal bind:isOpen={isStatsShown}>
-			<TasksStats tasks={sortedTasksByDate} />
-		</Modal>
 	</div>
 </div>
+
+<Modal bind:isOpen={isStatsShown}>
+	<TasksStats2 {tasksByPeriod} />
+</Modal>
