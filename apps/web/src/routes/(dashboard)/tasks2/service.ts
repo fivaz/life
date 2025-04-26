@@ -1,4 +1,4 @@
-import { parseDate } from '@life/shared/date';
+import { formatDate, parseDate } from '@life/shared/date';
 import type { Task } from '@life/shared/task';
 import {
 	addWeeks,
@@ -19,19 +19,19 @@ function isNextWeek(date: Date): boolean {
 	return isWithinInterval(date, { end, start });
 }
 
-export type TaskLists = {
-	overdue: Task[];
-	today: Task[];
-	tomorrow: Task[];
-	thisWeek: Task[];
-	nextWeek: Task[];
-	otherDate: Task[];
-	someday: Task[];
-	recurringDaily: Task[];
-	recurringWeekly: Task[];
-	recurringMonthly: Task[];
-	recurringYearly: Task[];
-};
+export type TaskListType =
+	| 'overdue'
+	| 'today'
+	| 'tomorrow'
+	| 'thisWeek'
+	| 'nextWeek'
+	| 'someday'
+	| 'recurringDaily'
+	| 'recurringWeekly'
+	| 'recurringMonthly'
+	| 'recurringYearly';
+
+export type TaskLists = Record<TaskListType, Task[]> & Record<string, Task[]>;
 
 export function getTaskLists(tasks: Task[]) {
 	const lists: TaskLists = {
@@ -40,20 +40,20 @@ export function getTaskLists(tasks: Task[]) {
 		tomorrow: [],
 		thisWeek: [],
 		nextWeek: [],
-		otherDate: [],
 		someday: [],
 		recurringDaily: [],
 		recurringWeekly: [],
 		recurringMonthly: [],
 		recurringYearly: [],
 	};
+
 	for (const task of tasks) {
 		if (task.recurringFrequency) {
 			if (task.recurringFrequency === 'daily') lists.recurringDaily.push(task);
 			else if (task.recurringFrequency === 'weekly') lists.recurringWeekly.push(task);
 			else if (task.recurringFrequency === 'monthly') lists.recurringMonthly.push(task);
 			else if (task.recurringFrequency === 'yearly') lists.recurringYearly.push(task);
-			continue; // skip the date checks
+			continue;
 		}
 
 		if (!task.date) {
@@ -74,7 +74,11 @@ export function getTaskLists(tasks: Task[]) {
 		} else if (isNextWeek(date)) {
 			lists.nextWeek.push(task);
 		} else {
-			lists.otherDate.push(task);
+			const formatted = formatDate(date);
+			if (!lists[formatted]) {
+				lists[formatted] = [];
+			}
+			lists[formatted].push(task);
 		}
 	}
 

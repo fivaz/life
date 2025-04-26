@@ -8,17 +8,13 @@
 
 	import type { TaskLists } from './service';
 	import { getTaskLists } from './service';
-	import TaskListByPeriod from './TaskListByPeriod.svelte';
+	import TaskListByPeriod from './task-list-by-period/TaskListByPeriod.svelte';
 
 	title.value = 'Tasks';
 
 	let tasksByPeriod = $state<TaskLists>({} as TaskLists);
 
-	fetchTasks(listTaskByPeriod, where('isDone', '==', false));
-
-	function listTaskByPeriod(tasks: Task[]) {
-		tasksByPeriod = getTaskLists(tasks);
-	}
+	fetchTasks((tasks) => (tasksByPeriod = getTaskLists(tasks)), where('isDone', '==', false));
 </script>
 
 <div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">
