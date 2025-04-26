@@ -1,18 +1,22 @@
 <script lang="ts">
-	import { LText } from '@life/shared';
-	import type { Task } from '@life/shared/task';
+	import { Button, LText, Modal } from '@life/shared';
 	import { where } from 'firebase/firestore';
+	import { FileSearch2Icon } from 'lucide-svelte';
 
 	import { fetchTasks } from '$lib/task/task.repository';
-	import { title } from '$lib/utils.svelte.js';
+	import NewTaskButton from '$lib/task/task-form/NewTaskButton.svelte';
+	import { title } from '$lib/utils.svelte';
 
 	import type { TaskLists } from './service';
 	import { getTaskLists } from './service';
 	import TaskListByPeriod from './task-by-period/TaskListByPeriod.svelte';
+	import TasksStats2 from './TasksStats2.svelte';
 
 	title.value = 'Tasks';
 
 	let tasksByPeriod = $state<TaskLists>({} as TaskLists);
+
+	let isStatsShown = $state(false);
 
 	fetchTasks((tasks) => (tasksByPeriod = getTaskLists(tasks)), where('isDone', '==', false));
 </script>
@@ -25,18 +29,18 @@
 		</div>
 
 		<div class="flex items-center justify-between gap-5 md:grow-0">
-			<!--			<Button-->
-			<!--				class="text-indigo-500"-->
-			<!--				color="light"-->
-			<!--				onclick={() => (isStatsShown = true)}-->
-			<!--				padding="p-1.5"-->
-			<!--			>-->
-			<!--				<FileSearch2Icon class="size-5" />-->
-			<!--			</Button>-->
+			<Button
+				class="text-indigo-500"
+				color="light"
+				onclick={() => (isStatsShown = true)}
+				padding="p-1.5"
+			>
+				<FileSearch2Icon class="size-5" />
+			</Button>
 
 			<div class=" h-7 border-r border-gray-300 dark:border-gray-700"></div>
 
-			<!--			<TaskFormButton task={newTask} />-->
+			<NewTaskButton />
 		</div>
 	</div>
 
@@ -49,3 +53,7 @@
 		</ul>
 	</div>
 </div>
+
+<Modal bind:isOpen={isStatsShown}>
+	<TasksStats2 {tasksByPeriod} />
+</Modal>
