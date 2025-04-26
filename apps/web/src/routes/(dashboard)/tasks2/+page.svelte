@@ -8,7 +8,7 @@
 
 	import type { TaskLists } from './service';
 	import { getTaskLists } from './service';
-	import TaskListByPeriod from './task-list-by-period/TaskListByPeriod.svelte';
+	import TaskListByPeriod from './task-by-period/TaskListByPeriod.svelte';
 
 	title.value = 'Tasks';
 
@@ -43,8 +43,8 @@
 	<!--body-->
 	<div class="flex flex-col gap-5">
 		<ul class="flex flex-col gap-3">
-			{#each Object.entries(tasksByPeriod) as [listName, taskList]}
-				<TaskListByPeriod {listName} tasks={taskList} />
+			{#each Object.keys(tasksByPeriod) as listName}
+				<TaskListByPeriod {listName} bind:tasksByPeriod />
 			{/each}
 		</ul>
 	</div>

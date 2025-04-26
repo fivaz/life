@@ -22,7 +22,7 @@
 	}
 </script>
 
-<li
+<div
 	class="{tailwindColorMap[task.category.color].darkBg}
 		flex select-none justify-between gap-3 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-50 sm:touch-none"
 >
@@ -51,7 +51,7 @@
 			<Settings2Icon class="size-4" />
 		</TaskFormButton>
 	</div>
-</li>
+</div>
 
 <style>
 	/* make the test truncate in two lines */

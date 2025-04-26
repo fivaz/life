@@ -47,12 +47,25 @@ export function getTaskLists(tasks: Task[]) {
 		recurringYearly: [],
 	};
 
+	const recurringHandlers = {
+		daily: (task: Task) => lists.recurringDaily.push(task),
+		weekly: (task: Task) => lists.recurringWeekly.push(task),
+		monthly: (task: Task) => lists.recurringMonthly.push(task),
+		yearly: (task: Task) => lists.recurringYearly.push(task),
+	};
+
+	const dateHandlers = [
+		{ check: (date: Date) => isPast(date) && !isToday(date), listName: 'overdue' },
+		{ check: isToday, listName: 'today' },
+		{ check: isTomorrow, listName: 'tomorrow' },
+		{ check: isThisWeek, listName: 'thisWeek' },
+		{ check: isNextWeek, listName: 'nextWeek' },
+	];
+
 	for (const task of tasks) {
 		if (task.recurringFrequency) {
-			if (task.recurringFrequency === 'daily') lists.recurringDaily.push(task);
-			else if (task.recurringFrequency === 'weekly') lists.recurringWeekly.push(task);
-			else if (task.recurringFrequency === 'monthly') lists.recurringMonthly.push(task);
-			else if (task.recurringFrequency === 'yearly') lists.recurringYearly.push(task);
+			const handler = recurringHandlers[task.recurringFrequency];
+			if (handler) handler(task);
 			continue;
 		}
 
@@ -63,16 +76,9 @@ export function getTaskLists(tasks: Task[]) {
 
 		const date = parseDate(task.date);
 
-		if (isPast(date) && !isToday(date)) {
-			lists.overdue.push(task);
-		} else if (isToday(date)) {
-			lists.today.push(task);
-		} else if (isTomorrow(date)) {
-			lists.tomorrow.push(task);
-		} else if (isThisWeek(date)) {
-			lists.thisWeek.push(task);
-		} else if (isNextWeek(date)) {
-			lists.nextWeek.push(task);
+		const handler = dateHandlers.find((h) => h.check(date));
+		if (handler) {
+			lists[handler.listName].push(task);
 		} else {
 			const formatted = formatDate(date);
 			if (!lists[formatted]) {
