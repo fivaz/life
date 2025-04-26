@@ -12,26 +12,36 @@ export function updateTaskPeriod(tasksByPeriod: TaskLists, taskId: string) {
 		const task = tasks.find((t) => t.id === taskId);
 		if (!task) continue;
 
-		const updateFn = updateStrategies[listKey];
+		console.log(listKey);
 
+		let newDate: string | null = null;
+
+		const updateFn = updateStrategies[listKey];
 		if (updateFn) {
-			updateFn(task);
+			// Create a clone to not mutate the original task yet
+			const clonedTask = { ...task };
+			updateFn(clonedTask);
+			newDate = clonedTask.date;
 		} else {
-			// Assume listKey is a date string
 			const parsedDate = parseDate(listKey);
 			if (parsedDate) {
-				task.date = formatDate(parsedDate);
+				newDate = formatDate(parsedDate);
 			}
 		}
 
-		const { id, ...data } = task;
+		// Only update if the date is different
+		if (newDate !== task.date) {
+			const { id, ...data } = { ...task, date: newDate ?? '' };
+			void editTask(id, data, currentUser.uid, null, null);
+		}
 
-		void editTask(id, data, currentUser.uid, null, null);
 		return;
 	}
 }
 
 const updateStrategies: Record<string, (task: Task) => void> = {
+	// if it's overdue it's because the drag was cancelled
+	overdue: () => {},
 	someday: (task) => {
 		task.date = '';
 	},
