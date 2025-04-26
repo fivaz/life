@@ -21,6 +21,8 @@
 		// e.g., when moving from "today" to "tomorrow"
 	}
 
+	let isDroppable = !(listName.startsWith('recurring') || listName === 'overdue');
+
 	const taskListLabels: Record<TaskListType, string> = {
 		overdue: 'Overdue',
 		today: 'Today',
@@ -65,25 +67,29 @@
 		<span class="font-semibold">{getLabel(listName)}</span>
 		<span>{getNumberOfTasks(tasks)}</span>
 	</div>
-	<ul
-		class="flex flex-col gap-2"
-		onconsider={handleDnd}
-		onfinalize={handleDnd}
-		use:dndzone={{
-			items: tasks,
-			flipDurationMs: 300,
-			type: listName,
-			dragDisabled: listName.startsWith('recurring'),
-			dropFromOthersDisabled: listName.startsWith('recurring') || listName === 'overdue',
-		}}
-	>
-		{#each tasks as task (task.id)}
-			<TaskRow2 {task} />
-		{/each}
-	</ul>
-	<LText
-		class="relative flex h-10 select-none items-center justify-center gap-2 divide-gray-300 rounded-lg border-2 border-dashed border-gray-300 p-1 hover:border-gray-500 dark:divide-gray-700 dark:border-gray-700"
-	>
-		<ClipboardCopyIcon class="size-5" /> drop a task here
-	</LText>
+	{#if tasks.length}
+		<ul
+			class="flex flex-col gap-2"
+			onconsider={handleDnd}
+			onfinalize={handleDnd}
+			use:dndzone={{
+				items: tasks,
+				flipDurationMs: 300,
+				type: listName,
+				dragDisabled: listName.startsWith('recurring'),
+				dropFromOthersDisabled: !isDroppable,
+			}}
+		>
+			{#each tasks as task (task.id)}
+				<TaskRow2 {task} />
+			{/each}
+		</ul>
+	{/if}
+	{#if isDroppable}
+		<LText
+			class="relative flex h-10 select-none items-center justify-center gap-2 divide-gray-300 rounded-lg border-2 border-dashed border-gray-300 p-1 hover:border-gray-500 dark:divide-gray-700 dark:border-gray-700"
+		>
+			<ClipboardCopyIcon class="size-5" /> drop a task here
+		</LText>
+	{/if}
 </section>
