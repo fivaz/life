@@ -24,6 +24,7 @@
 	let { label, tasks }: Props = $props();
 
 	function getNewTask() {
+		console.log('label', label);
 		const dateString = getDate(label);
 		if (dateString) {
 			const date = parseDate(dateString);
