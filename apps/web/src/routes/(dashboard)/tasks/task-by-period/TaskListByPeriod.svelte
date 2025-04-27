@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
 	import type { Task } from '@life/shared/task';
+	import { clsx } from 'clsx';
 	import { ClipboardCopyIcon } from 'lucide-svelte';
 	import { flip } from 'svelte/animate';
 	import type { DndEvent } from 'svelte-dnd-action';
@@ -39,7 +40,7 @@
 >
 	<TaskListHeaderByPeriod {listName} {tasksByPeriod} />
 	<ul
-		class="flex flex-col gap-2"
+		class={clsx('flex flex-col gap-2', { '-mt-2': tasksByPeriod[listName].length === 0 })}
 		onconsider={handleDndConsider}
 		onfinalize={handleDndFinalize}
 		use:dndzone={{
