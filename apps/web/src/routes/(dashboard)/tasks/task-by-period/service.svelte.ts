@@ -12,8 +12,6 @@ export function updateTaskPeriod(tasksByPeriod: TaskLists, taskId: string) {
 		const task = tasks.find((t) => t.id === taskId);
 		if (!task) continue;
 
-		console.log(listKey);
-
 		let newDate: string | null = null;
 
 		const updateFn = updateStrategies[listKey];
