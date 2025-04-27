@@ -30,7 +30,7 @@
 <div class={klass}>
 	<!--header-->
 	<header
-		class="fixed z-10 flex h-14 w-full justify-between gap-3 border-b border-gray-300 p-4 dark:border-gray-700"
+		class="order-gray-300 fixed z-10 flex h-14 w-full justify-between gap-3 border-b bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-900"
 	>
 		<div class="flex items-center gap-2">
 			<Logo class="size-8 text-indigo-600" />
