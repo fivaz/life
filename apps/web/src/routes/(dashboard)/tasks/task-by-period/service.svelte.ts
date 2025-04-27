@@ -2,10 +2,7 @@ import { formatDate, parseDate } from '@life/shared/date';
 import { addDays, addWeeks, endOfWeek, startOfWeek } from 'date-fns';
 
 import { categories } from '$lib/category/category.svelte';
-import {
-	buildUntimedTask,
-	buildUntimedTaskWithDateSet,
-} from '$lib/task/build-utils';
+import { buildUntimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
 import { editTask } from '$lib/task/task.repository';
 import { currentUser } from '$lib/user/user.utils.svelte';
 
