@@ -12,7 +12,7 @@
 	import TaskByPeriod from './TaskByPeriod.svelte';
 	import TaskListHeaderByPeriod from './TaskListHeaderByPeriod.svelte';
 
-	const flipDurationMs = 300;
+	const flipDurationMs = 200;
 
 	interface Props {
 		period: string | TaskListType;

@@ -1,12 +1,9 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
-	import { parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { getTotalDuration } from '@life/shared/task';
 	import { ClipboardIcon, ClipboardListIcon, PlusIcon } from 'lucide-svelte';
 
-	import { categories } from '$lib/category/category.svelte';
-	import { buildTimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
 	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
 
 	import type { TaskLists, TaskListType } from '../service';
