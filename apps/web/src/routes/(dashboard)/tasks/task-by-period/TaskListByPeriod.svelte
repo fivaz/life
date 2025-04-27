@@ -5,7 +5,7 @@
 	import { ClipboardCopyIcon } from 'lucide-svelte';
 	import { flip } from 'svelte/animate';
 	import type { DndEvent } from 'svelte-dnd-action';
-	import { dndzone } from 'svelte-dnd-action';
+	import { dragHandleZone } from 'svelte-dnd-action';
 
 	import type { TaskLists, TaskListType } from '../service';
 	import { updateTaskPeriod } from './service.svelte';
@@ -43,7 +43,7 @@
 		class={clsx('flex flex-col gap-2', { '-mt-2': tasksByPeriod[period].length === 0 })}
 		onconsider={handleDndConsider}
 		onfinalize={handleDndFinalize}
-		use:dndzone={{
+		use:dragHandleZone={{
 			items: tasksByPeriod[period],
 			flipDurationMs,
 			dragDisabled: period.startsWith('recurring'),

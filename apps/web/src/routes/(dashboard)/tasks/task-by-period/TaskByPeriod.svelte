@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { tailwindColorMap } from '@life/shared/category';
 	import type { Task } from '@life/shared/task';
-	import { clsx } from 'clsx';
 	import { format } from 'date-fns';
 	import { GripVerticalIcon, Settings2Icon } from 'lucide-svelte';
 	import { dragHandle } from 'svelte-dnd-action';
@@ -28,19 +27,15 @@
 	class="{tailwindColorMap[task.category.color].darkBg}
 		flex select-none items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-50 sm:touch-none"
 >
-	<div class="flex gap-3">
-		<div class="flex items-center justify-between gap-3 sm:hidden">
-			<!--to avoid dragging during scroll on touch devices, it's only possible to drag a task if it's grabbed by the handle-->
-			<div aria-label="drag-handle for {task.id}" use:dragHandle>
-				<GripVerticalIcon class="size-5" />
-			</div>
-			<div class={clsx({ 'w-10': task.date })}>{formatTaskDate(task, DATE_FR_SHORT)}</div>
-			<div class={clsx('name', { 'w-[calc(100%-64px)]': task.date })}>{task.name}</div>
+	<div class="flex items-center gap-3">
+		<div aria-label="drag-handle for {task.name}" use:dragHandle>
+			<GripVerticalIcon class="size-5 shrink-0" />
 		</div>
-		<div class="hidden gap-3 sm:flex">
-			{formatTaskDate(task, DATE_FR)}
-			<div class="name">{task.name}</div>
-		</div>
+		{#if task.date}
+			<div class="flex sm:hidden">{formatTaskDate(task, DATE_FR_SHORT)}</div>
+			<div class="hidden sm:flex">{formatTaskDate(task, DATE_FR)}</div>
+		{/if}
+		<div class="name">{task.name}</div>
 	</div>
 
 	<div class="flex items-center gap-x-3">
