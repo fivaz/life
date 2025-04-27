@@ -2,30 +2,33 @@ import { formatDate, parseDate } from '@life/shared/date';
 import type { Task } from '@life/shared/task';
 import { addDays, addWeeks, endOfWeek, startOfWeek } from 'date-fns';
 
+import { categories } from '$lib/category/category.svelte';
+import {
+	buildTimedTask,
+	buildUntimedTask,
+	buildUntimedTaskWithDateSet,
+} from '$lib/task/build-utils';
 import { editTask } from '$lib/task/task.repository';
 import { currentUser } from '$lib/user/user.utils.svelte';
 
 import type { TaskLists } from '../service';
 
+const getDateStrategies: Record<string, (currentDate: string) => string> = {
+	someday: () => '',
+	today: () => formatDate(new Date()),
+	tomorrow: () => formatDate(addDays(new Date(), 1)),
+	thisWeek: () => formatDate(endOfWeek(new Date())),
+	nextWeek: () => formatDate(startOfWeek(addWeeks(new Date(), 1))),
+	default: (currentDate) => currentDate,
+};
+
 export function updateTaskPeriod(tasksByPeriod: TaskLists, taskId: string) {
-	for (const [listKey, tasks] of Object.entries(tasksByPeriod)) {
+	for (const [period, tasks] of Object.entries(tasksByPeriod)) {
 		const task = tasks.find((t) => t.id === taskId);
 		if (!task) continue;
 
-		let newDate: string | null = null;
-
-		const updateFn = updateStrategies[listKey];
-		if (updateFn) {
-			// Create a clone to not mutate the original task yet
-			const clonedTask = { ...task };
-			updateFn(clonedTask);
-			newDate = clonedTask.date;
-		} else {
-			const parsedDate = parseDate(listKey);
-			if (parsedDate) {
-				newDate = formatDate(parsedDate);
-			}
-		}
+		const updateFn = getDateStrategies[period] ?? getDateStrategies.default;
+		const newDate = updateFn(task.date);
 
 		// Only update if the date is different
 		if (newDate !== task.date) {
@@ -37,22 +40,17 @@ export function updateTaskPeriod(tasksByPeriod: TaskLists, taskId: string) {
 	}
 }
 
-const updateStrategies: Record<string, (task: Task) => void> = {
-	// if it's overdue it's because the drag was cancelled
-	overdue: () => {},
-	someday: (task) => {
-		task.date = '';
-	},
-	today: (task) => {
-		task.date = formatDate(new Date());
-	},
-	tomorrow: (task) => {
-		task.date = formatDate(addDays(new Date(), 1));
-	},
-	thisWeek: (task) => {
-		task.date = formatDate(endOfWeek(new Date()));
-	},
-	nextWeek: (task) => {
-		task.date = formatDate(startOfWeek(addWeeks(new Date(), 1)));
-	},
-};
+export function getNewTaskFromPeriod(period: string) {
+	const todayFormatted = formatDate(new Date());
+	const updateFn = getDateStrategies[period] ?? getDateStrategies.default;
+	const newDateString = updateFn(todayFormatted);
+
+	if (newDateString) {
+		const date = parseDate(newDateString);
+		return buildUntimedTaskWithDateSet(categories.value, date);
+	} else {
+		return Object.assign(buildUntimedTask(categories.value), {
+			date: '',
+		});
+	}
+}

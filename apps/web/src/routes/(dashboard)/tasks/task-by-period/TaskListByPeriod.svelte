@@ -15,43 +15,43 @@
 	const flipDurationMs = 300;
 
 	interface Props {
-		listName: string | TaskListType;
+		period: string | TaskListType;
 		tasksByPeriod: TaskLists;
 	}
 
-	let { listName, tasksByPeriod = $bindable() }: Props = $props();
+	let { period, tasksByPeriod = $bindable() }: Props = $props();
 
 	function handleDndConsider(e: CustomEvent<DndEvent<Task>>) {
-		tasksByPeriod[listName] = e.detail.items;
+		tasksByPeriod[period] = e.detail.items;
 	}
 
 	function handleDndFinalize(e: CustomEvent<DndEvent<Task>>) {
 		const { items, info } = e.detail;
-		tasksByPeriod[listName] = items;
+		tasksByPeriod[period] = items;
 
 		updateTaskPeriod(tasksByPeriod, info.id);
 	}
 
-	let isDroppable = !(listName.startsWith('recurring') || listName === 'overdue');
+	let isDroppable = !(period.startsWith('recurring') || period === 'overdue');
 </script>
 
 <section
 	class="flex flex-col gap-2 divide-gray-300 rounded-lg border border-gray-300 bg-gray-50 p-3 dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-900"
 >
-	<TaskListHeaderByPeriod {listName} {tasksByPeriod} />
+	<TaskListHeaderByPeriod {period} {tasksByPeriod} />
 	<ul
-		class={clsx('flex flex-col gap-2', { '-mt-2': tasksByPeriod[listName].length === 0 })}
+		class={clsx('flex flex-col gap-2', { '-mt-2': tasksByPeriod[period].length === 0 })}
 		onconsider={handleDndConsider}
 		onfinalize={handleDndFinalize}
 		use:dndzone={{
-			items: tasksByPeriod[listName],
+			items: tasksByPeriod[period],
 			flipDurationMs,
-			dragDisabled: listName.startsWith('recurring'),
+			dragDisabled: period.startsWith('recurring'),
 			dropFromOthersDisabled: !isDroppable,
 			dropTargetStyle: {},
 		}}
 	>
-		{#each tasksByPeriod[listName] as task (task.id)}
+		{#each tasksByPeriod[period] as task (task.id)}
 			<li animate:flip={{ duration: flipDurationMs }}>
 				<TaskByPeriod {task} />
 			</li>
