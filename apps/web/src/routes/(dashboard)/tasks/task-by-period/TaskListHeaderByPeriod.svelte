@@ -39,16 +39,18 @@
 	}
 </script>
 
-<div
-	class="flex items-center gap-2 {listName === 'overdue'
-		? 'text-red-500'
-		: 'text-gray-700 dark:text-gray-100'}"
->
-	{#if tasksByPeriod[listName].length}
-		<ClipboardListIcon class="size-5" />
-	{:else}
-		<ClipboardIcon class="size-5" />
-	{/if}
-	<span class="font-semibold">{getLabel(listName)}</span>
-	<span>{getNumberOfTasks(tasksByPeriod[listName])}</span>
+<div>
+	<div
+		class="flex items-center gap-2 {listName === 'overdue'
+			? 'text-red-500'
+			: 'text-gray-700 dark:text-gray-100'}"
+	>
+		{#if tasksByPeriod[listName].length}
+			<ClipboardListIcon class="size-5" />
+		{:else}
+			<ClipboardIcon class="size-5" />
+		{/if}
+		<span class="font-semibold">{getLabel(listName)}</span>
+		<span>{getNumberOfTasks(tasksByPeriod[listName])}</span>
+	</div>
 </div>
