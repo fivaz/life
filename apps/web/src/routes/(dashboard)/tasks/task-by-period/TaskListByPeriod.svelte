@@ -56,15 +56,15 @@
 				<TaskByPeriod {task} />
 			</li>
 		{/each}
-	</ul>
 
-	{#if isDroppable}
-		<li class="pointer-events-none">
-			<LText
-				class="relative flex h-10 select-none items-center justify-center gap-2 divide-gray-300 rounded-lg border-2 border-dashed border-gray-300 p-1 hover:border-gray-500 dark:divide-gray-700 dark:border-gray-700"
-			>
-				<ClipboardCopyIcon class="size-5" /> drop a task here
-			</LText>
-		</li>
-	{/if}
+		{#if isDroppable}
+			<li class="pointer-events-none">
+				<LText
+					class="relative flex h-10 select-none items-center justify-center gap-2 divide-gray-300 rounded-lg border-2 border-dashed border-gray-300 p-1 hover:border-gray-500 dark:divide-gray-700 dark:border-gray-700"
+				>
+					<ClipboardCopyIcon class="size-5" /> drop a task here
+				</LText>
+			</li>
+		{/if}
+	</ul>
 </section>
