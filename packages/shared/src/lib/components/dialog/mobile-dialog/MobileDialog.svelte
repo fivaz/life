@@ -27,7 +27,7 @@
 
 <div class="{klass} flex min-h-full min-w-full items-end">
 	<div
-		class="relative flex w-full flex-col justify-center gap-3 rounded-t-2xl border border-gray-200 bg-white p-4 text-center dark:border-gray-700 dark:bg-gray-800"
+		class="relative flex w-full flex-col justify-center gap-3 rounded-t-2xl border border-gray-200 bg-white px-5 py-7 text-center dark:border-gray-700 dark:bg-gray-800"
 	>
 		<div class="flex items-center justify-center gap-2">
 			<div class="flex size-8 flex-shrink-0 items-center justify-center rounded-full bg-red-100">
