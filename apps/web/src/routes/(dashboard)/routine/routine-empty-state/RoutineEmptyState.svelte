@@ -1,14 +1,12 @@
 <script lang="ts">
-	import { Button } from '@life/shared';
 	import { Calendar1, Plus } from 'lucide-svelte';
 
 	import type { Routine } from '$lib/routine/routine.model';
 	import { buildEmptyRoutine } from '$lib/routine/routine.model';
 
 	import RoutineFormButton from '../routine-form-button/RoutineFormButton.svelte';
-	import { getOpenRoutineForm } from '../routine-rows/service';
-
-	let newRoutine = $state<Routine>(buildEmptyRoutine());
+	
+let newRoutine = $state<Routine>(buildEmptyRoutine());
 </script>
 
 <div class="flex flex-1 items-center justify-center text-center">
