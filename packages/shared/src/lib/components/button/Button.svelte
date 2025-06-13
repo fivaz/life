@@ -4,6 +4,7 @@
 	import type { Snippet } from 'svelte';
 
 	interface Props {
+		id?: string;
 		isLoading?: boolean;
 		color?: 'indigo' | 'red' | 'white' | 'none' | 'dark' | 'light';
 		type?: 'button' | 'submit' | undefined;
@@ -15,6 +16,7 @@
 	}
 
 	let {
+		id,
 		isLoading = false,
 		color = 'indigo',
 		type = undefined,
@@ -45,6 +47,7 @@
 		'opacity-70': disabled,
 		[basic]: color !== 'none',
 	})}
+	{id}
 	{disabled}
 	{onclick}
 	{type}

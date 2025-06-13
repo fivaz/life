@@ -126,3 +126,8 @@
 	/* Keep it relative for the ::after pseudo-element */
 	position: relative;
 }
+
+
+.hide-buttons .introjs-tooltipbuttons {
+	display: none;
+}

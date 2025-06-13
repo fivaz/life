@@ -122,6 +122,10 @@ importers:
         version: 5.4.17(@types/node@22.14.0)(terser@5.39.0)
 
   apps/web:
+    dependencies:
+      intro.js:
+        specifier: ^7.2.0
+        version: 7.2.0
     devDependencies:
       '@chromatic-com/storybook':
         specifier: ^3.2.2
@@ -3954,6 +3958,9 @@ packages:
   interpret@3.1.1:
     resolution: {integrity: sha512-6xwYfHbajpoF0xLW+iwLkhwgvLoZDfjYfoFNu8ftMoXINzwuymNLd9u/KmwtdT2GbR+/Cz66otEGEVVUHX9QLQ==}
     engines: {node: '>=10.13.0'}
+
+  intro.js@7.2.0:
+    resolution: {integrity: sha512-qbMfaB70rOXVBceIWNYnYTpVTiZsvQh/MIkfdQbpA9di9VBfj1GigUPfcCv3aOfsbrtPcri8vTLTA4FcEDcHSQ==}
 
   is-absolute@1.0.0:
     resolution: {integrity: sha512-dOWoqflvcydARa360Gvv18DZ/gRuHKi2NU/wU5X1ZFzdYfH29nkiNZsF3mp4OJ3H4yo9Mx8A/uAGNzpzPN3yBA==}
@@ -9813,6 +9820,8 @@ snapshots:
       side-channel: 1.1.0
 
   interpret@3.1.1: {}
+
+  intro.js@7.2.0: {}
 
   is-absolute@1.0.0:
     dependencies:
