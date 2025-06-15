@@ -21,6 +21,7 @@ import { fetchItems } from '$lib/repository.svelte';
 import { getTaskPath } from '$lib/task/task.repository';
 
 export function fetchCategories(categories: Category[]): void {
+	console.log('fetchCategories');
 	fetchItems(categories, DB_PATH.CATEGORIES, categorySchema, orderBy('order'));
 }
 

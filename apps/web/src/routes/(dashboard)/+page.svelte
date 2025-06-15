@@ -14,7 +14,7 @@
 
 	import { editPossibleSingleRecurringEvent, moveEvent } from './service.svelte';
 	import { convertTaskMapToList, fetchFirstTasks, getWeekTasks, tasksMap } from './task-map.svelte';
-	import HomeTutorial from './HomeTutorial.svelte';
+	import HomeTutorial from './HomeTutorial/HomeTutorial.svelte';
 
 	let targetDate = $state<string | undefined>();
 
