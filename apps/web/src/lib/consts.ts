@@ -22,6 +22,7 @@ export const DB_PATH = {
 };
 
 export const demoLogin = {
+	uid: 'o9bdQJ3gYjZllQH9Y9Y66fKh7283',
 	email: 'demo@demo.com',
 	password: '123456',
 };

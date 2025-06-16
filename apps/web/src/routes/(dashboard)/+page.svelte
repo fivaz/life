@@ -15,6 +15,7 @@
 	import { editPossibleSingleRecurringEvent, moveEvent } from './service.svelte';
 	import { convertTaskMapToList, fetchFirstTasks, getWeekTasks, tasksMap } from './task-map.svelte';
 	import HomeTutorial from './HomeTutorial/HomeTutorial.svelte';
+	import { demoLogin } from '$lib/consts';
 
 	let targetDate = $state<string | undefined>();
 
@@ -63,7 +64,9 @@
 	let tasks = $derived(convertTaskMapToList(tasksMap.value));
 </script>
 
-<HomeTutorial/>
+{#if currentUser.email === demoLogin.email}
+	<HomeTutorial/>
+{/if}
 
 <Calendar
 	changeDate={(date) => getWeekTasks(date)}

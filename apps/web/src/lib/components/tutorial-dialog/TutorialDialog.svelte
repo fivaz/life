@@ -59,7 +59,7 @@
 		<img
 			src={steps[current].gif}
 			alt="Tutorial step"
-			class="rounded-lg max-w-full max-h-64 object-contain mb-4"
+			class="rounded-lg max-w-full object-contain mb-4"
 		/>
 
 		<!-- Title -->
