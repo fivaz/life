@@ -9,7 +9,7 @@
 			resetData();
 	})
 
-	let showTutorial = $state(true);
+	let showTutorial = $state(false);
 
 	function close() {
 		showTutorial = false;
@@ -44,7 +44,7 @@
 		{
 			gif: '/tutorial/organize-by-date.gif',
 			title: 'Organize Everything by Date',
-			text: 'See all your events and tasks in one place. Drag and drop them to the right day and time.',
+			text: 'Keep all your events and tasks in one place. Simply drag and drop to reschedule them.',
 		},
 		{
 			gif: '/tutorial/task-progress-chart.gif',

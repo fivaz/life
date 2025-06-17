@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { Modal } from '@life/shared';
-	import { CircleArrowLeft, CircleArrowLeftIcon, CircleArrowRight, CircleArrowRightIcon } from 'lucide-svelte';
+	import { CircleArrowLeft, CircleArrowLeftIcon, CircleArrowRight, CircleArrowRightIcon, XIcon } from 'lucide-svelte';
+	import { Button } from '@life/shared';
 
 	type TutorialStep = {
 		gif: string;
@@ -37,24 +38,28 @@
 
 <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
 	<div class="relative bg-white dark:bg-gray-900 border dark:border-gray-800 rounded-2xl shadow-lg w-[90%] max-w-xl p-6 flex flex-col items-center text-center">
+		<div class='absolute top-0 right-0 p-2'>
+			<button onclick={() => close()} class='p-2'>
+				<XIcon class="size-5 text-gray-500" />
+			</button>
+		</div>
 
 		<!-- Arrows -->
-		<button
-			class="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-bold text-gray-500 hover:text-black"
-			onclick={prev}
-			disabled={current === 0}
-		>
-			<CircleArrowLeftIcon class="size-6 text-indigo-600"/>
-		</button>
+			<Button
+				class="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-bold"
+				onclick={prev}
+				disabled={current === 0}
+			>
+				<CircleArrowLeftIcon class="size-6 text-white"/>
+			</Button>
 
-		<button
-			class="absolute right-4 top-1/2 -translate-y-1/2 text-2xl font-bold text-gray-500 hover:text-black"
-			onclick={next}
-			disabled={current === steps.length - 1}
-		>
-			<CircleArrowRightIcon class="size-6 text-indigo-600"/>
-		</button>
-
+			<Button
+				class="absolute right-4 top-1/2 -translate-y-1/2 text-2xl font-bold"
+				onclick={next}
+				disabled={current === steps.length - 1}
+			>
+				<CircleArrowRightIcon class="size-6 text-white"/>
+			</Button>
 		<!-- GIF -->
 		<img
 			src={steps[current].gif}
