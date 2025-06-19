@@ -5,8 +5,8 @@
 	import { buildEmptyRoutine } from '$lib/routine/routine.model';
 
 	import RoutineFormButton from '../routine-form-button/RoutineFormButton.svelte';
-	
-let newRoutine = $state<Routine>(buildEmptyRoutine());
+
+	let newRoutine = $state<Routine>(buildEmptyRoutine());
 </script>
 
 <div class="flex flex-1 items-center justify-center text-center">

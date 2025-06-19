@@ -3,9 +3,9 @@
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
 
-const sw = /** @type {ServiceWorkerGlobalScope} */ (/** @type {unknown} */ (self));
-
 import { build, files, version } from '$service-worker';
+
+// const sw = /** @type {ServiceWorkerGlobalScope} */ /** @type {unknown} */ self;
 
 console.log('App version:', version);
 
@@ -43,16 +43,18 @@ self.addEventListener('fetch', (event) => {
 		caches.match(event.request).then((cached) => {
 			if (cached) return cached;
 
-			return fetch(event.request).then((response) => {
-				// Cache new requests for next time
-				return caches.open(CACHE).then((cache) => {
-					cache.put(event.request, response.clone());
-					return response;
+			return fetch(event.request)
+				.then((response) => {
+					// Cache new requests for next time
+					return caches.open(CACHE).then((cache) => {
+						cache.put(event.request, response.clone());
+						return response;
+					});
+				})
+				.catch(() => {
+					// Optional: fallback if fetch fails (e.g., offline)
+					// You can return a fallback page/image here
 				});
-			}).catch(() => {
-				// Optional: fallback if fetch fails (e.g., offline)
-				// You can return a fallback page/image here
-			});
-		})
+		}),
 	);
 });

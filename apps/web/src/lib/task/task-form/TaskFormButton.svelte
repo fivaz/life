@@ -40,7 +40,7 @@
 	}
 
 	export function open() {
-		if(task.id) console.log(task.id);
+		if (task.id) console.log(task.id);
 		taskIn.value = convertToTaskIn(task);
 		isOpen = true;
 	}
