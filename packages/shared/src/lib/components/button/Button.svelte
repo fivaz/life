@@ -21,7 +21,7 @@
 		disabled = isLoading,
 		class: klass,
 		children,
-		padding,
+		padding = 'px-3 py-2',
 		onclick,
 	}: Props = $props();
 
@@ -41,7 +41,7 @@
 </script>
 
 <button
-	class={clsx(klass, colors[color], padding || 'px-3 py-2', {
+	class={clsx(klass, colors[color], padding, {
 		'opacity-70': disabled,
 		[basic]: color !== 'none',
 	})}
