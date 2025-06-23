@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button, LText } from '@life/shared';
-	import { Copy, CopyCheck } from 'lucide-svelte';
+	import { CopyCheckIcon, CopyIcon } from 'lucide-svelte';
 
 	import { taskIn } from '$lib/task/task-form/service.svelte';
 
@@ -39,11 +39,11 @@
 
 		{#if isAllSelected}
 			<Button class="size-6 p-1" color="white" onclick={uncheckAllDays} padding="">
-				<Copy class="size-4" />
+				<CopyIcon class="size-4 shrink-0 text-indigo-500" />
 			</Button>
 		{:else}
 			<Button class="size-6 p-1" color="white" onclick={checkAllDays} padding="">
-				<CopyCheck class="size-4" />
+				<CopyCheckIcon class="size-4 shrink-0 text-indigo-500" />
 			</Button>
 		{/if}
 	</div>
