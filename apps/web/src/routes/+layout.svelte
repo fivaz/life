@@ -1,6 +1,5 @@
 <script lang="ts">
 	import '../app.css';
-	import 'intro.js/introjs.css';
 
 	import { setDefaultOptions } from 'date-fns';
 

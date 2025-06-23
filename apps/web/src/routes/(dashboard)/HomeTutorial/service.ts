@@ -1,9 +1,8 @@
 import { collection, doc, getDocs, writeBatch } from 'firebase/firestore';
-import type { Options } from "intro.js/src/option";
 import { DB_PATH, demoLogin } from '$lib/consts';
 import { currentUser } from '$lib/user/user.utils.svelte';
 import { db } from '$lib/firebase';
-import { addDays, isSameWeek, setHours, setMinutes, setSeconds, startOfWeek } from 'date-fns';
+import { addDays, isSameWeek, startOfWeek } from 'date-fns';
 import { formatDate, parseDate } from '@life/shared/date';
 
 export const resetData = async () => {
@@ -12,17 +11,16 @@ export const resetData = async () => {
 
 	const batch = writeBatch(db);
 	const now = new Date();
-	const startOfThisWeek = startOfWeek(now, {weekStartsOn: 1});
+	const startOfThisWeek = startOfWeek(now, { weekStartsOn: 1 });
 
 	snapshot.forEach((docSnap) => {
 		const task = docSnap.data();
-
 
 		const taskDate = parseDate(task.date);
 		if (!taskDate) return;
 
 		// Skip if the date is already in the current week
-		if (isSameWeek(taskDate, now, {weekStartsOn: 1})) return;
+		if (isSameWeek(taskDate, now, { weekStartsOn: 1 })) return;
 
 		const weekDay = taskDate.getDay(); // 0–6
 
@@ -36,4 +34,4 @@ export const resetData = async () => {
 	});
 
 	await batch.commit();
-}
+};

@@ -1,8 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import introJs from 'intro.js';
 	import {  resetData } from './service';
-	import { currentUser } from '$lib/user/user.utils.svelte';
 	import TutorialDialog from '$lib/components/tutorial-dialog/TutorialDialog.svelte';
 
 	$effect(() => {
