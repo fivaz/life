@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { LText } from '@life/shared';
 	import LoaderIcon from '@lucide/svelte/icons/loader';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 	import { onMount } from 'svelte';
@@ -14,8 +15,8 @@
 </script>
 
 <div class="flex h-screen items-center justify-center">
-	<div class="flex gap-3">
+	<LText class="flex gap-3">
 		<LoaderIcon class="size-6 animate-spin" />
-		<p class="font-semibold">You are entering demo mode...</p>
-	</div>
+		<span class="font-semibold">You are entering demo mode...</span>
+	</LText>
 </div>
