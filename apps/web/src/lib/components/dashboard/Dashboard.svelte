@@ -1,8 +1,11 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
+	import Banner from '$lib/components/banner/Banner.svelte';
 	import DashboardDesktop from '$lib/components/dashboard/dashboard-desktop/DashboardDesktop.svelte';
 	import DashboardMobile from '$lib/components/dashboard/dashboard-mobile/DashboardMobile.svelte';
+	import { demoLogin } from '$lib/consts';
+	import { currentUser } from '$lib/user/user.utils.svelte.js';
 
 	interface Props {
 		children: Snippet;
@@ -21,9 +24,9 @@
 	<main
 		class="mt-14 flex-1 overflow-y-auto bg-white md:mt-0 dark:bg-gray-800 dark:[color-scheme:dark]"
 	>
-		<!--{#if currentUser.email === demoLogin.email}-->
-		<!--	<Banner />-->
-		<!--{/if}-->
+		{#if currentUser.email === demoLogin.email}
+			<Banner />
+		{/if}
 
 		{@render children()}
 	</main>
