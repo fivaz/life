@@ -1,10 +1,9 @@
 import { formatDate, parseDate } from '@life/shared/date';
 import type { Task } from '@life/shared/task';
 import { addDays, isSameWeek, startOfWeek } from 'date-fns';
-import type { WriteBatch } from 'firebase/firestore';
 import { collection, doc, getDocs, writeBatch } from 'firebase/firestore';
 
-import { DB_PATH, demoLogin } from '$lib/consts';
+import { demoLogin } from '$lib/consts';
 import { db } from '$lib/firebase';
 import { getTaskPath } from '$lib/task/task.repository';
 

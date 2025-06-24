@@ -6,16 +6,16 @@
 	import type { Category } from '$lib/category/category.model';
 	import { buildEmptyCategory } from '$lib/category/category.model';
 	import { fetchCategories } from '$lib/category/category.respository';
+	import { demoLogin } from '$lib/consts';
 	import { buildTimedTask, buildTimedTaskWithTimeSet } from '$lib/task/build-utils';
 	import TaskCompletedNotificationStack from '$lib/task/task-completed-notification-stack/TaskCompletedNotificationStack.svelte';
 	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 	import { title } from '$lib/utils.svelte';
 
+	import HomeTutorial from './HomeTutorial/HomeTutorial.svelte';
 	import { editPossibleSingleRecurringEvent, moveEvent } from './service.svelte';
 	import { convertTaskMapToList, fetchFirstTasks, getWeekTasks, tasksMap } from './task-map.svelte';
-	import HomeTutorial from './HomeTutorial/HomeTutorial.svelte';
-	import { demoLogin } from '$lib/consts';
 
 	let targetDate = $state<string | undefined>();
 
@@ -65,7 +65,7 @@
 </script>
 
 {#if currentUser.email === demoLogin.email}
-	<HomeTutorial/>
+	<HomeTutorial />
 {/if}
 
 <Calendar

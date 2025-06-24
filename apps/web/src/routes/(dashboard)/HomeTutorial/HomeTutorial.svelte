@@ -1,10 +1,11 @@
 <script lang="ts">
-	import {  resetData } from './service';
 	import TutorialDialog from '$lib/components/tutorial-dialog/TutorialDialog.svelte';
 
+	import { resetData } from './service';
+
 	$effect(() => {
-			resetData();
-	})
+		resetData();
+	});
 
 	let showTutorial = $state(true);
 
@@ -47,11 +48,10 @@
 			gif: '/tutorial/task-progress-chart.gif',
 			title: 'Visualize Your Progress',
 			text: 'Check how many tasks you’ve completed over time with progress charts to stay motivated.',
-		}
+		},
 	];
-
 </script>
 
 {#if showTutorial}
-	<TutorialDialog steps={tutorialSteps} {close} />
+	<TutorialDialog {close} steps={tutorialSteps} />
 {/if}

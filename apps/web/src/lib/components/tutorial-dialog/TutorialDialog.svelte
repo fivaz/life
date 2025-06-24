@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { Button } from '@life/shared';
 	import { CircleArrowLeftIcon, CircleArrowRightIcon } from 'lucide-svelte';
+	import { onMount } from 'svelte';
 
 	type TutorialStep = {
 		gif?: string;
@@ -9,7 +9,7 @@
 		text: string;
 	};
 
-	const { steps, close }: { steps: TutorialStep[], close: () => void } = $props();
+	const { steps, close }: { steps: TutorialStep[]; close: () => void } = $props();
 
 	let current = $state(0);
 	let phase: 'intro' | 'tutorial' | 'outro' = $state('intro');
@@ -44,33 +44,27 @@
 	});
 </script>
 
-<div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
 	<div
-		class="relative bg-white dark:bg-gray-900 border dark:border-gray-800 rounded-2xl shadow-lg w-[90%] max-w-xl p-6 flex flex-col items-center text-center">
-
+		class="relative flex w-[90%] max-w-xl flex-col items-center rounded-2xl border bg-white p-6 text-center shadow-lg dark:border-gray-800 dark:bg-gray-900"
+	>
 		<!-- Arrows -->
 		{#if phase === 'tutorial'}
-			<Button
-				class="absolute left-4 top-1/2 -translate-y-1/2"
-				onclick={prev}
-			>
+			<Button class="absolute left-4 top-1/2 -translate-y-1/2" onclick={prev}>
 				<CircleArrowLeftIcon class="size-6 text-white" />
 			</Button>
 
-			<Button
-				class="absolute right-4 top-1/2 -translate-y-1/2"
-				onclick={next}
-			>
+			<Button class="absolute right-4 top-1/2 -translate-y-1/2" onclick={next}>
 				<CircleArrowRightIcon class="size-6 text-white" />
 			</Button>
 		{/if}
 
 		<!-- INTRO -->
 		{#if phase === 'intro'}
-			<h2 class="text-2xl font-bold mb-4 text-indigo-600">Welcome to Life</h2>
-			<p class="text-gray-700 dark:text-gray-300 mb-6">
-				Your new favorite app to manage events, goals, and tasks — all in one place.
-				We'll walk you through the main features so you can get the most out of it.
+			<h2 class="mb-4 text-2xl font-bold text-indigo-600">Welcome to Life</h2>
+			<p class="mb-6 text-gray-700 dark:text-gray-300">
+				Your new favorite app to manage events, goals, and tasks — all in one place. We'll walk you
+				through the main features so you can get the most out of it.
 			</p>
 			<Button class="text-lg font-semibold" onclick={next}>Start Tour</Button>
 
@@ -78,15 +72,15 @@
 		{:else if phase === 'tutorial'}
 			{#if steps[current].gif}
 				<img
-					class="rounded-lg max-w-full object-contain mb-4"
-					src={steps[current].gif}
+					class="mb-4 max-w-full rounded-lg object-contain"
 					alt="Tutorial step"
+					src={steps[current].gif}
 				/>
 			{:else}
-				<div class="h-40 w-full rounded-lg flex items-end justify-center mb-4"></div>
+				<div class="mb-4 flex h-40 w-full items-end justify-center rounded-lg"></div>
 			{/if}
 
-			<h2 class="text-xl font-semibold mb-2 text-indigo-600">
+			<h2 class="mb-2 text-xl font-semibold text-indigo-600">
 				{steps[current].title}
 			</h2>
 			<p class="text-gray-700 dark:text-gray-500">
@@ -95,9 +89,10 @@
 
 			<!-- OUTRO -->
 		{:else if phase === 'outro'}
-			<h2 class="text-2xl font-bold mb-4 text-indigo-600">And So Much More</h2>
-			<p class="text-gray-700 dark:text-gray-300 mb-6">
-				Discover even more features designed to keep you productive, organized, and in control of your time.
+			<h2 class="mb-4 text-2xl font-bold text-indigo-600">And So Much More</h2>
+			<p class="mb-6 text-gray-700 dark:text-gray-300">
+				Discover even more features designed to keep you productive, organized, and in control of
+				your time.
 			</p>
 			<Button class="text-lg font-semibold" onclick={close}>Start using the app</Button>
 		{/if}
