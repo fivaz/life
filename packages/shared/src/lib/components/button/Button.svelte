@@ -43,11 +43,11 @@
 </script>
 
 <button
+	{id}
 	class={clsx(klass, colors[color], padding, {
 		'opacity-70': disabled,
 		[basic]: color !== 'none',
 	})}
-	{id}
 	{disabled}
 	{onclick}
 	{type}

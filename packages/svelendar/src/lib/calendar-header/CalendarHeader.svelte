@@ -40,11 +40,7 @@
 			class="hidden h-7 divide-gray-400 border-r border-gray-400 md:block dark:divide-gray-700 dark:border-gray-700"
 		></div>
 
-		<Button
-			id="tutorial-create-event-button"
-			onclick={() => createTask(selectedDate.value)}
-			type="button"
-		>
+		<Button onclick={() => createTask(selectedDate.value)} type="button">
 			<PlusIcon class="size-4" />
 			<span class="hidden md:block">Add event</span>
 		</Button>

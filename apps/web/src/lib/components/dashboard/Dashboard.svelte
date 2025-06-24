@@ -3,8 +3,8 @@
 
 	import DashboardDesktop from '$lib/components/dashboard/dashboard-desktop/DashboardDesktop.svelte';
 	import DashboardMobile from '$lib/components/dashboard/dashboard-mobile/DashboardMobile.svelte';
-	
-interface Props {
+
+	interface Props {
 		children: Snippet;
 	}
 
