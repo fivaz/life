@@ -47,10 +47,6 @@
 			gif: '/tutorial/task-progress-chart.gif',
 			title: 'Visualize Your Progress',
 			text: 'Check how many tasks you’ve completed over time with progress charts to stay motivated.',
-		},
-		{
-			title: 'And So Much More',
-			text: 'Discover additional features designed to help you stay organized, productive, and in control of your schedule.',
 		}
 	];
 
