@@ -1,5 +1,5 @@
 import { formatDate } from '@life/shared/date';
-import { lastDayOfQuarter } from 'date-fns';
+import { addDays, lastDayOfQuarter } from 'date-fns';
 import { z } from 'zod';
 
 import { zDateOrEmpty } from '$lib/utils';
@@ -19,7 +19,7 @@ export type Goal = z.infer<typeof goalSchema>;
 
 export function buildEmptyGoal(): Goal {
 	return {
-		deadline: formatDate(lastDayOfQuarter(new Date())),
+		deadline: formatDate(addDays(new Date(), 7)),
 		icon: 'Fire',
 		id: '',
 		isDone: false,
