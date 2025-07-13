@@ -34,7 +34,7 @@
 </script>
 
 <label
-	class="{klass} block text-sm font-medium {disabled
+	class="{klass} flex flex-col gap-0.5 text-sm font-medium {disabled
 		? 'text-gray-500'
 		: 'text-gray-700 dark:text-white'}"
 >
