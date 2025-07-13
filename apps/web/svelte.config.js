@@ -15,8 +15,7 @@ const config = {
 		// See https://svelte.dev/docs/kit/adapters for more information about adapters.
 		adapter: adapter(),
 		serviceWorker: {
-			// eslint-disable-next-line turbo/no-undeclared-env-vars
-			register: process.env.NODE_ENV === 'production',
+			register: false,
 		},
 	},
 };

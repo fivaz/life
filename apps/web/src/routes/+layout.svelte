@@ -5,6 +5,14 @@
 
 	import { darkMode } from '$lib/utils.svelte';
 
+	// eslint-disable-next-line turbo/no-undeclared-env-vars
+	if ('serviceWorker' in navigator && import.meta.env.MODE === 'production') {
+		navigator.serviceWorker
+			.register('/service-worker.js')
+			.then(() => console.log('Service Worker registered'))
+			.catch((err) => console.error('Service Worker registration failed:', err));
+	}
+
 	// set it for all
 	setDefaultOptions({ weekStartsOn: 1 });
 
