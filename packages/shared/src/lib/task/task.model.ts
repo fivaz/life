@@ -21,6 +21,7 @@ export type Task = {
 	recurringDaysOfWeek: string[];
 	recurringEndAt: string;
 	recurringExceptions: string[];
+	groupId?: string;
 };
 
 export type SubTask = { isDone: boolean; title: string };

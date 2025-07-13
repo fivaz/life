@@ -1,6 +1,8 @@
 import { createDialog } from '@life/shared';
+import { convertTimeToMinutes, DATE, formatDate, formatTime, TIME } from '@life/shared/date';
 import type { Task } from '@life/shared/task';
 import { getHalfTime, isRecurring, isTimed } from '@life/shared/task';
+import { addMinutes, parse } from 'date-fns';
 
 import { buildEmptyCategory } from '$lib/category/category.model';
 import type { Goal } from '$lib/goal/goal.model';
@@ -8,7 +10,6 @@ import { buildTimedTask } from '$lib/task/build-utils';
 import { addExceptionToRecurring, addTask, deleteTask, editTask } from '$lib/task/task.repository';
 import type { TaskIn } from '$lib/task/task-in-utils';
 import { convertToTaskIn } from '$lib/task/task-in-utils';
-import { sumTimes } from '$lib/task/time-utils';
 
 export const taskIn = $state<{ value: TaskIn }>({
 	value: convertToTaskIn(buildTimedTask([buildEmptyCategory()])),
@@ -117,16 +118,27 @@ export function duplicateTask(task: Task, userId: string) {
 
 	const { id, ...data } = { ...task };
 	data.duration = halfDuration;
+	if (!data.groupId) {
+		data.groupId = id;
+	}
 
 	void editTask(id, data, userId, null, null);
 
-	const copyData = {
+	const copyTask = {
 		...data,
 	};
 
 	if (isTimed(task)) {
-		copyData.startTime = sumTimes(task.startTime, halfDuration);
+		// Combine date and time into one Date object
+		const fullStart = parse(`${task.date} ${task.startTime}`, `${DATE} ${TIME}`, new Date());
+		const newDateTime = addMinutes(fullStart, convertTimeToMinutes(halfDuration));
+
+		const newDate = formatDate(newDateTime);
+		const newTime = formatTime(newDateTime);
+
+		copyTask.date = newDate;
+		copyTask.startTime = newTime;
 	}
 
-	void addTask(copyData, userId);
+	void addTask(copyTask, userId);
 }

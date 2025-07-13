@@ -17,6 +17,7 @@ export const taskSchema = z.object({
 	image: z.string(),
 	category: categorySchema,
 	goal: goalSchema.nullable(),
+	groupId: z.string().optional(),
 	date: zDateOrEmpty,
 	duration: zTime,
 	startTime: zTimeOrEmpty,
