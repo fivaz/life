@@ -5,17 +5,27 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 import devtoolsJson from 'vite-plugin-devtools-json';
 
+// Detect production mode
+// eslint-disable-next-line turbo/no-undeclared-env-vars
+const isProduction = process.env.NODE_ENV === 'production';
+
 export default defineConfig({
 	define: {
-		'process.env.NODE_ENV': '"production"',
+		// eslint-disable-next-line turbo/no-undeclared-env-vars
+		'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
 	},
 	plugins: [
-		sentrySvelteKit({
-			sourceMapsUploadOptions: {
-				org: 'fivaz-lb',
-				project: 'life',
-			},
-		}),
+		// Only include Sentry in production
+		...(isProduction
+			? [
+					sentrySvelteKit({
+						sourceMapsUploadOptions: {
+							org: 'fivaz-lb',
+							project: 'life',
+						},
+					}),
+				]
+			: []),
 		sveltekit(),
 		devtoolsJson(),
 	],
