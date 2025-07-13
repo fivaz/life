@@ -104,3 +104,43 @@ export function getTaskDateTime(task: Task): Date | null {
 		return parse(task.date, DATE, new Date());
 	}
 }
+
+function getSiblingTasks(task: Task, tasks: Task[]) {
+	return tasks.filter((task) => task.groupId === task.groupId);
+}
+
+// Generate display name with suffix (e.g., "Task 1/3")
+function getSiblingName(task: Task, siblings: Task[]): string {
+	// Sort brothers by startTime to determine index
+	const index = siblings
+		.sort((a, b) => a.startTime.localeCompare(b.startTime))
+		.findIndex((e) => e.id === task.id);
+
+	return `${index + 1}/${siblings.length}`;
+}
+
+export function getCheckList(task: Task, tasks: Task[]) {
+	const siblings = getSiblingTasks(task, tasks);
+
+	if (siblings.length) {
+		return getSiblingName(task, siblings);
+	}
+
+	const subtasks = getSubTasks(task.description);
+
+	const completedTasks = getSubTasksCompleted(subtasks);
+
+	return `${completedTasks}/${subtasks.length}`;
+}
+
+export function getTaskTitle(task: Task, tasks: Task[]) {
+	let title = task.name;
+
+	title += ` ${getCheckList(task, tasks)}`;
+
+	if (task.description) {
+		title += ' ...';
+	}
+
+	return title;
+}

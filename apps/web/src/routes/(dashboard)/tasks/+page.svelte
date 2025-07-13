@@ -9,6 +9,7 @@
 
 	import type { TaskLists } from './service';
 	import { getTaskLists } from './service';
+	import { tasksPageList } from './service.svelte';
 	import TaskListByPeriod from './task-by-period/TaskListByPeriod.svelte';
 	import TasksStats from './TasksStats.svelte';
 
@@ -18,7 +19,13 @@
 
 	let isStatsShown = $state(false);
 
-	fetchTasks((tasks) => (tasksByPeriod = getTaskLists(tasks)), where('isDone', '==', false));
+	fetchTasks(
+		(existingTasks) => {
+			tasksByPeriod = getTaskLists(existingTasks);
+			tasksPageList.value = existingTasks;
+		},
+		where('isDone', '==', false),
+	);
 </script>
 
 <div class="mx-auto flex max-w-7xl flex-col gap-5 p-4 sm:px-6 lg:px-8">

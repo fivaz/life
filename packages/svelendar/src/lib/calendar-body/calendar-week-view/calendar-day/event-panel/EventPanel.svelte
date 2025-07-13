@@ -17,9 +17,10 @@
 		eventsGrid: EventsGrid;
 		targetDate: string;
 		class?: string;
+		tasks: Task[];
 	}
 
-	let { event, eventsGrid, targetDate, class: klass = '' }: Props = $props();
+	let { event, eventsGrid, targetDate, class: klass = '', tasks }: Props = $props();
 
 	let container = $state<HTMLDivElement | undefined>();
 
@@ -141,5 +142,5 @@
 		'border-2 border-dashed border-indigo-500 dark:border-indigo-200': isSelected,
 	})}
 >
-	<EventPanelCore {event} {isSelected} {targetDate} />
+	<EventPanelCore {event} {isSelected} {targetDate} {tasks} />
 </div>

@@ -3,7 +3,7 @@
 	import { tailwindColorMap } from '@life/shared/category';
 	import { floorRound15, TIME } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
-	import { getDurationInMinutes, getSubTasks, getSubTasksCompleted } from '@life/shared/task';
+	import { getDurationInMinutes, getTaskTitle } from '@life/shared/task';
 	import { format, parse } from 'date-fns';
 	import DOMPurify from 'dompurify';
 
@@ -13,11 +13,12 @@
 
 	interface Props {
 		event: Task;
+		tasks: Task[];
 		targetDate: string;
 		isSelected: boolean;
 	}
 
-	let { event, targetDate, isSelected }: Props = $props();
+	let { event, targetDate, isSelected, tasks }: Props = $props();
 
 	// format date from this format '01:15' to this format '1h15min'
 	function formattedDuration() {
@@ -41,22 +42,6 @@
 
 	function isLong() {
 		return getDurationInMinutes(event) > GRID_CELL_TIME;
-	}
-
-	function getTitle() {
-		let title = event.name;
-
-		const subtasks = getSubTasks(event.description);
-
-		if (subtasks?.length) {
-			const completedTasks = getSubTasksCompleted(subtasks);
-
-			title += ` + ${completedTasks}/${subtasks.length}`;
-		} else if (event.description) {
-			title += '...';
-		}
-
-		return title;
 	}
 
 	function disableCheckboxes(htmlString: string) {
@@ -92,7 +77,7 @@
 			<IconRender name={event.goal.icon} class="size-4 shrink-0" />
 		{/if}
 		<span class="truncate pr-3 font-semibold">
-			{getTitle()}
+			{getTaskTitle(event, tasks)}
 		</span>
 	</div>
 

@@ -1,12 +1,15 @@
 <script lang="ts">
 	import { tailwindColorMap } from '@life/shared/category';
 	import type { Task } from '@life/shared/task';
+	import { getTaskTitle } from '@life/shared/task';
 	import { format } from 'date-fns';
 	import { GripVerticalIcon, Settings2Icon } from 'lucide-svelte';
 	import { dragHandle } from 'svelte-dnd-action';
 
 	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
 	import { DATE_FR, DATE_FR_SHORT } from '$lib/utils.svelte';
+
+	import { tasksPageList } from '../service.svelte';
 
 	interface Props {
 		task: Task;
@@ -35,7 +38,7 @@
 			<div class="flex sm:hidden">{formatTaskDate(task, DATE_FR_SHORT)}</div>
 			<div class="hidden sm:flex">{formatTaskDate(task, DATE_FR)}</div>
 		{/if}
-		<div class="name">{task.name}</div>
+		<div class="name">{getTaskTitle(task, tasksPageList.value)}</div>
 	</div>
 
 	<div class="flex items-center gap-x-3">

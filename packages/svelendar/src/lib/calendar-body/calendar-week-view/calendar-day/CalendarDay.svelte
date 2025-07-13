@@ -73,7 +73,7 @@
 	<div class="relative">
 		<CalendarGrid {create} targetDate={formattedDate} />
 		{#each timedTasks as event (event)}
-			<EventPanel {event} {eventsGrid} targetDate={formattedDate} />
+			<EventPanel {event} {eventsGrid} targetDate={formattedDate} {tasks} />
 		{/each}
 	</div>
 </div>
