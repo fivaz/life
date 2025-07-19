@@ -25,24 +25,6 @@ export function getDurationInMinutes(task: Task) {
 	return convertTimeToMinutes(task.duration);
 }
 
-export function getSubTasks(html: string): { isDone: boolean; title: string }[] {
-	const regex = /<input type="checkbox"(?:\s+checked)?\s*>([^<]+)/gi;
-	let match: RegExpExecArray | null;
-	const subTasks: { isDone: boolean; title: string }[] = [];
-
-	while ((match = regex.exec(html)) !== null) {
-		subTasks.push({
-			isDone: match[0].includes('checked'),
-			title: match[1].trim(),
-		});
-	}
-	return subTasks;
-}
-
-export function getSubTasksCompleted(subtasks: SubTask[]): number {
-	return subtasks.filter((subtask) => subtask.isDone).length;
-}
-
 export function getTotalDuration(tasks: Task[]): string {
 	const totalDurationInMinutes = tasks.reduce((sum, task) => sum + getDurationInMinutes(task), 0);
 	return convertMinutesToTime(totalDurationInMinutes);
@@ -105,42 +87,72 @@ export function getTaskDateTime(task: Task): Date | null {
 	}
 }
 
-function getSiblingTasks(task: Task, tasks: Task[]) {
-	return tasks.filter((task) => task.groupId === task.groupId);
+// Parses subtasks from HTML description
+function getSubTasks(html: string | undefined): SubTask[] {
+	if (!html) return [];
+
+	const regex = /<input type="checkbox"(.*?)><span><\/span><\/label><div><p>(.*?)<\/p>/gis;
+	const subTasks: SubTask[] = [];
+	let match: RegExpExecArray | null;
+
+	while ((match = regex.exec(html)) !== null) {
+		const isChecked = match[1].includes('checked');
+		const title = match[2].trim();
+
+		if (title) {
+			subTasks.push({
+				isDone: isChecked,
+				title,
+			});
+		}
+	}
+
+	return subTasks;
 }
 
-// Generate display name with suffix (e.g., "Task 1/3")
+// Counts completed subtasks
+export function getSubTasksCompleted(subtasks: SubTask[]): number {
+	return subtasks.filter((subtask) => subtask.isDone).length;
+}
+
+// Filters tasks with the same groupId as the input task
+function getSiblingTasks(task: Task, tasks: Task[]): Task[] {
+	return tasks.filter(
+		(existingTask) => existingTask.groupId && existingTask.groupId === task.groupId,
+	);
+}
+
+// Generates display name with suffix (e.g., "1/3") based on sibling position
 function getSiblingName(task: Task, siblings: Task[]): string {
-	// Sort brothers by startTime to determine index
-	const index = siblings
-		.sort((a, b) => a.startTime.localeCompare(b.startTime))
-		.findIndex((e) => e.id === task.id);
-
-	return `${index + 1}/${siblings.length}`;
+	const sortedSiblings = [...siblings].sort((a, b) => a.startTime.localeCompare(b.startTime));
+	const index = sortedSiblings.findIndex((e) => e.id === task.id);
+	return index === -1 ? `1/${siblings.length}` : `${index + 1}/${siblings.length}`;
 }
 
-export function getCheckList(task: Task, tasks: Task[]) {
+// Generates checklist string (e.g., "1/3" for siblings or "2/5" for subtasks)
+export function getCheckList(task: Task, tasks: Task[]): string {
 	const siblings = getSiblingTasks(task, tasks);
-
-	if (siblings.length) {
+	if (siblings.length > 1) {
+		// Only show checklist for multiple siblings
 		return getSiblingName(task, siblings);
 	}
 
 	const subtasks = getSubTasks(task.description);
-
+	if (subtasks.length === 0) {
+		return '';
+	}
 	const completedTasks = getSubTasksCompleted(subtasks);
-
 	return `${completedTasks}/${subtasks.length}`;
 }
 
-export function getTaskTitle(task: Task, tasks: Task[]) {
+// Constructs task title with checklist or ellipsis as needed
+export function getTaskTitle(task: Task, tasks: Task[]): string {
 	let title = task.name;
-
-	title += ` ${getCheckList(task, tasks)}`;
-
-	if (task.description) {
+	const checklist = getCheckList(task, tasks);
+	if (checklist) {
+		title += ` ${checklist}`;
+	} else if (task.description) {
 		title += ' ...';
 	}
-
 	return title;
 }
