@@ -2,6 +2,7 @@ import { averageRound15, floorRound15, formatDate, formatTime } from '@life/shar
 import type { Task } from '@life/shared/task';
 
 import type { Category } from '$lib/category/category.model';
+import { buildEmptyCategory } from '$lib/category/category.model';
 import type { Goal } from '$lib/goal/goal.model';
 
 export function buildTimedTask(categories: Category[], goal: Goal | null = null): Task {
@@ -27,13 +28,15 @@ export function buildUntimedTask(
 	date: Date = new Date(),
 	goal: Goal | null = null,
 ): Task {
+	const category = categories[0] ?? buildEmptyCategory();
+
 	return {
 		id: '',
 		name: '',
 		description: '',
 		goal,
 		isDone: false,
-		category: categories[0],
+		category,
 		createdAt: new Date().toISOString(),
 		date: formatDate(date),
 		duration: '00:15',

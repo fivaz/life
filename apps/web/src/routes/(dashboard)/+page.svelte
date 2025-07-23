@@ -4,7 +4,6 @@
 	import { Calendar } from 'svelendar';
 
 	import type { Category } from '$lib/category/category.model';
-	import { buildEmptyCategory } from '$lib/category/category.model';
 	import { fetchCategories } from '$lib/category/category.respository';
 	import { demoLogin } from '$lib/consts';
 	import { buildTimedTask, buildTimedTaskWithTimeSet } from '$lib/task/build-utils';
@@ -19,7 +18,9 @@
 
 	let targetDate = $state<string | undefined>();
 
-	let editingTask = $state<Task>(buildTimedTask([buildEmptyCategory()]));
+	let editingTask = $state<Task>(buildTimedTask([]));
+
+	$inspect('editingTask', editingTask);
 
 	let completedTasks = $state<Task[]>([]);
 
@@ -56,6 +57,8 @@
 	}
 
 	let categories = $state<Category[]>([]);
+
+	$inspect('categories', categories);
 
 	fetchCategories(categories);
 
