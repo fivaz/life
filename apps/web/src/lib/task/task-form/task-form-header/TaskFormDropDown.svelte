@@ -25,18 +25,7 @@
 	{#snippet button()}
 		<LText><EllipsisVerticalIcon class="size-5" /></LText>
 	{/snippet}
-	<!--TODO check if I truly want to update the date to today when I click on Mark as completed-->
-	<DropDownItem
-		class="w-48"
-		onclick={() => {
-			setTimeout(() => {
-				taskIn.value.isDone = !taskIn.value.isDone;
-				if (taskIn.value.date && taskIn.value.isDone) {
-					taskIn.value.date = formatDate(new Date());
-				}
-			}, 100);
-		}}
-	>
+	<DropDownItem class="w-48" onclick={() => (taskIn.value.isDone = !taskIn.value.isDone)}>
 		<ListTodoIcon class="size-5 shrink-0" />
 		{taskIn.value.isDone ? 'Mark as uncompleted' : 'Mark as completed'}
 	</DropDownItem>
