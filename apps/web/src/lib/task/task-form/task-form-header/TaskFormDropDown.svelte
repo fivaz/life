@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
-	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { CopyIcon, EllipsisVerticalIcon, ListTodoIcon } from 'lucide-svelte';
 
