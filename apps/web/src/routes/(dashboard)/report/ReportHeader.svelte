@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang='ts'>
 	import { Button, LInput, LText } from '@life/shared';
 	import { formatDate } from '@life/shared/date';
 	import { clsx } from 'clsx';
@@ -10,7 +10,7 @@
 		CalendarMinusIcon,
 		CalendarRange,
 		ChartColumnStackedIcon,
-		ChartLineIcon,
+		ChartLineIcon, FilterIcon, FilterXIcon,
 	} from 'lucide-svelte';
 
 	import Select from '$lib/components/form/select/Select.svelte';
@@ -59,84 +59,98 @@
 	const tasksDelta = $derived(getTaskDelta());
 </script>
 
-<div class="flex flex-col items-center justify-between gap-5 md:flex-row">
-	<div class="flex items-center gap-5">
-		<LText class="text-base font-semibold leading-5 ">
+<div class='flex flex-col items-center justify-between gap-5 md:flex-row'>
+	<div class='flex items-center gap-5'>
+		<LText class='text-base font-semibold leading-5 '>
 			Tasks by {reportStore.selectedInterval}
 		</LText>
 		{#if tasksDelta > 0}
-			<div class="flex gap-2" use:tooltip={'tasks increased'}>
+			<div class='flex gap-2' use:tooltip={'tasks increased'}>
 				<LText>{tasksDelta}</LText>
-				<CalendarArrowUpIcon class="size-5 text-red-500" />
+				<CalendarArrowUpIcon class='size-5 text-red-500' />
 			</div>
 		{:else if tasksDelta < 0}
-			<div class="flex gap-2" use:tooltip={'tasks decreased'}>
+			<div class='flex gap-2' use:tooltip={'tasks decreased'}>
 				<LText>{tasksDelta}</LText>
-				<CalendarArrowDownIcon class="size-5 text-green-500" />
+				<CalendarArrowDownIcon class='size-5 text-green-500' />
 			</div>
 		{:else}
-			<div class="flex gap-2" use:tooltip={'tasks remained equal'}>
+			<div class='flex gap-2' use:tooltip={'tasks remained equal'}>
 				<LText>{tasksDelta}</LText>
-				<CalendarMinusIcon class="size-5 text-yellow-500" />
+				<CalendarMinusIcon class='size-5 text-yellow-500' />
 			</div>
 		{/if}
 	</div>
 
-	<div class="flex flex-col items-center gap-3 md:flex-row">
-		<div class="flex items-center gap-3">
-			<Button color="white" onclick={() => (reportStore.chartType = 'stacked')} padding="p-1">
+	<div class='flex flex-col items-center gap-3 md:flex-row'>
+		<div class='flex items-center gap-3'>
+			{#if reportStore.isSimplified}
+				<Button color='white' onclick={() => (reportStore.isSimplified = false)} padding='p-1'>
+					<div use:tooltip={'remove filter'}>
+						<FilterXIcon class={clsx('size-5 text-indigo-600')} />
+					</div>
+				</Button>
+			{:else}
+				<Button color='white' onclick={() => (reportStore.isSimplified = true)} padding='p-1'>
+					<div use:tooltip={'filter tasks created and completed in the same period'}>
+						<FilterIcon class={clsx('size-5 text-indigo-600')} />
+					</div>
+				</Button>
+			{/if}
+
+			<Button color='white' onclick={() => (reportStore.chartType = 'stacked')} padding='p-1'>
 				<ChartColumnStackedIcon
 					class={clsx('size-5', { 'text-indigo-600': reportStore.chartType === 'stacked' })}
 				/>
 			</Button>
 
-			<Button color="white" onclick={() => (reportStore.chartType = 'line')} padding="p-1">
+			<Button color='white' onclick={() => (reportStore.chartType = 'line')} padding='p-1'>
 				<ChartLineIcon
 					class={clsx('size-5', { 'text-indigo-600': reportStore.chartType === 'line' })}
 				/>
 			</Button>
 
-			<Button color="white" onclick={() => (reportStore.chartType = 'double-line')} padding="p-1">
+			<Button color='white' onclick={() => (reportStore.chartType = 'double-line')} padding='p-1'>
 				<DoubleLineChartIcon
 					class={clsx('size-5', { 'text-indigo-600': reportStore.chartType === 'double-line' })}
 				/>
 			</Button>
 
-			<Button color="white" onclick={togglePeriodToCurrentWeek} padding="p-1">
+			<Button color='white' onclick={togglePeriodToCurrentWeek} padding='p-1'>
 				{#if isPeriodCurrentWeek}
-					<CalendarRange class="l-5 w-5" />
+					<CalendarRange class='l-5 w-5' />
 				{:else}
-					<Calendar1 class="l-5 w-5" />
+					<Calendar1 class='l-5 w-5' />
 				{/if}
 			</Button>
 		</div>
 
 		<LInput
-			class="flex items-center gap-2"
-			label="Start at"
-			type="date"
+			class='flex items-center gap-2'
+			label='Start at'
+			type='date'
 			bind:value={reportStore.periodStartAt}
 		/>
 
 		<LInput
-			class="flex items-center gap-2"
-			label="End at"
-			type="date"
+			class='flex items-center gap-2'
+			label='End at'
+			type='date'
 			bind:value={reportStore.periodEndAt}
 		/>
 
 		<Select
-			class="flex w-40 items-center gap-2"
-			label="Interval"
-			selectClass="grow"
+			class='flex w-40 items-center gap-2'
+			label='Interval'
+			selectClass='grow'
 			bind:value={reportStore.selectedInterval}
 		>
 			{#snippet placeholder()}
-				<span class="lowercase">{reportStore.selectedInterval}</span>
+				<span class='lowercase'>{reportStore.selectedInterval}</span>
 			{/snippet}
 
 			{#each intervals as interval (interval)}
-				<SelectItem class="lowercase" value={interval}>{interval}</SelectItem>
+				<SelectItem class='lowercase' value={interval}>{interval}</SelectItem>
 			{/each}
 		</Select>
 	</div>

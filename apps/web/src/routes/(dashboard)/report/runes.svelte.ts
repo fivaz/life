@@ -15,6 +15,7 @@ export const reportStore = $state({
 	periodStartAt: formatDate(subDays(new Date(), 3)),
 	periodEndAt: formatDate(addDays(new Date(), 3)),
 	chartType: 'line' as ReportChartType,
+	isSimplified: false,
 });
 
 // Export a function that returns the derived value
@@ -22,7 +23,7 @@ export function getTasksByPeriod() {
 	const { sortedTasks, startDate, endDate } = prepareData(
 		reportStore.tasks,
 		reportStore.periodStartAt,
-		reportStore.periodEndAt,
+		reportStore.periodEndAt
 	);
-	return generateTasksByPeriod(sortedTasks, reportStore.selectedInterval, startDate, endDate);
+	return generateTasksByPeriod(sortedTasks, reportStore.selectedInterval, startDate, endDate, reportStore.isSimplified);
 }

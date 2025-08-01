@@ -9,6 +9,7 @@ export function generateTasksByPeriod(
 	interval: Interval,
 	dateStart: Date,
 	dateEnd: Date,
+	isSimplified: boolean,
 ): Record<string, { created: Task[]; completed: Task[] }> {
 	const periods = generateTimePeriods(interval, dateStart, dateEnd);
 
@@ -23,10 +24,21 @@ export function generateTasksByPeriod(
 		// Get tasks completed in this period
 		const completedTasks = getTasksCompletedInPeriod(tasks, period.start, period.end);
 
-		// Add to the result object
+		let filteredCreatedTasks = createdTasks;
+		let filteredCompletedTasks = completedTasks;
+
+		if (isSimplified) {
+			const createdIds = new Set(createdTasks.map(t => t.id));
+			const completedIds = new Set(completedTasks.map(t => t.id));
+			const overlappingIds = new Set([...createdIds].filter(id => completedIds.has(id)));
+
+			filteredCreatedTasks = createdTasks.filter(t => !overlappingIds.has(t.id));
+			filteredCompletedTasks = completedTasks.filter(t => !overlappingIds.has(t.id));
+		}
+
 		tasksByPeriod[periodLabel] = {
-			created: createdTasks,
-			completed: completedTasks,
+			created: filteredCreatedTasks,
+			completed: filteredCompletedTasks,
 		};
 	});
 

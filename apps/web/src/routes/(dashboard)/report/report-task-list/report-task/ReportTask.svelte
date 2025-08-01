@@ -5,8 +5,6 @@
 	import {
 		AlarmClockIcon,
 		AlarmClockOffIcon,
-		ArchiveIcon,
-		ArchiveXIcon,
 		CalendarMinus,
 		CalendarPlus,
 	} from 'lucide-svelte';
