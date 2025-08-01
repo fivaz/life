@@ -28,12 +28,12 @@ export function generateTasksByPeriod(
 		let filteredCompletedTasks = completedTasks;
 
 		if (isSimplified) {
-			const createdIds = new Set(createdTasks.map(t => t.id));
-			const completedIds = new Set(completedTasks.map(t => t.id));
-			const overlappingIds = new Set([...createdIds].filter(id => completedIds.has(id)));
+			const createdIds = new Set(createdTasks.map((t) => t.id));
+			const completedIds = new Set(completedTasks.map((t) => t.id));
+			const overlappingIds = new Set([...createdIds].filter((id) => completedIds.has(id)));
 
-			filteredCreatedTasks = createdTasks.filter(t => !overlappingIds.has(t.id));
-			filteredCompletedTasks = completedTasks.filter(t => !overlappingIds.has(t.id));
+			filteredCreatedTasks = createdTasks.filter((t) => !overlappingIds.has(t.id));
+			filteredCompletedTasks = completedTasks.filter((t) => !overlappingIds.has(t.id));
 		}
 
 		tasksByPeriod[periodLabel] = {

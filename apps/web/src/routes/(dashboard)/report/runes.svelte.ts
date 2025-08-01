@@ -23,7 +23,13 @@ export function getTasksByPeriod() {
 	const { sortedTasks, startDate, endDate } = prepareData(
 		reportStore.tasks,
 		reportStore.periodStartAt,
-		reportStore.periodEndAt
+		reportStore.periodEndAt,
 	);
-	return generateTasksByPeriod(sortedTasks, reportStore.selectedInterval, startDate, endDate, reportStore.isSimplified);
+	return generateTasksByPeriod(
+		sortedTasks,
+		reportStore.selectedInterval,
+		startDate,
+		endDate,
+		reportStore.isSimplified,
+	);
 }

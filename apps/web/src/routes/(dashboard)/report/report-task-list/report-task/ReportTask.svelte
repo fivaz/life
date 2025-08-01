@@ -1,13 +1,8 @@
-<script lang='ts'>
+<script lang="ts">
 	import { parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { isBefore, startOfDay } from 'date-fns';
-	import {
-		AlarmClockIcon,
-		AlarmClockOffIcon,
-		CalendarMinus,
-		CalendarPlus,
-	} from 'lucide-svelte';
+	import { AlarmClockIcon, AlarmClockOffIcon, CalendarMinus, CalendarPlus } from 'lucide-svelte';
 
 	import { tooltip } from '$lib/components/tooltip/tooltip.action';
 
@@ -29,11 +24,11 @@
 		} catch {
 			return false;
 		}
-	}
+	};
 
 	const isOldTaskRemaining = $derived(isAdd && !task.isDone);
 
-	const isOldTaskDone = $derived(!isAdd && task.isDone && isOld(task))
+	const isOldTaskDone = $derived(!isAdd && task.isDone && isOld(task));
 </script>
 
 <li
@@ -41,24 +36,24 @@
 	{isAdd ? 'bg-red-500 dark:bg-red-600' : 'bg-green-500 dark:bg-green-600'}
 	flex justify-between gap-x-3 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-white"
 >
-	<div class='flex items-center gap-x-2'>
+	<div class="flex items-center gap-x-2">
 		{index}
 		{#if isAdd}
-			<CalendarPlus class='size-5 text-white' />
+			<CalendarPlus class="size-5 text-white" />
 		{:else}
-			<CalendarMinus class='size-5 text-white' />
+			<CalendarMinus class="size-5 text-white" />
 		{/if}
-		<div class='block truncate text-sm font-semibold leading-6'>{task.name}</div>
+		<div class="block truncate text-sm font-semibold leading-6">{task.name}</div>
 	</div>
 
 	<div>
 		{#if isOldTaskRemaining}
 			<div aria-label="Task remains undone" use:tooltip={'task remains undone'}>
-				<AlarmClockIcon class='size-5 text-white' />
+				<AlarmClockIcon class="size-5 text-white" />
 			</div>
 		{:else if isOldTaskDone}
 			<div aria-label="old task completed" use:tooltip={'old task completed'}>
-				<AlarmClockOffIcon class='size-5 text-white' />
+				<AlarmClockOffIcon class="size-5 text-white" />
 			</div>
 		{/if}
 	</div>
