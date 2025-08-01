@@ -14,14 +14,21 @@
 
 	let { task, index, isAdd = false }: Props = $props();
 
-	function isOld(task: Task): boolean {
+	const isOld = (task: Task): boolean => {
+		if (!task.createdAt || !task.date) return false;
+
 		try {
-			return isBefore(startOfDay(new Date(task.createdAt)), startOfDay(parseDate(task.date)));
-		} catch (e) {
-			console.log(e);
+			const created = startOfDay(new Date(task.createdAt));
+			const target = startOfDay(parseDate(task.date));
+			return isBefore(created, target);
+		} catch {
 			return false;
 		}
 	}
+
+	const isOldTaskRemaining = $derived(isAdd && !task.isDone);
+
+	const isOldTaskDone = $derived(!isAdd && task.isDone && isOld(task))
 </script>
 
 <li
@@ -40,12 +47,12 @@
 	</div>
 
 	<div>
-		{#if isAdd && !task.isDone}
-			<div use:tooltip={'task remains undone'}>
+		{#if isOldTaskRemaining}
+			<div aria-label="Task remains undone" use:tooltip={'task remains undone'}>
 				<ArchiveIcon class='size-5 text-white' />
 			</div>
-		{:else if !isAdd && task.isDone && isOld(task)}
-			<div use:tooltip={'old task completed'}>
+		{:else if isOldTaskDone}
+			<div aria-label="old task completed" use:tooltip={'old task completed'}>
 				<ArchiveXIcon class='size-5 text-white' />
 			</div>
 		{/if}
