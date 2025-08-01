@@ -52,6 +52,8 @@
 		"svelte": "^5.0.0"
 	},
 	"devDependencies": {
+		"prettier-plugin-svelte": "^3.2.6",
+		"prettier-plugin-tailwindcss": "^0.6.5",
 		"@chromatic-com/storybook": "^3.2.2",
 		"@life/config-eslint": "workspace:*",
 		"@life/config-prettier": "workspace:*",
