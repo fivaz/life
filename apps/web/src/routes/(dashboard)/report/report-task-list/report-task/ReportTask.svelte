@@ -2,7 +2,14 @@
 	import { parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { isBefore, startOfDay } from 'date-fns';
-	import { ArchiveIcon, ArchiveXIcon, CalendarMinus, CalendarPlus } from 'lucide-svelte';
+	import {
+		AlarmClockIcon,
+		AlarmClockOffIcon,
+		ArchiveIcon,
+		ArchiveXIcon,
+		CalendarMinus,
+		CalendarPlus,
+	} from 'lucide-svelte';
 
 	import { tooltip } from '$lib/components/tooltip/tooltip.action';
 
@@ -49,11 +56,11 @@
 	<div>
 		{#if isOldTaskRemaining}
 			<div aria-label="Task remains undone" use:tooltip={'task remains undone'}>
-				<ArchiveIcon class='size-5 text-white' />
+				<AlarmClockIcon class='size-5 text-white' />
 			</div>
 		{:else if isOldTaskDone}
 			<div aria-label="old task completed" use:tooltip={'old task completed'}>
-				<ArchiveXIcon class='size-5 text-white' />
+				<AlarmClockOffIcon class='size-5 text-white' />
 			</div>
 		{/if}
 	</div>
