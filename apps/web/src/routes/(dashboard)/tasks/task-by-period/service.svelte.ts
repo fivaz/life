@@ -1,5 +1,5 @@
 import { formatDate, parseDate } from '@life/shared/date';
-import { addDays, addWeeks, endOfWeek, startOfWeek } from 'date-fns';
+import { addDays, addWeeks, endOfWeek } from 'date-fns';
 
 import { categories } from '$lib/category/category.svelte';
 import { buildUntimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
@@ -13,7 +13,7 @@ const getDateStrategies: Record<string, (currentDate: string) => string> = {
 	today: () => formatDate(new Date()),
 	tomorrow: () => formatDate(addDays(new Date(), 1)),
 	thisWeek: () => formatDate(endOfWeek(new Date())),
-	nextWeek: () => formatDate(startOfWeek(addWeeks(new Date(), 1))),
+	nextWeek: () => formatDate(endOfWeek(addWeeks(new Date(), 1))),
 	default: (currentDate) => currentDate,
 };
 
