@@ -11,12 +11,13 @@ import {
 	startOfWeek,
 } from 'date-fns';
 
+// Helper: determine if a date falls within next week relative to "now"
 function isNextWeek(date: Date): boolean {
 	const now = new Date();
 	const start = addWeeks(startOfWeek(now), 1);
 	const end = endOfWeek(start);
 
-	return isWithinInterval(date, { end, start });
+	return isWithinInterval(date, { start, end });
 }
 
 export type TaskListType =
@@ -34,32 +35,24 @@ export type TaskListType =
 export type TaskLists = Record<TaskListType, Task[]> & Record<string, Task[]>;
 
 export function getTaskLists(tasks: Task[]) {
-	const lists: TaskLists = {
-		overdue: [],
-		today: [],
-		tomorrow: [],
-		thisWeek: [],
-		nextWeek: [],
-		someday: [],
-		recurringDaily: [],
-		recurringWeekly: [],
-		recurringMonthly: [],
-		recurringYearly: [],
-	};
+	// Buckets we always want to show, even if empty
+	const alwaysShow: TaskListType[] = ['today', 'tomorrow', 'thisWeek', 'nextWeek', 'someday'];
+
+	const lists: Partial<TaskLists> = {};
 
 	const recurringHandlers = {
-		daily: (task: Task) => lists.recurringDaily.push(task),
-		weekly: (task: Task) => lists.recurringWeekly.push(task),
-		monthly: (task: Task) => lists.recurringMonthly.push(task),
-		yearly: (task: Task) => lists.recurringYearly.push(task),
+		daily: (task: Task) => (lists.recurringDaily ??= []).push(task),
+		weekly: (task: Task) => (lists.recurringWeekly ??= []).push(task),
+		monthly: (task: Task) => (lists.recurringMonthly ??= []).push(task),
+		yearly: (task: Task) => (lists.recurringYearly ??= []).push(task),
 	};
 
 	const dateHandlers = [
-		{ check: (date: Date) => isPast(date) && !isToday(date), period: 'overdue' },
-		{ check: isToday, period: 'today' },
-		{ check: isTomorrow, period: 'tomorrow' },
-		{ check: isThisWeek, period: 'thisWeek' },
-		{ check: isNextWeek, period: 'nextWeek' },
+		{ check: (date: Date) => isPast(date) && !isToday(date), period: 'overdue' as TaskListType },
+		{ check: isToday, period: 'today' as TaskListType },
+		{ check: isTomorrow, period: 'tomorrow' as TaskListType },
+		{ check: isThisWeek, period: 'thisWeek' as TaskListType },
+		{ check: isNextWeek, period: 'nextWeek' as TaskListType },
 	];
 
 	for (const task of tasks) {
@@ -70,7 +63,7 @@ export function getTaskLists(tasks: Task[]) {
 		}
 
 		if (!task.date) {
-			lists.someday.push(task);
+			(lists.someday ??= []).push(task);
 			continue;
 		}
 
@@ -78,15 +71,27 @@ export function getTaskLists(tasks: Task[]) {
 
 		const handler = dateHandlers.find((h) => h.check(date));
 		if (handler) {
-			lists[handler.period].push(task);
+			(lists[handler.period] ??= []).push(task);
 		} else {
 			const formatted = formatDate(date);
-			if (!lists[formatted]) {
-				lists[formatted] = [];
-			}
-			lists[formatted].push(task);
+			(lists[formatted] ??= []).push(task);
 		}
 	}
 
-	return lists;
+	// Ensure alwaysShow buckets exist
+	for (const bucket of alwaysShow) {
+		// Special case: only show "thisWeek" if last day isn't today or tomorrow
+		if (bucket === 'thisWeek') {
+			const endOfCurrentWeek = endOfWeek(new Date());
+			if (isToday(endOfCurrentWeek) || isTomorrow(endOfCurrentWeek)) {
+				continue; // skip creating the bucket entirely
+			}
+		}
+
+		if (!(bucket in lists)) {
+			lists[bucket] = [];
+		}
+	}
+
+	return lists as TaskLists;
 }
