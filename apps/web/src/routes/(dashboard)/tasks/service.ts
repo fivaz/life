@@ -1,8 +1,9 @@
-import { formatDate, parseDate } from '@life/shared/date';
+import { parseDate } from '@life/shared/date';
 import type { Task } from '@life/shared/task';
 import {
 	addWeeks,
 	endOfWeek,
+	format,
 	isPast,
 	isThisWeek,
 	isToday,
@@ -10,6 +11,8 @@ import {
 	isWithinInterval,
 	startOfWeek,
 } from 'date-fns';
+
+import { DATE_FR } from '$lib/utils.svelte';
 
 // Helper: determine if a date falls within next week relative to "now"
 function isNextWeek(date: Date): boolean {
@@ -73,7 +76,7 @@ export function getTaskLists(tasks: Task[]) {
 		if (handler) {
 			(lists[handler.period] ??= []).push(task);
 		} else {
-			const formatted = formatDate(date);
+			const formatted = format(date, DATE_FR);
 			(lists[formatted] ??= []).push(task);
 		}
 	}
