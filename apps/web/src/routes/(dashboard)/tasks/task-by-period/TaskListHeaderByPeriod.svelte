@@ -6,6 +6,7 @@
 
 	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
 
+	import { getPeriodLabel } from '../period-labels';
 	import type { TaskLists, TaskListType } from '../service';
 	import { getNewTaskFromPeriod } from './service.svelte';
 
@@ -21,23 +22,6 @@
 	$effect(() => {
 		newTask = getNewTaskFromPeriod(period);
 	});
-
-	const taskListLabels: Record<TaskListType, string> = {
-		overdue: 'Overdue',
-		today: 'Today',
-		tomorrow: 'Tomorrow',
-		thisWeek: 'This week',
-		nextWeek: 'Next week',
-		someday: 'Someday',
-		recurringDaily: 'Recurring Daily',
-		recurringWeekly: 'Recurring Weekly',
-		recurringMonthly: 'Recurring Monthly',
-		recurringYearly: 'Recurring Yearly',
-	};
-
-	function getLabel(listName: string): string {
-		return taskListLabels[listName as TaskListType] || listName;
-	}
 
 	function getNumberOfTasks(tasks: Task[]) {
 		if (tasks.length === 0) {
@@ -61,7 +45,7 @@
 		{:else}
 			<ClipboardIcon class="size-5" />
 		{/if}
-		<span class="font-semibold">{getLabel(period)}</span>
+		<span class="font-semibold">{getPeriodLabel(period)}</span>
 		<span>{getNumberOfTasks(tasksByPeriod[period])}</span>
 	</div>
 

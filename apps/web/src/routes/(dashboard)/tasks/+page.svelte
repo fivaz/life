@@ -64,5 +64,5 @@
 </div>
 
 <Modal bind:isOpen={isStatsShown}>
-	<TasksStats {tasksByPeriod} />
+	<TasksStats periods={orderedPeriods} {tasksByPeriod} />
 </Modal>

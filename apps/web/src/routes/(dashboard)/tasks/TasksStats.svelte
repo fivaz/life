@@ -5,13 +5,15 @@
 	import { getTotalDuration } from '@life/shared/task';
 	import { Grid2x2Icon, Grid3X3Icon } from 'lucide-svelte';
 
-	import type { TaskLists } from './service';
+	import { getPeriodLabel } from './period-labels';
+	import type { TaskLists, TaskListType } from './service';
 
 	interface Props {
 		tasksByPeriod: TaskLists;
+		periods: (TaskListType | string)[];
 	}
 
-	let { tasksByPeriod }: Props = $props();
+	let { tasksByPeriod, periods }: Props = $props();
 
 	let tasksBySinglePeriod = $derived.by(() => {
 		const { recurringDaily, recurringWeekly, recurringMonthly, recurringYearly, ...rest } =
@@ -43,7 +45,7 @@
 				<LText class="w-16">quantity</LText>
 				<LText class="w-16 text-right">duration</LText>
 			</li>
-			{#each Object.keys(tasksBySinglePeriod) as period (period)}
+			{#each periods as period (period)}
 				{@render list(
 					Grid2x2Icon,
 					period,
@@ -63,7 +65,7 @@
 	>
 		<div class="flex grow gap-3">
 			<LText><Icon class="size-6" /></LText>
-			<LText>{period}</LText>
+			<LText>{getPeriodLabel(period)}</LText>
 		</div>
 		<LText class="w-16 text-center">{quantity}</LText>
 		<LText class="w-16 text-right">{duration}</LText>

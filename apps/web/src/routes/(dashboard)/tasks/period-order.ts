@@ -9,7 +9,7 @@ const BUCKET_WEIGHTS: Record<string, number> = {
 	tomorrow: 3,
 	thisWeek: 4,
 	nextWeek: 5,
-	// custom dates will be 6 (default)
+	// custom dates = 6 by default
 	someday: 7,
 	recurringDaily: 8,
 	recurringWeekly: 9,
@@ -18,21 +18,18 @@ const BUCKET_WEIGHTS: Record<string, number> = {
 };
 
 export function getOrderedPeriods(tasksByPeriod: TaskLists) {
-	return Object.keys(tasksByPeriod)
-		.map((period) => ({
-			period,
-			tasks: tasksByPeriod[period],
-			weight: BUCKET_WEIGHTS[period] ?? 6, // default for custom date buckets
-		}))
-		.sort((a, b) => {
-			// First sort by weight
-			if (a.weight !== b.weight) {
-				return a.weight - b.weight;
-			}
-			// If same weight (i.e., custom dates), sort by actual date
-			if (a.weight === 6) {
-				return parseDate(a.period).getTime() - parseDate(b.period).getTime();
-			}
-			return 0;
-		});
+	return Object.keys(tasksByPeriod).sort((a, b) => {
+		const weightA = BUCKET_WEIGHTS[a] ?? 6;
+		const weightB = BUCKET_WEIGHTS[b] ?? 6;
+
+		if (weightA !== weightB) {
+			return weightA - weightB;
+		}
+
+		// if both are custom dates
+		if (weightA === 6) {
+			return parseDate(a).getTime() - parseDate(b).getTime();
+		}
+		return 0;
+	});
 }
