@@ -1,32 +1,51 @@
-# Turborepo Svelte starter
+# Life — Day Planner
 
-This is an official starter Turborepo.
+**Life** is a sophisticated, fully responsive, offline-first web application for day planning.
 
-## Using this example
+Life is an elegant web app boasting a visually stunning calendar design. With its intuitive interface and seamless navigation, users effortlessly manage their schedules and tasks to reach goals faster.
 
-Run the following command:
+Developed with **Svelte**, showcasing proficiency with small framework ecosystems, it underscores my prowess in frontend development. Furthermore, it demonstrates adeptness in user interface design and integration of cloud services, reflecting a holistic skill set in crafting engaging digital experiences.
 
-```sh
-npx create-turbo@latest -e with-svelte
-```
+---
 
-## What's inside?
+## ✨ Features
 
-This Turborepo includes the following packages/apps:
+- **Highly Interactive**  
+  A user-friendly interface with resizable and drag-and-dropable events.
 
-### Apps and Packages
+- **Progressive Web App (PWA)**  
+  Ensures offline-first data access and updates, guaranteeing uninterrupted functionality.
 
-- `docs`: a [svelte-kit](https://kit.svelte.dev/) app
-- `web`: another [svelte-kit](https://kit.svelte.dev/) app
-- `ui`: a stub Svelte component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-plugin-svelte` and `eslint-config-prettier`)
+- **Goal Management**  
+  Empowers users to set and track goals and associate events or tasks to them.
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+- **Task and Event Flexibility**  
+  Enables seamless conversion between tasks (To-Do List) and events (Calendar), offering a dynamic and adaptable planning experience.
 
-### Utilities
+- **Recurring Events**  
+  Supports the scheduling of recurring events.
 
-This Turborepo has some additional tools already setup for you:
+---
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+## Screenshots
+
+### Desktop
+Light Mode  
+![Desktop Light](/screenshots/desktop-light.png)
+
+Dark Mode  
+![Desktop Dark](/screenshots/desktop-dark.png)
+
+### Mobile
+Light Mode  
+![Mobile Light](/screenshots/mobile-light.png)
+
+Dark Mode  
+![Mobile Dark](/screenshots/mobile-dark.png)
+
+---
+
+## 🚀 Explore
+
+- [Source Code](https://github.com/fivaz/life)
+- [Live Demo](https://life.sfivaz.com/demo)
