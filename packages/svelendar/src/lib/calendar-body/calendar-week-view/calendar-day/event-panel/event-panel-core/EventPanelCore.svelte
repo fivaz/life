@@ -3,7 +3,8 @@
 	import { tailwindColorMap } from '@life/shared/category';
 	import { floorRound15, TIME } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
-	import { getDurationInMinutes, getTaskTitle } from '@life/shared/task';
+	import { getCheckList, getDurationInMinutes, getTaskTitle } from '@life/shared/task';
+	import clsx from 'clsx';
 	import { format, parse } from 'date-fns';
 	import DOMPurify from 'dompurify';
 
@@ -76,9 +77,12 @@
 		{#if event.goal?.icon}
 			<IconRender name={event.goal.icon} class="size-4 shrink-0" />
 		{/if}
-		<span class="truncate pr-3 font-semibold">
-			{getTaskTitle(event, tasks)}
-		</span>
+		<div class="flex truncate pr-4 font-semibold">
+			<span class="truncate">{getTaskTitle(event)}</span>
+			<span class={clsx({ 'pl-1': !!getCheckList(event, tasks) })}>
+				{getCheckList(event, tasks)}
+			</span>
+		</div>
 	</div>
 
 	<!-- svelte-ignore a11y_click_events_have_key_events -->

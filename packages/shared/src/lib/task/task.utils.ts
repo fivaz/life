@@ -134,25 +134,23 @@ export function getCheckList(task: Task, tasks: Task[]): string {
 	const siblings = getSiblingTasks(task, tasks);
 	if (siblings.length > 1) {
 		// Only show checklist for multiple siblings
-		return getSiblingName(task, siblings);
+		return ` (${getSiblingName(task, siblings)})`;
 	}
 
 	const subtasks = getSubTasks(task.description);
 	if (subtasks.length === 0) {
 		return '';
 	}
+
 	const completedTasks = getSubTasksCompleted(subtasks);
-	return `${completedTasks}/${subtasks.length}`;
+	return ` (${completedTasks}/${subtasks.length})`;
 }
 
 // Constructs task title with checklist or ellipsis as needed
-export function getTaskTitle(task: Task, tasks: Task[]): string {
+export function getTaskTitle(task: Task): string {
 	let title = task.name;
-	const checklist = getCheckList(task, tasks);
-	if (checklist) {
-		title += ` ${checklist}`;
-	} else if (task.description) {
-		title += ' ...';
+	if (task.description) {
+		title += '...';
 	}
 	return title;
 }
