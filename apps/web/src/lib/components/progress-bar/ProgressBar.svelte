@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
-	import { differenceInDays, parseISO } from 'date-fns';
+	import { differenceInHours, parseISO, startOfDay } from 'date-fns';
 
 	interface Props {
 		maxValue: number;
@@ -14,7 +14,29 @@
 
 	let { maxValue, value, startDate, deadline, class: klass = '' }: Props = $props();
 
+	// Actual progress percentage
 	let percentage = $derived(((value / maxValue) * 100).toFixed(0));
+
+	// Parse dates and normalize to start of day
+	const start = startOfDay(parseISO(startDate));
+	const end = startOfDay(parseISO(deadline));
+	const now = new Date();
+
+	// Compute the deadline progress in hours
+	function getDeadlinePercentage() {
+		const totalHours = differenceInHours(end, start);
+		const passedHours = differenceInHours(now, start);
+
+		if (totalHours <= 0) return 0;
+
+		const raw = (passedHours / totalHours) * 100;
+		// Clamp 0–100
+		const clamped = Math.max(0, Math.min(raw, 100));
+
+		return clamped.toFixed(0);
+	}
+
+	let deadlinePercentage = $derived(getDeadlinePercentage());
 </script>
 
 <div class="flex w-full items-center gap-2">
