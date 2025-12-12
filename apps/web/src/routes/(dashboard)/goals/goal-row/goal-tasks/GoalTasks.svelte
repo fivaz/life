@@ -3,7 +3,7 @@
 	import { parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { clsx } from 'clsx';
-	import { format } from 'date-fns';
+	import { compareAsc, format } from 'date-fns';
 	import { CalendarDaysIcon } from 'lucide-svelte';
 
 	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
@@ -21,10 +21,21 @@
 		}
 		return format(parseDate(task.date), DATE_FR);
 	}
+
+	function orderTasks(tasks: Task[]): Task[] {
+		return tasks.toSorted((a, b) => {
+			const dateA = parseDate(a.date);
+			const dateB = parseDate(b.date);
+
+			return compareAsc(dateA, dateB);
+		});
+	}
+
+	const orderedTasks = $derived(orderTasks(tasks));
 </script>
 
 <ul role="list">
-	{#each tasks as task (task)}
+	{#each orderedTasks as task (task)}
 		<li>
 			<TaskFormButton
 				class="group w-full cursor-pointer rounded-md px-3 py-2 text-sm hover:bg-indigo-500 hover:text-white hover:underline"
