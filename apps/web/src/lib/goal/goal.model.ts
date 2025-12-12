@@ -10,6 +10,7 @@ export const goalSchema = z.object({
 	id: z.string(),
 	name: z.string(),
 	icon: z.string(),
+	startDate: zDateOrEmpty,
 	deadline: zDateOrEmpty,
 	isDone: z.boolean(),
 	parent: z.string(),
@@ -19,6 +20,7 @@ export type Goal = z.infer<typeof goalSchema>;
 
 export function buildEmptyGoal(): Goal {
 	return {
+		startDate: formatDate(new Date()),
 		deadline: formatDate(addDays(new Date(), 7)),
 		icon: 'Fire',
 		id: '',
@@ -30,6 +32,7 @@ export function buildEmptyGoal(): Goal {
 
 export function buildEmptyGoalWithParent(parent: string): Goal {
 	return {
+		startDate: formatDate(new Date()),
 		deadline: formatDate(lastDayOfQuarter(new Date())),
 		icon: 'Fire',
 		id: '',

@@ -90,7 +90,12 @@
 	</div>
 
 	{#if tasks.length}
-		<ProgressBar maxValue={tasks.length} value={getCompletedTasks(tasks)} />
+		<ProgressBar
+			deadline={goal.deadline}
+			maxValue={tasks.length}
+			startDate={goal.startDate}
+			value={getCompletedTasks(tasks)}
+		/>
 		{#if isTaskListOpen}
 			<GoalTasks {tasks} />
 		{/if}

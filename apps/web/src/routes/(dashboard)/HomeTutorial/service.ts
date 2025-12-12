@@ -73,6 +73,7 @@ const defaultTasks: Task[] = [
 		startTime: '11:45',
 		goal: {
 			icon: '',
+			startDate: '2024-03-15',
 			deadline: '2024-03-31',
 			isDone: false,
 			parent: '',
@@ -190,6 +191,7 @@ const defaultTasks: Task[] = [
 			name: 'Enjoy my visit to Paris',
 			isDone: false,
 			icon: 'Flame',
+			startDate: '2025-07-15',
 			deadline: '2025-07-30',
 		},
 		name: 'Visit Louvre Museum',
