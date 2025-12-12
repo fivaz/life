@@ -15,7 +15,7 @@ export const reportStore = $state({
 	periodStartAt: formatDate(subDays(new Date(), 3)),
 	periodEndAt: formatDate(addDays(new Date(), 3)),
 	chartType: 'line' as ReportChartType,
-	isSimplified: false,
+	isSimplified: true,
 });
 
 // Export a function that returns the derived value
