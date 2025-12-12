@@ -28,7 +28,7 @@
 
 	let errorMessage = $state('');
 
- let goalIn = $state<Goal>(removeGoalChildren(goal));
+	let goalIn = $state<Goal>(removeGoalChildren(goal));
 
 	let isOpen = $state(debug);
 
@@ -105,9 +105,10 @@
 
 	<Toggle label="Is complete" bind:value={goalIn.isDone} />
 
+	<div>
 	<LInput
 		class="flex items-center gap-2"
-		inputClass="flex-1 w-full"
+		inputClass="flex-1"
 		label="Start Date"
 		type="date"
 		bind:value={goalIn.startDate}
@@ -115,11 +116,12 @@
 
 	<LInput
 		class="flex items-center gap-2"
-		inputClass="flex-1 w-full"
+		inputClass="flex-1"
 		label="Deadline"
 		type="date"
 		bind:value={goalIn.deadline}
 	/>
+	</div>
 
 	<Select
 		class="flex items-center"
