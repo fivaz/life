@@ -105,23 +105,23 @@
 
 	<Toggle label="Is complete" bind:value={goalIn.isDone} />
 
-	<div>
 	<LInput
-		class="flex items-center gap-2"
+		class="flex items-center"
 		inputClass="flex-1"
-		label="Start Date"
+		label="Start at"
+		labelClass="w-1/5"
 		type="date"
 		bind:value={goalIn.startDate}
 	/>
 
 	<LInput
-		class="flex items-center gap-2"
+		class="flex items-center"
 		inputClass="flex-1"
 		label="Deadline"
+		labelClass="w-1/5"
 		type="date"
 		bind:value={goalIn.deadline}
 	/>
-	</div>
 
 	<Select
 		class="flex items-center"

@@ -50,7 +50,7 @@
 			<div class="flex gap-3">
 				<LInput
 					name="startTime"
-					class="w-1/2"
+					class="w-1/2 flex-col"
 					inputClass="w-full"
 					label="Start at"
 					oninput={(value) => (taskIn.value.endTime = sumTimes(value, taskIn.value.duration))}
@@ -61,7 +61,7 @@
 
 				<LInput
 					name="endTime"
-					class="w-1/2"
+					class="w-1/2 flex-col"
 					inputClass="w-full"
 					label="End at"
 					oninput={(value) => (taskIn.value.duration = getDuration(taskIn.value.startTime, value))}

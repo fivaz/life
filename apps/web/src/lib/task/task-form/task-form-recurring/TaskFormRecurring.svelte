@@ -54,6 +54,7 @@
 
 				<!--end at-->
 				<LInput
+					class="flex-col"
 					inputClass="w-full"
 					label="End at"
 					type="date"

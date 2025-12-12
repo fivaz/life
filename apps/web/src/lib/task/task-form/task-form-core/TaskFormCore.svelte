@@ -100,7 +100,7 @@
 <!--date AND duration-->
 <div class="flex gap-3">
 	<LInput
-		class="w-1/2"
+		class="w-1/2 flex-col"
 		inputClass="w-full"
 		label="Date"
 		type="date"
@@ -108,7 +108,7 @@
 	/>
 
 	<LInput
-		class="w-1/2"
+		class="w-1/2 flex-col"
 		inputClass="w-full"
 		label="Duration"
 		oninput={(input) => (taskIn.value.endTime = sumTimes(taskIn.value.startTime, input))}
