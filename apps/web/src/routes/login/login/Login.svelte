@@ -3,9 +3,11 @@
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 
 	import { goto } from '$app/navigation';
+	import { PUBLIC_COMMIT_HASH } from '$env/static/public';
 	import GithubIcon from '$lib/components/icons/GithubIcon.svelte';
 	import GoogleIcon from '$lib/components/icons/GoogleIcon.svelte';
 	import Logo from '$lib/components/Logo.svelte';
+	import { tooltip } from '$lib/components/tooltip/tooltip.action';
 	import { Routes } from '$lib/consts';
 	import { auth } from '$lib/firebase';
 	import {
@@ -48,7 +50,9 @@
 	>
 		<div class="mx-auto w-full max-w-sm lg:w-96">
 			<div>
-				<Logo class="size-10 text-indigo-600" />
+				<div class="size-10" use:tooltip={`current commit: ${PUBLIC_COMMIT_HASH}`}>
+					<Logo class="text-indigo-600" />
+				</div>
 				<LText class="mt-8 text-2xl font-bold leading-9 tracking-tight" tag="h2">
 					Sign in to your account
 				</LText>
