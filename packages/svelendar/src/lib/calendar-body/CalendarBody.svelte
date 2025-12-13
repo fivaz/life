@@ -59,10 +59,7 @@
 	});
 </script>
 
-<div
-	bind:this={container}
-	class="isolate flex flex-auto flex-col overflow-auto dark:scheme-dark"
->
+<div bind:this={container} class="isolate flex flex-auto flex-col overflow-auto dark:scheme-dark">
 	<div class="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full">
 		<div
 			bind:this={containerNav}

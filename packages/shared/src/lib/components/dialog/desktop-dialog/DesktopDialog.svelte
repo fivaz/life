@@ -29,9 +29,9 @@
 </script>
 
 <div
-	class="{klass} min-w-auto relative my-8 flex w-full min-w-56 max-w-lg flex-col gap-3 rounded-lg border border-gray-200 bg-white p-6 px-4 pb-4 pt-5 text-left shadow-xl dark:border-gray-700 dark:bg-gray-800"
+	class="{klass} relative my-8 flex w-full max-w-lg min-w-56 min-w-auto flex-col gap-3 rounded-lg border border-gray-200 bg-white p-6 px-4 pt-5 pb-4 text-left shadow-xl dark:border-gray-700 dark:bg-gray-800"
 >
-	<div class="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
+	<div class="absolute top-0 right-0 hidden pt-4 pr-4 sm:block">
 		<Button color="white" onclick={closeFunc} padding="p-1.5" type="button">
 			<XIcon class="size-5" />
 		</Button>
@@ -44,7 +44,7 @@
 
 		<div class="flex flex-col gap-2 text-left">
 			<!--pr-6 to prevent the X button to cover the end of the title-->
-			<LText class="text-base font-semibold leading-6 sm:pr-6">{title}</LText>
+			<LText class="text-base leading-6 font-semibold sm:pr-6">{title}</LText>
 			{#if message}
 				<LText class="text-sm text-gray-500">
 					{message}

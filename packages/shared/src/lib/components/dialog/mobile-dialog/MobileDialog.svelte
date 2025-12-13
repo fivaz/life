@@ -34,7 +34,7 @@
 				<TriangleAlertIcon class="size-5 text-red-600" aria-hidden="true" />
 			</div>
 
-			<LText class="text-base font-semibold leading-6">{title}</LText>
+			<LText class="text-base leading-6 font-semibold">{title}</LText>
 		</div>
 
 		{#if message}

@@ -41,7 +41,7 @@
 >
 	{#each weekDates.value as date (date)}
 		<button
-			class="flex flex-col items-center pb-3 pt-2"
+			class="flex flex-col items-center pt-2 pb-3"
 			onclick={() => (selectedDate.value = date)}
 			type="button"
 		>

@@ -65,7 +65,7 @@
 					<div class="-mx-1.5 -my-1.5">
 						<button
 							class="{typeElements[type].button}
-							inline-flex rounded-md p-1.5 hover:bg-green-100 focus:outline-hidden focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50"
+							inline-flex rounded-md p-1.5 hover:bg-green-100 focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50 focus:outline-hidden"
 							onclick={close}
 							type="button"
 						>

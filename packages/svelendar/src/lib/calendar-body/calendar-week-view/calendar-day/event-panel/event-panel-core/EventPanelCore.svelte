@@ -66,7 +66,7 @@
 </script>
 
 <div
-	class="group absolute inset-px select-none overflow-y-auto rounded-lg px-2 py-1 text-xs leading-5
+	class="group absolute inset-px overflow-y-auto rounded-lg px-2 py-1 text-xs leading-5 select-none
 		{isSelected ? 'touch-none' : ''}
 		{tailwindColorMap[event.category.color].text}
 		{tailwindColorMap[event.category.color].lightBg}
@@ -88,7 +88,7 @@
 	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 	<label
-		class="absolute right-0 top-0 flex p-[5px] pl-3"
+		class="absolute top-0 right-0 flex p-[5px] pl-3"
 		class:pb-3={isLong()}
 		onclick={(e) => e.stopPropagation()}
 	>

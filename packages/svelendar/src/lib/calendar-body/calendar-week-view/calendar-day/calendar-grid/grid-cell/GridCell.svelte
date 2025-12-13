@@ -45,7 +45,7 @@
 >
 	{#if isSameTime}
 		<div
-			class="pointer-events-none absolute left-0 right-0 top-0 z-30 h-full rounded-md border-2 border-dashed border-indigo-600"
+			class="pointer-events-none absolute top-0 right-0 left-0 z-30 h-full rounded-md border-2 border-dashed border-indigo-600"
 		></div>
 	{/if}
 </div>
