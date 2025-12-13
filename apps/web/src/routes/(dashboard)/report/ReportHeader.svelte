@@ -63,7 +63,7 @@
 
 <div class="flex flex-col items-center justify-between gap-5 md:flex-row">
 	<div class="flex items-center gap-5">
-		<LText class="text-base font-semibold leading-5 ">
+		<LText class="text-base leading-5 font-semibold ">
 			Tasks by {reportStore.selectedInterval}
 		</LText>
 		{#if tasksDelta > 0}

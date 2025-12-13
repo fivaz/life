@@ -54,7 +54,7 @@
 	{@const Icon = typeElements[type].icon}
 	<div class="{typeElements[type].background} {klass} rounded-md p-4" transition:fade>
 		<div class="flex">
-			<div class="flex-shrink-0">
+			<div class="shrink-0">
 				<Icon class="{typeElements[type].button} size-5" aria-hidden="true" />
 			</div>
 			<div class="ml-3">
@@ -65,7 +65,7 @@
 					<div class="-mx-1.5 -my-1.5">
 						<button
 							class="{typeElements[type].button}
-							inline-flex rounded-md p-1.5 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50"
+							inline-flex rounded-md p-1.5 hover:bg-green-100 focus:outline-hidden focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50"
 							onclick={close}
 							type="button"
 						>

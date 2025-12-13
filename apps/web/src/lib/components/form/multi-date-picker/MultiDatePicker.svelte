@@ -33,7 +33,7 @@
 	{label}
 	<input
 		bind:this={ref}
-		class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:border-white/10 dark:bg-white/5"
+		class="block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:border-white/10 dark:bg-white/5"
 		{value}
 	/>
 </label>

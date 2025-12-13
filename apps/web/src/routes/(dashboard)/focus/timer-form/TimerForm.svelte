@@ -18,7 +18,7 @@
 	}
 </script>
 
-<form class="relative w-[300px] gap-5 text-sm font-medium shadow" onsubmit={onSubmit}>
+<form class="relative w-[300px] gap-5 text-sm font-medium shadow-sm" onsubmit={onSubmit}>
 	<div class="rounded-t-md bg-neutral-100 px-4 py-5 sm:p-4 dark:bg-neutral-900">
 		<div class="flex items-center justify-between pb-2">
 			<LText class="text-lg font-medium">Edit Timer</LText>

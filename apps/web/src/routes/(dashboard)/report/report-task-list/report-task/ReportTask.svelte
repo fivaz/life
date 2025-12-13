@@ -34,7 +34,7 @@
 <li
 	class="
 	{isAdd ? 'bg-red-500 dark:bg-red-600' : 'bg-green-500 dark:bg-green-600'}
-	flex justify-between gap-x-3 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-white"
+	flex justify-between gap-x-3 rounded-lg px-3 py-2 text-sm leading-6 font-semibold text-white"
 >
 	<div class="flex items-center gap-x-2">
 		{index}
@@ -43,7 +43,7 @@
 		{:else}
 			<CalendarMinus class="size-5 text-white" />
 		{/if}
-		<div class="block truncate text-sm font-semibold leading-6">{task.name}</div>
+		<div class="block truncate text-sm leading-6 font-semibold">{task.name}</div>
 	</div>
 
 	<div>

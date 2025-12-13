@@ -16,17 +16,17 @@
 
 <li
 	class="{tailwindColorMap[category.color].darkBg}
-		flex items-center justify-between gap-x-2 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-white"
+		flex items-center justify-between gap-x-2 rounded-lg px-3 py-2 text-sm leading-6 font-semibold text-white"
 >
 	<div aria-label="drag-handle for {category.name}" use:dragHandle>
 		<GripVerticalIcon class="size-5" />
 	</div>
 	<TagIcon class="size-5 text-white" />
-	<div class="flex-1 truncate text-sm font-semibold leading-6">{category.name}</div>
+	<div class="flex-1 truncate text-sm leading-6 font-semibold">{category.name}</div>
 
 	<CategoryFormButton
 		class="{tailwindColorMap[category.color].hoverBg} {tailwindColorMap[category.color].hoverText}
-				rounded-md text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300"
+				rounded-md text-sm font-semibold shadow-xs ring-1 ring-gray-300 ring-inset"
 		{category}
 		color="none"
 	>

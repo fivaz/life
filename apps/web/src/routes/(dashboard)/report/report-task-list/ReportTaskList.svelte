@@ -16,7 +16,7 @@
 	}
 </script>
 
-<LText class="text-base font-semibold leading-5">Tasks Changes</LText>
+<LText class="text-base leading-5 font-semibold">Tasks Changes</LText>
 
 {#each Object.keys(tasksByPeriod).toReversed() as period (period)}
 	<div class="flex justify-between text-sm font-semibold">

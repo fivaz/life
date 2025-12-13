@@ -26,7 +26,7 @@
 	<div
 		class="
 	{task.isDone ? 'bg-red-500' : 'bg-green-500'}
-	flex justify-between gap-3 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-white"
+	flex justify-between gap-3 rounded-lg px-3 py-2 text-sm leading-6 font-semibold text-white"
 	>
 		<div class="flex grow items-center gap-2 truncate">
 			{#if isUntimed(task)}
@@ -34,7 +34,7 @@
 			{:else}
 				<CalendarClock class="size-5 text-white" />
 			{/if}
-			<div class="w-[calc(100%-20px)] truncate text-sm font-semibold leading-6">{task.name}</div>
+			<div class="w-[calc(100%-20px)] truncate text-sm leading-6 font-semibold">{task.name}</div>
 		</div>
 
 		<div>

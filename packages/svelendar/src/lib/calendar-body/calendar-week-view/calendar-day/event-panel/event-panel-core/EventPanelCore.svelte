@@ -93,7 +93,7 @@
 		onclick={(e) => e.stopPropagation()}
 	>
 		<input
-			class="rounded border-gray-300 focus:ring-indigo-600"
+			class="rounded-sm border-gray-300 focus:ring-indigo-600"
 			checked={event.isDone}
 			onchange={() => toggleEvent(event, targetDate)}
 			type="checkbox"

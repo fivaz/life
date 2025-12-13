@@ -46,7 +46,7 @@
 	<div class="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
 		<div class="sm:mx-auto sm:w-full sm:max-w-md">
 			<Logo class="m-auto size-10 text-indigo-600" />
-			<LText class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight" tag="h2">
+			<LText class="mt-6 text-center text-2xl leading-9 font-bold tracking-tight" tag="h2">
 				Create your account
 			</LText>
 		</div>
@@ -56,11 +56,11 @@
 				{errorMessage}
 			</Alert>
 
-			<div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12 dark:bg-gray-800">
+			<div class="bg-white px-6 py-12 shadow-sm sm:rounded-lg sm:px-12 dark:bg-gray-800">
 				<form class="space-y-6" onsubmit={onSubmit}>
 					{#if email}
 						<div class="flex flex-col justify-center">
-							<h3 class="block text-center text-sm font-medium leading-6 text-gray-900">
+							<h3 class="block text-center text-sm leading-6 font-medium text-gray-900">
 								Your Avatar
 							</h3>
 							<img class="h-10 w-auto" alt="your avatar" src={photoURL} />
@@ -143,7 +143,7 @@
 				Already a member?
 				{' '}
 				<a
-					class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+					class="leading-6 font-semibold text-indigo-600 hover:text-indigo-500"
 					href={Routes.LOGIN}
 				>
 					Log in

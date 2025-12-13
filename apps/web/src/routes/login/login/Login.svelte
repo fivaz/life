@@ -49,7 +49,7 @@
 		<div class="mx-auto w-full max-w-sm lg:w-96">
 			<div>
 				<Logo class="size-10 text-indigo-600" />
-				<LText class="mt-8 text-2xl font-bold leading-9 tracking-tight" tag="h2">
+				<LText class="mt-8 text-2xl leading-9 font-bold tracking-tight" tag="h2">
 					Sign in to your account
 				</LText>
 				<p class="mt-2 text-sm leading-6 text-gray-500">
@@ -92,7 +92,7 @@
 						<!--								<input-->
 						<!--									id="remember-me"-->
 						<!--									name="remember-me"-->
-						<!--									class="size-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"-->
+						<!--									class="size-4 rounded-sm border-gray-300 text-indigo-600 focus:ring-indigo-600"-->
 						<!--									disabled-->
 						<!--									type="checkbox"-->
 						<!--								/>-->

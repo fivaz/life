@@ -54,7 +54,7 @@
 				<label class="text-sm font-medium" for={day}><LText>{day}</LText></label>
 				<input
 					id={day}
-					class="size-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+					class="size-4 rounded-sm border-gray-300 text-indigo-600 focus:ring-indigo-500"
 					checked={taskIn.value.recurringDaysOfWeek.includes(day)}
 					onchange={() => handleCheckboxChange(day)}
 					type="checkbox"

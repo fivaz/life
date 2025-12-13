@@ -96,7 +96,7 @@
 >
 	<div class="relative">
 		<LInput inputClass="pr-10 w-full" placeholder="Name" bind:value={goalIn.name} />
-		<div class="absolute right-0 top-0 p-2.5">
+		<div class="absolute top-0 right-0 p-2.5">
 			<LText>
 				<IconRender name={goalIn.icon} class="size-5" />
 			</LText>

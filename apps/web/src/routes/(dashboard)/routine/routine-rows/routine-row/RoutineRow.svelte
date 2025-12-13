@@ -44,7 +44,7 @@
 		{#key selectedDate.value}
 			<div
 				class="{statusColor[status]}
-	absolute flex w-full justify-between gap-2 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-200"
+	absolute flex w-full justify-between gap-2 rounded-lg px-3 py-2 text-sm leading-6 font-semibold text-gray-200"
 				in:fly={{ x: 900 * slideDirection, duration: slideDuration }}
 				out:fly={{ x: 900 * slideDirection * -1, duration: slideDuration }}
 			>
@@ -68,7 +68,7 @@
 					</div>
 
 					<button
-						class="touch-manipulation rounded px-1.5 py-1 shadow-sm ring-1 ring-inset ring-gray-300"
+						class="touch-manipulation rounded-sm px-1.5 py-1 shadow-xs ring-1 ring-gray-300 ring-inset"
 						onclick={() => toggleRoutineCompletion(routine, selectedDateString, currentUser.uid)}
 						type="button"
 					>
@@ -80,7 +80,7 @@
 					</button>
 
 					<RoutineFormButton
-						class="rounded shadow-sm ring-1 ring-inset ring-gray-300"
+						class="rounded-sm shadow-xs ring-1 ring-gray-300 ring-inset"
 						color="none"
 						padding="px-1.5 py-1"
 						{routine}

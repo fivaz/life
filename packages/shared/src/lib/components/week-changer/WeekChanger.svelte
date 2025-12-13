@@ -61,7 +61,7 @@
 	<!--this input is triggered by the button below-->
 	<input
 		bind:this={datePicker}
-		class="pointer-events-none absolute touch-none opacity-0 dark:[color-scheme:dark]"
+		class="pointer-events-none absolute touch-none opacity-0 dark:scheme-dark"
 		type="date"
 		bind:value={selectedDateString.value}
 	/>

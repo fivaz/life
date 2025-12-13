@@ -61,12 +61,12 @@
 
 <div
 	bind:this={container}
-	class="isolate flex flex-auto flex-col overflow-auto dark:[color-scheme:dark]"
+	class="isolate flex flex-auto flex-col overflow-auto dark:scheme-dark"
 >
 	<div class="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full">
 		<div
 			bind:this={containerNav}
-			class="sticky top-0 z-30 flex-none border-b bg-gray-50 shadow-sm md:pr-8 dark:border-gray-800 dark:bg-gray-900 dark:shadow-none"
+			class="sticky top-0 z-30 flex-none border-b bg-gray-50 shadow-xs md:pr-8 dark:border-gray-800 dark:bg-gray-900 dark:shadow-none"
 		>
 			<WeekList />
 		</div>

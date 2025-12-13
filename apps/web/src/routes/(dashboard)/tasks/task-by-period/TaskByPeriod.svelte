@@ -28,7 +28,7 @@
 
 <div
 	class="{tailwindColorMap[task.category.color].darkBg}
-		flex select-none items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-50 sm:touch-none"
+		flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm leading-6 font-semibold text-gray-50 select-none sm:touch-none"
 >
 	<div class="flex items-center gap-3">
 		<div aria-label="drag-handle for {task.name}" use:dragHandle>
@@ -46,7 +46,7 @@
 		<TaskFormButton
 			class="{tailwindColorMap[task.category.color].hoverBg} {tailwindColorMap[task.category.color]
 				.hoverText}
-				rounded text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300"
+				rounded text-sm font-semibold shadow-xs ring-1 ring-gray-300 ring-inset"
 			color="none"
 			padding="px-1.5 py-1"
 			{task}

@@ -11,7 +11,7 @@
 	let { children, class: klass, onclick, href }: Props = $props();
 
 	let baseClass =
-		'focus-visible:outline-white-600 min-w-full rounded-md inline-flex items-center justify-start gap-2 p-2 text-sm text-gray-900 shadow-sm hover:bg-gray-200 hover:text-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 dark:text-gray-100 dark:hover:bg-gray-800';
+		'focus-visible:outline-white-600 min-w-full rounded-md inline-flex items-center justify-start gap-2 p-2 text-sm text-gray-900 shadow-xs hover:bg-gray-200 hover:text-indigo-600 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 dark:text-gray-100 dark:hover:bg-gray-800';
 </script>
 
 <li>

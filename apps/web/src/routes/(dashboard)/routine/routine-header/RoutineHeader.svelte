@@ -34,7 +34,7 @@
 		<div class="flex gap-5">
 			<Streak {routines} />
 
-			<LText class="flex items-center gap-2 text-base font-semibold leading-6">
+			<LText class="flex items-center gap-2 text-base leading-6 font-semibold">
 				<time class="md:hidden" dateTime={formatDate(selectedDate.value)}>
 					{format(selectedDate.value, 'MMMM dd, yyyy')}
 				</time>

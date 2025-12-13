@@ -52,7 +52,7 @@
 		<!-- Deadline marker -->
 		<div
 			style={`left: ${deadlinePercentage}%`}
-			class="absolute top-0 h-2.5 w-1 rounded-sm bg-red-500"
+			class="absolute top-0 h-2.5 w-1 rounded-xs bg-red-500"
 		></div>
 	</div>
 </div>

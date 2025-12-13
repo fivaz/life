@@ -33,7 +33,7 @@
 
 <div class="relative w-11/12 max-w-[350px] text-sm leading-6">
 	<div
-		class="divide-y divide-gray-200 rounded-lg border-gray-200 bg-white shadow-sm dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-800"
+		class="divide-y divide-gray-200 rounded-lg border-gray-200 bg-white shadow-xs dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-800"
 	>
 		<div class="px-6 py-4">
 			<LText class="text-base font-semibold">Tasks stats</LText>

@@ -79,7 +79,7 @@
 
 <div class="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
 	<div class="sm:mx-auto sm:w-full sm:max-w-md">
-		<h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+		<h2 class="mt-6 text-center text-2xl leading-9 font-bold tracking-tight text-gray-900">
 			Profile
 		</h2>
 	</div>
@@ -87,14 +87,14 @@
 		<Alert close={() => (success = false)} isVisible={!!success} type="success">
 			Profile successfully edited
 		</Alert>
-		<div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
+		<div class="bg-white px-6 py-12 shadow-sm sm:rounded-lg sm:px-12">
 			<form class="space-y-6" enctype="multipart/form-data" onsubmit={onSubmit}>
 				<div class="col-span-full">
-					<h3 class="block text-sm font-medium leading-6 text-gray-900">Avatar</h3>
+					<h3 class="block text-sm leading-6 font-medium text-gray-900">Avatar</h3>
 					<div class="flex items-center gap-x-3">
 						<img class="inline-block size-12" alt="Your avatar" src={photoURL} />
 						<label
-							class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+							class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50"
 						>
 							<input
 								name="avatar"

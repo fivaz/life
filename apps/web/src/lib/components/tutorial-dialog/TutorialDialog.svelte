@@ -50,11 +50,11 @@
 	>
 		<!-- Arrows -->
 		{#if phase === 'tutorial'}
-			<Button class="absolute left-4 top-1/2 -translate-y-1/2" onclick={prev}>
+			<Button class="absolute top-1/2 left-4 -translate-y-1/2" onclick={prev}>
 				<CircleArrowLeftIcon class="size-6 text-white" />
 			</Button>
 
-			<Button class="absolute right-4 top-1/2 -translate-y-1/2" onclick={next}>
+			<Button class="absolute top-1/2 right-4 -translate-y-1/2" onclick={next}>
 				<CircleArrowRightIcon class="size-6 text-white" />
 			</Button>
 		{/if}

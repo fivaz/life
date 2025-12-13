@@ -39,7 +39,7 @@
 	} as const;
 
 	const basic =
-		'flex items-center gap-2 rounded-md text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2';
+		'flex items-center gap-2 rounded-md text-sm font-semibold shadow-xs focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2';
 </script>
 
 <button

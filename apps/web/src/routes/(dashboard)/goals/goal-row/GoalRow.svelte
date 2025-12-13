@@ -61,7 +61,7 @@
 </script>
 
 <div
-	class="flex flex-col gap-2 rounded-lg border border-gray-300 bg-gray-50 p-3 text-base leading-6 shadow dark:border-gray-700 dark:bg-gray-900"
+	class="flex flex-col gap-2 rounded-lg border border-gray-300 bg-gray-50 p-3 text-base leading-6 shadow-sm dark:border-gray-700 dark:bg-gray-900"
 >
 	<div class="flex items-center justify-between">
 		<div class="flex items-center gap-2 truncate">

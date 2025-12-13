@@ -18,7 +18,7 @@
 	const { Story } = defineMeta({
 		component: EventPanel,
 		args: {
-			class: '!static',
+			class: 'static!',
 			targetDate: formatDate(new Date()),
 		},
 	});
@@ -29,7 +29,7 @@
 </script>
 
 {#snippet template({ ...args }: ComponentProps<typeof EventPanel>)}
-	<div class="!relative w-52">
+	<div class="relative! w-52">
 		<EventPanel {...args} />
 	</div>
 {/snippet}

@@ -45,7 +45,7 @@
 	}
 </script>
 
-<div class="rounded">
+<div class="rounded-sm">
 	<div class="flex gap-2 pb-1">
 		{#if editor}
 			<Button
@@ -73,6 +73,6 @@
 
 	<article
 		bind:this={editorEl}
-		class="w-full max-w-full rounded-md border border-gray-300 bg-white px-2 py-1 text-gray-700 shadow-sm sm:text-sm dark:border-white/10 dark:bg-white/5 dark:text-white"
+		class="w-full max-w-full rounded-md border border-gray-300 bg-white px-2 py-1 text-gray-700 shadow-xs sm:text-sm dark:border-white/10 dark:bg-white/5 dark:text-white"
 	></article>
 </div>

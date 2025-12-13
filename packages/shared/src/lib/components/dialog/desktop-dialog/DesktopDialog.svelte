@@ -38,7 +38,7 @@
 	</div>
 
 	<div class="flex flex-row items-center gap-3">
-		<div class="flex size-10 flex-shrink-0 items-center justify-center rounded-full bg-red-100">
+		<div class="flex size-10 shrink-0 items-center justify-center rounded-full bg-red-100">
 			<TriangleAlertIcon class="size-6 text-red-600" aria-hidden="true" />
 		</div>
 

@@ -33,7 +33,7 @@
 	<Select
 		class="flex items-center gap-2"
 		label="Time"
-		labelClass="flex-shrink-0 w-1/4"
+		labelClass="shrink-0 w-1/4"
 		selectClass="flex-1"
 		bind:value={routineIn.time}
 	>
@@ -60,7 +60,7 @@
 	<Select
 		class="flex items-center gap-2"
 		label="Duration"
-		labelClass="flex-shrink-0 w-1/4"
+		labelClass="shrink-0 w-1/4"
 		selectClass="flex-1"
 		bind:value={routineIn.duration}
 	>

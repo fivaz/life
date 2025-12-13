@@ -19,7 +19,7 @@
 </script>
 
 <li
-	class="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 hover:bg-indigo-600 hover:text-white dark:text-gray-100"
+	class="group relative cursor-default py-2 pr-9 pl-3 text-gray-900 select-none hover:bg-indigo-600 hover:text-white dark:text-gray-100"
 	aria-selected={isSelected(value)}
 	data-value={valueString}
 	role="option"
