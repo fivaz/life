@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { timer } from '$lib/components/timer/service.svelte.js';
+
 	import AnimatedHourglassIcon from '../animated-hourglass-icon/AnimatedHourglassIcon.svelte';
-	import { timer } from '../service.svelte';
 	import StaticHourglassIcon from '../static-hourglass-icon/StaticHourglassIcon.svelte';
 
 	interface Props {

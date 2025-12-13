@@ -5,11 +5,11 @@
 	import { afterNavigate } from '$app/navigation';
 	import SideMenu from '$lib/components/dashboard/side-menu/SideMenu.svelte';
 	import Logo from '$lib/components/Logo.svelte';
+	import Timer from '$lib/components/timer/Timer.svelte';
 	import { title } from '$lib/utils.svelte';
 
 	import HourglassIcon from '../../../../routes/(dashboard)/focus/hourglass-icon/HourglassIcon.svelte';
-	import { timer } from '../../../../routes/(dashboard)/focus/service.svelte';
-	import Timer from '../../../../routes/(dashboard)/focus/timer/Timer.svelte';
+	import { timer } from '../../timer/service.svelte.js';
 
 	interface Props {
 		class?: string;

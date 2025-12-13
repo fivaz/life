@@ -1,7 +1,7 @@
 export const defaultTime = 30 * 60;
 
 export const timer = $state<{
-	interval: NodeJS.Timeout | null;
+	interval: ReturnType<typeof setInterval> | null;
 	status: 'stopped' | 'paused' | 'running';
 	value: number;
 }>({

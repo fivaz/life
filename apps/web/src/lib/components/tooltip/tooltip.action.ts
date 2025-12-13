@@ -103,7 +103,8 @@ export function tooltip(targetEl: Element, options: TooltipOptions | string) {
 		destroy() {
 			// remove event listeners when element is removed
 			targetEl.removeEventListener('mouseenter', showTooltip);
-			targetEl.removeEventListener('mouseLeave', hideTooltip);
+			targetEl.removeEventListener('mouseleave', hideTooltip);
+			tooltipEl.remove();
 		},
 	};
 }

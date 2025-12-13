@@ -12,10 +12,10 @@
 	import { page } from '$app/state';
 	import ProfileDropUp from '$lib/components/dashboard/profile-drop-up/ProfileDropUp.svelte';
 	import Logo from '$lib/components/Logo.svelte';
+	import { timer } from '$lib/components/timer/service.svelte';
+	import Timer from '$lib/components/timer/Timer.svelte';
 	import { Routes } from '$lib/consts';
 
-	import { timer } from '../../../../routes/(dashboard)/focus/service.svelte';
-	import Timer from '../../../../routes/(dashboard)/focus/timer/Timer.svelte';
 	import RoutineIcon from '../../../../routes/(dashboard)/routine/routine-icon/RoutineIcon.svelte';
 
 	interface Props {
@@ -63,6 +63,7 @@
 		<a
 			class="{page.url.pathname === href ? 'text-indigo-500' : 'text-gray-700 dark:text-gray-100'}
 			flex items-end gap-3 rounded-lg p-2 hover:bg-indigo-600 hover:text-white"
+			aria-current={page.url.pathname === href ? 'page' : undefined}
 			{href}
 		>
 			<Icon class="size-6" />

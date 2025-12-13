@@ -6,10 +6,10 @@
 	import { where } from 'firebase/firestore';
 	import { Pencil, Play, PlayIcon, SquareIcon } from 'lucide-svelte';
 
+	import { endTimer, pauseTimer, startTimer, timer } from '$lib/components/timer/service.svelte.js';
+	import Timer from '$lib/components/timer/Timer.svelte';
 	import { fetchTasks } from '$lib/task/task.repository';
 
-	import { endTimer, pauseTimer, startTimer, timer } from './service.svelte';
-	import Timer from './timer/Timer.svelte';
 	import TimerForm from './timer-form/TimerForm.svelte';
 	import TimerTask from './timer-task/TimerTask.svelte';
 

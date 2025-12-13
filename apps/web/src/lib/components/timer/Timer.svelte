@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { timer } from '../service.svelte';
+	import { timer } from '$lib/components/timer/service.svelte';
 
 	interface Props {
 		class?: string;
