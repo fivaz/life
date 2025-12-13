@@ -50,9 +50,7 @@
 	>
 		<div class="mx-auto w-full max-w-sm lg:w-96">
 			<div>
-				<div class="size-10" use:tooltip={`current commit: ${PUBLIC_COMMIT_HASH}`}>
-					<Logo class="text-indigo-600" />
-				</div>
+				<Logo class="size-10 text-indigo-600" />
 				<LText class="mt-8 text-2xl font-bold leading-9 tracking-tight" tag="h2">
 					Sign in to your account
 				</LText>

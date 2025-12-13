@@ -9,11 +9,9 @@
 	} from 'lucide-svelte';
 	import type { Component } from 'svelte';
 
-	import { page } from '$app/stores';
-	import { PUBLIC_COMMIT_HASH } from '$env/static/public';
+	import { page } from '$app/state';
 	import ProfileDropUp from '$lib/components/dashboard/profile-drop-up/ProfileDropUp.svelte';
 	import Logo from '$lib/components/Logo.svelte';
-	import { tooltip } from '$lib/components/tooltip/tooltip.action';
 	import { Routes } from '$lib/consts';
 
 	import { timer } from '../../../../routes/(dashboard)/focus/service.svelte';
@@ -38,9 +36,7 @@
 
 <section class="{klass} flex h-full w-64 flex-col items-stretch gap-5 p-3">
 	<div class="flex items-center gap-2 text-indigo-500">
-		<div class="h-8 w-auto self-start" use:tooltip={`current commit: ${PUBLIC_COMMIT_HASH}`}>
-			<Logo class="size-full" />
-		</div>
+		<Logo class="size-8 self-start" />
 		<h2 class="text-lg font-semibold">Life</h2>
 	</div>
 
@@ -65,7 +61,7 @@
 )}
 	<li>
 		<a
-			class="{$page.url.pathname === href ? 'text-indigo-500' : 'text-gray-700 dark:text-gray-100'}
+			class="{page.url.pathname === href ? 'text-indigo-500' : 'text-gray-700 dark:text-gray-100'}
 			flex items-end gap-3 rounded-lg p-2 hover:bg-indigo-600 hover:text-white"
 			{href}
 		>

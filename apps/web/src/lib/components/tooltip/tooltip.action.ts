@@ -14,7 +14,7 @@ type TooltipOptions = {
 	color: keyof typeof tailwindColor;
 };
 
-function createTooltip(targetEl: HTMLElement, options: TooltipOptions | string) {
+function createTooltip(targetEl: Element, options: TooltipOptions | string) {
 	const tooltipEl = Object.assign(document.createElement('div'), {
 		role: 'tooltip',
 		innerHTML: typeof options === 'string' ? options : options.text,
@@ -50,7 +50,7 @@ function createTooltip(targetEl: HTMLElement, options: TooltipOptions | string) 
 }
 
 async function updateTooltipPosition(
-	targetEl: HTMLElement,
+	targetEl: Element,
 	tooltipEl: HTMLDivElement,
 	arrowEl: HTMLDivElement,
 	options: TooltipOptions | string,
@@ -84,7 +84,7 @@ async function updateTooltipPosition(
 	});
 }
 
-export function tooltip(targetEl: HTMLElement, options: TooltipOptions | string) {
+export function tooltip(targetEl: Element, options: TooltipOptions | string) {
 	const [tooltipEl, arrowEl] = createTooltip(targetEl, options);
 
 	function showTooltip() {

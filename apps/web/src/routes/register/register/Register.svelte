@@ -45,7 +45,7 @@
 <div class="bg-gray-50 dark:bg-gray-900">
 	<div class="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
 		<div class="sm:mx-auto sm:w-full sm:max-w-md">
-			<Logo class="m-auto h-10 w-auto text-indigo-600" />
+			<Logo class="m-auto size-10 text-indigo-600" />
 			<LText class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight" tag="h2">
 				Create your account
 			</LText>
