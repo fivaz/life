@@ -494,6 +494,10 @@ importers:
         version: 5.4.17(@types/node@22.14.0)(lightningcss@1.30.2)(terser@5.39.0)
 
   packages/svelendar:
+    dependencies:
+      lucide-svelte:
+        specifier: ^0.456.0
+        version: 0.456.0(svelte@5.25.6)
     devDependencies:
       '@chromatic-com/storybook':
         specifier: ^3.2.2
@@ -579,9 +583,6 @@ importers:
       interactjs:
         specifier: ^1.10.27
         version: 1.10.27
-      lucide-svelte:
-        specifier: ^0.456.0
-        version: 0.456.0(svelte@5.25.6)
       postcss:
         specifier: ^8.4.49
         version: 8.5.3
