@@ -63,7 +63,7 @@
 	<div class="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full">
 		<div
 			bind:this={containerNav}
-			class="sticky top-0 z-30 flex-none border-b bg-gray-50 shadow-2xs md:pr-8 dark:border-gray-800 dark:bg-gray-900 dark:shadow-none"
+			class="sticky top-0 z-30 flex-none border-b border-gray-200 bg-gray-50 shadow-2xs md:pr-8 dark:border-gray-700 dark:bg-gray-900 dark:shadow-none"
 		>
 			<WeekList />
 		</div>

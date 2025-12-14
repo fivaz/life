@@ -1,4 +1,5 @@
 <script lang="ts" module>
+	import { tasks } from '@life/shared/task';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import CalendarDay from './CalendarDay.svelte';
@@ -16,5 +17,6 @@
 	args={{
 		date: new Date(),
 		create: (time: string) => console.log('time', time),
+		tasks,
 	}}
 />

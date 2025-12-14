@@ -65,7 +65,7 @@
 		<TasksSummary
 			style="width: {containerWidth}px"
 			class="{klass} {isScrollingUp.value ? 'fixed' : ''}
-			ring-opacity-5 z-10 w-full justify-center shadow ring-1 ring-black"
+			ring-opacity-5 z-10 w-full justify-center shadow ring-1  ring-gray-200 dark:ring-gray-700"
 			{date}
 			tasks={tasksOnDate}
 		/>
