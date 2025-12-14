@@ -54,12 +54,14 @@
 	}
 
 	function getDescription(event: Task) {
-		const sanitizedHtml = DOMPurify.sanitize(event.description, {
-			ALLOWED_TAGS: ['div', 'p', 'ul', 'li', 'label', 'input', 'span', 'strong', 'em'],
-			ALLOWED_ATTR: ['class', 'data-type', 'data-checked', 'type', 'checked', 'disabled'],
-		});
-
-		return disableCheckboxes(sanitizedHtml);
+		return event.description;
+		// if (!DOMPurify) return '';
+		// const sanitizedHtml = DOMPurify.sanitize(event.description, {
+		// 	ALLOWED_TAGS: ['div', 'p', 'ul', 'li', 'label', 'input', 'span', 'strong', 'em'],
+		// 	ALLOWED_ATTR: ['class', 'data-type', 'data-checked', 'type', 'checked', 'disabled'],
+		// });
+		//
+		// return disableCheckboxes(sanitizedHtml);
 	}
 
 	const toggleEvent = getToggleCompletion();

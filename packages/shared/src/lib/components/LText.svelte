@@ -8,7 +8,7 @@
 		tag?: 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 	}
 
-	let { class: klass, children, level = 'dark', tag = 'p' }: Props = $props();
+	let { class: klass, children, level = 'dark', tag = 'span' }: Props = $props();
 
 	const colorMap = {
 		dark: 'text-gray-700 dark:text-gray-100',
