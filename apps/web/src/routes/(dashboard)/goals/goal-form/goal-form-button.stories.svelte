@@ -1,6 +1,6 @@
 <script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
-	import { userEvent, within } from '@storybook/test';
+	import { userEvent, within } from 'storybook/test';
 
 	import { buildEmptyGoal } from '$lib/goal/goal.model';
 

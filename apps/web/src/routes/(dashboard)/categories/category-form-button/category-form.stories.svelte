@@ -1,6 +1,6 @@
 <script lang="ts" module>
 	import { defineMeta } from '@storybook/addon-svelte-csf';
-	import { userEvent, within } from '@storybook/test';
+	import { expect, screen, userEvent, within } from 'storybook/test';
 
 	import { buildEmptyCategory } from '$lib/category/category.model';
 
@@ -19,7 +19,10 @@
 	play={async ({ canvasElement }) => {
 		const canvas = within(canvasElement);
 
-		await userEvent.click(canvas.getByRole('button'));
+		await userEvent.click(canvas.getByRole('button', { name: /New Category/i }));
+
+		await expect(await screen.findByText('Add Category')).toBeInTheDocument();
+		await expect(screen.getByRole('button', { name: /Add/i })).toBeInTheDocument();
 
 		console.log('form open');
 	}}

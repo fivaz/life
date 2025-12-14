@@ -5,7 +5,7 @@
 	import { goals } from '@life/shared/goal';
 	import { normalWithSubTasks } from '@life/shared/task';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
-	import { userEvent, within } from '@storybook/test';
+	import { userEvent, within } from 'storybook/test';
 
 	import { buildTimedTask, buildUntimedTask } from '$lib/task/build-utils';
 
