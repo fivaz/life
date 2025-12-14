@@ -16,7 +16,7 @@
 	/>
 </div>
 
-<!--<div class="relative flex items-stretch rounded-md bg-white shadow-sm">-->
+<!--<div class="relative flex items-stretch rounded-md bg-white shadow-xs">-->
 <!--	<button-->
 <!--		class="hmd:h-9 -8 flex w-9 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-0 text-gray-400 hover:bg-gray-50 hover:text-gray-500 focus:relative"-->
 <!--	>-->
