@@ -32,7 +32,7 @@
 		updateTaskPeriod(tasksByPeriod, info.id);
 	}
 
-	let isDroppable = !(period.startsWith('recurring') || period === 'overdue');
+	let isDroppable = $derived(!(period.startsWith('recurring') || period === 'overdue'));
 </script>
 
 <section
