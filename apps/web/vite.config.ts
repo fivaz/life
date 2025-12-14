@@ -3,7 +3,6 @@ import 'dotenv/config';
 import { sentrySvelteKit } from '@sentry/sveltekit';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
-import devtoolsJson from 'vite-plugin-devtools-json';
 
 // Detect production mode
 // eslint-disable-next-line turbo/no-undeclared-env-vars
@@ -27,6 +26,5 @@ export default defineConfig({
 				]
 			: []),
 		sveltekit(),
-		devtoolsJson(),
 	],
 });
