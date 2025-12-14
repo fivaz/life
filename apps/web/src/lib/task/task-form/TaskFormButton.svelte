@@ -29,8 +29,6 @@
 
 	let { task, targetDate, children, color, class: klass, padding }: Props = $props();
 
-	taskIn.value = convertToTaskIn(task);
-
 	let errorMessage = $state('');
 
 	let isOpen = $state(false);

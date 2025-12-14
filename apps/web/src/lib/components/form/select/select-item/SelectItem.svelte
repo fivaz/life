@@ -14,14 +14,12 @@
 	let { class: klass = '', value, children }: Props = $props();
 
 	const { isSelected } = getSelectValue();
-
-	let valueString = JSON.stringify(value);
 </script>
 
 <li
 	class="group relative cursor-default py-2 pr-9 pl-3 text-gray-900 select-none hover:bg-indigo-600 hover:text-white dark:text-gray-100"
 	aria-selected={isSelected(value)}
-	data-value={valueString}
+	data-value={JSON.stringify(value)}
 	role="option"
 	tabindex="-1"
 >
