@@ -4,6 +4,7 @@
 	import { MoonIcon, SunIcon } from 'lucide-svelte';
 
 	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import DropDownItem from '$lib/components/drop-down/drop-down-item/DropDownItem.svelte';
 	import DropDown from '$lib/components/drop-down/DropDown.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
@@ -25,7 +26,7 @@
 		<DropDownItem
 			onclick={async () => {
 				await signOut(auth);
-				void goto(Routes.LOGIN);
+				void goto(resolve('/login'));
 			}}
 		>
 			Sign out

@@ -3,10 +3,10 @@
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 
 	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import GithubIcon from '$lib/components/icons/GithubIcon.svelte';
 	import GoogleIcon from '$lib/components/icons/GoogleIcon.svelte';
 	import Logo from '$lib/components/Logo.svelte';
-	import { Routes } from '$lib/consts';
 	import { auth } from '$lib/firebase';
 	import {
 		errorMessage,
@@ -32,7 +32,7 @@
 		try {
 			isLoading.email = true;
 			await signInWithEmailAndPassword(auth, email, password);
-			void goto(Routes.ROOT);
+			void goto(resolve('/'));
 		} catch (error) {
 			errorMessage.value = parseErrors(error);
 		} finally {
@@ -53,8 +53,10 @@
 					Sign in to your account
 				</LText>
 				<p class="mt-2 text-sm leading-6 text-gray-500">
-					Not a member?{' '}
-					<a class="font-semibold text-indigo-600 hover:text-indigo-500" href={Routes.REGISTER}>
+					Not a member? <a
+						class="font-semibold text-indigo-600 hover:text-indigo-500"
+						href={resolve('/register')}
+					>
 						Register
 					</a>
 				</p>

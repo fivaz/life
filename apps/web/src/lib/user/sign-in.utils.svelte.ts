@@ -9,6 +9,7 @@ import { auth, db } from '$lib/firebase';
 
 import { parseErrors } from '../../routes/login/login/service';
 import { createUser } from '../../routes/register/register/service';
+import { resolve } from '$app/paths';
 
 export function checkEmail(email: string): boolean {
 	return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
@@ -48,7 +49,7 @@ async function handleProviderLogin(user: User) {
 		await createUser(user, user.displayName || 'unnamed user', user.email, avatar);
 	}
 
-	return goto(Routes.ROOT);
+	return goto(resolve('/'));
 }
 
 export async function githubSignIn() {

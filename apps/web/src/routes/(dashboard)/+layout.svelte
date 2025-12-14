@@ -5,10 +5,10 @@
 	import { onMount } from 'svelte';
 
 	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import { fetchCategories } from '$lib/category/category.respository';
 	import { categories } from '$lib/category/category.svelte';
 	import Dashboard from '$lib/components/dashboard/Dashboard.svelte';
-	import { Routes } from '$lib/consts';
 	import { auth } from '$lib/firebase';
 	import { fetchGoals } from '$lib/goal/goal.repository';
 	import { goals } from '$lib/goal/goal.svelte';
@@ -24,7 +24,7 @@
 		onAuthStateChanged(auth, (user) => {
 			setUser(user);
 			if (!user) {
-				goto(Routes.LOGIN);
+				goto(resolve('/login'));
 			}
 		});
 	});

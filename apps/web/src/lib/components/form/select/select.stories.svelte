@@ -14,7 +14,7 @@
 	let selectedCategory = $state(categories[0]);
 </script>
 
-{#snippet template(args: Args<typeof Story>)}
+{#snippet template(args: Args)}
 	<div class="w-96">
 		<Select {...args} bind:value={selectedCategory}>
 			{#snippet placeholder()}

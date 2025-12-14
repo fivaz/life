@@ -5,12 +5,13 @@
 	import { onMount } from 'svelte';
 
 	import { goto } from '$app/navigation';
-	import { demoLogin, Routes } from '$lib/consts';
+	import { resolve } from '$app/paths';
+	import { demoLogin } from '$lib/consts';
 	import { auth } from '$lib/firebase';
 
 	onMount(async () => {
 		await signInWithEmailAndPassword(auth, demoLogin.email, demoLogin.password);
-		void goto(Routes.ROOT);
+		void goto(resolve('/'));
 	});
 </script>
 

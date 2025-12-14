@@ -3,10 +3,10 @@
 	import { minidenticon } from 'minidenticons';
 
 	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import GithubIcon from '$lib/components/icons/GithubIcon.svelte';
 	import GoogleIcon from '$lib/components/icons/GoogleIcon.svelte';
 	import Logo from '$lib/components/Logo.svelte';
-	import { Routes } from '$lib/consts';
 	import { githubSignIn, googleSignIn, isLoading } from '$lib/user/sign-in.utils.svelte';
 
 	import { parseErrors, register, validateFields } from './service';
@@ -33,7 +33,7 @@
 		try {
 			isLoading.email = true;
 			await register(name, email, password, avatar);
-			void goto(Routes.ROOT);
+			void goto(resolve('/'));
 		} catch (error) {
 			errorMessage = parseErrors(error);
 		} finally {
@@ -140,11 +140,9 @@
 			</div>
 
 			<p class="mt-10 text-center text-sm text-gray-500">
-				Already a member?
-				{' '}
-				<a
+				Already a member? <a
 					class="leading-6 font-semibold text-indigo-600 hover:text-indigo-500"
-					href={Routes.LOGIN}
+					href={resolve('/login')}
 				>
 					Log in
 				</a>
