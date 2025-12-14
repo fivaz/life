@@ -13,6 +13,7 @@
 
 	const { Story } = defineMeta({
 		component: TaskFormButton,
+		render: template,
 	});
 </script>
 
@@ -36,7 +37,6 @@
 		targetDate: formatDate(new Date()),
 		task: buildTimedTask(categories),
 	}}
-	children={template}
 	play={async ({ canvasElement }) => {
 		const canvas = within(canvasElement);
 
@@ -52,7 +52,6 @@
 		targetDate: formatDate(new Date()),
 		task: normalWithSubTasks,
 	}}
-	children={template}
 	play={async ({ canvasElement }) => {
 		const canvas = within(canvasElement);
 
@@ -67,7 +66,6 @@
 	args={{
 		task: buildUntimedTask(categories),
 	}}
-	children={template}
 	play={async ({ canvasElement }) => {
 		const canvas = within(canvasElement);
 

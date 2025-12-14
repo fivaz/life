@@ -7,6 +7,7 @@
 
 	const { Story } = defineMeta({
 		component: DropDown,
+		render: template,
 	});
 </script>
 
@@ -31,11 +32,10 @@
 <Story
 	name="Top end, dont close after click"
 	args={{ placement: 'top-end', class: 'w-48 text-center', closeAfterClick: false }}
-	children={template}
 />
 
-<Story name="Top start" args={{ placement: 'top-start' }} children={template} />
+<Story name="Top start" args={{ placement: 'top-start' }} />
 
-<Story name="Bottom end" args={{ placement: 'bottom-end' }} children={template} />
+<Story name="Bottom end" args={{ placement: 'bottom-end' }} />
 
-<Story name="Bottom start" args={{}} children={template} />
+<Story name="Bottom start" args={{}} />

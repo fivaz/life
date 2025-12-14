@@ -1,6 +1,6 @@
 <script lang="ts" module>
 	import { longRecurring } from '@life/shared/task';
-	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import { taskIn } from '$lib/task/task-form/service.svelte';
 	import { convertToTaskIn } from '$lib/task/task-in-utils';
@@ -9,13 +9,10 @@
 
 	const { Story } = defineMeta({
 		component: DaysCheckbox,
+		render: template,
 	});
 
 	taskIn.value = convertToTaskIn(longRecurring);
-</script>
-
-<script lang="ts">
-	setTemplate(template);
 </script>
 
 {#snippet template()}
@@ -26,4 +23,4 @@
 	</div>
 {/snippet}
 
-<Story name="Primary" args={{}} children={template} />
+<Story name="Primary" args={{}} />
