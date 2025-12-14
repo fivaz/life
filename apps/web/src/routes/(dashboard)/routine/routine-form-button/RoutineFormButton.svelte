@@ -4,6 +4,7 @@
 	import type { Snippet } from 'svelte';
 
 	import type { Routine } from '$lib/routine/routine.model';
+	import { buildEmptyRoutine } from '$lib/routine/routine.model';
 	import { addRoutine, deleteRoutine, editRoutine } from '$lib/routine/routine.repository';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
@@ -20,17 +21,18 @@
 	let { routine, children, color, class: klass, padding }: Props = $props();
 
 	let isOpen = $state(false);
-
 	let errorMessage = $state('');
 
-	let routineIn = $state({ ...routine });
+	let routineIn = $state<Routine>(buildEmptyRoutine());
 
 	function open() {
+		routineIn = { ...routine };
 		isOpen = true;
 	}
 
 	function close() {
 		isOpen = false;
+		errorMessage = '';
 	}
 
 	function onSubmit(event: SubmitEvent) {
