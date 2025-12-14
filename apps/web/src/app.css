@@ -1,6 +1,11 @@
 @import 'tailwindcss';
 @import '@fontsource/fira-mono' layer(utilities);
 
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/container-queries';
+
+@variant dark (&:where(.dark, .dark *));
+
 @config '../tailwind.config.ts';
 
 /*

@@ -63,6 +63,7 @@ function populate<I>(snapshot: QuerySnapshot, schema: ZodSchema) {
 
 		if (!validation.success) {
 			console.warn(`validation failed: ${item.id}, ${validation.error}`);
+			console.log('Document path:', doc.ref.path);
 			// }
 		} else {
 			items.push(validation.data);
