@@ -39,9 +39,9 @@
 	"peerDependencies": {
 		"svelte": "^5.0.0"
 	},
-    "dependencies": {
-      "lucide-svelte": "^0.456.0"
-    },
+	"dependencies": {
+		"lucide-svelte": "^0.456.0"
+	},
 	"devDependencies": {
 		"prettier-plugin-svelte": "^3.2.6",
 		"prettier-plugin-tailwindcss": "^0.7.2",

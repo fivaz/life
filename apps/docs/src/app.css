@@ -6,8 +6,8 @@
 
 @variant dark (&:where(.dark, .dark *));
 
-@source "../node_modules/@life/shared";
-@source "../node_modules/svelendar";
+@source '../node_modules/@life/shared';
+@source '../node_modules/svelendar';
 
 :root {
 	--font-body:

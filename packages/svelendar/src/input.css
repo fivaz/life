@@ -5,7 +5,7 @@
 
 @variant dark (&:where(.dark, .dark *));
 
-@source "../node_modules/@life/shared";
+@source '../node_modules/@life/shared';
 
 :root {
 	--font-body:

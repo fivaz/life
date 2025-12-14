@@ -54,14 +54,13 @@
 	}
 
 	function getDescription(event: Task) {
-		return event.description;
-		// if (!DOMPurify) return '';
-		// const sanitizedHtml = DOMPurify.sanitize(event.description, {
-		// 	ALLOWED_TAGS: ['div', 'p', 'ul', 'li', 'label', 'input', 'span', 'strong', 'em'],
-		// 	ALLOWED_ATTR: ['class', 'data-type', 'data-checked', 'type', 'checked', 'disabled'],
-		// });
-		//
-		// return disableCheckboxes(sanitizedHtml);
+		// TODO this is causing a problem in docs due to the ssr
+		const sanitizedHtml = DOMPurify.sanitize(event.description, {
+			ALLOWED_TAGS: ['div', 'p', 'ul', 'li', 'label', 'input', 'span', 'strong', 'em'],
+			ALLOWED_ATTR: ['class', 'data-type', 'data-checked', 'type', 'checked', 'disabled'],
+		});
+
+		return disableCheckboxes(sanitizedHtml);
 	}
 
 	const toggleEvent = getToggleCompletion();
