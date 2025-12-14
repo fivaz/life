@@ -53,7 +53,9 @@
 
 	let tasks = $state<Task[]>([]);
 
-	fetchGoalTasks(goal.id, (rawTasks) => (tasks = sortTasks(rawTasks)));
+	$effect(() => {
+		fetchGoalTasks(goal.id, (rawTasks) => (tasks = sortTasks(rawTasks)));
+	});
 </script>
 
 <div
