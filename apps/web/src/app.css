@@ -6,7 +6,8 @@
 
 @variant dark (&:where(.dark, .dark *));
 
-@config '../tailwind.config.ts';
+@source "../node_modules/@life/shared";
+@source "../node_modules/svelendar";
 
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
