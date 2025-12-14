@@ -51,12 +51,14 @@
 	"peerDependencies": {
 		"svelte": "^5.0.0"
 	},
+	"dependencies": {
+		"@lucide/lab": "^0.1.2",
+		"@lucide/svelte": "^0.487.0"
+	},
 	"devDependencies": {
 		"@chromatic-com/storybook": "^3.2.2",
 		"@life/config-eslint": "workspace:*",
 		"@life/config-prettier": "workspace:*",
-		"@lucide/lab": "^0.1.2",
-		"@lucide/svelte": "^0.487.0",
 		"@storybook/addon-essentials": "^8.4.5",
 		"@storybook/addon-interactions": "^8.4.5",
 		"@storybook/addon-svelte-csf": "^5.0.0-next.11",
