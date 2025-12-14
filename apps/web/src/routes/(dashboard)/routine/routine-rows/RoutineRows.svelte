@@ -34,7 +34,7 @@
 		updateRoutines(currentUser.uid, routinesMap.value[time]);
 	}
 
-	let RoutineTimeIcon = routineTimeMap[time].icon;
+	let RoutineTimeIcon = $derived(routineTimeMap[time].icon);
 
 	const flipDuration = 200;
 </script>
