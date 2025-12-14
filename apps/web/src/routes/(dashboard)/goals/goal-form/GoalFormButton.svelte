@@ -38,6 +38,7 @@
 	}
 
 	function open() {
+		if (goal.id) console.log(goal.id);
 		goalIn = removeGoalChildren(goal);
 		isOpen = true;
 	}

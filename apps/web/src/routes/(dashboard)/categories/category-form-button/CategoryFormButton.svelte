@@ -5,6 +5,7 @@
 	import type { Snippet } from 'svelte';
 
 	import type { Category } from '$lib/category/category.model';
+	import { buildEmptyCategory } from '$lib/category/category.model';
 	import { addCategory, deleteCategory, editCategory } from '$lib/category/category.respository';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
@@ -26,13 +27,14 @@
 
 	let errorMessage = $state('');
 
-	let categoryIn = $state({ ...category });
+	let categoryIn = $state(buildEmptyCategory());
 
 	function close() {
 		isOpen = false;
 	}
 
 	function open() {
+		if (category.id) console.log(category.id);
 		categoryIn = { ...category };
 		isOpen = true;
 	}

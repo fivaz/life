@@ -21,9 +21,9 @@
 
 	let isLoading = $state<boolean>(false);
 
-	let displayName = $state<string>(user.displayName);
+	let displayName = $state<string>((() => user.displayName)());
 
-	let photoURL = $state(user.photoURL);
+	let photoURL = $state((() => user.photoURL)());
 
 	let file: File | null = $state(null);
 
