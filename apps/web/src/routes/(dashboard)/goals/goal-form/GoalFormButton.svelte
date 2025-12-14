@@ -7,7 +7,7 @@
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import Toggle from '$lib/components/form/toggle/Toggle.svelte';
 	import type { Goal } from '$lib/goal/goal.model';
-	import { removeGoalChildren } from '$lib/goal/goal.model';
+	import { buildEmptyGoal, removeGoalChildren } from '$lib/goal/goal.model';
 	import { addGoal, deleteGoal, editGoal } from '$lib/goal/goal.repository';
 	import { goals } from '$lib/goal/goal.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
@@ -28,12 +28,13 @@
 
 	let errorMessage = $state('');
 
-	let goalIn = $state<Goal>(removeGoalChildren(goal));
+	let goalIn = $state<Goal>(buildEmptyGoal());
 
-	let isOpen = $state(debug);
+	let isOpen = $state((() => debug)());
 
 	function close() {
 		isOpen = false;
+		errorMessage = '';
 	}
 
 	function open() {

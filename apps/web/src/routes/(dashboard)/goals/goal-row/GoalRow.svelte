@@ -37,13 +37,9 @@
 
 	let isTaskListOpen = $state(false);
 
-	let newChildGoal = $state<Goal>(buildEmptyGoalWithParent(goal.id));
+	let newChildGoal = $derived<Goal>(buildEmptyGoalWithParent(goal.id));
 
-	let newGoalTask = $state<Task>(buildTimedTask(categories.value, removeGoalChildren(goal)));
-
-	$effect(() => {
-		newGoalTask = buildTimedTask(categories.value, removeGoalChildren(goal));
-	});
+	let newGoalTask = $derived(buildTimedTask(categories.value, removeGoalChildren(goal)));
 
 	export function getNumberOfTasks(tasks: Task[]) {
 		if (tasks.length === 0) {
