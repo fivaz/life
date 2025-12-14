@@ -17,11 +17,7 @@
 
 	let { period, tasksByPeriod = $bindable() }: Props = $props();
 
-	let newTask = $state<Task>(getNewTaskFromPeriod(period));
-
-	$effect(() => {
-		newTask = getNewTaskFromPeriod(period);
-	});
+	let newTask = $derived(getNewTaskFromPeriod(period));
 
 	function getNumberOfTasks(tasks: Task[]) {
 		if (tasks.length === 0) {
