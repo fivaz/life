@@ -18,6 +18,9 @@
 
 	function isCompleted(selectedDate: Date, routines: Routine[]): boolean {
 		const dateString = formatDate(selectedDate);
+
+		if (routines.length === 0) return false;
+
 		return routines.every((routine) =>
 			routine.completeHistory.some(({ date, isCompleted }) => date === dateString && isCompleted),
 		);
