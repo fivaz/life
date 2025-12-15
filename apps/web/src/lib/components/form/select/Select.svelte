@@ -175,7 +175,7 @@
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
 			<ul
 				id={listId}
-				class="ring-opacity-5 absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black focus:outline-hidden sm:text-sm dark:bg-gray-950 dark:scheme-dark"
+				class="ring-opacity-5 absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-gray-300 focus:outline-hidden sm:text-sm dark:bg-gray-950 dark:scheme-dark dark:ring-gray-700"
 				onclick={selectItem}
 				role="listbox"
 			>

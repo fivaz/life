@@ -84,7 +84,7 @@
 	{#if isOpen}
 		<ul
 			bind:this={dropdownEl}
-			class="ring-opacity-5 absolute z-10 divide-y divide-gray-300 rounded-md bg-gray-100 shadow-lg ring-1 ring-black focus:outline-hidden dark:divide-gray-600 dark:bg-gray-800"
+			class="ring-opacity-5 absolute z-10 divide-y divide-gray-300 rounded-md bg-gray-100 shadow-lg ring-1 ring-gray-300 focus:outline-hidden dark:divide-gray-600 dark:bg-gray-800 dark:ring-gray-700"
 			in:fade={{ duration: 100 }}
 			out:fade={{ duration: 100 }}
 		>

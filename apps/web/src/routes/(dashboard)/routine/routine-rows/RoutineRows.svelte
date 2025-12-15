@@ -46,7 +46,7 @@
 	</div>
 
 	<div
-		class="flex flex-col gap-1 rounded-md border p-2"
+		class="dark: flex flex-col gap-1 rounded-md border border-gray-300 p-2 dark:border-gray-500"
 		onconsider={handleConsider}
 		onfinalize={handleFinalize}
 		use:dragHandleZone={{ flipDurationMs: flipDuration, items: routinesMap.value[time] }}
