@@ -17,7 +17,7 @@
 </script>
 
 <DropDown
-	class="rounded-md p-1.5 hover:bg-gray-200 dark:hover:bg-gray-800"
+	class="rounded-md border border-gray-300 p-1.5 hover:bg-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
 	closeAfterClick
 	placement="bottom-start"
 >
