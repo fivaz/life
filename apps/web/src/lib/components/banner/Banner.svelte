@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Routes } from '$lib/consts';
+	import { resolve } from '$app/paths';
 </script>
 
 <div
@@ -31,7 +31,7 @@
 		</p>
 		<a
 			class="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-xs hover:bg-gray-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 focus-visible:outline-solid"
-			href={Routes.REGISTER}
+			href={resolve('/register')}
 		>
 			Register for privacy <span aria-hidden="true">&rarr;</span>
 		</a>
