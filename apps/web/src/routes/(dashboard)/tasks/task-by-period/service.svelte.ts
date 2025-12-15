@@ -5,7 +5,6 @@ import { categories } from '$lib/category/category.svelte';
 import { buildUntimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
 import { editTask } from '$lib/task/task.repository';
 import { currentUser } from '$lib/user/user.utils.svelte';
-
 import type { TaskLists } from '../service';
 
 const getDateStrategies: Record<string, (currentDate: string) => string> = {

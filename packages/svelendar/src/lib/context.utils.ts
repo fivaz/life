@@ -11,7 +11,9 @@ export function setChangeDate(fn: ChangeDateFn) {
 }
 
 export function getChangeDate(): ChangeDateFn {
-	return getContext(changeDateKey) as ChangeDateFn;
+	// this closure is necessary to preserve reactivity - https://svelte.dev/e/state_referenced_locally
+	const getter = getContext<() => ChangeDateFn>(changeDateKey);
+	return (date: Date) => getter()(date);
 }
 
 // create task
@@ -24,7 +26,9 @@ export function setCreateTask(fn: CreateTaskFn) {
 }
 
 export function getCreateTask(): CreateTaskFn {
-	return getContext(createTaskKey) as CreateTaskFn;
+	// this closure is necessary to preserve reactivity - https://svelte.dev/e/state_referenced_locally
+	const getter = getContext<() => CreateTaskFn>(createTaskKey);
+	return (...args) => getter()(...args);
 }
 
 // edit task
@@ -37,7 +41,9 @@ export function setEditTask(fn: EditTaskFn) {
 }
 
 export function getEditTask(): EditTaskFn {
-	return getContext(editTaskKey) as EditTaskFn;
+	// this closure is necessary to preserve reactivity - https://svelte.dev/e/state_referenced_locally
+	const getter = getContext<() => EditTaskFn>(editTaskKey);
+	return (...args) => getter()(...args);
 }
 
 // move event
@@ -58,7 +64,8 @@ export function setMoveEvent(fn: MoveEventFn) {
 }
 
 export function getMoveEvent(): MoveEventFn {
-	return getContext(moveEventKey) as MoveEventFn;
+	const getter = getContext<() => MoveEventFn>(moveEventKey);
+	return (...args) => getter()(...args);
 }
 
 // toggle completion
@@ -71,5 +78,6 @@ export function setToggleCompletion(fn: ToggleCompletionFn) {
 }
 
 export function getToggleCompletion(): ToggleCompletionFn {
-	return getContext(toggleCompletionKey) as ToggleCompletionFn;
+	const getter = getContext<() => ToggleCompletionFn>(toggleCompletionKey);
+	return (...args) => getter()(...args);
 }

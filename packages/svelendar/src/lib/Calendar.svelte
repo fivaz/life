@@ -31,11 +31,12 @@
 
 	let { tasks, changeDate, createTask, editTask, toggleCompletion, moveEvent }: Props = $props();
 
-	setChangeDate(changeDate);
-	setCreateTask(createTask);
-	setEditTask(editTask);
-	setMoveEvent(moveEvent);
-	setToggleCompletion(toggleCompletion);
+	// this closure is necessary to preserve reactivity - https://svelte.dev/e/state_referenced_locally
+	setChangeDate(() => changeDate);
+	setCreateTask(() => createTask);
+	setEditTask(() => editTask);
+	setMoveEvent(() => moveEvent);
+	setToggleCompletion(() => toggleCompletion);
 
 	$effect(() => {
 		const interval = setInterval(() => {
