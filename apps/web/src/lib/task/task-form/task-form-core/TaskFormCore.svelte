@@ -17,8 +17,6 @@
 	import TaskDescription from './TaskDescription.svelte';
 
 	const goals = $derived(getGoalsForTasks(rawGoals.value));
-
-	$inspect('taskIn', taskIn.value);
 </script>
 
 <!--name-->

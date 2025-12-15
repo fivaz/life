@@ -6,6 +6,7 @@ import { buildUntimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-u
 import { editTask } from '$lib/task/task.repository';
 import { currentUser } from '$lib/user/user.utils.svelte';
 import type { TaskLists } from '../service';
+import { SvelteDate } from 'svelte/reactivity';
 
 const getDateStrategies: Record<string, (currentDate: string) => string> = {
 	someday: () => '',
@@ -35,7 +36,7 @@ export function updateTaskPeriod(tasksByPeriod: TaskLists, taskId: string) {
 }
 
 export function getNewTaskFromPeriod(period: string) {
-	const todayFormatted = formatDate(new Date());
+	const todayFormatted = formatDate(new SvelteDate());
 	const updateFn = getDateStrategies[period] ?? getDateStrategies.default;
 	const newDateString = updateFn(todayFormatted);
 

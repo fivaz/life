@@ -20,8 +20,6 @@
 
 	let editingTask = $state<Task>(buildTimedTask([]));
 
-	$inspect('editingTask', editingTask);
-
 	let completedTasks = $state<Task[]>([]);
 
 	title.value = 'Calendar';
@@ -57,8 +55,6 @@
 	}
 
 	let categories = $state<Category[]>([]);
-
-	$inspect('categories', categories);
 
 	fetchCategories(categories);
 

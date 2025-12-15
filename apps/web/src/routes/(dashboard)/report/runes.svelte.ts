@@ -7,13 +7,14 @@ import type { Interval, ReportChartType } from './report-chart/service';
 import { prepareData } from './report-chart/service';
 import { generateTasksByPeriod } from './report-task-list/service';
 import { intervals } from './service';
+import { SvelteDate } from 'svelte/reactivity';
 
 // Single state object
 export const reportStore = $state({
 	tasks: [] as Task[],
 	selectedInterval: intervals[0] as Interval,
-	periodStartAt: formatDate(subDays(new Date(), 3)),
-	periodEndAt: formatDate(addDays(new Date(), 3)),
+	periodStartAt: formatDate(subDays(new SvelteDate(), 3)),
+	periodEndAt: formatDate(addDays(new SvelteDate(), 3)),
 	chartType: 'line' as ReportChartType,
 	isSimplified: true,
 });

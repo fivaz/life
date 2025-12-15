@@ -4,7 +4,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { minidenticon } from 'minidenticons';
 
 import { goto } from '$app/navigation';
-import { DB_PATH, Routes } from '$lib/consts';
+import { DB_PATH } from '$lib/consts';
 import { auth, db } from '$lib/firebase';
 
 import { parseErrors } from '../../routes/login/login/service';

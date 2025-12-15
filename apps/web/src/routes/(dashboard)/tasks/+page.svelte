@@ -56,7 +56,7 @@
 	<!--body-->
 	<div class="flex flex-col gap-5">
 		<ul class="flex flex-col gap-3">
-			{#each orderedPeriods as period}
+			{#each orderedPeriods as period (period)}
 				<TaskListByPeriod {period} bind:tasksByPeriod />
 			{/each}
 		</ul>

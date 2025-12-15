@@ -10,6 +10,7 @@ import { buildTimedTask } from '$lib/task/build-utils';
 import { addExceptionToRecurring, addTask, deleteTask, editTask } from '$lib/task/task.repository';
 import type { TaskIn } from '$lib/task/task-in-utils';
 import { convertToTaskIn } from '$lib/task/task-in-utils';
+import { SvelteDate } from 'svelte/reactivity';
 
 export const taskIn = $state<{ value: TaskIn }>({
 	value: convertToTaskIn(buildTimedTask([buildEmptyCategory()])),
@@ -130,7 +131,7 @@ export function duplicateTask(task: Task, userId: string) {
 
 	if (isTimed(task)) {
 		// Combine date and time into one Date object
-		const fullStart = parse(`${task.date} ${task.startTime}`, `${DATE} ${TIME}`, new Date());
+		const fullStart = parse(`${task.date} ${task.startTime}`, `${DATE} ${TIME}`, new SvelteDate());
 		const newDateTime = addMinutes(fullStart, convertTimeToMinutes(halfDuration));
 
 		const newDate = formatDate(newDateTime);

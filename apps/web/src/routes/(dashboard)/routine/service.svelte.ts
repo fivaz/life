@@ -2,6 +2,7 @@ import { formatDate } from '@life/shared/date';
 import { addDays, startOfWeek } from 'date-fns';
 
 import type { Routine } from '$lib/routine/routine.model';
+import { SvelteDate } from 'svelte/reactivity';
 
 export const emptyRoutineMap: Record<Routine['time'], Routine[]> = {
 	morning: [],
@@ -26,7 +27,7 @@ export const weekChangeDuration = 800;
 
 let _selectedDate = $state<Date>(new Date());
 
-export const previousDate = $state<{ value: Date }>({ value: new Date() });
+export const previousDate = $state<{ value: Date }>({ value: new SvelteDate() });
 
 export const selectedDate = {
 	get value() {

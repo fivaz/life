@@ -9,6 +9,7 @@ import { fetchItemsCore } from '$lib/repository.svelte';
 import { taskSchema } from '$lib/task/task.model';
 import { fetchTasks } from '$lib/task/task.repository';
 import { groupBy } from '$lib/utils';
+import { SvelteDate, SvelteMap } from 'svelte/reactivity';
 
 type TaskMap = {
 	recurring: Task[];
@@ -37,7 +38,7 @@ function populateTaskMap(tasks: Task[]): void {
 }
 
 export function getTaskDateConstrain(): QueryConstraint[] {
-	const currentWeekStart = startOfWeek(new Date());
+	const currentWeekStart = startOfWeek(new SvelteDate());
 	const previousWeekStart = addDays(currentWeekStart, -7);
 	const nextWeekStart = addDays(currentWeekStart, 7);
 
@@ -60,7 +61,9 @@ export function convertTaskMapToList(taskMap: TaskMap): Task[] {
 	const tasks = [...recurringTasks, ...uniqueTasks];
 
 	// remove duplicates
-	return Array.from(tasks.reduce((map, task) => map.set(task.id, task), new Map()).values());
+	return Array.from(
+		tasks.reduce((map, task) => map.set(task.id, task), new SvelteMap<string, Task>()).values(),
+	);
 }
 
 export function getWeekTasks(date: Date): void {
