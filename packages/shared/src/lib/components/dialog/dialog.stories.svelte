@@ -1,11 +1,12 @@
 <script lang="ts" module>
-	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ComponentProps } from 'svelte';
 
 	import Dialog from './Dialog.svelte';
 
 	const { Story } = defineMeta({
 		component: Dialog,
+		render: template,
 		args: {
 			cancelText: 'Cancel',
 			confirmText: 'Confirm',
@@ -20,10 +21,6 @@
 			},
 		},
 	});
-</script>
-
-<script lang="ts">
-	setTemplate(template as any);
 </script>
 
 {#snippet template(args: ComponentProps<typeof Dialog>)}

@@ -1,6 +1,7 @@
 <script lang="ts" module>
 	import { Button } from '@life/shared';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
+	import type { ComponentProps } from 'svelte';
 
 	import DropDownItem from './drop-down-item/DropDownItem.svelte';
 	import DropDown from './DropDown.svelte';
@@ -9,9 +10,11 @@
 		component: DropDown,
 		render: template,
 	});
+
+	type Args = ComponentProps<typeof DropDown>;
 </script>
 
-{#snippet template(args: any)}
+{#snippet template({ children, ...args }: Args)}
 	<DropDown {...args}>
 		{#snippet button()}
 			<Button>Button</Button>

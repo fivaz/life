@@ -1,20 +1,19 @@
 <script lang="ts" module>
-	import type { Args } from '@storybook/addon-svelte-csf';
-	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+	import { type ComponentProps } from 'svelte';
 
 	import { Dialog, dialog } from '../../../../../dist/index.js';
 	import ConfirmButton from './ConfirmButton.svelte';
 
 	const { Story } = defineMeta({
 		component: ConfirmButton,
+		render: template,
 	});
+
+	type Args = ComponentProps<typeof ConfirmButton>;
 </script>
 
-<script lang="ts">
-	setTemplate(template);
-</script>
-
-{#snippet template(args: Args<typeof Story>)}
+{#snippet template({ children, ...args }: Args)}
 	<Dialog
 		cancelText={dialog.value.cancelText}
 		confirmText={dialog.value.confirmText}

@@ -1,7 +1,8 @@
 import '../src/app.css';
 
 import { withThemeByClassName } from '@storybook/addon-themes';
-import type { Preview } from '@storybook/svelte';
+import type { Preview } from '@storybook/sveltekit';
+import { fn } from 'storybook/test';
 
 const preview: Preview = {
 	parameters: {
@@ -23,7 +24,7 @@ const preview: Preview = {
 		}),
 	],
 	args: {
-		close: () => console.log('closed'),
+		close: fn(),
 	},
 	tags: ['autodocs'],
 };

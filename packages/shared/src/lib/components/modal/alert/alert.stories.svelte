@@ -1,11 +1,12 @@
 <script lang="ts" module>
-	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ComponentProps, Snippet } from 'svelte';
 
 	import Alert from './Alert.svelte';
 
 	const { Story } = defineMeta({
 		component: Alert,
+		render: template,
 		argTypes: {
 			children: { control: 'text' },
 		},
@@ -19,11 +20,6 @@
 	const textAsSnippet = (text: string) => text as unknown as Snippet;
 </script>
 
-<script lang="ts">
-	setTemplate(template as any);
-</script>
-
-<!--TODO check their solution for this-->
 {#snippet template({ children, ...args }: ComponentProps<typeof Alert>)}
 	<Alert {...args}>{children}</Alert>
 {/snippet}

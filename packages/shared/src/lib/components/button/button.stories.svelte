@@ -1,41 +1,16 @@
 <script lang="ts" module>
 	import Trash from '@lucide/svelte/icons/trash';
-	import type { Args } from '@storybook/addon-svelte-csf';
-	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
-	import type { Component, ComponentProps, SvelteComponent } from 'svelte';
-
-	export type IncreaseArgs<
-		ComponentType extends SvelteComponent | Component<any, any>,
-		AdditionalArgs,
-	> = Component<AdditionalArgs & ComponentProps<ComponentType>>;
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+	import type { ComponentProps } from 'svelte';
 
 	import Button from './Button.svelte';
 
-	const { Story } = defineMeta<IncreaseArgs<typeof Button, { isOnlyIcon: boolean }>>({
+	const { Story } = defineMeta({
 		component: Button,
-		argTypes: {
-			isOnlyIcon: {
-				control: { type: 'boolean' },
-			},
-		},
-		args: {
-			isOnlyIcon: true,
-			onclick: () => console.log('clicked'),
-		},
 	});
-</script>
 
-<script lang="ts">
-	setTemplate(template);
+	type Args = ComponentProps<typeof Button>;
 </script>
-
-{#snippet template(args: Args<typeof Story>)}
-	{#if args.isOnlyIcon}
-		<Button {...args}><Trash class="size-4" /></Button>
-	{:else}
-		<Button {...args}><Trash class="size-4" />Button</Button>
-	{/if}
-{/snippet}
 
 <Story
 	name="Primary"
@@ -43,9 +18,12 @@
 		color: 'indigo',
 		disabled: false,
 		isLoading: false,
-		isOnlyIcon: false,
 	}}
-/>
+>
+	{#snippet template({ children, ...args }: Args)}
+		<Button {...args}><Trash class="size-4" /></Button>
+	{/snippet}
+</Story>
 
 <Story
 	name="With only Icon"
@@ -53,6 +31,9 @@
 		color: 'indigo',
 		disabled: false,
 		isLoading: false,
-		isOnlyIcon: true,
 	}}
-/>
+>
+	{#snippet template({ children, ...args }: Args)}
+		<Button {...args}><Trash class="size-4" />Button</Button>
+	{/snippet}
+</Story>
