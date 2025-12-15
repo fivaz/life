@@ -21,6 +21,7 @@ const preview: Preview = {
 				dark: 'dark',
 			},
 			defaultTheme: 'light',
+			target: 'html',
 		}),
 	],
 	args: {
