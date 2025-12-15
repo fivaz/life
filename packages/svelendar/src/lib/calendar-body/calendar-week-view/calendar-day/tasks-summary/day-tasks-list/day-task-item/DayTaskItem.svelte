@@ -5,6 +5,7 @@
 	import type { Task } from '@life/shared/task';
 	import { isUntimed } from '@life/shared/task';
 	import { clsx } from 'clsx';
+	// TODO update to use @lucide/svelte
 	import { CalendarClockIcon, CalendarDaysIcon } from 'lucide-svelte';
 
 	import { getEditTask } from '$lib/context.utils.js';

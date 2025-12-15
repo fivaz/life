@@ -15,9 +15,11 @@
 			confirmText: 'Confirm',
 		},
 	});
+
+	type Args = ComponentProps<typeof MobileDialog>;
 </script>
 
-{#snippet template(args: ComponentProps<typeof MobileDialog>)}
+{#snippet template(args: Args)}
 	<div class="h-screen">
 		<MobileDialog {...args} />
 	</div>

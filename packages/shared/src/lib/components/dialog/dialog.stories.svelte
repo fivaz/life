@@ -21,9 +21,11 @@
 			},
 		},
 	});
+
+	type Args = ComponentProps<typeof Dialog>;
 </script>
 
-{#snippet template(args: ComponentProps<typeof Dialog>)}
+{#snippet template(args: Args)}
 	<div>
 		<Dialog {...args} />
 	</div>

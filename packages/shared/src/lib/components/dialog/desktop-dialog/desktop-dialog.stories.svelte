@@ -12,9 +12,11 @@
 			confirmText: 'Confirm',
 		},
 	});
+
+	type Args = ComponentProps<typeof DesktopDialog>;
 </script>
 
-{#snippet template(args: ComponentProps<typeof DesktopDialog>)}
+{#snippet template(args: Args)}
 	<DesktopDialog {...args} />
 {/snippet}
 

@@ -18,9 +18,11 @@
 
 	// TODO check what is their solution for this
 	const textAsSnippet = (text: string) => text as unknown as Snippet;
+
+	type Args = ComponentProps<typeof Alert>;
 </script>
 
-{#snippet template({ children, ...args }: ComponentProps<typeof Alert>)}
+{#snippet template({ children, ...args }: Args)}
 	<Alert {...args}>{children}</Alert>
 {/snippet}
 
