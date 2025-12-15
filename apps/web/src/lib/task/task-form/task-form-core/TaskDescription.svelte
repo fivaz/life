@@ -1,11 +1,8 @@
 <script lang="ts">
 	import { Button } from '@life/shared';
 	import { Editor } from '@tiptap/core';
-	// eslint-disable-next-line import/no-named-as-default
 	import TaskItem from '@tiptap/extension-task-item';
-	// eslint-disable-next-line import/no-named-as-default
 	import TaskList from '@tiptap/extension-task-list';
-	// eslint-disable-next-line import/no-named-as-default
 	import StarterKit from '@tiptap/starter-kit';
 	import { BoldIcon, ItalicIcon, ListTodoIcon } from 'lucide-svelte';
 	import { onDestroy, onMount } from 'svelte';

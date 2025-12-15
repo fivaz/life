@@ -1,27 +1,32 @@
 // For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
-// import storybook from 'eslint-plugin-storybook';
-
-import prettier from 'eslint-config-prettier';
 import { fileURLToPath } from 'node:url';
+
 import { includeIgnoreFile } from '@eslint/compat';
 import js from '@eslint/js';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import prettier from 'eslint-config-prettier';
+import turboConfig from 'eslint-config-turbo/flat';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import storybook from 'eslint-plugin-storybook';
 import svelte from 'eslint-plugin-svelte';
-import { defineConfig } from 'eslint/config';
+import unusedImports from 'eslint-plugin-unused-imports';
 import globals from 'globals';
 import ts from 'typescript-eslint';
+
 import svelteConfig from './svelte.config.js';
-import turboConfig from 'eslint-config-turbo/flat';
 
 const gitignorePath = fileURLToPath(new URL('./.gitignore', import.meta.url));
 
 export default defineConfig(
 	includeIgnoreFile(gitignorePath),
+	globalIgnores(['!.storybook'], 'Include Storybook Directory'),
 	js.configs.recommended,
 	...ts.configs.recommended,
 	...svelte.configs.recommended,
-	...turboConfig,
 	prettier,
 	...svelte.configs.prettier,
+	...turboConfig,
+	...storybook.configs['flat/recommended'],
 	{
 		languageOptions: { globals: { ...globals.browser, ...globals.node } },
 
@@ -44,9 +49,26 @@ export default defineConfig(
 		},
 	},
 	{
+		plugins: {
+			'unused-imports': unusedImports,
+			'simple-import-sort': simpleImportSort,
+		},
+	},
+	{
+		rules: {
+			'simple-import-sort/imports': 'error',
+			'simple-import-sort/exports': 'error',
+		},
+	},
+	{
 		rules: {
 			'@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
-			// 'unused-imports/no-unused-imports': 'error',
+			'unused-imports/no-unused-imports': 'error',
+		},
+	},
+	{
+		rules: {
+			'svelte/sort-attributes': 'warn',
 		},
 	},
 	{

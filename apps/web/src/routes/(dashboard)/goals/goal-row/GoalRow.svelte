@@ -25,7 +25,6 @@
 	import GoalFormButtonButton from '../goal-form/GoalFormButton.svelte';
 	import type { HierarchicalGoal } from '../goals-by-parent/service';
 	import GoalTasks from './goal-tasks/GoalTasks.svelte';
-	// eslint-disable-next-line import/no-self-import
 	import GoalRow from './GoalRow.svelte';
 
 	interface Props {
