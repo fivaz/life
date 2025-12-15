@@ -3,6 +3,7 @@ import { convertTimeToMinutes, DATE, formatDate, formatTime, TIME } from '@life/
 import type { Task } from '@life/shared/task';
 import { getHalfTime, isRecurring, isTimed } from '@life/shared/task';
 import { addMinutes, parse } from 'date-fns';
+import { SvelteDate } from 'svelte/reactivity';
 
 import { buildEmptyCategory } from '$lib/category/category.model';
 import type { Goal } from '$lib/goal/goal.model';
@@ -10,7 +11,6 @@ import { buildTimedTask } from '$lib/task/build-utils';
 import { addExceptionToRecurring, addTask, deleteTask, editTask } from '$lib/task/task.repository';
 import type { TaskIn } from '$lib/task/task-in-utils';
 import { convertToTaskIn } from '$lib/task/task-in-utils';
-import { SvelteDate } from 'svelte/reactivity';
 
 export const taskIn = $state<{ value: TaskIn }>({
 	value: convertToTaskIn(buildTimedTask([buildEmptyCategory()])),

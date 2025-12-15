@@ -3,13 +3,13 @@ import type { Task } from '@life/shared/task';
 import { addDays, endOfWeek, startOfWeek } from 'date-fns';
 import type { QueryConstraint } from 'firebase/firestore';
 import { where } from 'firebase/firestore';
+import { SvelteDate, SvelteMap } from 'svelte/reactivity';
 
 import { DB_PATH } from '$lib/consts';
 import { fetchItemsCore } from '$lib/repository.svelte';
 import { taskSchema } from '$lib/task/task.model';
 import { fetchTasks } from '$lib/task/task.repository';
 import { groupBy } from '$lib/utils';
-import { SvelteDate, SvelteMap } from 'svelte/reactivity';
 
 type TaskMap = {
 	recurring: Task[];

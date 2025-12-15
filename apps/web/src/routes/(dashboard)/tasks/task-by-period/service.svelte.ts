@@ -1,12 +1,13 @@
 import { formatDate, parseDate } from '@life/shared/date';
 import { addDays, addWeeks, endOfWeek } from 'date-fns';
+import { SvelteDate } from 'svelte/reactivity';
 
 import { categories } from '$lib/category/category.svelte';
 import { buildUntimedTask, buildUntimedTaskWithDateSet } from '$lib/task/build-utils';
 import { editTask } from '$lib/task/task.repository';
 import { currentUser } from '$lib/user/user.utils.svelte';
+
 import type { TaskLists } from '../service';
-import { SvelteDate } from 'svelte/reactivity';
 
 const getDateStrategies: Record<string, (currentDate: string) => string> = {
 	someday: () => '',

@@ -1,8 +1,8 @@
 import { formatDate } from '@life/shared/date';
 import { addDays, startOfWeek } from 'date-fns';
+import { SvelteDate } from 'svelte/reactivity';
 
 import type { Routine } from '$lib/routine/routine.model';
-import { SvelteDate } from 'svelte/reactivity';
 
 export const emptyRoutineMap: Record<Routine['time'], Routine[]> = {
 	morning: [],
