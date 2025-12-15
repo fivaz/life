@@ -10,25 +10,24 @@
 		shortWithoutDescription,
 		shortWithSubTasks,
 	} from '@life/shared/task';
-	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ComponentProps } from 'svelte';
 
 	import EventPanel from './EventPanel.svelte';
 
 	const { Story } = defineMeta({
 		component: EventPanel,
+		render: template,
 		args: {
 			class: 'static!',
 			targetDate: formatDate(new Date()),
 		},
 	});
+
+	type Args = ComponentProps<typeof EventPanel>;
 </script>
 
-<script lang="ts">
-	setTemplate(template as any);
-</script>
-
-{#snippet template({ ...args }: ComponentProps<typeof EventPanel>)}
+{#snippet template({ ...args }: Args)}
 	<div class="relative! w-52">
 		<EventPanel {...args} />
 	</div>

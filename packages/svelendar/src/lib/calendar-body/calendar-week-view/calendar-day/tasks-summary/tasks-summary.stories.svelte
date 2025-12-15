@@ -1,23 +1,22 @@
 <script lang="ts" module>
 	import { birthdayToDo, toDos, workToDo } from '@life/shared/task';
-	import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ComponentProps } from 'svelte';
 
 	import TasksSummary from './TasksSummary.svelte';
 
 	const { Story } = defineMeta({
 		component: TasksSummary,
+		render: template,
 		args: {
 			date: new Date(),
 		},
 	});
+
+	type Args = ComponentProps<typeof TasksSummary>;
 </script>
 
-<script lang="ts">
-	setTemplate(template as any);
-</script>
-
-{#snippet template({ ...args }: ComponentProps<typeof TasksSummary>)}
+{#snippet template({ ...args }: Args)}
 	<div class="w-24">
 		<TasksSummary {...args} />
 	</div>
