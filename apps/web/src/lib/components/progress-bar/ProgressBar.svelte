@@ -1,40 +1,20 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
-	import { differenceInHours, parseISO, startOfDay } from 'date-fns';
+	import type { Task } from '@life/shared/task';
+
+	import { calculateActual, calculateExpected } from '$lib/components/progress-bar/service';
 
 	interface Props {
-		maxValue: number;
-		value: number;
 		startDate: string;
 		deadline: string;
 		class?: string;
+		tasks: Task[];
 	}
 
-	let { maxValue, value, startDate, deadline, class: klass = '' }: Props = $props();
+	let { tasks, startDate, deadline, class: klass = '' }: Props = $props();
 
-	let actualPercentage = $derived(getActualPercentage());
-
-	let expectedPercentage = $derived(getExpectedPercentage());
-
-	function getActualPercentage() {
-		return ((value / maxValue) * 100).toFixed(0);
-	}
-
-	function getExpectedPercentage() {
-		const start = startOfDay(parseISO(startDate));
-		const end = startOfDay(parseISO(deadline));
-		const now = new Date();
-
-		const totalHours = differenceInHours(end, start);
-		const passedHours = differenceInHours(now, start);
-
-		if (totalHours <= 0) return 0;
-
-		const raw = (passedHours / totalHours) * 100;
-		const clamped = Math.max(0, Math.min(raw, 100));
-
-		return clamped.toFixed(0);
-	}
+	let actualPercentage = $derived(calculateActual(tasks));
+	let expectedPercentage = $derived(calculateExpected(startDate, deadline));
 </script>
 
 <div class="flex w-full items-center gap-2">
