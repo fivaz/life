@@ -19,7 +19,6 @@
 	import { buildTimedTask } from '$lib/task/build-utils';
 	import { fetchGoalTasks } from '$lib/task/task.repository';
 	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
-	import { getCompletedTasks } from '$lib/task/task-utils';
 	import { DATE_FR } from '$lib/utils.svelte';
 
 	import GoalFormButtonButton from '../goal-form/GoalFormButton.svelte';

@@ -1,6 +1,5 @@
 import type { Task } from '@life/shared/task';
-import { differenceInHours, parseISO, startOfDay } from 'date-fns';
-import { SvelteMap, SvelteSet } from 'svelte/reactivity';
+import { parseISO, startOfDay } from 'date-fns';
 
 /**
  * Calculates completion based on unique tasks.
