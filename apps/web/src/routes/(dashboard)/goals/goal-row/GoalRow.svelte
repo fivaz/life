@@ -3,6 +3,7 @@
 	import { parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { sortTasks } from '@life/shared/task';
+	import { getTotalDuration } from '@life/shared/task';
 	import { format } from 'date-fns';
 	import {
 		CalendarPlusIcon,
@@ -54,6 +55,8 @@
 	$effect(() => {
 		fetchGoalTasks(goal.id, (rawTasks) => (tasks = sortTasks(rawTasks)));
 	});
+
+	let doneDuration = $derived(getTotalDuration(tasks.filter((t) => t.isDone)));
 </script>
 
 <div
@@ -61,8 +64,15 @@
 >
 	<div class="flex items-center justify-between">
 		<div class="flex items-center gap-2 truncate">
-			<IconRender name={goal.icon} class="size-5 text-indigo-600" />
-			<LText class="truncate {goal.isDone ? 'line-through' : ''}">{goal.name}</LText>
+			<IconRender name={goal.icon} class="size-6 text-indigo-600" />
+			<div class="flex flex-col">
+				<LText class="truncate {goal.isDone ? 'line-through' : ''}" tag="span">{goal.name}</LText>
+				{#if tasks.length && doneDuration !== '00:00'}
+					<LText class="text-xs" level="middle" tag="span">
+						elapsed time: {doneDuration}
+					</LText>
+				{/if}
+			</div>
 		</div>
 
 		<div class="flex items-center justify-center gap-2">
