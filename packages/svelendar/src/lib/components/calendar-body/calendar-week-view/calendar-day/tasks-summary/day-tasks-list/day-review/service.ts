@@ -1,6 +1,15 @@
 import { convertTimeToMinutes } from '@life/shared/date';
 import type { Task } from '@life/shared/task';
-import { ArcElement, type ChartConfiguration,Legend, PieController, Tooltip } from 'chart.js';
+import { ArcElement, type ChartConfiguration, Legend, PieController, Tooltip } from 'chart.js';
+import { differenceInMinutes, isPast, isToday, startOfDay } from 'date-fns';
+
+export const chartPlugins = [PieController, ArcElement, Tooltip, Legend];
+
+export interface ChartDataResult {
+	labels: string[];
+	data: number[];
+	backgroundColor: string[];
+}
 
 export const colorHexMap: Record<string, string> = {
 	red: '#ef4444',
@@ -17,13 +26,7 @@ export const colorHexMap: Record<string, string> = {
 	purple: '#a855f7',
 };
 
-export interface ChartDataResult {
-	labels: string[];
-	data: number[];
-	backgroundColor: string[];
-}
-
-export function getProcessedChartData(tasks: Task[]): ChartDataResult {
+export function getProcessedChartData(tasks: Task[], viewDate: Date): ChartDataResult {
 	const categories: Record<string, { minutes: number; color: string; name: string }> = {};
 	let totalAllocated = 0;
 
@@ -35,7 +38,7 @@ export function getProcessedChartData(tasks: Task[]): ChartDataResult {
 		if (!categories[id]) {
 			categories[id] = {
 				minutes: 0,
-				color: colorHexMap[cat?.color] || '#94a3b8',
+				color: colorHexMap[cat?.color || ''] || '#94a3b8',
 				name: cat?.name || 'Uncategorized',
 			};
 		}
@@ -47,24 +50,51 @@ export function getProcessedChartData(tasks: Task[]): ChartDataResult {
 	const data = Object.values(categories).map((c) => c.minutes);
 	const backgroundColor = Object.values(categories).map((c) => c.color);
 
-	if (totalAllocated < 1440) {
-		labels.push('Remaining');
-		data.push(1440 - totalAllocated);
-		backgroundColor.push('#e5e7eb');
+	const totalDayMinutes = 1440;
+	const unallocatedTotal = Math.max(0, totalDayMinutes - totalAllocated);
+
+	if (unallocatedTotal > 0) {
+		if (isToday(viewDate)) {
+			const minutesPassedToday = Math.min(
+				totalDayMinutes,
+				differenceInMinutes(new Date(), startOfDay(viewDate)),
+			);
+			const elapsed = Math.max(0, minutesPassedToday - totalAllocated);
+			const remaining = Math.max(0, unallocatedTotal - elapsed);
+
+			if (elapsed > 0) {
+				labels.push('Elapsed');
+				data.push(elapsed);
+				backgroundColor.push('#cbd5e1'); // slate-300
+			}
+			if (remaining > 0) {
+				labels.push('Remaining');
+				data.push(remaining);
+				backgroundColor.push('#e5e7eb'); // gray-200
+			}
+		} else if (isPast(viewDate)) {
+			labels.push('Unused Time');
+			data.push(unallocatedTotal);
+			backgroundColor.push('#94a3b8'); // slate-400
+		} else {
+			labels.push('Remaining');
+			data.push(unallocatedTotal);
+			backgroundColor.push('#e5e7eb'); // gray-200
+		}
 	}
 
 	return { labels, data, backgroundColor };
 }
 
-export function createChartConfig(chartData: ChartDataResult): ChartConfiguration<'pie'> {
+export function getChartConfig(processed: ChartDataResult): ChartConfiguration<'pie'> {
 	return {
 		type: 'pie',
 		data: {
-			labels: chartData.labels,
+			labels: processed.labels,
 			datasets: [
 				{
-					data: chartData.data,
-					backgroundColor: chartData.backgroundColor,
+					data: processed.data,
+					backgroundColor: processed.backgroundColor,
 					borderWidth: 0,
 				},
 			],
@@ -72,11 +102,7 @@ export function createChartConfig(chartData: ChartDataResult): ChartConfiguratio
 		options: {
 			responsive: true,
 			maintainAspectRatio: false,
-			plugins: {
-				legend: { display: false },
-			},
+			plugins: { legend: { display: false } },
 		},
 	};
 }
-
-export const chartPlugins = [PieController, ArcElement, Tooltip, Legend];
