@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { Task } from '@life/shared/task';
 
-	import DayReview from '$lib/components/calendar-body/calendar-week-view/calendar-day/tasks-summary/day-tasks-list/day-review/DayReview.svelte';
 	import * as Tabs from '$lib/components/ui/tabs';
 
+	import DayReview from './day-review/DayReview.svelte';
 	import DayTaskItem from './day-task-item/DayTaskItem.svelte';
 
 	interface Props {
@@ -34,13 +34,13 @@
 		<Tabs.Root class="w-full" bind:value={activeTab}>
 			<Tabs.List class="grid w-full grid-cols-2 bg-gray-200/50 p-1 dark:bg-gray-800/50">
 				<Tabs.Trigger
-					class="rounded-md px-3 py-1.5 transition-all data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=active]:shadow-sm"
+					class="rounded-md px-3 py-1.5 transition-all data-[state=active]:bg-indigo-500 data-[state=active]:text-white data-[state=active]:shadow-sm"
 					value="plan"
 				>
 					Plan
 				</Tabs.Trigger>
 				<Tabs.Trigger
-					class="rounded-md px-3 py-1.5 transition-all data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=active]:shadow-sm"
+					class="rounded-md px-3 py-1.5 transition-all data-[state=active]:bg-indigo-500 data-[state=active]:text-white data-[state=active]:shadow-sm"
 					value="currently"
 				>
 					Currently

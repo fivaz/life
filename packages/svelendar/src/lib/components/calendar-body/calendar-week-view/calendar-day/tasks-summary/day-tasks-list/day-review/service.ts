@@ -26,10 +26,16 @@ export const colorHexMap: Record<string, string> = {
 	purple: '#a855f7',
 };
 
+const COLORS = {
+	past: '#64748b', // slate-500 (Used for Elapsed and Unused Time)
+	available: '#e2e8f0', // slate-200 (Used for Remaining/Future Time)
+};
+
 export function getProcessedChartData(tasks: Task[], viewDate: Date): ChartDataResult {
 	const categories: Record<string, { minutes: number; color: string; name: string }> = {};
 	let totalAllocated = 0;
 
+	// 1. Process existing tasks
 	tasks.forEach((task) => {
 		const cat = task.category;
 		const id = cat?.id || 'none';
@@ -50,6 +56,7 @@ export function getProcessedChartData(tasks: Task[], viewDate: Date): ChartDataR
 	const data = Object.values(categories).map((c) => c.minutes);
 	const backgroundColor = Object.values(categories).map((c) => c.color);
 
+	// 2. Process the "Gaps" (Elapsed vs Remaining)
 	const totalDayMinutes = 1440;
 	const unallocatedTotal = Math.max(0, totalDayMinutes - totalAllocated);
 
@@ -59,27 +66,31 @@ export function getProcessedChartData(tasks: Task[], viewDate: Date): ChartDataR
 				totalDayMinutes,
 				differenceInMinutes(new Date(), startOfDay(viewDate)),
 			);
+
+			// Calculate how much of the unallocated time has already passed
 			const elapsed = Math.max(0, minutesPassedToday - totalAllocated);
 			const remaining = Math.max(0, unallocatedTotal - elapsed);
 
 			if (elapsed > 0) {
 				labels.push('Elapsed');
 				data.push(elapsed);
-				backgroundColor.push('#cbd5e1'); // slate-300
+				backgroundColor.push(COLORS.past);
 			}
 			if (remaining > 0) {
 				labels.push('Remaining');
 				data.push(remaining);
-				backgroundColor.push('#e5e7eb'); // gray-200
+				backgroundColor.push(COLORS.available);
 			}
 		} else if (isPast(viewDate)) {
+			// For past days, all unallocated time is "Unused" (same color as Elapsed)
 			labels.push('Unused Time');
 			data.push(unallocatedTotal);
-			backgroundColor.push('#94a3b8'); // slate-400
+			backgroundColor.push(COLORS.past);
 		} else {
+			// For future days, all unallocated time is "Remaining"
 			labels.push('Remaining');
 			data.push(unallocatedTotal);
-			backgroundColor.push('#e5e7eb'); // gray-200
+			backgroundColor.push(COLORS.available);
 		}
 	}
 
