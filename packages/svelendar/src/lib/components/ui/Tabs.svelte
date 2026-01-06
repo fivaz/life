@@ -26,7 +26,7 @@
 
 <div class="flex w-full justify-center">
 	<div class="inline-flex items-center rounded-md bg-gray-100 p-1 dark:bg-gray-800">
-		{#each options as opt, i}
+		{#each options as opt, i (opt + i)}
 			<button
 				class="rounded-md px-3 py-1 text-sm font-medium transition"
 				class:selected={selected === opt}

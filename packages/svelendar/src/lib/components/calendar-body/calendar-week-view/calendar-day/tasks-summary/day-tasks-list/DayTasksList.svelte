@@ -3,6 +3,7 @@
 	import type { Task } from '@life/shared/task';
 	import { getTotalDuration } from '@life/shared/task';
 
+	import DayReview from '$lib/components/calendar-body/calendar-week-view/calendar-day/tasks-summary/day-tasks-list/day-review/DayReview.svelte';
 	import * as Tabs from '$lib/components/ui/tabs';
 
 	import DayTaskItem from './day-task-item/DayTaskItem.svelte';
@@ -16,10 +17,14 @@
 	let { tasks, close, date }: Props = $props();
 
 	let uncompletedTasks = $derived(tasks.filter((toDo) => !toDo.isDone));
+	let doneTasks = $derived(tasks.filter((toDo) => toDo.isDone));
+
 	let uncompletedDuration = $derived(getTotalDuration(uncompletedTasks));
-	let doneDuration = $derived(getTotalDuration(tasks.filter((toDo) => toDo.isDone)));
+	let doneDuration = $derived(getTotalDuration(doneTasks));
 
 	let activeTab = $state('plan');
+
+	let reviewTasks = $derived(activeTab === 'plan' ? tasks : doneTasks);
 
 	$effect(() => {
 		if (tasks.length === 0) {
@@ -48,6 +53,10 @@
 				</Tabs.Trigger>
 			</Tabs.List>
 		</Tabs.Root>
+
+		<div class="mt-4">
+			<DayReview tasks={reviewTasks} />
+		</div>
 
 		<div class="mt-4 flex justify-between font-semibold">
 			<LText><span class="text-green-500">{doneDuration}</span> done</LText>
