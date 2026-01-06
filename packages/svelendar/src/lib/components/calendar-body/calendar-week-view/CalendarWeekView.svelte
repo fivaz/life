@@ -2,8 +2,8 @@
 	import { buildDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 
-	import { getCreateTask } from '$lib/context.utils';
-	import { selectedDate, weekDates } from '$lib/service.svelte';
+	import { getCreateTask } from '$lib/components/context.utils';
+	import { selectedDate, weekDates } from '$lib/components/service.svelte.js';
 
 	import CalendarDay from './calendar-day/CalendarDay.svelte';
 

@@ -2,9 +2,9 @@
 	import { convertMinutesToTime, floorRound15, formatDate, formatTime } from '@life/shared/date';
 	import { clsx } from 'clsx';
 
-	import { currentDate } from '$lib/service.svelte.js';
+	import { currentDate } from '$lib/components/service.svelte.js';
 
-	import { GRID_CELL_HEIGHT, GRID_CLASS, isSomethingDragging } from '../service.svelte';
+	import { GRID_CELL_HEIGHT, GRID_CLASS, isSomethingDragging } from '../service.svelte.js';
 
 	interface Props {
 		class?: string;

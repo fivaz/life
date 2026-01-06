@@ -8,7 +8,7 @@
 	// TODO update to use @lucide/svelte
 	import { CalendarClockIcon, CalendarDaysIcon } from 'lucide-svelte';
 
-	import { getEditTask } from '$lib/context.utils.js';
+	import { getEditTask } from '$lib/components/context.utils.js';
 
 	interface Props {
 		task: Task;

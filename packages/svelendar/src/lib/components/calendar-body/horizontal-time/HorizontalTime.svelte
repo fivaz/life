@@ -5,7 +5,7 @@
 	import {
 		GRID_CELL_HEIGHT,
 		SUMMARY_GRID_CELL_HEIGHT,
-	} from '../calendar-week-view/calendar-day/calendar-grid/service.svelte';
+	} from '../calendar-week-view/calendar-day/calendar-grid/service.svelte.js';
 
 	interface Props {
 		children?: Snippet;

@@ -3,7 +3,7 @@
 	import { clsx } from 'clsx';
 	import { format, isSameDay } from 'date-fns';
 
-	import { currentDate, selectedDate, weekDates } from '$lib/service.svelte';
+	import { currentDate, selectedDate, weekDates } from '$lib/components/service.svelte.js';
 </script>
 
 {#snippet weekNumber(date: Date, selectedDate: Date)}

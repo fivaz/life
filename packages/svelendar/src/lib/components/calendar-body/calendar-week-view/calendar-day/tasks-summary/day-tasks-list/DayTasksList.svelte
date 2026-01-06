@@ -3,7 +3,7 @@
 	import type { Task } from '@life/shared/task';
 	import { getTotalDuration } from '@life/shared/task';
 
-	import * as Tabs from '$lib/components/ui/tabs/index.js';
+	import * as Tabs from '$lib/components/ui/tabs';
 
 	import DayTaskItem from './day-task-item/DayTaskItem.svelte';
 

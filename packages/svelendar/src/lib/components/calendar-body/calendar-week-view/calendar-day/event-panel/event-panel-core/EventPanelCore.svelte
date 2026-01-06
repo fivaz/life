@@ -8,7 +8,7 @@
 	import { format, parse } from 'date-fns';
 	import DOMPurify from 'dompurify';
 
-	import { getToggleCompletion } from '$lib/context.utils.js';
+	import { getToggleCompletion } from '$lib/components/context.utils.js';
 
 	import { GRID_CELL_TIME } from '../../calendar-grid/service.svelte.js';
 

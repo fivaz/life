@@ -2,8 +2,9 @@
 	import type { Task } from '@life/shared/task';
 	import { sortTasks } from '@life/shared/task';
 
-	import CalendarBody from './calendar-body/CalendarBody.svelte';
-	import CalendarHeader from './calendar-header/CalendarHeader.svelte';
+	import CalendarBody from '$lib/components/calendar-body/CalendarBody.svelte';
+	import CalendarHeader from '$lib/components/calendar-header/CalendarHeader.svelte';
+
 	import type {
 		ChangeDateFn,
 		CreateTaskFn,

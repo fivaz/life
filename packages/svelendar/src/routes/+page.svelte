@@ -3,7 +3,7 @@
 
 	import { tasks } from '@life/shared/task';
 
-	import Calendar from '$lib/Calendar.svelte';
+	import Calendar from '$lib/components/Calendar.svelte';
 </script>
 
 <div style="height: 100vh">

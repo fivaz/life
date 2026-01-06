@@ -4,7 +4,7 @@
 	import interact from 'interactjs';
 	import { onMount } from 'svelte';
 
-	import { getEditTask, getMoveEvent } from '$lib/context.utils.js';
+	import { getEditTask, getMoveEvent } from '$lib/components/context.utils.js';
 
 	import { GRID_CELL_HEIGHT, isSomethingDragging } from '../calendar-grid/service.svelte.js';
 	import EventPanelCore from './event-panel-core/EventPanelCore.svelte';
