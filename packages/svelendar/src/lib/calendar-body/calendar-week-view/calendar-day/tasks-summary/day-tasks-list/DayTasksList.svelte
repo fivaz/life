@@ -3,6 +3,8 @@
 	import type { Task } from '@life/shared/task';
 	import { getTotalDuration } from '@life/shared/task';
 
+	import * as Tabs from '$lib/components/ui/tabs/index.js';
+
 	import DayTaskItem from './day-task-item/DayTaskItem.svelte';
 
 	interface Props {
@@ -13,11 +15,11 @@
 
 	let { tasks, close, date }: Props = $props();
 
-	let uncompletedTasks = $derived(tasks.filter((toDo) => toDo.isDone === false));
-
+	let uncompletedTasks = $derived(tasks.filter((toDo) => !toDo.isDone));
 	let uncompletedDuration = $derived(getTotalDuration(uncompletedTasks));
+	let doneDuration = $derived(getTotalDuration(tasks.filter((toDo) => toDo.isDone)));
 
-	let doneDuration = $derived(getTotalDuration(tasks.filter((toDo) => toDo.isDone === true)));
+	let activeTab = $state('plan');
 
 	$effect(() => {
 		if (tasks.length === 0) {
@@ -27,11 +29,27 @@
 </script>
 
 <div
-	class="relative flex h-auto max-h-[90%] w-11/12 max-w-[543px] flex-col divide-y divide-gray-400 rounded-lg border-gray-400 bg-gray-50 text-sm leading-6 shadow-2xs dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-900 dark:scheme-dark"
+	class="relative flex h-auto max-h-[90%] w-11/12 max-w-135.75 flex-col divide-y divide-gray-400 rounded-lg border border-gray-400 bg-gray-50 text-sm leading-6 shadow-2xs dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-900 dark:scheme-dark"
 >
-	<div class="flex-none p-6 font-semibold">
-		<LText>Pending Tasks</LText>
-		<div class="mt-1 flex justify-between">
+	<div class="flex-none p-6">
+		<Tabs.Root class="w-full" bind:value={activeTab}>
+			<Tabs.List class="grid w-full grid-cols-2 bg-gray-200/50 p-1 dark:bg-gray-800/50">
+				<Tabs.Trigger
+					class="rounded-md px-3 py-1.5 transition-all data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=active]:shadow-sm"
+					value="plan"
+				>
+					Plan
+				</Tabs.Trigger>
+				<Tabs.Trigger
+					class="rounded-md px-3 py-1.5 transition-all data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=active]:shadow-sm"
+					value="currently"
+				>
+					Currently
+				</Tabs.Trigger>
+			</Tabs.List>
+		</Tabs.Root>
+
+		<div class="mt-4 flex justify-between font-semibold">
 			<LText><span class="text-green-500">{doneDuration}</span> done</LText>
 			{#if uncompletedTasks.length}
 				<LText><span class="text-red-500">{uncompletedDuration}</span> to complete</LText>
