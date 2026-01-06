@@ -1,4 +1,4 @@
-import { convertTimeToMinutes } from '@life/shared/date';
+import { convertMinutesToTime, convertTimeToMinutes } from '@life/shared/date';
 import type { Task } from '@life/shared/task';
 import { ArcElement, type ChartConfiguration, Legend, PieController, Tooltip } from 'chart.js';
 import { differenceInMinutes, isPast, isToday, startOfDay } from 'date-fns';
@@ -102,7 +102,25 @@ export function getChartConfig(processed: ChartDataResult): ChartConfiguration<'
 		options: {
 			responsive: true,
 			maintainAspectRatio: false,
-			plugins: { legend: { display: false } },
+			plugins: {
+				legend: { display: false },
+				tooltip: {
+					callbacks: {
+						// This function runs when you hover over a slice
+						label: function (context) {
+							const label = context.label || '';
+							const value = context.parsed; // This is the minutes from our data array
+
+							if (value !== undefined) {
+								// Use your existing converter here
+								const timeString = convertMinutesToTime(value);
+								return ` ${label}: ${timeString}`;
+							}
+							return label;
+						},
+					},
+				},
+			},
 		},
 	};
 }
