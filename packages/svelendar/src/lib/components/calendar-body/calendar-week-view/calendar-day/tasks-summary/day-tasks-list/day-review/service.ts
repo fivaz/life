@@ -11,92 +11,6 @@ export interface ChartDataResult {
 	backgroundColor: string[];
 }
 
-export const colorHexMap: Record<string, string> = {
-	red: '#ef4444',
-	orange: '#f97316',
-	pink: '#ec4899',
-	rose: '#f43f5e',
-	yellow: '#eab308',
-	lime: '#84cc16',
-	green: '#22c55e',
-	teal: '#14b8a6',
-	cyan: '#06b6d4',
-	sky: '#0ea5e9',
-	blue: '#3b82f6',
-	purple: '#a855f7',
-};
-
-const COLORS = {
-	past: '#64748b', // slate-500 (Used for Elapsed and Unused Time)
-	available: '#e2e8f0', // slate-200 (Used for Remaining/Future Time)
-};
-
-export function getProcessedChartData(tasks: Task[], viewDate: Date): ChartDataResult {
-	const categories: Record<string, { minutes: number; color: string; name: string }> = {};
-	let totalAllocated = 0;
-
-	// 1. Process existing tasks
-	tasks.forEach((task) => {
-		const cat = task.category;
-		const id = cat?.id || 'none';
-		const duration = convertTimeToMinutes(task.duration);
-
-		if (!categories[id]) {
-			categories[id] = {
-				minutes: 0,
-				color: colorHexMap[cat?.color || ''] || '#94a3b8',
-				name: cat?.name || 'Uncategorized',
-			};
-		}
-		categories[id].minutes += duration;
-		totalAllocated += duration;
-	});
-
-	const labels = Object.values(categories).map((c) => c.name);
-	const data = Object.values(categories).map((c) => c.minutes);
-	const backgroundColor = Object.values(categories).map((c) => c.color);
-
-	// 2. Process the "Gaps" (Elapsed vs Remaining)
-	const totalDayMinutes = 1440;
-	const unallocatedTotal = Math.max(0, totalDayMinutes - totalAllocated);
-
-	if (unallocatedTotal > 0) {
-		if (isToday(viewDate)) {
-			const minutesPassedToday = Math.min(
-				totalDayMinutes,
-				differenceInMinutes(new Date(), startOfDay(viewDate)),
-			);
-
-			// Calculate how much of the unallocated time has already passed
-			const elapsed = Math.max(0, minutesPassedToday - totalAllocated);
-			const remaining = Math.max(0, unallocatedTotal - elapsed);
-
-			if (elapsed > 0) {
-				labels.push('Elapsed');
-				data.push(elapsed);
-				backgroundColor.push(COLORS.past);
-			}
-			if (remaining > 0) {
-				labels.push('Remaining');
-				data.push(remaining);
-				backgroundColor.push(COLORS.available);
-			}
-		} else if (isPast(viewDate)) {
-			// For past days, all unallocated time is "Unused" (same color as Elapsed)
-			labels.push('Unused Time');
-			data.push(unallocatedTotal);
-			backgroundColor.push(COLORS.past);
-		} else {
-			// For future days, all unallocated time is "Remaining"
-			labels.push('Remaining');
-			data.push(unallocatedTotal);
-			backgroundColor.push(COLORS.available);
-		}
-	}
-
-	return { labels, data, backgroundColor };
-}
-
 export function getChartConfig(processed: ChartDataResult): ChartConfiguration<'pie'> {
 	return {
 		type: 'pie',
@@ -134,4 +48,141 @@ export function getChartConfig(processed: ChartDataResult): ChartConfiguration<'
 			},
 		},
 	};
+}
+
+/**
+ * The final flat structure required by Chart.js
+ */
+export interface ChartDataResult {
+	labels: string[];
+	data: number[];
+	backgroundColor: string[];
+}
+
+/**
+ * Internal structure for a time gap (Elapsed/Remaining)
+ */
+interface TimeGap {
+	label: string;
+	minutes: number;
+	color: string;
+}
+
+const COLORS = {
+	past: '#64748b', // slate-500
+	available: '#e2e8f0', // slate-200
+};
+
+export const colorHexMap: Record<string, string> = {
+	red: '#ef4444', // bg-red-500
+	orange: '#f97316', // bg-orange-500
+	pink: '#ec4899', // bg-pink-500
+	rose: '#f43f5e', // bg-rose-500
+	yellow: '#eab308', // bg-yellow-500
+	lime: '#84cc16', // bg-lime-500
+	green: '#22c55e', // bg-green-500
+	teal: '#14b8a6', // bg-teal-500
+	cyan: '#06b6d4', // bg-cyan-500
+	sky: '#0ea5e9', // bg-sky-500
+	blue: '#3b82f6', // bg-blue-500
+	purple: '#a855f7', // bg-purple-500
+};
+
+/**
+ * Step 1: Aggregation
+ * Transforms raw tasks into a summarized map of categories.
+ * * @input tasks: Task[]
+ * @returns { categoryMap: Map, totalAllocated: number }
+ */
+function getCategoryTotals(tasks: Task[]): {
+	categoryMap: Map<string, { minutes: number; color: string; name: string }>;
+	totalAllocated: number;
+} {
+	const categoryMap = new Map<string, { minutes: number; color: string; name: string }>();
+	let totalAllocated = 0;
+
+	for (const task of tasks) {
+		// Input format: "hh:mm" (e.g., "01:30")
+		const duration = convertTimeToMinutes(task.duration);
+		const cat = task.category;
+		const catId = cat?.id || 'none';
+
+		if (!categoryMap.has(catId)) {
+			categoryMap.set(catId, {
+				minutes: 0,
+				color: colorHexMap[cat?.color || ''] || '#94a3b8',
+				name: cat?.name || 'Uncategorized',
+			});
+		}
+
+		categoryMap.get(catId)!.minutes += duration;
+		totalAllocated += duration;
+	}
+
+	return { categoryMap, totalAllocated };
+}
+
+/**
+ * Step 2: Gap Calculation
+ * Determines "Elapsed" vs "Remaining" based on the current time.
+ * * @input (unallocatedTotal: 1350, totalAllocated: 90, viewDate: Date)
+ * @returns TimeGap[] -> e.g., [{ label: "Elapsed", minutes: 800, color: "#64..." }]
+ */
+function calculateTimeGaps(
+	unallocatedTotal: number,
+	totalAllocated: number,
+	viewDate: Date,
+): TimeGap[] {
+	const gaps: TimeGap[] = [];
+
+	if (isToday(viewDate)) {
+		const minsPassed = Math.min(1440, differenceInMinutes(new Date(), startOfDay(viewDate)));
+		// "Elapsed" is time that has passed minus the tasks you already performed/scheduled
+		const elapsed = Math.max(0, minsPassed - totalAllocated);
+		const remaining = Math.max(0, unallocatedTotal - elapsed);
+
+		if (elapsed > 0) gaps.push({ label: 'Elapsed', minutes: elapsed, color: COLORS.past });
+		if (remaining > 0)
+			gaps.push({ label: 'Remaining', minutes: remaining, color: COLORS.available });
+	} else if (isPast(viewDate)) {
+		gaps.push({ label: 'Unused Time', minutes: unallocatedTotal, color: COLORS.past });
+	} else {
+		gaps.push({ label: 'Remaining', minutes: unallocatedTotal, color: COLORS.available });
+	}
+
+	return gaps;
+}
+
+/**
+ * Main Orchestrator
+ * Combines category totals and time gaps into a flat structure for the chart.
+ * * @returns ChartDataResult -> { labels: string[], data: number[], backgroundColor: string[] }
+ */
+export function getProcessedChartData(tasks: Task[], viewDate: Date): ChartDataResult {
+	const { categoryMap, totalAllocated } = getCategoryTotals(tasks);
+
+	const labels: string[] = [];
+	const data: number[] = [];
+	const backgroundColor: string[] = [];
+
+	// Flatten the Category Map into arrays
+	for (const cat of categoryMap.values()) {
+		labels.push(cat.name);
+		data.push(cat.minutes);
+		backgroundColor.push(cat.color);
+	}
+
+	const unallocatedTotal = Math.max(0, 1440 - totalAllocated);
+
+	if (unallocatedTotal > 0) {
+		const gaps = calculateTimeGaps(unallocatedTotal, totalAllocated, viewDate);
+
+		for (const gap of gaps) {
+			labels.push(gap.label);
+			data.push(gap.minutes);
+			backgroundColor.push(gap.color);
+		}
+	}
+
+	return { labels, data, backgroundColor };
 }

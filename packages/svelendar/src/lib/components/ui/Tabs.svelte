@@ -5,14 +5,14 @@
 		options?: string[]; // values
 		labels?: string[]; // display labels
 		initial?: string;
-		size?: 'sm' | 'md' | 'lg';
+		// size?: 'sm' | 'md' | 'lg';
 	}
 
 	let {
 		options = ['plan', 'currently'],
 		labels = [],
 		initial = options[0],
-		size = 'md',
+		// size = 'md',
 	}: Props = $props();
 
 	const dispatch = createEventDispatcher();
