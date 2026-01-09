@@ -15,7 +15,7 @@ if [[ -n $(git status --porcelain) ]]; then
   git add .
 
   # Commit with a standard message
-  git commit -m "chore: apply formatting"
+  git commit -m "refactor: apply formatting"
 
   echo "Changes have been formatted and committed. Please review the changes and push again."
   exit 1  # Cancel the current push

@@ -50,3 +50,5 @@ vite.config.ts.timestamp-*
 *storybook.log
 
 .secrets
+
+.pnpm-store
