@@ -7,8 +7,12 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".svelte-kit/**", ".vercel/**", "dist/**"]
+			"outputs": ["dist/**", ".svelte-kit/**", "package/**", ".vercel/**"]
     },
+		"package": {
+			"dependsOn": ["build"],
+			"outputs": ["package/**"]
+		},
     "lint": {},
     "format": {
       "outputs": []

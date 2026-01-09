@@ -1,7 +1,9 @@
 {
 	"name": "svelendar",
 	"version": "0.2.0",
-	"private": false,
+	"publishConfig": {
+		"access": "public"
+	},
 	"scripts": {
 		"dev": "svelte-package --watch",
 		"standlone:dev": "vite dev",
