@@ -1,16 +1,15 @@
 <script lang="ts">
 	import { Button, LInput, ModalForm } from '@life/shared';
+	import type { Category } from '@life/shared/category';
 	import { tailwindColorMap, tailwindColors } from '@life/shared/category';
 	import { Plus } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
 
-	import type { Category } from '$lib/category/category.model';
 	import { buildEmptyCategory } from '$lib/category/category.model';
 	import { addCategory, deleteCategory, editCategory } from '$lib/category/category.respository';
 	import { categories } from '$lib/category/category.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
-	import { taskIn } from '$lib/task/task-form/service.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import { checkErrors } from './service';

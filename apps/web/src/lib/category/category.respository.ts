@@ -1,4 +1,6 @@
+import type { Category } from '@life/shared/category';
 import { CATEGORY_WORK } from '@life/shared/category';
+import { categorySchema } from '@life/shared/category';
 import {
 	addDoc,
 	collection,
@@ -13,8 +15,6 @@ import {
 	writeBatch,
 } from 'firebase/firestore';
 
-import type { Category } from '$lib/category/category.model';
-import { categorySchema } from '$lib/category/category.model';
 import { DB_PATH } from '$lib/consts';
 import { db } from '$lib/firebase';
 import { fetchItems } from '$lib/repository.svelte';

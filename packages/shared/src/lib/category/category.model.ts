@@ -1,16 +1,26 @@
+import { z } from 'zod';
+
 export const CATEGORY_WORK = 'work';
 
 export const categoryTypes = ['fun', 'sleep', CATEGORY_WORK] as const;
 
 export type CategoryType = (typeof categoryTypes)[number];
 
-export type Category = {
-	id: string;
-	name: string;
-	type: CategoryType;
-	color: TailwindColor;
-	order: number;
-};
+export const categorySchema: z.ZodType = z.lazy(() =>
+	z.object({
+		id: z.string(),
+		name: z.string(),
+		type: z.enum(categoryTypes),
+		color: z.enum(tailwindColors),
+		order: z.number(),
+		parent: z
+			.lazy(() => categorySchema)
+			.nullable()
+			.optional(),
+	}),
+);
+
+export type Category = z.infer<typeof categorySchema>;
 
 export const tailwindColors = [
 	'red',

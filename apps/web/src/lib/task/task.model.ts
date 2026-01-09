@@ -1,10 +1,9 @@
+import { categorySchema } from '@life/shared/category';
 import type { Task } from '@life/shared/task';
 import { z } from 'zod';
 
-import { categorySchema } from '$lib/category/category.model';
 import { goalSchema } from '$lib/goal/goal.model';
 import { zDate, zDateOrEmpty, zTime, zTimeOrEmpty } from '$lib/utils';
-
 export const frequencies = ['daily', 'weekly', 'monthly', 'yearly'] as const;
 export type Frequency = (typeof frequencies)[number];
 

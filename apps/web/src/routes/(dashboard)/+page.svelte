@@ -1,9 +1,9 @@
 <script lang="ts">
+	import type { Category } from '@life/shared/category';
 	import { CATEGORY_WORK } from '@life/shared/category';
 	import type { Task } from '@life/shared/task';
 	import { Calendar } from 'svelendar';
 
-	import type { Category } from '$lib/category/category.model';
 	import { fetchCategories } from '$lib/category/category.respository';
 	import { demoLogin } from '$lib/consts';
 	import { buildTimedTask, buildTimedTaskWithTimeSet } from '$lib/task/build-utils';

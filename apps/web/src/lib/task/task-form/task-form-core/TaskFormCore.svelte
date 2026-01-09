@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { IconRender, LInput } from '@life/shared';
+	import type { Category } from '@life/shared/category';
 	import { tailwindColorMap } from '@life/shared/category';
 	import type { Goal } from '@life/shared/goal';
 	import { getGoalsForTasks } from '@life/shared/goal';
 
-	import type { Category } from '$lib/category/category.model';
 	import { categories } from '$lib/category/category.svelte';
 	import Collapsable from '$lib/components/collapsable/Collapsable.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';

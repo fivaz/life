@@ -1,9 +1,8 @@
 <script lang="ts">
+	import type { Category } from '@life/shared/category';
 	import { tailwindColorMap } from '@life/shared/category';
 	import { GripVerticalIcon, Settings2Icon, TagIcon } from 'lucide-svelte';
 	import { dragHandle } from 'svelte-dnd-action';
-
-	import type { Category } from '$lib/category/category.model';
 
 	import CategoryFormButton from '../category-form-button/CategoryFormButton.svelte';
 

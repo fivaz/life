@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
+	import type { Category } from '@life/shared/category';
 	import { flip } from 'svelte/animate';
 	import { dragHandleZone } from 'svelte-dnd-action';
 
-	import type { Category } from '$lib/category/category.model';
 	import { buildEmptyCategory } from '$lib/category/category.model';
 	import { updateCategoriesOrder } from '$lib/category/category.respository';
 	import { categories } from '$lib/category/category.svelte';

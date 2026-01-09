@@ -1,7 +1,7 @@
+import type { Category } from '@life/shared/category';
 import { averageRound15, floorRound15, formatDate, formatTime } from '@life/shared/date';
 import type { Task } from '@life/shared/task';
 
-import type { Category } from '$lib/category/category.model';
 import { buildEmptyCategory } from '$lib/category/category.model';
 import type { Goal } from '$lib/goal/goal.model';
 
