@@ -1,14 +1,16 @@
 <script lang="ts">
 	import { Button, LInput, ModalForm } from '@life/shared';
-	import { categoryTypes, tailwindColorMap, tailwindColors } from '@life/shared/category';
+	import { tailwindColorMap, tailwindColors } from '@life/shared/category';
 	import { Plus } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
 
 	import type { Category } from '$lib/category/category.model';
 	import { buildEmptyCategory } from '$lib/category/category.model';
 	import { addCategory, deleteCategory, editCategory } from '$lib/category/category.respository';
+	import { categories } from '$lib/category/category.svelte';
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
+	import { taskIn } from '$lib/task/task-form/service.svelte';
 	import { currentUser } from '$lib/user/user.utils.svelte';
 
 	import { checkErrors } from './service';
@@ -28,6 +30,8 @@
 	let errorMessage = $state('');
 
 	let categoryIn = $state(buildEmptyCategory());
+
+	let otherCategories = $derived(categories.value.filter((cat) => cat.id !== category.id));
 
 	function close() {
 		isOpen = false;
@@ -64,10 +68,17 @@
 	{/if}
 </Button>
 
-{#snippet categoryItem(color: Category['color'])}
+{#snippet colorItem(color: Category['color'])}
 	<div class="flex items-center gap-3">
 		<div class="size-5 rounded-md {tailwindColorMap[color].darkBg}"></div>
 		{color}
+	</div>
+{/snippet}
+
+{#snippet categoryItem(category: Category)}
+	<div class="flex items-center gap-3">
+		<div class="{tailwindColorMap[category.color]?.darkBg} size-5 rounded-md"></div>
+		<div class="w-[calc(100%-32px)] truncate">{category.name}</div>
 	</div>
 {/snippet}
 
@@ -91,34 +102,38 @@
 
 	<Select
 		class="flex items-center"
-		label="Category"
+		label="Color"
 		labelClass="w-1/5"
 		selectClass="flex-1"
 		bind:value={categoryIn.color}
 	>
 		{#snippet placeholder()}
-			{@render categoryItem(categoryIn.color)}
+			{@render colorItem(categoryIn.color)}
 		{/snippet}
 
 		{#each tailwindColors as color (color)}
-			<SelectItem value={color}>{@render categoryItem(color)}</SelectItem>
+			<SelectItem value={color}>{@render colorItem(color)}</SelectItem>
 		{/each}
 	</Select>
 
 	<Select
 		class="flex items-center"
-		label="Type"
+		label="Parent"
 		labelClass="w-1/5"
 		selectClass="flex-1"
-		bind:value={categoryIn.type}
+		bind:value={categoryIn.parent}
 	>
 		{#snippet placeholder()}
-			<div class="flex items-center gap-5">{categoryIn.type}</div>
+			{#if categoryIn.parent}
+				{@render categoryItem(categoryIn.parent)}
+			{:else}
+				<div>No Parent</div>
+			{/if}
 		{/snippet}
 
-		{#each Object.values(categoryTypes) as categoryType (categoryType)}
-			<SelectItem class="flex items-center gap-5" value={categoryType}>
-				{categoryType}
+		{#each otherCategories as category (category.id)}
+			<SelectItem class="flex items-center gap-5" value={category}>
+				{@render categoryItem(category)}
 			</SelectItem>
 		{/each}
 	</Select>
