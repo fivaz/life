@@ -43,4 +43,4 @@ jobs:
       - name: Semantic Release (Main)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: pnpm exec semantic-release --dry-run
+        run: pnpm exec semantic-release
