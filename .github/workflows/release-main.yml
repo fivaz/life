@@ -17,6 +17,15 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    # Define variables at the job level so both Build and Release see them
+    env:
+      PUBLIC_FIREBASE_API_KEY: ${{ secrets.PUBLIC_FIREBASE_API_KEY }}
+      PUBLIC_FIREBASE_AUTH_DOMAIN: ${{ secrets.PUBLIC_FIREBASE_AUTH_DOMAIN }}
+      PUBLIC_FIREBASE_PROJECT_ID: ${{ secrets.PUBLIC_FIREBASE_PROJECT_ID }}
+      PUBLIC_FIREBASE_STORAGE_BUCKET: ${{ secrets.PUBLIC_FIREBASE_STORAGE_BUCKET }}
+      PUBLIC_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.PUBLIC_FIREBASE_MESSAGING_SENDER_ID }}
+      PUBLIC_FIREBASE_APP_ID: ${{ secrets.PUBLIC_FIREBASE_APP_ID }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,7 +35,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22 # Matching svelendar for consistency
+          node-version: 22
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -38,7 +47,7 @@ jobs:
 
       - name: Build Web App
         # Using turbo to build the web app and its dependencies
-        run: pnpm exec turbo build --filter=@life/web
+        run: pnpm exec turbo build --filter=./apps/web
 
       - name: Semantic Release (Main)
         env:
