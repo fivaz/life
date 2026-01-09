@@ -40,7 +40,6 @@
 		"svelte": "^5.0.0"
 	},
 	"dependencies": {
-		"bits-ui": "^2.15.4",
 		"chart.js": "^4.4.6",
 		"lucide-svelte": "^0.456.0"
 	},

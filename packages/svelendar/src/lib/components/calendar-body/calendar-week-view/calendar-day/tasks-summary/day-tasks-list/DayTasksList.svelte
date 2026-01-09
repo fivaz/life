@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Task } from '@life/shared/task';
 
-	import * as Tabs from '$lib/components/ui/tabs';
+	import DaySummaryTabs from '$lib/components/calendar-body/calendar-week-view/calendar-day/tasks-summary/day-tasks-list/day-summary-tabs/DaySummaryTabs.svelte';
 
 	import DayReview from './day-review/DayReview.svelte';
 	import DayTaskItem from './day-task-item/DayTaskItem.svelte';
@@ -16,9 +16,9 @@
 
 	let doneTasks = $derived(tasks.filter((toDo) => toDo.isDone));
 
-	let activeTab = $state('plan');
+	let currentTab = $state<'plan' | 'currently'>('plan');
 
-	let reviewTasks = $derived(activeTab === 'plan' ? tasks : doneTasks);
+	let reviewTasks = $derived(currentTab === 'plan' ? tasks : doneTasks);
 
 	$effect(() => {
 		if (tasks.length === 0) {
@@ -31,23 +31,7 @@
 	class="relative flex h-auto max-h-[90%] w-11/12 max-w-135.75 flex-col divide-y divide-gray-400 rounded-lg border border-gray-400 bg-gray-50 text-sm leading-6 shadow-2xs dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-900 dark:scheme-dark"
 >
 	<div class="flex-none p-6">
-		<Tabs.Root class="w-full" bind:value={activeTab}>
-			<Tabs.List class="grid w-full grid-cols-2 bg-gray-200/50 p-1 dark:bg-gray-800/50">
-				<Tabs.Trigger
-					class="rounded-md px-3 py-1.5 transition-all data-[state=active]:bg-indigo-500 data-[state=active]:text-white data-[state=active]:shadow-sm"
-					value="plan"
-				>
-					Plan
-				</Tabs.Trigger>
-				<Tabs.Trigger
-					class="rounded-md px-3 py-1.5 transition-all data-[state=active]:bg-indigo-500 data-[state=active]:text-white data-[state=active]:shadow-sm"
-					value="currently"
-				>
-					Currently
-				</Tabs.Trigger>
-			</Tabs.List>
-		</Tabs.Root>
-
+		<DaySummaryTabs bind:activeTab={currentTab} />
 		<div class="mt-4">
 			<DayReview {date} tasks={reviewTasks} />
 		</div>
