@@ -20,8 +20,6 @@ export const categorySchema: z.ZodType = z.lazy(() =>
 	}),
 );
 
-export type Category = z.infer<typeof categorySchema>;
-
 export const tailwindColors = [
 	'red',
 	'rose',
@@ -38,6 +36,16 @@ export const tailwindColors = [
 ] as const;
 
 export type TailwindColor = (typeof tailwindColors)[number];
+
+// cannot use type Category = z.infer<typeof categorySchema> because of the z.lazy in the schema
+export type Category = {
+	id: string;
+	name: string;
+	type: CategoryType;
+	color: TailwindColor;
+	order: number;
+	parent?: Category | null;
+};
 
 export const tailwindColorMap: Record<TailwindColor, Record<string, string>> = {
 	red: {

@@ -44,6 +44,7 @@
 		<CategoryFormButton category={newCategory} />
 	</div>
 
+	<!--suppress HtmlUnknownAttribute -->
 	<ul
 		class="flex flex-col gap-1"
 		onconsider={handleConsider}

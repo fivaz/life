@@ -89,10 +89,10 @@ export const colorHexMap: Record<string, string> = {
 };
 
 /**
- * Step 1: Aggregation
- * Transforms raw tasks into a summarized map of categories.
- * * @input tasks: Task[]
- * @returns { categoryMap: Map, totalAllocated: number }
+ * Step 1: Aggregation (Grouped by Parent Category)
+ *  Transforms raw tasks into a summarized map of categories.
+ *  * @input tasks: Task[]
+ *  @returns { categoryMap: Map, totalAllocated: number }
  */
 function getCategoryTotals(tasks: Task[]): {
 	categoryMap: Map<string, { minutes: number; color: string; name: string }>;
@@ -102,19 +102,26 @@ function getCategoryTotals(tasks: Task[]): {
 	let totalAllocated = 0;
 
 	for (const task of tasks) {
-		// Input format: "hh:mm" (e.g., "01:30")
 		const duration = convertTimeToMinutes(task.duration);
-		const cat = task.category;
-		const catId = cat?.id || 'none';
+
+		// 1. Identify the grouping category (the parent, or the category itself if it is a parent)
+		const rawCategory = task.category;
+
+		// If the category has a parent, we use the parent. Otherwise, we use the category itself.
+		const groupCategory = rawCategory.parent ? rawCategory.parent : rawCategory;
+
+		const catId = groupCategory?.id || 'none';
 
 		if (!categoryMap.has(catId)) {
 			categoryMap.set(catId, {
 				minutes: 0,
-				color: colorHexMap[cat?.color || ''] || '#94a3b8',
-				name: cat?.name || 'Uncategorized',
+				// Fallback to slate if color is missing
+				color: colorHexMap[groupCategory?.color || ''] || '#94a3b8',
+				name: groupCategory?.name || 'Uncategorized',
 			});
 		}
 
+		// 2. Add duration to the parent group
 		categoryMap.get(catId)!.minutes += duration;
 		totalAllocated += duration;
 	}
