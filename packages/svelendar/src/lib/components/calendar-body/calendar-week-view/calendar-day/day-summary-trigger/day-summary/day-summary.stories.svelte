@@ -2,10 +2,10 @@
 	import { tasks } from '@life/shared/task';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 
-	import DayTasksList from './DayTasksList.svelte';
+	import DaySummary from './DaySummary.svelte';
 
 	const { Story } = defineMeta({
-		component: DayTasksList,
+		component: DaySummary,
 	});
 </script>
 

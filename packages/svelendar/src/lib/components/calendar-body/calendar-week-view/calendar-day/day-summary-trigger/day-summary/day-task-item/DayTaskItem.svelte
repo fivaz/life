@@ -26,10 +26,11 @@
 		class="flex w-full items-center px-6 py-3 text-left"
 		onclick={() => editTask(task, formatDate(date))}
 	>
-		<div class="flex flex-1 items-center gap-2 truncate">
+		<span class="flex flex-1 items-center gap-2 truncate">
 			<LText
 				class="w-5 font-medium {tailwindColorMap[task.category.color].hoverText}"
 				level="middle"
+				tag="span"
 			>
 				{index + 1}
 			</LText>
@@ -44,22 +45,25 @@
 					{ 'line-trough': task.isDone },
 					'flex-1 truncate pr-3 font-medium',
 				)}
+				tag="span"
 			>
 				{task.name}
 			</LText>
-		</div>
+		</span>
 
-		<div class="flex items-center gap-2">
+		<span class="flex items-center gap-2">
 			{#if task.goal?.icon}
-				<LText>
+				<LText tag="span">
 					<IconRender
 						name={task.goal.icon}
 						class="size-5 {tailwindColorMap[task.category.color].hoverText}"
 					/>
 				</LText>
 			{/if}
-			<LText class={tailwindColorMap[task.category.color].hoverText}>{task.duration}</LText>
+			<LText class={tailwindColorMap[task.category.color].hoverText} tag="span">
+				{task.duration}
+			</LText>
 			<DoneChip isDone={task.isDone} />
-		</div>
+		</span>
 	</button>
 </li>

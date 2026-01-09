@@ -7,10 +7,10 @@
 	import { isScrollingUp } from '../service.svelte.js';
 	import CalendarGrid from './calendar-grid/CalendarGrid.svelte';
 	import { SUMMARY_GRID_CELL_HEIGHT } from './calendar-grid/service.svelte.js';
+	import DaySummaryTrigger from './day-summary-trigger/DaySummaryTrigger.svelte';
 	import EventPanel from './event-panel/EventPanel.svelte';
 	import type { EventsGrid } from './event-panel/placement-service.js';
 	import { getEventGrid, getTasksForDate } from './service.js';
-	import TasksSummary from './tasks-summary/TasksSummary.svelte';
 
 	interface Props {
 		date: Date;
@@ -62,7 +62,7 @@
 		style="height: {SUMMARY_GRID_CELL_HEIGHT}px"
 		class="relative divide-gray-200 border-b border-gray-200 dark:divide-gray-700 dark:border-gray-700"
 	>
-		<TasksSummary
+		<DaySummaryTrigger
 			style="width: {containerWidth}px"
 			class="{klass} {isScrollingUp.value ? 'fixed' : ''}
 			ring-opacity-5 z-30 w-full justify-center shadow ring-1  ring-gray-200 dark:ring-gray-700"

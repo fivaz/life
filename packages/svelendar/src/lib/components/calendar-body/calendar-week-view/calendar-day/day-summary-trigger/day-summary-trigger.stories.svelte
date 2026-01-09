@@ -3,22 +3,22 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ComponentProps } from 'svelte';
 
-	import TasksSummary from './TasksSummary.svelte';
+	import DaySummaryTrigger from './DaySummaryTrigger.svelte';
 
 	const { Story } = defineMeta({
-		component: TasksSummary,
+		component: DaySummaryTrigger,
 		render: template,
 		args: {
 			date: new Date(),
 		},
 	});
 
-	type Args = ComponentProps<typeof TasksSummary>;
+	type Args = ComponentProps<typeof DaySummaryTrigger>;
 </script>
 
 {#snippet template({ ...args }: Args)}
 	<div class="w-24">
-		<TasksSummary {...args} />
+		<DaySummaryTrigger {...args} />
 	</div>
 {/snippet}
 

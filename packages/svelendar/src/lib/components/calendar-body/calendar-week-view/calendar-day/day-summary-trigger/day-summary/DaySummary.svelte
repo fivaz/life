@@ -1,9 +1,8 @@
 <script lang="ts">
 	import type { Task } from '@life/shared/task';
 
-	import DaySummaryTabs from '$lib/components/calendar-body/calendar-week-view/calendar-day/tasks-summary/day-tasks-list/day-summary-tabs/DaySummaryTabs.svelte';
-
 	import DayReview from './day-review/DayReview.svelte';
+	import DaySummaryTabs from './day-summary-tabs/DaySummaryTabs.svelte';
 	import DayTaskItem from './day-task-item/DayTaskItem.svelte';
 
 	interface Props {
@@ -32,7 +31,7 @@
 >
 	<div class="flex-none p-6">
 		<DaySummaryTabs bind:activeTab={currentTab} />
-		<div class="mt-4">
+		<div class="mt-5">
 			<DayReview {date} tasks={reviewTasks} />
 		</div>
 	</div>

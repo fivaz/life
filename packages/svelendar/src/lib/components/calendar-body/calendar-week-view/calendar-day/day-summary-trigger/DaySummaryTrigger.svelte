@@ -3,7 +3,7 @@
 	import type { Task } from '@life/shared/task';
 	import { isRecurring, isTimed } from '@life/shared/task';
 
-	import DayTasksList from './day-tasks-list/DayTasksList.svelte';
+	import DaySummary from '$lib/components/calendar-body/calendar-week-view/calendar-day/day-summary-trigger/day-summary/DaySummary.svelte';
 
 	interface Props {
 		tasks: Task[];
@@ -52,5 +52,5 @@
 {/if}
 
 <Modal bind:isOpen>
-	<DayTasksList close={() => (isOpen = false)} {date} tasks={visibleTasks} />
+	<DaySummary close={() => (isOpen = false)} {date} tasks={visibleTasks} />
 </Modal>
