@@ -157,11 +157,3 @@ export const tailwindColorMap: Record<TailwindColor, Record<string, string>> = {
 		text: 'text-purple-700',
 	},
 };
-
-export function extractTailwindColorValues(
-	colorMap: Record<string, Record<string, string>>,
-): string[] {
-	return Object.values(colorMap).flatMap((colorValues) => Object.values(colorValues));
-}
-
-export const tailwindCLasses = extractTailwindColorValues(tailwindColorMap);

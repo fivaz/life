@@ -1,8 +1,8 @@
-import { formatDate, getDateRoundDownTo15 } from '@life/shared/date';
+import { formatDate, getStartOfCurrentGridSlot } from '@life/shared/date';
 import { addDays, set, startOfWeek } from 'date-fns';
 import { SvelteDate } from 'svelte/reactivity';
 
-export const currentDate = $state<{ value: Date }>({ value: getDateRoundDownTo15() });
+export const currentDate = $state<{ value: Date }>({ value: getStartOfCurrentGridSlot() });
 
 export function updateCurrentDate() {
 	const now = new SvelteDate();

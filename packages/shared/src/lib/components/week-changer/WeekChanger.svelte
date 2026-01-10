@@ -16,8 +16,6 @@
 
 	const currentDate = new Date();
 
-	let datePicker = $state<HTMLInputElement | null>(null);
-
 	const selectedDateString = {
 		get value() {
 			return formatDate(selectedDate);
@@ -27,10 +25,6 @@
 			onchange?.(selectedDate);
 		},
 	};
-
-	function openDatePicker() {
-		datePicker?.showPicker();
-	}
 
 	function goToNextWeek() {
 		let weekStart = startOfWeek(selectedDate);
@@ -58,21 +52,17 @@
 		<ChevronLeftIcon class="size-6" />
 	</button>
 
-	<!--this input is triggered by the button below-->
-	<input
-		bind:this={datePicker}
-		class="pointer-events-none absolute touch-none opacity-0 dark:scheme-dark"
-		type="date"
-		bind:value={selectedDateString.value}
-	/>
-
-	<button
-		class="px-2 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
-		onclick={openDatePicker}
-		type="button"
+	<div
+		class="relative flex items-center justify-center px-2 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
 	>
 		<CalendarCheck class="size-5" />
-	</button>
+
+		<input
+			class="absolute inset-0 cursor-pointer opacity-0 dark:scheme-dark"
+			type="date"
+			bind:value={selectedDateString.value}
+		/>
+	</div>
 
 	<button
 		class="px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800"

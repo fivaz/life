@@ -1,12 +1,4 @@
-import { parse } from 'date-fns';
-
-import {
-	convertMinutesToTime,
-	convertTimeToMinutes,
-	DATE,
-	GRID_CELL_TIME,
-	TIME,
-} from '$lib/date.js';
+import { convertMinutesToTime, convertTimeToMinutes, GRID_CELL_TIME } from '$lib/date.js';
 import type { SubTask, Task } from '$lib/task/task.model.js';
 
 export function isTimed(task: Omit<Task, 'id'> | Task) {
@@ -75,16 +67,6 @@ export function sortTasks(tasks: Task[]): Task[] {
 
 		return aTime.localeCompare(bTime);
 	});
-}
-
-export function getTaskDateTime(task: Task): Date | null {
-	if (!task.date) return null;
-
-	if (isTimed(task)) {
-		return parse(`${task.date} ${task.startTime}`, `${DATE} ${TIME}`, new Date());
-	} else {
-		return parse(task.date, DATE, new Date());
-	}
 }
 
 // Parses subtasks from HTML description
