@@ -26,7 +26,7 @@ module.exports = {
 			},
 		],
 		['@semantic-release/changelog', { changelogFile: 'CHANGELOG.md' }],
-		['@semantic-release/npm', { npmPublish: !process.env.DRY_RUN }],
+		['@semantic-release/npm', { npmPublish: !process.env.DRY_RUN, pkgRoot: '.' }],
 		[
 			'@semantic-release/git',
 			{
