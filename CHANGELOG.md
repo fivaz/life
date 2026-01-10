@@ -1,3 +1,13 @@
+## [1.2.1](https://github.com/fivaz/life/compare/v1.2.0...v1.2.1) (2026-01-10)
+
+### 🐛 Bug Fixes
+
+* **life:** week selector calendar button wasn't working on mobile ([6c365dc](https://github.com/fivaz/life/commit/6c365dce809c8372e20d81ab7cdefab77c525231))
+
+### 🔨 Code Refactoring
+
+* **life:** remove unused functions, and rework round date functions ([fc0f54c](https://github.com/fivaz/life/commit/fc0f54c59988711760efc17ade31cac178af1ec2))
+
 ## [1.2.0](https://github.com/fivaz/life/compare/v1.1.0...v1.2.0) (2026-01-10)
 
 ### ✨ Features
