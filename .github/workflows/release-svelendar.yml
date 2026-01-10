@@ -57,6 +57,18 @@ jobs:
       - name: Build with Turbo
         run: pnpm exec turbo build --filter=svelendar
 
+      # -----------------------------
+      # OIDC test publish
+      # -----------------------------
+      - name: Test npm OIDC publish (dry-run)
+        working-directory: packages/svelendar
+        run: |
+          echo "//registry.npmjs.org/:_authToken=\${{ secrets.GITHUB_TOKEN }}" > .npmrc
+          npm publish --dry-run --access public
+
+      # -----------------------------
+      # Semantic Release
+      # -----------------------------
       - name: Semantic Release
         working-directory: packages/svelendar
         env:
