@@ -1,3 +1,5 @@
+// trigger pipeline
+
 module.exports = {
 	extends: 'semantic-release-monorepo',
 	branches: ['main', 'test-release'],
