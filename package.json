@@ -11,9 +11,9 @@
     "format": "turbo run format --filter=!docs",
     "prune": "find . \\( -name \"node_modules\" -o -name \"dist\" -o -name \".svelte-kit\" -o -name \".turbo\" -o -name \".vercel\" \\) -type d -prune -exec rm -rf '{}' +",
     "prepare": "husky",
-    "test:release-main": "act push -W .github/workflows/release-main.yml --secret-file .secrets --env PNPM_HOME=/root/.pnpm-shared --container-architecture linux/amd64 --reuse --cache-server-path ~/.cache/act",
-    "test:release-lib": "act push -W .github/workflows/release-svelendar.yml --secret-file .secrets --env PNPM_HOME=/root/.pnpm-shared --container-architecture linux/amd64 --reuse --cache-server-path ~/.cache/act",
-    "test:release-all": "act push --secret-file .secrets --env PNPM_HOME=/root/.pnpm-shared --container-architecture linux/amd64 --reuse --cache-server-path ~/.cache/act"
+		"test:release-main": "act push -W .github/workflows/release-main.yml --secret-file .secrets --env PNPM_HOME=/root/.pnpm-shared --env DRY_RUN=1 --container-architecture linux/amd64 --reuse --cache-server-path ~/.cache/act",
+		"test:release-lib": "act push -W .github/workflows/release-svelendar.yml --secret-file .secrets --env PNPM_HOME=/root/.pnpm-shared --env DRY_RUN=1 --container-architecture linux/amd64 --reuse --cache-server-path ~/.cache/act",
+		"test:release-all": "act push --secret-file .secrets --env PNPM_HOME=/root/.pnpm-shared --env DRY_RUN=1 --container-architecture linux/amd64 --reuse --cache-server-path ~/.cache/act"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",

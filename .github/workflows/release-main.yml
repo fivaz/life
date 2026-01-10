@@ -68,4 +68,4 @@ jobs:
       - name: Semantic Release (Main)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: pnpm exec semantic-release
+        run: pnpm exec semantic-release ${DRY_RUN:+--dry-run}

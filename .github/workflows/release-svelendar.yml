@@ -61,4 +61,4 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           cd packages/svelendar
-          pnpm exec semantic-release
+          pnpm exec semantic-release ${DRY_RUN:+--dry-run}
