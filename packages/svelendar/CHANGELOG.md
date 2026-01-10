@@ -1,3 +1,9 @@
+## [svelendar-v1.1.0](https://github.com/fivaz/life/compare/svelendar-v1.0.0...svelendar-v1.1.0) (2026-01-10)
+
+### ✨ New Features
+
+* **svelendar:** add a message when day summary total tasks duration surpass 24h ([828a030](https://github.com/fivaz/life/commit/828a030cabc5cf1538b1d14250de700efd552d1c))
+
 ## svelendar-v1.0.0 (2026-01-10)
 
 ### ✨ New Features
