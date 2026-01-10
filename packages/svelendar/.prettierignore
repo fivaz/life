@@ -7,5 +7,6 @@ dist
 *.hbs
 .husky
 .vercel
+*.md
 
 
