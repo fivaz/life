@@ -1,3 +1,9 @@
+## [svelendar-v1.2.0](https://github.com/fivaz/life/compare/svelendar-v1.1.0...svelendar-v1.2.0) (2026-01-10)
+
+### ✨ New Features
+
+* **svelendar:** update mobile design of tabs of day summary ([cb55595](https://github.com/fivaz/life/commit/cb55595999b5bd17f1153273dcfb7c5f02ff7411))
+
 ## [svelendar-v1.1.0](https://github.com/fivaz/life/compare/svelendar-v1.0.0...svelendar-v1.1.0) (2026-01-10)
 
 ### ✨ New Features
