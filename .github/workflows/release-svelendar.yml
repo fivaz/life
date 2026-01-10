@@ -3,6 +3,7 @@ name: Release Svelendar Package
 on:
   push:
     branches:
+      - main
       - test-release
     paths:
       - 'packages/svelendar/**'
