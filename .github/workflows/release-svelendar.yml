@@ -61,4 +61,5 @@ jobs:
         working-directory: packages/svelendar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: pnpm exec semantic-release ${DRY_RUN:+--dry-run}
+#        run: pnpm exec semantic-release ${DRY_RUN:+--dry-run}
+        run: pnpm exec semantic-release --dry-run --ci false
