@@ -1,4 +1,4 @@
-import { addMinutes, differenceInMilliseconds, format, parse, set, startOfMinute } from 'date-fns';
+import { addMinutes, format, parse, set, startOfMinute } from 'date-fns';
 
 export const DATE = 'yyyy-MM-dd';
 export const TIME = 'HH:mm';
@@ -72,21 +72,14 @@ export function convertTimeToMinutes(time: string): number {
 	throw new Error("Time isn't in the format HH:mm");
 }
 
-export function getDateRoundDownTo15() {
-	const milliseconds = 1000 * 60 * GRID_CELL_TIME;
-	return new Date(Math.floor(new Date().getTime() / milliseconds) * milliseconds);
+export function getStartOfCurrentGridSlot(): Date {
+	const slotMs = 1000 * 60 * GRID_CELL_TIME;
+	return new Date(Math.floor(Date.now() / slotMs) * slotMs);
 }
 
-export function getNextRoundedTime() {
-	const now = new Date();
-
-	const currentTimeMilliseconds = now.getTime();
-
-	const roundedMilliseconds = 1000 * 60 * GRID_CELL_TIME;
-	const nextTimeRounded =
-		Math.ceil(currentTimeMilliseconds / roundedMilliseconds) * roundedMilliseconds;
-
-	return differenceInMilliseconds(nextTimeRounded, currentTimeMilliseconds);
+export function getStartOfNextGridSlot(): Date {
+	const slotMs = 1000 * 60 * GRID_CELL_TIME;
+	return new Date(Math.ceil(Date.now() / slotMs) * slotMs);
 }
 
 export const nameOfDaysOfWeek: string[] = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
