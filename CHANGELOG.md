@@ -1,3 +1,17 @@
+## [1.2.0](https://github.com/fivaz/life/compare/v1.1.0...v1.2.0) (2026-01-10)
+
+### ✨ Features
+
+* **svelendar:** make border of summary of day match its color ([220a172](https://github.com/fivaz/life/commit/220a1720be7800b00f3facf975b41752a6f9b6c2))
+
+### 📦 Miscellaneous Chores
+
+* **svelendar:** release 1.0.0 [skip ci] ([0ee064c](https://github.com/fivaz/life/commit/0ee064ccf44f781519eba17bf78420d7634b3740))
+
+### 🔧 Continuous Integration
+
+* **svelendar:** remove NPM_TOKEN, use OIDC instead ([2a412d3](https://github.com/fivaz/life/commit/2a412d3b3038b3e9f5a6fa7c47ac4de8b887a81e))
+
 ## [1.1.0](https://github.com/fivaz/life/compare/v1.0.0...v1.1.0) (2026-01-10)
 
 ### ✨ Features
