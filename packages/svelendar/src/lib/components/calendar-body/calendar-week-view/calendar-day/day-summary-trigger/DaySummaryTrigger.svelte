@@ -42,8 +42,8 @@
 		{style}
 		class="{klass}
 			{hasPendingToDos
-			? 'bg-orange-50 text-orange-500 hover:bg-orange-100 dark:bg-orange-100 dark:hover:bg-orange-200'
-			: 'bg-cyan-50 text-cyan-500 hover:bg-cyan-100 dark:bg-cyan-100 dark:hover:bg-cyan-200'}
+			? 'bg-orange-50 text-orange-500 ring-1 ring-orange-200 hover:bg-orange-100 dark:bg-orange-100 dark:hover:bg-orange-200'
+			: 'bg-cyan-50 text-cyan-500 ring-1 ring-cyan-200 hover:bg-cyan-100 dark:bg-cyan-100 dark:hover:bg-cyan-200'}
 			rounded-lg px-2 py-1 text-center text-xs leading-5 hover:font-semibold"
 		onclick={() => (isOpen = true)}
 	>

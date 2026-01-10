@@ -65,7 +65,7 @@
 		<DaySummaryTrigger
 			style="width: {containerWidth}px"
 			class="{klass} {isScrollingUp.value ? 'fixed' : ''}
-			ring-opacity-5 z-30 w-full justify-center shadow ring-1  ring-gray-200 dark:ring-gray-700"
+			ring-opacity-5 z-30 w-full justify-center shadow"
 			{date}
 			tasks={tasksOnDate}
 		/>
