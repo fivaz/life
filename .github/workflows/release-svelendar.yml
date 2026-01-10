@@ -60,8 +60,9 @@ jobs:
       # -----------------------------
       - name: Test npm OIDC publish (dry-run)
         working-directory: packages/svelendar
-        run: |
-          npm publish --tag canary --access public --no-git-checks --provenance
+        run: pnpm publish --tag canary --access public --no-git-checks
+        env:
+          NPM_CONFIG_PROVENANCE: true
 
       # -----------------------------
       # Semantic Release

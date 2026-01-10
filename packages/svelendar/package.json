@@ -5,6 +5,11 @@
 		"access": "public",
 		"provenance": true
 	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/fivaz/life.git",
+		"directory": "packages/svelendar"
+	},
 	"scripts": {
 		"dev": "svelte-package --watch",
 		"standlone:dev": "vite dev",
