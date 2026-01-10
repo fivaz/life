@@ -19,4 +19,4 @@
 
 # Cache & speed
 --reuse
---cache-server-path ~/.cache/act
+--cache-server-path .act-cache
