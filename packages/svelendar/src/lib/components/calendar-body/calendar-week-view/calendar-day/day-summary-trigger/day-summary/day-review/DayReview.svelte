@@ -4,7 +4,7 @@
 	import type { Task } from '@life/shared/task';
 	import { Chart as ChartJS } from 'chart.js';
 
-	import { chartPlugins, getChartConfig, getProcessedChartData } from './service';
+	import { chartPlugins, getChartConfig, getProcessedChartData, MINUTES_PER_DAY } from './service';
 
 	interface Props {
 		tasks: Task[];
@@ -14,9 +14,14 @@
 	let { tasks, date }: Props = $props();
 
 	let canvasRef = $state<HTMLCanvasElement | null>(null);
-	let chartInstance: ChartJS | null = null; // No need for $state if we don't bind to it
+	let chartInstance: ChartJS | null = null;
 
 	const processed = $derived(getProcessedChartData(tasks, date));
+
+	function sumMinutes(arr: number[] | undefined) {
+		if (!arr) return 0;
+		return arr.reduce((a, b) => a + b, 0);
+	}
 
 	// Effect 1: Handle Setup and Cleanup
 	$effect(() => {
@@ -47,6 +52,24 @@
 </script>
 
 <div class="flex flex-col items-center gap-4">
+	{#if processed.overflow}
+		<div class="w-full px-2">
+			<div
+				class="flex flex-col items-center gap-1 rounded-md border border-red-200 bg-red-50 p-2 text-xs text-red-500"
+			>
+				<div class="font-semibold">Allocation exceeds 24 hours</div>
+				<div>
+					Exceeded by: {convertMinutesToTime(
+						Math.max(0, sumMinutes(processed.data) - MINUTES_PER_DAY),
+					)}
+				</div>
+				<div class="text-muted">
+					Total allocated: {convertMinutesToTime(sumMinutes(processed.data))}
+				</div>
+			</div>
+		</div>
+	{/if}
+
 	<div class="relative h-48 w-48">
 		<canvas bind:this={canvasRef}></canvas>
 	</div>

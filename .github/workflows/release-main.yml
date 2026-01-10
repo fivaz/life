@@ -1,24 +1,23 @@
-name: Release Main
+name: Release Web
 
 on:
   push:
     branches:
       - main
-    # Trigger on any change EXCEPT those inside the svelendar package
-    paths-ignore:
-      - 'packages/svelendar/**'
+    paths:
+      - 'apps/web/**'
+      - 'packages/shared/**' # shared affects web
 
 permissions:
   contents: write
   issues: write
   pull-requests: write
-  id-token: write # Required for secure NPM publishing
 
 jobs:
-  release:
-    name: Release
+  release-web:
+    name: Release Web App
     runs-on: ubuntu-latest
-    # Define variables at the job level so both Build and Release see them
+
     env:
       PUBLIC_FIREBASE_API_KEY: ${{ secrets.PUBLIC_FIREBASE_API_KEY }}
       PUBLIC_FIREBASE_AUTH_DOMAIN: ${{ secrets.PUBLIC_FIREBASE_AUTH_DOMAIN }}
@@ -46,9 +45,7 @@ jobs:
           version: 9
 
       - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
       - name: Setup pnpm cache
         uses: actions/cache@v4
@@ -58,14 +55,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build Web App
-        # Using turbo to build the web app and its dependencies
         run: pnpm exec turbo build --filter=./apps/web
 
-      - name: Semantic Release (Main)
+      - name: Semantic Release (Web)
+        working-directory: apps/web
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: pnpm exec semantic-release ${DRY_RUN:+--dry-run}

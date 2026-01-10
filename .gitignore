@@ -49,6 +49,7 @@ vite.config.ts.timestamp-*
 # Storybook
 *storybook.log
 
+# Act
 .secrets
-
 .pnpm-store
+.act-cache
