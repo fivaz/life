@@ -11,9 +11,9 @@
     "format": "turbo run format --filter=!docs",
     "prune": "find . \\( -name \"node_modules\" -o -name \"dist\" -o -name \".svelte-kit\" -o -name \".turbo\" -o -name \".vercel\" \\) -type d -prune -exec rm -rf '{}' +",
     "prepare": "husky",
-		"test:release-main": "act push -W .github/workflows/release-main.yml",
-		"test:release-lib": "act push -W .github/workflows/release-svelendar.yml",
-		"test:release-all": "act push"
+		"test:release-main": "act -W .github/workflows/release-main.yml",
+		"test:release-lib":  "act -W .github/workflows/release-svelendar.yml",
+		"test:release-all":  "act"
   },
   "devDependencies": {
     "husky": "^9.1.7",

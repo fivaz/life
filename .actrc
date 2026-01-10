@@ -12,6 +12,7 @@
 
 # Run releases in dry-run mode by default
 --env DRY_RUN=1
+--env GITHUB_REF=refs/heads/main
 
 # Secrets file
 --secret-file .secrets
