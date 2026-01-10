@@ -1,0 +1,5 @@
+# Use the medium image (contains most tools)
+-P ubuntu-latest=catthehacker/ubuntu:act-latest
+
+# Tell act where local pnpm store is and where it should go in Docker
+--container-cap-add SYS_ADMIN
