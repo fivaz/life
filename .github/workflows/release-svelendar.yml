@@ -5,9 +5,9 @@ on:
     branches:
       - main
       - test-release
-    paths:
-      - 'packages/svelendar/**'
-      - 'packages/shared/**'
+#    paths:
+#      - 'packages/svelendar/**'
+#      - 'packages/shared/**'
 
 permissions:
   contents: write
