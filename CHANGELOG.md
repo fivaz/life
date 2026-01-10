@@ -1,3 +1,20 @@
+## [1.1.0](https://github.com/fivaz/life/compare/v1.0.0...v1.1.0) (2026-01-10)
+
+### ✨ Features
+
+* **web:** add app version to side menu ([2841330](https://github.com/fivaz/life/commit/28413301c763e7c7f5cc62e66c541fef915cf6e0))
+
+### 👷 Build System
+
+* **life:** automatically run release in dry mode locally ([d17a383](https://github.com/fivaz/life/commit/d17a3834e4904758418ec688a5fb4d63a9faed13))
+
+### 🔧 Continuous Integration
+
+* **life:** add cache to git actions ([9dbc95a](https://github.com/fivaz/life/commit/9dbc95ae88b42c8262421b914062aef1ca83fb85))
+* **life:** disable husky in github actions ([927079c](https://github.com/fivaz/life/commit/927079c6c91704d73042e9228fd0aeee686b4e09))
+* **life:** fix bug keeping husky in git actions ([54e4a0f](https://github.com/fivaz/life/commit/54e4a0f8983fe8201ed21be5c8219bb629bd60b2))
+* **web:** fix bug with HUSKY as first env ([e004e80](https://github.com/fivaz/life/commit/e004e80bfe1b8b98f7bc2781b62a03f626782106))
+
 ## 1.0.0 (2026-01-10)
 
 ### ✨ Features
