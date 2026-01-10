@@ -1,6 +1,6 @@
 module.exports = {
 	extends: 'semantic-release-monorepo',
-	branches: ['main'],
+	branches: ['main', 'test-release'],
 	tagFormat: 'svelendar-v${version}',
 	plugins: [
 		'@semantic-release/commit-analyzer',
