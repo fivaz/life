@@ -1,5 +1,3 @@
-// add a commit to test pipiline
-
 module.exports = {
 	extends: 'semantic-release-monorepo',
 	branches: ['main', 'test-release'],

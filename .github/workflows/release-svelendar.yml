@@ -64,7 +64,7 @@ jobs:
         working-directory: packages/svelendar
         run: |
           echo "//registry.npmjs.org/:_authToken=\${{ secrets.GITHUB_TOKEN }}" > .npmrc
-          npm publish --dry-run --access public
+          npm publish --tag canary --access public
 
       # -----------------------------
       # Semantic Release
