@@ -1,5 +1,21 @@
-# Use the medium image (contains most tools)
+# Use a medium image with most tools
 -P ubuntu-latest=catthehacker/ubuntu:act-latest
 
-# Tell act where local pnpm store is and where it should go in Docker
+# Docker privileges
 --container-cap-add SYS_ADMIN
+
+# Architecture
+--container-architecture linux/amd64
+
+# Local pnpm cache
+--env PNPM_HOME=/root/.pnpm-shared
+
+# Run releases in dry-run mode by default
+--env DRY_RUN=1
+
+# Secrets file
+--secret-file .secrets
+
+# Cache & speed
+--reuse
+--cache-server-path ~/.cache/act
