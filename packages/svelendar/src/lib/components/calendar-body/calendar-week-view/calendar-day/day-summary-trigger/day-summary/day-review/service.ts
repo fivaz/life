@@ -3,12 +3,16 @@ import type { Task } from '@life/shared/task';
 import { ArcElement, type ChartConfiguration, Legend, PieController, Tooltip } from 'chart.js';
 import { differenceInMinutes, isPast, isToday, startOfDay } from 'date-fns';
 
+export const MINUTES_PER_DAY = 1440; // 24 hours in minutes
+
 export const chartPlugins = [PieController, ArcElement, Tooltip, Legend];
 
 export interface ChartDataResult {
 	labels: string[];
 	data: number[];
 	backgroundColor: string[];
+	// If true, the chart should render as an overflow/error (all red)
+	overflow?: boolean;
 }
 
 export function getChartConfig(processed: ChartDataResult): ChartConfiguration<'pie'> {
@@ -57,6 +61,8 @@ export interface ChartDataResult {
 	labels: string[];
 	data: number[];
 	backgroundColor: string[];
+	// If true, the chart should render as an overflow/error (all red)
+	overflow?: boolean;
 }
 
 /**
@@ -143,7 +149,10 @@ function calculateTimeGaps(
 	const gaps: TimeGap[] = [];
 
 	if (isToday(viewDate)) {
-		const minsPassed = Math.min(1440, differenceInMinutes(new Date(), startOfDay(viewDate)));
+		const minsPassed = Math.min(
+			MINUTES_PER_DAY,
+			differenceInMinutes(new Date(), startOfDay(viewDate)),
+		);
 		// "Elapsed" is time that has passed minus the tasks you already performed/scheduled
 		const elapsed = Math.max(0, minsPassed - totalAllocated);
 		const remaining = Math.max(0, unallocatedTotal - elapsed);
@@ -179,7 +188,7 @@ export function getProcessedChartData(tasks: Task[], viewDate: Date): ChartDataR
 		backgroundColor.push(cat.color);
 	}
 
-	const unallocatedTotal = Math.max(0, 1440 - totalAllocated);
+	const unallocatedTotal = Math.max(0, MINUTES_PER_DAY - totalAllocated);
 
 	if (unallocatedTotal > 0) {
 		const gaps = calculateTimeGaps(unallocatedTotal, totalAllocated, viewDate);
@@ -191,5 +200,8 @@ export function getProcessedChartData(tasks: Task[], viewDate: Date): ChartDataR
 		}
 	}
 
-	return { labels, data, backgroundColor };
+	// Mark overflow when allocated minutes exceed 24 hours
+	const overflow = totalAllocated > MINUTES_PER_DAY;
+
+	return { labels, data, backgroundColor, overflow };
 }
