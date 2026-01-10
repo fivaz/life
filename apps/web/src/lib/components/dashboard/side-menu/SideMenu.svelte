@@ -17,6 +17,7 @@
 	import { Routes } from '$lib/consts';
 
 	import RoutineIcon from '../../../../routes/(dashboard)/routine/routine-icon/RoutineIcon.svelte';
+	const version = __APP_VERSION__;
 
 	interface Props {
 		class?: string;
@@ -38,6 +39,7 @@
 	<div class="flex items-center gap-2 text-indigo-500">
 		<Logo class="size-8 self-start" />
 		<h2 class="text-lg font-semibold">Life</h2>
+		<span class="text-xs">v{version}</span>
 	</div>
 
 	<nav class="flex-1">
