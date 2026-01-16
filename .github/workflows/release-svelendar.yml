@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'packages/svelendar/**'
-      - 'packages/shared/**'
+      - 'packages/shared/**' # shared affects web
 
 permissions:
   contents: write
@@ -16,12 +16,14 @@ permissions:
 
 jobs:
   release:
-    name: Release
+    name: Semantic Release (Svelendar)
     runs-on: ubuntu-latest
+
     env:
       HUSKY: 0
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -32,29 +34,16 @@ jobs:
           node-version: 24
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Install pnpm
+      - name: Setup pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install Dependencies
+      - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build with Turbo
         run: pnpm exec turbo build --filter=svelendar
 
-      - name: Semantic Release
+      - name: Run semantic-release
         working-directory: packages/svelendar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
