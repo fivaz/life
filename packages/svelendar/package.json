@@ -7,7 +7,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/fivaz/life.git",
+		"url": "git+https://github.com/fivaz/life.git",
 		"directory": "packages/svelendar"
 	},
 	"scripts": {

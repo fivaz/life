@@ -14,10 +14,9 @@ permissions:
   pull-requests: write
 
 jobs:
-  release-web:
-    name: Release Web App
+  release:
+    name: Release
     runs-on: ubuntu-latest
-
     env:
       PUBLIC_FIREBASE_API_KEY: ${{ secrets.PUBLIC_FIREBASE_API_KEY }}
       PUBLIC_FIREBASE_AUTH_DOMAIN: ${{ secrets.PUBLIC_FIREBASE_AUTH_DOMAIN }}
@@ -27,7 +26,6 @@ jobs:
       PUBLIC_FIREBASE_APP_ID: ${{ secrets.PUBLIC_FIREBASE_APP_ID }}
       PUBLIC_COMMIT_HASH: ${{ secrets.PUBLIC_COMMIT_HASH }}
       HUSKY: 0
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -37,15 +35,15 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 9
+        uses: pnpm/action-setup@v4
 
       - name: Get pnpm store directory
-        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
       - name: Setup pnpm cache
         uses: actions/cache@v4
@@ -55,10 +53,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build Web App
+      - name: Build with Turbo
         run: pnpm exec turbo build --filter=./apps/web
 
       - name: Semantic Release (Web)
