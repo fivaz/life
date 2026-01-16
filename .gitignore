@@ -51,5 +51,4 @@ vite.config.ts.timestamp-*
 
 # Act
 .secrets
-.pnpm-store
 .act-cache
