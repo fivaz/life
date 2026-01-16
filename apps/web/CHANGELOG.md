@@ -1,3 +1,15 @@
+## [1.0.1](https://github.com/fivaz/life/compare/web-v1.0.0...web-v1.0.1) (2026-01-16)
+
+### 👷 Build System
+
+* **life:** remove conflicting cache directories ([320f844](https://github.com/fivaz/life/commit/320f84475366bd95d57fcbfaae05918363d41cc6))
+
+### 🔧 Continuous Integration
+
+* **life:** remove unnecessary cache from semantic release ([96f359b](https://github.com/fivaz/life/commit/96f359b2cdcbc921ef0797b149829c25068e3beb))
+* **web:** fix directory changes that trigger the main release ([e1a4958](https://github.com/fivaz/life/commit/e1a49581b60f4bd6417f1ad2652c449cb3452aa4))
+* **web:** generate releases for web on chore, docs, style, ci, and refactor commits ([c896b50](https://github.com/fivaz/life/commit/c896b509d25375065f28a3a837c1acc309b78099))
+
 ## 1.0.0 (2026-01-16)
 
 ### ✨ Features
