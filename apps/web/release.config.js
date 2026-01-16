@@ -25,7 +25,7 @@ export default {
 						{ type: 'fix', section: '🐛 Bug Fixes', hidden: false },
 						{ type: 'perf', section: '🚀 Performance Improvements', hidden: false },
 						{ type: 'revert', section: '⏪ Reverts', hidden: false },
-						{ type: 'chore', section: '📦 Miscellaneous Chores', hidden: false },
+						{ type: 'chore', section: '🧹 Chores', hidden: false },
 						{ type: 'docs', section: '📝 Documentation', hidden: false },
 						{ type: 'style', section: '💄 Styles', hidden: false },
 						{ type: 'refactor', section: '🔨 Code Refactoring', hidden: false },

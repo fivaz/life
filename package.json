@@ -14,7 +14,7 @@
     "test:release-main": "act -W .github/workflows/release-main.yml",
     "test:release-lib": "act -W .github/workflows/release-svelendar.yml",
     "test:release-all": "act",
-		"prune-release-cache": "rm -rf .act-cache"
+    "prune-release-cache": "rm -rf .act-cache"
   },
   "devDependencies": {
     "husky": "^9.1.7",
