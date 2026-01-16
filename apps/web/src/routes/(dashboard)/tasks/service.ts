@@ -1,5 +1,6 @@
 import { parseDate } from '@life/shared/date';
 import type { Task } from '@life/shared/task';
+import { sortTasks } from '@life/shared/task';
 import {
 	addWeeks,
 	endOfWeek,
@@ -43,6 +44,9 @@ export function getTaskLists(tasks: Task[]) {
 
 	const lists: Partial<TaskLists> = {};
 
+	// Sort once before splitting into buckets so ordering is stable when tasks are placed into lists
+	const sortedTasks = sortTasks(tasks);
+
 	const recurringHandlers = {
 		daily: (task: Task) => (lists.recurringDaily ??= []).push(task),
 		weekly: (task: Task) => (lists.recurringWeekly ??= []).push(task),
@@ -58,7 +62,7 @@ export function getTaskLists(tasks: Task[]) {
 		{ check: isNextWeek, period: 'nextWeek' as TaskListType },
 	];
 
-	for (const task of tasks) {
+	for (const task of sortedTasks) {
 		if (task.recurringFrequency) {
 			const handler = recurringHandlers[task.recurringFrequency];
 			if (handler) handler(task);
