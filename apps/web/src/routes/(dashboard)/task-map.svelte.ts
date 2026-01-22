@@ -16,11 +16,22 @@ type TaskMap = {
 	unique: Record<string, Task[]>;
 };
 
+export const isLoadingTasks = $state<{ value: { recurring: boolean; unique: boolean } }>({
+	value: { recurring: false, unique: false },
+});
+
 export const tasksMap = $state<{ value: TaskMap }>({ value: { recurring: [], unique: {} } });
 
 export function fetchFirstTasks() {
 	// recurring tasks
-	fetchTasks(tasksMap.value.recurring, where('recurringFrequency', '!=', ''));
+	isLoadingTasks.value = { recurring: true, unique: true };
+	fetchTasks(
+		async (items) => {
+			tasksMap.value.recurring = items;
+			isLoadingTasks.value.recurring = false;
+		},
+		where('recurringFrequency', '!=', ''),
+	);
 
 	// tasks from this week, the previous and the next week
 	fetchTasks(populateTaskMap, ...getTaskDateConstrain());
@@ -35,6 +46,7 @@ function populateTaskMap(tasks: Task[]): void {
 	weeks.forEach((week) => {
 		tasksMap.value.unique[week] = tasksByWeek[week];
 	});
+	isLoadingTasks.value.unique = false;
 }
 
 export function getTaskDateConstrain(): QueryConstraint[] {

@@ -5,5 +5,6 @@
     <option name="myRunOnSave" value="true" />
     <option name="runOnPaste" value="false" />
     <option name="myFilesPattern" value="{**/*,*}.{js,cjs,ts,jsx,tsx,vue,svelte}" />
+    <option name="codeStyleSettingsModifierEnabled" value="false" />
   </component>
 </project>
