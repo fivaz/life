@@ -1,15 +1,22 @@
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import type { StorybookConfig } from '@storybook/sveltekit';
 
 const config: StorybookConfig = {
 	stories: ['../src/**/*.stories.@(js|ts|svelte)'],
 	addons: [
-		'@storybook/addon-svelte-csf',
-		'@chromatic-com/storybook',
-		'@storybook/addon-vitest',
-		'@storybook/addon-a11y',
-		'@storybook/addon-docs',
-		'@storybook/addon-themes',
+		getAbsolutePath('@storybook/addon-svelte-csf'),
+		getAbsolutePath('@chromatic-com/storybook'),
+		getAbsolutePath('@storybook/addon-vitest'),
+		getAbsolutePath('@storybook/addon-a11y'),
+		getAbsolutePath('@storybook/addon-docs'),
+		getAbsolutePath('@storybook/addon-themes'),
 	],
-	framework: '@storybook/sveltekit',
+	framework: getAbsolutePath('@storybook/sveltekit'),
 };
 export default config;
+
+function getAbsolutePath(value: string): string {
+	return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)));
+}
