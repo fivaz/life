@@ -29,7 +29,12 @@
 					{format(selectedDate.value, 'MMMM dd, yyyy')}
 				</time>
 				{#if isLoading}
-					<div use:tooltip={'fetching tasks...'}>
+					<div
+						aria-label="Fetching tasks"
+						aria-live="polite"
+						role="status"
+						use:tooltip={'fetching tasks...'}
+					>
 						<CloudDownloadIcon class="size-5" />
 					</div>
 				{/if}
