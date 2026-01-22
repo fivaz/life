@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
 	import type { Task } from '@life/shared/task';
-	import { CalendarArrowDown, CalendarArrowUp, CalendarMinus } from 'lucide-svelte';
+	import { CalendarArrowDown, CalendarArrowUp, CalendarMinus } from '@lucide/svelte';
 
 	import ReportTask from './report-task/ReportTask.svelte';
 

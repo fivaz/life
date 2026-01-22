@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button, LText } from '@life/shared';
-	import { CopyCheckIcon, CopyIcon } from 'lucide-svelte';
+	import { CopyCheckIcon, CopyIcon } from '@lucide/svelte';
 
 	import { taskIn } from '$lib/task/task-form/service.svelte';
 

@@ -14,7 +14,13 @@
 
 	import HomeTutorial from './HomeTutorial/HomeTutorial.svelte';
 	import { editPossibleSingleRecurringEvent, moveEvent } from './service.svelte';
-	import { convertTaskMapToList, fetchFirstTasks, getWeekTasks, tasksMap } from './task-map.svelte';
+	import {
+		convertTaskMapToList,
+		fetchFirstTasks,
+		getWeekTasks,
+		isLoadingTasks,
+		tasksMap,
+	} from './task-map.svelte';
 
 	let targetDate = $state<string | undefined>();
 
@@ -71,6 +77,7 @@
 	changeDate={(date) => getWeekTasks(date)}
 	createTask={(date) => openFormToCreateTask(categories, date)}
 	editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
+	isLoading={isLoadingTasks.value.unique || isLoadingTasks.value.recurring}
 	moveEvent={(event, moveObject) => moveEvent(currentUser.uid, event, moveObject)}
 	{tasks}
 	toggleCompletion={(task, targetDate) => toggleCompletion(currentUser.uid, task, targetDate)}

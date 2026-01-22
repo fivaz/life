@@ -11,4 +11,4 @@
 	});
 </script>
 
-<Story name="Primary" args={{}} />
+<Story name="Primary" args={{ isLoading: true }} />

@@ -2,8 +2,8 @@
 	import { tailwindColorMap } from '@life/shared/category';
 	import type { Task } from '@life/shared/task';
 	import { getCheckList, getTaskTitle } from '@life/shared/task';
+	import { GripVerticalIcon, Settings2Icon } from '@lucide/svelte';
 	import { format } from 'date-fns';
-	import { GripVerticalIcon, Settings2Icon } from 'lucide-svelte';
 	import { dragHandle } from 'svelte-dnd-action';
 
 	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';

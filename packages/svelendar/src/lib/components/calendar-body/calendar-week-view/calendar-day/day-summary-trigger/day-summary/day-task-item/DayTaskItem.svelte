@@ -4,9 +4,8 @@
 	import { formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { isUntimed } from '@life/shared/task';
+	import { CalendarClockIcon, CalendarDaysIcon } from '@lucide/svelte';
 	import { clsx } from 'clsx';
-	// TODO update to use @lucide/svelte
-	import { CalendarClockIcon, CalendarDaysIcon } from 'lucide-svelte';
 
 	import { getEditTask } from '$lib/components/context.utils.js';
 

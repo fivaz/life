@@ -23,6 +23,7 @@
 
 	interface Props {
 		tasks: Task[];
+		isLoading: boolean;
 		changeDate: ChangeDateFn;
 		createTask: CreateTaskFn;
 		editTask: EditTaskFn;
@@ -30,7 +31,8 @@
 		moveEvent: MoveEventFn;
 	}
 
-	let { tasks, changeDate, createTask, editTask, toggleCompletion, moveEvent }: Props = $props();
+	let { tasks, isLoading, changeDate, createTask, editTask, toggleCompletion, moveEvent }: Props =
+		$props();
 
 	// this closure is necessary to preserve reactivity - https://svelte.dev/e/state_referenced_locally
 	setChangeDate(() => changeDate);
@@ -51,6 +53,6 @@
 <div
 	class="flex h-[calc(100vh-56px)] flex-col divide-y divide-gray-300 border-gray-300 bg-gray-50 md:h-[calc(100vh-20px)] dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-900"
 >
-	<CalendarHeader />
+	<CalendarHeader {isLoading} />
 	<CalendarBody tasks={sortTasks(tasks)} />
 </div>

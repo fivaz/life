@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button, ModalForm } from '@life/shared';
-	import { Plus } from 'lucide-svelte';
+	import { Plus } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
 
 	import type { Routine } from '$lib/routine/routine.model';

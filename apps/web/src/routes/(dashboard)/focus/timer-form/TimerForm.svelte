@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button, LInput, LText } from '@life/shared';
-	import { Save, XIcon } from 'lucide-svelte';
+	import { Save, XIcon } from '@lucide/svelte';
 
 	interface Props {
 		time: number;

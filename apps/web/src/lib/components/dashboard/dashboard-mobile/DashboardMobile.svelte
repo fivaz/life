@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
-	import { MenuIcon } from 'lucide-svelte';
+	import { MenuIcon } from '@lucide/svelte';
 
 	import { afterNavigate } from '$app/navigation';
 	import SideMenu from '$lib/components/dashboard/side-menu/SideMenu.svelte';

@@ -1,10 +1,9 @@
 <script lang="ts">
-	import { Button, LText, WeekChanger } from '@life/shared';
+	import { Button, LText, tooltip, WeekChanger } from '@life/shared';
 	import { formatDate } from '@life/shared/date';
+	import { EyeClosedIcon, EyeIcon, Plus } from '@lucide/svelte';
 	import { format } from 'date-fns';
-	import { EyeClosedIcon, EyeIcon, Plus } from 'lucide-svelte';
 
-	import { tooltip } from '$lib/components/tooltip/tooltip.action';
 	import type { Routine } from '$lib/routine/routine.model';
 	import { buildEmptyRoutine } from '$lib/routine/routine.model';
 	import { title } from '$lib/utils.svelte';

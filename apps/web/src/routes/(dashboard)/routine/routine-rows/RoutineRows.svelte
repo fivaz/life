@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
-	import { ClipboardCopy } from 'lucide-svelte';
+	import { ClipboardCopy } from '@lucide/svelte';
 	import { flip } from 'svelte/animate';
 	import { dragHandleZone } from 'svelte-dnd-action';
 

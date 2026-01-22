@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { IconRender } from '@life/shared';
 	import { formatDate } from '@life/shared/date';
+	import { Check, Flame, GripVertical, Settings2Icon, Undo2 } from '@lucide/svelte';
 	import { startOfWeek } from 'date-fns';
-	import { Check, Flame, GripVertical, Settings2Icon, Undo2 } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
 	import { dragHandle } from 'svelte-dnd-action';
 

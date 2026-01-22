@@ -2,9 +2,9 @@
 	import { DoneChip, LText } from '@life/shared';
 	import { parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
+	import { CalendarDaysIcon } from '@lucide/svelte';
 	import { clsx } from 'clsx';
 	import { compareAsc, format } from 'date-fns';
-	import { CalendarDaysIcon } from 'lucide-svelte';
 
 	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
 	import { DATE_FR } from '$lib/utils.svelte';

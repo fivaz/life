@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
-	import { ChevronDownIcon, ChevronUpIcon } from 'lucide-svelte';
+	import { ChevronDownIcon, ChevronUpIcon } from '@lucide/svelte';
 
 	import { goals as rawGoals } from '$lib/goal/goal.svelte';
 

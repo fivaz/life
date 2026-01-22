@@ -1,8 +1,6 @@
 <script lang="ts">
-	import { Button, LInput, LText } from '@life/shared';
+	import { Button, LInput, LText, tooltip } from '@life/shared';
 	import { formatDate } from '@life/shared/date';
-	import { clsx } from 'clsx';
-	import { addDays, subDays } from 'date-fns';
 	import {
 		Calendar1,
 		CalendarArrowDownIcon,
@@ -11,14 +9,15 @@
 		CalendarRange,
 		ChartColumnStackedIcon,
 		ChartLineIcon,
-		FilterIcon,
-		FilterXIcon,
-	} from 'lucide-svelte';
+		FunnelIcon,
+		FunnelXIcon,
+	} from '@lucide/svelte';
+	import { clsx } from 'clsx';
+	import { addDays, subDays } from 'date-fns';
 
 	import Select from '$lib/components/form/select/Select.svelte';
 	import SelectItem from '$lib/components/form/select/select-item/SelectItem.svelte';
 	import DoubleLineChartIcon from '$lib/components/icons/DoubleLineChartIcon.svelte';
-	import { tooltip } from '$lib/components/tooltip/tooltip.action';
 
 	import { getLineChartDataset } from './report-chart/line-helper';
 	import { prepareData } from './report-chart/service';
@@ -89,13 +88,13 @@
 			{#if reportStore.isSimplified}
 				<Button color="white" onclick={() => (reportStore.isSimplified = false)} padding="p-1">
 					<div use:tooltip={'remove filter'}>
-						<FilterXIcon class={clsx('size-5 text-indigo-600')} />
+						<FunnelXIcon class={clsx('size-5 text-indigo-600')} />
 					</div>
 				</Button>
 			{:else}
 				<Button color="white" onclick={() => (reportStore.isSimplified = true)} padding="p-1">
 					<div use:tooltip={'filter tasks created and completed in the same period'}>
-						<FilterIcon class={clsx('size-5 text-indigo-600')} />
+						<FunnelIcon class={clsx('size-5 text-indigo-600')} />
 					</div>
 				</Button>
 			{/if}

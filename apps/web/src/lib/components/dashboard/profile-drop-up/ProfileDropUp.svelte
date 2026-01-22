@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
+	import { MoonIcon, SunIcon } from '@lucide/svelte';
 	import { signOut } from 'firebase/auth';
-	import { MoonIcon, SunIcon } from 'lucide-svelte';
 
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';

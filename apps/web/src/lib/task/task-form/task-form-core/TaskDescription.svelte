@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { Button } from '@life/shared';
+	import { BoldIcon, ItalicIcon, ListTodoIcon } from '@lucide/svelte';
 	import { Editor } from '@tiptap/core';
 	import TaskItem from '@tiptap/extension-task-item';
 	import TaskList from '@tiptap/extension-task-list';
 	import StarterKit from '@tiptap/starter-kit';
-	import { BoldIcon, ItalicIcon, ListTodoIcon } from 'lucide-svelte';
 	import { onDestroy, onMount } from 'svelte';
 
 	let { content = $bindable('<p>Start writing...</p>') } = $props();

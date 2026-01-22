@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { formatDate } from '@life/shared/date';
+	import { Flame } from '@lucide/svelte';
 	import { startOfDay, subDays } from 'date-fns';
-	import { Flame } from 'lucide-svelte';
 
 	import type { Routine } from '$lib/routine/routine.model';
 

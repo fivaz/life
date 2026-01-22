@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button } from '@life/shared';
-	import { CircleArrowLeftIcon, CircleArrowRightIcon } from 'lucide-svelte';
+	import { CircleArrowLeftIcon, CircleArrowRightIcon } from '@lucide/svelte';
 	import { onMount } from 'svelte';
 
 	type TutorialStep = {

@@ -11,6 +11,7 @@
 		changeDate={(date) => console.log('changeDate', date)}
 		createTask={(date) => console.log('createTask', date)}
 		editTask={(task, date) => console.log('editTask', task, date)}
+		isLoading={true}
 		moveEvent={(event, moveObject) => console.log('moveEvent', event, moveObject)}
 		{tasks}
 		toggleCompletion={(task, targetDate) => console.log('toggleCompletion', task, targetDate)}
