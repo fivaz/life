@@ -1,3 +1,4 @@
+import tooltip from '$lib/components/action/tooltip/tooltip.action.js';
 import Button from '$lib/components/button/Button.svelte';
 import Dialog from '$lib/components/dialog/Dialog.svelte';
 import DoneChip from '$lib/components/DoneChip.svelte';
@@ -25,5 +26,6 @@ export {
 	LText,
 	Modal,
 	ModalForm,
+	tooltip,
 	WeekChanger,
 };

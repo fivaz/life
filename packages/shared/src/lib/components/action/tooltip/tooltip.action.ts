@@ -84,7 +84,7 @@ async function updateTooltipPosition(
 	});
 }
 
-export function tooltip(targetEl: Element, options: TooltipOptions | string) {
+export default function tooltip(targetEl: Element, options: TooltipOptions | string) {
 	const [tooltipEl, arrowEl] = createTooltip(targetEl, options);
 
 	function showTooltip() {

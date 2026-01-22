@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { tooltip } from '@life/shared';
+
 	import { PUBLIC_COMMIT_HASH } from '$env/static/public';
-	import { tooltip } from '$lib/components/tooltip/tooltip.action';
 
 	interface Props {
 		class?: string;

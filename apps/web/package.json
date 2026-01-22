@@ -10,7 +10,7 @@
 		"prepare": "svelte-kit sync || echo ''",
 		"build:preview": "pnpm run build && vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write . && eslint . --fix && pnpm run check",
 		"test:e2e": "playwright test",

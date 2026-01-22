@@ -1,10 +1,9 @@
 <script lang="ts">
+	import { tooltip } from '@life/shared';
 	import { parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { isBefore, startOfDay } from 'date-fns';
 	import { AlarmClockIcon, AlarmClockOffIcon, CalendarMinus, CalendarPlus } from 'lucide-svelte';
-
-	import { tooltip } from '$lib/components/tooltip/tooltip.action';
 
 	interface Props {
 		task: Task;

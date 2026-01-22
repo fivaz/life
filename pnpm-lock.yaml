@@ -444,6 +444,9 @@ importers:
       '@chromatic-com/storybook':
         specifier: ^4.1.3
         version: 4.1.3(storybook@10.1.8(@testing-library/dom@10.4.0)(prettier@3.7.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))
+      '@floating-ui/dom':
+        specifier: ^1.6.13
+        version: 1.6.13
       '@life/config-eslint':
         specifier: workspace:*
         version: link:../config-eslint
