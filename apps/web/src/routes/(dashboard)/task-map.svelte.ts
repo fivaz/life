@@ -26,7 +26,7 @@ export function fetchFirstTasks() {
 	// recurring tasks
 	isLoadingTasks.value = { recurring: true, unique: true };
 	fetchTasks(
-		async (items) => {
+		(items) => {
 			tasksMap.value.recurring = items;
 			isLoadingTasks.value.recurring = false;
 		},

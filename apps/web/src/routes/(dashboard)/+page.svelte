@@ -77,7 +77,7 @@
 	changeDate={(date) => getWeekTasks(date)}
 	createTask={(date) => openFormToCreateTask(categories, date)}
 	editTask={(task, targetDate) => openFormToEditTask(task, targetDate)}
-	isLoading={isLoadingTasks.value.unique && isLoadingTasks.value.recurring}
+	isLoading={isLoadingTasks.value.unique || isLoadingTasks.value.recurring}
 	moveEvent={(event, moveObject) => moveEvent(currentUser.uid, event, moveObject)}
 	{tasks}
 	toggleCompletion={(task, targetDate) => toggleCompletion(currentUser.uid, task, targetDate)}
