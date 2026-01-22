@@ -1,3 +1,26 @@
+## [1.1.0](https://github.com/fivaz/life/compare/web-v1.0.1...web-v1.1.0) (2026-01-22)
+
+### ✨ Features
+
+* **svelendar:** add an icon represent when tasks are being fetched ([5706bfa](https://github.com/fivaz/life/commit/5706bfa2574d92fd4b67b21d6543a3f9b14071fb))
+* **svelendar:** add aria attributes to fetch icon ([f51d6c5](https://github.com/fivaz/life/commit/f51d6c5b44aa4c8197ad044f208870ac78fb1f99))
+
+### 🐛 Bug Fixes
+
+* **web:** show loading state whether unique or recurrent tasks are being fetched ([c3c1106](https://github.com/fivaz/life/commit/c3c110607d45898de82cdf158878d57f1420794d))
+
+### 🧹 Chores
+
+* (life): update packages with vulnerabilities ([623d66e](https://github.com/fivaz/life/commit/623d66e64855203764175b5ce427d9009ef8389d))
+* **life:** remove deprecated libs ([ad5f738](https://github.com/fivaz/life/commit/ad5f738a7b45476267d8ab8062aeecd8b65dff3d))
+* **life:** replace lucide-svelte package with @lucide/svelte ([2f5d03a](https://github.com/fivaz/life/commit/2f5d03a946a049aea43a6f762ffdd48483bf96e1))
+* **life:** update storybook ([905f22e](https://github.com/fivaz/life/commit/905f22ed960368eb900b96b40e94e1910b89a8aa))
+* **svelendar:** add a missing prop in a story ([402fe27](https://github.com/fivaz/life/commit/402fe27eb070a594e18bcb7dd0ae4ab3526e4941))
+
+### 🔨 Code Refactoring
+
+* **life:** move tooltip from web to shared ([f9677b1](https://github.com/fivaz/life/commit/f9677b1a27af68c6f0186a2d0efbb851ef951bfb))
+
 ## [1.0.1](https://github.com/fivaz/life/compare/web-v1.0.0...web-v1.0.1) (2026-01-16)
 
 ### 👷 Build System
