@@ -2,7 +2,7 @@
 	import { LText } from '@life/shared';
 	import type { Task } from '@life/shared/task';
 	import { getTotalDuration } from '@life/shared/task';
-	import { ClipboardIcon, ClipboardListIcon, PlusIcon } from 'lucide-svelte';
+	import { ClipboardIcon, ClipboardListIcon, PlusIcon } from '@lucide/svelte';
 
 	import TaskFormButton from '$lib/task/task-form/TaskFormButton.svelte';
 

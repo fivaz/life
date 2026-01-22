@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Calendar1, Plus } from 'lucide-svelte';
+	import { Calendar1, Plus } from '@lucide/svelte';
 
 	import type { Routine } from '$lib/routine/routine.model';
 	import { buildEmptyRoutine } from '$lib/routine/routine.model';

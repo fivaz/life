@@ -4,14 +4,14 @@
 	import type { Task } from '@life/shared/task';
 	import { sortTasks } from '@life/shared/task';
 	import { getTotalDuration } from '@life/shared/task';
-	import { format } from 'date-fns';
 	import {
 		CalendarPlusIcon,
 		ChevronDownIcon,
 		ChevronUpIcon,
 		GitPullRequestCreateIcon,
 		Settings2Icon,
-	} from 'lucide-svelte';
+	} from '@lucide/svelte';
+	import { format } from 'date-fns';
 
 	import { categories } from '$lib/category/category.svelte';
 	import ProgressBar from '$lib/components/progress-bar/ProgressBar.svelte';

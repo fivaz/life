@@ -2,7 +2,7 @@
 	import { Button, LInput, ModalForm } from '@life/shared';
 	import type { Category } from '@life/shared/category';
 	import { tailwindColorMap, tailwindColors } from '@life/shared/category';
-	import { Plus } from 'lucide-svelte';
+	import { Plus } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
 
 	import { buildEmptyCategory } from '$lib/category/category.model';

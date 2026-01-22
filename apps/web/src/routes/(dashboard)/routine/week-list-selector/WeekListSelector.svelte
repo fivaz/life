@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
 	import { formatDate } from '@life/shared/date';
+	import { CheckCheck } from '@lucide/svelte';
 	import { clsx } from 'clsx';
 	import { format, isSameDay, isToday, startOfWeek } from 'date-fns';
-	import { CheckCheck } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
 
 	import type { Routine } from '$lib/routine/routine.model';

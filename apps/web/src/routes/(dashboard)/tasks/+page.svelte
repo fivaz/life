@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Button, LText, Modal } from '@life/shared';
+	import { FileSearch2Icon } from '@lucide/svelte';
 	import { where } from 'firebase/firestore';
-	import { FileSearch2Icon } from 'lucide-svelte';
 
 	import { fetchTasks } from '$lib/task/task.repository';
 	import NewTaskButton from '$lib/task/task-form/NewTaskButton.svelte';

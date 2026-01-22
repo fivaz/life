@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button, IconRender, IconSelector, LInput, LText, ModalForm } from '@life/shared';
-	import { Plus } from 'lucide-svelte';
+	import { Plus } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
 
 	import Select from '$lib/components/form/select/Select.svelte';

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button, LText } from '@life/shared';
-	import { CalendarArrowDown, ListTree } from 'lucide-svelte';
+	import { CalendarArrowDown, ListTree } from '@lucide/svelte';
 
 	import type { Goal } from '$lib/goal/goal.model';
 	import { buildEmptyGoal } from '$lib/goal/goal.model';

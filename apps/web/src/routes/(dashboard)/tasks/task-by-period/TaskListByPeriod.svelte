@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
 	import type { Task } from '@life/shared/task';
+	import { ClipboardCopyIcon } from '@lucide/svelte';
 	import { clsx } from 'clsx';
-	import { ClipboardCopyIcon } from 'lucide-svelte';
 	import { flip } from 'svelte/animate';
 	import type { DndEvent } from 'svelte-dnd-action';
 	import { dragHandleZone } from 'svelte-dnd-action';

@@ -3,7 +3,7 @@
 	import { CATEGORY_WORK } from '@life/shared/category';
 	import type { Task } from '@life/shared/task';
 	import { getTotalDuration } from '@life/shared/task';
-	import { Grid2x2Icon, Grid3X3Icon } from 'lucide-svelte';
+	import { Grid2x2Icon, Grid3X3Icon } from '@lucide/svelte';
 
 	import { getPeriodLabel } from './period-labels';
 	import type { TaskLists, TaskListType } from './service';

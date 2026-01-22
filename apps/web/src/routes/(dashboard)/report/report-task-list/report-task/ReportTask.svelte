@@ -2,8 +2,8 @@
 	import { tooltip } from '@life/shared';
 	import { parseDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
+	import { AlarmClockIcon, AlarmClockOffIcon, CalendarMinus, CalendarPlus } from '@lucide/svelte';
 	import { isBefore, startOfDay } from 'date-fns';
-	import { AlarmClockIcon, AlarmClockOffIcon, CalendarMinus, CalendarPlus } from 'lucide-svelte';
 
 	interface Props {
 		task: Task;

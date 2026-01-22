@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { LText } from '@life/shared';
-	import { MoonIcon } from 'lucide-svelte';
+	import { MoonIcon } from '@lucide/svelte';
 
 	interface Props {
 		value: boolean;

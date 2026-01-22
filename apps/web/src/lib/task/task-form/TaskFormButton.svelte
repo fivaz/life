@@ -2,7 +2,7 @@
 	import { Button, ModalForm } from '@life/shared';
 	import type { Task } from '@life/shared/task';
 	import { isRecurring, isUntimed } from '@life/shared/task';
-	import { Plus } from 'lucide-svelte';
+	import { Plus } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
 
 	import { addTask } from '$lib/task/task.repository';

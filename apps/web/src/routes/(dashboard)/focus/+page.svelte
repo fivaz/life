@@ -3,8 +3,8 @@
 	import { averageRound15, formatDate } from '@life/shared/date';
 	import type { Task } from '@life/shared/task';
 	import { sortTasks } from '@life/shared/task';
+	import { Pencil, Play, PlayIcon, SquareIcon } from '@lucide/svelte';
 	import { where } from 'firebase/firestore';
-	import { Pencil, Play, PlayIcon, SquareIcon } from 'lucide-svelte';
 
 	import { endTimer, pauseTimer, startTimer, timer } from '$lib/components/timer/service.svelte.js';
 	import Timer from '$lib/components/timer/Timer.svelte';

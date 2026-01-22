@@ -304,9 +304,6 @@ importers:
       interactjs:
         specifier: ^1.10.27
         version: 1.10.27
-      lucide-svelte:
-        specifier: ^0.456.0
-        version: 0.456.0(svelte@5.48.0)
       minidenticons:
         specifier: ^4.2.1
         version: 4.2.1
@@ -531,9 +528,6 @@ importers:
       eslint-config-prettier:
         specifier: ^9.1.0
         version: 9.1.0(eslint@9.39.2(jiti@2.6.1))
-      eslint-plugin-storybook:
-        specifier: 10.2.0
-        version: 10.2.0(eslint@9.39.2(jiti@2.6.1))(storybook@10.2.0(@testing-library/dom@10.4.0)(prettier@3.7.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(typescript@5.9.3)
       eslint-plugin-svelte:
         specifier: ^2.36.0
         version: 2.46.1(eslint@9.39.2(jiti@2.6.1))(svelte@5.48.0)
@@ -597,9 +591,6 @@ importers:
       chart.js:
         specifier: ^4.4.6
         version: 4.4.8
-      lucide-svelte:
-        specifier: ^0.456.0
-        version: 0.456.0(svelte@5.48.0)
     devDependencies:
       '@chromatic-com/storybook':
         specifier: ^5.0.0
@@ -5389,11 +5380,6 @@ packages:
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
-
-  lucide-svelte@0.456.0:
-    resolution: {integrity: sha512-SSdmxJOmL1h42ZypuGr54dYsXAT5o6WkQPKVDFnnrD0liOaXzfNNJuA7JbpkO9FFozBchyVpB1A1mKRmXOD8ug==}
-    peerDependencies:
-      svelte: ^3 || ^4 || ^5.0.0-next.42
 
   lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
@@ -12883,10 +12869,6 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
-
-  lucide-svelte@0.456.0(svelte@5.48.0):
-    dependencies:
-      svelte: 5.48.0
 
   lz-string@1.5.0: {}
 
