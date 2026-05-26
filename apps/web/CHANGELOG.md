@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/fivaz/life/compare/web-v1.1.0...web-v1.1.1) (2026-05-26)
+
+### 🐛 Bug Fixes
+
+* **web:** fix dark mode styling on task completed notification ([e2d2fc4](https://github.com/fivaz/life/commit/e2d2fc4cf1ed9bcfbeb181c7f7b60104ea3c64de))
+* **web:** respect iOS safe area in standalone PWA ([e03f3bd](https://github.com/fivaz/life/commit/e03f3bd370b90d587cc6e934cf2e0e26e72d6421))
+
 ## [1.1.0](https://github.com/fivaz/life/compare/web-v1.0.1...web-v1.1.0) (2026-01-22)
 
 ### ✨ Features
