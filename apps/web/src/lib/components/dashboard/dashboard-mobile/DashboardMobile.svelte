@@ -30,7 +30,7 @@
 <div class={klass}>
 	<!--header-->
 	<header
-		class="order-gray-300 fixed z-10 flex h-14 w-full justify-between gap-3 border-b border-gray-300 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-900"
+		class="order-gray-300 pt-safe h-mobile-header fixed z-10 flex w-full items-center justify-between gap-3 border-b border-gray-300 bg-gray-50 px-4 dark:border-gray-700 dark:bg-gray-900"
 	>
 		<div class="flex items-center gap-2">
 			<Logo class="size-8 text-indigo-600" />
@@ -51,7 +51,7 @@
 
 	<!--side menu-->
 	<SideMenu
-		class="fixed top-0 left-0 z-20 transform bg-gray-50 transition-transform duration-500 dark:bg-gray-900 {showMenu
+		class="pt-safe fixed top-0 left-0 z-20 h-full transform bg-gray-50 transition-transform duration-500 dark:bg-gray-900 {showMenu
 			? 'translate-x-0'
 			: '-translate-x-full'}"
 	/>
