@@ -32,7 +32,7 @@
 </script>
 
 <div
-	class="ring-opacity-5 pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black"
+	class="ring-opacity-5 pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-gray-50 shadow-lg ring-1 ring-gray-300 dark:bg-gray-900 dark:ring-gray-700"
 	transition:slideFromRight={{ duration: 500 }}
 >
 	<div class="p-4">
@@ -42,7 +42,7 @@
 			</div>
 			<div class="ml-3 w-0 flex-1 pt-0.5">
 				{#if task.goal}
-					<p class="text-sm font-medium text-gray-900">Mission Completed</p>
+					<p class="text-sm font-medium text-gray-900 dark:text-white">Mission Completed</p>
 					{#if percentage === 100}
 						<p class="mt-1 text-sm text-gray-500">
 							"Hero's Glory! You've achieved 100% completion on your journey!"
@@ -53,7 +53,7 @@
 						</p>
 					{/if}
 				{:else}
-					<p class="text-sm font-medium text-gray-900">Mission Completed</p>
+					<p class="text-sm font-medium text-gray-900 dark:text-white">Mission Completed</p>
 					<p class="mt-1 text-sm text-gray-500">
 						"Heroic Effort! You've successfully finished a task – well done!"
 					</p>
@@ -61,7 +61,7 @@
 			</div>
 			<div class="ml-4 flex shrink-0">
 				<button
-					class="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden"
+					class="inline-flex rounded-md text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 focus:outline-hidden dark:text-gray-400 dark:hover:text-gray-200 dark:focus:ring-offset-gray-900"
 					onclick={onRemove}
 					type="button"
 				>
